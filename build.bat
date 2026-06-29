@@ -1,4 +1,5 @@
 @echo off
+<<<<<<< HEAD
 setlocal
 
 rem GearRay Windows build helper.
@@ -32,3 +33,25 @@ echo TODO: Add Game Gear compiler steps after the toolchain is selected.
 echo TODO: Add ROM packaging later; ihx2sms.exe is not required yet.
 
 endlocal
+=======
+set DEVKITSMS=D:\Tools\devkitSMS
+
+if not exist build mkdir build
+if not exist rom mkdir rom
+
+sdcc -c -mz80 ^
+-I"%DEVKITSMS%\SMSlib\src" ^
+-o build\main.rel ^
+source\main.c
+
+sdcc -mz80 --no-std-crt0 ^
+"%DEVKITSMS%\crt0\crt0_sms.rel" ^
+build\main.rel ^
+-L"%DEVKITSMS%\SMSlib\lib" ^
+-lSMSlib ^
+-o build\wolfgear.ihx
+
+"%DEVKITSMS%\ihx2sms\ihx2sms.exe" build\wolfgear.ihx rom\wolfgear.gg
+
+pause
+>>>>>>> 830f9d25e45daac45bd0faf416a942fd29ba4927
