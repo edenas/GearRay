@@ -1,0 +1,39 @@
+# Local build output
+/build/*
+!/build/.gitkeep
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake.user
+
+# Compiled objects and binaries
+*.obj
+*.o
+*.lib
+*.a
+*.exe
+*.dll
+*.pdb
+
+# Game Gear / Master System generated ROM artifacts
+*.gg
+*.sms
+*.ihx
+*.lk
+*.lst
+*.map
+*.noi
+*.rel
+*.sym
+
+# Editor and OS files
+.vs/
+.vscode/
+*.suo
+*.user
+*.swp
+Thumbs.db
+Desktop.ini
