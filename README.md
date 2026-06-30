@@ -33,9 +33,15 @@ Each top-level folder has a specific purpose:
 
 ## Build Status
 
-The build system is intentionally minimal right now. The project does not yet
-assume that `ihx2sms.exe`, SDCC, devkitSMS, or any other Game Gear/SMS
-toolchain is installed.
+GearRay now uses CMake as the main build system. The current build is a clean
+foundation with placeholder targets only:
+
+- `gearray-info` prints a short project/build status message.
+- `gearray-engine` marks where reusable engine code will be attached later.
+- `gearray-game` marks where game-specific code will be attached later.
+
+The project does not yet assume that `ihx2sms.exe`, SDCC, devkitSMS, or any
+other Game Gear/SMS toolchain is installed.
 
 TODO:
 
@@ -57,6 +63,15 @@ build.bat
 
 For now, this configures the project with CMake when CMake is available and
 prints clear next steps. It does not produce a playable ROM yet.
+
+The batch file is only a launcher. You can run the same commands directly:
+
+```bat
+cmake -S . -B build
+cmake --build build
+```
+
+More details are in `docs/BUILDING.md`.
 
 ## License
 
