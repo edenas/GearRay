@@ -1,4 +1,5 @@
 #include "SMSlib.h"
+#include "camera.h"
 #include "input.h"
 #include "player.h"
 #include "video.h"
@@ -13,7 +14,9 @@ void main(void)
     game_gear_input_initialize();
     game_gear_video_draw_input_status(game_gear_input_get_status_text());
     world_initialize();
+    world_draw();
     player_initialize();
+    camera_initialize();
 
     while (1)
     {
@@ -26,5 +29,6 @@ void main(void)
 
         game_gear_video_draw_input_status(game_gear_input_get_status_text());
         player_update();
+        camera_update();
     }
 }
