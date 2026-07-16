@@ -10,6 +10,15 @@ static unsigned char previous_direction;
 static unsigned char repeat_counter;
 static unsigned char should_move;
 
+void game_gear_input_initialize(void)
+{
+    keys = 0;
+    direction = GAME_GEAR_DIRECTION_NONE;
+    previous_direction = GAME_GEAR_DIRECTION_NONE;
+    repeat_counter = 0;
+    should_move = 0;
+}
+
 void game_gear_input_update(void)
 {
     keys = SMS_getKeysStatus();

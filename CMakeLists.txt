@@ -22,9 +22,15 @@ set(GEAR_RAY_MAIN_OBJECT "${CMAKE_BINARY_DIR}/main.rel")
 set(GEAR_RAY_PLAYER_SOURCE "${GEAR_RAY_GAME_DIR}/player.c")
 set(GEAR_RAY_PLAYER_HEADER "${GEAR_RAY_GAME_DIR}/player.h")
 set(GEAR_RAY_PLAYER_OBJECT "${CMAKE_BINARY_DIR}/player.rel")
+set(GEAR_RAY_WORLD_SOURCE "${GEAR_RAY_GAME_DIR}/world.c")
+set(GEAR_RAY_WORLD_HEADER "${GEAR_RAY_GAME_DIR}/world.h")
+set(GEAR_RAY_WORLD_OBJECT "${CMAKE_BINARY_DIR}/world.rel")
 set(GEAR_RAY_INPUT_SOURCE "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/input.c")
 set(GEAR_RAY_INPUT_HEADER "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/input.h")
 set(GEAR_RAY_INPUT_OBJECT "${CMAKE_BINARY_DIR}/input.rel")
+set(GEAR_RAY_VIDEO_SOURCE "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/video.c")
+set(GEAR_RAY_VIDEO_HEADER "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/video.h")
+set(GEAR_RAY_VIDEO_OBJECT "${CMAKE_BINARY_DIR}/video.rel")
 set(GEAR_RAY_IHX "${CMAKE_BINARY_DIR}/GearRay.ihx")
 set(GEAR_RAY_ROM_DIR "${CMAKE_SOURCE_DIR}/rom")
 set(GEAR_RAY_ROM "${GEAR_RAY_ROM_DIR}/GearRay.gg")
@@ -51,8 +57,36 @@ add_custom_command(
             --peep-file "${GEAR_RAY_SMSLIB_INCLUDE}/peep-rules.txt"
             -c "${GEAR_RAY_MAIN_SOURCE}"
             -o "${GEAR_RAY_MAIN_OBJECT}"
-    DEPENDS "${GEAR_RAY_MAIN_SOURCE}" "${GEAR_RAY_INPUT_HEADER}" "${GEAR_RAY_PLAYER_HEADER}" "${GEAR_RAY_SMSLIB_INCLUDE}/SMSlib.h"
+    DEPENDS "${GEAR_RAY_MAIN_SOURCE}" "${GEAR_RAY_INPUT_HEADER}" "${GEAR_RAY_PLAYER_HEADER}" "${GEAR_RAY_VIDEO_HEADER}" "${GEAR_RAY_WORLD_HEADER}" "${GEAR_RAY_SMSLIB_INCLUDE}/SMSlib.h"
     COMMENT "Compiling game/main.c for Game Gear"
+    VERBATIM
+)
+
+add_custom_command(
+    OUTPUT "${GEAR_RAY_WORLD_OBJECT}"
+    COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
+            -mz80
+            -DTARGET_GG
+            "-I${GEAR_RAY_GAME_DIR}"
+            -c "${GEAR_RAY_WORLD_SOURCE}"
+            -o "${GEAR_RAY_WORLD_OBJECT}"
+    DEPENDS "${GEAR_RAY_WORLD_SOURCE}" "${GEAR_RAY_WORLD_HEADER}"
+    COMMENT "Compiling game/world.c for Game Gear"
+    VERBATIM
+)
+
+add_custom_command(
+    OUTPUT "${GEAR_RAY_VIDEO_OBJECT}"
+    COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
+            -mz80
+            -DTARGET_GG
+            "-I${GEAR_RAY_SMSLIB_INCLUDE}"
+            "-I${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}"
+            --peep-file "${GEAR_RAY_SMSLIB_INCLUDE}/peep-rules.txt"
+            -c "${GEAR_RAY_VIDEO_SOURCE}"
+            -o "${GEAR_RAY_VIDEO_OBJECT}"
+    DEPENDS "${GEAR_RAY_VIDEO_SOURCE}" "${GEAR_RAY_VIDEO_HEADER}" "${GEAR_RAY_SMSLIB_INCLUDE}/SMSlib.h"
+    COMMENT "Compiling platform/game_gear/video.c"
     VERBATIM
 )
 
@@ -97,9 +131,11 @@ add_custom_command(
             "${GEAR_RAY_CRT0}"
             "${GEAR_RAY_MAIN_OBJECT}"
             "${GEAR_RAY_PLAYER_OBJECT}"
+            "${GEAR_RAY_WORLD_OBJECT}"
             "${GEAR_RAY_INPUT_OBJECT}"
+            "${GEAR_RAY_VIDEO_OBJECT}"
             "${GEAR_RAY_SMSLIB_LIBRARY}"
-    DEPENDS "${GEAR_RAY_MAIN_OBJECT}" "${GEAR_RAY_PLAYER_OBJECT}" "${GEAR_RAY_INPUT_OBJECT}" "${GEAR_RAY_CRT0}" "${GEAR_RAY_SMSLIB_LIBRARY}"
+    DEPENDS "${GEAR_RAY_MAIN_OBJECT}" "${GEAR_RAY_PLAYER_OBJECT}" "${GEAR_RAY_WORLD_OBJECT}" "${GEAR_RAY_INPUT_OBJECT}" "${GEAR_RAY_VIDEO_OBJECT}" "${GEAR_RAY_CRT0}" "${GEAR_RAY_SMSLIB_LIBRARY}"
     COMMENT "Linking GearRay for Game Gear"
     VERBATIM
 )
