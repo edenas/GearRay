@@ -37,5 +37,7 @@ void main(void)
         raycaster_update();
         game_gear_video_draw_ray_hit(raycaster_get_hit_x(),
                                      raycaster_get_hit_y());
+        game_gear_video_draw_center_wall_column(
+            raycaster_get_wall_height());
     }
 }
