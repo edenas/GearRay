@@ -20,3 +20,33 @@ void camera_initialize(void)
 void camera_update(void)
 {
 }
+
+signed int camera_get_position_x(void)
+{
+    return position_x;
+}
+
+signed int camera_get_position_y(void)
+{
+    return position_y;
+}
+
+signed int camera_get_direction_x(void)
+{
+    return direction_x;
+}
+
+signed int camera_get_direction_y(void)
+{
+    return direction_y;
+}
+
+signed int camera_get_plane_x(void)
+{
+    return plane_x;
+}
+
+signed int camera_get_plane_y(void)
+{
+    return plane_y;
+}
