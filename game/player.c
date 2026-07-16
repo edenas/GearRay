@@ -79,3 +79,13 @@ void player_update(void)
         position_changed = 0;
     }
 }
+
+unsigned char player_get_world_x(void)
+{
+    return player_world_x;
+}
+
+unsigned char player_get_world_y(void)
+{
+    return player_world_y;
+}

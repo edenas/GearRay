@@ -3,6 +3,7 @@
 
 void camera_initialize(void);
 void camera_update(void);
+void camera_set_position(unsigned char world_x, unsigned char world_y);
 signed int camera_get_position_x(void);
 signed int camera_get_position_y(void);
 signed int camera_get_direction_x(void);

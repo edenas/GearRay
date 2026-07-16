@@ -21,6 +21,12 @@ void camera_update(void)
 {
 }
 
+void camera_set_position(unsigned char world_x, unsigned char world_y)
+{
+    position_x = (signed int)world_x * 256;
+    position_y = (signed int)world_y * 256;
+}
+
 signed int camera_get_position_x(void)
 {
     return position_x;

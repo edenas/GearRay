@@ -18,6 +18,7 @@ void main(void)
     world_draw();
     player_initialize();
     camera_initialize();
+    camera_set_position(player_get_world_x(), player_get_world_y());
     raycaster_initialize();
 
     while (1)
@@ -31,6 +32,7 @@ void main(void)
 
         game_gear_video_draw_input_status(game_gear_input_get_status_text());
         player_update();
+        camera_set_position(player_get_world_x(), player_get_world_y());
         camera_update();
         raycaster_update();
     }
