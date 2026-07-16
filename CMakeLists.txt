@@ -36,15 +36,11 @@ add_custom_command(
     OUTPUT "${GEAR_RAY_MAIN_OBJECT}"
     COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
             -mz80
-            --sdcccall 0
             -DTARGET_GG
             "-I${GEAR_RAY_SMSLIB_INCLUDE}"
+            --peep-file "${GEAR_RAY_SMSLIB_INCLUDE}/peep-rules.txt"
             -c "${GEAR_RAY_MAIN_SOURCE}"
             -o "${GEAR_RAY_MAIN_OBJECT}"
-    # Current SDCC records sdcccall(0), while the ABI-0 devkit archive predates
-    # that metadata field. Normalize the tag so ASlink accepts the compatible objects.
-    COMMAND powershell -NoProfile -Command
-            "(Get-Content -Raw -LiteralPath '${GEAR_RAY_MAIN_OBJECT}').Replace('O -mz80 sdcccall(0)', 'O -mz80') | Set-Content -NoNewline -LiteralPath '${GEAR_RAY_MAIN_OBJECT}' -Encoding ascii"
     DEPENDS "${GEAR_RAY_MAIN_SOURCE}" "${GEAR_RAY_SMSLIB_INCLUDE}/SMSlib.h"
     COMMENT "Compiling game/main.c for Game Gear"
     VERBATIM
