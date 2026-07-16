@@ -7,5 +7,7 @@ unsigned char raycaster_get_hit_x(void);
 unsigned char raycaster_get_hit_y(void);
 unsigned int raycaster_get_hit_distance(void);
 unsigned char raycaster_get_wall_height(void);
+unsigned char raycaster_get_ray_count(void);
+unsigned char raycaster_get_wall_height_for_ray(unsigned char ray_index);
 
 #endif
