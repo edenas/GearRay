@@ -1,4 +1,5 @@
 #include "SMSlib.h"
+#include "input.h"
 
 SMS_EMBED_SEGA_ROM_HEADER_16KB(0, 0);
 
@@ -6,21 +7,13 @@ static const unsigned char square_tile[8] = {
     0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
 };
 
-#define INITIAL_REPEAT_DELAY 12
-#define HELD_REPEAT_RATE 4
-
 void main(void)
 {
-    unsigned int keys = 0;
-    unsigned int direction = 0;
-    unsigned int previous_direction = 0;
-    const unsigned char *status;
+    unsigned char direction;
     unsigned char square_x = 15;
     unsigned char square_y = 15;
     unsigned char previous_x;
     unsigned char previous_y;
-    unsigned char repeat_counter = 0;
-    unsigned char move_square;
 
     SMS_VRAMmemsetW(0, 0x0000, 16384);
 
@@ -37,79 +30,26 @@ void main(void)
     while (1)
     {
         SMS_waitForVBlank();
-        keys = SMS_getKeysStatus();
+        game_gear_input_update();
+
         previous_x = square_x;
         previous_y = square_y;
-        move_square = 0;
 
-        if (keys & PORT_A_KEY_UP)
-            direction = PORT_A_KEY_UP;
-        else if (keys & PORT_A_KEY_DOWN)
-            direction = PORT_A_KEY_DOWN;
-        else if (keys & PORT_A_KEY_LEFT)
-            direction = PORT_A_KEY_LEFT;
-        else if (keys & PORT_A_KEY_RIGHT)
-            direction = PORT_A_KEY_RIGHT;
-        else
-            direction = 0;
+        if (game_gear_input_should_move())
+        {
+            direction = game_gear_input_get_direction();
 
-        if (direction == 0)
-        {
-            previous_direction = 0;
-            repeat_counter = 0;
-        }
-        else if (direction != previous_direction)
-        {
-            move_square = 1;
-            previous_direction = direction;
-            repeat_counter = INITIAL_REPEAT_DELAY;
-        }
-        else if (repeat_counter > 0)
-        {
-            --repeat_counter;
-            if (repeat_counter == 0)
-            {
-                move_square = 1;
-                repeat_counter = HELD_REPEAT_RATE;
-            }
-        }
-
-        if (move_square)
-        {
-            if (direction == PORT_A_KEY_UP && square_y > 12)
+            if (direction == GAME_GEAR_DIRECTION_UP && square_y > 12)
                 --square_y;
-            else if (direction == PORT_A_KEY_DOWN && square_y < 20)
+            else if (direction == GAME_GEAR_DIRECTION_DOWN && square_y < 20)
                 ++square_y;
-            else if (direction == PORT_A_KEY_LEFT && square_x > 6)
+            else if (direction == GAME_GEAR_DIRECTION_LEFT && square_x > 6)
                 --square_x;
-            else if (direction == PORT_A_KEY_RIGHT && square_x < 25)
+            else if (direction == GAME_GEAR_DIRECTION_RIGHT && square_x < 25)
                 ++square_x;
         }
 
-        if (keys & PORT_A_KEY_UP)
-        {
-            status = "Input: up      ";
-        }
-        else if (keys & PORT_A_KEY_DOWN)
-        {
-            status = "Input: down    ";
-        }
-        else if (keys & PORT_A_KEY_LEFT)
-        {
-            status = "Input: left    ";
-        }
-        else if (keys & PORT_A_KEY_RIGHT)
-        {
-            status = "Input: right   ";
-        }
-        else if (keys & PORT_A_KEY_1)
-            status = "Input: button 1";
-        else if (keys & PORT_A_KEY_2)
-            status = "Input: button 2";
-        else
-            status = "Input: idle    ";
-
-        SMS_printatXY(8, 10, status);
+        SMS_printatXY(8, 10, game_gear_input_get_status_text());
 
         if (square_x != previous_x || square_y != previous_y)
         {
