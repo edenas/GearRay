@@ -4,5 +4,6 @@
 void game_gear_video_initialize(void);
 void game_gear_video_draw_title(void);
 void game_gear_video_draw_input_status(const unsigned char *status_text);
+void game_gear_video_draw_ray_hit(unsigned char hit_x, unsigned char hit_y);
 
 #endif

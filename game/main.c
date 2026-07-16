@@ -35,5 +35,7 @@ void main(void)
         camera_set_position(player_get_world_x(), player_get_world_y());
         camera_update();
         raycaster_update();
+        game_gear_video_draw_ray_hit(raycaster_get_hit_x(),
+                                     raycaster_get_hit_y());
     }
 }
