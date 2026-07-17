@@ -4,10 +4,6 @@
 
 #define WALL_TILE_INDEX 98
 #define EMPTY_TILE_INDEX 99
-#define VISIBLE_TILE_ORIGIN_X 6
-#define VIEWPORT_TILE_ORIGIN_Y 9
-#define VISIBLE_TILE_COLUMNS 20
-#define VIEWPORT_TILE_ROWS 12
 #define UNRENDERED_TILE_HEIGHT 255
 
 static const unsigned char wall_tile[8] = {
@@ -18,7 +14,7 @@ static const unsigned char empty_tile[8] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
 
-static unsigned char previous_tile_heights[VISIBLE_TILE_COLUMNS];
+static unsigned char previous_tile_heights[GAME_GEAR_VIEWPORT_TILE_COLUMNS];
 
 void game_gear_video_initialize(void)
 {
@@ -39,7 +35,9 @@ void game_gear_video_initialize(void)
                       0,
                       1);
 
-    for (ray_index = 0; ray_index < VISIBLE_TILE_COLUMNS; ++ray_index)
+    for (ray_index = 0;
+         ray_index < GAME_GEAR_VIEWPORT_TILE_COLUMNS;
+         ++ray_index)
         previous_tile_heights[ray_index] = UNRENDERED_TILE_HEIGHT;
 }
 
@@ -113,7 +111,7 @@ void game_gear_video_draw_wall_columns(void)
     unsigned char is_wall;
 
     for (tile_column = 0;
-         tile_column < VISIBLE_TILE_COLUMNS;
+         tile_column < GAME_GEAR_VIEWPORT_TILE_COLUMNS;
          ++tile_column)
     {
         ray_index = tile_column * 2;
@@ -129,22 +127,23 @@ void game_gear_video_draw_wall_columns(void)
 
         tile_height = (tile_height + 7) / 8;
 
-        if (tile_height > VIEWPORT_TILE_ROWS)
-            tile_height = VIEWPORT_TILE_ROWS;
+        if (tile_height > GAME_GEAR_VIEWPORT_TILE_ROWS)
+            tile_height = GAME_GEAR_VIEWPORT_TILE_ROWS;
 
         previous_height = previous_tile_heights[tile_column];
 
         if (tile_height == previous_height)
             continue;
 
-        top_row = (VIEWPORT_TILE_ROWS - tile_height) / 2;
+        top_row = (GAME_GEAR_VIEWPORT_TILE_ROWS - tile_height) / 2;
 
         if (previous_height == UNRENDERED_TILE_HEIGHT)
             previous_top_row = 0;
         else
-            previous_top_row = (VIEWPORT_TILE_ROWS - previous_height) / 2;
+            previous_top_row =
+                (GAME_GEAR_VIEWPORT_TILE_ROWS - previous_height) / 2;
 
-        for (row = 0; row < VIEWPORT_TILE_ROWS; ++row)
+        for (row = 0; row < GAME_GEAR_VIEWPORT_TILE_ROWS; ++row)
         {
             was_wall = previous_height != UNRENDERED_TILE_HEIGHT
                     && row >= previous_top_row
@@ -154,8 +153,9 @@ void game_gear_video_draw_wall_columns(void)
             if (was_wall != is_wall ||
                 previous_height == UNRENDERED_TILE_HEIGHT)
             {
-                SMS_setTileatXY(VISIBLE_TILE_ORIGIN_X + tile_column,
-                                VIEWPORT_TILE_ORIGIN_Y + row,
+                SMS_setTileatXY(GAME_GEAR_VIEWPORT_TILE_ORIGIN_X
+                                + tile_column,
+                                GAME_GEAR_VIEWPORT_TILE_ORIGIN_Y + row,
                                 is_wall ? WALL_TILE_INDEX : EMPTY_TILE_INDEX);
             }
         }
