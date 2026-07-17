@@ -109,11 +109,13 @@ static unsigned char hit_x;
 static unsigned char hit_y;
 static unsigned char hit_side;
 static unsigned char hit_offset;
+static unsigned char hit_tile;
 static unsigned int hit_distance;
 static unsigned char wall_height;
 static unsigned char wall_heights[RAY_COUNT];
 static unsigned char hit_sides[RAY_COUNT];
 static unsigned char hit_offsets[RAY_COUNT];
+static unsigned char hit_tiles[RAY_COUNT];
 
 static unsigned char raycaster_calculate_hit_offset(
     signed int position,
@@ -139,6 +141,7 @@ static unsigned char cast_ray(signed int direction_x,
                               unsigned char *result_y,
                               unsigned char *result_side,
                               unsigned char *result_offset,
+                              unsigned char *result_tile,
                               unsigned int *result_distance)
 {
     unsigned int projected_height;
@@ -227,6 +230,7 @@ static unsigned char cast_ray(signed int direction_x,
 
     *result_x = (unsigned char)map_x;
     *result_y = (unsigned char)map_y;
+    *result_tile = world_get_tile(*result_x, *result_y);
     *result_offset = *result_side == RAYCASTER_HIT_SIDE_X
                    ? raycaster_calculate_hit_offset(position_y,
                                                     direction_y,
@@ -254,6 +258,7 @@ void raycaster_initialize(void)
     hit_y = 0;
     hit_side = RAYCASTER_HIT_SIDE_X;
     hit_offset = 0;
+    hit_tile = WORLD_TILE_STONE;
     hit_distance = 0;
     wall_height = 1;
 
@@ -262,6 +267,7 @@ void raycaster_initialize(void)
         wall_heights[ray_index] = 1;
         hit_sides[ray_index] = RAYCASTER_HIT_SIDE_X;
         hit_offsets[ray_index] = 0;
+        hit_tiles[ray_index] = WORLD_TILE_STONE;
     }
 }
 
@@ -278,6 +284,7 @@ void raycaster_update(void)
     wall_height = cast_ray(camera_get_direction_x(),
                            camera_get_direction_y(),
                            &hit_x, &hit_y, &hit_side, &hit_offset,
+                           &hit_tile,
                            &hit_distance);
 
     for (ray_index = 0; ray_index < RAY_COUNT; ++ray_index)
@@ -298,6 +305,7 @@ void raycaster_update(void)
                                            &ray_hit_y,
                                            &hit_sides[ray_index],
                                            &hit_offsets[ray_index],
+                                           &hit_tiles[ray_index],
                                            &ray_hit_distance);
     }
 }
@@ -320,6 +328,11 @@ unsigned char raycaster_get_hit_side(void)
 unsigned char raycaster_get_hit_offset(void)
 {
     return hit_offset;
+}
+
+unsigned char raycaster_get_hit_tile(void)
+{
+    return hit_tile;
 }
 
 unsigned int raycaster_get_hit_distance(void)
@@ -359,4 +372,12 @@ unsigned char raycaster_get_hit_offset_for_ray(unsigned char ray_index)
         return 0;
 
     return hit_offsets[ray_index];
+}
+
+unsigned char raycaster_get_hit_tile_for_ray(unsigned char ray_index)
+{
+    if (ray_index >= RAY_COUNT)
+        return WORLD_TILE_STONE;
+
+    return hit_tiles[ray_index];
 }
