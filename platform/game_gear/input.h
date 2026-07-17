@@ -11,6 +11,8 @@ void game_gear_input_initialize(void);
 void game_gear_input_update(void);
 unsigned char game_gear_input_get_direction(void);
 unsigned char game_gear_input_should_move(void);
+unsigned char game_gear_input_should_rotate_left(void);
+unsigned char game_gear_input_should_rotate_right(void);
 const unsigned char *game_gear_input_get_status_text(void);
 
 #endif

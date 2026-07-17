@@ -67,6 +67,16 @@ unsigned char game_gear_input_should_move(void)
     return should_move;
 }
 
+unsigned char game_gear_input_should_rotate_left(void)
+{
+    return (keys & PORT_A_KEY_1) != 0;
+}
+
+unsigned char game_gear_input_should_rotate_right(void)
+{
+    return (keys & PORT_A_KEY_2) != 0;
+}
+
 const unsigned char *game_gear_input_get_status_text(void)
 {
     if (keys & PORT_A_KEY_UP)

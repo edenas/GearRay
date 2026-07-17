@@ -63,10 +63,47 @@ void game_gear_video_draw_ray_hit(unsigned char hit_x, unsigned char hit_y)
     SMS_printatXY(8, 6, hit_text);
 }
 
+static void write_signed_direction(unsigned char *text,
+                                   unsigned char offset,
+                                   signed int value)
+{
+    unsigned int magnitude;
+
+    if (value < 0)
+    {
+        text[offset] = '-';
+        magnitude = (unsigned int)(-(signed long)value);
+    }
+    else
+    {
+        text[offset] = '+';
+        magnitude = (unsigned int)value;
+    }
+
+    if (magnitude > 999)
+        magnitude = 999;
+
+    text[offset + 1] = '0' + magnitude / 100;
+    text[offset + 2] = '0' + (magnitude / 10) % 10;
+    text[offset + 3] = '0' + magnitude % 10;
+}
+
+void game_gear_video_draw_camera_direction(signed int direction_x,
+                                           signed int direction_y)
+{
+    unsigned char direction_text[] = "Direction: +000,+000";
+
+    write_signed_direction(direction_text, 11, direction_x);
+    write_signed_direction(direction_text, 16, direction_y);
+    SMS_printatXY(6, 7, direction_text);
+}
+
 void game_gear_video_draw_wall_columns(void)
 {
     unsigned char ray_index;
     unsigned char ray_count = raycaster_get_ray_count();
+    unsigned char ray_height;
+    unsigned char tile_column;
     unsigned char tile_height;
     unsigned char previous_height;
     unsigned char previous_top_row;
@@ -75,17 +112,27 @@ void game_gear_video_draw_wall_columns(void)
     unsigned char was_wall;
     unsigned char is_wall;
 
-    if (ray_count > VISIBLE_TILE_COLUMNS)
-        ray_count = VISIBLE_TILE_COLUMNS;
-
-    for (ray_index = 0; ray_index < ray_count; ++ray_index)
+    for (tile_column = 0;
+         tile_column < VISIBLE_TILE_COLUMNS;
+         ++tile_column)
     {
-        tile_height = (raycaster_get_wall_height_for_ray(ray_index) + 7) / 8;
+        ray_index = tile_column * 2;
+
+        if (ray_index + 1 >= ray_count)
+            break;
+
+        ray_height = raycaster_get_wall_height_for_ray(ray_index);
+        tile_height = raycaster_get_wall_height_for_ray(ray_index + 1);
+
+        if (ray_height > tile_height)
+            tile_height = ray_height;
+
+        tile_height = (tile_height + 7) / 8;
 
         if (tile_height > VIEWPORT_TILE_ROWS)
             tile_height = VIEWPORT_TILE_ROWS;
 
-        previous_height = previous_tile_heights[ray_index];
+        previous_height = previous_tile_heights[tile_column];
 
         if (tile_height == previous_height)
             continue;
@@ -107,12 +154,12 @@ void game_gear_video_draw_wall_columns(void)
             if (was_wall != is_wall ||
                 previous_height == UNRENDERED_TILE_HEIGHT)
             {
-                SMS_setTileatXY(VISIBLE_TILE_ORIGIN_X + ray_index,
+                SMS_setTileatXY(VISIBLE_TILE_ORIGIN_X + tile_column,
                                 VIEWPORT_TILE_ORIGIN_Y + row,
                                 is_wall ? WALL_TILE_INDEX : EMPTY_TILE_INDEX);
             }
         }
 
-        previous_tile_heights[ray_index] = tile_height;
+        previous_tile_heights[tile_column] = tile_height;
     }
 }

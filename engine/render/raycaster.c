@@ -2,12 +2,12 @@
 #include "raycaster.h"
 #include "world.h"
 
-#define RAY_STEP_DIVISOR 16
-#define RAY_STEP_DISTANCE (256 / RAY_STEP_DIVISOR)
 #define WALL_HEIGHT_SCALE 16384
 #define GAME_GEAR_SCREEN_HEIGHT 144
-#define RAY_COUNT 20
+#define RAY_COUNT 40
 #define FIXED_POINT_SCALE 256
+#define DDA_DISTANCE_SCALE 65536UL
+#define DDA_INFINITY 0xffffffffUL
 #define CAMERA_PLANE_RANGE 512
 
 static unsigned char hit_x;
@@ -23,22 +23,90 @@ static unsigned char cast_ray(signed int direction_x,
                               unsigned int *result_distance)
 {
     unsigned int projected_height;
-    signed int ray_x = camera_get_position_x();
-    signed int ray_y = camera_get_position_y();
-    signed int step_x = direction_x / RAY_STEP_DIVISOR;
-    signed int step_y = direction_y / RAY_STEP_DIVISOR;
+    signed int position_x = camera_get_position_x();
+    signed int position_y = camera_get_position_y();
+    signed int map_x = position_x / FIXED_POINT_SCALE;
+    signed int map_y = position_y / FIXED_POINT_SCALE;
+    signed int step_x;
+    signed int step_y;
+    unsigned int direction_magnitude_x;
+    unsigned int direction_magnitude_y;
+    unsigned long delta_distance_x;
+    unsigned long delta_distance_y;
+    unsigned long side_distance_x;
+    unsigned long side_distance_y;
+    unsigned long ray_distance;
 
-    *result_distance = 0;
+    if (direction_x == 0)
+    {
+        step_x = 1;
+        delta_distance_x = DDA_INFINITY;
+        side_distance_x = DDA_INFINITY;
+    }
+    else if (direction_x < 0)
+    {
+        step_x = -1;
+        direction_magnitude_x = (unsigned int)(-(signed long)direction_x);
+        delta_distance_x = DDA_DISTANCE_SCALE / direction_magnitude_x;
+        side_distance_x = ((unsigned long)(position_x
+                            - map_x * FIXED_POINT_SCALE)
+                           * FIXED_POINT_SCALE) / direction_magnitude_x;
+    }
+    else
+    {
+        step_x = 1;
+        direction_magnitude_x = (unsigned int)direction_x;
+        delta_distance_x = DDA_DISTANCE_SCALE / direction_magnitude_x;
+        side_distance_x = ((unsigned long)((map_x + 1) * FIXED_POINT_SCALE
+                                          - position_x)
+                           * FIXED_POINT_SCALE) / direction_magnitude_x;
+    }
+
+    if (direction_y == 0)
+    {
+        step_y = 1;
+        delta_distance_y = DDA_INFINITY;
+        side_distance_y = DDA_INFINITY;
+    }
+    else if (direction_y < 0)
+    {
+        step_y = -1;
+        direction_magnitude_y = (unsigned int)(-(signed long)direction_y);
+        delta_distance_y = DDA_DISTANCE_SCALE / direction_magnitude_y;
+        side_distance_y = ((unsigned long)(position_y
+                            - map_y * FIXED_POINT_SCALE)
+                           * FIXED_POINT_SCALE) / direction_magnitude_y;
+    }
+    else
+    {
+        step_y = 1;
+        direction_magnitude_y = (unsigned int)direction_y;
+        delta_distance_y = DDA_DISTANCE_SCALE / direction_magnitude_y;
+        side_distance_y = ((unsigned long)((map_y + 1) * FIXED_POINT_SCALE
+                                          - position_y)
+                           * FIXED_POINT_SCALE) / direction_magnitude_y;
+    }
 
     do
     {
-        ray_x += step_x;
-        ray_y += step_y;
-        *result_distance += RAY_STEP_DISTANCE;
-        *result_x = (unsigned char)(ray_x / FIXED_POINT_SCALE);
-        *result_y = (unsigned char)(ray_y / FIXED_POINT_SCALE);
+        if (side_distance_x < side_distance_y)
+        {
+            ray_distance = side_distance_x;
+            side_distance_x += delta_distance_x;
+            map_x += step_x;
+        }
+        else
+        {
+            ray_distance = side_distance_y;
+            side_distance_y += delta_distance_y;
+            map_y += step_y;
+        }
     }
-    while (!world_is_wall(*result_x, *result_y));
+    while (!world_is_wall((unsigned char)map_x, (unsigned char)map_y));
+
+    *result_x = (unsigned char)map_x;
+    *result_y = (unsigned char)map_y;
+    *result_distance = ray_distance == 0 ? 1 : (unsigned int)ray_distance;
 
     projected_height = WALL_HEIGHT_SCALE / *result_distance;
 
