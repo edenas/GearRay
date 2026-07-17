@@ -7,6 +7,10 @@
 #define WALL_Y_NEAR_TILE_INDEX_BASE 110
 #define WALL_X_FAR_TILE_INDEX_BASE 118
 #define WALL_Y_FAR_TILE_INDEX_BASE 126
+#define BRICK_WALL_X_NEAR_TILE_INDEX_BASE 134
+#define BRICK_WALL_Y_NEAR_TILE_INDEX_BASE 142
+#define BRICK_WALL_X_FAR_TILE_INDEX_BASE 150
+#define BRICK_WALL_Y_FAR_TILE_INDEX_BASE 158
 #define WALL_NEAR_HEIGHT_THRESHOLD 48
 
 /*
@@ -59,8 +63,53 @@ static const unsigned char wall_y_far_tiles[64] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
 
-static unsigned int get_shared_wall_tile_base(unsigned char wall_side,
-                                              unsigned char wall_height)
+/* Staggered mortar rows form a distinct eight-column brick material. */
+static const unsigned char brick_wall_x_near_tiles[64] = {
+    0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0xff,
+    0xff, 0x00, 0x00, 0xff, 0x00, 0x00, 0x00, 0xff,
+    0xff, 0x00, 0x00, 0xff, 0x00, 0x00, 0x00, 0xff,
+    0xff, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff,
+    0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0xff,
+    0xff, 0x00, 0x00, 0xff, 0x00, 0x00, 0x00, 0xff,
+    0xff, 0x00, 0x00, 0xff, 0x00, 0x00, 0x00, 0xff,
+    0xff, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff
+};
+
+static const unsigned char brick_wall_y_near_tiles[64] = {
+    0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0x00,
+    0x00, 0xff, 0xff, 0x00, 0xff, 0xff, 0xff, 0x00,
+    0x00, 0xff, 0xff, 0x00, 0xff, 0xff, 0xff, 0x00,
+    0x00, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0x00,
+    0x00, 0xff, 0xff, 0x00, 0xff, 0xff, 0xff, 0x00,
+    0x00, 0xff, 0xff, 0x00, 0xff, 0xff, 0xff, 0x00,
+    0x00, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00
+};
+
+static const unsigned char brick_wall_x_far_tiles[64] = {
+    0x55, 0xaa, 0x55, 0xaa, 0x00, 0x00, 0x00, 0xaa,
+    0x55, 0x00, 0x00, 0xaa, 0x00, 0x00, 0x00, 0xaa,
+    0x55, 0x00, 0x00, 0xaa, 0x00, 0x00, 0x00, 0xaa,
+    0x55, 0x00, 0x00, 0xaa, 0x55, 0xaa, 0x55, 0xaa,
+    0x55, 0xaa, 0x55, 0xaa, 0x00, 0x00, 0x00, 0xaa,
+    0x55, 0x00, 0x00, 0xaa, 0x00, 0x00, 0x00, 0xaa,
+    0x55, 0x00, 0x00, 0xaa, 0x00, 0x00, 0x00, 0xaa,
+    0x55, 0x00, 0x00, 0xaa, 0x55, 0xaa, 0x55, 0xaa
+};
+
+static const unsigned char brick_wall_y_far_tiles[64] = {
+    0x00, 0x00, 0x00, 0x00, 0x11, 0x22, 0x11, 0x00,
+    0x00, 0x22, 0x11, 0x00, 0x11, 0x22, 0x11, 0x00,
+    0x00, 0x22, 0x11, 0x00, 0x11, 0x22, 0x11, 0x00,
+    0x00, 0x22, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x11, 0x22, 0x11, 0x00,
+    0x00, 0x22, 0x11, 0x00, 0x11, 0x22, 0x11, 0x00,
+    0x00, 0x22, 0x11, 0x00, 0x11, 0x22, 0x11, 0x00,
+    0x00, 0x22, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00
+};
+
+static unsigned int get_stone_wall_tile_base(unsigned char wall_side,
+                                             unsigned char wall_height)
 {
     if (wall_height >= WALL_NEAR_HEIGHT_THRESHOLD)
     {
@@ -76,6 +125,23 @@ static unsigned int get_shared_wall_tile_base(unsigned char wall_side,
     return WALL_Y_FAR_TILE_INDEX_BASE;
 }
 
+static unsigned int get_brick_wall_tile_base(unsigned char wall_side,
+                                             unsigned char wall_height)
+{
+    if (wall_height >= WALL_NEAR_HEIGHT_THRESHOLD)
+    {
+        if (wall_side == RAYCASTER_HIT_SIDE_X)
+            return BRICK_WALL_X_NEAR_TILE_INDEX_BASE;
+
+        return BRICK_WALL_Y_NEAR_TILE_INDEX_BASE;
+    }
+
+    if (wall_side == RAYCASTER_HIT_SIDE_X)
+        return BRICK_WALL_X_FAR_TILE_INDEX_BASE;
+
+    return BRICK_WALL_Y_FAR_TILE_INDEX_BASE;
+}
+
 unsigned int game_gear_get_wall_tile(unsigned char wall_tile_id,
                                      unsigned char wall_side,
                                      unsigned char hit_offset,
@@ -87,9 +153,12 @@ unsigned int game_gear_get_wall_tile(unsigned char wall_tile_id,
     switch (wall_tile_id)
     {
         case WORLD_TILE_BRICK:
+            tile_base = get_brick_wall_tile_base(wall_side, wall_height);
+            break;
+
         case WORLD_TILE_STONE:
         default:
-            tile_base = get_shared_wall_tile_base(wall_side, wall_height);
+            tile_base = get_stone_wall_tile_base(wall_side, wall_height);
             break;
     }
 
@@ -116,6 +185,26 @@ void game_gear_render_textures_load(void)
     SMS_load1bppTiles(wall_y_far_tiles,
                       WALL_Y_FAR_TILE_INDEX_BASE,
                       sizeof(wall_y_far_tiles),
+                      0,
+                      1);
+    SMS_load1bppTiles(brick_wall_x_near_tiles,
+                      BRICK_WALL_X_NEAR_TILE_INDEX_BASE,
+                      sizeof(brick_wall_x_near_tiles),
+                      0,
+                      1);
+    SMS_load1bppTiles(brick_wall_y_near_tiles,
+                      BRICK_WALL_Y_NEAR_TILE_INDEX_BASE,
+                      sizeof(brick_wall_y_near_tiles),
+                      0,
+                      1);
+    SMS_load1bppTiles(brick_wall_x_far_tiles,
+                      BRICK_WALL_X_FAR_TILE_INDEX_BASE,
+                      sizeof(brick_wall_x_far_tiles),
+                      0,
+                      1);
+    SMS_load1bppTiles(brick_wall_y_far_tiles,
+                      BRICK_WALL_Y_FAR_TILE_INDEX_BASE,
+                      sizeof(brick_wall_y_far_tiles),
                       0,
                       1);
 }
