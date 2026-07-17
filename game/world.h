@@ -5,6 +5,7 @@
 #define WORLD_HEIGHT 8
 #define WORLD_TILE_EMPTY 0
 #define WORLD_TILE_STONE 1
+#define WORLD_TILE_BRICK 2
 
 void world_initialize(void);
 unsigned char world_get_tile(unsigned char x, unsigned char y);

@@ -10,6 +10,14 @@
 #define DDA_RECIPROCAL_MAX_MAGNITUDE 512
 #define CAMERA_PLANE_RANGE 512
 
+typedef struct
+{
+    unsigned char wall_height;
+    unsigned char hit_side;
+    unsigned char hit_offset;
+    unsigned char hit_tile;
+} RaycasterRay;
+
 /*
  * Exact Q8.8 DDA reciprocals for camera ray magnitudes 1..512.
  * Entry n is floor(65536 / n); entry zero is unused because a
@@ -112,10 +120,7 @@ static unsigned char hit_offset;
 static unsigned char hit_tile;
 static unsigned int hit_distance;
 static unsigned char wall_height;
-static unsigned char wall_heights[RAY_COUNT];
-static unsigned char hit_sides[RAY_COUNT];
-static unsigned char hit_offsets[RAY_COUNT];
-static unsigned char hit_tiles[RAY_COUNT];
+static RaycasterRay rendered_rays[RAY_COUNT];
 
 static unsigned char raycaster_calculate_hit_offset(
     signed int position,
@@ -264,10 +269,10 @@ void raycaster_initialize(void)
 
     for (ray_index = 0; ray_index < RAY_COUNT; ++ray_index)
     {
-        wall_heights[ray_index] = 1;
-        hit_sides[ray_index] = RAYCASTER_HIT_SIDE_X;
-        hit_offsets[ray_index] = 0;
-        hit_tiles[ray_index] = WORLD_TILE_STONE;
+        rendered_rays[ray_index].wall_height = 1;
+        rendered_rays[ray_index].hit_side = RAYCASTER_HIT_SIDE_X;
+        rendered_rays[ray_index].hit_offset = 0;
+        rendered_rays[ray_index].hit_tile = WORLD_TILE_STONE;
     }
 }
 
@@ -299,14 +304,15 @@ void raycaster_update(void)
                         + (signed int)(((signed long)camera_get_plane_y()
                                       * camera_x) / FIXED_POINT_SCALE);
 
-        wall_heights[ray_index] = cast_ray(ray_direction_x,
-                                           ray_direction_y,
-                                           &ray_hit_x,
-                                           &ray_hit_y,
-                                           &hit_sides[ray_index],
-                                           &hit_offsets[ray_index],
-                                           &hit_tiles[ray_index],
-                                           &ray_hit_distance);
+        rendered_rays[ray_index].wall_height = cast_ray(
+            ray_direction_x,
+            ray_direction_y,
+            &ray_hit_x,
+            &ray_hit_y,
+            &rendered_rays[ray_index].hit_side,
+            &rendered_rays[ray_index].hit_offset,
+            &rendered_rays[ray_index].hit_tile,
+            &ray_hit_distance);
     }
 }
 
@@ -355,7 +361,7 @@ unsigned char raycaster_get_wall_height_for_ray(unsigned char ray_index)
     if (ray_index >= RAY_COUNT)
         return 0;
 
-    return wall_heights[ray_index];
+    return rendered_rays[ray_index].wall_height;
 }
 
 unsigned char raycaster_get_hit_side_for_ray(unsigned char ray_index)
@@ -363,7 +369,7 @@ unsigned char raycaster_get_hit_side_for_ray(unsigned char ray_index)
     if (ray_index >= RAY_COUNT)
         return RAYCASTER_HIT_SIDE_X;
 
-    return hit_sides[ray_index];
+    return rendered_rays[ray_index].hit_side;
 }
 
 unsigned char raycaster_get_hit_offset_for_ray(unsigned char ray_index)
@@ -371,7 +377,7 @@ unsigned char raycaster_get_hit_offset_for_ray(unsigned char ray_index)
     if (ray_index >= RAY_COUNT)
         return 0;
 
-    return hit_offsets[ray_index];
+    return rendered_rays[ray_index].hit_offset;
 }
 
 unsigned char raycaster_get_hit_tile_for_ray(unsigned char ray_index)
@@ -379,5 +385,5 @@ unsigned char raycaster_get_hit_tile_for_ray(unsigned char ray_index)
     if (ray_index >= RAY_COUNT)
         return WORLD_TILE_STONE;
 
-    return hit_tiles[ray_index];
+    return rendered_rays[ray_index].hit_tile;
 }

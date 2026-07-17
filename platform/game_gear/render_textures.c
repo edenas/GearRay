@@ -1,5 +1,6 @@
 #include "SMSlib.h"
 #include "../../engine/render/raycaster.h"
+#include "../../game/world.h"
 #include "render_textures.h"
 
 #define WALL_X_NEAR_TILE_INDEX_BASE 102
@@ -58,24 +59,41 @@ static const unsigned char wall_y_far_tiles[64] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
 
-unsigned int game_gear_get_wall_tile(unsigned char wall_side,
-                                     unsigned char hit_offset,
-                                     unsigned char wall_height)
+static unsigned int get_shared_wall_tile_base(unsigned char wall_side,
+                                              unsigned char wall_height)
 {
-    unsigned char texture_column = hit_offset >> 5;
-
     if (wall_height >= WALL_NEAR_HEIGHT_THRESHOLD)
     {
         if (wall_side == RAYCASTER_HIT_SIDE_X)
-            return WALL_X_NEAR_TILE_INDEX_BASE + texture_column;
+            return WALL_X_NEAR_TILE_INDEX_BASE;
 
-        return WALL_Y_NEAR_TILE_INDEX_BASE + texture_column;
+        return WALL_Y_NEAR_TILE_INDEX_BASE;
     }
 
     if (wall_side == RAYCASTER_HIT_SIDE_X)
-        return WALL_X_FAR_TILE_INDEX_BASE + texture_column;
+        return WALL_X_FAR_TILE_INDEX_BASE;
 
-    return WALL_Y_FAR_TILE_INDEX_BASE + texture_column;
+    return WALL_Y_FAR_TILE_INDEX_BASE;
+}
+
+unsigned int game_gear_get_wall_tile(unsigned char wall_tile_id,
+                                     unsigned char wall_side,
+                                     unsigned char hit_offset,
+                                     unsigned char wall_height)
+{
+    unsigned int tile_base;
+    unsigned char texture_column = hit_offset >> 5;
+
+    switch (wall_tile_id)
+    {
+        case WORLD_TILE_BRICK:
+        case WORLD_TILE_STONE:
+        default:
+            tile_base = get_shared_wall_tile_base(wall_side, wall_height);
+            break;
+    }
+
+    return tile_base + texture_column;
 }
 
 void game_gear_render_textures_load(void)

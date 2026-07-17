@@ -130,6 +130,7 @@ void game_gear_video_draw_wall_columns(void)
     unsigned char second_ray_height;
     unsigned char tile_column;
     unsigned char tile_height;
+    unsigned char wall_tile_id;
     unsigned char wall_side;
     unsigned char hit_offset;
     unsigned char wall_tile;
@@ -162,10 +163,13 @@ void game_gear_video_draw_wall_columns(void)
             selected_ray_index = ray_index + 1;
         }
 
+        wall_tile_id =
+            raycaster_get_hit_tile_for_ray(selected_ray_index);
         wall_side = raycaster_get_hit_side_for_ray(selected_ray_index);
         hit_offset =
             raycaster_get_hit_offset_for_ray(selected_ray_index);
-        wall_tile = game_gear_get_wall_tile(wall_side,
+        wall_tile = game_gear_get_wall_tile(wall_tile_id,
+                                            wall_side,
                                             hit_offset,
                                             ray_height);
 
