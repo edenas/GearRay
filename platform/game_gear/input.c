@@ -1,78 +1,44 @@
 #include "SMSlib.h"
 #include "input.h"
 
-#define INITIAL_REPEAT_DELAY 12
-#define HELD_REPEAT_RATE 4
-
 static unsigned int keys;
-static unsigned char direction;
-static unsigned char previous_direction;
-static unsigned char repeat_counter;
-static unsigned char should_move;
 
 void game_gear_input_initialize(void)
 {
     keys = 0;
-    direction = GAME_GEAR_DIRECTION_NONE;
-    previous_direction = GAME_GEAR_DIRECTION_NONE;
-    repeat_counter = 0;
-    should_move = 0;
 }
 
 void game_gear_input_update(void)
 {
     keys = SMS_getKeysStatus();
-    should_move = 0;
-
-    if (keys & PORT_A_KEY_UP)
-        direction = GAME_GEAR_DIRECTION_UP;
-    else if (keys & PORT_A_KEY_DOWN)
-        direction = GAME_GEAR_DIRECTION_DOWN;
-    else if (keys & PORT_A_KEY_LEFT)
-        direction = GAME_GEAR_DIRECTION_LEFT;
-    else if (keys & PORT_A_KEY_RIGHT)
-        direction = GAME_GEAR_DIRECTION_RIGHT;
-    else
-        direction = GAME_GEAR_DIRECTION_NONE;
-
-    if (direction == GAME_GEAR_DIRECTION_NONE)
-    {
-        previous_direction = GAME_GEAR_DIRECTION_NONE;
-        repeat_counter = 0;
-    }
-    else if (direction != previous_direction)
-    {
-        should_move = 1;
-        previous_direction = direction;
-        repeat_counter = INITIAL_REPEAT_DELAY;
-    }
-    else if (repeat_counter > 0)
-    {
-        --repeat_counter;
-        if (repeat_counter == 0)
-        {
-            should_move = 1;
-            repeat_counter = HELD_REPEAT_RATE;
-        }
-    }
 }
 
-unsigned char game_gear_input_get_direction(void)
+unsigned char game_gear_input_is_forward_held(void)
 {
-    return direction;
+    return (keys & PORT_A_KEY_UP) != 0;
 }
 
-unsigned char game_gear_input_should_move(void)
+unsigned char game_gear_input_is_backward_held(void)
 {
-    return should_move;
+    return (keys & PORT_A_KEY_DOWN) != 0;
 }
 
-unsigned char game_gear_input_should_rotate_left(void)
+unsigned char game_gear_input_is_strafe_left_held(void)
+{
+    return (keys & PORT_A_KEY_LEFT) != 0;
+}
+
+unsigned char game_gear_input_is_strafe_right_held(void)
+{
+    return (keys & PORT_A_KEY_RIGHT) != 0;
+}
+
+unsigned char game_gear_input_is_rotate_left_held(void)
 {
     return (keys & PORT_A_KEY_1) != 0;
 }
 
-unsigned char game_gear_input_should_rotate_right(void)
+unsigned char game_gear_input_is_rotate_right_held(void)
 {
     return (keys & PORT_A_KEY_2) != 0;
 }

@@ -17,24 +17,30 @@ void main(void)
     world_initialize();
     player_initialize();
     camera_initialize();
-    camera_set_position(player_get_world_x(), player_get_world_y());
+    camera_set_fixed_position(player_get_position_x(),
+                              player_get_position_y());
     raycaster_initialize();
 
     while (1)
     {
         game_gear_input_update();
-        world_update();
 
-        if (game_gear_input_should_move())
-            player_move(game_gear_input_get_direction());
-
-        if (game_gear_input_should_rotate_left())
+        if (game_gear_input_is_rotate_left_held())
             camera_rotate_left();
-        else if (game_gear_input_should_rotate_right())
+        else if (game_gear_input_is_rotate_right_held())
             camera_rotate_right();
 
-        camera_set_position(player_get_world_x(), player_get_world_y());
-        camera_update();
+        if (game_gear_input_is_forward_held())
+            player_move_forward();
+        else if (game_gear_input_is_backward_held())
+            player_move_backward();
+        else if (game_gear_input_is_strafe_left_held())
+            player_strafe_left();
+        else if (game_gear_input_is_strafe_right_held())
+            player_strafe_right();
+
+        camera_set_fixed_position(player_get_position_x(),
+                                  player_get_position_y());
         raycaster_update();
         SMS_waitForVBlank();
         game_gear_video_draw_wall_columns();

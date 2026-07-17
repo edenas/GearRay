@@ -107,24 +107,21 @@ void camera_initialize(void)
     plane_y = CAMERA_PLANE_LENGTH;
 }
 
-void camera_update(void)
+void camera_set_fixed_position(signed int fixed_position_x,
+                               signed int fixed_position_y)
 {
-}
-
-void camera_set_position(unsigned char world_x, unsigned char world_y)
-{
-    position_x = (signed int)world_x * 256;
-    position_y = (signed int)world_y * 256;
+    position_x = fixed_position_x;
+    position_y = fixed_position_y;
 }
 
 void camera_rotate_left(void)
 {
-    camera_rotate(-ROTATION_SINE);
+    camera_rotate(ROTATION_SINE);
 }
 
 void camera_rotate_right(void)
 {
-    camera_rotate(ROTATION_SINE);
+    camera_rotate(-ROTATION_SINE);
 }
 
 signed int camera_get_position_x(void)

@@ -15,10 +15,6 @@ void world_initialize(void)
 {
 }
 
-void world_update(void)
-{
-}
-
 unsigned char world_is_wall(unsigned char x, unsigned char y)
 {
     if (x >= WORLD_WIDTH || y >= WORLD_HEIGHT)

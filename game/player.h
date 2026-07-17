@@ -2,8 +2,11 @@
 #define GEAR_RAY_PLAYER_H
 
 void player_initialize(void);
-void player_move(unsigned int direction);
-unsigned char player_get_world_x(void);
-unsigned char player_get_world_y(void);
+void player_move_forward(void);
+void player_move_backward(void);
+void player_strafe_left(void);
+void player_strafe_right(void);
+signed int player_get_position_x(void);
+signed int player_get_position_y(void);
 
 #endif

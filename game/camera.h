@@ -2,8 +2,7 @@
 #define GEAR_RAY_CAMERA_H
 
 void camera_initialize(void);
-void camera_update(void);
-void camera_set_position(unsigned char world_x, unsigned char world_y);
+void camera_set_fixed_position(signed int position_x, signed int position_y);
 void camera_rotate_left(void);
 void camera_rotate_right(void);
 signed int camera_get_position_x(void);
