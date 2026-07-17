@@ -107,14 +107,38 @@ static unsigned long dda_get_side_distance(unsigned int boundary_distance,
 
 static unsigned char hit_x;
 static unsigned char hit_y;
+static unsigned char hit_side;
+static unsigned char hit_offset;
 static unsigned int hit_distance;
 static unsigned char wall_height;
 static unsigned char wall_heights[RAY_COUNT];
+static unsigned char hit_sides[RAY_COUNT];
+static unsigned char hit_offsets[RAY_COUNT];
+
+static unsigned char raycaster_calculate_hit_offset(
+    signed int position,
+    signed int direction,
+    unsigned long ray_distance)
+{
+    signed long scaled_offset = (signed long)direction
+                              * (signed long)ray_distance;
+    signed long impact_position;
+
+    /* Round negative products down to preserve the 8.8 fraction. */
+    if (scaled_offset < 0)
+        scaled_offset -= FIXED_POINT_SCALE - 1;
+
+    impact_position = position + scaled_offset / FIXED_POINT_SCALE;
+
+    return (unsigned char)(impact_position & (FIXED_POINT_SCALE - 1));
+}
 
 static unsigned char cast_ray(signed int direction_x,
                               signed int direction_y,
                               unsigned char *result_x,
                               unsigned char *result_y,
+                              unsigned char *result_side,
+                              unsigned char *result_offset,
                               unsigned int *result_distance)
 {
     unsigned int projected_height;
@@ -189,18 +213,27 @@ static unsigned char cast_ray(signed int direction_x,
             ray_distance = side_distance_x;
             side_distance_x += delta_distance_x;
             map_x += step_x;
+            *result_side = RAYCASTER_HIT_SIDE_X;
         }
         else
         {
             ray_distance = side_distance_y;
             side_distance_y += delta_distance_y;
             map_y += step_y;
+            *result_side = RAYCASTER_HIT_SIDE_Y;
         }
     }
     while (!world_is_wall((unsigned char)map_x, (unsigned char)map_y));
 
     *result_x = (unsigned char)map_x;
     *result_y = (unsigned char)map_y;
+    *result_offset = *result_side == RAYCASTER_HIT_SIDE_X
+                   ? raycaster_calculate_hit_offset(position_y,
+                                                    direction_y,
+                                                    ray_distance)
+                   : raycaster_calculate_hit_offset(position_x,
+                                                    direction_x,
+                                                    ray_distance);
     *result_distance = ray_distance == 0 ? 1 : (unsigned int)ray_distance;
 
     projected_height = WALL_HEIGHT_SCALE / *result_distance;
@@ -219,11 +252,17 @@ void raycaster_initialize(void)
 
     hit_x = 0;
     hit_y = 0;
+    hit_side = RAYCASTER_HIT_SIDE_X;
+    hit_offset = 0;
     hit_distance = 0;
     wall_height = 1;
 
     for (ray_index = 0; ray_index < RAY_COUNT; ++ray_index)
+    {
         wall_heights[ray_index] = 1;
+        hit_sides[ray_index] = RAYCASTER_HIT_SIDE_X;
+        hit_offsets[ray_index] = 0;
+    }
 }
 
 void raycaster_update(void)
@@ -238,7 +277,8 @@ void raycaster_update(void)
 
     wall_height = cast_ray(camera_get_direction_x(),
                            camera_get_direction_y(),
-                           &hit_x, &hit_y, &hit_distance);
+                           &hit_x, &hit_y, &hit_side, &hit_offset,
+                           &hit_distance);
 
     for (ray_index = 0; ray_index < RAY_COUNT; ++ray_index)
     {
@@ -256,6 +296,8 @@ void raycaster_update(void)
                                            ray_direction_y,
                                            &ray_hit_x,
                                            &ray_hit_y,
+                                           &hit_sides[ray_index],
+                                           &hit_offsets[ray_index],
                                            &ray_hit_distance);
     }
 }
@@ -268,6 +310,16 @@ unsigned char raycaster_get_hit_x(void)
 unsigned char raycaster_get_hit_y(void)
 {
     return hit_y;
+}
+
+unsigned char raycaster_get_hit_side(void)
+{
+    return hit_side;
+}
+
+unsigned char raycaster_get_hit_offset(void)
+{
+    return hit_offset;
 }
 
 unsigned int raycaster_get_hit_distance(void)
@@ -291,4 +343,20 @@ unsigned char raycaster_get_wall_height_for_ray(unsigned char ray_index)
         return 0;
 
     return wall_heights[ray_index];
+}
+
+unsigned char raycaster_get_hit_side_for_ray(unsigned char ray_index)
+{
+    if (ray_index >= RAY_COUNT)
+        return RAYCASTER_HIT_SIDE_X;
+
+    return hit_sides[ray_index];
+}
+
+unsigned char raycaster_get_hit_offset_for_ray(unsigned char ray_index)
+{
+    if (ray_index >= RAY_COUNT)
+        return 0;
+
+    return hit_offsets[ray_index];
 }
