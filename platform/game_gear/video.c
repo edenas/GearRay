@@ -217,6 +217,3 @@ void game_gear_video_draw_wall_columns(void)
         previous_wall_tiles[tile_column] = wall_tile;
     }
 }
-
-/* CMake builds video.c as the platform rendering translation unit. */
-#include "render_textures.c"
