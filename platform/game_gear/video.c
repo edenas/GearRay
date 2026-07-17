@@ -1,65 +1,11 @@
 #include "SMSlib.h"
 #include "../../engine/render/raycaster.h"
+#include "render_textures.h"
 #include "video.h"
 
 #define CEILING_TILE_INDEX 100
 #define FLOOR_TILE_INDEX 101
-#define WALL_X_NEAR_TILE_INDEX_BASE 102
-#define WALL_Y_NEAR_TILE_INDEX_BASE 110
-#define WALL_X_FAR_TILE_INDEX_BASE 118
-#define WALL_Y_FAR_TILE_INDEX_BASE 126
-#define WALL_NEAR_HEIGHT_THRESHOLD 48
 #define UNRENDERED_TILE_HEIGHT 255
-
-/*
- * Eight vertical samples from one bordered brick panel. Each source
- * texture pixel is repeated across a full tile row for tile rendering.
- */
-static const unsigned char wall_x_near_tiles[64] = {
-    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-    0xff, 0x00, 0x00, 0xff, 0x00, 0x00, 0x00, 0xff,
-    0xff, 0x00, 0x00, 0xff, 0x00, 0x00, 0x00, 0xff,
-    0xff, 0x00, 0xff, 0xff, 0x00, 0x00, 0x00, 0xff,
-    0xff, 0x00, 0x00, 0xff, 0x00, 0xff, 0x00, 0xff,
-    0xff, 0x00, 0x00, 0xff, 0x00, 0x00, 0x00, 0xff,
-    0xff, 0x00, 0x00, 0xff, 0x00, 0x00, 0x00, 0xff,
-    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
-};
-
-/* Inverted samples keep Y-side walls distinct while sharing the panel. */
-static const unsigned char wall_y_near_tiles[64] = {
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0xff, 0xff, 0x00, 0xff, 0xff, 0xff, 0x00,
-    0x00, 0xff, 0xff, 0x00, 0xff, 0xff, 0xff, 0x00,
-    0x00, 0xff, 0x00, 0x00, 0xff, 0xff, 0xff, 0x00,
-    0x00, 0xff, 0xff, 0x00, 0xff, 0x00, 0xff, 0x00,
-    0x00, 0xff, 0xff, 0x00, 0xff, 0xff, 0xff, 0x00,
-    0x00, 0xff, 0xff, 0x00, 0xff, 0xff, 0xff, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-};
-
-/* Sparse checker samples provide a darker far version of the panel. */
-static const unsigned char wall_x_far_tiles[64] = {
-    0x55, 0xaa, 0x55, 0xaa, 0x55, 0xaa, 0x55, 0xaa,
-    0x55, 0x00, 0x00, 0xaa, 0x00, 0x00, 0x00, 0xaa,
-    0x55, 0x00, 0x00, 0xaa, 0x00, 0x00, 0x00, 0xaa,
-    0x55, 0x00, 0x55, 0xaa, 0x00, 0x00, 0x00, 0xaa,
-    0x55, 0x00, 0x00, 0xaa, 0x00, 0xaa, 0x00, 0xaa,
-    0x55, 0x00, 0x00, 0xaa, 0x00, 0x00, 0x00, 0xaa,
-    0x55, 0x00, 0x00, 0xaa, 0x00, 0x00, 0x00, 0xaa,
-    0x55, 0xaa, 0x55, 0xaa, 0x55, 0xaa, 0x55, 0xaa
-};
-
-static const unsigned char wall_y_far_tiles[64] = {
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x22, 0x11, 0x00, 0x11, 0x22, 0x11, 0x00,
-    0x00, 0x22, 0x11, 0x00, 0x11, 0x22, 0x11, 0x00,
-    0x00, 0x22, 0x00, 0x00, 0x11, 0x22, 0x11, 0x00,
-    0x00, 0x22, 0x11, 0x00, 0x11, 0x00, 0x11, 0x00,
-    0x00, 0x22, 0x11, 0x00, 0x11, 0x22, 0x11, 0x00,
-    0x00, 0x22, 0x11, 0x00, 0x11, 0x22, 0x11, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-};
 
 static const unsigned char ceiling_tile[8] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
@@ -71,26 +17,6 @@ static const unsigned char floor_tile[8] = {
 
 static unsigned char previous_tile_heights[GAME_GEAR_VIEWPORT_TILE_COLUMNS];
 static unsigned char previous_wall_tiles[GAME_GEAR_VIEWPORT_TILE_COLUMNS];
-
-static unsigned int get_wall_tile(unsigned char wall_side,
-                                  unsigned char hit_offset,
-                                  unsigned char wall_height)
-{
-    unsigned char texture_column = hit_offset >> 5;
-
-    if (wall_height >= WALL_NEAR_HEIGHT_THRESHOLD)
-    {
-        if (wall_side == RAYCASTER_HIT_SIDE_X)
-            return WALL_X_NEAR_TILE_INDEX_BASE + texture_column;
-
-        return WALL_Y_NEAR_TILE_INDEX_BASE + texture_column;
-    }
-
-    if (wall_side == RAYCASTER_HIT_SIDE_X)
-        return WALL_X_FAR_TILE_INDEX_BASE + texture_column;
-
-    return WALL_Y_FAR_TILE_INDEX_BASE + texture_column;
-}
 
 static unsigned int get_viewport_background_tile(unsigned char viewport_row)
 {
@@ -112,26 +38,7 @@ void game_gear_video_initialize(void)
     GG_setBGPaletteColor(0, RGB(0, 0, 0));
     SMS_setBackdropColor(0);
     SMS_autoSetUpTextRenderer();
-    SMS_load1bppTiles(wall_x_near_tiles,
-                      WALL_X_NEAR_TILE_INDEX_BASE,
-                      sizeof(wall_x_near_tiles),
-                      0,
-                      1);
-    SMS_load1bppTiles(wall_y_near_tiles,
-                      WALL_Y_NEAR_TILE_INDEX_BASE,
-                      sizeof(wall_y_near_tiles),
-                      0,
-                      1);
-    SMS_load1bppTiles(wall_x_far_tiles,
-                      WALL_X_FAR_TILE_INDEX_BASE,
-                      sizeof(wall_x_far_tiles),
-                      0,
-                      1);
-    SMS_load1bppTiles(wall_y_far_tiles,
-                      WALL_Y_FAR_TILE_INDEX_BASE,
-                      sizeof(wall_y_far_tiles),
-                      0,
-                      1);
+    game_gear_render_textures_load();
     SMS_load1bppTiles(ceiling_tile,
                       CEILING_TILE_INDEX,
                       sizeof(ceiling_tile),
@@ -148,7 +55,7 @@ void game_gear_video_initialize(void)
          ++tile_column)
     {
         previous_tile_heights[tile_column] = UNRENDERED_TILE_HEIGHT;
-        previous_wall_tiles[tile_column] = WALL_X_NEAR_TILE_INDEX_BASE;
+        previous_wall_tiles[tile_column] = 0;
 
         for (row = 0; row < GAME_GEAR_VIEWPORT_TILE_ROWS; ++row)
         {
@@ -258,7 +165,9 @@ void game_gear_video_draw_wall_columns(void)
         wall_side = raycaster_get_hit_side_for_ray(selected_ray_index);
         hit_offset =
             raycaster_get_hit_offset_for_ray(selected_ray_index);
-        wall_tile = get_wall_tile(wall_side, hit_offset, ray_height);
+        wall_tile = game_gear_get_wall_tile(wall_side,
+                                            hit_offset,
+                                            ray_height);
 
         tile_height = (ray_height + 7) / 8;
 
@@ -304,3 +213,6 @@ void game_gear_video_draw_wall_columns(void)
         previous_wall_tiles[tile_column] = wall_tile;
     }
 }
+
+/* CMake builds video.c as the platform rendering translation unit. */
+#include "render_textures.c"

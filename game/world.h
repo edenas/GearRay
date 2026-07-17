@@ -3,8 +3,11 @@
 
 #define WORLD_WIDTH 10
 #define WORLD_HEIGHT 8
+#define WORLD_TILE_EMPTY 0
+#define WORLD_TILE_STONE 1
 
 void world_initialize(void);
+unsigned char world_get_tile(unsigned char x, unsigned char y);
 unsigned char world_is_wall(unsigned char x, unsigned char y);
 
 #endif
