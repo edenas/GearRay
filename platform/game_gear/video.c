@@ -5,20 +5,28 @@
 #define CEILING_TILE_INDEX 100
 #define FLOOR_TILE_INDEX 101
 #define WALL_X_TILE_INDEX_BASE 102
-#define WALL_Y_TILE_INDEX_BASE 106
+#define WALL_Y_TILE_INDEX_BASE 110
 #define UNRENDERED_TILE_HEIGHT 255
 
-static const unsigned char wall_x_tiles[32] = {
+static const unsigned char wall_x_tiles[64] = {
+    0xff, 0x00, 0xff, 0x00, 0xff, 0x00, 0xff, 0x00,
     0xff, 0x00, 0xff, 0x00, 0xff, 0x00, 0xff, 0x00,
     0xff, 0xff, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00,
+    0xff, 0xff, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00,
     0xff, 0x00, 0x00, 0x00, 0xff, 0x00, 0x00, 0x00,
+    0xff, 0x00, 0x00, 0x00, 0xff, 0x00, 0x00, 0x00,
+    0xff, 0xff, 0xff, 0x00, 0xff, 0xff, 0xff, 0x00,
     0xff, 0xff, 0xff, 0x00, 0xff, 0xff, 0xff, 0x00
 };
 
-static const unsigned char wall_y_tiles[32] = {
+static const unsigned char wall_y_tiles[64] = {
+    0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa,
     0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa,
     0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc,
+    0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc,
     0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0,
+    0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0,
+    0x81, 0x81, 0x81, 0x81, 0x81, 0x81, 0x81, 0x81,
     0x81, 0x81, 0x81, 0x81, 0x81, 0x81, 0x81, 0x81
 };
 
@@ -31,7 +39,18 @@ static const unsigned char floor_tile[8] = {
 };
 
 static unsigned char previous_tile_heights[GAME_GEAR_VIEWPORT_TILE_COLUMNS];
-static unsigned char previous_wall_patterns[GAME_GEAR_VIEWPORT_TILE_COLUMNS];
+static unsigned char previous_wall_tiles[GAME_GEAR_VIEWPORT_TILE_COLUMNS];
+
+static unsigned int get_wall_tile(unsigned char wall_side,
+                                  unsigned char hit_offset)
+{
+    unsigned char texture_column = hit_offset >> 5;
+
+    if (wall_side == RAYCASTER_HIT_SIDE_X)
+        return WALL_X_TILE_INDEX_BASE + texture_column;
+
+    return WALL_Y_TILE_INDEX_BASE + texture_column;
+}
 
 static unsigned int get_viewport_background_tile(unsigned char viewport_row)
 {
@@ -79,7 +98,7 @@ void game_gear_video_initialize(void)
          ++tile_column)
     {
         previous_tile_heights[tile_column] = UNRENDERED_TILE_HEIGHT;
-        previous_wall_patterns[tile_column] = WALL_X_TILE_INDEX_BASE;
+        previous_wall_tiles[tile_column] = WALL_X_TILE_INDEX_BASE;
 
         for (row = 0; row < GAME_GEAR_VIEWPORT_TILE_ROWS; ++row)
         {
@@ -156,9 +175,9 @@ void game_gear_video_draw_wall_columns(void)
     unsigned char tile_height;
     unsigned char wall_side;
     unsigned char hit_offset;
-    unsigned char wall_pattern;
-    unsigned char previous_wall_pattern;
-    unsigned char wall_pattern_changed;
+    unsigned char wall_tile;
+    unsigned char previous_wall_tile;
+    unsigned char wall_tile_changed;
     unsigned char previous_height;
     unsigned char previous_top_row;
     unsigned char top_row;
@@ -189,10 +208,7 @@ void game_gear_video_draw_wall_columns(void)
         wall_side = raycaster_get_hit_side_for_ray(selected_ray_index);
         hit_offset =
             raycaster_get_hit_offset_for_ray(selected_ray_index);
-        wall_pattern = (wall_side == RAYCASTER_HIT_SIDE_X
-                        ? WALL_X_TILE_INDEX_BASE
-                        : WALL_Y_TILE_INDEX_BASE)
-                     + (hit_offset >> 6);
+        wall_tile = get_wall_tile(wall_side, hit_offset);
 
         tile_height = (ray_height + 7) / 8;
 
@@ -200,10 +216,10 @@ void game_gear_video_draw_wall_columns(void)
             tile_height = GAME_GEAR_VIEWPORT_TILE_ROWS;
 
         previous_height = previous_tile_heights[tile_column];
-        previous_wall_pattern = previous_wall_patterns[tile_column];
-        wall_pattern_changed = wall_pattern != previous_wall_pattern;
+        previous_wall_tile = previous_wall_tiles[tile_column];
+        wall_tile_changed = wall_tile != previous_wall_tile;
 
-        if (tile_height == previous_height && !wall_pattern_changed)
+        if (tile_height == previous_height && !wall_tile_changed)
             continue;
 
         top_row = (GAME_GEAR_VIEWPORT_TILE_ROWS - tile_height) / 2;
@@ -223,18 +239,18 @@ void game_gear_video_draw_wall_columns(void)
 
             if (was_wall != is_wall ||
                 previous_height == UNRENDERED_TILE_HEIGHT ||
-                (wall_pattern_changed && is_wall))
+                (wall_tile_changed && is_wall))
             {
                 SMS_setTileatXY(GAME_GEAR_VIEWPORT_TILE_ORIGIN_X
                                 + tile_column,
                                 GAME_GEAR_VIEWPORT_TILE_ORIGIN_Y + row,
                                 is_wall
-                                    ? wall_pattern
+                                    ? wall_tile
                                     : get_viewport_background_tile(row));
             }
         }
 
         previous_tile_heights[tile_column] = tile_height;
-        previous_wall_patterns[tile_column] = wall_pattern;
+        previous_wall_tiles[tile_column] = wall_tile;
     }
 }
