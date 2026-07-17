@@ -108,58 +108,66 @@ static const unsigned char brick_wall_y_far_tiles[64] = {
     0x00, 0x22, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00
 };
 
-static unsigned int get_stone_wall_tile_base(unsigned char wall_side,
-                                             unsigned char wall_height)
+typedef struct
 {
-    if (wall_height >= WALL_NEAR_HEIGHT_THRESHOLD)
+    unsigned int near_x_base;
+    unsigned int near_y_base;
+    unsigned int far_x_base;
+    unsigned int far_y_base;
+} WallMaterial;
+
+static const WallMaterial wall_materials[] = {
+    /* WORLD_TILE_EMPTY: retain the existing safe stone fallback. */
     {
-        if (wall_side == RAYCASTER_HIT_SIDE_X)
-            return WALL_X_NEAR_TILE_INDEX_BASE;
-
-        return WALL_Y_NEAR_TILE_INDEX_BASE;
-    }
-
-    if (wall_side == RAYCASTER_HIT_SIDE_X)
-        return WALL_X_FAR_TILE_INDEX_BASE;
-
-    return WALL_Y_FAR_TILE_INDEX_BASE;
-}
-
-static unsigned int get_brick_wall_tile_base(unsigned char wall_side,
-                                             unsigned char wall_height)
-{
-    if (wall_height >= WALL_NEAR_HEIGHT_THRESHOLD)
+        WALL_X_NEAR_TILE_INDEX_BASE,
+        WALL_Y_NEAR_TILE_INDEX_BASE,
+        WALL_X_FAR_TILE_INDEX_BASE,
+        WALL_Y_FAR_TILE_INDEX_BASE
+    },
+    /* WORLD_TILE_STONE */
     {
-        if (wall_side == RAYCASTER_HIT_SIDE_X)
-            return BRICK_WALL_X_NEAR_TILE_INDEX_BASE;
-
-        return BRICK_WALL_Y_NEAR_TILE_INDEX_BASE;
+        WALL_X_NEAR_TILE_INDEX_BASE,
+        WALL_Y_NEAR_TILE_INDEX_BASE,
+        WALL_X_FAR_TILE_INDEX_BASE,
+        WALL_Y_FAR_TILE_INDEX_BASE
+    },
+    /* WORLD_TILE_BRICK */
+    {
+        BRICK_WALL_X_NEAR_TILE_INDEX_BASE,
+        BRICK_WALL_Y_NEAR_TILE_INDEX_BASE,
+        BRICK_WALL_X_FAR_TILE_INDEX_BASE,
+        BRICK_WALL_Y_FAR_TILE_INDEX_BASE
     }
+};
 
-    if (wall_side == RAYCASTER_HIT_SIDE_X)
-        return BRICK_WALL_X_FAR_TILE_INDEX_BASE;
-
-    return BRICK_WALL_Y_FAR_TILE_INDEX_BASE;
-}
+#define WALL_MATERIAL_COUNT \
+    (sizeof(wall_materials) / sizeof(wall_materials[0]))
 
 unsigned int game_gear_get_wall_tile(unsigned char wall_tile_id,
                                      unsigned char wall_side,
                                      unsigned char hit_offset,
                                      unsigned char wall_height)
 {
+    const WallMaterial *material;
     unsigned int tile_base;
     unsigned char texture_column = hit_offset >> 5;
 
-    switch (wall_tile_id)
-    {
-        case WORLD_TILE_BRICK:
-            tile_base = get_brick_wall_tile_base(wall_side, wall_height);
-            break;
+    if (wall_tile_id >= WALL_MATERIAL_COUNT)
+        wall_tile_id = WORLD_TILE_STONE;
 
-        case WORLD_TILE_STONE:
-        default:
-            tile_base = get_stone_wall_tile_base(wall_side, wall_height);
-            break;
+    material = &wall_materials[wall_tile_id];
+
+    if (wall_height >= WALL_NEAR_HEIGHT_THRESHOLD)
+    {
+        tile_base = wall_side == RAYCASTER_HIT_SIDE_X
+                  ? material->near_x_base
+                  : material->near_y_base;
+    }
+    else
+    {
+        tile_base = wall_side == RAYCASTER_HIT_SIDE_X
+                  ? material->far_x_base
+                  : material->far_y_base;
     }
 
     return tile_base + texture_column;
