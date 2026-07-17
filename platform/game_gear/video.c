@@ -3,22 +3,39 @@
 #include "video.h"
 
 #define WALL_TILE_INDEX 98
-#define EMPTY_TILE_INDEX 99
+#define CEILING_TILE_INDEX 100
+#define FLOOR_TILE_INDEX 101
 #define UNRENDERED_TILE_HEIGHT 255
 
 static const unsigned char wall_tile[8] = {
     0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
 };
 
-static const unsigned char empty_tile[8] = {
+static const unsigned char ceiling_tile[8] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+};
+
+static const unsigned char floor_tile[8] = {
+    0x55, 0xaa, 0x55, 0xaa, 0x55, 0xaa, 0x55, 0xaa
 };
 
 static unsigned char previous_tile_heights[GAME_GEAR_VIEWPORT_TILE_COLUMNS];
 
+static unsigned int get_viewport_background_tile(unsigned char viewport_row)
+{
+    unsigned int screen_pixel_row =
+        (GAME_GEAR_VIEWPORT_TILE_ORIGIN_Y + viewport_row) * 8;
+
+    if (screen_pixel_row < GAME_GEAR_VIEWPORT_CENTER_ROW)
+        return CEILING_TILE_INDEX;
+
+    return FLOOR_TILE_INDEX;
+}
+
 void game_gear_video_initialize(void)
 {
-    unsigned char ray_index;
+    unsigned char tile_column;
+    unsigned char row;
 
     SMS_VRAMmemsetW(0, 0x0000, 16384);
     GG_setBGPaletteColor(0, RGB(0, 0, 0));
@@ -29,16 +46,30 @@ void game_gear_video_initialize(void)
                       sizeof(wall_tile),
                       0,
                       1);
-    SMS_load1bppTiles(empty_tile,
-                      EMPTY_TILE_INDEX,
-                      sizeof(empty_tile),
+    SMS_load1bppTiles(ceiling_tile,
+                      CEILING_TILE_INDEX,
+                      sizeof(ceiling_tile),
+                      0,
+                      1);
+    SMS_load1bppTiles(floor_tile,
+                      FLOOR_TILE_INDEX,
+                      sizeof(floor_tile),
                       0,
                       1);
 
-    for (ray_index = 0;
-         ray_index < GAME_GEAR_VIEWPORT_TILE_COLUMNS;
-         ++ray_index)
-        previous_tile_heights[ray_index] = UNRENDERED_TILE_HEIGHT;
+    for (tile_column = 0;
+         tile_column < GAME_GEAR_VIEWPORT_TILE_COLUMNS;
+         ++tile_column)
+    {
+        previous_tile_heights[tile_column] = UNRENDERED_TILE_HEIGHT;
+
+        for (row = 0; row < GAME_GEAR_VIEWPORT_TILE_ROWS; ++row)
+        {
+            SMS_setTileatXY(GAME_GEAR_VIEWPORT_TILE_ORIGIN_X + tile_column,
+                            GAME_GEAR_VIEWPORT_TILE_ORIGIN_Y + row,
+                            get_viewport_background_tile(row));
+        }
+    }
 }
 
 void game_gear_video_draw_title(void)
@@ -156,7 +187,9 @@ void game_gear_video_draw_wall_columns(void)
                 SMS_setTileatXY(GAME_GEAR_VIEWPORT_TILE_ORIGIN_X
                                 + tile_column,
                                 GAME_GEAR_VIEWPORT_TILE_ORIGIN_Y + row,
-                                is_wall ? WALL_TILE_INDEX : EMPTY_TILE_INDEX);
+                                is_wall
+                                    ? WALL_TILE_INDEX
+                                    : get_viewport_background_tile(row));
             }
         }
 
