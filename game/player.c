@@ -5,6 +5,7 @@
 #define FIXED_POINT_SCALE 256
 #define CAMERA_PLANE_LENGTH 169
 #define PLAYER_MOVE_SPEED 12
+#define PLAYER_COLLISION_RADIUS 32
 
 static signed int player_position_x;
 static signed int player_position_y;
@@ -22,24 +23,36 @@ static signed int player_scale_movement(signed int direction,
     return (signed int)(movement / direction_scale);
 }
 
+static unsigned char player_position_is_clear(signed int position_x,
+                                              signed int position_y)
+{
+    unsigned char left_map_x = (unsigned char)(
+        (position_x - PLAYER_COLLISION_RADIUS) / FIXED_POINT_SCALE);
+    unsigned char right_map_x = (unsigned char)(
+        (position_x + PLAYER_COLLISION_RADIUS) / FIXED_POINT_SCALE);
+    unsigned char top_map_y = (unsigned char)(
+        (position_y - PLAYER_COLLISION_RADIUS) / FIXED_POINT_SCALE);
+    unsigned char bottom_map_y = (unsigned char)(
+        (position_y + PLAYER_COLLISION_RADIUS) / FIXED_POINT_SCALE);
+
+    return !world_is_wall(left_map_x, top_map_y)
+        && !world_is_wall(right_map_x, top_map_y)
+        && !world_is_wall(left_map_x, bottom_map_y)
+        && !world_is_wall(right_map_x, bottom_map_y);
+}
+
 static void player_move_by(signed int movement_x, signed int movement_y)
 {
     signed int candidate_position;
-    unsigned char map_x;
-    unsigned char map_y;
 
     candidate_position = player_position_x + movement_x;
-    map_x = (unsigned char)(candidate_position / FIXED_POINT_SCALE);
-    map_y = (unsigned char)(player_position_y / FIXED_POINT_SCALE);
 
-    if (!world_is_wall(map_x, map_y))
+    if (player_position_is_clear(candidate_position, player_position_y))
         player_position_x = candidate_position;
 
     candidate_position = player_position_y + movement_y;
-    map_x = (unsigned char)(player_position_x / FIXED_POINT_SCALE);
-    map_y = (unsigned char)(candidate_position / FIXED_POINT_SCALE);
 
-    if (!world_is_wall(map_x, map_y))
+    if (player_position_is_clear(player_position_x, candidate_position))
         player_position_y = candidate_position;
 }
 
