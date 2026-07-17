@@ -3,6 +3,8 @@
 #define ROTATION_COSINE 4056
 #define ROTATION_SINE 570
 #define ROTATION_SCALE 4096
+#define DIRECTION_LENGTH 256
+#define CAMERA_PLANE_LENGTH 169
 
 static signed int position_x;
 static signed int position_y;
@@ -21,12 +23,69 @@ static signed int camera_round_rotation(signed long value)
     return (signed int)(value / ROTATION_SCALE);
 }
 
+static signed int camera_round_scaled(signed long value,
+                                      unsigned int scale)
+{
+    if (value < 0)
+        value -= scale / 2;
+    else
+        value += scale / 2;
+
+    return (signed int)(value / scale);
+}
+
+static unsigned int camera_integer_square_root(unsigned long value)
+{
+    unsigned long result = 0;
+    unsigned long bit = 1UL << 30;
+
+    while (bit > value)
+        bit >>= 2;
+
+    while (bit != 0)
+    {
+        if (value >= result + bit)
+        {
+            value -= result + bit;
+            result = (result >> 1) + bit;
+        }
+        else
+            result >>= 1;
+
+        bit >>= 2;
+    }
+
+    return (unsigned int)result;
+}
+
+static void camera_stabilize_vectors(void)
+{
+    unsigned int direction_length = camera_integer_square_root(
+        (unsigned long)((signed long)direction_x * direction_x)
+        + (unsigned long)((signed long)direction_y * direction_y));
+
+    if (direction_length == 0)
+        return;
+
+    direction_x = camera_round_scaled(
+        (signed long)direction_x * DIRECTION_LENGTH,
+        direction_length);
+    direction_y = camera_round_scaled(
+        (signed long)direction_y * DIRECTION_LENGTH,
+        direction_length);
+
+    plane_x = camera_round_scaled(
+        (signed long)direction_y * CAMERA_PLANE_LENGTH,
+        DIRECTION_LENGTH);
+    plane_y = camera_round_scaled(
+        -(signed long)direction_x * CAMERA_PLANE_LENGTH,
+        DIRECTION_LENGTH);
+}
+
 static void camera_rotate(signed int rotation_sine)
 {
     signed int old_direction_x = direction_x;
     signed int old_direction_y = direction_y;
-    signed int old_plane_x = plane_x;
-    signed int old_plane_y = plane_y;
 
     direction_x = camera_round_rotation(
         (signed long)old_direction_x * ROTATION_COSINE
@@ -34,22 +93,18 @@ static void camera_rotate(signed int rotation_sine)
     direction_y = camera_round_rotation(
         (signed long)old_direction_y * ROTATION_COSINE
         + (signed long)old_direction_x * rotation_sine);
-    plane_x = camera_round_rotation(
-        (signed long)old_plane_x * ROTATION_COSINE
-        - (signed long)old_plane_y * rotation_sine);
-    plane_y = camera_round_rotation(
-        (signed long)old_plane_y * ROTATION_COSINE
-        + (signed long)old_plane_x * rotation_sine);
+
+    camera_stabilize_vectors();
 }
 
 void camera_initialize(void)
 {
     position_x = 1280;
     position_y = 1024;
-    direction_x = -256;
+    direction_x = -DIRECTION_LENGTH;
     direction_y = 0;
     plane_x = 0;
-    plane_y = 169;
+    plane_y = CAMERA_PLANE_LENGTH;
 }
 
 void camera_update(void)
