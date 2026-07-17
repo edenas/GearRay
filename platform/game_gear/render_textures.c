@@ -1,155 +1,26 @@
-#include "SMSlib.h"
-#include "../../engine/render/raycaster.h"
-#include "../../game/world.h"
+#include "../../engine/render/wall_side.h"
 #include "render_textures.h"
-#include "wall_textures.h"
+#include "texture_loader.h"
+#include "wall_materials.h"
 
-#define WALL_X_NEAR_TILE_INDEX_BASE 102
-#define WALL_Y_NEAR_TILE_INDEX_BASE 110
-#define WALL_X_FAR_TILE_INDEX_BASE 118
-#define WALL_Y_FAR_TILE_INDEX_BASE 126
-#define BRICK_WALL_X_NEAR_TILE_INDEX_BASE 134
-#define BRICK_WALL_Y_NEAR_TILE_INDEX_BASE 142
-#define BRICK_WALL_X_FAR_TILE_INDEX_BASE 150
-#define BRICK_WALL_Y_FAR_TILE_INDEX_BASE 158
-#define METAL_WALL_X_NEAR_TILE_INDEX_BASE 166
-#define METAL_WALL_Y_NEAR_TILE_INDEX_BASE 174
-#define METAL_WALL_X_FAR_TILE_INDEX_BASE 182
-#define METAL_WALL_Y_FAR_TILE_INDEX_BASE 190
-#define WALL_NEAR_HEIGHT_THRESHOLD 48
-
-typedef struct
-{
-    unsigned int near_x_base;
-    unsigned int near_y_base;
-    unsigned int far_x_base;
-    unsigned int far_y_base;
-} WallMaterial;
-
-static const WallMaterial wall_materials[] = {
-    /* WORLD_TILE_EMPTY: retain the existing safe stone fallback. */
-    {
-        WALL_X_NEAR_TILE_INDEX_BASE,
-        WALL_Y_NEAR_TILE_INDEX_BASE,
-        WALL_X_FAR_TILE_INDEX_BASE,
-        WALL_Y_FAR_TILE_INDEX_BASE
-    },
-    /* WORLD_TILE_STONE */
-    {
-        WALL_X_NEAR_TILE_INDEX_BASE,
-        WALL_Y_NEAR_TILE_INDEX_BASE,
-        WALL_X_FAR_TILE_INDEX_BASE,
-        WALL_Y_FAR_TILE_INDEX_BASE
-    },
-    /* WORLD_TILE_BRICK */
-    {
-        BRICK_WALL_X_NEAR_TILE_INDEX_BASE,
-        BRICK_WALL_Y_NEAR_TILE_INDEX_BASE,
-        BRICK_WALL_X_FAR_TILE_INDEX_BASE,
-        BRICK_WALL_Y_FAR_TILE_INDEX_BASE
-    },
-    /* WORLD_TILE_METAL */
-    {
-        METAL_WALL_X_NEAR_TILE_INDEX_BASE,
-        METAL_WALL_Y_NEAR_TILE_INDEX_BASE,
-        METAL_WALL_X_FAR_TILE_INDEX_BASE,
-        METAL_WALL_Y_FAR_TILE_INDEX_BASE
-    }
-};
-
-#define WALL_MATERIAL_COUNT \
-    (sizeof(wall_materials) / sizeof(wall_materials[0]))
-
-unsigned int game_gear_get_wall_tile(unsigned char wall_tile_id,
+unsigned int game_gear_get_wall_tile(unsigned char texture_id,
                                      unsigned char wall_side,
                                      unsigned char hit_offset,
                                      unsigned char wall_height)
 {
-    const WallMaterial *material;
-    unsigned int tile_base;
+    unsigned int material_base;
     unsigned char texture_column = hit_offset >> 5;
 
-    if (wall_tile_id >= WALL_MATERIAL_COUNT)
-        wall_tile_id = WORLD_TILE_STONE;
+    material_base =
+        game_gear_get_wall_tile_base(
+            texture_id,
+            wall_side,
+            wall_height);
 
-    material = &wall_materials[wall_tile_id];
-
-    if (wall_height >= WALL_NEAR_HEIGHT_THRESHOLD)
-    {
-        tile_base = wall_side == RAYCASTER_HIT_SIDE_X
-                  ? material->near_x_base
-                  : material->near_y_base;
-    }
-    else
-    {
-        tile_base = wall_side == RAYCASTER_HIT_SIDE_X
-                  ? material->far_x_base
-                  : material->far_y_base;
-    }
-
-    return tile_base + texture_column;
+    return material_base + texture_column;
 }
 
 void game_gear_render_textures_load(void)
 {
-    SMS_load1bppTiles(wall_x_near_tiles,
-                      WALL_X_NEAR_TILE_INDEX_BASE,
-                      sizeof(wall_x_near_tiles),
-                      0,
-                      1);
-    SMS_load1bppTiles(wall_y_near_tiles,
-                      WALL_Y_NEAR_TILE_INDEX_BASE,
-                      sizeof(wall_y_near_tiles),
-                      0,
-                      1);
-    SMS_load1bppTiles(wall_x_far_tiles,
-                      WALL_X_FAR_TILE_INDEX_BASE,
-                      sizeof(wall_x_far_tiles),
-                      0,
-                      1);
-    SMS_load1bppTiles(wall_y_far_tiles,
-                      WALL_Y_FAR_TILE_INDEX_BASE,
-                      sizeof(wall_y_far_tiles),
-                      0,
-                      1);
-    SMS_load1bppTiles(brick_wall_x_near_tiles,
-                      BRICK_WALL_X_NEAR_TILE_INDEX_BASE,
-                      sizeof(brick_wall_x_near_tiles),
-                      0,
-                      1);
-    SMS_load1bppTiles(brick_wall_y_near_tiles,
-                      BRICK_WALL_Y_NEAR_TILE_INDEX_BASE,
-                      sizeof(brick_wall_y_near_tiles),
-                      0,
-                      1);
-    SMS_load1bppTiles(brick_wall_x_far_tiles,
-                      BRICK_WALL_X_FAR_TILE_INDEX_BASE,
-                      sizeof(brick_wall_x_far_tiles),
-                      0,
-                      1);
-    SMS_load1bppTiles(brick_wall_y_far_tiles,
-                      BRICK_WALL_Y_FAR_TILE_INDEX_BASE,
-                      sizeof(brick_wall_y_far_tiles),
-                      0,
-                      1);
-    SMS_load1bppTiles(metal_wall_x_near_tiles,
-                      METAL_WALL_X_NEAR_TILE_INDEX_BASE,
-                      sizeof(metal_wall_x_near_tiles),
-                      0,
-                      1);
-    SMS_load1bppTiles(metal_wall_y_near_tiles,
-                      METAL_WALL_Y_NEAR_TILE_INDEX_BASE,
-                      sizeof(metal_wall_y_near_tiles),
-                      0,
-                      1);
-    SMS_load1bppTiles(metal_wall_x_far_tiles,
-                      METAL_WALL_X_FAR_TILE_INDEX_BASE,
-                      sizeof(metal_wall_x_far_tiles),
-                      0,
-                      1);
-    SMS_load1bppTiles(metal_wall_y_far_tiles,
-                      METAL_WALL_Y_FAR_TILE_INDEX_BASE,
-                      sizeof(metal_wall_y_far_tiles),
-                      0,
-                      1);
+    game_gear_load_textures();
 }

@@ -16,6 +16,7 @@ typedef struct
     unsigned char hit_side;
     unsigned char hit_offset;
     unsigned char hit_tile;
+    unsigned char texture_id;
 } RaycasterRay;
 
 /*
@@ -118,6 +119,7 @@ static unsigned char hit_y;
 static unsigned char hit_side;
 static unsigned char hit_offset;
 static unsigned char hit_tile;
+static unsigned char hit_texture_id;
 static unsigned int hit_distance;
 static unsigned char wall_height;
 static RaycasterRay rendered_rays[RAY_COUNT];
@@ -147,9 +149,11 @@ static unsigned char cast_ray(signed int direction_x,
                               unsigned char *result_side,
                               unsigned char *result_offset,
                               unsigned char *result_tile,
+                              unsigned char *result_texture_id,
                               unsigned int *result_distance)
 {
     unsigned int projected_height;
+    unsigned char world_tile_id;
     signed int position_x = camera_get_position_x();
     signed int position_y = camera_get_position_y();
     signed int map_x = position_x / FIXED_POINT_SCALE;
@@ -221,22 +225,24 @@ static unsigned char cast_ray(signed int direction_x,
             ray_distance = side_distance_x;
             side_distance_x += delta_distance_x;
             map_x += step_x;
-            *result_side = RAYCASTER_HIT_SIDE_X;
+            *result_side = WALL_SIDE_X;
         }
         else
         {
             ray_distance = side_distance_y;
             side_distance_y += delta_distance_y;
             map_y += step_y;
-            *result_side = RAYCASTER_HIT_SIDE_Y;
+            *result_side = WALL_SIDE_Y;
         }
     }
     while (!world_is_wall((unsigned char)map_x, (unsigned char)map_y));
 
     *result_x = (unsigned char)map_x;
     *result_y = (unsigned char)map_y;
-    *result_tile = world_get_tile(*result_x, *result_y);
-    *result_offset = *result_side == RAYCASTER_HIT_SIDE_X
+    world_tile_id = world_get_tile(*result_x, *result_y);
+    *result_tile = world_tile_id;
+    *result_texture_id = world_get_texture(world_tile_id);
+    *result_offset = *result_side == WALL_SIDE_X
                    ? raycaster_calculate_hit_offset(position_y,
                                                     direction_y,
                                                     ray_distance)
@@ -261,18 +267,20 @@ void raycaster_initialize(void)
 
     hit_x = 0;
     hit_y = 0;
-    hit_side = RAYCASTER_HIT_SIDE_X;
+    hit_side = WALL_SIDE_X;
     hit_offset = 0;
     hit_tile = WORLD_TILE_STONE;
+    hit_texture_id = WORLD_TILE_STONE;
     hit_distance = 0;
     wall_height = 1;
 
     for (ray_index = 0; ray_index < RAY_COUNT; ++ray_index)
     {
         rendered_rays[ray_index].wall_height = 1;
-        rendered_rays[ray_index].hit_side = RAYCASTER_HIT_SIDE_X;
+        rendered_rays[ray_index].hit_side = WALL_SIDE_X;
         rendered_rays[ray_index].hit_offset = 0;
         rendered_rays[ray_index].hit_tile = WORLD_TILE_STONE;
+        rendered_rays[ray_index].texture_id = WORLD_TILE_STONE;
     }
 }
 
@@ -289,7 +297,7 @@ void raycaster_update(void)
     wall_height = cast_ray(camera_get_direction_x(),
                            camera_get_direction_y(),
                            &hit_x, &hit_y, &hit_side, &hit_offset,
-                           &hit_tile,
+                           &hit_tile, &hit_texture_id,
                            &hit_distance);
 
     for (ray_index = 0; ray_index < RAY_COUNT; ++ray_index)
@@ -312,6 +320,7 @@ void raycaster_update(void)
             &rendered_rays[ray_index].hit_side,
             &rendered_rays[ray_index].hit_offset,
             &rendered_rays[ray_index].hit_tile,
+            &rendered_rays[ray_index].texture_id,
             &ray_hit_distance);
     }
 }
@@ -367,7 +376,7 @@ unsigned char raycaster_get_wall_height_for_ray(unsigned char ray_index)
 unsigned char raycaster_get_hit_side_for_ray(unsigned char ray_index)
 {
     if (ray_index >= RAY_COUNT)
-        return RAYCASTER_HIT_SIDE_X;
+        return WALL_SIDE_X;
 
     return rendered_rays[ray_index].hit_side;
 }
@@ -386,4 +395,12 @@ unsigned char raycaster_get_hit_tile_for_ray(unsigned char ray_index)
         return WORLD_TILE_STONE;
 
     return rendered_rays[ray_index].hit_tile;
+}
+
+unsigned char raycaster_get_texture_id_for_ray(unsigned char ray_index)
+{
+    if (ray_index >= RAY_COUNT)
+        return WORLD_TILE_STONE;
+
+    return rendered_rays[ray_index].texture_id;
 }

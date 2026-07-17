@@ -2,9 +2,8 @@
 #include "../../engine/render/raycaster.h"
 #include "render_textures.h"
 #include "video.h"
+#include "vram_layout.h"
 
-#define CEILING_TILE_INDEX 100
-#define FLOOR_TILE_INDEX 101
 #define UNRENDERED_TILE_HEIGHT 255
 
 static const unsigned char ceiling_tile[8] = {
@@ -130,7 +129,7 @@ void game_gear_video_draw_wall_columns(void)
     unsigned char second_ray_height;
     unsigned char tile_column;
     unsigned char tile_height;
-    unsigned char wall_tile_id;
+    unsigned char texture_id;
     unsigned char wall_side;
     unsigned char hit_offset;
     unsigned char wall_tile;
@@ -163,12 +162,12 @@ void game_gear_video_draw_wall_columns(void)
             selected_ray_index = ray_index + 1;
         }
 
-        wall_tile_id =
-            raycaster_get_hit_tile_for_ray(selected_ray_index);
+        texture_id =
+            raycaster_get_texture_id_for_ray(selected_ray_index);
         wall_side = raycaster_get_hit_side_for_ray(selected_ray_index);
         hit_offset =
             raycaster_get_hit_offset_for_ray(selected_ray_index);
-        wall_tile = game_gear_get_wall_tile(wall_tile_id,
+        wall_tile = game_gear_get_wall_tile(texture_id,
                                             wall_side,
                                             hit_offset,
                                             ray_height);
