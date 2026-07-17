@@ -2,13 +2,18 @@
 #include "../../engine/render/raycaster.h"
 #include "video.h"
 
-#define WALL_TILE_INDEX 98
+#define WALL_X_TILE_INDEX 98
+#define WALL_Y_TILE_INDEX 99
 #define CEILING_TILE_INDEX 100
 #define FLOOR_TILE_INDEX 101
 #define UNRENDERED_TILE_HEIGHT 255
 
-static const unsigned char wall_tile[8] = {
+static const unsigned char wall_x_tile[8] = {
     0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
+};
+
+static const unsigned char wall_y_tile[8] = {
+    0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa
 };
 
 static const unsigned char ceiling_tile[8] = {
@@ -20,6 +25,7 @@ static const unsigned char floor_tile[8] = {
 };
 
 static unsigned char previous_tile_heights[GAME_GEAR_VIEWPORT_TILE_COLUMNS];
+static unsigned char previous_wall_sides[GAME_GEAR_VIEWPORT_TILE_COLUMNS];
 
 static unsigned int get_viewport_background_tile(unsigned char viewport_row)
 {
@@ -41,9 +47,14 @@ void game_gear_video_initialize(void)
     GG_setBGPaletteColor(0, RGB(0, 0, 0));
     SMS_setBackdropColor(0);
     SMS_autoSetUpTextRenderer();
-    SMS_load1bppTiles(wall_tile,
-                      WALL_TILE_INDEX,
-                      sizeof(wall_tile),
+    SMS_load1bppTiles(wall_x_tile,
+                      WALL_X_TILE_INDEX,
+                      sizeof(wall_x_tile),
+                      0,
+                      1);
+    SMS_load1bppTiles(wall_y_tile,
+                      WALL_Y_TILE_INDEX,
+                      sizeof(wall_y_tile),
                       0,
                       1);
     SMS_load1bppTiles(ceiling_tile,
@@ -62,6 +73,7 @@ void game_gear_video_initialize(void)
          ++tile_column)
     {
         previous_tile_heights[tile_column] = UNRENDERED_TILE_HEIGHT;
+        previous_wall_sides[tile_column] = RAYCASTER_HIT_SIDE_X;
 
         for (row = 0; row < GAME_GEAR_VIEWPORT_TILE_ROWS; ++row)
         {
@@ -132,8 +144,12 @@ void game_gear_video_draw_wall_columns(void)
     unsigned char ray_index;
     unsigned char ray_count = raycaster_get_ray_count();
     unsigned char ray_height;
+    unsigned char second_ray_height;
     unsigned char tile_column;
     unsigned char tile_height;
+    unsigned char wall_side;
+    unsigned char previous_wall_side;
+    unsigned char wall_side_changed;
     unsigned char previous_height;
     unsigned char previous_top_row;
     unsigned char top_row;
@@ -151,19 +167,26 @@ void game_gear_video_draw_wall_columns(void)
             break;
 
         ray_height = raycaster_get_wall_height_for_ray(ray_index);
-        tile_height = raycaster_get_wall_height_for_ray(ray_index + 1);
+        second_ray_height =
+            raycaster_get_wall_height_for_ray(ray_index + 1);
+        wall_side = raycaster_get_hit_side_for_ray(ray_index);
 
-        if (ray_height > tile_height)
-            tile_height = ray_height;
+        if (second_ray_height > ray_height)
+        {
+            ray_height = second_ray_height;
+            wall_side = raycaster_get_hit_side_for_ray(ray_index + 1);
+        }
 
-        tile_height = (tile_height + 7) / 8;
+        tile_height = (ray_height + 7) / 8;
 
         if (tile_height > GAME_GEAR_VIEWPORT_TILE_ROWS)
             tile_height = GAME_GEAR_VIEWPORT_TILE_ROWS;
 
         previous_height = previous_tile_heights[tile_column];
+        previous_wall_side = previous_wall_sides[tile_column];
+        wall_side_changed = wall_side != previous_wall_side;
 
-        if (tile_height == previous_height)
+        if (tile_height == previous_height && !wall_side_changed)
             continue;
 
         top_row = (GAME_GEAR_VIEWPORT_TILE_ROWS - tile_height) / 2;
@@ -182,17 +205,21 @@ void game_gear_video_draw_wall_columns(void)
             is_wall = row >= top_row && row < top_row + tile_height;
 
             if (was_wall != is_wall ||
-                previous_height == UNRENDERED_TILE_HEIGHT)
+                previous_height == UNRENDERED_TILE_HEIGHT ||
+                (wall_side_changed && is_wall))
             {
                 SMS_setTileatXY(GAME_GEAR_VIEWPORT_TILE_ORIGIN_X
                                 + tile_column,
                                 GAME_GEAR_VIEWPORT_TILE_ORIGIN_Y + row,
                                 is_wall
-                                    ? WALL_TILE_INDEX
+                                    ? (wall_side == RAYCASTER_HIT_SIDE_X
+                                        ? WALL_X_TILE_INDEX
+                                        : WALL_Y_TILE_INDEX)
                                     : get_viewport_background_tile(row));
             }
         }
 
         previous_tile_heights[tile_column] = tile_height;
+        previous_wall_sides[tile_column] = wall_side;
     }
 }
