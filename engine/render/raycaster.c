@@ -343,12 +343,6 @@ void raycaster_update(void)
     camera_plane_x = camera_get_plane_x();
     camera_plane_y = camera_get_plane_y();
 
-    wall_height = cast_ray(camera_direction_x,
-                           camera_direction_y,
-                           &hit_x, &hit_y, &hit_side, &hit_offset,
-                           &hit_tile, &hit_texture_id,
-                           &hit_distance);
-
     for (ray_index = 0; ray_index < RAY_COUNT; ++ray_index)
     {
         camera_x = camera_x_by_ray[ray_index];

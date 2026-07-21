@@ -7,8 +7,10 @@
 
 #define FIXED_POINT_SCALE 256
 #define CAMERA_PLANE_LENGTH 169
-#define PLAYER_MOVE_SPEED 36
+#define PLAYER_MOVE_SPEED 44
 #define PLAYER_COLLISION_RADIUS 32
+#define PLAYER_DIAGONAL_SCALE 177
+#define PLAYER_MOVEMENT_WITH_TURN_SCALE 176
 
 static signed int player_position_x;
 static signed int player_position_y;
@@ -24,6 +26,32 @@ static signed int player_scale_movement(signed int direction,
         movement += direction_scale / 2;
 
     return (signed int)(movement / direction_scale);
+}
+
+static signed int player_scale_diagonal(signed int movement)
+{
+    signed long scaled_movement =
+        (signed long)movement * PLAYER_DIAGONAL_SCALE;
+
+    if (scaled_movement < 0)
+        scaled_movement -= FIXED_POINT_SCALE / 2;
+    else
+        scaled_movement += FIXED_POINT_SCALE / 2;
+
+    return (signed int)(scaled_movement / FIXED_POINT_SCALE);
+}
+
+static signed int player_scale_movement_with_turn(signed int movement)
+{
+    signed long scaled_movement =
+        (signed long)movement * PLAYER_MOVEMENT_WITH_TURN_SCALE;
+
+    if (scaled_movement < 0)
+        scaled_movement -= FIXED_POINT_SCALE / 2;
+    else
+        scaled_movement += FIXED_POINT_SCALE / 2;
+
+    return (signed int)(scaled_movement / FIXED_POINT_SCALE);
 }
 
 static unsigned char player_position_is_clear(signed int position_x,
@@ -67,36 +95,77 @@ void player_initialize(void)
                       + FIXED_POINT_SCALE / 2;
 }
 
+void player_move_combined(signed char forward_direction,
+                          signed char strafe_direction,
+                          unsigned char rotation_active)
+{
+    signed int movement_x = 0;
+    signed int movement_y = 0;
+
+    if (forward_direction != 0)
+    {
+        movement_x = player_scale_movement(camera_get_direction_x(),
+                                           FIXED_POINT_SCALE);
+        movement_y = player_scale_movement(camera_get_direction_y(),
+                                           FIXED_POINT_SCALE);
+
+        if (forward_direction < 0)
+        {
+            movement_x = -movement_x;
+            movement_y = -movement_y;
+        }
+    }
+
+    if (strafe_direction != 0)
+    {
+        signed int strafe_x = player_scale_movement(camera_get_plane_x(),
+                                                    CAMERA_PLANE_LENGTH);
+        signed int strafe_y = player_scale_movement(camera_get_plane_y(),
+                                                    CAMERA_PLANE_LENGTH);
+
+        if (strafe_direction < 0)
+        {
+            strafe_x = -strafe_x;
+            strafe_y = -strafe_y;
+        }
+
+        movement_x += strafe_x;
+        movement_y += strafe_y;
+    }
+
+    if (forward_direction != 0 && strafe_direction != 0)
+    {
+        movement_x = player_scale_diagonal(movement_x);
+        movement_y = player_scale_diagonal(movement_y);
+    }
+
+    if (rotation_active)
+    {
+        movement_x = player_scale_movement_with_turn(movement_x);
+        movement_y = player_scale_movement_with_turn(movement_y);
+    }
+
+    player_move_by(movement_x, movement_y);
+}
+
 void player_move_forward(void)
 {
-    player_move_by(player_scale_movement(camera_get_direction_x(),
-                                         FIXED_POINT_SCALE),
-                   player_scale_movement(camera_get_direction_y(),
-                                         FIXED_POINT_SCALE));
+    player_move_combined(1, 0, 0);
 }
 
 void player_move_backward(void)
 {
-    player_move_by(-player_scale_movement(camera_get_direction_x(),
-                                          FIXED_POINT_SCALE),
-                   -player_scale_movement(camera_get_direction_y(),
-                                          FIXED_POINT_SCALE));
+    player_move_combined(-1, 0, 0);
 }
 
 void player_strafe_left(void)
 {
-    player_move_by(-player_scale_movement(camera_get_plane_x(),
-                                          CAMERA_PLANE_LENGTH),
-                   -player_scale_movement(camera_get_plane_y(),
-                                          CAMERA_PLANE_LENGTH));
+    player_move_combined(0, -1, 0);
 }
 
 void player_strafe_right(void)
 {
-    player_move_by(player_scale_movement(camera_get_plane_x(),
-                                         CAMERA_PLANE_LENGTH),
-                   player_scale_movement(camera_get_plane_y(),
-                                         CAMERA_PLANE_LENGTH));
+    player_move_combined(0, 1, 0);
 }
 
 void player_process_interaction(void)
