@@ -1,6 +1,9 @@
 #include "camera.h"
+#include "input.h"
+#include "interaction_ray.h"
 #include "player.h"
 #include "world.h"
+#include "world_interactions.h"
 
 #define FIXED_POINT_SCALE 256
 #define CAMERA_PLANE_LENGTH 169
@@ -58,8 +61,10 @@ static void player_move_by(signed int movement_x, signed int movement_y)
 
 void player_initialize(void)
 {
-    player_position_x = 5 * FIXED_POINT_SCALE + FIXED_POINT_SCALE / 2;
-    player_position_y = 4 * FIXED_POINT_SCALE + FIXED_POINT_SCALE / 2;
+    player_position_x = world_get_spawn_x() * FIXED_POINT_SCALE
+                      + FIXED_POINT_SCALE / 2;
+    player_position_y = world_get_spawn_y() * FIXED_POINT_SCALE
+                      + FIXED_POINT_SCALE / 2;
 }
 
 void player_move_forward(void)
@@ -92,6 +97,23 @@ void player_strafe_right(void)
                                          CAMERA_PLANE_LENGTH),
                    player_scale_movement(camera_get_plane_y(),
                                          CAMERA_PLANE_LENGTH));
+}
+
+void player_process_interaction(void)
+{
+    InteractionTarget target;
+
+    if (!input_is_interact_pressed())
+        return;
+
+    if (!interaction_ray_cast(player_position_x,
+                              player_position_y,
+                              camera_get_direction_x(),
+                              camera_get_direction_y(),
+                              &target))
+        return;
+
+    world_interact(&target);
 }
 
 signed int player_get_position_x(void)

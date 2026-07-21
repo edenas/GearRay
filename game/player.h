@@ -6,6 +6,7 @@ void player_move_forward(void);
 void player_move_backward(void);
 void player_strafe_left(void);
 void player_strafe_right(void);
+void player_process_interaction(void);
 signed int player_get_position_x(void);
 signed int player_get_position_y(void);
 

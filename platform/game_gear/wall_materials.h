@@ -1,6 +1,8 @@
 #ifndef WALL_MATERIALS_H
 #define WALL_MATERIALS_H
 
+#include "../../engine/render/wall_side.h"
+
 typedef struct
 {
     unsigned int near_x_base;
@@ -14,7 +16,7 @@ const WallMaterial *game_gear_get_wall_material(
 
 unsigned int game_gear_get_wall_tile_base(
     unsigned char texture_id,
-    unsigned char wall_side,
+    WallSide wall_side,
     unsigned char wall_height);
 
 #endif

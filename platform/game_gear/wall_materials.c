@@ -2,8 +2,7 @@
 #include "../../game/world.h"
 #include "vram_layout.h"
 #include "wall_materials.h"
-
-#define WALL_NEAR_HEIGHT_THRESHOLD 48
+#include "texture_shading_config.h"
 
 static const WallMaterial wall_materials[] = {
     /* WORLD_TILE_EMPTY: retain the existing safe stone fallback. */
@@ -33,6 +32,13 @@ static const WallMaterial wall_materials[] = {
         METAL_WALL_Y_NEAR_TILE_INDEX_BASE,
         METAL_WALL_X_FAR_TILE_INDEX_BASE,
         METAL_WALL_Y_FAR_TILE_INDEX_BASE
+    },
+    /* WORLD_TILE_DOOR */
+    {
+        DOOR_WALL_X_NEAR_TILE_INDEX_BASE,
+        DOOR_WALL_Y_NEAR_TILE_INDEX_BASE,
+        DOOR_WALL_X_FAR_TILE_INDEX_BASE,
+        DOOR_WALL_Y_FAR_TILE_INDEX_BASE
     }
 };
 
@@ -50,20 +56,22 @@ const WallMaterial *game_gear_get_wall_material(
 
 unsigned int game_gear_get_wall_tile_base(
     unsigned char texture_id,
-    unsigned char wall_side,
+    WallSide wall_side,
     unsigned char wall_height)
 {
     const WallMaterial *material =
         game_gear_get_wall_material(texture_id);
 
-    if (wall_height >= WALL_NEAR_HEIGHT_THRESHOLD)
+    if (wall_height >= GAME_GEAR_WALL_NEAR_HEIGHT_THRESHOLD)
     {
-        return wall_side == WALL_SIDE_X
-             ? material->near_x_base
-             : material->near_y_base;
+        if (wall_side == WALL_SIDE_X)
+            return material->near_x_base;
+
+        return material->near_y_base;
     }
 
-    return wall_side == WALL_SIDE_X
-         ? material->far_x_base
-         : material->far_y_base;
+    if (wall_side == WALL_SIDE_X)
+        return material->far_x_base;
+
+    return material->far_y_base;
 }

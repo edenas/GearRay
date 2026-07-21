@@ -1,19 +1,14 @@
 #ifndef GEAR_RAY_GAME_GEAR_WALL_TEXTURES_H
 #define GEAR_RAY_GAME_GEAR_WALL_TEXTURES_H
 
-extern const unsigned char wall_x_near_tiles[64];
-extern const unsigned char wall_y_near_tiles[64];
-extern const unsigned char wall_x_far_tiles[64];
-extern const unsigned char wall_y_far_tiles[64];
+#include "../../engine/render/wall_side.h"
 
-extern const unsigned char brick_wall_x_near_tiles[64];
-extern const unsigned char brick_wall_y_near_tiles[64];
-extern const unsigned char brick_wall_x_far_tiles[64];
-extern const unsigned char brick_wall_y_far_tiles[64];
+#define GAME_GEAR_WALL_LIGHT_PALETTE_INDEX 1
+#define GAME_GEAR_WALL_DARK_PALETTE_INDEX 2
 
-extern const unsigned char metal_wall_x_near_tiles[64];
-extern const unsigned char metal_wall_y_near_tiles[64];
-extern const unsigned char metal_wall_x_far_tiles[64];
-extern const unsigned char metal_wall_y_far_tiles[64];
+unsigned char game_gear_sample_wall_profile(
+    WallSide wall_side,
+    unsigned char texture_x,
+    unsigned char texture_y);
 
 #endif

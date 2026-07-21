@@ -13,7 +13,7 @@
 typedef struct
 {
     unsigned char wall_height;
-    unsigned char hit_side;
+    WallSide hit_side;
     unsigned char hit_offset;
     unsigned char hit_tile;
     unsigned char texture_id;
@@ -116,7 +116,7 @@ static unsigned long dda_get_side_distance(unsigned int boundary_distance,
 
 static unsigned char hit_x;
 static unsigned char hit_y;
-static unsigned char hit_side;
+static WallSide hit_side;
 static unsigned char hit_offset;
 static unsigned char hit_tile;
 static unsigned char hit_texture_id;
@@ -146,7 +146,7 @@ static unsigned char cast_ray(signed int direction_x,
                               signed int direction_y,
                               unsigned char *result_x,
                               unsigned char *result_y,
-                              unsigned char *result_side,
+                              WallSide *result_side,
                               unsigned char *result_offset,
                               unsigned char *result_tile,
                               unsigned char *result_texture_id,
@@ -242,14 +242,37 @@ static unsigned char cast_ray(signed int direction_x,
     world_tile_id = world_get_tile(*result_x, *result_y);
     *result_tile = world_tile_id;
     *result_texture_id = world_get_texture(world_tile_id);
-    *result_offset = *result_side == WALL_SIDE_X
-                   ? raycaster_calculate_hit_offset(position_y,
-                                                    direction_y,
-                                                    ray_distance)
-                   : raycaster_calculate_hit_offset(position_x,
-                                                    direction_x,
-                                                    ray_distance);
-    *result_distance = ray_distance == 0 ? 1 : (unsigned int)ray_distance;
+    if (*result_side == WALL_SIDE_X)
+    {
+        *result_offset = raycaster_calculate_hit_offset(position_y,
+                                                        direction_y,
+                                                        ray_distance);
+    }
+    else
+    {
+        *result_offset = raycaster_calculate_hit_offset(position_x,
+                                                        direction_x,
+                                                        ray_distance);
+    }
+
+    /*
+     * Orient the fractional wall coordinate using this ray's actual travel
+     * direction. This makes zero and 255 identify the same two face edges
+     * on opposite sides of a wall without exposing ray directions to the
+     * platform renderer.
+     */
+    if (*result_side == WALL_SIDE_X)
+    {
+        if (direction_x < 0)
+            *result_offset = 255 - *result_offset;
+    }
+    else if (direction_y > 0)
+        *result_offset = 255 - *result_offset;
+
+    if (ray_distance == 0)
+        *result_distance = 1;
+    else
+        *result_distance = (unsigned int)ray_distance;
 
     projected_height = WALL_HEIGHT_SCALE / *result_distance;
 
@@ -335,7 +358,7 @@ unsigned char raycaster_get_hit_y(void)
     return hit_y;
 }
 
-unsigned char raycaster_get_hit_side(void)
+WallSide raycaster_get_hit_side(void)
 {
     return hit_side;
 }
@@ -373,7 +396,7 @@ unsigned char raycaster_get_wall_height_for_ray(unsigned char ray_index)
     return rendered_rays[ray_index].wall_height;
 }
 
-unsigned char raycaster_get_hit_side_for_ray(unsigned char ray_index)
+WallSide raycaster_get_hit_side_for_ray(unsigned char ray_index)
 {
     if (ray_index >= RAY_COUNT)
         return WALL_SIDE_X;

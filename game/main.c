@@ -25,11 +25,6 @@ void main(void)
     {
         game_gear_input_update();
 
-        if (game_gear_input_is_rotate_left_held())
-            camera_rotate_left();
-        else if (game_gear_input_is_rotate_right_held())
-            camera_rotate_right();
-
         if (game_gear_input_is_forward_held())
             player_move_forward();
         else if (game_gear_input_is_backward_held())
@@ -38,6 +33,13 @@ void main(void)
             player_strafe_left();
         else if (game_gear_input_is_strafe_right_held())
             player_strafe_right();
+
+        if (game_gear_input_is_rotate_left_held())
+            camera_rotate_left();
+        else if (game_gear_input_is_rotate_right_held())
+            camera_rotate_right();
+
+        player_process_interaction();
 
         camera_set_fixed_position(player_get_position_x(),
                                   player_get_position_y());
