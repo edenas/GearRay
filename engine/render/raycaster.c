@@ -5,7 +5,7 @@
 
 #define WALL_HEIGHT_SCALE 16384
 #define GAME_GEAR_SCREEN_HEIGHT 144
-#define RAY_COUNT 40
+#define RAY_COUNT 28
 #define FIXED_POINT_SCALE 256
 #define DDA_INFINITY 0xffffffffUL
 #define DDA_RECIPROCAL_MAX_MAGNITUDE 512
@@ -95,17 +95,16 @@ static const unsigned long dda_reciprocal_by_magnitude[
 };
 
 /*
- * Exact results of -FIXED_POINT_SCALE
- * + (ray_index * CAMERA_PLANE_RANGE) / (RAY_COUNT - 1) for rays 0..39.
- * Keeping these invariant camera coordinates in ROM removes one signed
- * division from every viewport ray without changing the ray directions.
+ * Center 28 coordinates from the existing 32-ray viewport. Keeping the
+ * original coordinates makes the smaller viewport an exact centered crop
+ * without changing the ray directions or perspective.
  */
 static const signed int camera_x_by_ray[RAY_COUNT] = {
-    -256, -243, -230, -217, -204, -191, -178, -165,
+    -178, -165,
     -151, -138, -125, -112, -99, -86, -73, -60,
     -46, -33, -20, -7, 6, 19, 32, 45,
     59, 72, 85, 98, 111, 124, 137, 150,
-    164, 177, 190, 203, 216, 229, 242, 256
+    164, 177
 };
 
 static unsigned long dda_get_reciprocal(unsigned int direction_magnitude)

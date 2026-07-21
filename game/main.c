@@ -12,9 +12,7 @@ SMS_EMBED_SEGA_ROM_HEADER_16KB(0, 0);
 void main(void)
 {
     game_gear_video_initialize();
-    game_gear_video_draw_title();
     game_gear_input_initialize();
-    game_gear_video_draw_input_status(game_gear_input_get_status_text());
     world_initialize();
     player_initialize();
     camera_initialize();
@@ -50,11 +48,6 @@ void main(void)
         raycaster_update();
         SMS_waitForVBlank();
         game_gear_video_draw_wall_columns();
-        game_gear_video_draw_input_status(game_gear_input_get_status_text());
-        game_gear_video_draw_ray_hit(raycaster_get_hit_x(),
-                                     raycaster_get_hit_y());
-        game_gear_video_draw_camera_direction(camera_get_direction_x(),
-                                              camera_get_direction_y());
 #ifdef GEARRAY_PROFILE_RENDERER
         game_gear_renderer_profile_end_frame();
 #endif
