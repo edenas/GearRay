@@ -94,6 +94,20 @@ static const unsigned long dda_reciprocal_by_magnitude[
     128UL
 };
 
+/*
+ * Exact results of -FIXED_POINT_SCALE
+ * + (ray_index * CAMERA_PLANE_RANGE) / (RAY_COUNT - 1) for rays 0..39.
+ * Keeping these invariant camera coordinates in ROM removes one signed
+ * division from every viewport ray without changing the ray directions.
+ */
+static const signed int camera_x_by_ray[RAY_COUNT] = {
+    -256, -243, -230, -217, -204, -191, -178, -165,
+    -151, -138, -125, -112, -99, -86, -73, -60,
+    -46, -33, -20, -7, 6, 19, 32, 45,
+    59, 72, 85, 98, 111, 124, 137, 150,
+    164, 177, 190, 203, 216, 229, 242, 256
+};
+
 static unsigned long dda_get_reciprocal(unsigned int direction_magnitude)
 {
     if (direction_magnitude == 0)
@@ -318,25 +332,32 @@ void raycaster_update(void)
     unsigned char ray_hit_y;
     unsigned int ray_hit_distance;
     signed int camera_x;
+    signed int camera_direction_x;
+    signed int camera_direction_y;
+    signed int camera_plane_x;
+    signed int camera_plane_y;
     signed int ray_direction_x;
     signed int ray_direction_y;
 
-    wall_height = cast_ray(camera_get_direction_x(),
-                           camera_get_direction_y(),
+    camera_direction_x = camera_get_direction_x();
+    camera_direction_y = camera_get_direction_y();
+    camera_plane_x = camera_get_plane_x();
+    camera_plane_y = camera_get_plane_y();
+
+    wall_height = cast_ray(camera_direction_x,
+                           camera_direction_y,
                            &hit_x, &hit_y, &hit_side, &hit_offset,
                            &hit_tile, &hit_texture_id,
                            &hit_distance);
 
     for (ray_index = 0; ray_index < RAY_COUNT; ++ray_index)
     {
-        camera_x = -FIXED_POINT_SCALE
-                 + ((signed int)ray_index * CAMERA_PLANE_RANGE)
-                 / (RAY_COUNT - 1);
-        ray_direction_x = camera_get_direction_x()
-                        + (signed int)(((signed long)camera_get_plane_x()
+        camera_x = camera_x_by_ray[ray_index];
+        ray_direction_x = camera_direction_x
+                        + (signed int)(((signed long)camera_plane_x
                                       * camera_x) / FIXED_POINT_SCALE);
-        ray_direction_y = camera_get_direction_y()
-                        + (signed int)(((signed long)camera_get_plane_y()
+        ray_direction_y = camera_direction_y
+                        + (signed int)(((signed long)camera_plane_y
                                       * camera_x) / FIXED_POINT_SCALE);
 
         rendered_rays[ray_index].wall_height = cast_ray(

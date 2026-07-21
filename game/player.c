@@ -7,7 +7,7 @@
 
 #define FIXED_POINT_SCALE 256
 #define CAMERA_PLANE_LENGTH 169
-#define PLAYER_MOVE_SPEED 18
+#define PLAYER_MOVE_SPEED 36
 #define PLAYER_COLLISION_RADIUS 32
 
 static signed int player_position_x;
