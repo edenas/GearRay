@@ -16,6 +16,18 @@
 #define WALL_COLUMN_LEFT_SIDE_Y_FLAG 0x01
 #define WALL_COLUMN_RIGHT_SIDE_Y_FLAG 0x02
 
+#if GEARRAY_DEBUG_VIEWPORT_BORDER
+#define DEBUG_BORDER_HORIZONTAL_TILE_INDEX 97
+#define DEBUG_BORDER_VERTICAL_TILE_INDEX 98
+#define DEBUG_BORDER_CORNER_TILE_INDEX 99
+
+static const unsigned char debug_border_tiles[3][8] = {
+    { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff },
+    { 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01 },
+    { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01 }
+};
+#endif
+
 static const unsigned char ceiling_tile[8] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
@@ -253,9 +265,9 @@ static unsigned char game_gear_get_active_wall_rows(
 static unsigned int get_viewport_background_tile(unsigned char viewport_row)
 {
     unsigned int screen_pixel_row =
-        (GAME_GEAR_VIEWPORT_TILE_ORIGIN_Y + viewport_row) * 8;
+        GAME_GEAR_VIEWPORT_TOP + viewport_row * GAME_GEAR_TILE_SIZE;
 
-    if (screen_pixel_row < GAME_GEAR_VIEWPORT_CENTER_ROW)
+    if (screen_pixel_row < GAME_GEAR_VIEWPORT_CENTER_Y)
         return CEILING_TILE_INDEX;
 
     return FLOOR_TILE_INDEX;
@@ -265,9 +277,9 @@ static unsigned char get_viewport_background_state(
     unsigned char viewport_row)
 {
     unsigned int screen_pixel_row =
-        (GAME_GEAR_VIEWPORT_TILE_ORIGIN_Y + viewport_row) * 8;
+        GAME_GEAR_VIEWPORT_TOP + viewport_row * GAME_GEAR_TILE_SIZE;
 
-    if (screen_pixel_row < GAME_GEAR_VIEWPORT_CENTER_ROW)
+    if (screen_pixel_row < GAME_GEAR_VIEWPORT_CENTER_Y)
         return VIEWPORT_TILE_STATE_CEILING;
 
     return VIEWPORT_TILE_STATE_FLOOR;
@@ -543,3 +555,60 @@ void game_gear_video_draw_wall_columns(void)
                                               right_wall_side);
     }
 }
+
+#if GEARRAY_DEBUG_VIEWPORT_BORDER
+void game_gear_video_draw_viewport_border(void)
+{
+    static unsigned char border_drawn;
+    unsigned char tile_offset;
+
+    if (border_drawn)
+        return;
+
+    SMS_load1bppTiles(debug_border_tiles,
+                      DEBUG_BORDER_HORIZONTAL_TILE_INDEX,
+                      sizeof(debug_border_tiles),
+                      0,
+                      1);
+
+    SMS_setTileatXY(GAME_GEAR_VIEWPORT_BORDER_TILE_LEFT,
+                    GAME_GEAR_VIEWPORT_BORDER_TILE_TOP,
+                    DEBUG_BORDER_CORNER_TILE_INDEX);
+    SMS_setTileatXY(GAME_GEAR_VIEWPORT_BORDER_TILE_RIGHT,
+                    GAME_GEAR_VIEWPORT_BORDER_TILE_TOP,
+                    DEBUG_BORDER_CORNER_TILE_INDEX | TILE_FLIPPED_X);
+    SMS_setTileatXY(GAME_GEAR_VIEWPORT_BORDER_TILE_LEFT,
+                    GAME_GEAR_VIEWPORT_BORDER_TILE_BOTTOM,
+                    DEBUG_BORDER_CORNER_TILE_INDEX | TILE_FLIPPED_Y);
+    SMS_setTileatXY(GAME_GEAR_VIEWPORT_BORDER_TILE_RIGHT,
+                    GAME_GEAR_VIEWPORT_BORDER_TILE_BOTTOM,
+                    DEBUG_BORDER_CORNER_TILE_INDEX
+                    | TILE_FLIPPED_X | TILE_FLIPPED_Y);
+
+    for (tile_offset = 0;
+         tile_offset < GAME_GEAR_VIEWPORT_TILE_COLUMNS;
+         ++tile_offset)
+    {
+        SMS_setTileatXY(GAME_GEAR_VIEWPORT_TILE_ORIGIN_X + tile_offset,
+                        GAME_GEAR_VIEWPORT_BORDER_TILE_TOP,
+                        DEBUG_BORDER_HORIZONTAL_TILE_INDEX);
+        SMS_setTileatXY(GAME_GEAR_VIEWPORT_TILE_ORIGIN_X + tile_offset,
+                        GAME_GEAR_VIEWPORT_BORDER_TILE_BOTTOM,
+                        DEBUG_BORDER_HORIZONTAL_TILE_INDEX | TILE_FLIPPED_Y);
+    }
+
+    for (tile_offset = 0;
+         tile_offset < GAME_GEAR_VIEWPORT_TILE_ROWS;
+         ++tile_offset)
+    {
+        SMS_setTileatXY(GAME_GEAR_VIEWPORT_BORDER_TILE_LEFT,
+                        GAME_GEAR_VIEWPORT_TILE_ORIGIN_Y + tile_offset,
+                        DEBUG_BORDER_VERTICAL_TILE_INDEX);
+        SMS_setTileatXY(GAME_GEAR_VIEWPORT_BORDER_TILE_RIGHT,
+                        GAME_GEAR_VIEWPORT_TILE_ORIGIN_Y + tile_offset,
+                        DEBUG_BORDER_VERTICAL_TILE_INDEX | TILE_FLIPPED_X);
+    }
+
+    border_drawn = 1;
+}
+#endif

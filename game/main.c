@@ -67,6 +67,9 @@ void main(void)
         raycaster_update();
         SMS_waitForVBlank();
         game_gear_video_draw_wall_columns();
+#if GEARRAY_DEBUG_VIEWPORT_BORDER
+        game_gear_video_draw_viewport_border();
+#endif
 #ifdef GEARRAY_PROFILE_RENDERER
         game_gear_renderer_profile_end_frame();
 #endif
