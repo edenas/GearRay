@@ -1,5 +1,6 @@
 #include "camera.h"
 #include "raycaster.h"
+#include "renderer_profile.h"
 #include "world.h"
 
 #define WALL_HEIGHT_SCALE 16384
@@ -168,6 +169,8 @@ static unsigned char cast_ray(signed int direction_x,
     unsigned long side_distance_y;
     unsigned long ray_distance;
 
+    GEAR_RAY_PROFILE_INCREMENT(rays_cast);
+
     if (direction_x == 0)
     {
         step_x = 1;
@@ -220,6 +223,7 @@ static unsigned char cast_ray(signed int direction_x,
 
     do
     {
+        GEAR_RAY_PROFILE_INCREMENT(dda_iterations);
         if (side_distance_x < side_distance_y)
         {
             ray_distance = side_distance_x;

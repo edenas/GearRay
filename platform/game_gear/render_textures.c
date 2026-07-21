@@ -1,4 +1,5 @@
 #include "render_textures.h"
+#include "renderer_profile.h"
 #include "texture_loader.h"
 #include "wall_textures.h"
 
@@ -65,9 +66,11 @@ unsigned char game_gear_wall_texture_sample_next(
 {
     unsigned char texture_y;
 
+    GEAR_RAY_PROFILE_INCREMENT(sampler_calls);
+
     if (screen_y < sampler->wall_top ||
         screen_y >= sampler->wall_bottom)
-        return 0;
+        return GAME_GEAR_WALL_TEXTURE_OUTSIDE;
 
     texture_y = (unsigned char)(sampler->texture_position
                                 >> TEXTURE_FIXED_POINT_SHIFT);
@@ -80,16 +83,7 @@ unsigned char game_gear_wall_texture_sample_next(
         sampler->remainder_position -= sampler->projected_wall_height;
     }
 
-    if ((sampler->texture_x_and_side & TEXTURE_SIDE_Y_FLAG) != 0)
-    {
-        return game_gear_sample_wall_profile(
-            WALL_SIDE_Y,
-            sampler->texture_x_and_side & TEXTURE_X_MASK,
-            texture_y);
-    }
-
-    return game_gear_sample_wall_profile(
-        WALL_SIDE_X,
+    return game_gear_sample_wall_texture(
         sampler->texture_x_and_side & TEXTURE_X_MASK,
         texture_y);
 }

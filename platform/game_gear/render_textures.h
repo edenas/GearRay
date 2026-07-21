@@ -3,6 +3,8 @@
 
 #include "../../engine/render/wall_side.h"
 
+#define GAME_GEAR_WALL_TEXTURE_OUTSIDE 0xff
+
 typedef struct
 {
     unsigned int texture_position;

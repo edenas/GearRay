@@ -3,6 +3,7 @@
 #include "input.h"
 #include "player.h"
 #include "raycaster.h"
+#include "renderer_profile.h"
 #include "video.h"
 #include "world.h"
 
@@ -43,6 +44,9 @@ void main(void)
 
         camera_set_fixed_position(player_get_position_x(),
                                   player_get_position_y());
+#ifdef GEARRAY_PROFILE_RENDERER
+        game_gear_renderer_profile_begin_frame();
+#endif
         raycaster_update();
         SMS_waitForVBlank();
         game_gear_video_draw_wall_columns();
@@ -51,5 +55,8 @@ void main(void)
                                      raycaster_get_hit_y());
         game_gear_video_draw_camera_direction(camera_get_direction_x(),
                                               camera_get_direction_y());
+#ifdef GEARRAY_PROFILE_RENDERER
+        game_gear_renderer_profile_end_frame();
+#endif
     }
 }
