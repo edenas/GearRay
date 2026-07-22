@@ -12,9 +12,13 @@
 #define VIEWPORT_TILE_STATE_CEILING 0
 #define VIEWPORT_TILE_STATE_FLOOR 1
 #define VIEWPORT_TILE_STATE_WALL 2
+#define VIEWPORT_HORIZON_TILE_ROW (GAME_GEAR_VIEWPORT_TILE_ROWS / 2)
 #define WALL_COLUMN_VALID_FLAG 0x80
 #define WALL_COLUMN_LEFT_SIDE_Y_FLAG 0x01
 #define WALL_COLUMN_RIGHT_SIDE_Y_FLAG 0x02
+#define FAR_WALL_MAX_PROJECTED_HEIGHT 16
+#define FAR_WALL_X_PALETTE_INDEX 2
+#define FAR_WALL_Y_PALETTE_INDEX 9
 
 #if GEARRAY_DEBUG_VIEWPORT_BORDER
 #define DEBUG_BORDER_HORIZONTAL_TILE_INDEX 97
@@ -132,38 +136,52 @@ static void game_gear_store_wall_column_signature(
     previous->side_and_valid_flags = side_and_valid_flags;
 }
 
-static void game_gear_pack_native_wall_row(
-    unsigned char *destination,
-    unsigned char left_palette_index,
-    unsigned char right_palette_index)
-{
-    const unsigned char *left_bitplanes =
-        left_palette_bitplanes[left_palette_index];
-    const unsigned char *right_bitplanes =
-        right_palette_bitplanes[right_palette_index];
-
-    /* One byte per bitplane encodes all eight palette indices in the row. */
-    destination[0] = left_bitplanes[0] | right_bitplanes[0];
-    destination[1] = left_bitplanes[1] | right_bitplanes[1];
-    destination[2] = left_bitplanes[2] | right_bitplanes[2];
-    destination[3] = left_bitplanes[3] | right_bitplanes[3];
-}
-
-static void game_gear_build_native_textured_wall_tile(
+static void game_gear_build_native_wall_tile(
     unsigned char *destination,
     GameGearWallTextureSampler *left_sampler,
     WallSide left_wall_side,
+    unsigned char left_wall_is_far,
+    signed int left_wall_top,
+    unsigned char left_wall_height,
     GameGearWallTextureSampler *right_sampler,
     WallSide right_wall_side,
+    unsigned char right_wall_is_far,
+    signed int right_wall_top,
+    unsigned char right_wall_height,
     unsigned char tile_pixel_y)
 {
     unsigned char tile_row;
     unsigned char screen_y;
     unsigned char left_palette_index;
     unsigned char right_palette_index;
-    unsigned char source_color_index;
+    const unsigned char *left_bitplanes;
+    const unsigned char *right_bitplanes;
 
-    GEAR_RAY_PROFILE_INCREMENT(tile_builder_calls);
+    if (!left_wall_is_far && !right_wall_is_far)
+    {
+        for (tile_row = 0; tile_row < 8; ++tile_row)
+        {
+            screen_y = tile_pixel_y + tile_row;
+            left_palette_index = game_gear_wall_texture_palette_sample_next(
+                left_sampler, screen_y);
+            right_palette_index = game_gear_wall_texture_palette_sample_next(
+                right_sampler, screen_y);
+
+            if (left_palette_index == GAME_GEAR_WALL_TEXTURE_OUTSIDE)
+                left_palette_index = 0;
+            if (right_palette_index == GAME_GEAR_WALL_TEXTURE_OUTSIDE)
+                right_palette_index = 0;
+
+            left_bitplanes = left_palette_bitplanes[left_palette_index];
+            right_bitplanes = right_palette_bitplanes[right_palette_index];
+            destination[0] = left_bitplanes[0] | right_bitplanes[0];
+            destination[1] = left_bitplanes[1] | right_bitplanes[1];
+            destination[2] = left_bitplanes[2] | right_bitplanes[2];
+            destination[3] = left_bitplanes[3] | right_bitplanes[3];
+            destination += NATIVE_TILE_ROW_BYTES;
+        }
+        return;
+    }
 
     for (tile_row = 0; tile_row < 8; ++tile_row)
     {
@@ -171,26 +189,49 @@ static void game_gear_build_native_textured_wall_tile(
         left_palette_index = 0;
         right_palette_index = 0;
 
-        source_color_index = game_gear_wall_texture_sample_next(
-            left_sampler, screen_y);
-        if (source_color_index != GAME_GEAR_WALL_TEXTURE_OUTSIDE)
+        if (left_wall_is_far)
         {
-            left_palette_index = game_gear_map_wall_color(
-                left_wall_side, source_color_index);
+            if (screen_y >= left_wall_top
+                && screen_y < left_wall_top + left_wall_height)
+            {
+                left_palette_index = left_wall_side == WALL_SIDE_X
+                    ? FAR_WALL_X_PALETTE_INDEX
+                    : FAR_WALL_Y_PALETTE_INDEX;
+            }
+        }
+        else
+        {
+            left_palette_index = game_gear_wall_texture_palette_sample_next(
+                left_sampler, screen_y);
+            if (left_palette_index == GAME_GEAR_WALL_TEXTURE_OUTSIDE)
+                left_palette_index = 0;
         }
 
-        source_color_index = game_gear_wall_texture_sample_next(
-            right_sampler, screen_y);
-        if (source_color_index != GAME_GEAR_WALL_TEXTURE_OUTSIDE)
+        if (right_wall_is_far)
         {
-            right_palette_index = game_gear_map_wall_color(
-                right_wall_side, source_color_index);
+            if (screen_y >= right_wall_top
+                && screen_y < right_wall_top + right_wall_height)
+            {
+                right_palette_index = right_wall_side == WALL_SIDE_X
+                    ? FAR_WALL_X_PALETTE_INDEX
+                    : FAR_WALL_Y_PALETTE_INDEX;
+            }
+        }
+        else
+        {
+            right_palette_index = game_gear_wall_texture_palette_sample_next(
+                right_sampler, screen_y);
+            if (right_palette_index == GAME_GEAR_WALL_TEXTURE_OUTSIDE)
+                right_palette_index = 0;
         }
 
-        game_gear_pack_native_wall_row(
-            &destination[tile_row * NATIVE_TILE_ROW_BYTES],
-            left_palette_index,
-            right_palette_index);
+        left_bitplanes = left_palette_bitplanes[left_palette_index];
+        right_bitplanes = right_palette_bitplanes[right_palette_index];
+        destination[0] = left_bitplanes[0] | right_bitplanes[0];
+        destination[1] = left_bitplanes[1] | right_bitplanes[1];
+        destination[2] = left_bitplanes[2] | right_bitplanes[2];
+        destination[3] = left_bitplanes[3] | right_bitplanes[3];
+        destination += NATIVE_TILE_ROW_BYTES;
     }
 }
 
@@ -262,29 +303,6 @@ static unsigned char game_gear_get_active_wall_rows(
     return 1;
 }
 
-static unsigned int get_viewport_background_tile(unsigned char viewport_row)
-{
-    unsigned int screen_pixel_row =
-        GAME_GEAR_VIEWPORT_TOP + viewport_row * GAME_GEAR_TILE_SIZE;
-
-    if (screen_pixel_row < GAME_GEAR_VIEWPORT_CENTER_Y)
-        return CEILING_TILE_INDEX;
-
-    return FLOOR_TILE_INDEX;
-}
-
-static unsigned char get_viewport_background_state(
-    unsigned char viewport_row)
-{
-    unsigned int screen_pixel_row =
-        GAME_GEAR_VIEWPORT_TOP + viewport_row * GAME_GEAR_TILE_SIZE;
-
-    if (screen_pixel_row < GAME_GEAR_VIEWPORT_CENTER_Y)
-        return VIEWPORT_TILE_STATE_CEILING;
-
-    return VIEWPORT_TILE_STATE_FLOOR;
-}
-
 void game_gear_video_initialize(void)
 {
     unsigned char tile_column;
@@ -327,74 +345,20 @@ void game_gear_video_initialize(void)
             cell_index =
                 (unsigned int)tile_column * GAME_GEAR_VIEWPORT_TILE_ROWS
                 + row;
-            viewport_tile_states[cell_index] =
-                get_viewport_background_state(row);
+            viewport_tile_states[cell_index] = row < VIEWPORT_HORIZON_TILE_ROW
+                ? VIEWPORT_TILE_STATE_CEILING
+                : VIEWPORT_TILE_STATE_FLOOR;
             SMS_setTileatXY(GAME_GEAR_VIEWPORT_TILE_ORIGIN_X + tile_column,
                             GAME_GEAR_VIEWPORT_TILE_ORIGIN_Y + row,
-                            get_viewport_background_tile(row));
+                            row < VIEWPORT_HORIZON_TILE_ROW
+                                ? CEILING_TILE_INDEX
+                                : FLOOR_TILE_INDEX);
         }
     }
 }
 
-void game_gear_video_draw_title(void)
-{
-    SMS_printatXY(12, 3, "GearRay");
-    SMS_printatXY(8, 4, "Hello Game Gear");
-}
-
-void game_gear_video_draw_input_status(const unsigned char *status_text)
-{
-    SMS_printatXY(8, 5, status_text);
-}
-
-void game_gear_video_draw_ray_hit(unsigned char hit_x, unsigned char hit_y)
-{
-    unsigned char hit_text[] = "Ray hit: 0,0";
-
-    hit_text[9] = '0' + hit_x;
-    hit_text[11] = '0' + hit_y;
-    SMS_printatXY(8, 6, hit_text);
-}
-
-static void write_signed_direction(unsigned char *text,
-                                   unsigned char offset,
-                                   signed int value)
-{
-    unsigned int magnitude;
-
-    if (value < 0)
-    {
-        text[offset] = '-';
-        magnitude = (unsigned int)(-(signed long)value);
-    }
-    else
-    {
-        text[offset] = '+';
-        magnitude = (unsigned int)value;
-    }
-
-    if (magnitude > 999)
-        magnitude = 999;
-
-    text[offset + 1] = '0' + magnitude / 100;
-    text[offset + 2] = '0' + (magnitude / 10) % 10;
-    text[offset + 3] = '0' + magnitude % 10;
-}
-
-void game_gear_video_draw_camera_direction(signed int direction_x,
-                                           signed int direction_y)
-{
-    unsigned char direction_text[] = "Direction: +000,+000";
-
-    write_signed_direction(direction_text, 11, direction_x);
-    write_signed_direction(direction_text, 16, direction_y);
-    SMS_printatXY(6, 7, direction_text);
-}
-
 void game_gear_video_draw_wall_columns(void)
 {
-    unsigned char ray_index;
-    unsigned char ray_count = raycaster_get_ray_count();
     unsigned char tile_column;
     unsigned char row;
     unsigned char left_wall_height;
@@ -407,36 +371,33 @@ void game_gear_video_draw_wall_columns(void)
     unsigned char last_active_row;
     unsigned char active_tile_count;
     unsigned char has_active_wall;
+    unsigned char left_wall_is_far;
+    unsigned char right_wall_is_far;
     unsigned char desired_state;
-    unsigned int cell_index;
     unsigned int desired_tile;
+    unsigned char *tile_states;
     signed int left_wall_top;
     signed int right_wall_top;
     unsigned char first_screen_y;
     GameGearWallTextureSampler left_sampler;
     GameGearWallTextureSampler right_sampler;
+    const RaycasterRay *left_ray = raycaster_get_rendered_rays();
+    const RaycasterRay *right_ray;
 
     for (tile_column = 0;
          tile_column < GAME_GEAR_VIEWPORT_TILE_COLUMNS;
-         ++tile_column)
+         ++tile_column, left_ray += 2)
     {
-        ray_index = tile_column * 2;
+        right_ray = left_ray + 1;
+        tile_states = &viewport_tile_states[
+            (unsigned int)tile_column * GAME_GEAR_VIEWPORT_TILE_ROWS];
 
-        if (ray_index + 1 >= ray_count)
-            break;
-
-        left_wall_height =
-            raycaster_get_wall_height_for_ray(ray_index);
-        right_wall_height =
-            raycaster_get_wall_height_for_ray(ray_index + 1);
-        left_hit_offset =
-            raycaster_get_hit_offset_for_ray(ray_index);
-        right_hit_offset =
-            raycaster_get_hit_offset_for_ray(ray_index + 1);
-        left_wall_side =
-            raycaster_get_hit_side_for_ray(ray_index);
-        right_wall_side =
-            raycaster_get_hit_side_for_ray(ray_index + 1);
+        left_wall_height = left_ray->wall_height;
+        right_wall_height = right_ray->wall_height;
+        left_hit_offset = left_ray->hit_offset;
+        right_hit_offset = right_ray->hit_offset;
+        left_wall_side = left_ray->hit_side;
+        right_wall_side = right_ray->hit_side;
 
         if (game_gear_wall_column_is_unchanged(tile_column,
                                                left_wall_height,
@@ -465,34 +426,63 @@ void game_gear_video_draw_wall_columns(void)
 
         if (has_active_wall)
         {
-            GEAR_RAY_PROFILE_ADD(wall_columns_rendered, 2);
             first_screen_y = first_active_row * 8;
-            game_gear_wall_texture_sampler_initialize(
-                &left_sampler,
-                left_wall_side,
-                left_hit_offset,
-                left_wall_height,
-                left_wall_top,
-                first_screen_y);
-            game_gear_wall_texture_sampler_initialize(
-                &right_sampler,
-                right_wall_side,
-                right_hit_offset,
-                right_wall_height,
-                right_wall_top,
-                first_screen_y);
+            left_wall_is_far =
+                left_wall_height <= FAR_WALL_MAX_PROJECTED_HEIGHT;
+            right_wall_is_far =
+                right_wall_height <= FAR_WALL_MAX_PROJECTED_HEIGHT;
+            GEAR_RAY_PROFILE_ADD(far_wall_halves_rendered,
+                                 left_wall_is_far + right_wall_is_far);
+
+            if (left_wall_is_far)
+            {
+                GEAR_RAY_PROFILE_ADD(texture_samples_avoided,
+                                     left_wall_height);
+            }
+            else
+            {
+                game_gear_wall_texture_sampler_initialize(
+                    &left_sampler,
+                    left_wall_side,
+                    left_hit_offset,
+                    left_wall_height,
+                    left_wall_top,
+                    first_screen_y);
+            }
+
+            if (right_wall_is_far)
+            {
+                GEAR_RAY_PROFILE_ADD(texture_samples_avoided,
+                                     right_wall_height);
+            }
+            else
+            {
+                game_gear_wall_texture_sampler_initialize(
+                    &right_sampler,
+                    right_wall_side,
+                    right_hit_offset,
+                    right_wall_height,
+                    right_wall_top,
+                    first_screen_y);
+            }
 
             for (row = first_active_row;
                  row <= last_active_row;
                  ++row)
             {
-                game_gear_build_native_textured_wall_tile(
+                game_gear_build_native_wall_tile(
                     &projected_wall_column[
                         (row - first_active_row) * NATIVE_TILE_BYTES],
                     &left_sampler,
                     left_wall_side,
+                    left_wall_is_far,
+                    left_wall_top,
+                    left_wall_height,
                     &right_sampler,
                     right_wall_side,
+                    right_wall_is_far,
+                    right_wall_top,
+                    right_wall_height,
                     row * 8);
             }
 
@@ -512,7 +502,9 @@ void game_gear_video_draw_wall_columns(void)
 
         for (row = 0; row < GAME_GEAR_VIEWPORT_TILE_ROWS; ++row)
         {
-            desired_state = get_viewport_background_state(row);
+            desired_state = row < VIEWPORT_HORIZON_TILE_ROW
+                ? VIEWPORT_TILE_STATE_CEILING
+                : VIEWPORT_TILE_STATE_FLOOR;
 
             if (has_active_wall &&
                 row >= first_active_row &&
@@ -521,11 +513,7 @@ void game_gear_video_draw_wall_columns(void)
                 desired_state = VIEWPORT_TILE_STATE_WALL;
             }
 
-            cell_index =
-                (unsigned int)tile_column * GAME_GEAR_VIEWPORT_TILE_ROWS
-                + row;
-
-            if (viewport_tile_states[cell_index] == desired_state)
+            if (tile_states[row] == desired_state)
                 continue;
 
             if (desired_state == VIEWPORT_TILE_STATE_WALL)
@@ -535,7 +523,9 @@ void game_gear_video_draw_wall_columns(void)
                              + row;
             }
             else
-                desired_tile = get_viewport_background_tile(row);
+                desired_tile = row < VIEWPORT_HORIZON_TILE_ROW
+                    ? CEILING_TILE_INDEX
+                    : FLOOR_TILE_INDEX;
 
             SMS_setTileatXY(
                 GAME_GEAR_VIEWPORT_TILE_ORIGIN_X + tile_column,
@@ -543,7 +533,7 @@ void game_gear_video_draw_wall_columns(void)
                 desired_tile);
             GEAR_RAY_PROFILE_INCREMENT(vram_upload_calls);
             GEAR_RAY_PROFILE_ADD(vram_bytes_uploaded, 2);
-            viewport_tile_states[cell_index] = desired_state;
+            tile_states[row] = desired_state;
         }
 
         game_gear_store_wall_column_signature(tile_column,
@@ -554,6 +544,12 @@ void game_gear_video_draw_wall_columns(void)
                                               left_wall_side,
                                               right_wall_side);
     }
+
+#ifdef GEARRAY_PROFILE_RENDERER
+    game_gear_renderer_profile.near_wall_halves_rendered =
+        game_gear_renderer_profile.dirty_columns_rendered * 2
+        - game_gear_renderer_profile.far_wall_halves_rendered;
+#endif
 }
 
 #if GEARRAY_DEBUG_VIEWPORT_BORDER

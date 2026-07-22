@@ -3,20 +3,19 @@
 
 #include "wall_side.h"
 
+#define RAYCASTER_RAY_COUNT 28
+
+typedef struct
+{
+    unsigned char wall_height;
+    WallSide hit_side;
+    unsigned char hit_offset;
+    unsigned char hit_tile;
+    unsigned char texture_id;
+} RaycasterRay;
+
 void raycaster_initialize(void);
 void raycaster_update(void);
-unsigned char raycaster_get_hit_x(void);
-unsigned char raycaster_get_hit_y(void);
-WallSide raycaster_get_hit_side(void);
-unsigned char raycaster_get_hit_offset(void);
-unsigned char raycaster_get_hit_tile(void);
-unsigned int raycaster_get_hit_distance(void);
-unsigned char raycaster_get_wall_height(void);
-unsigned char raycaster_get_ray_count(void);
-unsigned char raycaster_get_wall_height_for_ray(unsigned char ray_index);
-WallSide raycaster_get_hit_side_for_ray(unsigned char ray_index);
-unsigned char raycaster_get_hit_offset_for_ray(unsigned char ray_index);
-unsigned char raycaster_get_hit_tile_for_ray(unsigned char ray_index);
-unsigned char raycaster_get_texture_id_for_ray(unsigned char ray_index);
+const RaycasterRay *raycaster_get_rendered_rays(void);
 
 #endif

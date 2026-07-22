@@ -11,7 +11,7 @@ unsigned char interaction_ray_cast(
     signed int player_position_y,
     signed int direction_x,
     signed int direction_y,
-    InteractionTarget *target)
+    InteractionTarget *target) __banked
 {
     const WorldObject *object;
     signed int map_x;

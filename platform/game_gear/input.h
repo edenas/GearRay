@@ -10,6 +10,5 @@ unsigned char game_gear_input_is_strafe_left_held(void);
 unsigned char game_gear_input_is_strafe_right_held(void);
 unsigned char game_gear_input_is_rotate_left_held(void);
 unsigned char game_gear_input_is_rotate_right_held(void);
-const unsigned char *game_gear_input_get_status_text(void);
 
 #endif

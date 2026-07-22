@@ -39,13 +39,19 @@ unsigned char world_get_object(unsigned char tile_id)
 unsigned char world_is_wall(unsigned char x, unsigned char y)
 {
     DoorInstanceId door_instance;
-    const WorldMaterial *material;
-    unsigned char tile_id = world_get_tile(x, y);
+    unsigned char tile_id;
 
-    material = world_get_material(tile_id);
+    if (x >= WORLD_WIDTH || y >= WORLD_HEIGHT)
+        return 1;
 
+    tile_id = workshop_map_get_tile(x, y);
+
+    if (tile_id == WORLD_TILE_EMPTY)
+        return 0;
+
+    /* All current non-door material tiles are solid. */
     if (tile_id != WORLD_TILE_DOOR)
-        return world_material_is_solid(material);
+        return 1;
 
     door_instance = door_instance_find_at(x, y);
 

@@ -72,9 +72,17 @@ Game Gear wall tiles, tracks dirty tile-columns, uploads changed patterns, and
 changes tilemap cells when their ceiling/wall/floor state changes.
 
 `render_textures.c` advances texture coordinates down projected walls.
-`wall_textures.c` reads the generated packed 64×64 texture and maps its indexed
+`wall_textures.c` reads the generated packed 16×16 texture and maps its indexed
 colours to bright X-side or dark Y-side palette entries. `video.c` packs those
 palette indices directly into four Game Gear bitplanes.
+
+Projected wall halves at 16 pixels or less use a conservative distant-wall
+LOD in `video.c`. Each ray in a native tile-column classifies independently.
+Near halves retain the full sampler and shading path; far halves preserve the
+silhouette but pack flat palette index 2 for X sides or 9 for darker Y sides
+without initializing or reading the texture sampler. Cached projected heights
+already invalidate a column when either half crosses the 16/17-pixel boundary,
+so the dirty signature needs no LOD flags.
 
 The raycaster records a texture ID for every ray, and material/tile-layout
 support exists in `wall_materials.c`, `texture_shading.c`, and `vram_layout.h`.
@@ -95,9 +103,14 @@ is toggling a matching door instance.
 
 Profiling is compile-time optional through `GEARRAY_PROFILE_RENDERER`. When
 enabled, counters cover rays, DDA iterations, dirty columns, generated wall
-columns, active tiles, texture and sampler calls, palette lookups, tile builds,
+halves, active tiles, texture and sampler calls, palette lookups,
 and VRAM calls/bytes. Counters reset before raycasting and are printed every 60
 processed frames. When profiling is disabled, its macros are no-ops.
+
+Distant-wall counters distinguish near and far wall halves and count texture
+samples avoided. Profiling report/clear routines are compiled into Bank 1 and
+called only at frame boundaries; all counter operations and renderer paths
+remain resident.
 
 ### Frame data flow
 
@@ -178,6 +191,10 @@ Y wall face was crossed, and stops when `world_is_wall()` reports a solid cell.
 Open doors are non-solid; closed doors are solid. Out-of-map queries are solid,
 so a valid bounded map terminates every ray.
 
+The hot solidity query decides empty and ordinary solid workshop tiles directly
+after one bounded map lookup. Only door tiles enter instance/state resolution;
+the generic material/object APIs remain available to interaction code.
+
 The hit coordinate along a wall face is calculated in Q8.8 and oriented so
 opposite faces have consistent texture direction. This keeps face orientation
 out of the platform renderer.
@@ -191,22 +208,25 @@ projected_height = 16384 / ray_distance
 ```
 
 The result is clamped to 1..144 pixels. Walls are vertically centred in the
-80-pixel viewport; the renderer clips generation to visible rows. The
+64-pixel viewport; the renderer clips generation to visible rows. The
 raycaster's distance is already the perpendicular DDA distance for the camera
 ray construction, so no separate fish-eye correction pass is used.
 
 ### Texture lookup and sampling
 
-The oriented 0..255 hit offset is shifted right by two to select texture X in
-the 64×64 source. A sampler calculates a Q8.8 texture-Y step once per projected
+The oriented 0..255 hit offset is shifted right by four to select texture X in
+the 16×16 source. Packed access derives its byte column directly by shifting
+right five, while hit-offset bit 4 selects the nibble. A sampler calculates a
+Q8.8 texture-Y step once per projected
 wall column. A carried remainder reproduces the exact integer mapping when the
 step does not divide evenly. Clipped portions above the viewport are skipped
 when the sampler is initialized.
 
 The generated texture stores two 4-bit pixels per byte. X parity selects the
-high or low nibble. X-side wall hits use the bright colour map and Y-side hits
-use the dark colour map, giving deterministic directional shading without
-per-pixel lighting calculations.
+high or low nibble. Sampler initialization caches palette base 2 for X-side
+hits or 9 for Y-side hits. The hot sampler returns the final palette index in
+one call, combining coordinate advancement, packed fetch, nibble selection,
+and directional shading without an additional texture or palette function.
 
 ### Native wall-column generation
 
@@ -218,6 +238,9 @@ tile bytes.
 
 Packing uses two constant 16×4 bitplane lookup tables. Four table reads per
 half, four OR operations, and four writes replace a per-bitplane packing loop.
+The common near/near path classifies LOD once per tile and writes rows through
+a sequential destination pointer. Mixed and far columns retain the exact flat
+LOD rules without adding work to the near path.
 
 ### Dirty-column upload
 
@@ -229,8 +252,9 @@ identical, the entire column is skipped. A changed column rebuilds only the
 The active wall patterns for one tile-column are uploaded with one contiguous
 `SMS_loadTiles()` call. A separate cached state per tilemap cell records
 ceiling, floor, or wall. `SMS_setTileatXY()` is called only when that state
-changes. The cache avoids redundant pattern construction and tilemap writes;
-it does not skip raycasting.
+changes. The scan advances through this cache sequentially and uses the fixed
+horizon tile row directly. The cache avoids redundant pattern construction
+and tilemap writes; it does not skip raycasting.
 
 ## Current optimized renderer configuration
 
@@ -387,8 +411,10 @@ defined integer approximation.
 ### Cached camera basis during ray generation
 
 Direction and plane components are read once at the start of
-`raycaster_update()`, then reused for all rays. This avoids repeated accessor
-calls and guarantees one orientation snapshot for the ray set.
+`raycaster_update()`. The 28 derived ray-direction pairs are rebuilt only when
+that basis changes and are reused during static or position-only frames. The
+renderer traverses the resulting `RaycasterRay` array sequentially instead of
+calling bounds-checked field getters for each tile-column.
 
 ### Dirty tile-column signatures
 
@@ -399,7 +425,7 @@ VRAM transfer while leaving raycasting unchanged.
 ### Active vertical row generation
 
 For a dirty column, only tile rows intersecting a visible projected wall are
-built and uploaded. Walls are clipped to the 80-pixel viewport before row
+built and uploaded. Walls are clipped to the 64-pixel viewport before row
 bounds are calculated. This avoids producing ceiling/floor-only pattern rows.
 
 ### Contiguous pattern uploads
@@ -417,15 +443,17 @@ calls and bytes without changing the intended image.
 ### Incremental texture sampler
 
 Texture Y is initialized once and advanced incrementally for each screen row.
-The quotient and remainder are calculated once per wall column rather than
-recomputing a division per pixel. Output remains equivalent to direct integer
-mapping.
+Generated exact step/remainder tables cover every near projected height from
+17 through 144, removing sampler-initialization division. Clipping setup is
+performed only for walls extending above the viewport. Output remains
+equivalent to direct integer mapping.
 
 ### Packed texture storage
 
-The 64×64 wall texture stores two 4-bit indexed pixels per byte. Sampling uses
-an offset, parity branch, and nibble mask, halving source storage relative to an
-eight-bit indexed texture.
+The 16×16 wall texture stores two 4-bit indexed pixels per byte. Sampling uses
+an offset, parity branch, and nibble mask, then adds the side's cached palette
+base. This halves source storage relative to an eight-bit indexed texture and
+avoids a separate per-pixel palette lookup call.
 
 ### Lookup-table native bitplane packing
 
@@ -435,10 +463,11 @@ This removed the hot per-bitplane loop. Exhaustive comparison of all 256
 left/right input pairs established identical output; gameplay and visuals did
 not change.
 
-### Directional palette lookup
+### Directional palette mapping
 
-Bright and dark 16-entry colour maps replace runtime lighting arithmetic for
-X- and Y-side walls. This provides consistent side shading with bounded work.
+The generated source indices are contiguous. Adding cached palette base 2 for
+X sides or 9 for Y sides produces the same bright and dark indices without a
+per-pixel lookup table or function call.
 
 ### Compile-time profiling removal
 
@@ -644,13 +673,18 @@ combined-presentation problems without redesigning collision or rotation.
 
 ## Current project status
 
-The project builds a valid 16 KiB Game Gear ROM and has a stable optimized
-baseline verified in Emulicious and on original Sega Game Gear hardware. The
+The project builds a valid banked Game Gear ROM and has a stable optimized
+baseline previously verified in Emulicious and on original Sega Game Gear
+hardware. Bank 0 retains the hot engine core, while the low-frequency world
+interaction dispatcher is the first module migrated to Bank 1. The
 centred 28-ray viewport, optimized wall renderer, fixed-point camera,
 approximately 5.997-degree rotation, `PLAYER_MOVE_SPEED = 44`, normalized
 diagonal movement, 176/256 movement-with-turn scaling, axis-separated
 collision, wall sliding, texture rendering, dirty-column caching, and VRAM
 upload behaviour are treated as stable.
+
+The ROM banking model, module-placement rules, and future expansion strategy
+are defined in `docs/ROM_BANKING.md`.
 
 The workshop map, world/material/object boundaries, interaction ray, and two
 toggleable door instances are implemented and operational foundations. They

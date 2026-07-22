@@ -7,7 +7,7 @@
 #include "video.h"
 #include "world.h"
 
-SMS_EMBED_SEGA_ROM_HEADER_16KB(0, 0);
+SMS_EMBED_SEGA_ROM_HEADER(0, 0);
 
 void main(void)
 {

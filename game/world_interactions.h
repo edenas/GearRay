@@ -3,6 +3,6 @@
 
 #include "interaction_target.h"
 
-void world_interact(const InteractionTarget *target);
+void world_interact(const InteractionTarget *target) __banked;
 
 #endif

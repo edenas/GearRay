@@ -3,7 +3,7 @@
 #include "world.h"
 #include "world_objects.h"
 
-void world_interact(const InteractionTarget *target)
+void world_interact(const InteractionTarget *target) __banked
 {
     const WorldObject *object;
     DoorInstanceId door_instance;

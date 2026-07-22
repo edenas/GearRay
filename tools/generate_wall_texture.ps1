@@ -8,8 +8,13 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$textureSize = 64
+$textureWidth = 16
+$textureHeight = 16
+$packedRowStride = $textureWidth / 2
+$textureByteCount = $packedRowStride * $textureHeight
 $wallColorCount = 7
+$nearWallMinimumHeight = 17
+$maximumProjectedWallHeight = 144
 
 if (-not (Test-Path -LiteralPath $InputPath -PathType Leaf)) {
     throw "Wall texture PNG was not found: $InputPath"
@@ -30,16 +35,16 @@ function Convert-ToGameGearChannel {
 }
 
 try {
-    if ($bitmap.Width -ne $textureSize -or
-        $bitmap.Height -ne $textureSize) {
-        throw "Wall texture must be exactly 64x64; found $($bitmap.Width)x$($bitmap.Height)."
+    if ($bitmap.Width -ne $textureWidth -or
+        $bitmap.Height -ne $textureHeight) {
+        throw "Wall texture must be exactly ${textureWidth}x${textureHeight}; found $($bitmap.Width)x$($bitmap.Height)."
     }
 
-    $quantizedPixels = [System.Collections.Generic.List[object]]::new(4096)
+    $quantizedPixels = [System.Collections.Generic.List[object]]::new($textureWidth * $textureHeight)
     $colorCounts = @{}
 
-    for ($textureY = 0; $textureY -lt $textureSize; ++$textureY) {
-        for ($textureX = 0; $textureX -lt $textureSize; ++$textureX) {
+    for ($textureY = 0; $textureY -lt $textureHeight; ++$textureY) {
+        for ($textureX = 0; $textureX -lt $textureWidth; ++$textureX) {
             $pixel = $bitmap.GetPixel($textureX, $textureY)
             $red = Convert-ToGameGearChannel $pixel.R
             $green = Convert-ToGameGearChannel $pixel.G
@@ -73,10 +78,6 @@ $colorRecords = @(
             }
         }
 )
-
-if ($colorRecords.Count -lt $wallColorCount) {
-    throw "Wall texture has fewer than $wallColorCount colors after Game Gear RGB conversion."
-}
 
 $palette = [System.Collections.Generic.List[object]]::new($wallColorCount)
 $neutralTargets = @(1, 4, 8, 12)
@@ -112,7 +113,7 @@ $palette.Add([pscustomobject]@{ R = $blue.R; G = $blue.G; B = $blue.B })
 $palette.Add([pscustomobject]@{ R = $warm.R; G = $warm.G; B = $warm.B })
 $palette.Add([pscustomobject]@{ R = $green.R; G = $green.G; B = $green.B })
 
-$indexedPixels = [System.Collections.Generic.List[byte]]::new(4096)
+$indexedPixels = [System.Collections.Generic.List[byte]]::new($textureWidth * $textureHeight)
 foreach ($packedPixel in $quantizedPixels) {
     $red = $packedPixel -band 15
     $green = ($packedPixel -shr 4) -band 15
@@ -137,10 +138,24 @@ foreach ($packedPixel in $quantizedPixels) {
     $indexedPixels.Add($bestIndex)
 }
 
-$textureBytes = [System.Collections.Generic.List[byte]]::new(2048)
+$textureBytes = [System.Collections.Generic.List[byte]]::new($textureByteCount)
 for ($index = 0; $index -lt $indexedPixels.Count; $index += 2) {
     $textureBytes.Add(($indexedPixels[$index] -shl 4) -bor
                       $indexedPixels[$index + 1])
+}
+
+$textureSteps = [System.Collections.Generic.List[int]]::new(
+    $maximumProjectedWallHeight - $nearWallMinimumHeight + 1)
+$textureStepRemainders = [System.Collections.Generic.List[byte]]::new(
+    $maximumProjectedWallHeight - $nearWallMinimumHeight + 1)
+for ($projectedHeight = $nearWallMinimumHeight;
+     $projectedHeight -le $maximumProjectedWallHeight;
+     ++$projectedHeight) {
+    $textureStep = [Math]::Floor(
+        ($textureHeight * 256) / $projectedHeight)
+    $textureSteps.Add($textureStep)
+    $textureStepRemainders.Add(
+        $textureHeight * 256 - $textureStep * $projectedHeight)
 }
 
 $paletteColors = [System.Collections.Generic.List[int]]::new(14)
@@ -161,14 +176,20 @@ $headerText = @"
 #ifndef GEAR_RAY_GENERATED_WALL_TEXTURE_H
 #define GEAR_RAY_GENERATED_WALL_TEXTURE_H
 
+#define WALL_TEXTURE_WIDTH $textureWidth
+#define WALL_TEXTURE_HEIGHT $textureHeight
+#define WALL_TEXTURE_PACKED_ROW_STRIDE $packedRowStride
+#define WALL_TEXTURE_PACKED_ROW_SHIFT 3
 #define WALL_TEXTURE_COLOR_COUNT 7
-#define WALL_TEXTURE_BYTE_COUNT 2048
+#define WALL_TEXTURE_BYTE_COUNT $textureByteCount
+#define WALL_TEXTURE_SAMPLER_MINIMUM_HEIGHT $nearWallMinimumHeight
+#define WALL_TEXTURE_SAMPLER_HEIGHT_COUNT $($maximumProjectedWallHeight - $nearWallMinimumHeight + 1)
 #define WALL_PALETTE_COLOR_COUNT 14
 
 extern const unsigned char wall_texture[WALL_TEXTURE_BYTE_COUNT];
+extern const unsigned int wall_texture_steps[WALL_TEXTURE_SAMPLER_HEIGHT_COUNT];
+extern const unsigned char wall_texture_step_remainders[WALL_TEXTURE_SAMPLER_HEIGHT_COUNT];
 extern const unsigned int wall_palette_colors[WALL_PALETTE_COLOR_COUNT];
-extern const unsigned char wall_bright_color_map[WALL_TEXTURE_COLOR_COUNT];
-extern const unsigned char wall_dark_color_map[WALL_TEXTURE_COLOR_COUNT];
 
 #endif
 "@
@@ -188,16 +209,30 @@ for ($offset = 0; $offset -lt $textureBytes.Count; $offset += 8) {
 }
 $sourceLines.Add('};')
 $sourceLines.Add('')
+$sourceLines.Add('const unsigned int wall_texture_steps[WALL_TEXTURE_SAMPLER_HEIGHT_COUNT] = {')
+for ($offset = 0; $offset -lt $textureSteps.Count; $offset += 8) {
+    $values = @()
+    for ($index = 0; $index -lt 8; ++$index) {
+        $values += ('0x{0:x4}' -f $textureSteps[$offset + $index])
+    }
+    $suffix = if ($offset + 8 -eq $textureSteps.Count) { '' } else { ',' }
+    $sourceLines.Add('    ' + ($values -join ', ') + $suffix)
+}
+$sourceLines.Add('};')
+$sourceLines.Add('')
+$sourceLines.Add('const unsigned char wall_texture_step_remainders[WALL_TEXTURE_SAMPLER_HEIGHT_COUNT] = {')
+for ($offset = 0; $offset -lt $textureStepRemainders.Count; $offset += 8) {
+    $values = @()
+    for ($index = 0; $index -lt 8; ++$index) {
+        $values += ('0x{0:x2}' -f $textureStepRemainders[$offset + $index])
+    }
+    $suffix = if ($offset + 8 -eq $textureStepRemainders.Count) { '' } else { ',' }
+    $sourceLines.Add('    ' + ($values -join ', ') + $suffix)
+}
+$sourceLines.Add('};')
+$sourceLines.Add('')
 $sourceLines.Add('const unsigned int wall_palette_colors[WALL_PALETTE_COLOR_COUNT] = {')
 $sourceLines.Add('    ' + (($paletteColors | ForEach-Object { '0x{0:x3}' -f $_ }) -join ', '))
-$sourceLines.Add('};')
-$sourceLines.Add('')
-$sourceLines.Add('const unsigned char wall_bright_color_map[WALL_TEXTURE_COLOR_COUNT] = {')
-$sourceLines.Add('    2, 3, 4, 5, 6, 7, 8')
-$sourceLines.Add('};')
-$sourceLines.Add('')
-$sourceLines.Add('const unsigned char wall_dark_color_map[WALL_TEXTURE_COLOR_COUNT] = {')
-$sourceLines.Add('    9, 10, 11, 12, 13, 14, 15')
 $sourceLines.Add('};')
 
 $utf8WithoutBom = [System.Text.UTF8Encoding]::new($false)

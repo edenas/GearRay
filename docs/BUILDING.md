@@ -2,10 +2,8 @@
 
 GearRay uses CMake as the main build system.
 
-This build foundation is intentionally small. It checks that CMake can
-configure the project, verifies the local Game Gear toolchain paths, and exposes
-placeholder targets for the pieces that will exist later. It does not compile
-Game Gear code and it does not generate a ROM.
+The build drives SDCC and devkitSMS explicitly and packages a banked Game Gear
+ROM with `makesms`.
 
 ## Requirements
 
@@ -17,8 +15,6 @@ Game Gear code and it does not generate a ROM.
 - devkitSMS installed at `D:\Tools\devkitSMS`.
 - `makesms.exe` at
   `D:\Tools\devkitSMS\makesms\Windows\makesms.exe`.
-- `ihx2sms.exe` at
-  `D:\Tools\devkitSMS\ihx2sms\Windows\ihx2sms.exe`.
 
 CMake stops with a clear error if any of these tools or paths are missing.
 
@@ -30,22 +26,27 @@ On Windows, run:
 build.bat
 ```
 
-The batch file simply runs:
+This always configures `build` with renderer profiling disabled and generates:
 
 ```bat
-cmake -S . -B build
-cmake --build build
+rom\GearRay.gg
 ```
 
-Keeping the batch file this small makes CMake the source of truth while still
-giving beginners a familiar command to type.
+For the renderer-profiler build, run:
+
+```bat
+build-profile.bat
+```
+
+This uses the independent `build-profile` directory, enables
+`GEARRAY_PROFILE_RENDERER`, and generates `rom\GearRay-profile.gg`. It never
+writes the release ROM.
 
 During configuration, CMake prints the detected locations for:
 
 - SDCC
 - devkitSMS
 - `makesms.exe`
-- `ihx2sms.exe`
 
 ## CMake Targets
 
@@ -56,30 +57,18 @@ target is part of the default build.
 
 `gear_ray_engine`
 
-Placeholder for reusable raycasting engine code. This target does not compile
-anything yet because the Game Gear toolchain has not been selected.
+Dependency target for reusable raycasting engine code.
 
 `gear_ray_game`
 
-Placeholder for the sample game layer. It depends on `gear_ray_engine` to show
-the intended build order.
+Builds and packages the Game Gear game. It depends on `gear_ray_engine`.
 
 ## ROM Packaging
 
-ROM generation is deliberately not implemented yet. The build detects
-`ihx2sms.exe`, but it does not call it and does not produce a `.sms` or `.gg`
-file.
-
-The CMake option `GEAR_RAY_ENABLE_ROM_PACKAGING` exists only as a documented
-future hook. Turning it on currently stops with an error so nobody accidentally
-assumes ROM packaging is active.
-
-## Next Build Steps
-
-1. Convert `gear_ray_engine` from a placeholder into a real library target.
-2. Convert `gear_ray_game` from a placeholder into a real game target.
-3. Add asset conversion steps after the source asset formats are chosen.
-4. Add ROM packaging only after the required converter behavior is implemented.
+`GEAR_RAY_ROM_FILENAME` selects the packaged filename and defaults safely to
+`GearRay.gg`. The two checked-in batch files always pass both the profiling
+option and filename explicitly, preventing an old CMake cache or another build
+directory from changing the requested configuration.
 
 ## Troubleshooting
 

@@ -14,7 +14,8 @@ typedef struct
     signed int wall_top;
     signed int wall_bottom;
     unsigned char projected_wall_height;
-    unsigned char texture_x_and_side;
+    unsigned char texture_byte_x_and_nibble;
+    unsigned char palette_base;
 } GameGearWallTextureSampler;
 
 void game_gear_wall_texture_sampler_initialize(
@@ -24,7 +25,7 @@ void game_gear_wall_texture_sampler_initialize(
     unsigned char projected_wall_height,
     signed int wall_top,
     unsigned char first_screen_y);
-unsigned char game_gear_wall_texture_sample_next(
+unsigned char game_gear_wall_texture_palette_sample_next(
     GameGearWallTextureSampler *sampler,
     unsigned char screen_y);
 void game_gear_render_textures_load(void);

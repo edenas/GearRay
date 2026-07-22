@@ -7,7 +7,6 @@ typedef struct
 {
     unsigned int rays_cast;
     unsigned int dda_iterations;
-    unsigned int wall_columns_rendered;
     unsigned int dirty_columns_rendered;
     unsigned int active_tile_columns_uploaded;
     unsigned int texture_samples;
@@ -15,13 +14,15 @@ typedef struct
     unsigned int vram_bytes_uploaded;
     unsigned int sampler_calls;
     unsigned int palette_lookups;
-    unsigned int tile_builder_calls;
+    unsigned char near_wall_halves_rendered;
+    unsigned char far_wall_halves_rendered;
+    unsigned int texture_samples_avoided;
 } GameGearRendererProfile;
 
 extern GameGearRendererProfile game_gear_renderer_profile;
 
-void game_gear_renderer_profile_begin_frame(void);
-void game_gear_renderer_profile_end_frame(void);
+void game_gear_renderer_profile_begin_frame(void) __banked;
+void game_gear_renderer_profile_end_frame(void) __banked;
 
 #define GEAR_RAY_PROFILE_INCREMENT(counter) \
     (++game_gear_renderer_profile.counter)

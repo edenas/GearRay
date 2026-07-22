@@ -38,7 +38,7 @@ static void profile_print(unsigned char x,
     SMS_printatXY(x, y, text);
 }
 
-void game_gear_renderer_profile_begin_frame(void)
+void game_gear_renderer_profile_begin_frame(void) __banked
 {
     unsigned char *counter = (unsigned char *)&game_gear_renderer_profile;
     unsigned char byte_index;
@@ -51,7 +51,7 @@ void game_gear_renderer_profile_begin_frame(void)
     }
 }
 
-void game_gear_renderer_profile_end_frame(void)
+void game_gear_renderer_profile_end_frame(void) __banked
 {
     ++profile_frame_count;
     if (profile_frame_count < PROFILE_REPORT_INTERVAL)
@@ -60,7 +60,9 @@ void game_gear_renderer_profile_end_frame(void)
     profile_frame_count = 0;
     profile_print(6, 0, "RAYS", game_gear_renderer_profile.rays_cast);
     profile_print(16, 0, "DDAI", game_gear_renderer_profile.dda_iterations);
-    profile_print(6, 1, "WCOL", game_gear_renderer_profile.wall_columns_rendered);
+    profile_print(6, 1, "WCOL",
+                  game_gear_renderer_profile.near_wall_halves_rendered
+                  + game_gear_renderer_profile.far_wall_halves_rendered);
     profile_print(16, 1, "DIRT", game_gear_renderer_profile.dirty_columns_rendered);
     profile_print(6, 2, "ATIL", game_gear_renderer_profile.active_tile_columns_uploaded);
     profile_print(16, 2, "TSMP", game_gear_renderer_profile.texture_samples);
@@ -68,7 +70,9 @@ void game_gear_renderer_profile_end_frame(void)
     profile_print(16, 3, "VBYT", game_gear_renderer_profile.vram_bytes_uploaded);
     profile_print(6, 4, "SAMP", game_gear_renderer_profile.sampler_calls);
     profile_print(16, 4, "PALT", game_gear_renderer_profile.palette_lookups);
-    profile_print(6, 5, "TBLD", game_gear_renderer_profile.tile_builder_calls);
+    profile_print(6, 5, "NWAL", game_gear_renderer_profile.near_wall_halves_rendered);
+    profile_print(16, 5, "FWAL", game_gear_renderer_profile.far_wall_halves_rendered);
+    profile_print(6, 6, "TAVD", game_gear_renderer_profile.texture_samples_avoided);
 }
 
 #endif

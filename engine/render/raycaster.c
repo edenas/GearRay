@@ -5,20 +5,11 @@
 
 #define WALL_HEIGHT_SCALE 16384
 #define GAME_GEAR_SCREEN_HEIGHT 144
-#define RAY_COUNT 28
+#define RAY_COUNT RAYCASTER_RAY_COUNT
 #define FIXED_POINT_SCALE 256
 #define DDA_INFINITY 0xffffffffUL
 #define DDA_RECIPROCAL_MAX_MAGNITUDE 512
 #define CAMERA_PLANE_RANGE 512
-
-typedef struct
-{
-    unsigned char wall_height;
-    WallSide hit_side;
-    unsigned char hit_offset;
-    unsigned char hit_tile;
-    unsigned char texture_id;
-} RaycasterRay;
 
 /*
  * Exact Q8.8 DDA reciprocals for camera ray magnitudes 1..512.
@@ -128,15 +119,14 @@ static unsigned long dda_get_side_distance(unsigned int boundary_distance,
     return ((unsigned long)boundary_distance * reciprocal) >> 8;
 }
 
-static unsigned char hit_x;
-static unsigned char hit_y;
-static WallSide hit_side;
-static unsigned char hit_offset;
-static unsigned char hit_tile;
-static unsigned char hit_texture_id;
-static unsigned int hit_distance;
-static unsigned char wall_height;
 static RaycasterRay rendered_rays[RAY_COUNT];
+static signed int ray_direction_x_by_ray[RAY_COUNT];
+static signed int ray_direction_y_by_ray[RAY_COUNT];
+static signed int cached_camera_direction_x;
+static signed int cached_camera_direction_y;
+static signed int cached_camera_plane_x;
+static signed int cached_camera_plane_y;
+static unsigned char ray_directions_valid;
 
 static unsigned char raycaster_calculate_hit_offset(
     signed int position,
@@ -305,14 +295,7 @@ void raycaster_initialize(void)
 {
     unsigned char ray_index;
 
-    hit_x = 0;
-    hit_y = 0;
-    hit_side = WALL_SIDE_X;
-    hit_offset = 0;
-    hit_tile = WORLD_TILE_STONE;
-    hit_texture_id = WORLD_TILE_STONE;
-    hit_distance = 0;
-    wall_height = 1;
+    ray_directions_valid = 0;
 
     for (ray_index = 0; ray_index < RAY_COUNT; ++ray_index)
     {
@@ -330,32 +313,46 @@ void raycaster_update(void)
     unsigned char ray_hit_x;
     unsigned char ray_hit_y;
     unsigned int ray_hit_distance;
-    signed int camera_x;
     signed int camera_direction_x;
     signed int camera_direction_y;
     signed int camera_plane_x;
     signed int camera_plane_y;
-    signed int ray_direction_x;
-    signed int ray_direction_y;
 
     camera_direction_x = camera_get_direction_x();
     camera_direction_y = camera_get_direction_y();
     camera_plane_x = camera_get_plane_x();
     camera_plane_y = camera_get_plane_y();
 
+    if (!ray_directions_valid
+        || camera_direction_x != cached_camera_direction_x
+        || camera_direction_y != cached_camera_direction_y
+        || camera_plane_x != cached_camera_plane_x
+        || camera_plane_y != cached_camera_plane_y)
+    {
+        for (ray_index = 0; ray_index < RAY_COUNT; ++ray_index)
+        {
+            signed int camera_x = camera_x_by_ray[ray_index];
+
+            ray_direction_x_by_ray[ray_index] = camera_direction_x
+                + (signed int)(((signed long)camera_plane_x * camera_x)
+                               / FIXED_POINT_SCALE);
+            ray_direction_y_by_ray[ray_index] = camera_direction_y
+                + (signed int)(((signed long)camera_plane_y * camera_x)
+                               / FIXED_POINT_SCALE);
+        }
+
+        cached_camera_direction_x = camera_direction_x;
+        cached_camera_direction_y = camera_direction_y;
+        cached_camera_plane_x = camera_plane_x;
+        cached_camera_plane_y = camera_plane_y;
+        ray_directions_valid = 1;
+    }
+
     for (ray_index = 0; ray_index < RAY_COUNT; ++ray_index)
     {
-        camera_x = camera_x_by_ray[ray_index];
-        ray_direction_x = camera_direction_x
-                        + (signed int)(((signed long)camera_plane_x
-                                      * camera_x) / FIXED_POINT_SCALE);
-        ray_direction_y = camera_direction_y
-                        + (signed int)(((signed long)camera_plane_y
-                                      * camera_x) / FIXED_POINT_SCALE);
-
         rendered_rays[ray_index].wall_height = cast_ray(
-            ray_direction_x,
-            ray_direction_y,
+            ray_direction_x_by_ray[ray_index],
+            ray_direction_y_by_ray[ray_index],
             &ray_hit_x,
             &ray_hit_y,
             &rendered_rays[ray_index].hit_side,
@@ -366,82 +363,7 @@ void raycaster_update(void)
     }
 }
 
-unsigned char raycaster_get_hit_x(void)
+const RaycasterRay *raycaster_get_rendered_rays(void)
 {
-    return hit_x;
-}
-
-unsigned char raycaster_get_hit_y(void)
-{
-    return hit_y;
-}
-
-WallSide raycaster_get_hit_side(void)
-{
-    return hit_side;
-}
-
-unsigned char raycaster_get_hit_offset(void)
-{
-    return hit_offset;
-}
-
-unsigned char raycaster_get_hit_tile(void)
-{
-    return hit_tile;
-}
-
-unsigned int raycaster_get_hit_distance(void)
-{
-    return hit_distance;
-}
-
-unsigned char raycaster_get_wall_height(void)
-{
-    return wall_height;
-}
-
-unsigned char raycaster_get_ray_count(void)
-{
-    return RAY_COUNT;
-}
-
-unsigned char raycaster_get_wall_height_for_ray(unsigned char ray_index)
-{
-    if (ray_index >= RAY_COUNT)
-        return 0;
-
-    return rendered_rays[ray_index].wall_height;
-}
-
-WallSide raycaster_get_hit_side_for_ray(unsigned char ray_index)
-{
-    if (ray_index >= RAY_COUNT)
-        return WALL_SIDE_X;
-
-    return rendered_rays[ray_index].hit_side;
-}
-
-unsigned char raycaster_get_hit_offset_for_ray(unsigned char ray_index)
-{
-    if (ray_index >= RAY_COUNT)
-        return 0;
-
-    return rendered_rays[ray_index].hit_offset;
-}
-
-unsigned char raycaster_get_hit_tile_for_ray(unsigned char ray_index)
-{
-    if (ray_index >= RAY_COUNT)
-        return WORLD_TILE_STONE;
-
-    return rendered_rays[ray_index].hit_tile;
-}
-
-unsigned char raycaster_get_texture_id_for_ray(unsigned char ray_index)
-{
-    if (ray_index >= RAY_COUNT)
-        return WORLD_TILE_STONE;
-
-    return rendered_rays[ray_index].texture_id;
+    return rendered_rays;
 }

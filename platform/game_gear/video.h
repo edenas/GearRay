@@ -37,11 +37,6 @@
     ((GAME_GEAR_VIEWPORT_BOTTOM + 1) / GAME_GEAR_TILE_SIZE)
 
 void game_gear_video_initialize(void);
-void game_gear_video_draw_title(void);
-void game_gear_video_draw_input_status(const unsigned char *status_text);
-void game_gear_video_draw_ray_hit(unsigned char hit_x, unsigned char hit_y);
-void game_gear_video_draw_camera_direction(signed int direction_x,
-                                           signed int direction_y);
 void game_gear_video_draw_wall_columns(void);
 #if GEARRAY_DEBUG_VIEWPORT_BORDER
 void game_gear_video_draw_viewport_border(void);

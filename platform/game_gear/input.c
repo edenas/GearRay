@@ -51,21 +51,3 @@ unsigned char game_gear_input_is_rotate_right_held(void)
 {
     return (keys & PORT_A_KEY_2) != 0;
 }
-
-const unsigned char *game_gear_input_get_status_text(void)
-{
-    if (keys & PORT_A_KEY_UP)
-        return "Input: up      ";
-    if (keys & PORT_A_KEY_DOWN)
-        return "Input: down    ";
-    if (keys & PORT_A_KEY_LEFT)
-        return "Input: left    ";
-    if (keys & PORT_A_KEY_RIGHT)
-        return "Input: right   ";
-    if (keys & PORT_A_KEY_1)
-        return "Input: button 1";
-    if (keys & PORT_A_KEY_2)
-        return "Input: button 2";
-
-    return "Input: idle    ";
-}

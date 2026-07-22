@@ -1,6 +1,7 @@
 # Local build output
 /build/*
 !/build/.gitkeep
+/build-profile/*
 
 # CMake generated files
 CMakeCache.txt
