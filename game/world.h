@@ -4,7 +4,6 @@
 #include "door_instances.h"
 #include "door_states.h"
 #include "workshop_map.h"
-#include "world_materials.h"
 #include "world_object.h"
 
 #define WORLD_WIDTH WORKSHOP_MAP_WIDTH

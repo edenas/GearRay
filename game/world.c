@@ -25,15 +25,18 @@ unsigned char world_get_spawn_y(void)
 
 unsigned char world_get_texture(unsigned char tile_id)
 {
-    if (tile_id == WORLD_TILE_DOOR)
-        return WORLD_TILE_DOOR;
+    if (tile_id > WORLD_TILE_DOOR)
+        return WORLD_TILE_STONE;
 
-    return world_material_get_texture(world_get_material(tile_id));
+    return tile_id;
 }
 
 unsigned char world_get_object(unsigned char tile_id)
 {
-    return world_material_get_object(world_get_material(tile_id));
+    if (tile_id == WORLD_TILE_DOOR)
+        return WORLD_OBJECT_DOOR;
+
+    return WORLD_OBJECT_NONE;
 }
 
 unsigned char world_is_wall(unsigned char x, unsigned char y)

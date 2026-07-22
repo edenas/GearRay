@@ -3,12 +3,7 @@
 
 void player_initialize(void);
 void player_move_combined(signed char forward_direction,
-                          signed char strafe_direction,
-                          unsigned char rotation_active);
-void player_move_forward(void);
-void player_move_backward(void);
-void player_strafe_left(void);
-void player_strafe_right(void);
+                          signed char strafe_direction);
 void player_process_interaction(void);
 signed int player_get_position_x(void);
 signed int player_get_position_y(void);

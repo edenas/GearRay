@@ -1,6 +1,5 @@
 #include "render_textures.h"
 #include "renderer_profile.h"
-#include "texture_loader.h"
 #include "wall_textures.h"
 #include "wall_texture.h"
 
@@ -99,9 +98,4 @@ unsigned char game_gear_wall_texture_palette_sample_next(
     GEAR_RAY_PROFILE_INCREMENT(texture_samples);
     GEAR_RAY_PROFILE_INCREMENT(palette_lookups);
     return (indexed_color & 15) + sampler->palette_base;
-}
-
-void game_gear_render_textures_load(void)
-{
-    game_gear_load_textures();
 }

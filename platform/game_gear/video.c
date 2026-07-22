@@ -16,9 +16,11 @@
 #define WALL_COLUMN_VALID_FLAG 0x80
 #define WALL_COLUMN_LEFT_SIDE_Y_FLAG 0x01
 #define WALL_COLUMN_RIGHT_SIDE_Y_FLAG 0x02
-#define FAR_WALL_MAX_PROJECTED_HEIGHT 16
-#define FAR_WALL_X_PALETTE_INDEX 2
-#define FAR_WALL_Y_PALETTE_INDEX 9
+#define DISTANT_WALL_MAX_PROJECTED_HEIGHT 16
+#define VERY_DISTANT_WALL_MAX_PROJECTED_HEIGHT 8
+#define DISTANT_WALL_X_PALETTE_INDEX 2
+#define DISTANT_WALL_Y_PALETTE_INDEX 9
+#define VERY_DISTANT_WALL_PALETTE_INDEX 9
 
 #if GEARRAY_DEBUG_VIEWPORT_BORDER
 #define DEBUG_BORDER_HORIZONTAL_TILE_INDEX 97
@@ -80,7 +82,7 @@ static const unsigned char right_palette_bitplanes[16][4] = {
 };
 
 static unsigned char game_gear_wall_column_is_unchanged(
-    unsigned char tile_column,
+    const GameGearWallColumnSignature *previous,
     unsigned char left_wall_height,
     unsigned char right_wall_height,
     unsigned char left_hit_offset,
@@ -88,8 +90,6 @@ static unsigned char game_gear_wall_column_is_unchanged(
     WallSide left_wall_side,
     WallSide right_wall_side)
 {
-    GameGearWallColumnSignature *previous =
-        &previous_wall_columns[tile_column];
     unsigned char side_flags = 0;
 
     if ((previous->side_and_valid_flags & WALL_COLUMN_VALID_FLAG) == 0)
@@ -111,7 +111,7 @@ static unsigned char game_gear_wall_column_is_unchanged(
 }
 
 static void game_gear_store_wall_column_signature(
-    unsigned char tile_column,
+    GameGearWallColumnSignature *previous,
     unsigned char left_wall_height,
     unsigned char right_wall_height,
     unsigned char left_hit_offset,
@@ -119,8 +119,6 @@ static void game_gear_store_wall_column_signature(
     WallSide left_wall_side,
     WallSide right_wall_side)
 {
-    GameGearWallColumnSignature *previous =
-        &previous_wall_columns[tile_column];
     unsigned char side_and_valid_flags = WALL_COLUMN_VALID_FLAG;
 
     previous->left_wall_height = left_wall_height;
@@ -139,13 +137,13 @@ static void game_gear_store_wall_column_signature(
 static void game_gear_build_native_wall_tile(
     unsigned char *destination,
     GameGearWallTextureSampler *left_sampler,
-    WallSide left_wall_side,
     unsigned char left_wall_is_far,
+    unsigned char left_flat_palette_index,
     signed int left_wall_top,
     unsigned char left_wall_height,
     GameGearWallTextureSampler *right_sampler,
-    WallSide right_wall_side,
     unsigned char right_wall_is_far,
+    unsigned char right_flat_palette_index,
     signed int right_wall_top,
     unsigned char right_wall_height,
     unsigned char tile_pixel_y)
@@ -194,9 +192,7 @@ static void game_gear_build_native_wall_tile(
             if (screen_y >= left_wall_top
                 && screen_y < left_wall_top + left_wall_height)
             {
-                left_palette_index = left_wall_side == WALL_SIDE_X
-                    ? FAR_WALL_X_PALETTE_INDEX
-                    : FAR_WALL_Y_PALETTE_INDEX;
+                left_palette_index = left_flat_palette_index;
             }
         }
         else
@@ -212,9 +208,7 @@ static void game_gear_build_native_wall_tile(
             if (screen_y >= right_wall_top
                 && screen_y < right_wall_top + right_wall_height)
             {
-                right_palette_index = right_wall_side == WALL_SIDE_X
-                    ? FAR_WALL_X_PALETTE_INDEX
-                    : FAR_WALL_Y_PALETTE_INDEX;
+                right_palette_index = right_flat_palette_index;
             }
         }
         else
@@ -322,7 +316,6 @@ void game_gear_video_initialize(void)
             GAME_GEAR_WALL_PALETTE_BASE + wall_palette_offset,
             game_gear_get_wall_palette_color(wall_palette_offset));
     }
-    game_gear_render_textures_load();
     SMS_load1bppTiles(ceiling_tile,
                       CEILING_TILE_INDEX,
                       sizeof(ceiling_tile),
@@ -375,7 +368,8 @@ void game_gear_video_draw_wall_columns(void)
     unsigned char right_wall_is_far;
     unsigned char desired_state;
     unsigned int desired_tile;
-    unsigned char *tile_states;
+    unsigned char *tile_states = viewport_tile_states;
+    GameGearWallColumnSignature *previous_wall_column = previous_wall_columns;
     signed int left_wall_top;
     signed int right_wall_top;
     unsigned char first_screen_y;
@@ -386,11 +380,12 @@ void game_gear_video_draw_wall_columns(void)
 
     for (tile_column = 0;
          tile_column < GAME_GEAR_VIEWPORT_TILE_COLUMNS;
-         ++tile_column, left_ray += 2)
+         ++tile_column,
+         left_ray += 2,
+         ++previous_wall_column,
+         tile_states += GAME_GEAR_VIEWPORT_TILE_ROWS)
     {
         right_ray = left_ray + 1;
-        tile_states = &viewport_tile_states[
-            (unsigned int)tile_column * GAME_GEAR_VIEWPORT_TILE_ROWS];
 
         left_wall_height = left_ray->wall_height;
         right_wall_height = right_ray->wall_height;
@@ -399,7 +394,7 @@ void game_gear_video_draw_wall_columns(void)
         left_wall_side = left_ray->hit_side;
         right_wall_side = right_ray->hit_side;
 
-        if (game_gear_wall_column_is_unchanged(tile_column,
+        if (game_gear_wall_column_is_unchanged(previous_wall_column,
                                                left_wall_height,
                                                right_wall_height,
                                                left_hit_offset,
@@ -428,14 +423,20 @@ void game_gear_video_draw_wall_columns(void)
         {
             first_screen_y = first_active_row * 8;
             left_wall_is_far =
-                left_wall_height <= FAR_WALL_MAX_PROJECTED_HEIGHT;
+                left_wall_height <= DISTANT_WALL_MAX_PROJECTED_HEIGHT;
             right_wall_is_far =
-                right_wall_height <= FAR_WALL_MAX_PROJECTED_HEIGHT;
+                right_wall_height <= DISTANT_WALL_MAX_PROJECTED_HEIGHT;
             GEAR_RAY_PROFILE_ADD(far_wall_halves_rendered,
                                  left_wall_is_far + right_wall_is_far);
 
             if (left_wall_is_far)
             {
+                if (left_wall_height <= VERY_DISTANT_WALL_MAX_PROJECTED_HEIGHT)
+                    left_wall_side |= VERY_DISTANT_WALL_PALETTE_INDEX;
+                else
+                    left_wall_side = left_wall_side == WALL_SIDE_X
+                        ? DISTANT_WALL_X_PALETTE_INDEX
+                        : DISTANT_WALL_Y_PALETTE_INDEX;
                 GEAR_RAY_PROFILE_ADD(texture_samples_avoided,
                                      left_wall_height);
             }
@@ -452,6 +453,12 @@ void game_gear_video_draw_wall_columns(void)
 
             if (right_wall_is_far)
             {
+                if (right_wall_height <= VERY_DISTANT_WALL_MAX_PROJECTED_HEIGHT)
+                    right_wall_side |= VERY_DISTANT_WALL_PALETTE_INDEX;
+                else
+                    right_wall_side = right_wall_side == WALL_SIDE_X
+                        ? DISTANT_WALL_X_PALETTE_INDEX
+                        : DISTANT_WALL_Y_PALETTE_INDEX;
                 GEAR_RAY_PROFILE_ADD(texture_samples_avoided,
                                      right_wall_height);
             }
@@ -474,13 +481,13 @@ void game_gear_video_draw_wall_columns(void)
                     &projected_wall_column[
                         (row - first_active_row) * NATIVE_TILE_BYTES],
                     &left_sampler,
-                    left_wall_side,
                     left_wall_is_far,
+                    left_wall_side,
                     left_wall_top,
                     left_wall_height,
                     &right_sampler,
-                    right_wall_side,
                     right_wall_is_far,
+                    right_wall_side,
                     right_wall_top,
                     right_wall_height,
                     row * 8);
@@ -536,7 +543,7 @@ void game_gear_video_draw_wall_columns(void)
             tile_states[row] = desired_state;
         }
 
-        game_gear_store_wall_column_signature(tile_column,
+        game_gear_store_wall_column_signature(previous_wall_column,
                                               left_wall_height,
                                               right_wall_height,
                                               left_hit_offset,

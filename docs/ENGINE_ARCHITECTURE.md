@@ -26,22 +26,22 @@ or collision algorithms.
 ### Input
 
 `platform/game_gear/input.c` owns the current and previous controller bitmasks.
-It reads `SMS_getKeysStatus()` once per processed frame and exposes semantic
-queries. D-pad up/down are forward/backward, D-pad left/right are strafe, Game
-Gear buttons 1/2 rotate, and Start interacts. Movement and rotation queries are
-held-state queries; interaction is edge-triggered.
+It reads `SMS_getKeysStatus()` once per processed frame and exposes one semantic
+held-direction mask. D-pad up/down are forward/backward, D-pad left/right are
+strafe, Game Gear buttons 1/2 rotate, and Start interacts. Opposing held bits
+accumulate to zero; interaction is edge-triggered.
 
 ### Player
 
 `game/player.c` owns the authoritative player position in Q8.8 world
 coordinates. It composes forward and strafe intent from the camera basis,
-applies movement scaling, performs collision, and starts interaction checks.
+applies diagonal normalization, performs collision, and starts interaction checks.
 The player does not own viewing direction.
 
 ### Camera
 
 `game/camera.c` owns camera position, direction, and projection-plane vectors.
-The player position is copied to the camera once per frame. Rotation updates
+The player position is copied to the camera after movement. Rotation updates
 the direction, normalizes it, and reconstructs the perpendicular camera plane.
 The camera does not perform movement or collision.
 
@@ -52,10 +52,10 @@ objects, and solidity. The current `workshop_map` is a 17×13 permanent engine
 laboratory with a spawn at tile (8, 6). Out-of-range world queries resolve to a
 solid stone tile.
 
-`world_materials.c` maps tile IDs to texture IDs, solidity, and object IDs.
-`world_objects.c` describes object-level interactivity. Door instances and
-their mutable open/closed states are kept separately in `door_instances.c` and
-`door_states.c`.
+`world.c` maps the five current tile IDs directly to texture and object IDs;
+invalid texture IDs fall back to stone. `world_objects.c` describes object-level
+interactivity. Door instances and their mutable open/closed states are kept
+separately in `door_instances.c` and `door_states.c`.
 
 ### Raycaster
 
@@ -76,20 +76,20 @@ changes tilemap cells when their ceiling/wall/floor state changes.
 colours to bright X-side or dark Y-side palette entries. `video.c` packs those
 palette indices directly into four Game Gear bitplanes.
 
-Projected wall halves at 16 pixels or less use a conservative distant-wall
-LOD in `video.c`. Each ray in a native tile-column classifies independently.
-Near halves retain the full sampler and shading path; far halves preserve the
-silhouette but pack flat palette index 2 for X sides or 9 for darker Y sides
-without initializing or reading the texture sampler. Cached projected heights
-already invalidate a column when either half crosses the 16/17-pixel boundary,
-so the dirty signature needs no LOD flags.
+Projected height selects one of three conservative wall levels in `video.c`.
+Heights above 16 retain the full sampler and directional shading. Heights 9
+through 16 preserve the original flat palette index 2 for X sides or 9 for Y
+sides. Heights 8 and below use shared fog index 9. Each ray in a native
+tile-column classifies independently, and both flat
+levels avoid sampler initialization and texture reads. Cached projected heights
+already invalidate a column at the 8/9 and 16/17 boundaries, so the dirty
+signature needs no LOD flags.
 
-The raycaster records a texture ID for every ray, and material/tile-layout
-support exists in `wall_materials.c`, `texture_shading.c`, and `vram_layout.h`.
-The current native wall-column drawing path does not select those material tile
-bases; it samples the single generated `wall_texture` and shades by hit side.
-This distinction must be preserved in documentation until material selection
-is connected to the active renderer.
+The raycaster records a texture ID for every ray. The native wall-column path
+currently samples the single generated `wall_texture` and shades by hit side.
+Obsolete pre-native shaded-tile and wall-material modules were removed in the
+Sprint 23 audit; multi-material rendering must be designed against this active
+path rather than restored as unused compatibility code.
 
 ### Interaction ray and world interactions
 
@@ -132,31 +132,23 @@ After one-time video, input, world, player, camera, and raycaster
 initialization, every processed frame runs in this exact order:
 
 1. Input copies the current key mask to `previous_keys` and reads a new mask.
-2. The loop resolves forward/backward intent. Forward has precedence if both
-   opposing inputs are reported.
-3. It resolves left/right strafe intent. Left has precedence if both are
-   reported.
-4. It resolves left/right rotation intent. Rotate-left has precedence if both
-   are reported.
-5. If movement is active, the player composes its final translation. Existing
-   177/256 diagonal normalization runs first; hardware-tested 176/256
-   movement-with-turn scaling runs second when rotation is also active.
-6. The player performs one axis-separated collision operation and updates its
-   authoritative position.
-7. The camera applies the resolved rotation exactly once. Movement therefore
-   uses the camera basis from the beginning of the frame, while rendering uses
-   the direction after that frame's approximately 5.997-degree rotation. Left
-   and right use equal sine magnitudes with opposite signs.
-8. An interaction edge, if present, casts the interaction ray using the player
+2. Forward/backward, strafe-left/right, and rotate-left/right inputs accumulate
+   independently. Each opposing pair therefore cancels to zero.
+3. The camera applies the resolved rotation exactly once. Left and right use
+   equal sine magnitudes with opposite signs.
+4. If movement is active, the player composes translation from the newly
+   rotated camera basis. The retained 177/256 diagonal normalization runs once.
+5. The player performs X-then-Y collision and updates its authoritative position.
+6. The final player position is copied into the camera.
+7. An interaction edge, if present, casts the interaction ray using the player
    position and current camera direction, then may update door state.
-9. The final player position is copied into the camera.
-10. Optional profiling counters are reset.
-11. `raycaster_update()` generates and casts all 28 rays using the synchronized
+8. Optional profiling counters are reset.
+9. `raycaster_update()` generates and casts all 28 rays using the synchronized
     camera position and current direction/plane.
-12. The loop waits for VBlank with `SMS_waitForVBlank()`.
-13. The video renderer rebuilds and uploads only changed wall tile-columns and
+10. The loop waits for VBlank with `SMS_waitForVBlank()`.
+11. The video renderer rebuilds and uploads only changed wall tile-columns and
     required tilemap cells.
-14. Optional profiling completes and periodically prints the counters.
+12. Optional profiling completes and periodically prints the counters.
 
 There is one simulation update per rendered loop. There is no delta time,
 fixed-timestep accumulator, collision substep, or queued renderer snapshot.
@@ -192,8 +184,9 @@ Open doors are non-solid; closed doors are solid. Out-of-map queries are solid,
 so a valid bounded map terminates every ray.
 
 The hot solidity query decides empty and ordinary solid workshop tiles directly
-after one bounded map lookup. Only door tiles enter instance/state resolution;
-the generic material/object APIs remain available to interaction code.
+after one bounded map lookup. Only door tiles enter instance/state resolution.
+Texture and object mappings are direct world queries; interaction retains the
+object API.
 
 The hit coordinate along a wall face is calculated in Q8.8 and oriented so
 opposite faces have consistent texture direction. This keeps face orientation
@@ -238,9 +231,10 @@ tile bytes.
 
 Packing uses two constant 16×4 bitplane lookup tables. Four table reads per
 half, four OR operations, and four writes replace a per-bitplane packing loop.
-The common near/near path classifies LOD once per tile and writes rows through
-a sequential destination pointer. Mixed and far columns retain the exact flat
-LOD rules without adding work to the near path.
+The common near/near path takes an early fast path and writes rows through a
+sequential destination pointer. Mixed and flat columns receive their constant
+palette indices during column setup, so the row loop adds no distance test or
+side-palette selection.
 
 ### Dirty-column upload
 
@@ -291,7 +285,7 @@ All movement values are integer Q8.8 units.
 
 - `PLAYER_MOVE_SPEED` is 44, or 44/256 = 0.171875 tile for a cardinal step.
   Emulicious and original-hardware testing established this as the balanced
-  straight movement step for the final control baseline.
+  straight movement step for the final Phase 1 control baseline.
 - Forward movement uses the normalized direction vector with scale 256.
 - Strafe movement uses the camera plane with its own length of 169, making its
   cardinal magnitude match forward movement.
@@ -299,15 +293,8 @@ All movement values are integer Q8.8 units.
   are multiplied by 177/256. The scale is bounded and applied once to the
   complete vector before collision. At an axis-aligned orientation, `(44,44)`
   becomes `(30,30)`, magnitude approximately 42.43 rather than 62.23.
-- When any movement and any rotation are active in the same processed frame,
-  the already-composed and already-normalized movement components are further
-  multiplied by 176/256, or 68.75 percent. Cardinal movement becomes 30 units
-  after integer rounding; axis-aligned
-  diagonal movement becomes `(21,21)`, magnitude approximately 29.70.
-  Rotation remains unchanged by the movement scaler. This hardware-tested
-  adjustment exists because a complete translation presented together with a
-  rotation produced too much visible movement in one transition at the
-  engine's low presentation cadence.
+- Movement retains full speed while rotation is active. Rotation is applied
+  first, so translation follows the direction displayed in the same frame.
 - `PLAYER_COLLISION_RADIUS` is 32, one eighth of a tile. It keeps the player
   away from walls while remaining small enough for the current corridors and
   workshop geometry.
@@ -317,7 +304,7 @@ denominator before integer division. Forward/backward movement therefore
 retains equal magnitude, and left/right rotation uses the same angular
 magnitude with opposite signs. Component quantization at rotated headings is
 the only expected integer difference. Collision and wall-sliding behaviour are
-unchanged by both movement scales.
+unchanged by diagonal normalization.
 
 ## Collision system
 
@@ -376,8 +363,7 @@ back to length 256, and rebuilds the perpendicular plane. This prevents
 accumulated vector-length drift and preserves a symmetrical left/right step.
 
 Movement multiplies direction or plane components by speed and divides by the
-corresponding basis length. The stable diagonal scale is 177/256, and the
-stable movement-with-turn scale is 176/256 (68.75 percent). Intermediate
+corresponding basis length. The stable diagonal scale is 177/256. Intermediate
 products use `signed long` to avoid 16-bit overflow.
 
 DDA reciprocals are Q8.8-compatible values `floor(65536 / magnitude)`. Side
@@ -482,14 +468,6 @@ speed match cardinal speed within integer rounding. The scale remained
 unchanged through final hardware control tuning. It is a stable control rule,
 not a renderer optimization.
 
-### Movement-with-turn scaling
-
-The 176/256 scale (68.75 percent) reduces only translation presented together
-with rotation. It addresses the hardware-visible combined transition while
-preserving movement-only, rotation-only, and diagonal-without-rotation
-behaviour. This is an intentional hardware-tested control rule, not a renderer
-optimization.
-
 ### Reduced camera rotation step
 
 The camera's 4074 cosine and 428 sine constants encode approximately
@@ -508,12 +486,11 @@ normalization, the projection plane, ray generation, or renderer output rules.
 - Movement composition happens before collision, and collision runs once.
   Applying collision separately to input vectors would change diagonal and
   sliding behaviour.
-- Preserve input precedence: forward over backward, strafe-left over
-  strafe-right, and rotate-left over rotate-right.
-- Preserve movement order: diagonal normalization, optional turn scale, then
-  collision. Reordering these operations changes rounding and magnitudes.
-- Treat speed 44, diagonal scale 177/256, movement-with-turn scale 176/256,
-  and the 4074/428 rotation pair as one hardware-tested control baseline.
+- Preserve input cancellation: equal opposing intents resolve to zero.
+- Preserve update order: rotation, movement composition, diagonal normalization,
+  X-then-Y collision, then camera position synchronization.
+- Treat speed 44, diagonal scale 177/256, and the 4074/428 rotation pair as the
+  control baseline.
   Retune them only through explicit emulator and original-hardware validation.
 - Preserve rotation symmetry: left passes the positive sine magnitude and
   right passes the negative magnitude through the same rotation and
@@ -578,9 +555,9 @@ should not be collapsed.
 Per-ray hit offsets, centralized viewport layout, ceiling/floor backgrounds,
 side shading, and texture-column selection transformed the geometric preview
 into a native Game Gear wall renderer. Ray results were organized into a
-stable per-ray structure, while world materials and texture data were separated
-from ray traversal. Rendering was then divided into focused modules for video,
-texture sampling, wall texture access, palette treatment, and VRAM layout.
+stable per-ray structure, while world meaning and texture data were separated
+from ray traversal. Rendering is divided into focused modules for video,
+texture sampling, wall texture access, palette treatment, and VRAM constants.
 
 This cleanup mattered as much as the visual features: it made world semantics,
 ray geometry, texture sampling, and hardware output independently inspectable.
@@ -641,7 +618,7 @@ This milestone is why movement normalization belongs after composition rather
 than inside individual input branches. It also explains why future movement
 features must operate on the final vector before the one collision pass.
 
-### Final control tuning on original hardware
+### Earlier hardware control tuning and Sprint 24
 
 Emulator and real Game Gear testing exposed two separate control issues after
 diagonal movement was already correct. First, simultaneous movement and
@@ -652,24 +629,18 @@ the approximately eight-degree rotation step itself produced a larger visible
 frame-to-frame perspective jump than cardinal movement, including during
 rotation-only input.
 
-The final response was deliberately localized. Movement-with-turn translation
-was set to 176/256, the camera step was reduced to approximately six degrees
-with cosine 4074 and sine 428, and cardinal player speed was then tuned to 44.
-Diagonal normalization remained 177/256. Movement scaling still occurs before
-the one existing collision pass, and the camera still follows its existing
-normalization and plane-reconstruction path. Collision architecture, wall
-sliding, input mappings, frame order, and renderer architecture did not change.
-
-The resulting movement-only, rotation-only, and combined controls were tested
-as a balanced stable set on original hardware. This milestone closed control
-tuning for the first major engine phase rather than introducing a new movement
-architecture.
+That pass introduced 176/256 movement-with-turn translation, reduced the camera
+step to approximately six degrees with cosine 4074 and sine 428, and tuned
+cardinal speed to 44. Sprint 24 retained the angle and cardinal speed but removed
+the turn-specific translation penalty after renderer work eliminated its former
+presentation rationale. Rotation now precedes movement-vector calculation, and
+opposing inputs cancel. Collision and diagonal normalization remain unchanged.
 
 Together, these milestones explain the present engine: its small centred
 viewport is a measured hardware budget, its ray and renderer boundaries grew
 from the first working projection, its native caches avoid verified redundant
-work, and its movement scales address separate diagonal-vector and
-combined-presentation problems without redesigning collision or rotation.
+work, and its movement system keeps one diagonal rule without coupling speed to
+rotation or renderer cost.
 
 ## Current project status
 
@@ -679,7 +650,7 @@ hardware. Bank 0 retains the hot engine core, while the low-frequency world
 interaction dispatcher is the first module migrated to Bank 1. The
 centred 28-ray viewport, optimized wall renderer, fixed-point camera,
 approximately 5.997-degree rotation, `PLAYER_MOVE_SPEED = 44`, normalized
-diagonal movement, 176/256 movement-with-turn scaling, axis-separated
+full-speed diagonal movement, axis-separated
 collision, wall sliding, texture rendering, dirty-column caching, and VRAM
 upload behaviour are treated as stable.
 
@@ -690,9 +661,9 @@ The workshop map, world/material/object boundaries, interaction ray, and two
 toggleable door instances are implemented and operational foundations. They
 are deliberately small rather than complete game systems.
 
-Normal movement, rotation-only input, and combined movement/rotation now feel
-balanced on original hardware. Forward/backward translation and left/right
-rotation remain symmetrical by construction. Renderer profiling remains an
+Normal movement and combined movement/rotation use the same translation speed.
+Forward/backward translation and left/right rotation remain symmetrical by
+construction. Renderer profiling remains an
 optional diagnostic configuration rather than a shipping feature.
 
 ## Future work
@@ -763,13 +734,13 @@ builds should be returned to the normal ROM configuration after measurement.
 
 ## Final summary
 
-The current code is the first stable optimized and hardware-verified GearRay
+The current code is the stable optimized GearRay
 engine baseline: a modular, deterministic Game Gear raycaster with a centred
 28-ray viewport, a fixed-point camera with approximately six-degree symmetric
-rotation, 44-unit cardinal movement, bounded diagonal and movement-with-turn
-translation, axis-separated collision, table-driven DDA, native textured wall
-generation, and dirty VRAM updates. Normal movement, rotation-only input, and
-combined controls form one balanced original-hardware-tested control set. The
+rotation, 44-unit cardinal movement, bounded full-speed diagonal translation,
+axis-separated collision, table-driven DDA, native textured wall
+generation, and dirty VRAM updates. Normal movement and simultaneous turning
+use the same translation speed. The
 design deliberately trades display resolution and ROM tables for predictable
 Z80 work, clear ownership, and maintainable hardware behaviour. Future work
 should extend this baseline without silently changing its established frame

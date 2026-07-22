@@ -28,6 +28,5 @@ void game_gear_wall_texture_sampler_initialize(
 unsigned char game_gear_wall_texture_palette_sample_next(
     GameGearWallTextureSampler *sampler,
     unsigned char screen_y);
-void game_gear_render_textures_load(void);
 
 #endif

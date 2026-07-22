@@ -126,6 +126,8 @@ static signed int cached_camera_direction_x;
 static signed int cached_camera_direction_y;
 static signed int cached_camera_plane_x;
 static signed int cached_camera_plane_y;
+static signed int frame_position_x;
+static signed int frame_position_y;
 static unsigned char ray_directions_valid;
 
 static unsigned char raycaster_calculate_hit_offset(
@@ -148,18 +150,16 @@ static unsigned char raycaster_calculate_hit_offset(
 
 static unsigned char cast_ray(signed int direction_x,
                               signed int direction_y,
-                              unsigned char *result_x,
-                              unsigned char *result_y,
                               WallSide *result_side,
                               unsigned char *result_offset,
                               unsigned char *result_tile,
-                              unsigned char *result_texture_id,
-                              unsigned int *result_distance)
+                              unsigned char *result_texture_id)
 {
     unsigned int projected_height;
+    unsigned int projection_distance;
     unsigned char world_tile_id;
-    signed int position_x = camera_get_position_x();
-    signed int position_y = camera_get_position_y();
+    signed int position_x = frame_position_x;
+    signed int position_y = frame_position_y;
     signed int map_x = position_x / FIXED_POINT_SCALE;
     signed int map_y = position_y / FIXED_POINT_SCALE;
     signed int step_x;
@@ -244,9 +244,8 @@ static unsigned char cast_ray(signed int direction_x,
     }
     while (!world_is_wall((unsigned char)map_x, (unsigned char)map_y));
 
-    *result_x = (unsigned char)map_x;
-    *result_y = (unsigned char)map_y;
-    world_tile_id = world_get_tile(*result_x, *result_y);
+    world_tile_id = world_get_tile((unsigned char)map_x,
+                                   (unsigned char)map_y);
     *result_tile = world_tile_id;
     *result_texture_id = world_get_texture(world_tile_id);
     if (*result_side == WALL_SIDE_X)
@@ -277,11 +276,11 @@ static unsigned char cast_ray(signed int direction_x,
         *result_offset = 255 - *result_offset;
 
     if (ray_distance == 0)
-        *result_distance = 1;
+        projection_distance = 1;
     else
-        *result_distance = (unsigned int)ray_distance;
+        projection_distance = (unsigned int)ray_distance;
 
-    projected_height = WALL_HEIGHT_SCALE / *result_distance;
+    projected_height = WALL_HEIGHT_SCALE / projection_distance;
 
     if (projected_height > GAME_GEAR_SCREEN_HEIGHT)
         projected_height = GAME_GEAR_SCREEN_HEIGHT;
@@ -310,9 +309,6 @@ void raycaster_initialize(void)
 void raycaster_update(void)
 {
     unsigned char ray_index;
-    unsigned char ray_hit_x;
-    unsigned char ray_hit_y;
-    unsigned int ray_hit_distance;
     signed int camera_direction_x;
     signed int camera_direction_y;
     signed int camera_plane_x;
@@ -322,6 +318,8 @@ void raycaster_update(void)
     camera_direction_y = camera_get_direction_y();
     camera_plane_x = camera_get_plane_x();
     camera_plane_y = camera_get_plane_y();
+    frame_position_x = camera_get_position_x();
+    frame_position_y = camera_get_position_y();
 
     if (!ray_directions_valid
         || camera_direction_x != cached_camera_direction_x
@@ -353,13 +351,10 @@ void raycaster_update(void)
         rendered_rays[ray_index].wall_height = cast_ray(
             ray_direction_x_by_ray[ray_index],
             ray_direction_y_by_ray[ray_index],
-            &ray_hit_x,
-            &ray_hit_y,
             &rendered_rays[ray_index].hit_side,
             &rendered_rays[ray_index].hit_offset,
             &rendered_rays[ray_index].hit_tile,
-            &rendered_rays[ray_index].texture_id,
-            &ray_hit_distance);
+            &rendered_rays[ray_index].texture_id);
     }
 }
 
