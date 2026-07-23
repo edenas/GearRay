@@ -131,7 +131,7 @@ void player_process_interaction(void)
 {
     InteractionTarget target;
 
-    if (!input_is_interact_pressed())
+    if (!input_interaction_requested())
         return;
 
     if (!interaction_ray_cast(player_position_x,

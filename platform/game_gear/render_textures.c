@@ -5,8 +5,8 @@
 
 #define TEXTURE_FIXED_POINT_SHIFT 8
 #define TEXTURE_HIGH_NIBBLE_FLAG 0x80
-#define TEXTURE_BYTE_X_MASK 0x07
-#define TEXTURE_X_PARITY_HIT_MASK 0x10
+#define TEXTURE_BYTE_X_MASK 0x03
+#define TEXTURE_X_PARITY_HIT_MASK 0x20
 #define WALL_SIDE_X_PALETTE_BASE 2
 #define WALL_SIDE_Y_PALETTE_BASE 9
 
@@ -53,8 +53,8 @@ void game_gear_wall_texture_sampler_initialize(
     sampler->wall_top = wall_top;
     sampler->wall_bottom = wall_top + projected_wall_height;
     sampler->projected_wall_height = projected_wall_height;
-    /* Map the 0..255 face coordinate directly to a packed 16-texel column. */
-    sampler->texture_byte_x_and_nibble = oriented_hit_offset >> 5;
+    /* Map the 0..255 face coordinate directly to a packed 8-texel column. */
+    sampler->texture_byte_x_and_nibble = oriented_hit_offset >> 6;
     if ((oriented_hit_offset & TEXTURE_X_PARITY_HIT_MASK) == 0)
         sampler->texture_byte_x_and_nibble |= TEXTURE_HIGH_NIBBLE_FLAG;
 

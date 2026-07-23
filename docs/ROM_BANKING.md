@@ -58,7 +58,7 @@ The first banked build is a 32 KiB ROM containing two physical banks:
 
 | Bank | Current responsibility | Current contents |
 | ---: | --- | --- |
-| 0 | Fixed resident engine | Startup, interrupts, SMSlib, main loop, input, player, camera, raycaster, renderer, world queries, interaction ray, door state and bank trampolines |
+| 0 | Fixed resident engine | Startup, interrupts, SMSlib, main loop, input, player, camera, raycaster, renderer, world queries, door state and bank trampolines |
 | 1 | Cold gameplay/diagnostic code | `world_interactions.c`, `interaction_ray.c`, optional renderer-profile reporting, and the 32 KiB Sega header at file/CPU address `0x7FF0` |
 
 The linked `_BANK1` code segment starts at virtual address `0x14000`. SDCC and
@@ -68,17 +68,15 @@ the CPU at `0x4000–0x7FFF` when selected.
 The generated ROM uses the standard Game Gear header macro for ROMs of at least
 32 KiB. The former 16 KiB header at `0x3FF0` must not be restored.
 
-The first measured banked build reports:
+The current Sprint 31 release reports:
 
 | Resource | Usage |
 | --- | ---: |
 | Total ROM file | 32,768 bytes (2 banks) |
-| Used ROM content | 16,438 bytes |
-| Bank 0 used/free | 16,350 / 34 bytes |
-| Bank 1 code | 72 bytes |
-| Bank 1 header | 16 bytes |
-| Bank 1 used/free | 88 / 16,296 bytes |
-| Persistent RAM | 818 bytes |
+| Used ROM content | 14,368 bytes |
+| Bank 0 used/free | 13,591 / 2,793 bytes |
+| Bank 1 used/free | 777 / 15,607 bytes |
+| Persistent RAM | 936 bytes |
 
 The single-bank baseline had 35 free Bank 0 bytes. This first migration pays a
 one-time resident cost for SDCC's bank-call support: the 43-byte resident
@@ -89,8 +87,8 @@ same trampoline support and can produce net Bank 0 savings.
 
 ## First migrated module
 
-`game/world_interactions.c` is the first and only migrated module in this
-sprint. It was selected because:
+`game/world_interactions.c` was the first migrated module. It was selected
+because:
 
 - it executes only after an interaction button edge finds a valid target;
 - it is not part of input polling, movement, raycasting, rendering, interrupts,
@@ -270,10 +268,12 @@ movement/rendering plus opening and closing both workshop doors.
 - This environment can build and statically verify the ROM but does not contain
   Emulicious or an original-hardware runner. Runtime compatibility therefore
   still requires external validation.
-- Only one low-frequency function has crossed a bank boundary. More complex
-  nested and cross-bank call graphs have not yet been validated in GearRay.
-- Bank 0 remains nearly full. New resident features still require deliberate
-  space management or migration of additional cold modules.
+- The current low-frequency interaction ray and interaction dispatcher cross
+  the bank boundary. More complex nested and cross-bank call graphs have not
+  yet been validated in GearRay.
+- Bank 0 currently has 2,793 free bytes. New resident features still require
+  deliberate space management and cold systems should continue to be evaluated
+  for cohesive migration.
 - Bank switching has nonzero latency and changes mapper state. It must not be
   introduced into renderer inner loops.
 - The current ROM has two banks, not 32. The architecture can grow toward

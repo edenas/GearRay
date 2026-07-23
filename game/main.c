@@ -14,7 +14,6 @@ void main(void)
     signed char forward_direction;
     signed char strafe_direction;
     signed char rotation_direction;
-    unsigned char held_directions;
 
     game_gear_video_initialize();
     game_gear_input_initialize();
@@ -28,31 +27,15 @@ void main(void)
     while (1)
     {
         game_gear_input_update();
-        held_directions = game_gear_input_get_held_directions();
-
-        forward_direction = 0;
-        strafe_direction = 0;
-        rotation_direction = 0;
-
-        if (held_directions & GAME_GEAR_INPUT_FORWARD)
-            ++forward_direction;
-        if (held_directions & GAME_GEAR_INPUT_BACKWARD)
-            --forward_direction;
-
-        if (held_directions & GAME_GEAR_INPUT_STRAFE_LEFT)
-            --strafe_direction;
-        if (held_directions & GAME_GEAR_INPUT_STRAFE_RIGHT)
-            ++strafe_direction;
-
-        if (held_directions & GAME_GEAR_INPUT_ROTATE_LEFT)
-            --rotation_direction;
-        if (held_directions & GAME_GEAR_INPUT_ROTATE_RIGHT)
-            ++rotation_direction;
+        rotation_direction = input_get_rotation_intent();
 
         if (rotation_direction < 0)
             camera_rotate_left();
         else if (rotation_direction > 0)
             camera_rotate_right();
+
+        forward_direction = input_get_forward_intent();
+        strafe_direction = input_get_strafe_intent();
 
         if (forward_direction != 0 || strafe_direction != 0)
         {

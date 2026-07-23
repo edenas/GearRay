@@ -26,10 +26,14 @@ or collision algorithms.
 ### Input
 
 `platform/game_gear/input.c` owns the current and previous controller bitmasks.
-It reads `SMS_getKeysStatus()` once per processed frame and exposes one semantic
-held-direction mask. D-pad up/down are forward/backward, D-pad left/right are
-strafe, Game Gear buttons 1/2 rotate, and Start interacts. Opposing held bits
-accumulate to zero; interaction is edge-triggered.
+It reads `SMS_getKeysStatus()` once per processed frame and exposes semantic
+movement, rotation, interaction, fire, and menu requests. D-pad up/down move
+forward/backward. D-pad left/right rotate unless Button 1 is held, in which
+case they strafe. A Button 1 hold session that never uses horizontal strafe
+requests one interaction on release. Button 2 is reserved for firing and Start
+is reserved for the future menu/map screen; both expose edge-triggered requests
+but are intentionally ignored until those systems exist. Opposing inputs
+accumulate to zero.
 
 ### Player
 
@@ -72,16 +76,17 @@ Game Gear wall tiles, tracks dirty tile-columns, uploads changed patterns, and
 changes tilemap cells when their ceiling/wall/floor state changes.
 
 `render_textures.c` advances texture coordinates down projected walls.
-`wall_textures.c` reads the generated packed 16×16 texture and maps its indexed
+`wall_textures.c` reads the generated packed 8×8 texture and maps its indexed
 colours to bright X-side or dark Y-side palette entries. `video.c` packs those
 palette indices directly into four Game Gear bitplanes.
 
 Projected height selects one of three conservative wall levels in `video.c`.
 Heights above 16 retain the full sampler and directional shading. Heights 9
-through 16 preserve the original flat palette index 2 for X sides or 9 for Y
-sides. Heights 8 and below use shared fog index 9. Each ray in a native
-tile-column classifies independently, and both flat
-levels avoid sampler initialization and texture reads. Cached projected heights
+through 16 use the opaque ordered attenuation tables from Sprint 28. Heights 8
+and below use Sprint 29 Candidate C hybrid fog: 87.5% opaque attenuated wall
+pixels and 12.5% deterministic background contribution. Each ray in a native
+tile-column classifies independently, and both table-driven levels avoid
+sampler initialization and texture reads. Cached projected heights
 already invalidate a column at the 8/9 and 16/17 boundaries, so the dirty
 signature needs no LOD flags.
 
@@ -117,13 +122,13 @@ remain resident.
 The ownership and transfer path is:
 
 ```text
-controller bits -> resolved intent -> player position
-                                  -> camera direction
+controller bits -> semantic movement intent -> player position
+                -> semantic rotation intent -> camera direction
 player position -> camera position
 camera + world  -> per-ray results
 per-ray results -> native tile bytes + tile states
 tile bytes/states -> VRAM
-interaction edge -> interaction ray -> world/door state
+Button 1 release request -> interaction ray -> world/door state
 ```
 
 ## Frame pipeline
@@ -132,16 +137,18 @@ After one-time video, input, world, player, camera, and raycaster
 initialization, every processed frame runs in this exact order:
 
 1. Input copies the current key mask to `previous_keys` and reads a new mask.
-2. Forward/backward, strafe-left/right, and rotate-left/right inputs accumulate
-   independently. Each opposing pair therefore cancels to zero.
+2. Input resolves rotation from Left/Right when Button 1 is not held. With
+   Button 1 held, Left/Right produce only strafe intent. Up/Down always produce
+   forward/backward intent. Each opposing pair cancels to zero.
 3. The camera applies the resolved rotation exactly once. Left and right use
    equal sine magnitudes with opposite signs.
 4. If movement is active, the player composes translation from the newly
    rotated camera basis. The retained 177/256 diagonal normalization runs once.
 5. The player performs X-then-Y collision and updates its authoritative position.
 6. The final player position is copied into the camera.
-7. An interaction edge, if present, casts the interaction ray using the player
-   position and current camera direction, then may update door state.
+7. A non-strafe Button 1 release request, if present, casts the interaction ray
+   using the player position and current camera direction, then may update door
+   state.
 8. Optional profiling counters are reset.
 9. `raycaster_update()` generates and casts all 28 rays using the synchronized
     camera position and current direction/plane.
@@ -207,9 +214,9 @@ ray construction, so no separate fish-eye correction pass is used.
 
 ### Texture lookup and sampling
 
-The oriented 0..255 hit offset is shifted right by four to select texture X in
-the 16×16 source. Packed access derives its byte column directly by shifting
-right five, while hit-offset bit 4 selects the nibble. A sampler calculates a
+The oriented 0..255 hit offset is shifted right by five to select texture X in
+the 8×8 source. Packed access derives its byte column directly by shifting
+right six, while hit-offset bit 5 selects the nibble. A sampler calculates a
 Q8.8 texture-Y step once per projected
 wall column. A carried remainder reproduces the exact integer mapping when the
 step does not divide evenly. Clipped portions above the viewport are skipped
@@ -226,8 +233,11 @@ and directional shading without an additional texture or palette function.
 One tile-column consumes two ray results. Each ray supplies one four-pixel half
 of an 8-pixel Game Gear tile, so 28 rays fill 14 tile-columns and 112 pixels.
 For each active 8-pixel row, the renderer samples both projected walls eight
-times and packs the resulting left and right palette indices into native 4bpp
-tile bytes.
+times only when they are textured. Table-driven halves reuse byte-sized top
+and bottom bounds computed once on builder entry; this removes repeated signed
+bottom construction while preserving the exact centred 1..16-pixel silhouette.
+The resulting left and right palette indices are packed into native 4bpp tile
+bytes.
 
 Packing uses two constant 16×4 bitplane lookup tables. Four table reads per
 half, four OR operations, and four writes replace a per-bitplane packing loop.
@@ -255,10 +265,10 @@ and tilemap writes; it does not skip raycasting.
 | Property | Current value |
 | --- | ---: |
 | Game Gear display | 160×144 pixels |
-| Viewport origin | tile (9, 10) in the SMS tilemap coordinate space |
+| Viewport origin | tile (9, 8) in the SMS tilemap coordinate space |
 | Viewport width | 112 pixels |
-| Viewport height | 80 pixels |
-| Viewport grid | 14×10 tiles |
+| Viewport height | 64 pixels |
+| Viewport grid | 14×8 tiles |
 | Ray count | 28 |
 | Horizontal coverage per ray | 4 pixels |
 | Rays per native tile-column | 2 |
@@ -376,10 +386,12 @@ to retain exact source-row progression. Projection uses the integer ratio
 
 ### Centred viewport and ray reduction
 
-The active viewport is 112×80 rather than the full Game Gear display, and only
-28 visible rays are cast. This reduces DDA work, tile construction, and maximum
-VRAM traffic. The view remains centred and perspective is preserved through
-the retained camera table. Gameplay movement and collision are unchanged.
+The active viewport is 112×64 (14×8 tiles) rather than the full Game Gear
+display, and only 28 visible rays are cast. Each ray represents four horizontal
+pixels, and two rays form one native tile-column. This reduces DDA work, tile
+construction, and maximum VRAM traffic. The view remains centred and
+perspective is preserved through the retained camera table. Gameplay movement
+and collision are unchanged.
 
 ### Removed diagnostic centre ray
 
@@ -436,7 +448,7 @@ equivalent to direct integer mapping.
 
 ### Packed texture storage
 
-The 16×16 wall texture stores two 4-bit indexed pixels per byte. Sampling uses
+The 8×8 wall texture stores two 4-bit indexed pixels per byte. Sampling uses
 an offset, parity branch, and nibble mask, then adds the side's cached palette
 base. This halves source storage relative to an eight-bit indexed texture and
 avoids a separate per-pixel palette lookup call.
@@ -582,10 +594,11 @@ at the native-byte level when practical.
 ### Viewport optimization and ray-count reduction
 
 Real hardware performance made clear that the renderer needed a smaller,
-explicit workload. The final viewport became a 112×80, 14×10-tile region using
-28 rays. Each ray represents four horizontal pixels, and two rays form one
-native tile-column. The 28 camera coordinates were retained from the centred
-portion of the established 32-ray projection, preserving ray spacing and
+explicit workload. The hardware-tested final viewport became a 112×64,
+14×8-tile region using 28 rays. Each ray represents four horizontal pixels,
+and two rays form one native tile-column. The 28 camera coordinates were
+retained from the centred portion of the established 32-ray projection,
+preserving ray spacing and
 perspective rather than redefining the field of view around a cheaper count.
 
 This change reduced DDA traversal, wall generation, and worst-case VRAM upload
@@ -653,6 +666,12 @@ approximately 5.997-degree rotation, `PLAYER_MOVE_SPEED = 44`, normalized
 full-speed diagonal movement, axis-separated
 collision, wall sliding, texture rendering, dirty-column caching, and VRAM
 upload behaviour are treated as stable.
+
+Original Game Gear testing approves the current native 8×8 texture,
+side-aware shading, three-level distance treatment, Candidate C Hybrid Distance
+Fog, 112×64 viewport, and renderer pacing as production behavior. Future
+renderer work must preserve its byte-level output contract and pass the host
+oracle.
 
 The ROM banking model, module-placement rules, and future expansion strategy
 are defined in `docs/ROM_BANKING.md`.

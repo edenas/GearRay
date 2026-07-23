@@ -18,9 +18,60 @@
 #define WALL_COLUMN_RIGHT_SIDE_Y_FLAG 0x02
 #define DISTANT_WALL_MAX_PROJECTED_HEIGHT 16
 #define VERY_DISTANT_WALL_MAX_PROJECTED_HEIGHT 8
-#define DISTANT_WALL_X_PALETTE_INDEX 2
-#define DISTANT_WALL_Y_PALETTE_INDEX 9
-#define VERY_DISTANT_WALL_PALETTE_INDEX 9
+
+static const unsigned char left_lod1_x_rows[8][4] = {
+    {0x50, 0xf0, 0x00, 0x50}, {0xa0, 0xf0, 0x00, 0xa0},
+    {0x50, 0xf0, 0x00, 0x50}, {0xa0, 0xf0, 0x00, 0xa0},
+    {0x50, 0xf0, 0x00, 0x50}, {0xa0, 0xf0, 0x00, 0xa0},
+    {0x50, 0xf0, 0x00, 0x50}, {0xa0, 0xf0, 0x00, 0xa0}
+};
+static const unsigned char right_lod1_x_rows[8][4] = {
+    {0x05, 0x0f, 0x00, 0x05}, {0x0a, 0x0f, 0x00, 0x0a},
+    {0x05, 0x0f, 0x00, 0x05}, {0x0a, 0x0f, 0x00, 0x0a},
+    {0x05, 0x0f, 0x00, 0x05}, {0x0a, 0x0f, 0x00, 0x0a},
+    {0x05, 0x0f, 0x00, 0x05}, {0x0a, 0x0f, 0x00, 0x0a}
+};
+static const unsigned char left_lod1_y_rows[8][4] = {
+    {0xf0, 0x50, 0x00, 0xf0}, {0xf0, 0xa0, 0x00, 0xf0},
+    {0xf0, 0x50, 0x00, 0xf0}, {0xf0, 0xa0, 0x00, 0xf0},
+    {0xf0, 0x50, 0x00, 0xf0}, {0xf0, 0xa0, 0x00, 0xf0},
+    {0xf0, 0x50, 0x00, 0xf0}, {0xf0, 0xa0, 0x00, 0xf0}
+};
+static const unsigned char right_lod1_y_rows[8][4] = {
+    {0x0f, 0x05, 0x00, 0x0f}, {0x0f, 0x0a, 0x00, 0x0f},
+    {0x0f, 0x05, 0x00, 0x0f}, {0x0f, 0x0a, 0x00, 0x0f},
+    {0x0f, 0x05, 0x00, 0x0f}, {0x0f, 0x0a, 0x00, 0x0f},
+    {0x0f, 0x05, 0x00, 0x0f}, {0x0f, 0x0a, 0x00, 0x0f}
+};
+
+static const unsigned char left_lod2_rows[2][8][4] = {
+    {
+        {0xb0, 0x10, 0x00, 0xb0}, {0xf0, 0x80, 0x00, 0xf0},
+        {0x70, 0x20, 0x00, 0x70}, {0xf0, 0x40, 0x00, 0xf0},
+        {0x70, 0x10, 0x00, 0x70}, {0xf0, 0x80, 0x00, 0xf0},
+        {0xb0, 0x20, 0x00, 0xb0}, {0xf0, 0x40, 0x00, 0xf0}
+    },
+    {
+        {0xf0, 0x40, 0x00, 0xf0}, {0x70, 0x20, 0x00, 0x70},
+        {0xf0, 0x80, 0x00, 0xf0}, {0xb0, 0x10, 0x00, 0xb0},
+        {0xf0, 0x40, 0x00, 0xf0}, {0xb0, 0x20, 0x00, 0xb0},
+        {0xf0, 0x80, 0x00, 0xf0}, {0x70, 0x10, 0x00, 0x70}
+    }
+};
+static const unsigned char right_lod2_rows[2][8][4] = {
+    {
+        {0x0b, 0x01, 0x00, 0x0b}, {0x0f, 0x08, 0x00, 0x0f},
+        {0x07, 0x02, 0x00, 0x07}, {0x0f, 0x04, 0x00, 0x0f},
+        {0x07, 0x01, 0x00, 0x07}, {0x0f, 0x08, 0x00, 0x0f},
+        {0x0b, 0x02, 0x00, 0x0b}, {0x0f, 0x04, 0x00, 0x0f}
+    },
+    {
+        {0x0f, 0x04, 0x00, 0x0f}, {0x07, 0x02, 0x00, 0x07},
+        {0x0f, 0x08, 0x00, 0x0f}, {0x0b, 0x01, 0x00, 0x0b},
+        {0x0f, 0x04, 0x00, 0x0f}, {0x0b, 0x02, 0x00, 0x0b},
+        {0x0f, 0x08, 0x00, 0x0f}, {0x07, 0x01, 0x00, 0x07}
+    }
+};
 
 #if GEARRAY_DEBUG_VIEWPORT_BORDER
 #define DEBUG_BORDER_HORIZONTAL_TILE_INDEX 97
@@ -138,13 +189,13 @@ static void game_gear_build_native_wall_tile(
     unsigned char *destination,
     GameGearWallTextureSampler *left_sampler,
     unsigned char left_wall_is_far,
-    unsigned char left_flat_palette_index,
-    signed int left_wall_top,
+    const unsigned char *left_flat_rows,
+    unsigned char left_wall_top,
     unsigned char left_wall_height,
     GameGearWallTextureSampler *right_sampler,
     unsigned char right_wall_is_far,
-    unsigned char right_flat_palette_index,
-    signed int right_wall_top,
+    const unsigned char *right_flat_rows,
+    unsigned char right_wall_top,
     unsigned char right_wall_height,
     unsigned char tile_pixel_y)
 {
@@ -154,6 +205,9 @@ static void game_gear_build_native_wall_tile(
     unsigned char right_palette_index;
     const unsigned char *left_bitplanes;
     const unsigned char *right_bitplanes;
+
+    left_wall_height += left_wall_top;
+    right_wall_height += right_wall_top;
 
     if (!left_wall_is_far && !right_wall_is_far)
     {
@@ -190,10 +244,13 @@ static void game_gear_build_native_wall_tile(
         if (left_wall_is_far)
         {
             if (screen_y >= left_wall_top
-                && screen_y < left_wall_top + left_wall_height)
+                && screen_y < left_wall_height)
             {
-                left_palette_index = left_flat_palette_index;
+                left_bitplanes = left_flat_rows;
             }
+            else
+                left_bitplanes = left_palette_bitplanes[0];
+            left_flat_rows += NATIVE_TILE_ROW_BYTES;
         }
         else
         {
@@ -201,15 +258,19 @@ static void game_gear_build_native_wall_tile(
                 left_sampler, screen_y);
             if (left_palette_index == GAME_GEAR_WALL_TEXTURE_OUTSIDE)
                 left_palette_index = 0;
+            left_bitplanes = left_palette_bitplanes[left_palette_index];
         }
 
         if (right_wall_is_far)
         {
             if (screen_y >= right_wall_top
-                && screen_y < right_wall_top + right_wall_height)
+                && screen_y < right_wall_height)
             {
-                right_palette_index = right_flat_palette_index;
+                right_bitplanes = right_flat_rows;
             }
+            else
+                right_bitplanes = right_palette_bitplanes[0];
+            right_flat_rows += NATIVE_TILE_ROW_BYTES;
         }
         else
         {
@@ -217,10 +278,9 @@ static void game_gear_build_native_wall_tile(
                 right_sampler, screen_y);
             if (right_palette_index == GAME_GEAR_WALL_TEXTURE_OUTSIDE)
                 right_palette_index = 0;
+            right_bitplanes = right_palette_bitplanes[right_palette_index];
         }
 
-        left_bitplanes = left_palette_bitplanes[left_palette_index];
-        right_bitplanes = right_palette_bitplanes[right_palette_index];
         destination[0] = left_bitplanes[0] | right_bitplanes[0];
         destination[1] = left_bitplanes[1] | right_bitplanes[1];
         destination[2] = left_bitplanes[2] | right_bitplanes[2];
@@ -366,6 +426,8 @@ void game_gear_video_draw_wall_columns(void)
     unsigned char has_active_wall;
     unsigned char left_wall_is_far;
     unsigned char right_wall_is_far;
+    const unsigned char *left_flat_rows = 0;
+    const unsigned char *right_flat_rows = 0;
     unsigned char desired_state;
     unsigned int desired_tile;
     unsigned char *tile_states = viewport_tile_states;
@@ -432,11 +494,11 @@ void game_gear_video_draw_wall_columns(void)
             if (left_wall_is_far)
             {
                 if (left_wall_height <= VERY_DISTANT_WALL_MAX_PROJECTED_HEIGHT)
-                    left_wall_side |= VERY_DISTANT_WALL_PALETTE_INDEX;
+                    left_flat_rows = &left_lod2_rows[tile_column & 1][0][0];
                 else
-                    left_wall_side = left_wall_side == WALL_SIDE_X
-                        ? DISTANT_WALL_X_PALETTE_INDEX
-                        : DISTANT_WALL_Y_PALETTE_INDEX;
+                    left_flat_rows = left_wall_side == WALL_SIDE_X
+                        ? &left_lod1_x_rows[0][0]
+                        : &left_lod1_y_rows[0][0];
                 GEAR_RAY_PROFILE_ADD(texture_samples_avoided,
                                      left_wall_height);
             }
@@ -454,11 +516,11 @@ void game_gear_video_draw_wall_columns(void)
             if (right_wall_is_far)
             {
                 if (right_wall_height <= VERY_DISTANT_WALL_MAX_PROJECTED_HEIGHT)
-                    right_wall_side |= VERY_DISTANT_WALL_PALETTE_INDEX;
+                    right_flat_rows = &right_lod2_rows[tile_column & 1][0][0];
                 else
-                    right_wall_side = right_wall_side == WALL_SIDE_X
-                        ? DISTANT_WALL_X_PALETTE_INDEX
-                        : DISTANT_WALL_Y_PALETTE_INDEX;
+                    right_flat_rows = right_wall_side == WALL_SIDE_X
+                        ? &right_lod1_x_rows[0][0]
+                        : &right_lod1_y_rows[0][0];
                 GEAR_RAY_PROFILE_ADD(texture_samples_avoided,
                                      right_wall_height);
             }
@@ -482,12 +544,12 @@ void game_gear_video_draw_wall_columns(void)
                         (row - first_active_row) * NATIVE_TILE_BYTES],
                     &left_sampler,
                     left_wall_is_far,
-                    left_wall_side,
+                    left_flat_rows,
                     left_wall_top,
                     left_wall_height,
                     &right_sampler,
                     right_wall_is_far,
-                    right_wall_side,
+                    right_flat_rows,
                     right_wall_top,
                     right_wall_height,
                     row * 8);

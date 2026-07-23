@@ -17,11 +17,11 @@ Wolfenstein 3D assets or other third-party game data to this repository.
 
 Each top-level folder has a specific purpose:
 
-- `engine/` contains reusable raycasting engine code, such as rendering,
-  fixed-point math, input handling, map drawing, and Game Gear hardware
-  helpers.
+- `engine/` contains reusable platform-independent raycasting geometry.
 - `game/` contains the sample game code that uses the engine, including
-  gameplay rules, level setup, player state, and game-specific constants.
+  gameplay rules, maps, player/camera state, doors, and interaction.
+- `platform/game_gear/` owns SMSlib integration, input polling, native tile
+  construction, VRAM updates, wall-texture sampling, and optional profiling.
 - `assets/` contains original project assets, such as tiles, palettes, maps,
   sprites, sound data, and conversion source files.
 - `tools/` contains helper scripts and asset conversion tools used during
@@ -33,25 +33,11 @@ Each top-level folder has a specific purpose:
 
 ## Build Status
 
-GearRay now uses CMake as the main build system. The current build is a clean
-foundation with placeholder targets only:
-
-- `gearray-info` prints a short project/build status message.
-- `gearray-engine` marks where reusable engine code will be attached later.
-- `gearray-game` marks where game-specific code will be attached later.
-
-The project does not yet assume that `ihx2sms.exe`, SDCC, devkitSMS, or any
-other Game Gear/SMS toolchain is installed.
-
-TODO:
-
-- Choose the primary C compiler/toolchain for Game Gear Z80 development.
-- Document installation steps for Windows.
-- Add source files under `engine/` and `game/`.
-- Add asset conversion steps under `tools/`.
-- Add ROM packaging once the required converter is available.
-- Decide whether `ihx2sms.exe` should be downloaded, built locally, or replaced
-  with another packaging step.
+GearRay uses CMake to drive SDCC and devkitSMS and package a banked 32 KiB Game
+Gear ROM. The current engine has a hardware-approved centred 112×64 renderer
+with 28 rays, deterministic fixed-point movement and collision, doors and
+interaction foundations, isolated release/profiling builds, and host-only
+renderer and control validators.
 
 ## Windows Quick Start
 
@@ -61,8 +47,9 @@ From a Windows Command Prompt:
 build.bat
 ```
 
-For now, this configures the project with CMake when CMake is available and
-prints clear next steps. It does not produce a playable ROM yet.
+This configures and builds the release ROM at `rom\GearRay.gg`. Run
+`build-profile.bat` for the isolated profiling ROM at
+`rom\GearRay-profile.gg`.
 
 The batch file is only a launcher. You can run the same commands directly:
 

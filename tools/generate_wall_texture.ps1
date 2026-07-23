@@ -8,8 +8,8 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$textureWidth = 16
-$textureHeight = 16
+$textureWidth = 8
+$textureHeight = 8
 $packedRowStride = $textureWidth / 2
 $textureByteCount = $packedRowStride * $textureHeight
 $wallColorCount = 7
@@ -179,7 +179,7 @@ $headerText = @"
 #define WALL_TEXTURE_WIDTH $textureWidth
 #define WALL_TEXTURE_HEIGHT $textureHeight
 #define WALL_TEXTURE_PACKED_ROW_STRIDE $packedRowStride
-#define WALL_TEXTURE_PACKED_ROW_SHIFT 3
+#define WALL_TEXTURE_PACKED_ROW_SHIFT 2
 #define WALL_TEXTURE_COLOR_COUNT 7
 #define WALL_TEXTURE_BYTE_COUNT $textureByteCount
 #define WALL_TEXTURE_SAMPLER_MINIMUM_HEIGHT $nearWallMinimumHeight
@@ -198,13 +198,15 @@ $sourceLines = [System.Collections.Generic.List[string]]::new()
 $sourceLines.Add('#include "wall_texture.h"')
 $sourceLines.Add('')
 $sourceLines.Add('const unsigned char wall_texture[WALL_TEXTURE_BYTE_COUNT] = {')
-for ($offset = 0; $offset -lt $textureBytes.Count; $offset += 8) {
+for ($offset = 0;
+     $offset -lt $textureBytes.Count;
+     $offset += $packedRowStride) {
     $values = @()
-    for ($index = 0; $index -lt 8; ++$index) {
+    for ($index = 0; $index -lt $packedRowStride; ++$index) {
         $values += ('0x{0:x2}' -f $textureBytes[$offset + $index])
     }
     $suffix = ','
-    if ($offset + 8 -eq $textureBytes.Count) { $suffix = '' }
+    if ($offset + $packedRowStride -eq $textureBytes.Count) { $suffix = '' }
     $sourceLines.Add('    ' + ($values -join ', ') + $suffix)
 }
 $sourceLines.Add('};')
