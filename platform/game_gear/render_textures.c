@@ -12,6 +12,7 @@
 
 void game_gear_wall_texture_sampler_initialize(
     GameGearWallTextureSampler *sampler,
+    unsigned char texture_id,
     WallSide wall_side,
     unsigned char oriented_hit_offset,
     unsigned char projected_wall_height,
@@ -21,6 +22,8 @@ void game_gear_wall_texture_sampler_initialize(
     unsigned int first_wall_pixel = 0;
     unsigned char sampler_height_index = projected_wall_height
         - WALL_TEXTURE_SAMPLER_MINIMUM_HEIGHT;
+
+    sampler->texture_id = texture_id - 1;
 
     if (first_screen_y > wall_top)
         first_wall_pixel = first_screen_y - wall_top;
@@ -91,7 +94,7 @@ unsigned char game_gear_wall_texture_palette_sample_next(
     byte_offset =
         ((unsigned int)texture_y << GAME_GEAR_WALL_TEXTURE_PACKED_ROW_SHIFT)
         + (sampler->texture_byte_x_and_nibble & TEXTURE_BYTE_X_MASK);
-    indexed_color = wall_texture[byte_offset];
+    indexed_color = wall_textures[sampler->texture_id][byte_offset];
     if (sampler->texture_byte_x_and_nibble & TEXTURE_HIGH_NIBBLE_FLAG)
         indexed_color >>= 4;
 

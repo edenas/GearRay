@@ -1,65 +1,129 @@
 # GearRay
 
-GearRay is an open-source raycasting engine for the Sega Game Gear.
+GearRay is an open-source, fixed-point raycasting engine built for the Sega
+Game Gear. It is written in C for SDCC and uses devkitSMS/SMSlib for hardware
+access, ROM startup, and packaging.
 
-The project is inspired by classic raycasting games, but it uses original
-engine code, maps, art, audio, and other assets. Do not add copyrighted
-Wolfenstein 3D assets or other third-party game data to this repository.
+The project favors readable code, deterministic behaviour, simple module
+boundaries, and measured improvements that are validated on the target
+hardware.
 
-## Project Goals
+## Screenshot
 
-- Build a small, understandable raycasting engine for the Sega Game Gear.
-- Keep the codebase beginner-friendly and easy to explore on Windows.
-- Use original assets and documentation suitable for an open-source project.
-- Grow the build system gradually as the Game Gear toolchain is selected.
+_A current Engine Foundation screenshot will be added for the first public
+release._
 
-## Folder Guide
+Historical renderer captures are available in [`artifacts/`](artifacts/).
 
-Each top-level folder has a specific purpose:
+## Current Status
 
-- `engine/` contains reusable platform-independent raycasting geometry.
-- `game/` contains the sample game code that uses the engine, including
-  gameplay rules, maps, player/camera state, doors, and interaction.
-- `platform/game_gear/` owns SMSlib integration, input polling, native tile
-  construction, VRAM updates, wall-texture sampling, and optional profiling.
-- `assets/` contains original project assets, such as tiles, palettes, maps,
-  sprites, sound data, and conversion source files.
-- `tools/` contains helper scripts and asset conversion tools used during
-  development.
-- `docs/` contains design notes, hardware research, build instructions, and
-  beginner-friendly explanations.
-- `build/` is the local build output folder. Generated files belong here and
-  should not be committed.
+The hardware-tested **Engine Foundation v1.0.0** is complete. It provides a
+stable base for future gameplay work without changing the established
+renderer, movement, interaction, and ROM-banking contracts.
 
-## Build Status
+GearRay is an engine foundation and workshop ROM, not yet a complete game.
 
-GearRay uses CMake to drive SDCC and devkitSMS and package a banked 32 KiB Game
-Gear ROM. The current engine has a hardware-approved centred 112×64 renderer
-with 28 rays, deterministic fixed-point movement and collision, doors and
-interaction foundations, isolated release/profiling builds, and host-only
-renderer and control validators.
+## Features
 
-## Windows Quick Start
+- Centred 112×64 first-person viewport with 28 rays.
+- Deterministic fixed-point movement, rotation, collision, and raycasting.
+- Native Game Gear tile rendering with indexed-colour wall textures.
+- Directional wall shading and distance-based wall detail.
+- Doors, interaction targeting, and a permanent workshop map.
+- Banked 32 KiB ROM layout with isolated release and profiling builds.
+- Compile-time renderer profiling with no release-build counter overhead.
+- Host-side control and renderer-equivalence validation scripts.
 
-From a Windows Command Prompt:
+## Controls
+
+| Input | Action |
+| --- | --- |
+| D-pad Up / Down | Move forward / backward |
+| D-pad Left / Right | Turn left / right |
+| Button 1 + Left / Right | Strafe left / right |
+| Tap and release Button 1 | Interact |
+| Button 2 | Reserved for fire |
+| Start | Reserved for menu |
+
+Fire and menu actions are reserved by the input layer but are not implemented
+as gameplay systems yet.
+
+## Supported Toolchain
+
+The current Windows build uses:
+
+- CMake 3.20 or newer;
+- Ninja;
+- SDCC 4.6.0 (tested);
+- devkitSMS and SMSlib;
+- Windows PowerShell 5.1;
+- `makesms` from devkitSMS.
+
+The exact setup and currently unpinned dependencies are documented in
+[`docs/BUILDING.md`](docs/BUILDING.md).
+
+## Quick Build
+
+From a Windows Command Prompt or PowerShell session:
 
 ```bat
 build.bat
 ```
 
-This configures and builds the release ROM at `rom\GearRay.gg`. Run
-`build-profile.bat` for the isolated profiling ROM at
-`rom\GearRay-profile.gg`.
-
-The batch file is only a launcher. You can run the same commands directly:
+This generates the release ROM at `rom\GearRay.gg`. To build the isolated
+renderer-profiling ROM:
 
 ```bat
-cmake -S . -B build
-cmake --build build
+build-profile.bat
 ```
 
-More details are in `docs/BUILDING.md`.
+The default devkitSMS location is `D:\Tools\devkitSMS`; it can be overridden
+when configuring CMake. See the full [build guide](docs/BUILDING.md).
+
+## Documentation
+
+- [Building GearRay](docs/BUILDING.md)
+- [Engine architecture](docs/ENGINE_ARCHITECTURE.md)
+- [Engine Foundation v1.0.0](docs/ENGINE_FOUNDATION_V1.0.0.md)
+- [ROM banking architecture](docs/ROM_BANKING.md)
+- [Asset provenance](docs/ASSET_PROVENANCE.md)
+- [Contributing](CONTRIBUTING.md)
+- [Changelog](CHANGELOG.md)
+
+The sprint documents under [`docs/`](docs/) are historical engineering records.
+They preserve measurements, experiments, rejected alternatives, and validation
+evidence; they are not all descriptions of the current implementation.
+
+## Roadmap
+
+Near-term work focuses on public-release documentation, provenance, reproducible
+builds, and the planned `GearRay_Developer_Bible.md`. Later work may add
+gameplay systems, content, audio, and user-interface features while preserving
+the Engine Foundation contracts.
+
+## Known Limitations
+
+- The supported build workflow is currently Windows-only.
+- SDCC and devkitSMS must be installed separately.
+- The devkitSMS revision is not yet pinned.
+- The ROM is a technical workshop rather than a finished game.
+- Fire, menu, audio, sprites, save data, and complete gameplay are not yet
+  implemented.
+- Some asset ownership and release status still requires confirmation; see the
+  [asset provenance record](docs/ASSET_PROVENANCE.md).
+
+## Acknowledgements
+
+GearRay was created by Edenas Pocius through a collaborative Vibe Coding
+workflow using OpenAI ChatGPT as an AI-assisted development tool. Project
+authorship, decisions, integration, and release responsibility remain with the
+human maintainer and contributors. See [ACKNOWLEDGEMENTS.md](ACKNOWLEDGEMENTS.md).
 
 ## License
 
-GearRay is released under the MIT License. See `LICENSE` for details.
+GearRay is released under the [MIT License](LICENSE).
+
+## Third-Party Software
+
+GearRay builds with SDCC and devkitSMS components that retain their own
+licensing terms. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

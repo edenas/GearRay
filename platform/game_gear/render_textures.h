@@ -14,12 +14,14 @@ typedef struct
     signed int wall_top;
     signed int wall_bottom;
     unsigned char projected_wall_height;
+    unsigned char texture_id;
     unsigned char texture_byte_x_and_nibble;
     unsigned char palette_base;
 } GameGearWallTextureSampler;
 
 void game_gear_wall_texture_sampler_initialize(
     GameGearWallTextureSampler *sampler,
+    unsigned char texture_id,
     WallSide wall_side,
     unsigned char oriented_hit_offset,
     unsigned char projected_wall_height,

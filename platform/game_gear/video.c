@@ -104,6 +104,8 @@ typedef struct
     unsigned char right_wall_height;
     unsigned char left_hit_offset;
     unsigned char right_hit_offset;
+    unsigned char left_texture_id;
+    unsigned char right_texture_id;
     unsigned char side_and_valid_flags;
 } GameGearWallColumnSignature;
 
@@ -138,6 +140,8 @@ static unsigned char game_gear_wall_column_is_unchanged(
     unsigned char right_wall_height,
     unsigned char left_hit_offset,
     unsigned char right_hit_offset,
+    unsigned char left_texture_id,
+    unsigned char right_texture_id,
     WallSide left_wall_side,
     WallSide right_wall_side)
 {
@@ -156,6 +160,8 @@ static unsigned char game_gear_wall_column_is_unchanged(
         && previous->right_wall_height == right_wall_height
         && previous->left_hit_offset == left_hit_offset
         && previous->right_hit_offset == right_hit_offset
+        && previous->left_texture_id == left_texture_id
+        && previous->right_texture_id == right_texture_id
         && (previous->side_and_valid_flags
             & (WALL_COLUMN_LEFT_SIDE_Y_FLAG
                | WALL_COLUMN_RIGHT_SIDE_Y_FLAG)) == side_flags;
@@ -167,6 +173,8 @@ static void game_gear_store_wall_column_signature(
     unsigned char right_wall_height,
     unsigned char left_hit_offset,
     unsigned char right_hit_offset,
+    unsigned char left_texture_id,
+    unsigned char right_texture_id,
     WallSide left_wall_side,
     WallSide right_wall_side)
 {
@@ -176,6 +184,8 @@ static void game_gear_store_wall_column_signature(
     previous->right_wall_height = right_wall_height;
     previous->left_hit_offset = left_hit_offset;
     previous->right_hit_offset = right_hit_offset;
+    previous->left_texture_id = left_texture_id;
+    previous->right_texture_id = right_texture_id;
     if (left_wall_side == WALL_SIDE_Y)
         side_and_valid_flags |= WALL_COLUMN_LEFT_SIDE_Y_FLAG;
 
@@ -461,6 +471,8 @@ void game_gear_video_draw_wall_columns(void)
                                                right_wall_height,
                                                left_hit_offset,
                                                right_hit_offset,
+                                               left_ray->texture_id,
+                                               right_ray->texture_id,
                                                left_wall_side,
                                                right_wall_side))
         {
@@ -506,6 +518,7 @@ void game_gear_video_draw_wall_columns(void)
             {
                 game_gear_wall_texture_sampler_initialize(
                     &left_sampler,
+                    left_ray->texture_id,
                     left_wall_side,
                     left_hit_offset,
                     left_wall_height,
@@ -528,6 +541,7 @@ void game_gear_video_draw_wall_columns(void)
             {
                 game_gear_wall_texture_sampler_initialize(
                     &right_sampler,
+                    right_ray->texture_id,
                     right_wall_side,
                     right_hit_offset,
                     right_wall_height,
@@ -610,6 +624,8 @@ void game_gear_video_draw_wall_columns(void)
                                               right_wall_height,
                                               left_hit_offset,
                                               right_hit_offset,
+                                              left_ray->texture_id,
+                                              right_ray->texture_id,
                                               left_wall_side,
                                               right_wall_side);
     }

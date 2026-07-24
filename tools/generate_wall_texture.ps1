@@ -2,6 +2,8 @@ param(
     [Parameter(Mandatory = $true)]
     [string]$InputPath,
     [Parameter(Mandatory = $true)]
+    [string]$DoorInputPath,
+    [Parameter(Mandatory = $true)]
     [string]$OutputSource,
     [Parameter(Mandatory = $true)]
     [string]$OutputHeader
@@ -16,53 +18,62 @@ $wallColorCount = 7
 $nearWallMinimumHeight = 17
 $maximumProjectedWallHeight = 144
 
-if (-not (Test-Path -LiteralPath $InputPath -PathType Leaf)) {
-    throw "Wall texture PNG was not found: $InputPath"
-}
-
 Add-Type -AssemblyName System.Drawing
-
-try {
-    $bitmap = [System.Drawing.Bitmap]::new([string]$InputPath)
-}
-catch {
-    throw "Wall texture PNG is not readable: $InputPath"
-}
 
 function Convert-ToGameGearChannel {
     param([int]$Channel)
     return [int][Math]::Floor(($Channel * 15 + 127) / 255)
 }
 
-try {
-    if ($bitmap.Width -ne $textureWidth -or
-        $bitmap.Height -ne $textureHeight) {
-        throw "Wall texture must be exactly ${textureWidth}x${textureHeight}; found $($bitmap.Width)x$($bitmap.Height)."
+function Get-QuantizedTexture {
+    param([string]$Path)
+
+    if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) {
+        throw "Wall texture PNG was not found: $Path"
     }
 
-    $quantizedPixels = [System.Collections.Generic.List[object]]::new($textureWidth * $textureHeight)
-    $colorCounts = @{}
+    try {
+        $bitmap = [System.Drawing.Bitmap]::new($Path)
+    }
+    catch {
+        throw "Wall texture PNG is not readable: $Path"
+    }
 
-    for ($textureY = 0; $textureY -lt $textureHeight; ++$textureY) {
-        for ($textureX = 0; $textureX -lt $textureWidth; ++$textureX) {
-            $pixel = $bitmap.GetPixel($textureX, $textureY)
-            $red = Convert-ToGameGearChannel $pixel.R
-            $green = Convert-ToGameGearChannel $pixel.G
-            $blue = Convert-ToGameGearChannel $pixel.B
-            $packedColor = $red -bor ($green -shl 4) -bor ($blue -shl 8)
-            $quantizedPixels.Add($packedColor)
+    try {
+        if ($bitmap.Width -ne $textureWidth -or
+            $bitmap.Height -ne $textureHeight) {
+            throw "Wall texture must be exactly ${textureWidth}x${textureHeight}; found $($bitmap.Width)x$($bitmap.Height)."
+        }
 
-            if ($colorCounts.ContainsKey($packedColor)) {
-                $colorCounts[$packedColor]++
-            }
-            else {
-                $colorCounts[$packedColor] = 1
+        $pixels = [System.Collections.Generic.List[object]]::new($textureWidth * $textureHeight)
+        for ($textureY = 0; $textureY -lt $textureHeight; ++$textureY) {
+            for ($textureX = 0; $textureX -lt $textureWidth; ++$textureX) {
+                $pixel = $bitmap.GetPixel($textureX, $textureY)
+                $red = Convert-ToGameGearChannel $pixel.R
+                $green = Convert-ToGameGearChannel $pixel.G
+                $blue = Convert-ToGameGearChannel $pixel.B
+                $pixels.Add($red -bor ($green -shl 4) -bor ($blue -shl 8))
             }
         }
+        return ,$pixels
+    }
+    finally {
+        $bitmap.Dispose()
     }
 }
-finally {
-    $bitmap.Dispose()
+
+$quantizedPixels = Get-QuantizedTexture $InputPath
+$doorQuantizedPixels = Get-QuantizedTexture $DoorInputPath
+$colorCounts = @{}
+foreach ($texturePixels in @($quantizedPixels, $doorQuantizedPixels)) {
+    foreach ($packedColor in $texturePixels) {
+        if ($colorCounts.ContainsKey($packedColor)) {
+            $colorCounts[$packedColor]++
+        }
+        else {
+            $colorCounts[$packedColor] = 1
+        }
+    }
 }
 
 $colorRecords = @(
@@ -113,36 +124,50 @@ $palette.Add([pscustomobject]@{ R = $blue.R; G = $blue.G; B = $blue.B })
 $palette.Add([pscustomobject]@{ R = $warm.R; G = $warm.G; B = $warm.B })
 $palette.Add([pscustomobject]@{ R = $green.R; G = $green.G; B = $green.B })
 
-$indexedPixels = [System.Collections.Generic.List[byte]]::new($textureWidth * $textureHeight)
-foreach ($packedPixel in $quantizedPixels) {
-    $red = $packedPixel -band 15
-    $green = ($packedPixel -shr 4) -band 15
-    $blue = ($packedPixel -shr 8) -band 15
-    $bestIndex = 0
-    $bestDistance = 2147483647
+function Convert-ToIndexedTexture {
+    param($Pixels, $Palette)
 
-    for ($paletteIndex = 0; $paletteIndex -lt $palette.Count; ++$paletteIndex) {
-        $redDifference = $red - $palette[$paletteIndex].R
-        $greenDifference = $green - $palette[$paletteIndex].G
-        $blueDifference = $blue - $palette[$paletteIndex].B
-        $distance = $redDifference * $redDifference +
-                    $greenDifference * $greenDifference +
-                    $blueDifference * $blueDifference
+    $result = [System.Collections.Generic.List[byte]]::new($textureWidth * $textureHeight)
+    foreach ($packedPixel in $Pixels) {
+        $red = $packedPixel -band 15
+        $green = ($packedPixel -shr 4) -band 15
+        $blue = ($packedPixel -shr 8) -band 15
+        $bestIndex = 0
+        $bestDistance = 2147483647
 
-        if ($distance -lt $bestDistance) {
-            $bestDistance = $distance
-            $bestIndex = $paletteIndex
+        for ($paletteIndex = 0; $paletteIndex -lt $Palette.Count; ++$paletteIndex) {
+            $redDifference = $red - $Palette[$paletteIndex].R
+            $greenDifference = $green - $Palette[$paletteIndex].G
+            $blueDifference = $blue - $Palette[$paletteIndex].B
+            $distance = $redDifference * $redDifference +
+                        $greenDifference * $greenDifference +
+                        $blueDifference * $blueDifference
+
+            if ($distance -lt $bestDistance) {
+                $bestDistance = $distance
+                $bestIndex = $paletteIndex
+            }
         }
+        $result.Add($bestIndex)
     }
-
-    $indexedPixels.Add($bestIndex)
+    return ,$result
 }
 
-$textureBytes = [System.Collections.Generic.List[byte]]::new($textureByteCount)
-for ($index = 0; $index -lt $indexedPixels.Count; $index += 2) {
-    $textureBytes.Add(($indexedPixels[$index] -shl 4) -bor
-                      $indexedPixels[$index + 1])
+$indexedPixels = Convert-ToIndexedTexture $quantizedPixels $palette
+$doorIndexedPixels = Convert-ToIndexedTexture $doorQuantizedPixels $palette
+
+function Convert-ToPackedTexture {
+    param($Pixels)
+
+    $result = [System.Collections.Generic.List[byte]]::new($textureByteCount)
+    for ($index = 0; $index -lt $Pixels.Count; $index += 2) {
+        $result.Add(($Pixels[$index] -shl 4) -bor $Pixels[$index + 1])
+    }
+    return ,$result
 }
+
+$textureBytes = Convert-ToPackedTexture $indexedPixels
+$doorTextureBytes = Convert-ToPackedTexture $doorIndexedPixels
 
 $textureSteps = [System.Collections.Generic.List[int]]::new(
     $maximumProjectedWallHeight - $nearWallMinimumHeight + 1)
@@ -182,11 +207,12 @@ $headerText = @"
 #define WALL_TEXTURE_PACKED_ROW_SHIFT 2
 #define WALL_TEXTURE_COLOR_COUNT 7
 #define WALL_TEXTURE_BYTE_COUNT $textureByteCount
+#define WALL_TEXTURE_COUNT 4
 #define WALL_TEXTURE_SAMPLER_MINIMUM_HEIGHT $nearWallMinimumHeight
 #define WALL_TEXTURE_SAMPLER_HEIGHT_COUNT $($maximumProjectedWallHeight - $nearWallMinimumHeight + 1)
 #define WALL_PALETTE_COLOR_COUNT 14
 
-extern const unsigned char wall_texture[WALL_TEXTURE_BYTE_COUNT];
+extern const unsigned char wall_textures[WALL_TEXTURE_COUNT][WALL_TEXTURE_BYTE_COUNT];
 extern const unsigned int wall_texture_steps[WALL_TEXTURE_SAMPLER_HEIGHT_COUNT];
 extern const unsigned char wall_texture_step_remainders[WALL_TEXTURE_SAMPLER_HEIGHT_COUNT];
 extern const unsigned int wall_palette_colors[WALL_PALETTE_COLOR_COUNT];
@@ -197,17 +223,20 @@ extern const unsigned int wall_palette_colors[WALL_PALETTE_COLOR_COUNT];
 $sourceLines = [System.Collections.Generic.List[string]]::new()
 $sourceLines.Add('#include "wall_texture.h"')
 $sourceLines.Add('')
-$sourceLines.Add('const unsigned char wall_texture[WALL_TEXTURE_BYTE_COUNT] = {')
-for ($offset = 0;
-     $offset -lt $textureBytes.Count;
-     $offset += $packedRowStride) {
-    $values = @()
-    for ($index = 0; $index -lt $packedRowStride; ++$index) {
-        $values += ('0x{0:x2}' -f $textureBytes[$offset + $index])
+$sourceLines.Add('const unsigned char wall_textures[WALL_TEXTURE_COUNT][WALL_TEXTURE_BYTE_COUNT] = {')
+for ($textureIndex = 0; $textureIndex -lt 4; ++$textureIndex) {
+    $bytes = if ($textureIndex -eq 3) { $doorTextureBytes } else { $textureBytes }
+    $sourceLines.Add('    {')
+    for ($offset = 0; $offset -lt $bytes.Count; $offset += $packedRowStride) {
+        $values = @()
+        for ($index = 0; $index -lt $packedRowStride; ++$index) {
+            $values += ('0x{0:x2}' -f $bytes[$offset + $index])
+        }
+        $suffix = if ($offset + $packedRowStride -eq $bytes.Count) { '' } else { ',' }
+        $sourceLines.Add('        ' + ($values -join ', ') + $suffix)
     }
-    $suffix = ','
-    if ($offset + $packedRowStride -eq $textureBytes.Count) { $suffix = '' }
-    $sourceLines.Add('    ' + ($values -join ', ') + $suffix)
+    $suffix = if ($textureIndex -eq 3) { '' } else { ',' }
+    $sourceLines.Add('    }' + $suffix)
 }
 $sourceLines.Add('};')
 $sourceLines.Add('')

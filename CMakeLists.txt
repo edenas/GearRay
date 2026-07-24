@@ -88,6 +88,7 @@ set(GEAR_RAY_WALL_TEXTURES_SOURCE "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/wall_textu
 set(GEAR_RAY_WALL_TEXTURES_HEADER "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/wall_textures.h")
 set(GEAR_RAY_WALL_TEXTURES_OBJECT "${CMAKE_BINARY_DIR}/wall_textures.rel")
 set(GEAR_RAY_WALL_TEXTURE_INPUT "${CMAKE_SOURCE_DIR}/assets/textures/walls/wall_concrete.png")
+set(GEAR_RAY_DOOR_TEXTURE_INPUT "${CMAKE_SOURCE_DIR}/assets/textures/walls/wall_door.png")
 set(GEAR_RAY_WALL_TEXTURE_GENERATOR "${CMAKE_SOURCE_DIR}/tools/generate_wall_texture.ps1")
 set(GEAR_RAY_GENERATED_DIR "${CMAKE_BINARY_DIR}/generated")
 set(GEAR_RAY_GENERATED_WALL_TEXTURE_SOURCE "${GEAR_RAY_GENERATED_DIR}/wall_texture.c")
@@ -282,9 +283,10 @@ add_custom_command(
             -ExecutionPolicy Bypass
             -File "${GEAR_RAY_WALL_TEXTURE_GENERATOR}"
             -InputPath "${GEAR_RAY_WALL_TEXTURE_INPUT}"
+            -DoorInputPath "${GEAR_RAY_DOOR_TEXTURE_INPUT}"
             -OutputSource "${GEAR_RAY_GENERATED_WALL_TEXTURE_SOURCE}"
             -OutputHeader "${GEAR_RAY_GENERATED_WALL_TEXTURE_HEADER}"
-    DEPENDS "${GEAR_RAY_WALL_TEXTURE_INPUT}" "${GEAR_RAY_WALL_TEXTURE_GENERATOR}"
+    DEPENDS "${GEAR_RAY_WALL_TEXTURE_INPUT}" "${GEAR_RAY_DOOR_TEXTURE_INPUT}" "${GEAR_RAY_WALL_TEXTURE_GENERATOR}"
     COMMENT "Generating packed 4bpp indexed-color wall texture"
     VERBATIM
 )
