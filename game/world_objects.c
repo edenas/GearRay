@@ -9,6 +9,8 @@ static const WorldObject world_objects[] = {
     /* WORLD_OBJECT_NONE */
     { 0 },
     /* WORLD_OBJECT_DOOR */
+    { 1 },
+    /* WORLD_OBJECT_RED_DOOR_SWITCH */
     { 1 }
 };
 

@@ -7,8 +7,8 @@ typedef struct DoorInstance
 } DoorInstance;
 
 static const DoorInstance door_instances[DOOR_INSTANCE_COUNT] = {
-    {4, 6},
-    {2, 6}
+    {5, 6},
+    {1, 6}
 };
 
 DoorInstanceId door_instance_find_at(unsigned char x, unsigned char y)

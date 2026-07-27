@@ -10,9 +10,12 @@
 #define WORLD_HEIGHT WORKSHOP_MAP_HEIGHT
 #define WORLD_TILE_EMPTY 0
 #define WORLD_TILE_STONE 1
-#define WORLD_TILE_BRICK 2
-#define WORLD_TILE_METAL 3
-#define WORLD_TILE_DOOR 4
+#define WORLD_TILE_CONCRETE_BLOOD 2
+#define WORLD_TILE_BRICK 3
+#define WORLD_TILE_METAL 4
+#define WORLD_TILE_DOOR 5
+#define WORLD_TILE_RED_DOOR 6
+#define WORLD_TILE_RED_DOOR_SWITCH 7
 
 void world_initialize(void);
 unsigned char world_get_tile(unsigned char x, unsigned char y);

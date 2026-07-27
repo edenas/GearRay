@@ -56,10 +56,11 @@ objects, and solidity. The current `workshop_map` is a 17×13 permanent engine
 laboratory with a spawn at tile (8, 6). Out-of-range world queries resolve to a
 solid stone tile.
 
-`world.c` maps the five current tile IDs directly to texture and object IDs;
-invalid texture IDs fall back to stone. `world_objects.c` describes object-level
-interactivity. Door instances and their mutable open/closed states are kept
-separately in `door_instances.c` and `door_states.c`.
+`world.c` maps ordinary semantic tile IDs directly to texture IDs; invalid IDs
+fall back to stone, while the red-door switch selects its current animation
+frame. Blood concrete is an ordinary solid, noninteractive wall. Door instances
+and their mutable open/closed states are kept separately in `door_instances.c`
+and `door_states.c`.
 
 ### Raycaster
 
@@ -91,7 +92,8 @@ already invalidate a column at the 8/9 and 16/17 boundaries, so the dirty
 signature needs no LOD flags.
 
 The raycaster records a texture ID for every ray. The native wall-column path
-currently samples the single generated `wall_texture` and shades by hit side.
+samples the selected entry in the generated ten-texture table and shades it by
+hit side.
 Obsolete pre-native shaded-tile and wall-material modules were removed in the
 Sprint 23 audit; multi-material rendering must be designed against this active
 path rather than restored as unused compatibility code.
@@ -101,16 +103,18 @@ path rather than restored as unused compatibility code.
 `game/interaction_ray.c` samples forward from the player in 32-unit increments
 up to 512 Q8.8 units (two tiles). It visits each map cell at most once, returns
 the first interactive object, and stops at a blocking wall or world boundary.
-`world_interactions.c` dispatches the resulting target. The only current action
-is toggling a matching door instance.
+`world_interactions.c` dispatches the resulting target. The ordinary yellow
+door toggles. Direct interaction with the red door is rejected; activating the
+red-door switch opens that door idempotently.
 
 ### Renderer profiling
 
 Profiling is compile-time optional through `GEARRAY_PROFILE_RENDERER`. When
 enabled, counters cover rays, DDA iterations, dirty columns, generated wall
 halves, active tiles, texture and sampler calls, palette lookups,
-and VRAM calls/bytes. Counters reset before raycasting and are printed every 60
-processed frames. When profiling is disabled, its macros are no-ops.
+and VRAM calls/bytes. Counters reset at the start of each processed frame,
+before input and simulation, and are printed every 60 processed frames. When
+profiling is disabled, its macros are no-ops.
 
 Distant-wall counters distinguish near and far wall halves and count texture
 samples avoided. Profiling report/clear routines are compiled into Bank 1 and
@@ -128,7 +132,7 @@ player position -> camera position
 camera + world  -> per-ray results
 per-ray results -> native tile bytes + tile states
 tile bytes/states -> VRAM
-Button 1 release request -> interaction ray -> world/door state
+Button 1 release request -> interaction ray -> world/door/switch state
 ```
 
 ## Frame pipeline
@@ -136,26 +140,27 @@ Button 1 release request -> interaction ray -> world/door state
 After one-time video, input, world, player, camera, and raycaster
 initialization, every processed frame runs in this exact order:
 
-1. Input copies the current key mask to `previous_keys` and reads a new mask.
-2. Input resolves rotation from Left/Right when Button 1 is not held. With
+1. Optional profiling counters are reset.
+2. Input copies the current key mask to `previous_keys` and reads a new mask.
+3. Input resolves rotation from Left/Right when Button 1 is not held. With
    Button 1 held, Left/Right produce only strafe intent. Up/Down always produce
    forward/backward intent. Each opposing pair cancels to zero.
-3. The camera applies the resolved rotation exactly once. Left and right use
+4. The camera applies the resolved rotation exactly once. Left and right use
    equal sine magnitudes with opposite signs.
-4. If movement is active, the player composes translation from the newly
+5. If movement is active, the player composes translation from the newly
    rotated camera basis. The retained 177/256 diagonal normalization runs once.
-5. The player performs X-then-Y collision and updates its authoritative position.
-6. The final player position is copied into the camera.
-7. A non-strafe Button 1 release request, if present, casts the interaction ray
+6. The player performs X-then-Y collision and updates its authoritative position.
+7. The final player position is copied into the camera.
+8. A non-strafe Button 1 release request, if present, casts the interaction ray
    using the player position and current camera direction, then may update door
-   state.
-8. Optional profiling counters are reset.
-9. `raycaster_update()` generates and casts all 28 rays using the synchronized
+   or switch state.
+9. The red-door switch advances its animation by one processed frame.
+10. `raycaster_update()` generates and casts all 28 rays using the synchronized
     camera position and current direction/plane.
-10. The loop waits for VBlank with `SMS_waitForVBlank()`.
-11. The video renderer rebuilds and uploads only changed wall tile-columns and
+11. The loop waits for VBlank with `SMS_waitForVBlank()`.
+12. The video renderer rebuilds and uploads only changed wall tile-columns and
     required tilemap cells.
-12. Optional profiling completes and periodically prints the counters.
+13. Optional profiling completes and periodically prints the counters.
 
 There is one simulation update per rendered loop. There is no delta time,
 fixed-timestep accumulator, collision substep, or queued renderer snapshot.
@@ -293,16 +298,16 @@ optimizations change workload, not gameplay geometry.
 
 All movement values are integer Q8.8 units.
 
-- `PLAYER_MOVE_SPEED` is 44, or 44/256 = 0.171875 tile for a cardinal step.
-  Emulicious and original-hardware testing established this as the balanced
-  straight movement step for the final Phase 1 control baseline.
+- `PLAYER_MOVE_SPEED` is 74, or 74/256 = 0.2890625 tile for a cardinal step.
+  This is the second general-control-speed adjustment, approximately 30 percent
+  above the first adjustment's value of 57. Engine Foundation v1.0.0 used 44.
 - Forward movement uses the normalized direction vector with scale 256.
 - Strafe movement uses the camera plane with its own length of 169, making its
   cardinal magnitude match forward movement.
 - When forward/backward and strafe are both active, their composed components
   are multiplied by 177/256. The scale is bounded and applied once to the
-  complete vector before collision. At an axis-aligned orientation, `(44,44)`
-  becomes `(30,30)`, magnitude approximately 42.43 rather than 62.23.
+  complete vector before collision. At an axis-aligned orientation, `(74,74)`
+  becomes `(51,51)`, magnitude approximately 72.12 rather than 104.65.
 - Movement retains full speed while rotation is active. Rotation is applied
   first, so translation follows the direction displayed in the same frame.
 - `PLAYER_COLLISION_RADIUS` is 32, one eighth of a tile. It keeps the player
@@ -360,17 +365,20 @@ rotation as `(direction_y, -direction_x) * 169 / 256`.
 Camera rotation uses a separate 12-bit trigonometric scale:
 
 ```text
-cosine = 4074 / 4096
-sine   =  428 / 4096
+cosine = 4058 / 4096
+sine   =  556 / 4096
 ```
 
-These rounded constants encode `atan2(428, 4074)`, approximately
-5.997 degrees per processed frame. The earlier 4056/570 constants encoded an
-approximately eight-degree step, which produced too large a frame-to-frame
-perspective change at the hardware presentation cadence. After rotating the
-direction, the camera computes an integer square root, normalizes direction
-back to length 256, and rebuilds the perpendicular plane. This prevents
-accumulated vector-length drift and preserves a symmetrical left/right step.
+These rounded constants encode `atan2(556, 4058)`, approximately
+7.802 degrees per processed frame. The second speed experiment used a
+10.138-degree 4032/721 step. After the exact-equivalence ray-direction rebuild
+optimization and emulator/original-hardware control evaluation, the final
+selection returned to 4058/556 while retaining movement speed 74. The rotation
+scale, normalization path, direction length, camera plane, and symmetrical
+left/right step are unchanged. After rotating the direction, the camera
+computes an integer square root, normalizes direction back to length 256, and
+rebuilds the perpendicular plane. This prevents accumulated vector-length
+drift.
 
 Movement multiplies direction or plane components by speed and divides by the
 corresponding basis length. The stable diagonal scale is 177/256. Intermediate
@@ -480,14 +488,16 @@ speed match cardinal speed within integer rounding. The scale remained
 unchanged through final hardware control tuning. It is a stable control rule,
 not a renderer optimization.
 
-### Reduced camera rotation step
+### Fixed-point camera rotation step
 
-The camera's 4074 cosine and 428 sine constants encode approximately
-5.997 degrees rather than the former approximately eight-degree step. Original
-hardware testing showed that the old rotation alone produced a larger visible
-perspective jump than a normal cardinal movement step. Reducing the angle
-balanced rotation-only and combined controls without changing camera
-normalization, the projection plane, ray generation, or renderer output rules.
+The camera's final 4058 cosine and 556 sine constants encode approximately
+7.802 degrees. Engine Foundation v1.0.0 used the approximately 5.997-degree
+4074/428 step; the first gameplay-speed adjustment introduced 4058/556; and
+the second speed experiment used the approximately 10.138-degree 4032/721
+step. The final selection returned to 4058/556 after the exact-equivalence
+ray-direction rebuild optimization and emulator/original-hardware control
+evaluation. None of these adjustments changes camera normalization, the
+projection plane length, ray generation, or renderer output rules.
 
 ## Design decisions
 
@@ -501,7 +511,7 @@ normalization, the projection plane, ray generation, or renderer output rules.
 - Preserve input cancellation: equal opposing intents resolve to zero.
 - Preserve update order: rotation, movement composition, diagonal normalization,
   X-then-Y collision, then camera position synchronization.
-- Treat speed 44, diagonal scale 177/256, and the 4074/428 rotation pair as the
+- Treat speed 74, diagonal scale 177/256, and the 4058/556 rotation pair as the
   control baseline.
   Retune them only through explicit emulator and original-hardware validation.
 - Preserve rotation symmetry: left passes the positive sine magnitude and
@@ -522,9 +532,10 @@ normalization, the projection plane, ray generation, or renderer output rules.
   hardware.
 - Generated texture data and native packing formats are performance-critical
   contracts. Changes require byte-level output verification.
-- The current renderer exposes one generated concrete texture with side-based
-  shading. Do not document or depend on multi-material rendering until texture
-  IDs are actually consumed by the active drawing path.
+- The current renderer consumes semantic texture IDs from a generated
+  ten-texture table. Normal concrete remains primary; blood concrete is an
+  ordinary palette-sharing variation placed explicitly in `workshop_map.c`.
+  Placement and visual composition remain level-design responsibilities.
 
 Intentional tradeoffs include a small viewport and coarse four-pixel ray
 columns for practical hardware performance, variable work from dirty columns,
@@ -662,7 +673,7 @@ baseline previously verified in Emulicious and on original Sega Game Gear
 hardware. Bank 0 retains the hot engine core, while the low-frequency world
 interaction dispatcher is the first module migrated to Bank 1. The
 centred 28-ray viewport, optimized wall renderer, fixed-point camera,
-approximately 5.997-degree rotation, `PLAYER_MOVE_SPEED = 44`, normalized
+approximately 7.802-degree rotation, `PLAYER_MOVE_SPEED = 74`, normalized
 full-speed diagonal movement, axis-separated
 collision, wall sliding, texture rendering, dirty-column caching, and VRAM
 upload behaviour are treated as stable.
@@ -676,8 +687,8 @@ oracle.
 The ROM banking model, module-placement rules, and future expansion strategy
 are defined in `docs/ROM_BANKING.md`.
 
-The workshop map, world/material/object boundaries, interaction ray, and two
-toggleable door instances are implemented and operational foundations. They
+The workshop map, world/material/object boundaries, interaction ray, toggleable
+yellow door, and switch-activated red door are implemented and operational foundations. They
 are deliberately small rather than complete game systems.
 
 Normal movement and combined movement/rotation use the same translation speed.
@@ -755,8 +766,8 @@ builds should be returned to the normal ROM configuration after measurement.
 
 The current code is the stable optimized GearRay
 engine baseline: a modular, deterministic Game Gear raycaster with a centred
-28-ray viewport, a fixed-point camera with approximately six-degree symmetric
-rotation, 44-unit cardinal movement, bounded full-speed diagonal translation,
+28-ray viewport, a fixed-point camera with approximately 7.802-degree symmetric
+rotation, 74-unit cardinal movement, bounded full-speed diagonal translation,
 axis-separated collision, table-driven DDA, native textured wall
 generation, and dirty VRAM updates. Normal movement and simultaneous turning
 use the same translation speed. The

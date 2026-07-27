@@ -2,6 +2,7 @@
 #include "camera.h"
 #include "input.h"
 #include "player.h"
+#include "red_door_switch.h"
 #include "raycaster.h"
 #include "renderer_profile.h"
 #include "video.h"
@@ -14,6 +15,10 @@ void main(void)
     signed char forward_direction;
     signed char strafe_direction;
     signed char rotation_direction;
+#ifdef GEARRAY_PROFILE_RENDERER
+    signed int direction_x_before_rotation;
+    signed int direction_y_before_rotation;
+#endif
 
     game_gear_video_initialize();
     game_gear_input_initialize();
@@ -26,13 +31,31 @@ void main(void)
 
     while (1)
     {
+#ifdef GEARRAY_PROFILE_RENDERER
+        game_gear_renderer_profile_begin_frame();
+#endif
         game_gear_input_update();
         rotation_direction = input_get_rotation_intent();
 
+#ifdef GEARRAY_PROFILE_RENDERER
+        direction_x_before_rotation = camera_get_direction_x();
+        direction_y_before_rotation = camera_get_direction_y();
+#endif
         if (rotation_direction < 0)
             camera_rotate_left();
         else if (rotation_direction > 0)
             camera_rotate_right();
+#ifdef GEARRAY_PROFILE_RENDERER
+        if (rotation_direction != 0)
+        {
+            GEAR_RAY_PROFILE_INCREMENT(rotation_steps);
+            if (camera_get_direction_x() == direction_x_before_rotation
+                && camera_get_direction_y() == direction_y_before_rotation)
+            {
+                GEAR_RAY_PROFILE_INCREMENT(repeated_rotation_directions);
+            }
+        }
+#endif
 
         forward_direction = input_get_forward_intent();
         strafe_direction = input_get_strafe_intent();
@@ -45,10 +68,8 @@ void main(void)
         }
 
         player_process_interaction();
+        red_door_switch_update();
 
-#ifdef GEARRAY_PROFILE_RENDERER
-        game_gear_renderer_profile_begin_frame();
-#endif
         raycaster_update();
         SMS_waitForVBlank();
         game_gear_video_draw_wall_columns();

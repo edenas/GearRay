@@ -33,6 +33,9 @@ Makefile
 # Editor and OS files
 .vs/
 .vscode/
+Corel Auto-Preserve/
+.artifact-quarantine/
+*.lnk
 *.suo
 *.user
 *.swp

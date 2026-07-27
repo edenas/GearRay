@@ -7,8 +7,15 @@ typedef struct
 {
     unsigned int rays_cast;
     unsigned int dda_iterations;
+    unsigned char minimum_dda_iterations;
+    unsigned char maximum_dda_iterations;
+    unsigned char ray_direction_rebuilds;
+    unsigned char rotation_steps;
+    unsigned char repeated_rotation_directions;
     unsigned int dirty_columns_rendered;
     unsigned int active_tile_columns_uploaded;
+    unsigned int native_tiles_generated;
+    unsigned int tile_state_changes;
     unsigned int texture_samples;
     unsigned int vram_upload_calls;
     unsigned int vram_bytes_uploaded;
@@ -16,6 +23,8 @@ typedef struct
     unsigned int palette_lookups;
     unsigned char near_wall_halves_rendered;
     unsigned char far_wall_halves_rendered;
+    unsigned char lod1_wall_halves_rendered;
+    unsigned char lod2_wall_halves_rendered;
     unsigned int texture_samples_avoided;
 } GameGearRendererProfile;
 

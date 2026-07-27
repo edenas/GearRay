@@ -68,15 +68,15 @@ the CPU at `0x4000–0x7FFF` when selected.
 The generated ROM uses the standard Game Gear header macro for ROMs of at least
 32 KiB. The former 16 KiB header at `0x3FF0` must not be restored.
 
-The current Sprint 31 release reports:
+The current finalized engine baseline reports:
 
 | Resource | Usage |
 | --- | ---: |
 | Total ROM file | 32,768 bytes (2 banks) |
-| Used ROM content | 14,368 bytes |
-| Bank 0 used/free | 13,591 / 2,793 bytes |
-| Bank 1 used/free | 777 / 15,607 bytes |
-| Persistent RAM | 936 bytes |
+| Used ROM content | 14,810 bytes |
+| Bank 0 used/free | 14,010 / 2,374 bytes |
+| Bank 1 used/free | 800 / 15,584 bytes |
+| Persistent RAM | 939 bytes |
 
 The single-bank baseline had 35 free Bank 0 bytes. This first migration pays a
 one-time resident cost for SDCC's bank-call support: the 43-byte resident
@@ -271,7 +271,7 @@ movement/rendering plus opening and closing both workshop doors.
 - The current low-frequency interaction ray and interaction dispatcher cross
   the bank boundary. More complex nested and cross-bank call graphs have not
   yet been validated in GearRay.
-- Bank 0 currently has 2,793 free bytes. New resident features still require
+- Bank 0 currently has 2,374 free bytes. New resident features still require
   deliberate space management and cold systems should continue to be evaluated
   for cohesive migration.
 - Bank switching has nonzero latency and changes mapper state. It must not be

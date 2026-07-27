@@ -1,8 +1,10 @@
 #include "world.h"
+#include "red_door_switch.h"
 
 void world_initialize(void)
 {
     door_states_initialize();
+    red_door_switch_initialize();
 }
 
 unsigned char world_get_tile(unsigned char x, unsigned char y)
@@ -25,16 +27,23 @@ unsigned char world_get_spawn_y(void)
 
 unsigned char world_get_texture(unsigned char tile_id)
 {
-    if (tile_id > WORLD_TILE_DOOR)
+    if (tile_id > WORLD_TILE_RED_DOOR_SWITCH)
         return WORLD_TILE_STONE;
+
+    if (tile_id == WORLD_TILE_RED_DOOR_SWITCH)
+        return red_door_switch_get_texture();
 
     return tile_id;
 }
 
 unsigned char world_get_object(unsigned char tile_id)
 {
-    if (tile_id == WORLD_TILE_DOOR)
+    if (tile_id == WORLD_TILE_DOOR ||
+        tile_id == WORLD_TILE_RED_DOOR)
         return WORLD_OBJECT_DOOR;
+
+    if (tile_id == WORLD_TILE_RED_DOOR_SWITCH)
+        return WORLD_OBJECT_RED_DOOR_SWITCH;
 
     return WORLD_OBJECT_NONE;
 }
@@ -53,7 +62,8 @@ unsigned char world_is_wall(unsigned char x, unsigned char y)
         return 0;
 
     /* All current non-door material tiles are solid. */
-    if (tile_id != WORLD_TILE_DOOR)
+    if (tile_id != WORLD_TILE_DOOR &&
+        tile_id != WORLD_TILE_RED_DOOR)
         return 1;
 
     door_instance = door_instance_find_at(x, y);

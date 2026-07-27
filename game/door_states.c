@@ -28,3 +28,11 @@ void door_state_toggle(DoorInstanceId instance_id)
     else
         door_states[instance_id] = DOOR_STATE_CLOSED;
 }
+
+void door_state_open(DoorInstanceId instance_id)
+{
+    if (instance_id >= DOOR_INSTANCE_COUNT)
+        return;
+
+    door_states[instance_id] = DOOR_STATE_OPEN;
+}

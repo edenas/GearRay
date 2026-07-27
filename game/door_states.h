@@ -11,5 +11,6 @@ typedef unsigned char DoorState;
 void door_states_initialize(void);
 DoorState door_state_get(DoorInstanceId door_id);
 void door_state_toggle(DoorInstanceId instance_id);
+void door_state_open(DoorInstanceId instance_id);
 
 #endif

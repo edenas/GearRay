@@ -7,8 +7,6 @@
 #define TEXTURE_HIGH_NIBBLE_FLAG 0x80
 #define TEXTURE_BYTE_X_MASK 0x03
 #define TEXTURE_X_PARITY_HIT_MASK 0x20
-#define WALL_SIDE_X_PALETTE_BASE 2
-#define WALL_SIDE_Y_PALETTE_BASE 9
 
 void game_gear_wall_texture_sampler_initialize(
     GameGearWallTextureSampler *sampler,
@@ -61,9 +59,9 @@ void game_gear_wall_texture_sampler_initialize(
     if ((oriented_hit_offset & TEXTURE_X_PARITY_HIT_MASK) == 0)
         sampler->texture_byte_x_and_nibble |= TEXTURE_HIGH_NIBBLE_FLAG;
 
-    sampler->palette_base = wall_side == WALL_SIDE_X
-        ? WALL_SIDE_X_PALETTE_BASE
-        : WALL_SIDE_Y_PALETTE_BASE;
+    sampler->palette_indices = wall_side == WALL_SIDE_X
+        ? wall_palette_x_indices
+        : wall_palette_y_indices;
 }
 
 unsigned char game_gear_wall_texture_palette_sample_next(
@@ -100,5 +98,8 @@ unsigned char game_gear_wall_texture_palette_sample_next(
 
     GEAR_RAY_PROFILE_INCREMENT(texture_samples);
     GEAR_RAY_PROFILE_INCREMENT(palette_lookups);
-    return (indexed_color & 15) + sampler->palette_base;
+    indexed_color &= 15;
+    if (indexed_color >= WALL_TEXTURE_COLOR_COUNT)
+        indexed_color = 0;
+    return sampler->palette_indices[indexed_color];
 }

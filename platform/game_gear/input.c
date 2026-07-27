@@ -82,15 +82,3 @@ unsigned char input_interaction_requested(void)
         && (previous_keys & PORT_A_KEY_1) != 0
         && !button_1_strafe_used;
 }
-
-unsigned char input_fire_requested(void)
-{
-    return (keys & PORT_A_KEY_2) != 0
-        && (previous_keys & PORT_A_KEY_2) == 0;
-}
-
-unsigned char input_menu_requested(void)
-{
-    return (keys & GG_KEY_START) != 0
-        && (previous_keys & GG_KEY_START) == 0;
-}

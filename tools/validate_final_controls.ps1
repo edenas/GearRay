@@ -15,6 +15,22 @@ function Assert-Equal {
     }
 }
 
+$playerSource = Get-Content (Join-Path $PSScriptRoot "..\game\player.c") -Raw
+$cameraSource = Get-Content (Join-Path $PSScriptRoot "..\game\camera.c") -Raw
+$playerMoveSpeed = [int]([regex]::Match(
+    $playerSource,
+    "#define\s+PLAYER_MOVE_SPEED\s+(\d+)").Groups[1].Value)
+$rotationCosine = [int]([regex]::Match(
+    $cameraSource,
+    "#define\s+ROTATION_COSINE\s+(\d+)").Groups[1].Value)
+$rotationSine = [int]([regex]::Match(
+    $cameraSource,
+    "#define\s+ROTATION_SINE\s+(\d+)").Groups[1].Value)
+
+Assert-Equal 74 $playerMoveSpeed "PLAYER_MOVE_SPEED"
+Assert-Equal 4058 $rotationCosine "ROTATION_COSINE"
+Assert-Equal 556 $rotationSine "ROTATION_SINE"
+
 function Get-ForwardIntent([int]$Keys) {
     return [int](($Keys -band $Up) -ne 0) - [int](($Keys -band $Down) -ne 0)
 }
@@ -134,13 +150,13 @@ function Get-Movement {
     $movementX = 0
     $movementY = 0
     if ($Forward -ne 0) {
-        $movementX = Round-Divide ($DirectionX * 44) 256
-        $movementY = Round-Divide ($DirectionY * 44) 256
+        $movementX = Round-Divide ($DirectionX * $playerMoveSpeed) 256
+        $movementY = Round-Divide ($DirectionY * $playerMoveSpeed) 256
         if ($Forward -lt 0) { $movementX = -$movementX; $movementY = -$movementY }
     }
     if ($Strafe -ne 0) {
-        $strafeX = Round-Divide ($PlaneX * 44) 169
-        $strafeY = Round-Divide ($PlaneY * 44) 169
+        $strafeX = Round-Divide ($PlaneX * $playerMoveSpeed) 169
+        $strafeY = Round-Divide ($PlaneY * $playerMoveSpeed) 169
         if ($Strafe -lt 0) { $strafeX = -$strafeX; $strafeY = -$strafeY }
         $movementX += $strafeX
         $movementY += $strafeY
@@ -153,10 +169,10 @@ function Get-Movement {
 }
 
 $expectedVectors = @{
-    "1,0" = @(-44, 0); "-1,0" = @(44, 0)
-    "0,-1" = @(0, -44); "0,1" = @(0, 44)
-    "1,-1" = @(-30, -30); "1,1" = @(-30, 30)
-    "-1,-1" = @(30, -30); "-1,1" = @(30, 30)
+    "1,0" = @(-74, 0); "-1,0" = @(74, 0)
+    "0,-1" = @(0, -74); "0,1" = @(0, 74)
+    "1,-1" = @(-51, -51); "1,1" = @(-51, 51)
+    "-1,-1" = @(51, -51); "-1,1" = @(51, 51)
 }
 foreach ($entry in $expectedVectors.GetEnumerator()) {
     $directions = $entry.Key.Split(",")
@@ -171,8 +187,232 @@ Assert-Equal $rotatedForward[0] $rotatedForwardWithRotationActive[0] "No turn pe
 Assert-Equal $rotatedForward[1] $rotatedForwardWithRotationActive[1] "No turn penalty Y"
 
 $inputSource = Get-Content (Join-Path $PSScriptRoot "..\platform\game_gear\input.c") -Raw
-$playerSource = Get-Content (Join-Path $PSScriptRoot "..\game\player.c") -Raw
 Assert-Equal 1 ([regex]::Matches($inputSource, "SMS_getKeysStatus\s*\(").Count) "One raw read site"
 Assert-Equal 0 ([regex]::Matches($playerSource, "176|rotation_active|movement_with_turn").Count) "No turn penalty source"
+
+$switchSource = Get-Content (Join-Path $PSScriptRoot "..\game\red_door_switch.c") -Raw
+$switchHeader = Get-Content (Join-Path $PSScriptRoot "..\game\red_door_switch.h") -Raw
+$switchUpdate = [regex]::Match(
+    $switchSource,
+    "void red_door_switch_update\(void\)(?<body>[\s\S]*?)void red_door_switch_activate").Groups['body'].Value
+Assert-Equal 1 ([regex]::Matches($switchSource, "#define RED_DOOR_SWITCH_FRAME_INTERVAL 6").Count) "Switch frame interval"
+Assert-Equal 0 ([regex]::Matches($switchUpdate, "RED_DOOR_SWITCH_ACTIVATED").Count) "Activated animation remains running"
+foreach ($textureContract in @(
+    "RED_DOOR_SWITCH_TEXTURE_WAITING_FRAME_1 7",
+    "RED_DOOR_SWITCH_TEXTURE_WAITING_FRAME_2 8",
+    "RED_DOOR_SWITCH_TEXTURE_ACTIVATED_FRAME_1 9",
+    "RED_DOOR_SWITCH_TEXTURE_ACTIVATED_FRAME_2 10"
+)) {
+    Assert-Equal 1 ([regex]::Matches($switchHeader, "#define $textureContract").Count) "Switch texture contract $textureContract"
+}
+Assert-Equal 1 ([regex]::Matches($switchSource, "door_state_open\(DOOR_INSTANCE_ROOM_INTERNAL\)").Count) "Explicit red-door opening path"
+
+function New-SwitchDoorModel {
+    return @{
+        SwitchState = 0
+        Frame = 0
+        FrameCounter = 0
+        Doors = @(0, 0)
+    }
+}
+
+function Update-SwitchDoorModel {
+    param($Model, [int]$FrameInterval = 6)
+
+    ++$Model.FrameCounter
+    if ($Model.FrameCounter -ge $FrameInterval) {
+        $Model.FrameCounter = 0
+        $Model.Frame = $Model.Frame -bxor 1
+    }
+}
+
+function Get-SwitchDoorTexture {
+    param(
+        $Model,
+        [int]$WaitingFrame1 = 7,
+        [int]$WaitingFrame2 = 8,
+        [int]$ActivatedFrame1 = 9,
+        [int]$ActivatedFrame2 = 10
+    )
+
+    if ($Model.SwitchState -eq 1) {
+        if ($Model.Frame -ne 0) { return $ActivatedFrame2 }
+        return $ActivatedFrame1
+    }
+
+    if ($Model.Frame -ne 0) { return $WaitingFrame2 }
+    return $WaitingFrame1
+}
+
+function Activate-SwitchDoorModel {
+    param($Model, [int]$ActivationDoor = 1)
+
+    if ($Model.SwitchState -eq 1) {
+        return
+    }
+
+    $Model.SwitchState = 1
+    $Model.Doors[$ActivationDoor] = 1
+}
+
+function Interact-SwitchDoorModel {
+    param($Model, [int]$DoorId, [bool]$IsRedDoor)
+
+    if ($IsRedDoor) {
+        return
+    }
+
+    $Model.Doors[$DoorId] = 1 - $Model.Doors[$DoorId]
+}
+
+function Reset-SwitchDoorModel {
+    param($Model)
+
+    $Model.SwitchState = 0
+    $Model.Frame = 0
+    $Model.FrameCounter = 0
+    $Model.Doors[0] = 0
+    $Model.Doors[1] = 0
+}
+
+function Assert-MutationDetected {
+    param($Expected, $Mutated, [string]$Message)
+    if ($Expected -eq $Mutated) {
+        throw "Mutation was not detected: $Message"
+    }
+}
+
+# Deterministic waiting animation: frame 1 lasts six updates, then frame 2
+# lasts six updates, and the shared phase loops without drift.
+$switchDoor = New-SwitchDoorModel
+Assert-Equal 0 $switchDoor.SwitchState "Initial switch state"
+Assert-Equal 7 (Get-SwitchDoorTexture $switchDoor) "Initial waiting texture"
+Assert-Equal 0 $switchDoor.Doors[0] "Initial yellow door state"
+Assert-Equal 0 $switchDoor.Doors[1] "Initial red door state"
+for ($update = 1; $update -le 5; ++$update) {
+    Update-SwitchDoorModel $switchDoor
+    Assert-Equal 7 (Get-SwitchDoorTexture $switchDoor) "Waiting frame 1 update $update"
+}
+Update-SwitchDoorModel $switchDoor
+Assert-Equal 8 (Get-SwitchDoorTexture $switchDoor) "Waiting frame transition at update 6"
+for ($update = 7; $update -le 11; ++$update) {
+    Update-SwitchDoorModel $switchDoor
+    Assert-Equal 8 (Get-SwitchDoorTexture $switchDoor) "Waiting frame 2 update $update"
+}
+Update-SwitchDoorModel $switchDoor
+Assert-Equal 7 (Get-SwitchDoorTexture $switchDoor) "Waiting animation loop at update 12"
+
+# Activation preserves the shared phase, opens only the internal red door,
+# remains idempotent, and continues the same six-update animation cadence.
+for ($update = 1; $update -le 6; ++$update) {
+    Update-SwitchDoorModel $switchDoor
+}
+Assert-Equal 8 (Get-SwitchDoorTexture $switchDoor) "Waiting phase before activation"
+Activate-SwitchDoorModel $switchDoor
+Assert-Equal 1 $switchDoor.SwitchState "Activated switch state"
+Assert-Equal 10 (Get-SwitchDoorTexture $switchDoor) "Activated texture preserves phase"
+Assert-Equal 0 $switchDoor.Doors[0] "Activation leaves yellow door closed"
+Assert-Equal 1 $switchDoor.Doors[1] "Activation opens internal red door"
+Activate-SwitchDoorModel $switchDoor
+Assert-Equal 0 $switchDoor.Doors[0] "Repeated activation leaves yellow door unchanged"
+Assert-Equal 1 $switchDoor.Doors[1] "Repeated activation leaves red door open"
+for ($update = 1; $update -le 5; ++$update) {
+    Update-SwitchDoorModel $switchDoor
+    Assert-Equal 10 (Get-SwitchDoorTexture $switchDoor) "Activated frame 2 update $update"
+}
+Update-SwitchDoorModel $switchDoor
+Assert-Equal 9 (Get-SwitchDoorTexture $switchDoor) "Activated frame transition"
+
+# Ordinary yellow-door interaction toggles; direct red-door interaction does
+# nothing; reset closes both doors and restores waiting frame 1.
+Interact-SwitchDoorModel $switchDoor 0 $false
+Assert-Equal 1 $switchDoor.Doors[0] "Yellow door opens by interaction"
+Interact-SwitchDoorModel $switchDoor 0 $false
+Assert-Equal 0 $switchDoor.Doors[0] "Yellow door closes by interaction"
+Reset-SwitchDoorModel $switchDoor
+Interact-SwitchDoorModel $switchDoor 1 $true
+Assert-Equal 0 $switchDoor.Doors[1] "Direct red-door interaction is rejected"
+Activate-SwitchDoorModel $switchDoor
+Reset-SwitchDoorModel $switchDoor
+Assert-Equal 0 $switchDoor.SwitchState "Reset switch state"
+Assert-Equal 0 $switchDoor.Frame "Reset switch animation phase"
+Assert-Equal 0 $switchDoor.FrameCounter "Reset switch animation counter"
+Assert-Equal 0 $switchDoor.Doors[0] "Reset yellow door state"
+Assert-Equal 0 $switchDoor.Doors[1] "Reset red door state"
+Assert-Equal 7 (Get-SwitchDoorTexture $switchDoor) "Reset waiting texture"
+
+# Mutation-style checks prove the model detects the common contract failures.
+$mutation = New-SwitchDoorModel
+Assert-MutationDetected 7 (Get-SwitchDoorTexture $mutation 6 8 9 10) "waiting texture ID"
+for ($update = 1; $update -le 5; ++$update) {
+    Update-SwitchDoorModel $mutation 5
+}
+Assert-MutationDetected 7 (Get-SwitchDoorTexture $mutation) "five-update interval"
+$mutation = New-SwitchDoorModel
+Activate-SwitchDoorModel $mutation 0
+Assert-MutationDetected 0 $mutation.Doors[0] "activation targets yellow door"
+$mutation = New-SwitchDoorModel
+Activate-SwitchDoorModel $mutation
+$mutation.Doors[1] = 0
+Assert-MutationDetected 1 $mutation.Doors[1] "repeated activation closes red door"
+$mutation = New-SwitchDoorModel
+$mutation.Doors[1] = 1
+Assert-MutationDetected 0 $mutation.Doors[1] "direct interaction opens red door"
+
+$worldHeader = Get-Content (Join-Path $PSScriptRoot "..\game\world.h") -Raw
+$mapSource = Get-Content (Join-Path $PSScriptRoot "..\game\workshop_map.c")
+foreach ($tileContract in @(
+    "WORLD_TILE_EMPTY 0",
+    "WORLD_TILE_STONE 1",
+    "WORLD_TILE_CONCRETE_BLOOD 2",
+    "WORLD_TILE_BRICK 3",
+    "WORLD_TILE_METAL 4",
+    "WORLD_TILE_DOOR 5",
+    "WORLD_TILE_RED_DOOR 6",
+    "WORLD_TILE_RED_DOOR_SWITCH 7"
+)) {
+    Assert-Equal 1 ([regex]::Matches(
+        $worldHeader,
+        "#define\s+$tileContract").Count) "World tile contract $tileContract"
+}
+
+$mapRows = @(
+    $mapSource |
+        Where-Object { $_ -match '^\s*\{ [EBSRDW],' } |
+        ForEach-Object {
+            ,@([regex]::Matches($_, '\b[EBSRDW]\b') |
+                ForEach-Object { $_.Value })
+        }
+)
+Assert-Equal 13 $mapRows.Count "Workshop map row count"
+$bloodWalls = @()
+for ($mapY = 0; $mapY -lt $mapRows.Count; ++$mapY) {
+    Assert-Equal 17 $mapRows[$mapY].Count "Workshop map width row $mapY"
+    for ($mapX = 0; $mapX -lt $mapRows[$mapY].Count; ++$mapX) {
+        if ($mapRows[$mapY][$mapX] -eq 'B') {
+            $bloodWalls += "$mapX,$mapY"
+        }
+    }
+}
+$expectedBloodWalls = @(
+    '6,2',  # top room west wall
+    '14,4', # east room north wall
+    '1,5',  # red-door area west wall
+    '3,8',  # west room south wall
+    '13,8', # east room south wall
+    '8,12'  # lower room dead-end wall
+)
+Assert-Equal $expectedBloodWalls.Count $bloodWalls.Count "Hand-authored blood wall count"
+for ($bloodIndex = 0; $bloodIndex -lt $expectedBloodWalls.Count; ++$bloodIndex) {
+    Assert-Equal $expectedBloodWalls[$bloodIndex] $bloodWalls[$bloodIndex] `
+        "Hand-authored blood wall coordinate $bloodIndex"
+}
+
+Assert-Equal 'W' $mapRows[0][8] "Red-door switch map cell"
+Assert-Equal 'R' $mapRows[6][1] "Red door map cell"
+Assert-Equal 'D' $mapRows[6][5] "Yellow door map cell"
+
+# Visual isolation is an approved level-design result checked in Emulicious.
+# This validator intentionally proves only the exact authored map contract.
 
 Write-Host "Final control validation passed: $($masks.Count * $masks.Count * 4) state combinations and movement vectors."

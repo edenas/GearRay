@@ -5,8 +5,10 @@ param(
 $ErrorActionPreference = "Stop"
 $videoPath = Join-Path $PSScriptRoot "..\platform\game_gear\video.c"
 $texturePath = Join-Path $PSScriptRoot "..\$BuildDirectory\generated\wall_texture.c"
+$textureHeaderPath = Join-Path $PSScriptRoot "..\$BuildDirectory\generated\wall_texture.h"
 $video = Get-Content -Raw -LiteralPath $videoPath
 $texture = Get-Content -Raw -LiteralPath $texturePath
+$textureHeader = Get-Content -Raw -LiteralPath $textureHeaderPath
 
 function Get-HexArray {
     param([string]$Source, [string]$Name)
@@ -17,6 +19,25 @@ function Get-HexArray {
     return @(
         [regex]::Matches($match.Groups['values'].Value, '0x[0-9a-fA-F]+') |
             ForEach-Object { [Convert]::ToInt32($_.Value, 16) }
+    )
+}
+
+function Get-IntegerArray {
+    param([string]$Source, [string]$Name)
+    $match = [regex]::Match(
+        $Source,
+        "(?:static )?const unsigned (?:char|int) $Name\[[\s\S]*?= \{(?<values>[\s\S]*?)\n\};")
+    if (-not $match.Success) { throw "Array not found: $Name" }
+    return @(
+        [regex]::Matches($match.Groups['values'].Value, '0x[0-9a-fA-F]+|\b\d+\b') |
+            ForEach-Object {
+                if ($_.Value.StartsWith('0x')) {
+                    [Convert]::ToInt32($_.Value, 16)
+                }
+                else {
+                    [Convert]::ToInt32($_.Value, 10)
+                }
+            }
     )
 }
 
@@ -54,8 +75,47 @@ $leftLod2 = @(Get-HexArray $video 'left_lod2_rows')
 $rightLod2 = @(Get-HexArray $video 'right_lod2_rows')
 $steps = @(Get-HexArray $texture 'wall_texture_steps')
 $remainders = @(Get-HexArray $texture 'wall_texture_step_remainders')
+$wallTextures = @(Get-HexArray $texture 'wall_textures')
+$paletteColors = @(Get-HexArray $texture 'wall_palette_colors')
+$paletteXIndices = @(Get-IntegerArray $texture 'wall_palette_x_indices')
+$paletteYIndices = @(Get-IntegerArray $texture 'wall_palette_y_indices')
 
-# Candidate C: exact palette distribution, half isolation and row continuity.
+if ($textureHeader -notmatch '#define WALL_TEXTURE_COUNT 10' -or
+    $textureHeader -notmatch '#define WALL_TEXTURE_COLOR_COUNT 10') {
+    throw "Generated wall texture count contract mismatch"
+}
+Test-EqualBytes @(0x555, 0x777, 0xb80, 0x02b, 0x057, 0x265, 0x860,
+                  0x566, 0x333, 0x961, 0x119, 0x396, 0x143, 0x641) `
+                $paletteColors "wall palette"
+Test-EqualBytes @(0, 2, 3, 4, 5, 6, 7, 8, 1, 13) `
+                $paletteXIndices "X palette lookup"
+Test-EqualBytes @(0, 10, 2, 11, 12, 6, 14, 15, 1, 13) `
+                $paletteYIndices "Y palette lookup"
+if ($wallTextures.Count -ne (10 * 32)) {
+    throw "Expected ten 32-byte wall textures; got $($wallTextures.Count) bytes"
+}
+
+# LOD1 must remain neutral under the current global palette layout.
+foreach ($entry in @(
+    @('left_lod1_x_rows', $leftLod1X, $false, @(2, 9)),
+    @('right_lod1_x_rows', $rightLod1X, $true, @(2, 9)),
+    @('left_lod1_y_rows', $leftLod1Y, $false, @(2, 10)),
+    @('right_lod1_y_rows', $rightLod1Y, $true, @(2, 10))
+)) {
+    $name = $entry[0]
+    $bytes = [int[]]$entry[1]
+    $right = [bool]$entry[2]
+    $allowed = [int[]]$entry[3]
+    for ($row = 0; $row -lt 8; ++$row) {
+        foreach ($pixel in @(Decode-HalfRow $bytes ($row * 4) $right)) {
+            if ($pixel -notin $allowed) {
+                throw "$name invalid index $pixel"
+            }
+        }
+    }
+}
+
+# LOD2 preserves the reference renderer's ordered black/dark-grey/mid-grey mix.
 foreach ($entry in @(
     @('left_lod2_rows', $leftLod2, $false),
     @('right_lod2_rows', $rightLod2, $true)
@@ -74,16 +134,16 @@ foreach ($entry in @(
                 throw "$name phase $phase row $row breaks the silhouette"
             }
             foreach ($pixel in $pixels) {
-                if ($pixel -notin @(0, 9, 11)) { throw "$name invalid index $pixel" }
+                if ($pixel -notin @(0, 2, 10)) { throw "$name invalid index $pixel" }
             }
             $allPixels += $pixels
         }
         $counts = @(
             @($allPixels | Where-Object { $_ -eq 0 }).Count,
-            @($allPixels | Where-Object { $_ -eq 9 }).Count,
-            @($allPixels | Where-Object { $_ -eq 11 }).Count
+            @($allPixels | Where-Object { $_ -eq 2 }).Count,
+            @($allPixels | Where-Object { $_ -eq 10 }).Count
         )
-        Test-EqualBytes @(4, 20, 8) $counts "$name phase $phase distribution"
+        Test-EqualBytes @(4, 8, 20) $counts "$name phase $phase distribution"
     }
 }
 
@@ -195,26 +255,92 @@ for ($leftHeight = 0; $leftHeight -le 17; ++$leftHeight) {
     }
 }
 
-# The cache is an exact five-byte signature. Prove that every field transition
-# relevant to rendering invalidates it, including both LOD boundaries and the
-# fixed tile-column phase owner (the column itself is not mutable state).
+# The cache is an exact seven-field signature. Model the runtime comparison and
+# prove that every renderer-relevant field transition invalidates it, including
+# both texture IDs, both LOD boundaries, and both wall-side flags. The fixed
+# tile-column phase owner is not mutable signature state.
+function Test-WallColumnUnchanged {
+    param([int[]]$Previous, [int[]]$Candidate)
+
+    if (($Previous[6] -band 0x80) -eq 0) {
+        return $false
+    }
+
+    return $Previous[0] -eq $Candidate[0] -and
+           $Previous[1] -eq $Candidate[1] -and
+           $Previous[2] -eq $Candidate[2] -and
+           $Previous[3] -eq $Candidate[3] -and
+           $Previous[4] -eq $Candidate[4] -and
+           $Previous[5] -eq $Candidate[5] -and
+           ($Previous[6] -band 0x03) -eq ($Candidate[6] -band 0x03)
+}
+
 $boundaryHeights = @(0, 1, 7, 8, 9, 15, 16, 17, 32, 64, 127, 144, 255)
 foreach ($leftHeight in $boundaryHeights) {
     foreach ($rightHeight in $boundaryHeights) {
         foreach ($leftOffset in @(0, 31, 32, 127, 255)) {
             foreach ($rightOffset in @(0, 31, 32, 127, 255)) {
                 foreach ($sideFlags in @(0, 1, 2, 3)) {
-                    $signature = @($leftHeight, $rightHeight, $leftOffset, $rightOffset, $sideFlags)
-                    for ($field = 0; $field -lt 5; ++$field) {
-                        $changed = @($signature)
+                    $signature = @(
+                        $leftHeight, $rightHeight,
+                        $leftOffset, $rightOffset,
+                        1, 1,
+                        (0x80 -bor $sideFlags)
+                    )
+                    if (-not (Test-WallColumnUnchanged $signature $signature)) {
+                        throw "Identical valid dirty signature was rejected"
+                    }
+
+                    for ($field = 0; $field -lt 6; ++$field) {
+                        $changed = [int[]]$signature.Clone()
                         $changed[$field] = ($changed[$field] + 1) -band 0xFF
-                        if ((Compare-Object $signature $changed -SyncWindow 0).Count -eq 0) {
+                        if (Test-WallColumnUnchanged $signature $changed) {
                             throw "Dirty signature failed to observe field $field"
                         }
+                    }
+
+                    $changedSide = [int[]]$signature.Clone()
+                    $changedSide[6] = $changedSide[6] -bxor 1
+                    if (Test-WallColumnUnchanged $signature $changedSide) {
+                        throw "Dirty signature failed to observe left wall-side flag"
+                    }
+
+                    $changedSide[6] = $signature[6] -bxor 2
+                    if (Test-WallColumnUnchanged $signature $changedSide) {
+                        throw "Dirty signature failed to observe right wall-side flag"
+                    }
+
+                    $invalid = [int[]]$signature.Clone()
+                    $invalid[6] = $invalid[6] -band 0x03
+                    if (Test-WallColumnUnchanged $invalid $signature) {
+                        throw "Dirty signature accepted an invalid cached column"
                     }
                 }
             }
         }
+    }
+}
+
+# Switch animation and activation must independently invalidate either half.
+foreach ($transition in @(
+    @(7, 8, 'waiting frame 1 to 2'),
+    @(9, 10, 'activated frame 1 to 2'),
+    @(7, 9, 'waiting to activated frame 1'),
+    @(8, 10, 'waiting to activated frame 2')
+)) {
+    $before = [int[]]@(64, 64, 32, 32, $transition[0], 1, 0x80)
+    $after = [int[]]$before.Clone()
+    $after[4] = $transition[1]
+    if (Test-WallColumnUnchanged $before $after) {
+        throw "Left switch texture transition remained cached: $($transition[2])"
+    }
+
+    $before[4] = 1
+    $before[5] = $transition[0]
+    $after = [int[]]$before.Clone()
+    $after[5] = $transition[1]
+    if (Test-WallColumnUnchanged $before $after) {
+        throw "Right switch texture transition remained cached: $($transition[2])"
     }
 }
 
@@ -223,4 +349,4 @@ Write-Output "- Candidate C rows/phases/halves and native combinations"
 Write-Output "- hit offsets 0..255"
 Write-Output "- vertical sampling heights 1..255; ROM tables 17..144"
 Write-Output "- flat bounds and native tiles across LOD boundaries/clipping"
-Write-Output "- exact dirty-signature field and boundary transitions"
+Write-Output "- exact seven-field dirty signature, texture transitions and boundaries"

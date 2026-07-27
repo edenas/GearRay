@@ -10,7 +10,6 @@ typedef struct
     unsigned char wall_height;
     WallSide hit_side;
     unsigned char hit_offset;
-    unsigned char hit_tile;
     unsigned char texture_id;
 } RaycasterRay;
 

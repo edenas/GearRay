@@ -18,8 +18,10 @@ remains to be confirmed.
 
 | Category | Files or directory | Purpose | Creator/source | Intended license | Status |
 | --- | --- | --- | --- | --- | --- |
-| Active wall texture | `assets/textures/walls/wall_concrete.png` | Current wall-texture generator input | **Confirmation required** | **Confirmation required** | Used by the build; ownership and license must be confirmed |
+| Active wall textures | `assets/textures/walls/wall_concrete.png`, `assets/textures/walls/wall_concrete_blood.png` | Primary concrete and approved blood-concrete environmental variation | **Confirmation required** | **Confirmation required** | Used by the build; ownership and license must be confirmed |
 | Active door texture | `assets/textures/walls/wall_door.png` | Current door-texture generator input | **Confirmation required** | **Confirmation required** | Used by the current working build; ownership and license must be confirmed |
+| Active red-door texture | `assets/textures/walls/wall_door_red.png` | Red-door generator input | **Confirmation required** | **Confirmation required** | Used by the current working build; ownership and license must be confirmed |
+| Active red-door switch frames | `assets/textures/walls/red_door_switch_on_1.png`, `red_door_switch_on_2.png`, `red_door_switch_off_1.png`, `red_door_switch_off_2.png` | Waiting and activated animation frames | **Confirmation required** | **Confirmation required** | Used by the current working build; ownership and license must be confirmed |
 | Directional brick textures | `wall_brick_x.png`, `wall_brick_y.png` | Historical or planned wall material | **Confirmation required** | **Confirmation required** | Not currently selected by CMake |
 | Directional metal textures | `wall_metal_x.png`, `wall_metal_y.png` | Historical or planned wall material | **Confirmation required** | **Confirmation required** | Not currently selected by CMake |
 | Directional technology textures | `wall_tech_x.png`, `wall_tech_y.png` | Historical or planned wall material | **Confirmation required** | **Confirmation required** | Not currently selected by CMake |
@@ -88,11 +90,12 @@ Before using a capture as the public README screenshot, record:
 
 ## Maps and Code-Embedded Visual Data
 
-The workshop map in `game/workshop_map.c`, palette values generated from texture
-inputs, and native tile patterns embedded in platform source are distributed as
-code rather than standalone media. Their design/source ownership is
-**confirmation required** for this provenance record even though the files are
-covered by the repository's source license.
+The workshop map in `game/workshop_map.c`, including its six hand-authored
+blood-wall placements, palette values generated from texture inputs, and native
+tile patterns embedded in platform source are distributed as code rather than
+standalone media. Their design/source ownership is **confirmation required**
+for this provenance record even though the files are covered by the
+repository's source license.
 
 ## Audio, Fonts, Sprites, and Additional Media
 

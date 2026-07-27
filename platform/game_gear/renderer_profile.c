@@ -58,21 +58,22 @@ void game_gear_renderer_profile_end_frame(void) __banked
         return;
 
     profile_frame_count = 0;
-    profile_print(6, 0, "RAYS", game_gear_renderer_profile.rays_cast);
-    profile_print(16, 0, "DDAI", game_gear_renderer_profile.dda_iterations);
-    profile_print(6, 1, "WCOL",
-                  game_gear_renderer_profile.near_wall_halves_rendered
-                  + game_gear_renderer_profile.far_wall_halves_rendered);
-    profile_print(16, 1, "DIRT", game_gear_renderer_profile.dirty_columns_rendered);
-    profile_print(6, 2, "ATIL", game_gear_renderer_profile.active_tile_columns_uploaded);
-    profile_print(16, 2, "TSMP", game_gear_renderer_profile.texture_samples);
-    profile_print(6, 3, "VUPC", game_gear_renderer_profile.vram_upload_calls);
-    profile_print(16, 3, "VBYT", game_gear_renderer_profile.vram_bytes_uploaded);
-    profile_print(6, 4, "SAMP", game_gear_renderer_profile.sampler_calls);
-    profile_print(16, 4, "PALT", game_gear_renderer_profile.palette_lookups);
-    profile_print(6, 5, "NWAL", game_gear_renderer_profile.near_wall_halves_rendered);
-    profile_print(16, 5, "FWAL", game_gear_renderer_profile.far_wall_halves_rendered);
-    profile_print(6, 6, "TAVD", game_gear_renderer_profile.texture_samples_avoided);
+    profile_print(0, 0, "RAYS", game_gear_renderer_profile.rays_cast);
+    profile_print(10, 0, "DDAI", game_gear_renderer_profile.dda_iterations);
+    profile_print(0, 1, "DMIN", game_gear_renderer_profile.minimum_dda_iterations);
+    profile_print(10, 1, "DMAX", game_gear_renderer_profile.maximum_dda_iterations);
+    profile_print(0, 2, "DIRT", game_gear_renderer_profile.dirty_columns_rendered);
+    profile_print(10, 2, "ATIL", game_gear_renderer_profile.active_tile_columns_uploaded);
+    profile_print(0, 3, "NWAL", game_gear_renderer_profile.near_wall_halves_rendered);
+    profile_print(10, 3, "L1HL", game_gear_renderer_profile.lod1_wall_halves_rendered);
+    profile_print(0, 4, "L2HL", game_gear_renderer_profile.lod2_wall_halves_rendered);
+    profile_print(10, 4, "TSMP", game_gear_renderer_profile.texture_samples);
+    profile_print(0, 5, "VUPC", game_gear_renderer_profile.vram_upload_calls);
+    profile_print(10, 5, "VBYT", game_gear_renderer_profile.vram_bytes_uploaded);
+    profile_print(0, 6, "RBLD", game_gear_renderer_profile.ray_direction_rebuilds);
+    profile_print(10, 6, "ROTA", game_gear_renderer_profile.rotation_steps);
+    profile_print(0, 7, "NATV", game_gear_renderer_profile.native_tiles_generated);
+    profile_print(10, 7, "TCHG", game_gear_renderer_profile.tile_state_changes);
 }
 
 #endif

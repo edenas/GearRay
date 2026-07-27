@@ -152,9 +152,11 @@ static unsigned char cast_ray(signed int direction_x,
                               signed int direction_y,
                               WallSide *result_side,
                               unsigned char *result_offset,
-                              unsigned char *result_tile,
                               unsigned char *result_texture_id)
 {
+#ifdef GEARRAY_PROFILE_RENDERER
+    unsigned char ray_dda_iterations = 0;
+#endif
     unsigned int projected_height;
     unsigned int projection_distance;
     unsigned char world_tile_id;
@@ -227,6 +229,9 @@ static unsigned char cast_ray(signed int direction_x,
     do
     {
         GEAR_RAY_PROFILE_INCREMENT(dda_iterations);
+#ifdef GEARRAY_PROFILE_RENDERER
+        ++ray_dda_iterations;
+#endif
         if (side_distance_x < side_distance_y)
         {
             ray_distance = side_distance_x;
@@ -244,9 +249,24 @@ static unsigned char cast_ray(signed int direction_x,
     }
     while (!world_is_wall((unsigned char)map_x, (unsigned char)map_y));
 
+#ifdef GEARRAY_PROFILE_RENDERER
+    if (game_gear_renderer_profile.minimum_dda_iterations == 0
+        || ray_dda_iterations
+           < game_gear_renderer_profile.minimum_dda_iterations)
+    {
+        game_gear_renderer_profile.minimum_dda_iterations =
+            ray_dda_iterations;
+    }
+    if (ray_dda_iterations
+        > game_gear_renderer_profile.maximum_dda_iterations)
+    {
+        game_gear_renderer_profile.maximum_dda_iterations =
+            ray_dda_iterations;
+    }
+#endif
+
     world_tile_id = world_get_tile((unsigned char)map_x,
                                    (unsigned char)map_y);
-    *result_tile = world_tile_id;
     *result_texture_id = world_get_texture(world_tile_id);
     if (*result_side == WALL_SIDE_X)
     {
@@ -301,7 +321,6 @@ void raycaster_initialize(void)
         rendered_rays[ray_index].wall_height = 1;
         rendered_rays[ray_index].hit_side = WALL_SIDE_X;
         rendered_rays[ray_index].hit_offset = 0;
-        rendered_rays[ray_index].hit_tile = WORLD_TILE_STONE;
         rendered_rays[ray_index].texture_id = WORLD_TILE_STONE;
     }
 }
@@ -327,15 +346,16 @@ void raycaster_update(void)
         || camera_plane_x != cached_camera_plane_x
         || camera_plane_y != cached_camera_plane_y)
     {
+        GEAR_RAY_PROFILE_INCREMENT(ray_direction_rebuilds);
         for (ray_index = 0; ray_index < RAY_COUNT; ++ray_index)
         {
             signed int camera_x = camera_x_by_ray[ray_index];
 
             ray_direction_x_by_ray[ray_index] = camera_direction_x
-                + (signed int)(((signed long)camera_plane_x * camera_x)
+                + (signed int)((camera_plane_x * camera_x)
                                / FIXED_POINT_SCALE);
             ray_direction_y_by_ray[ray_index] = camera_direction_y
-                + (signed int)(((signed long)camera_plane_y * camera_x)
+                + (signed int)((camera_plane_y * camera_x)
                                / FIXED_POINT_SCALE);
         }
 
@@ -353,7 +373,6 @@ void raycaster_update(void)
             ray_direction_y_by_ray[ray_index],
             &rendered_rays[ray_index].hit_side,
             &rendered_rays[ray_index].hit_offset,
-            &rendered_rays[ray_index].hit_tile,
             &rendered_rays[ray_index].texture_id);
     }
 }

@@ -29,10 +29,11 @@ GearRay is an engine foundation and workshop ROM, not yet a complete game.
 - Deterministic fixed-point movement, rotation, collision, and raycasting.
 - Native Game Gear tile rendering with indexed-colour wall textures.
 - Directional wall shading and distance-based wall detail.
-- Doors, interaction targeting, and a permanent workshop map.
+- A toggleable yellow door, switch-activated red door, interaction targeting,
+  and a permanent workshop map.
 - Banked 32 KiB ROM layout with isolated release and profiling builds.
 - Compile-time renderer profiling with no release-build counter overhead.
-- Host-side control and renderer-equivalence validation scripts.
+- Host-side control, ray-direction rebuild, and renderer-equivalence validators.
 
 ## Controls
 
@@ -96,8 +97,9 @@ evidence; they are not all descriptions of the current implementation.
 
 ## Roadmap
 
-Near-term work focuses on public-release documentation, provenance, reproducible
-builds, and the planned `GearRay_Developer_Bible.md`. Later work may add
+Near-term work focuses on public-release documentation, provenance, and
+reproducible builds. The consolidated current reference is the
+[GearRay Developer Bible](GearRay_Developer_Bible.md). Later work may add
 gameplay systems, content, audio, and user-interface features while preserving
 the Engine Foundation contracts.
 

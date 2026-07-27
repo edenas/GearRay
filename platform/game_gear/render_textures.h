@@ -16,7 +16,7 @@ typedef struct
     unsigned char projected_wall_height;
     unsigned char texture_id;
     unsigned char texture_byte_x_and_nibble;
-    unsigned char palette_base;
+    const unsigned char *palette_indices;
 } GameGearWallTextureSampler;
 
 void game_gear_wall_texture_sampler_initialize(
