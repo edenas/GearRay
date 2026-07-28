@@ -13,6 +13,8 @@
 #define VIEWPORT_TILE_STATE_FLOOR 1
 #define VIEWPORT_TILE_STATE_WALL 2
 #define VIEWPORT_HORIZON_TILE_ROW (GAME_GEAR_VIEWPORT_TILE_ROWS / 2)
+#define CEILING_PALETTE_INDEX (GAME_GEAR_WALL_PALETTE_BASE + 1)
+#define FLOOR_PALETTE_INDEX (GAME_GEAR_WALL_PALETTE_BASE + 8)
 #define WALL_COLUMN_VALID_FLAG 0x80
 #define WALL_COLUMN_LEFT_SIDE_Y_FLAG 0x01
 #define WALL_COLUMN_RIGHT_SIDE_Y_FLAG 0x02
@@ -86,11 +88,11 @@ static const unsigned char debug_border_tiles[3][8] = {
 #endif
 
 static const unsigned char ceiling_tile[8] = {
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
 };
 
 static const unsigned char floor_tile[8] = {
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
 };
 
 static unsigned char projected_wall_column[
@@ -133,6 +135,14 @@ static const unsigned char right_palette_bitplanes[16][4] = {
     {0x00, 0x00, 0x0f, 0x0f}, {0x0f, 0x00, 0x0f, 0x0f},
     {0x00, 0x0f, 0x0f, 0x0f}, {0x0f, 0x0f, 0x0f, 0x0f}
 };
+
+static unsigned char game_gear_get_background_palette_index(
+    unsigned char screen_y)
+{
+    return screen_y < GAME_GEAR_VIEWPORT_PIXEL_HEIGHT / 2
+        ? CEILING_PALETTE_INDEX
+        : FLOOR_PALETTE_INDEX;
+}
 
 static unsigned char game_gear_wall_column_is_unchanged(
     const GameGearWallColumnSignature *previous,
@@ -211,6 +221,7 @@ static void game_gear_build_native_wall_tile(
 {
     unsigned char tile_row;
     unsigned char screen_y;
+    unsigned char background_palette_index;
     unsigned char left_palette_index;
     unsigned char right_palette_index;
     const unsigned char *left_bitplanes;
@@ -224,15 +235,17 @@ static void game_gear_build_native_wall_tile(
         for (tile_row = 0; tile_row < 8; ++tile_row)
         {
             screen_y = tile_pixel_y + tile_row;
+            background_palette_index =
+                game_gear_get_background_palette_index(screen_y);
             left_palette_index = game_gear_wall_texture_palette_sample_next(
                 left_sampler, screen_y);
             right_palette_index = game_gear_wall_texture_palette_sample_next(
                 right_sampler, screen_y);
 
             if (left_palette_index == GAME_GEAR_WALL_TEXTURE_OUTSIDE)
-                left_palette_index = 0;
+                left_palette_index = background_palette_index;
             if (right_palette_index == GAME_GEAR_WALL_TEXTURE_OUTSIDE)
-                right_palette_index = 0;
+                right_palette_index = background_palette_index;
 
             left_bitplanes = left_palette_bitplanes[left_palette_index];
             right_bitplanes = right_palette_bitplanes[right_palette_index];
@@ -248,8 +261,10 @@ static void game_gear_build_native_wall_tile(
     for (tile_row = 0; tile_row < 8; ++tile_row)
     {
         screen_y = tile_pixel_y + tile_row;
-        left_palette_index = 0;
-        right_palette_index = 0;
+        background_palette_index =
+            game_gear_get_background_palette_index(screen_y);
+        left_palette_index = background_palette_index;
+        right_palette_index = background_palette_index;
 
         if (left_wall_is_far)
         {
@@ -259,7 +274,8 @@ static void game_gear_build_native_wall_tile(
                 left_bitplanes = left_flat_rows;
             }
             else
-                left_bitplanes = left_palette_bitplanes[0];
+                left_bitplanes =
+                    left_palette_bitplanes[background_palette_index];
             left_flat_rows += NATIVE_TILE_ROW_BYTES;
         }
         else
@@ -267,7 +283,7 @@ static void game_gear_build_native_wall_tile(
             left_palette_index = game_gear_wall_texture_palette_sample_next(
                 left_sampler, screen_y);
             if (left_palette_index == GAME_GEAR_WALL_TEXTURE_OUTSIDE)
-                left_palette_index = 0;
+                left_palette_index = background_palette_index;
             left_bitplanes = left_palette_bitplanes[left_palette_index];
         }
 
@@ -279,7 +295,8 @@ static void game_gear_build_native_wall_tile(
                 right_bitplanes = right_flat_rows;
             }
             else
-                right_bitplanes = right_palette_bitplanes[0];
+                right_bitplanes =
+                    right_palette_bitplanes[background_palette_index];
             right_flat_rows += NATIVE_TILE_ROW_BYTES;
         }
         else
@@ -287,7 +304,7 @@ static void game_gear_build_native_wall_tile(
             right_palette_index = game_gear_wall_texture_palette_sample_next(
                 right_sampler, screen_y);
             if (right_palette_index == GAME_GEAR_WALL_TEXTURE_OUTSIDE)
-                right_palette_index = 0;
+                right_palette_index = background_palette_index;
             right_bitplanes = right_palette_bitplanes[right_palette_index];
         }
 
@@ -374,10 +391,10 @@ void game_gear_video_initialize(void)
     unsigned char wall_palette_offset;
     unsigned int cell_index;
 
+    SMS_displayOff();
     SMS_VRAMmemsetW(0, 0x0000, 16384);
     GG_setBGPaletteColor(0, RGB(0, 0, 0));
     SMS_setBackdropColor(0);
-    SMS_autoSetUpTextRenderer();
     for (wall_palette_offset = 0;
          wall_palette_offset < GAME_GEAR_WALL_PALETTE_COLOR_COUNT;
          ++wall_palette_offset)
@@ -390,12 +407,12 @@ void game_gear_video_initialize(void)
                       CEILING_TILE_INDEX,
                       sizeof(ceiling_tile),
                       0,
-                      1);
+                      CEILING_PALETTE_INDEX);
     SMS_load1bppTiles(floor_tile,
                       FLOOR_TILE_INDEX,
                       sizeof(floor_tile),
                       0,
-                      1);
+                      FLOOR_PALETTE_INDEX);
 
     for (tile_column = 0;
          tile_column < GAME_GEAR_VIEWPORT_TILE_COLUMNS;

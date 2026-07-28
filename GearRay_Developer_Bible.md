@@ -134,10 +134,15 @@ Reset
         -> initialize camera basis
         -> copy player position into camera
         -> initialize ray results
+        -> cast and upload the complete initial gameplay frame while blanked
+        -> initialize SMSlib text support, re-blank, wait for VBlank
+        -> enable display
         -> enter permanent frame loop
 ```
 
 `source/main.c` is a historical/minimal bootstrap example and is not linked by the current CMake build. The active entry point is `game/main.c`.
+
+The current ROM boots directly into gameplay. Display output remains disabled while the initial world, camera, rays, viewport, wall columns, and optional debug border are prepared. `SMS_autoSetUpTextRenderer()` runs only after that complete frame exists; because SMSlib enables the display internally, startup immediately disables it again, waits for VBlank, and then enables it deliberately. This is a temporary direct-boot transition. When the intended `logo -> main menu -> intro -> gameplay` flow exists, gameplay must prepare its first complete frame during that transition before becoming visible.
 
 ### 5.2 Frame order
 
@@ -421,7 +426,9 @@ The optional compile-time debug border defaults on and uses tiles 97–99. Ceili
 
 ### 12.2 Initialization
 
-`game_gear_video_initialize()` initializes the VDP through SMSlib, loads/sets background tiles, palettes, and viewport state, invalidates wall-column signatures, and enables display behavior required by the runtime. Palette data combines background colors and side-aware wall ranges obtained from generated texture palette data.
+`game_gear_video_initialize()` disables display output, initializes the VDP, loads/sets background tiles, palettes, and viewport state, and invalidates wall-column signatures. Startup prepares the complete initial frame before SMSlib text setup and the deliberate final display enable. Palette data combines uniform background colors and side-aware wall ranges obtained from generated texture palette data.
+
+The ceiling is a uniform global BG index 3, RGB `(7, 7, 7)` / `0x777`; the floor is a uniform global BG index 10, RGB `(3, 3, 3)` / `0x333`. With `GAME_GEAR_WALL_PALETTE_BASE` at global BG index 2, their definitions use offsets `+1` and `+8` respectively. These offsets are not absolute BG indices. Pixels outside a projected wall use the ceiling index above the horizon and the floor index at or below it, including partially occupied native wall tiles. No floor casting, perspective calculation, background texture, gradient, checkerboard, or dithering is involved.
 
 ### 12.3 Texture sampling
 

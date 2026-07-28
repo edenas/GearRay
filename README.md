@@ -28,7 +28,10 @@ GearRay is an engine foundation and workshop ROM, not yet a complete game.
 - Centred 112×64 first-person viewport with 28 rays.
 - Deterministic fixed-point movement, rotation, collision, and raycasting.
 - Native Game Gear tile rendering with indexed-colour wall textures.
-- Directional wall shading and distance-based wall detail.
+- Directional wall shading, distance-based wall detail, and uniform light-gray
+  ceiling/dark-gray floor backgrounds.
+- Complete first-frame preparation before the direct-to-game display becomes
+  visible.
 - Two toggleable yellow doors, a switch-activated red door, interaction
   targeting, and a permanent 13×13 workshop map.
 - Banked 32 KiB ROM layout with isolated release and profiling builds.

@@ -73,8 +73,8 @@ The current finalized engine baseline reports:
 | Resource | Release | Profile |
 | --- | ---: | ---: |
 | Total ROM file | 32,768 bytes (2 banks) | 32,768 bytes (2 banks) |
-| Used ROM content | 14,766 bytes | 15,869 bytes |
-| Bank 0 used/free | 13,966 / 2,418 bytes | 14,466 / 1,918 bytes |
+| Used ROM content | 14,837 bytes | 15,940 bytes |
+| Bank 0 used/free | 14,037 / 2,347 bytes | 14,537 / 1,847 bytes |
 | Bank 1 used/free | 800 / 15,584 bytes | 1,403 / 14,981 bytes |
 | Persistent RAM | 945 bytes | 979 bytes |
 
@@ -272,7 +272,7 @@ switch-controlled red door.
 - The current low-frequency interaction ray and interaction dispatcher cross
   the bank boundary. More complex nested and cross-bank call graphs have not
   yet been validated in GearRay.
-- Bank 0 currently has 2,418 free bytes. New resident features still require
+- Bank 0 currently has 2,347 free bytes. New resident features still require
   deliberate space management and cold systems should continue to be evaluated
   for cohesive migration.
 - Bank switching has nonzero latency and changes mapper state. It must not be

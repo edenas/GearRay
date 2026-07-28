@@ -23,6 +23,14 @@ that coordinates input, player movement, camera rotation, interaction,
 raycasting, VBlank synchronization, and drawing. It does not contain rendering
 or collision algorithms.
 
+The current direct-to-game boot keeps display output disabled while the initial
+world, camera, ray results, complete viewport wall state, and optional debug
+border are prepared. SMSlib text setup occurs only after that complete frame
+exists; its implicit display enable is immediately blanked again before a
+VBlank-synchronized deliberate enable. This temporary sequence must be
+reviewed when startup becomes `logo -> main menu -> intro -> gameplay`; the
+gameplay transition must retain the complete-first-frame guarantee.
+
 ### Input
 
 `platform/game_gear/input.c` owns the current and previous controller bitmasks.
@@ -475,6 +483,19 @@ native tile data.
 Each viewport tile cell remembers whether it currently represents ceiling,
 floor, or wall. Tilemap writes occur only on state transitions, reducing VRAM
 calls and bytes without changing the intended image.
+
+### Ceiling and floor backgrounds
+
+Ceiling and floor use solid 1bpp tiles with existing BG palette entries. The
+ceiling uses global BG index 3, RGB `(7, 7, 7)` / `0x777`, and the floor uses
+global BG index 10, RGB `(3, 3, 3)` / `0x333`. Since
+`GAME_GEAR_WALL_PALETTE_BASE` is global index 2, the source constants use
+relative offsets `+1` and `+8`; these are not absolute palette indices.
+
+Native wall tiles select the same ceiling or floor index for pixels outside the
+projected wall silhouette according to the viewport horizon. This keeps
+partially occupied wall tiles continuous with the flat backgrounds without
+changing wall samples, shading, geometry, dirty signatures, or upload counts.
 
 ### Incremental texture sampler
 

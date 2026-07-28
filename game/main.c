@@ -28,6 +28,23 @@ void main(void)
     camera_set_fixed_position(player_get_position_x(),
                               player_get_position_y());
     raycaster_initialize();
+    /*
+     * TODO: This build boots directly into gameplay, so pre-render the first
+     * complete frame while display output is disabled to avoid progressive
+     * wall loading. When startup becomes logo -> main menu -> intro ->
+     * gameplay, review this sequence and prepare the complete gameplay frame
+     * during that transition. Do not remove display blanking unless the first
+     * gameplay frame is complete before it becomes visible.
+     */
+    raycaster_update();
+    game_gear_video_draw_wall_columns();
+#if GEARRAY_DEBUG_VIEWPORT_BORDER
+    game_gear_video_draw_viewport_border();
+#endif
+    SMS_autoSetUpTextRenderer();
+    SMS_displayOff();
+    SMS_waitForVBlank();
+    SMS_displayOn();
 
     while (1)
     {
