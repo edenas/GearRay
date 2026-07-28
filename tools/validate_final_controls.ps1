@@ -15,6 +15,27 @@ function Assert-Equal {
     }
 }
 
+function Get-InitializerValue {
+    param(
+        [string]$Body,
+        [string]$Variable,
+        [string]$ConstantName,
+        [int]$ConstantValue
+    )
+
+    $match = [regex]::Match(
+        $Body,
+        "(?m)^\s*$Variable\s*=\s*(?<value>-?(?:\d+|$ConstantName))\s*;\s*$")
+    if (-not $match.Success) {
+        throw "Could not extract initial $Variable from production source."
+    }
+
+    $value = $match.Groups["value"].Value
+    if ($value -eq $ConstantName) { return $ConstantValue }
+    if ($value -eq "-$ConstantName") { return -$ConstantValue }
+    return [int]$value
+}
+
 $playerSource = Get-Content (Join-Path $PSScriptRoot "..\game\player.c") -Raw
 $cameraSource = Get-Content (Join-Path $PSScriptRoot "..\game\camera.c") -Raw
 $playerMoveSpeed = [int]([regex]::Match(
@@ -26,10 +47,39 @@ $rotationCosine = [int]([regex]::Match(
 $rotationSine = [int]([regex]::Match(
     $cameraSource,
     "#define\s+ROTATION_SINE\s+(\d+)").Groups[1].Value)
+$directionLength = [int]([regex]::Match(
+    $cameraSource,
+    "#define\s+DIRECTION_LENGTH\s+(\d+)").Groups[1].Value)
+$cameraPlaneLength = [int]([regex]::Match(
+    $cameraSource,
+    "#define\s+CAMERA_PLANE_LENGTH\s+(\d+)").Groups[1].Value)
 
 Assert-Equal 74 $playerMoveSpeed "PLAYER_MOVE_SPEED"
 Assert-Equal 4058 $rotationCosine "ROTATION_COSINE"
 Assert-Equal 556 $rotationSine "ROTATION_SINE"
+Assert-Equal 256 $directionLength "DIRECTION_LENGTH"
+Assert-Equal 169 $cameraPlaneLength "CAMERA_PLANE_LENGTH"
+
+$cameraInitialize = [regex]::Match(
+    $cameraSource,
+    "void\s+camera_initialize\s*\(\s*void\s*\)\s*\{(?<body>[\s\S]*?)\}")
+if (-not $cameraInitialize.Success) {
+    throw "Could not extract camera_initialize() from production source."
+}
+$cameraInitializeBody = $cameraInitialize.Groups["body"].Value
+$initialDirectionX = Get-InitializerValue `
+    $cameraInitializeBody "direction_x" "DIRECTION_LENGTH" $directionLength
+$initialDirectionY = Get-InitializerValue `
+    $cameraInitializeBody "direction_y" "DIRECTION_LENGTH" $directionLength
+$initialPlaneX = Get-InitializerValue `
+    $cameraInitializeBody "plane_x" "CAMERA_PLANE_LENGTH" $cameraPlaneLength
+$initialPlaneY = Get-InitializerValue `
+    $cameraInitializeBody "plane_y" "CAMERA_PLANE_LENGTH" $cameraPlaneLength
+
+Assert-Equal 0 $initialDirectionX "Canonical initial direction X"
+Assert-Equal (-$directionLength) $initialDirectionY "Canonical initial direction Y"
+Assert-Equal $cameraPlaneLength $initialPlaneX "Canonical initial plane X"
+Assert-Equal 0 $initialPlaneY "Canonical initial plane Y"
 
 function Get-ForwardIntent([int]$Keys) {
     return [int](($Keys -band $Up) -ne 0) - [int](($Keys -band $Down) -ne 0)
@@ -169,20 +219,26 @@ function Get-Movement {
 }
 
 $expectedVectors = @{
-    "1,0" = @(-74, 0); "-1,0" = @(74, 0)
-    "0,-1" = @(0, -74); "0,1" = @(0, 74)
-    "1,-1" = @(-51, -51); "1,1" = @(-51, 51)
-    "-1,-1" = @(51, -51); "-1,1" = @(51, 51)
+    "1,0" = @(0, -74); "-1,0" = @(0, 74)
+    "0,-1" = @(-74, 0); "0,1" = @(74, 0)
+    "1,-1" = @(-51, -51); "1,1" = @(51, -51)
+    "-1,-1" = @(-51, 51); "-1,1" = @(51, 51)
 }
 foreach ($entry in $expectedVectors.GetEnumerator()) {
     $directions = $entry.Key.Split(",")
-    $actual = Get-Movement ([int]$directions[0]) ([int]$directions[1]) -256 0 0 169
+    $actual = Get-Movement `
+        ([int]$directions[0]) `
+        ([int]$directions[1]) `
+        $initialDirectionX `
+        $initialDirectionY `
+        $initialPlaneX `
+        $initialPlaneY
     Assert-Equal $entry.Value[0] $actual[0] "Movement X $($entry.Key)"
     Assert-Equal $entry.Value[1] $actual[1] "Movement Y $($entry.Key)"
 }
 
-$rotatedForward = Get-Movement 1 0 -255 -27 -18 168
-$rotatedForwardWithRotationActive = Get-Movement 1 0 -255 -27 -18 168
+$rotatedForward = Get-Movement 1 0 -35 -254 168 -23
+$rotatedForwardWithRotationActive = Get-Movement 1 0 -35 -254 168 -23
 Assert-Equal $rotatedForward[0] $rotatedForwardWithRotationActive[0] "No turn penalty X"
 Assert-Equal $rotatedForward[1] $rotatedForwardWithRotationActive[1] "No turn penalty Y"
 
@@ -198,10 +254,10 @@ $switchUpdate = [regex]::Match(
 Assert-Equal 1 ([regex]::Matches($switchSource, "#define RED_DOOR_SWITCH_FRAME_INTERVAL 6").Count) "Switch frame interval"
 Assert-Equal 0 ([regex]::Matches($switchUpdate, "RED_DOOR_SWITCH_ACTIVATED").Count) "Activated animation remains running"
 foreach ($textureContract in @(
-    "RED_DOOR_SWITCH_TEXTURE_WAITING_FRAME_1 7",
-    "RED_DOOR_SWITCH_TEXTURE_WAITING_FRAME_2 8",
-    "RED_DOOR_SWITCH_TEXTURE_ACTIVATED_FRAME_1 9",
-    "RED_DOOR_SWITCH_TEXTURE_ACTIVATED_FRAME_2 10"
+    "RED_DOOR_SWITCH_TEXTURE_OFF_FRAME_1 7",
+    "RED_DOOR_SWITCH_TEXTURE_OFF_FRAME_2 8",
+    "RED_DOOR_SWITCH_TEXTURE_ON_FRAME_1 9",
+    "RED_DOOR_SWITCH_TEXTURE_ON_FRAME_2 10"
 )) {
     Assert-Equal 1 ([regex]::Matches($switchHeader, "#define $textureContract").Count) "Switch texture contract $textureContract"
 }
@@ -229,19 +285,19 @@ function Update-SwitchDoorModel {
 function Get-SwitchDoorTexture {
     param(
         $Model,
-        [int]$WaitingFrame1 = 7,
-        [int]$WaitingFrame2 = 8,
-        [int]$ActivatedFrame1 = 9,
-        [int]$ActivatedFrame2 = 10
+        [int]$OffFrame1 = 7,
+        [int]$OffFrame2 = 8,
+        [int]$OnFrame1 = 9,
+        [int]$OnFrame2 = 10
     )
 
     if ($Model.SwitchState -eq 1) {
-        if ($Model.Frame -ne 0) { return $ActivatedFrame2 }
-        return $ActivatedFrame1
+        if ($Model.Frame -ne 0) { return $OnFrame2 }
+        return $OnFrame1
     }
 
-    if ($Model.Frame -ne 0) { return $WaitingFrame2 }
-    return $WaitingFrame1
+    if ($Model.Frame -ne 0) { return $OffFrame2 }
+    return $OffFrame1
 }
 
 function Activate-SwitchDoorModel {

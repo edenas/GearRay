@@ -3,10 +3,10 @@ param(
     [Parameter(Mandatory = $true)][string]$BloodInputPath,
     [Parameter(Mandatory = $true)][string]$DoorInputPath,
     [Parameter(Mandatory = $true)][string]$RedDoorInputPath,
-    [Parameter(Mandatory = $true)][string]$SwitchWaitingFrame1InputPath,
-    [Parameter(Mandatory = $true)][string]$SwitchWaitingFrame2InputPath,
-    [Parameter(Mandatory = $true)][string]$SwitchActivatedFrame1InputPath,
-    [Parameter(Mandatory = $true)][string]$SwitchActivatedFrame2InputPath,
+    [Parameter(Mandatory = $true)][string]$SwitchOffFrame1InputPath,
+    [Parameter(Mandatory = $true)][string]$SwitchOffFrame2InputPath,
+    [Parameter(Mandatory = $true)][string]$SwitchOnFrame1InputPath,
+    [Parameter(Mandatory = $true)][string]$SwitchOnFrame2InputPath,
     [Parameter(Mandatory = $true)][string]$OutputSource,
     [Parameter(Mandatory = $true)][string]$OutputHeader
 )
@@ -92,6 +92,8 @@ function Convert-SwitchToPalette {
         $rgb = Get-Rgb $pixel
         $index = switch ($rgb) {
             '#000000' { 0; break }
+            '#4d4d4d' { 1; break }
+            '#797878' { 2; break }
             '#53602a' { 6; break }
             '#b51a00' { 4; break }
             '#008cb4' { 3; break }
@@ -118,27 +120,27 @@ $wallPixels = Get-SourcePixels $InputPath 'Concrete wall texture'
 $bloodWallPixels = Get-SourcePixels $BloodInputPath 'Blood concrete wall texture'
 $doorPixels = Get-SourcePixels $DoorInputPath 'Yellow door texture'
 $redDoorPixels = Get-SourcePixels $RedDoorInputPath 'Red door texture'
-$switchWaiting1Pixels = Get-SourcePixels $SwitchWaitingFrame1InputPath 'Switch waiting frame 1 texture'
-$switchWaiting2Pixels = Get-SourcePixels $SwitchWaitingFrame2InputPath 'Switch waiting frame 2 texture'
-$switchActivated1Pixels = Get-SourcePixels $SwitchActivatedFrame1InputPath 'Switch activated frame 1 texture'
-$switchActivated2Pixels = Get-SourcePixels $SwitchActivatedFrame2InputPath 'Switch activated frame 2 texture'
+$switchOff1Pixels = Get-SourcePixels $SwitchOffFrame1InputPath 'Switch OFF frame 1 texture'
+$switchOff2Pixels = Get-SourcePixels $SwitchOffFrame2InputPath 'Switch OFF frame 2 texture'
+$switchOn1Pixels = Get-SourcePixels $SwitchOnFrame1InputPath 'Switch ON frame 1 texture'
+$switchOn2Pixels = Get-SourcePixels $SwitchOnFrame2InputPath 'Switch ON frame 2 texture'
 
 $wallColors = @('#4d4d4d', '#53602a', '#797878')
 $bloodWallColors = @('#4d4d4d', '#53602a', '#797878', '#b51a00')
 $yellowDoorColors = @('#000000', '#000009', '#4d4d4d', '#53602a', '#785700')
 $redDoorColors = @('#000000', '#000009', '#4d4d4d', '#53602a', '#b51a00')
-$waitingSwitchColors = @('#000000', '#53602a', '#b51a00',
-                         '#008cb4', '#006d8f', '#ffffff')
-$activatedSwitchColors = @('#000000', '#53602a', '#669c35',
-                           '#008cb4', '#006d8f', '#ffffff')
+$offSwitchColors = @('#000000', '#4d4d4d', '#797878', '#53602a', '#b51a00',
+                     '#008cb4', '#006d8f', '#ffffff')
+$onSwitchColors = @('#000000', '#4d4d4d', '#797878', '#53602a', '#669c35',
+                    '#008cb4', '#006d8f', '#ffffff')
 Assert-KnownColors $wallPixels $wallColors 'concrete wall'
 Assert-KnownColors $bloodWallPixels $bloodWallColors 'blood concrete wall'
 Assert-KnownColors $doorPixels $yellowDoorColors 'yellow door'
 Assert-KnownColors $redDoorPixels $redDoorColors 'red door'
-Assert-KnownColors $switchWaiting1Pixels $waitingSwitchColors 'switch waiting frame 1'
-Assert-KnownColors $switchWaiting2Pixels $waitingSwitchColors 'switch waiting frame 2'
-Assert-KnownColors $switchActivated1Pixels $activatedSwitchColors 'switch activated frame 1'
-Assert-KnownColors $switchActivated2Pixels $activatedSwitchColors 'switch activated frame 2'
+Assert-KnownColors $switchOff1Pixels $offSwitchColors 'switch OFF frame 1'
+Assert-KnownColors $switchOff2Pixels $offSwitchColors 'switch OFF frame 2'
+Assert-KnownColors $switchOn1Pixels $onSwitchColors 'switch ON frame 1'
+Assert-KnownColors $switchOn2Pixels $onSwitchColors 'switch ON frame 2'
 
 $textures = @(
     # Texture IDs 1..4: concrete materials and semantic placeholders.
@@ -149,11 +151,11 @@ $textures = @(
     # Texture IDs 5..6: yellow and red doors.
     (Convert-ToPackedTexture (Convert-EnvironmentToPalette $doorPixels 'yellow door')),
     (Convert-ToPackedTexture (Convert-EnvironmentToPalette $redDoorPixels 'red door')),
-    # Texture IDs 7..10: waiting and activated switch animation frames.
-    (Convert-ToPackedTexture (Convert-SwitchToPalette $switchWaiting1Pixels 'switch waiting frame 1')),
-    (Convert-ToPackedTexture (Convert-SwitchToPalette $switchWaiting2Pixels 'switch waiting frame 2')),
-    (Convert-ToPackedTexture (Convert-SwitchToPalette $switchActivated1Pixels 'switch activated frame 1')),
-    (Convert-ToPackedTexture (Convert-SwitchToPalette $switchActivated2Pixels 'switch activated frame 2'))
+    # Texture IDs 7..10: OFF then ON switch animation frames.
+    (Convert-ToPackedTexture (Convert-SwitchToPalette $switchOff1Pixels 'switch OFF frame 1')),
+    (Convert-ToPackedTexture (Convert-SwitchToPalette $switchOff2Pixels 'switch OFF frame 2')),
+    (Convert-ToPackedTexture (Convert-SwitchToPalette $switchOn1Pixels 'switch ON frame 1')),
+    (Convert-ToPackedTexture (Convert-SwitchToPalette $switchOn2Pixels 'switch ON frame 2'))
 )
 
 $textureSteps = [System.Collections.Generic.List[int]]::new(128)

@@ -75,10 +75,10 @@ static void camera_stabilize_vectors(void)
         direction_length);
 
     plane_x = camera_round_scaled(
-        (signed long)direction_y * CAMERA_PLANE_LENGTH,
+        -(signed long)direction_y * CAMERA_PLANE_LENGTH,
         DIRECTION_LENGTH);
     plane_y = camera_round_scaled(
-        -(signed long)direction_x * CAMERA_PLANE_LENGTH,
+        (signed long)direction_x * CAMERA_PLANE_LENGTH,
         DIRECTION_LENGTH);
 }
 
@@ -101,10 +101,10 @@ void camera_initialize(void)
 {
     position_x = 1280;
     position_y = 1024;
-    direction_x = -DIRECTION_LENGTH;
-    direction_y = 0;
-    plane_x = 0;
-    plane_y = CAMERA_PLANE_LENGTH;
+    direction_x = 0;
+    direction_y = -DIRECTION_LENGTH;
+    plane_x = CAMERA_PLANE_LENGTH;
+    plane_y = 0;
 }
 
 void camera_set_fixed_position(signed int fixed_position_x,
@@ -116,12 +116,12 @@ void camera_set_fixed_position(signed int fixed_position_x,
 
 void camera_rotate_left(void)
 {
-    camera_rotate(ROTATION_SINE);
+    camera_rotate(-ROTATION_SINE);
 }
 
 void camera_rotate_right(void)
 {
-    camera_rotate(-ROTATION_SINE);
+    camera_rotate(ROTATION_SINE);
 }
 
 signed int camera_get_position_x(void)

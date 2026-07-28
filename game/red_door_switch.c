@@ -38,10 +38,10 @@ unsigned char red_door_switch_get_texture(void)
 {
     if (red_door_switch_state == RED_DOOR_SWITCH_ACTIVATED)
         return red_door_switch_frame
-            ? RED_DOOR_SWITCH_TEXTURE_ACTIVATED_FRAME_2
-            : RED_DOOR_SWITCH_TEXTURE_ACTIVATED_FRAME_1;
+            ? RED_DOOR_SWITCH_TEXTURE_ON_FRAME_2
+            : RED_DOOR_SWITCH_TEXTURE_ON_FRAME_1;
 
     return red_door_switch_frame
-        ? RED_DOOR_SWITCH_TEXTURE_WAITING_FRAME_2
-        : RED_DOOR_SWITCH_TEXTURE_WAITING_FRAME_1;
+        ? RED_DOOR_SWITCH_TEXTURE_OFF_FRAME_2
+        : RED_DOOR_SWITCH_TEXTURE_OFF_FRAME_1;
 }

@@ -47,7 +47,9 @@ The player does not own viewing direction.
 `game/camera.c` owns camera position, direction, and projection-plane vectors.
 The player position is copied to the camera after movement. Rotation updates
 the direction, normalizes it, and reconstructs the perpendicular camera plane.
-The camera does not perform movement or collision.
+At initialization the camera faces map north, toward the workshop's first row.
+The camera plane points map east, so screen-left is map west and screen-right
+is map east. The camera does not perform movement or collision.
 
 ### World and map
 
@@ -61,6 +63,11 @@ fall back to stone, while the red-door switch selects its current animation
 frame. Blood concrete is an ordinary solid, noninteractive wall. Door instances
 and their mutable open/closed states are kept separately in `door_instances.c`
 and `door_states.c`.
+
+The switch texture contract is explicit: IDs 7 and 8 are the red OFF frames
+used while waiting, and IDs 9 and 10 are the green ON frames used after
+activation. Activation changes the state once and opens the internal red door;
+the existing six-update animation cadence continues in either state.
 
 ### Raycaster
 
@@ -200,9 +207,21 @@ after one bounded map lookup. Only door tiles enter instance/state resolution.
 Texture and object mappings are direct world queries; interaction retains the
 object API.
 
-The hit coordinate along a wall face is calculated in Q8.8 and oriented so
-opposite faces have consistent texture direction. This keeps face orientation
-out of the platform renderer.
+The hit coordinate along a wall face is calculated in Q8.8. X-side hits use
+the Y impact fraction; Y-side hits use X. The raycaster then maps the physical
+face to the authored left-to-right PNG direction:
+
+| Physical face | Texture X |
+|---|---|
+| West | Unflipped |
+| East | Flipped |
+| North | Flipped |
+| South | Unflipped |
+
+This mapping is independent of player orientation, camera initialization, map
+rotation, and texture identity. It depends only on the DDA hit axis, ray travel
+direction on that axis, and physical wall face entered. The platform renderer
+receives the resulting oriented coordinate and performs no additional flip.
 
 ### Projection
 
@@ -360,7 +379,7 @@ The principal world scale is Q8.8:
 
 Player and camera positions use this scale. Direction vectors have nominal
 length 256. The camera plane has length 169 and is reconstructed after every
-rotation as `(direction_y, -direction_x) * 169 / 256`.
+rotation as `(-direction_y, direction_x) * 169 / 256`.
 
 Camera rotation uses a separate 12-bit trigonometric scale:
 

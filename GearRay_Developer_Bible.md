@@ -260,7 +260,7 @@ The camera owns:
 - normalized forward direction `(direction_x, direction_y)`, nominal length 256;
 - perpendicular camera plane `(plane_x, plane_y)`, nominal length 169.
 
-Initialization faces along the module’s defined basis. Rotation applies the same matrix path for both directions using cosine 4058 and signed sine ±556 at scale 4096. Results are sign-aware rounded. The direction vector is then normalized with an integer square root, and the plane is rebuilt perpendicular to it rather than independently accumulating rotational drift.
+Initialization faces map north, toward the workshop’s first row, with direction `(0, -256)`. The camera plane `(169, 0)` points map east, so screen-left is map west and screen-right is map east. Rotation applies the same matrix path for both directions using cosine 4058 and signed sine ±556 at scale 4096. Results are sign-aware rounded. The direction vector is then normalized with an integer square root, and the plane is rebuilt as `(-direction_y, direction_x) * 169 / 256` rather than independently accumulating rotational drift.
 
 The final approximately 7.802° step restores the first gameplay-speed adjustment's 4058/556 rotation pair after the exact-equivalence ray-direction rebuild optimization and emulator/original-hardware control evaluation. Engine Foundation v1.0.0 used speed 44 and approximately 5.997°. The second speed experiment used speed 74 with approximately 10.138° rotation; final movement remains 74 while rotation returns to approximately 7.802°. The scale, normalization path, direction length, and camera-plane length are unchanged. Symmetry is preserved: left and right differ only in sine sign.
 
@@ -300,7 +300,7 @@ Tile IDs:
 | 6 | red door | state-dependent |
 | 7 | red-door switch | yes |
 
-`world_get_texture()` returns ordinary semantic tile IDs directly after clamping unknown IDs to stone; the switch is the sole state-dependent texture lookup. The active generated table contains ten entries: normal concrete, blood concrete, two concrete-backed material placeholders, two doors, and four switch frames.
+`world_get_texture()` returns ordinary semantic tile IDs directly after clamping unknown IDs to stone; the switch is the sole state-dependent texture lookup. The active generated table contains ten entries: normal concrete, blood concrete, two concrete-backed material placeholders, two doors, red OFF switch frames at IDs 7–8, and green ON switch frames at IDs 9–10. The waiting state selects OFF; activation selects ON and opens the internal red door without changing the six-update animation cadence.
 
 ### 9.2 Workshop map
 
@@ -399,7 +399,7 @@ The 513-entry reciprocal table spends ROM to remove division from per-ray axis s
 
 ### 11.3 Hit data and projection
 
-The fractional impact coordinate is computed in fixed point and oriented so opposite faces share consistent texture edges. X-side hits use the Y impact fraction; Y-side hits use X. Depending on travel direction, the offset is mirrored as `255 - offset`.
+The fractional impact coordinate is computed in fixed point. X-side hits use the Y impact fraction; Y-side hits use X. Physical west and south faces use the raw coordinate; east and north faces mirror it as `255 - offset`. This preserves the authored left-to-right PNG direction. The mapping depends only on the DDA hit axis, ray travel direction on that axis, and physical face entered. It is independent of player orientation, camera initialization, map rotation, and texture identity.
 
 The wall tile and texture identity come from the world façade. Projected height is `16384 / ray_distance`, with zero distance protected as one and output clamped to 1…144.
 

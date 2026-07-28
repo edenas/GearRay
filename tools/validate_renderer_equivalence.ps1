@@ -95,6 +95,27 @@ if ($wallTextures.Count -ne (10 * 32)) {
     throw "Expected ten 32-byte wall textures; got $($wallTextures.Count) bytes"
 }
 
+for ($textureId = 7; $textureId -le 10; ++$textureId) {
+    $textureOffset = ($textureId - 1) * 32
+    $indices = @()
+    for ($byteIndex = 0; $byteIndex -lt 32; ++$byteIndex) {
+        $packed = $wallTextures[$textureOffset + $byteIndex]
+        $indices += ($packed -shr 4) -band 15
+        $indices += $packed -band 15
+    }
+
+    $redCount = @($indices | Where-Object { $_ -eq 4 }).Count
+    $greenCount = @($indices | Where-Object { $_ -eq 9 }).Count
+    if ($textureId -le 8) {
+        if ($redCount -eq 0 -or $greenCount -ne 0) {
+            throw "Switch OFF texture ID $textureId is not red-only"
+        }
+    }
+    elseif ($greenCount -eq 0 -or $redCount -ne 0) {
+        throw "Switch ON texture ID $textureId is not green-only"
+    }
+}
+
 # LOD1 must remain neutral under the current global palette layout.
 foreach ($entry in @(
     @('left_lod1_x_rows', $leftLod1X, $false, @(2, 9)),
@@ -323,10 +344,10 @@ foreach ($leftHeight in $boundaryHeights) {
 
 # Switch animation and activation must independently invalidate either half.
 foreach ($transition in @(
-    @(7, 8, 'waiting frame 1 to 2'),
-    @(9, 10, 'activated frame 1 to 2'),
-    @(7, 9, 'waiting to activated frame 1'),
-    @(8, 10, 'waiting to activated frame 2')
+    @(7, 8, 'OFF frame 1 to 2'),
+    @(9, 10, 'ON frame 1 to 2'),
+    @(7, 9, 'OFF to ON frame 1'),
+    @(8, 10, 'OFF to ON frame 2')
 )) {
     $before = [int[]]@(64, 64, 32, 32, $transition[0], 1, 0x80)
     $after = [int[]]$before.Clone()

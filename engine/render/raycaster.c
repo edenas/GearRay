@@ -282,16 +282,19 @@ static unsigned char cast_ray(signed int direction_x,
     }
 
     /*
-     * Orient the fractional wall coordinate using this ray's actual travel
-     * direction. This makes zero and 255 identify the same two face edges
-     * on opposite sides of a wall without exposing ray directions to the
-     * platform renderer.
+     * PNG texture X increases from authored left to right. For X-side hits,
+     * increasing world Y runs left-to-right on the west face and
+     * right-to-left on the east face. For Y-side hits, increasing world X
+     * runs left-to-right on the south face and right-to-left on the north
+     * face. Orient the coordinate from the physical face entered by the ray.
      */
     if (*result_side == WALL_SIDE_X)
     {
+        /* A negative-X ray enters the cell's east face. */
         if (direction_x < 0)
             *result_offset = 255 - *result_offset;
     }
+    /* A positive-Y ray enters the cell's north face. */
     else if (direction_y > 0)
         *result_offset = 255 - *result_offset;
 
