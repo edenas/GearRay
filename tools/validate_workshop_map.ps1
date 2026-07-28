@@ -50,6 +50,7 @@ foreach ($tileContract in @{
     WORLD_TILE_RED_DOOR = 6
     WORLD_TILE_RED_DOOR_SWITCH = 7
     WORLD_TILE_VOID = 8
+    WORLD_TILE_SPRITE_MARKER = 9
 }.GetEnumerator()) {
     Assert-Equal $tileContract.Value `
         (Get-Define $worldHeader $tileContract.Key) `
@@ -67,6 +68,7 @@ foreach ($alias in @{
     D = "WORLD_TILE_DOOR"
     R = "WORLD_TILE_RED_DOOR"
     W = "WORLD_TILE_RED_DOOR_SWITCH"
+    Z = "WORLD_TILE_SPRITE_MARKER"
 }.GetEnumerator()) {
     if ($mapSource -notmatch
         "(?m)^\s*#define\s+$($alias.Key)\s+$($alias.Value)\s*$") {
@@ -95,7 +97,7 @@ foreach ($rowMatch in $rowMatches) {
     )
     Assert-Equal $width $tiles.Count "Workshop row width"
     foreach ($tile in $tiles) {
-        if ($tile -notin @("X", "E", "S", "B", "D", "R", "W")) {
+        if ($tile -notin @("X", "E", "S", "B", "D", "R", "W", "Z")) {
             throw "Unknown workshop tile symbol: $tile"
         }
     }
@@ -113,13 +115,25 @@ $approvedRows = @(
     "XSEEEEEEEEESX",
     "XSBSSBDSSSSSX",
     "XXXXSEEESXXXX",
-    "XXXXSEEEBXXXX",
+    "XXXXSEZEBXXXX",
     "XXXXSEEESXXXX",
     "XXXXSBWSSXXXX"
 )
 for ($y = 0; $y -lt $height; ++$y) {
     Assert-Equal $approvedRows[$y] ($map[$y] -join "") "Approved map row $y"
 }
+
+$spriteMarkers = @()
+for ($y = 0; $y -lt $height; ++$y) {
+    for ($x = 0; $x -lt $width; ++$x) {
+        if ($map[$y][$x] -eq "Z") {
+            $spriteMarkers += ,@($x, $y)
+        }
+    }
+}
+Assert-Equal 1 $spriteMarkers.Count "Static sprite marker count"
+Assert-Equal 6 $spriteMarkers[0][0] "Static sprite marker X"
+Assert-Equal 10 $spriteMarkers[0][1] "Static sprite marker Y"
 
 function Get-Tile {
     param([int]$X, [int]$Y)
@@ -197,7 +211,7 @@ $cardinalDirections = @(@(0, -1), @(1, 0), @(0, 1), @(-1, 0))
 for ($y = 0; $y -lt $height; ++$y) {
     for ($x = 0; $x -lt $width; ++$x) {
         $tile = Get-Tile $x $y
-        if ($tile -eq "E") {
+        if ($tile -in @("E", "Z")) {
             foreach ($direction in $cardinalDirections) {
                 $neighbor = Get-Tile ($x + $direction[0]) ($y + $direction[1])
                 if ($null -eq $neighbor -or $neighbor -eq "X") {
@@ -243,7 +257,7 @@ while ($pending.Count -ne 0) {
         if ($null -eq $neighbor -or $neighbor -eq "X") {
             throw "Reachable region at ($x,$y) is not enclosed."
         }
-        if ($neighbor -in @("E", "D", "R")) {
+        if ($neighbor -in @("E", "D", "R", "Z")) {
             $pending.Enqueue("$nextX,$nextY")
         }
     }
@@ -252,7 +266,7 @@ while ($pending.Count -ne 0) {
 $playableCount = 0
 for ($y = 0; $y -lt $height; ++$y) {
     for ($x = 0; $x -lt $width; ++$x) {
-        if ((Get-Tile $x $y) -in @("E", "D", "R")) {
+        if ((Get-Tile $x $y) -in @("E", "D", "R", "Z")) {
             ++$playableCount
             if (-not $visited.ContainsKey("$x,$y")) {
                 throw "Playable tile at ($x,$y) is unreachable from spawn."
@@ -270,7 +284,9 @@ if ($worldSource -notmatch
     $worldSource -notmatch
     "if\s*\(\s*x\s*>=\s*WORLD_WIDTH\s*\|\|\s*y\s*>=\s*WORLD_HEIGHT\s*\)\s*return\s+1\s*;" -or
     $worldSource -notmatch
-    "if\s*\(\s*tile_id\s*==\s*WORLD_TILE_EMPTY\s*\)\s*return\s+0\s*;") {
+    "if\s*\(\s*tile_id\s*==\s*WORLD_TILE_EMPTY\s*\)\s*return\s+0\s*;" -or
+    $worldSource -notmatch
+    "tile_id\s*==\s*WORLD_TILE_SPRITE_MARKER") {
     throw "World bounds/solidity semantics do not safely block VOID."
 }
 

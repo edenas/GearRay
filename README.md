@@ -30,14 +30,16 @@ GearRay is an engine foundation and workshop ROM, not yet a complete game.
 - Native Game Gear tile rendering with indexed-colour wall textures.
 - Directional wall shading, distance-based wall detail, and uniform light-gray
   ceiling/dark-gray floor backgrounds.
+- One static floor-anchored billboard rendered into native background tiles
+  with exact wall-depth occlusion.
 - Complete first-frame preparation before the direct-to-game display becomes
   visible.
 - Two toggleable yellow doors, a switch-activated red door, interaction
   targeting, and a permanent 13×13 workshop map.
 - Banked 32 KiB ROM layout with isolated release and profiling builds.
 - Compile-time renderer profiling with no release-build counter overhead.
-- Host-side workshop-map, control, ray-direction rebuild, and
-  renderer-equivalence validators.
+- Host-side workshop-map, control, ray-direction rebuild, renderer-equivalence,
+  and static-sprite validators.
 
 ## Controls
 
@@ -113,8 +115,8 @@ the Engine Foundation contracts.
 - SDCC and devkitSMS must be installed separately.
 - The devkitSMS revision is not yet pinned.
 - The ROM is a technical workshop rather than a finished game.
-- Fire, menu, audio, sprites, save data, and complete gameplay are not yet
-  implemented.
+- Fire, menu, audio, animated enemies, save data, and complete gameplay are
+  not yet implemented.
 - Some asset ownership and release status still requires confirmation; see the
   [asset provenance record](docs/ASSET_PROVENANCE.md).
 

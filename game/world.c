@@ -1,10 +1,23 @@
 #include "world.h"
 #include "red_door_switch.h"
+#include "world_sprite.h"
 
 void world_initialize(void)
 {
+    unsigned char x;
+    unsigned char y;
+
     door_states_initialize();
     red_door_switch_initialize();
+
+    for (y = 0; y < WORLD_HEIGHT; ++y)
+    {
+        for (x = 0; x < WORLD_WIDTH; ++x)
+        {
+            if (workshop_map_get_tile(x, y) == WORLD_TILE_SPRITE_MARKER)
+                world_sprite_initialize(x, y);
+        }
+    }
 }
 
 unsigned char world_get_tile(unsigned char x, unsigned char y)
@@ -12,7 +25,12 @@ unsigned char world_get_tile(unsigned char x, unsigned char y)
     if (x >= WORLD_WIDTH || y >= WORLD_HEIGHT)
         return WORLD_TILE_VOID;
 
-    return workshop_map_get_tile(x, y);
+    {
+        unsigned char tile_id = workshop_map_get_tile(x, y);
+        return tile_id == WORLD_TILE_SPRITE_MARKER
+            ? WORLD_TILE_EMPTY
+            : tile_id;
+    }
 }
 
 unsigned char world_get_spawn_x(void)
@@ -56,7 +74,7 @@ unsigned char world_is_wall(unsigned char x, unsigned char y)
     if (x >= WORLD_WIDTH || y >= WORLD_HEIGHT)
         return 1;
 
-    tile_id = workshop_map_get_tile(x, y);
+    tile_id = world_get_tile(x, y);
 
     if (tile_id == WORLD_TILE_EMPTY)
         return 0;

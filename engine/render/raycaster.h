@@ -11,6 +11,7 @@ typedef struct
     WallSide hit_side;
     unsigned char hit_offset;
     unsigned char texture_id;
+    unsigned int wall_distance;
 } RaycasterRay;
 
 void raycaster_initialize(void);

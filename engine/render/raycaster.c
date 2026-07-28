@@ -152,7 +152,8 @@ static unsigned char cast_ray(signed int direction_x,
                               signed int direction_y,
                               WallSide *result_side,
                               unsigned char *result_offset,
-                              unsigned char *result_texture_id)
+                              unsigned char *result_texture_id,
+                              unsigned int *result_distance)
 {
 #ifdef GEARRAY_PROFILE_RENDERER
     unsigned char ray_dda_iterations = 0;
@@ -302,6 +303,7 @@ static unsigned char cast_ray(signed int direction_x,
         projection_distance = 1;
     else
         projection_distance = (unsigned int)ray_distance;
+    *result_distance = projection_distance;
 
     projected_height = WALL_HEIGHT_SCALE / projection_distance;
 
@@ -325,6 +327,7 @@ void raycaster_initialize(void)
         rendered_rays[ray_index].hit_side = WALL_SIDE_X;
         rendered_rays[ray_index].hit_offset = 0;
         rendered_rays[ray_index].texture_id = WORLD_TILE_STONE;
+        rendered_rays[ray_index].wall_distance = 1;
     }
 }
 
@@ -376,7 +379,8 @@ void raycaster_update(void)
             ray_direction_y_by_ray[ray_index],
             &rendered_rays[ray_index].hit_side,
             &rendered_rays[ray_index].hit_offset,
-            &rendered_rays[ray_index].texture_id);
+            &rendered_rays[ray_index].texture_id,
+            &rendered_rays[ray_index].wall_distance);
     }
 }
 

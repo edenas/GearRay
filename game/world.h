@@ -17,6 +17,7 @@
 #define WORLD_TILE_RED_DOOR 6
 #define WORLD_TILE_RED_DOOR_SWITCH 7
 #define WORLD_TILE_VOID 8
+#define WORLD_TILE_SPRITE_MARKER 9
 
 void world_initialize(void);
 unsigned char world_get_tile(unsigned char x, unsigned char y);

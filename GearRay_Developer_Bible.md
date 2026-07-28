@@ -21,7 +21,7 @@ Status labels used throughout:
 - **Experimental/rejected:** evaluated but not retained.
 - **Planned:** a direction, not an implemented feature.
 
-GearRay is currently an engine foundation and technical workshop, not a finished game. It has movement, collision, raycasting, textured walls, distance treatment, interaction targeting, two toggleable yellow doors, and a switch-activated red door. It does not yet have combat, enemies, sprites, audio, save data, a HUD, menus, or complete game progression.
+GearRay is currently an engine foundation and technical workshop, not a finished game. It has movement, collision, raycasting, textured walls, distance treatment, interaction targeting, two toggleable yellow doors, a switch-activated red door, and one static billboard-rendering prototype. It does not yet have combat, enemy behavior, sprite animation, audio, save data, a HUD, menus, or complete game progression.
 
 ---
 
@@ -88,6 +88,7 @@ An aesthetic preference or desire to reorganize already-readable code is not eno
 | Collision | radius 32 in Q8.8; four-corner test; X then Y |
 | Interaction | range 512, sampled every 32 units |
 | Map | 13×13 workshop; spawn tile (6, 7) |
+| Static sprite | one standing billboard from marker (6, 10); no behavior or collision |
 | Doors | standard instances at (6, 4) and (6, 8) toggle; red instance at (6, 2) opens from switch (6, 12) |
 | ROM | banked 32 KiB image; hot code in Bank 0, cold interaction/profile code in Bank 1 |
 | Stable release RAM | 936 bytes recorded at Engine Foundation v1.0.0 |
@@ -310,7 +311,7 @@ Tile IDs:
 
 ### 9.2 Workshop map
 
-The permanent laboratory is a 13×13 const array with spawn (6, 7), two standard doors at (6, 4) and (6, 8), the switch-controlled red door at (6, 2), and its switch at (6, 12). `WORLD_TILE_VOID` represents non-existent, non-playable space outside the authored enclosure. VOID is blocked but has no authored texture; a valid map places a renderable wall or closed door between every reachable playable cell and VOID. Storage is private to `workshop_map.c`; callers use bounded world accessors.
+The permanent laboratory is a 13×13 const array with spawn (6, 7), two standard doors at (6, 4) and (6, 8), the switch-controlled red door at (6, 2), its switch at (6, 12), and one `Z` static-sprite marker at (6, 10). Initialization creates a `WorldSprite` at the marker's Q8.8 tile centre `(6.5, 10.5)`, while runtime tile and solidity queries expose the marker as empty. `WORLD_TILE_VOID` represents non-existent, non-playable space outside the authored enclosure. VOID is blocked but has no authored texture; a valid map places a renderable wall or closed door between every reachable playable cell and VOID. Storage is private to `workshop_map.c`; callers use bounded world accessors.
 
 Blood-wall placement is deterministic level data: there is no runtime randomization, distribution pass, or placement cost. Visual composition remains map-authoring ownership; the renderer receives the selected texture ID exactly like any other wall.
 
@@ -373,8 +374,13 @@ typedef struct {
     unsigned char hit_offset;
     unsigned char hit_tile;
     unsigned char texture_id;
+    unsigned int wall_distance;
 } RaycasterRay;
 ```
+
+`wall_distance` is the exact unsigned Q8.8 perpendicular projection distance
+already used for wall-height calculation. It is retained for billboard
+occlusion without changing DDA stepping, projection, or texture sampling.
 
 ### 11.1 Ray generation
 
@@ -474,6 +480,19 @@ Dirty rendering is a presentation cache only. It never suppresses raycasting or 
 
 ### 12.7 VBlank and ownership
 
+One static standing sprite is projected by a Bank 1 fixed-point inverse camera
+transform. Non-positive depth is hidden; projected height is capped at 144
+pixels; and `bottom = horizon + projected_height / 2`, with
+`top = bottom - projected_height`, anchors it to the floor.
+
+Opaque indexed pixels are composed into native background tile bitplanes after
+the underlying wall, ceiling, or floor row exists. Index 15 is transparent.
+Sprite camera-space depth and the ray's exact perpendicular Q8.8 wall distance
+are compared directly; only strictly nearer sprite pixels draw. The renderer
+regenerates the union of previous and current covered columns when projection
+changes, preventing stale pixels without recurring uploads for an unchanged
+view.
+
 The frame casts rays before `SMS_waitForVBlank()` and performs VRAM changes after it. Moving this boundary may alter presentation or exceed safe hardware timing. The video layer alone owns native formats, pattern indices, tilemap writes, palette installation, and VRAM upload policy.
 
 **Contract:** renderer output is hardware-approved. Changes to sampling, packing, LOD, signatures, active-row bounds, VBlank sequencing, or tile allocation require byte-level equivalence where intended and emulator/original-hardware validation.
@@ -507,6 +526,18 @@ wall_concrete.png + wall_concrete_blood.png + door and switch PNGs
 
 Generation runs independently in `build/` and `build-profile/`; equivalence validation checks that their generated sources match.
 
+The standing zombie source follows a parallel, smaller path:
+
+```text
+assets/sprites/enemies/zombie/zombie_01_standing.png
+  -> tools/generate_sprite_texture.ps1
+  -> build/generated/sprite_texture.{c,h}
+  -> packed 8×8, 32-byte indexed texture
+```
+
+Only the standing frame is linked. Other authored zombie frames are retained
+as source assets but have no runtime behavior or animation connection.
+
 `wall_concrete.png` remains the primary wall texture. The blood variant is a separate approved environmental texture that reuses the existing red palette color; brick and metal semantic slots intentionally retain concrete placeholder data.
 
 Generated files are build artifacts, not hand-edited source. To change runtime texture data, change cleared source assets or the generator, regenerate both configurations, and validate native output.
@@ -532,7 +563,7 @@ SDCC banked calls use CRT `get_bank`/`set_bank` hooks and a resident trampoline.
 
 ### 14.2 Current placement
 
-Bank 0 contains startup, main loop, input, player, camera, world queries, door state, raycaster, texture sampling, renderer, SMSlib, and trampolines. Bank 1 contains `interaction_ray.c`, `world_interactions.c`, and optional profiling reporting.
+Bank 0 contains startup, main loop, input, player, camera, world queries, door state, raycaster, texture sampling, renderer, the resident 32-byte standing texture, SMSlib, and trampolines. Bank 1 contains `interaction_ray.c`, `world_interactions.c`, static sprite projection, and optional profiling reporting.
 
 The `_BANK1` segment links at virtual `0x14000`. Banked objects are placed after resident objects/libraries. The 32 KiB header is at physical/CPU `0x7FF0`; the obsolete 16 KiB header position must not return.
 
@@ -695,9 +726,10 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_final_control
 powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_workshop_map.ps1
 powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_ray_direction_rebuild.ps1
 powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_renderer_equivalence.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_sprite_renderer.ps1
 ```
 
-The workshop validator checks the exact map, spawn, registered instances, enclosure, VOID, and bounds contracts. The control validator checks extracted constants and exhaustively explores session/input states and movement vectors. The ray-direction validator checks production-derived camera rays and all four physical wall-face orientations. The renderer oracle checks production formulas and native byte output, including sampler stepping, LOD boundaries, bitplane packing, signatures, and generated data assumptions.
+The workshop validator checks the exact map, spawn, sprite marker, registered instances, enclosure, VOID, and bounds contracts. The control validator checks extracted constants and exhaustively explores session/input states and movement vectors. The ray-direction validator checks production-derived camera rays and all four physical wall-face orientations. The renderer oracle checks production formulas and native byte output, including sampler stepping, LOD boundaries, bitplane packing, signatures, and generated data assumptions. The sprite validator checks projection, clipping, floor anchoring, exact-depth occlusion, transparency, and old/current coverage cleanup.
 
 For C, CMake, generator, or toolchain changes, build release, profile, then release again to prove profile isolation. Also run `git diff --check`.
 
@@ -881,6 +913,7 @@ A HUD must first allocate tiles, map cells, palette entries, and upload timing. 
 | `game/player.c`, `.h` | position, movement composition, collision, interaction initiation; depends on input/camera/world |
 | `game/world.c`, `.h` | semantic world façade and tile IDs; depends on workshop map and doors |
 | `game/workshop_map.c`, `.h` | immutable 13×13 laboratory, VOID layout, and spawn |
+| `game/world_sprite.c`, `.h` | one static Q8.8 sprite instance and standing texture reference |
 | `game/world_object.h` | `WorldObjectId` and IDs |
 | `game/world_objects.c`, `.h` | opaque immutable object definitions and interactivity |
 | `game/door_instances.c`, `.h` | immutable door coordinates and instance IDs |
@@ -892,6 +925,7 @@ A HUD must first allocate tiles, map cells, palette entries, and upload timing. 
 | `engine/render/raycaster.c`, `.h` | fixed projection, DDA, hit data, 28-ray snapshot |
 | `platform/game_gear/input.c`, `.h` | SMSlib keys to semantic controls |
 | `platform/game_gear/video.c`, `.h` | viewport, native packing, LOD, caches, VRAM |
+| `platform/game_gear/sprite_projection.c`, `.h` | Bank 1 fixed-point billboard projection |
 | `platform/game_gear/render_textures.c`, `.h` | exact packed texture sampler |
 | `platform/game_gear/wall_textures.c`, `.h` | generated texture/palette access and dimensions |
 | `platform/game_gear/renderer_profile.c`, `.h` | optional Bank 1 reporting and zero-cost-off macros |
@@ -902,8 +936,10 @@ A HUD must first allocate tiles, map cells, palette entries, and upload timing. 
 | Path | Purpose |
 |---|---|
 | `tools/generate_wall_texture.ps1` | validates/decodes active PNGs and emits packed data, palettes, sampler tables |
+| `tools/generate_sprite_texture.ps1` | validates/decodes the standing zombie PNG and emits packed indexed data |
 | `tools/validate_workshop_map.ps1` | validates the exact 13×13 layout, spawn, instances, enclosure, VOID, and bounds contracts |
 | `tools/validate_renderer_equivalence.ps1` | host oracle for renderer math, packing, LOD, signatures, and generated assumptions |
+| `tools/validate_sprite_renderer.ps1` | validates static billboard projection, occlusion, clipping, and cleanup contracts |
 | `tools/validate_final_controls.ps1` | exhaustive control/session and movement validation |
 
 ### 21.4 Maintained and historical documentation
@@ -1016,7 +1052,8 @@ Use focused branches/commits and pull requests. Architectural, performance, depe
 - SDCC/devkitSMS/Ninja are externally installed and not fully pinned;
 - the ROM is a technical workshop, not a complete game;
 - no fire/menu gameplay despite reserved input APIs;
-- no audio, sprites, enemies, weapons, HUD, save data, or progression;
+- no audio, animated enemies, weapons, HUD, save data, or progression; the one
+  standing billboard has no behavior, collision, or gameplay state;
 - doors use binary instantaneous state; either yellow door toggles and the red door opens from its switch;
 - simulation advances once per loop rather than using elapsed-time integration;
 - collision is discrete, axis-biased, and static-world only;

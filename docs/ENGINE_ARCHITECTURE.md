@@ -68,7 +68,9 @@ non-playable space outside the workshop's renderable enclosure. VOID and
 out-of-range coordinates are blocked; out-of-range tile queries resolve safely
 to VOID without indexing the map array. Tile IDs are empty 0, stone 1, blood
 concrete 2, brick placeholder 3, metal placeholder 4, standard door 5, red
-door 6, red-door switch 7, and VOID 8.
+door 6, red-door switch 7, VOID 8, and static-sprite marker 9. The authored
+`Z` marker at (6, 10) creates one sprite at tile centre during initialization;
+runtime tile queries expose that marker as empty.
 
 `world.c` maps ordinary semantic tile IDs directly to texture IDs; invalid IDs
 fall back to stone, while the red-door switch selects its current animation
@@ -458,13 +460,34 @@ Direction and plane components are read once at the start of
 `raycaster_update()`. The 28 derived ray-direction pairs are rebuilt only when
 that basis changes and are reused during static or position-only frames. The
 renderer traverses the resulting `RaycasterRay` array sequentially instead of
-calling bounds-checked field getters for each tile-column.
+calling bounds-checked field getters for each tile-column. Each record also
+retains the exact unsigned Q8.8 perpendicular projection distance already used
+to calculate wall height.
 
 ### Dirty tile-column signatures
 
 The video layer skips tile-columns whose heights, offsets, and sides match the
 previous frame. This targets texture sampling, native tile construction, and
 VRAM transfer while leaving raycasting unchanged.
+
+### Static billboard composition
+
+One `WorldSprite` stores the standing texture and the Q8.8 centre of the
+authored `Z` tile. A Bank 1 projection function applies the fixed-point inverse
+camera transform, rejects non-positive camera-space depth, caps projected
+height at 144 pixels, and anchors the sprite bottom to the floor horizon.
+
+The resident video layer composes opaque sprite pixels into the generated
+native background tiles after their wall, ceiling, or floor pixels exist.
+Palette index 15 is transparent and leaves those underlying pixels untouched.
+A pixel is drawn only when sprite camera-space depth is strictly less than the
+corresponding ray's exact wall distance, so equal depth remains wall-occluded.
+The comparison uses the renderer's existing four-pixel ray resolution and
+does not perform another world raycast.
+
+When projection changes, the union of the old and current covered tile columns
+is regenerated. This restores underlying pixels and prevents trails. An
+unchanged projection adds no sprite-driven dirty columns or VRAM uploads.
 
 ### Active vertical row generation
 
