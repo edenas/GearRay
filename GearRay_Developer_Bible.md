@@ -21,7 +21,7 @@ Status labels used throughout:
 - **Experimental/rejected:** evaluated but not retained.
 - **Planned:** a direction, not an implemented feature.
 
-GearRay is currently an engine foundation and technical workshop, not a finished game. It has movement, collision, raycasting, textured walls, distance treatment, interaction targeting, a toggleable yellow door, and a switch-activated red door. It does not yet have combat, enemies, sprites, audio, save data, a HUD, menus, or complete game progression.
+GearRay is currently an engine foundation and technical workshop, not a finished game. It has movement, collision, raycasting, textured walls, distance treatment, interaction targeting, two toggleable yellow doors, and a switch-activated red door. It does not yet have combat, enemies, sprites, audio, save data, a HUD, menus, or complete game progression.
 
 ---
 
@@ -87,8 +87,8 @@ An aesthetic preference or desire to reorganize already-readable code is not eno
 | Rotation | cosine 4058, sine 556, scale 4096; approximately 7.802° |
 | Collision | radius 32 in Q8.8; four-corner test; X then Y |
 | Interaction | range 512, sampled every 32 units |
-| Map | 17×13 workshop; spawn tile (8, 6) |
-| Doors | yellow instance at (4, 6) toggles; red instance at (2, 6) opens from its switch |
+| Map | 13×13 workshop; spawn tile (6, 7) |
+| Doors | standard instances at (6, 4) and (6, 8) toggle; red instance at (6, 2) opens from switch (6, 12) |
 | ROM | banked 32 KiB image; hot code in Bank 0, cold interaction/profile code in Bank 1 |
 | Stable release RAM | 936 bytes recorded at Engine Foundation v1.0.0 |
 | Profiling RAM | 959 bytes recorded at Engine Foundation v1.0.0 |
@@ -208,7 +208,7 @@ The validator enumerates all 65,536 relevant key/session combinations and checks
 
 ### 7.1 Authoritative state
 
-`game/player.c` owns `player_position_x` and `player_position_y`. Positions use Q8.8 world coordinates: one map tile is 256 units. Initialization places the player at the center of spawn tile (8, 6), therefore at `(8×256+128, 6×256+128)`.
+`game/player.c` owns `player_position_x` and `player_position_y`. Positions use Q8.8 world coordinates: one map tile is 256 units. Initialization places the player at the center of spawn tile (6, 7), therefore at `(6×256+128, 7×256+128)`, or `(1664, 1920)`.
 
 The camera stores a synchronized position copy for rendering, but the player remains authoritative.
 
@@ -299,18 +299,19 @@ Tile IDs:
 | 5 | yellow door | state-dependent |
 | 6 | red door | state-dependent |
 | 7 | red-door switch | yes |
+| 8 | VOID | yes |
 
-`world_get_texture()` returns ordinary semantic tile IDs directly after clamping unknown IDs to stone; the switch is the sole state-dependent texture lookup. The active generated table contains ten entries: normal concrete, blood concrete, two concrete-backed material placeholders, two doors, red OFF switch frames at IDs 7–8, and green ON switch frames at IDs 9–10. The waiting state selects OFF; activation selects ON and opens the internal red door without changing the six-update animation cadence.
+`world_get_texture()` returns ordinary semantic tile IDs directly after clamping unknown IDs to stone; the switch is the sole state-dependent texture lookup. The active generated table contains ten entries: normal concrete, blood concrete, two concrete-backed material placeholders, two doors, red OFF switch frames at texture IDs 7–8, and green ON switch frames at texture IDs 9–10. These texture IDs are distinct from world tile IDs. The waiting state selects OFF; activation selects ON and opens the internal red door without changing the six-update animation cadence.
 
 ### 9.2 Workshop map
 
-The permanent laboratory is a 17×13 const array. It has a central hub, small rooms, corridors, two doors in the western test area, and six hand-authored blood-concrete wall cells. Spawn is (8, 6). Storage is private to `workshop_map.c`; callers use accessors.
+The permanent laboratory is a 13×13 const array with spawn (6, 7), two standard doors at (6, 4) and (6, 8), the switch-controlled red door at (6, 2), and its switch at (6, 12). `WORLD_TILE_VOID` represents non-existent, non-playable space outside the authored enclosure. VOID is blocked but has no authored texture; a valid map places a renderable wall or closed door between every reachable playable cell and VOID. Storage is private to `workshop_map.c`; callers use bounded world accessors.
 
 Blood-wall placement is deterministic level data: there is no runtime randomization, distribution pass, or placement cost. Visual composition remains map-authoring ownership; the renderer receives the selected texture ID exactly like any other wall.
 
 ### 9.3 Object model
 
-`WorldObjectId` is an unsigned byte. Current IDs are none and door. `world_objects.c` owns immutable object-type metadata—currently only whether a type is interactive. `WorldObject` is opaque outside that module.
+`WorldObjectId` is an unsigned byte. Current IDs are none, door, and red-door switch. `world_objects.c` owns immutable object-type metadata—currently only whether a type is interactive. `WorldObject` is opaque outside that module.
 
 This separates:
 
@@ -321,14 +322,15 @@ This separates:
 
 ### 9.4 Doors
 
-Two immutable door instances map IDs to coordinates:
+Three immutable door instances map IDs to coordinates:
 
 | Instance | ID | Coordinate |
 |---|---:|---|
-| room entrance | 0 | (4, 6) |
-| room internal | 1 | (2, 6) |
+| room entrance | 0 | (6, 4) |
+| room internal red door | 1 | (6, 2) |
+| south entrance | 2 | (6, 8) |
 
-`door_states.c` owns a two-byte mutable state array. Initialization closes every door. Unknown IDs read as closed and cannot be toggled. A door tile is solid while closed and empty for collision/raycasting while open.
+`door_states.c` owns a three-byte mutable state array. Initialization closes every door. Unknown IDs read as closed and cannot be toggled. A door tile is solid while closed and empty for collision/raycasting while open.
 
 Doors toggle instantly. Animation, partial openness, obstruction, timing, sounds, and scalable content data are planned, not implemented.
 
@@ -347,7 +349,7 @@ Interaction is deliberately cold and banked.
 5. Negative, out-of-map, or blocking noninteractive walls terminate the cast.
 6. An interactive object fills `InteractionTarget {map_x, map_y, tile_id, object_id}`.
 7. Player passes the target to Bank 1 `world_interact()`.
-8. Dispatch validates object metadata. The yellow door toggles; direct red-door interaction is rejected; the switch opens the red door idempotently.
+8. Dispatch validates object metadata. Either yellow door toggles; direct red-door interaction is rejected; the switch opens the red door idempotently.
 
 The interaction ray is not the renderer’s DDA ray. It is a low-frequency, bounded gameplay query with different output and cost requirements. This separation avoids coupling interaction semantics to visible ray count or screen resolution.
 
@@ -546,10 +548,10 @@ These are milestone measurements, not eternal constants; current release work mu
 | player position (2 signed ints) | player | player, main | player | entire run |
 | camera position/basis (6 signed ints) | camera | raycaster, player | camera/main API | entire run |
 | current/previous keys, hold flags | input | input accessors | input | entire run |
-| door states `[2]` | door states | world | door-state API | initialized once, mutable |
-| workshop map `[13][17]` | map | world/map API | none; const | ROM lifetime |
+| door states `[3]` | door states | world | door-state API | initialized once, mutable |
+| workshop map `[13][13]` (169 bytes) | map | world/map API | none; const | ROM lifetime |
 | object definitions | world objects | interactions | none; const | ROM lifetime |
-| door instances `[2]` | door instances | world/interactions | none; const | ROM lifetime |
+| door instances `[3]` | door instances | world/interactions | none; const | ROM lifetime |
 | rendered rays `[28]` | raycaster | video | raycaster | overwritten each frame |
 | ray directions `[28]×2` | raycaster | raycaster | raycaster on basis change | entire run |
 | DDA reciprocal `[513]` | raycaster | raycaster | none; const | ROM lifetime |
@@ -683,10 +685,12 @@ The first configures `build/`, profiling off, output `rom/GearRay.gg`. The secon
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_final_controls.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_workshop_map.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_ray_direction_rebuild.ps1
 powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_renderer_equivalence.ps1
 ```
 
-The control validator checks extracted constants and exhaustively explores session/input states and movement vectors. The renderer oracle checks production formulas and native byte output, including sampler stepping, LOD boundaries, bitplane packing, signatures, and generated data assumptions.
+The workshop validator checks the exact map, spawn, registered instances, enclosure, VOID, and bounds contracts. The control validator checks extracted constants and exhaustively explores session/input states and movement vectors. The ray-direction validator checks production-derived camera rays and all four physical wall-face orientations. The renderer oracle checks production formulas and native byte output, including sampler stepping, LOD boundaries, bitplane packing, signatures, and generated data assumptions.
 
 For C, CMake, generator, or toolchain changes, build release, profile, then release again to prove profile isolation. Also run `git diff --check`.
 
@@ -697,7 +701,7 @@ For C, CMake, generator, or toolchain changes, build release, profile, then rele
 - inspect `.map`, `.noi`, `.asm`, and IHX placement;
 - confirm zero bank calls in renderer/raycaster hot paths;
 - test ordinary movement, opposing inputs, diagonals, rotation-plus-movement, wall sliding, and corners;
-- test Button 1 tap, hold, strafe session, yellow-door toggling, rejected direct red-door interaction, and switch activation;
+- test Button 1 tap, hold, strafe session, both yellow-door toggles, rejected direct red-door interaction, and switch activation;
 - inspect static, rotating, near-wall, far-wall, and rapidly changing scenes;
 - test on original Game Gear using complete Sega mapper-compatible hardware when declaring a stable release.
 
@@ -823,7 +827,7 @@ During implementation:
 
 Before merge:
 
-- run all three host validators;
+- run all four host validators;
 - build release/profile/release;
 - inspect warnings and map/assembly when relevant;
 - verify ROM header/checksum/size and bank placement;
@@ -869,11 +873,11 @@ A HUD must first allocate tiles, map cells, palette entries, and upload timing. 
 | `game/camera.c`, `.h` | position snapshot, normalized basis, integer rotation; no world/platform dependency |
 | `game/player.c`, `.h` | position, movement composition, collision, interaction initiation; depends on input/camera/world |
 | `game/world.c`, `.h` | semantic world façade and tile IDs; depends on workshop map and doors |
-| `game/workshop_map.c`, `.h` | immutable 17×13 laboratory and spawn |
+| `game/workshop_map.c`, `.h` | immutable 13×13 laboratory, VOID layout, and spawn |
 | `game/world_object.h` | `WorldObjectId` and IDs |
 | `game/world_objects.c`, `.h` | opaque immutable object definitions and interactivity |
 | `game/door_instances.c`, `.h` | immutable door coordinates and instance IDs |
-| `game/door_states.c`, `.h` | mutable two-door state storage |
+| `game/door_states.c`, `.h` | mutable three-door state storage |
 | `game/interaction_target.h` | short-lived target value type |
 | `game/interaction_ray.c`, `.h` | cold Bank 1 gameplay ray |
 | `game/world_interactions.c`, `.h` | cold Bank 1 object behavior dispatch |
@@ -891,6 +895,7 @@ A HUD must first allocate tiles, map cells, palette entries, and upload timing. 
 | Path | Purpose |
 |---|---|
 | `tools/generate_wall_texture.ps1` | validates/decodes active PNGs and emits packed data, palettes, sampler tables |
+| `tools/validate_workshop_map.ps1` | validates the exact 13×13 layout, spawn, instances, enclosure, VOID, and bounds contracts |
 | `tools/validate_renderer_equivalence.ps1` | host oracle for renderer math, packing, LOD, signatures, and generated assumptions |
 | `tools/validate_final_controls.ps1` | exhaustive control/session and movement validation |
 
@@ -1005,7 +1010,7 @@ Use focused branches/commits and pull requests. Architectural, performance, depe
 - the ROM is a technical workshop, not a complete game;
 - no fire/menu gameplay despite reserved input APIs;
 - no audio, sprites, enemies, weapons, HUD, save data, or progression;
-- doors use binary instantaneous state; the yellow door toggles and the red door opens from its switch;
+- doors use binary instantaneous state; either yellow door toggles and the red door opens from its switch;
 - simulation advances once per loop rather than using elapsed-time integration;
 - collision is discrete, axis-biased, and static-world only;
 - dirty rendering has variable work;
@@ -1123,7 +1128,7 @@ Only with `GEARRAY_PROFILE_RENDERER`: global `GameGearRendererProfile`, banked b
 | texture | 8×8, seven colors, packed row stride 4, side bases 2/9 |
 | LOD | far threshold 16, very-far threshold 8 |
 | native tile | 4 bytes/row, 32 bytes/tile |
-| map | 17×13, spawn (8,6) |
+| map | 13×13, spawn (6,7) |
 | profile | report interval 60, five decimal digits |
 
 Private constants may change only with their owning implementation and validation. Stable-control, projection, viewport, and LOD values are Engine Foundation contracts.

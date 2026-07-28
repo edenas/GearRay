@@ -54,20 +54,26 @@ is map east. The camera does not perform movement or collision.
 ### World and map
 
 `game/world.c` is the query boundary for map tiles, spawn position, textures,
-objects, and solidity. The current `workshop_map` is a 17×13 permanent engine
-laboratory with a spawn at tile (8, 6). Out-of-range world queries resolve to a
-solid stone tile.
+objects, and solidity. The current `workshop_map` is a 13×13 permanent engine
+laboratory with a spawn at tile (6, 7). `WORLD_TILE_VOID` marks non-existent,
+non-playable space outside the workshop's renderable enclosure. VOID and
+out-of-range coordinates are blocked; out-of-range tile queries resolve safely
+to VOID without indexing the map array. Tile IDs are empty 0, stone 1, blood
+concrete 2, brick placeholder 3, metal placeholder 4, standard door 5, red
+door 6, red-door switch 7, and VOID 8.
 
 `world.c` maps ordinary semantic tile IDs directly to texture IDs; invalid IDs
 fall back to stone, while the red-door switch selects its current animation
 frame. Blood concrete is an ordinary solid, noninteractive wall. Door instances
-and their mutable open/closed states are kept separately in `door_instances.c`
-and `door_states.c`.
+at (6, 4), (6, 2), and (6, 8) and their three mutable open/closed states are
+kept separately in `door_instances.c` and `door_states.c`. The switch at
+(6, 12) controls the red door at (6, 2).
 
-The switch texture contract is explicit: IDs 7 and 8 are the red OFF frames
-used while waiting, and IDs 9 and 10 are the green ON frames used after
-activation. Activation changes the state once and opens the internal red door;
-the existing six-update animation cadence continues in either state.
+The generated switch-texture contract is explicit: texture IDs 7 and 8 are the
+red OFF frames used while waiting, and texture IDs 9 and 10 are the green ON
+frames used after activation. These are texture IDs, not world tile IDs.
+Activation changes the state once and opens the internal red door; the existing
+six-update animation cadence continues in either state.
 
 ### Raycaster
 
@@ -110,9 +116,9 @@ path rather than restored as unused compatibility code.
 `game/interaction_ray.c` samples forward from the player in 32-unit increments
 up to 512 Q8.8 units (two tiles). It visits each map cell at most once, returns
 the first interactive object, and stops at a blocking wall or world boundary.
-`world_interactions.c` dispatches the resulting target. The ordinary yellow
-door toggles. Direct interaction with the red door is rejected; activating the
-red-door switch opens that door idempotently.
+`world_interactions.c` dispatches the resulting target. Either ordinary yellow
+door toggles. Direct interaction with the red door is rejected; activating
+the red-door switch opens that door idempotently.
 
 ### Renderer profiling
 
@@ -201,6 +207,11 @@ The DDA advances whichever side distance is smaller, records whether an X or
 Y wall face was crossed, and stops when `world_is_wall()` reports a solid cell.
 Open doors are non-solid; closed doors are solid. Out-of-map queries are solid,
 so a valid bounded map terminates every ray.
+
+VOID has no authored texture and is not a visible wall material. Build-time map
+validation proves that reachable floor and open doors have a renderable
+stone/blood/door/switch boundary before VOID. A ray reaching VOID directly
+therefore indicates invalid level construction rather than a rendering case.
 
 The hot solidity query decides empty and ordinary solid workshop tiles directly
 after one bounded map lookup. Only door tiles enter instance/state resolution.

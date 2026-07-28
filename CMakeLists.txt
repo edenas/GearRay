@@ -99,6 +99,7 @@ set(GEAR_RAY_RED_DOOR_SWITCH_OFF_FRAME_2_INPUT "${CMAKE_SOURCE_DIR}/assets/textu
 set(GEAR_RAY_RED_DOOR_SWITCH_ON_FRAME_1_INPUT "${CMAKE_SOURCE_DIR}/assets/textures/walls/switch_on_01.png")
 set(GEAR_RAY_RED_DOOR_SWITCH_ON_FRAME_2_INPUT "${CMAKE_SOURCE_DIR}/assets/textures/walls/switch_on_02.png")
 set(GEAR_RAY_WALL_TEXTURE_GENERATOR "${CMAKE_SOURCE_DIR}/tools/generate_wall_texture.ps1")
+set(GEAR_RAY_WORKSHOP_MAP_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_workshop_map.ps1")
 set(GEAR_RAY_GENERATED_DIR "${CMAKE_BINARY_DIR}/generated")
 set(GEAR_RAY_GENERATED_WALL_TEXTURE_SOURCE "${GEAR_RAY_GENERATED_DIR}/wall_texture.c")
 set(GEAR_RAY_GENERATED_WALL_TEXTURE_HEADER "${GEAR_RAY_GENERATED_DIR}/wall_texture.h")
@@ -450,8 +451,27 @@ add_custom_command(
 
 # Preserve the existing project target structure while making the game target real.
 add_custom_target(gear_ray_engine)
+add_custom_target(gear_ray_validate_workshop
+    COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}"
+            -NoProfile
+            -ExecutionPolicy Bypass
+            -File "${GEAR_RAY_WORKSHOP_MAP_VALIDATOR}"
+    DEPENDS
+            "${GEAR_RAY_WORKSHOP_MAP_VALIDATOR}"
+            "${GEAR_RAY_WORKSHOP_MAP_SOURCE}"
+            "${GEAR_RAY_WORKSHOP_MAP_HEADER}"
+            "${GEAR_RAY_WORLD_SOURCE}"
+            "${GEAR_RAY_WORLD_HEADER}"
+            "${GEAR_RAY_DOOR_INSTANCES_SOURCE}"
+            "${GEAR_RAY_DOOR_INSTANCES_HEADER}"
+            "${GEAR_RAY_RED_DOOR_SWITCH_SOURCE}"
+            "${GEAR_RAY_RED_DOOR_SWITCH_HEADER}"
+            "${GEAR_RAY_WALL_TEXTURE_GENERATOR}"
+    COMMENT "Validating workshop map, instances, enclosure, and VOID safety"
+    VERBATIM
+)
 add_custom_target(gear_ray_game ALL DEPENDS "${GEAR_RAY_ROM}")
-add_dependencies(gear_ray_game gear_ray_engine)
+add_dependencies(gear_ray_game gear_ray_engine gear_ray_validate_workshop)
 
 add_custom_target(gear_ray_info ALL
     COMMAND "${CMAKE_COMMAND}" -E echo "GearRay Game Gear ROM: ${GEAR_RAY_ROM}"

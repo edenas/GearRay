@@ -70,13 +70,13 @@ The generated ROM uses the standard Game Gear header macro for ROMs of at least
 
 The current finalized engine baseline reports:
 
-| Resource | Usage |
-| --- | ---: |
-| Total ROM file | 32,768 bytes (2 banks) |
-| Used ROM content | 14,810 bytes |
-| Bank 0 used/free | 14,010 / 2,374 bytes |
-| Bank 1 used/free | 800 / 15,584 bytes |
-| Persistent RAM | 939 bytes |
+| Resource | Release | Profile |
+| --- | ---: | ---: |
+| Total ROM file | 32,768 bytes (2 banks) | 32,768 bytes (2 banks) |
+| Used ROM content | 14,766 bytes | 15,869 bytes |
+| Bank 0 used/free | 13,966 / 2,418 bytes | 14,466 / 1,918 bytes |
+| Bank 1 used/free | 800 / 15,584 bytes | 1,403 / 14,981 bytes |
+| Persistent RAM | 945 bytes | 979 bytes |
 
 The single-bank baseline had 35 free Bank 0 bytes. This first migration pays a
 one-time resident cost for SDCC's bank-call support: the 43-byte resident
@@ -261,7 +261,8 @@ Every banking migration must include:
 
 For a migrated gameplay module, exercise both the path that calls it and the
 normal frame path that does not. For `world_interact()`, this means verifying
-movement/rendering plus opening and closing both workshop doors.
+movement/rendering, toggling both standard workshop doors, and activating the
+switch-controlled red door.
 
 ## Current limitations and risks
 
@@ -271,7 +272,7 @@ movement/rendering plus opening and closing both workshop doors.
 - The current low-frequency interaction ray and interaction dispatcher cross
   the bank boundary. More complex nested and cross-bank call graphs have not
   yet been validated in GearRay.
-- Bank 0 currently has 2,374 free bytes. New resident features still require
+- Bank 0 currently has 2,418 free bytes. New resident features still require
   deliberate space management and cold systems should continue to be evaluated
   for cohesive migration.
 - Bank switching has nonzero latency and changes mapper state. It must not be
@@ -282,8 +283,9 @@ movement/rendering plus opening and closing both workshop doors.
 ## Recommendations for the next migration
 
 1. Validate this ROM in Emulicious with mapper inspection enabled.
-2. Test both door interactions on original Game Gear hardware using a
-   full-Sega-mapper-compatible cartridge or flash device.
+2. Test both standard-door interactions and red-door switch activation on
+   original Game Gear hardware using a full-Sega-mapper-compatible cartridge
+   or flash device.
 3. Record bank-switch timing only after functional validation.
 4. Select one additional cold, cohesive module; do not move the renderer.
 5. Add automated map-file checks for Bank 0 overflow and expected bank segment

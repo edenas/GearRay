@@ -10,7 +10,7 @@ void world_initialize(void)
 unsigned char world_get_tile(unsigned char x, unsigned char y)
 {
     if (x >= WORLD_WIDTH || y >= WORLD_HEIGHT)
-        return WORLD_TILE_STONE;
+        return WORLD_TILE_VOID;
 
     return workshop_map_get_tile(x, y);
 }

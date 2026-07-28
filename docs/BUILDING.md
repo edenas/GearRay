@@ -163,6 +163,9 @@ Run the deterministic host checks after building:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass `
+  -File tools/validate_workshop_map.ps1
+
+powershell -NoProfile -ExecutionPolicy Bypass `
   -File tools/validate_final_controls.ps1
 
 powershell -NoProfile -ExecutionPolicy Bypass `
@@ -185,7 +188,7 @@ For a release candidate:
 
 1. Start from a clean Git working tree.
 2. Build release and profiling configurations.
-3. Run all three host validators.
+3. Run all four host validators.
 4. Review SDCC warnings against the documented Engine Foundation baseline.
 5. Confirm both ROMs are 32 KiB and contain a valid `TMR SEGA` header.
 6. Test the release ROM in a Game Gear emulator.
