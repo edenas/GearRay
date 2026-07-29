@@ -6,8 +6,8 @@
 #define GAME_GEAR_WALL_TEXTURE_HEIGHT 8
 #define GAME_GEAR_WALL_TEXTURE_PACKED_ROW_STRIDE 4
 #define GAME_GEAR_WALL_TEXTURE_PACKED_ROW_SHIFT 2
-#define GAME_GEAR_WALL_PALETTE_BASE 2
-#define GAME_GEAR_WALL_PALETTE_COLOR_COUNT 14
+#define GAME_GEAR_WALL_PALETTE_BASE 1
+#define GAME_GEAR_WALL_PALETTE_COLOR_COUNT 15
 
 unsigned int game_gear_get_wall_palette_color(
     unsigned char wall_palette_offset);

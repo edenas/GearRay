@@ -173,6 +173,17 @@ powershell -NoProfile -ExecutionPolicy Bypass `
 
 powershell -NoProfile -ExecutionPolicy Bypass `
   -File tools/validate_renderer_equivalence.ps1
+
+powershell -NoProfile -ExecutionPolicy Bypass `
+  -File tools/validate_sprite_renderer.ps1
+
+powershell -NoProfile -ExecutionPolicy Bypass `
+  -File tools/validate_palette_usage.ps1
+
+powershell -NoProfile -ExecutionPolicy Bypass `
+  -File tools/validate_startup_order.ps1
+
+git diff --check
 ```
 
 The renderer validator reads generated texture tables from `build` by default.
@@ -188,13 +199,16 @@ For a release candidate:
 
 1. Start from a clean Git working tree.
 2. Build release and profiling configurations.
-3. Run all four host validators.
+3. Run the workshop-map, exhaustive 65,536-state controls, ray-direction,
+   renderer-equivalence, sprite-renderer, complete palette/weapon-decoding,
+   and startup-order validators.
 4. Review SDCC warnings against the documented Engine Foundation baseline.
 5. Confirm both ROMs are 32 KiB and contain a valid `TMR SEGA` header.
 6. Test the release ROM in a Game Gear emulator.
 7. Test on original hardware when renderer, timing, input, banking, or VRAM
    behaviour changes.
-8. Record tool versions and SHA-256 hashes for distributed ROMs.
+8. Run `git diff --check`.
+9. Record tool versions and SHA-256 hashes for distributed ROMs.
 
 Known Engine Foundation build warnings are documented in
 [`ENGINE_FOUNDATION_V1.0.0.md`](ENGINE_FOUNDATION_V1.0.0.md). New warnings

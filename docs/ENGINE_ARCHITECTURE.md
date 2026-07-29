@@ -23,13 +23,15 @@ that coordinates input, player movement, camera rotation, interaction,
 raycasting, VBlank synchronization, and drawing. It does not contain rendering
 or collision algorithms.
 
-The current direct-to-game boot keeps display output disabled while the initial
-world, camera, ray results, complete viewport wall state, and optional debug
-border are prepared. SMSlib text setup occurs only after that complete frame
-exists; its implicit display enable is immediately blanked again before a
-VBlank-synchronized deliberate enable. This temporary sequence must be
-reviewed when startup becomes `logo -> main menu -> intro -> gameplay`; the
-gameplay transition must retain the complete-first-frame guarantee.
+The current direct-to-game boot keeps display output disabled while gameplay
+VDP state, world, player, camera, raycaster, and the complete first gameplay
+frame are initialized. The optional white debug border is uploaded once.
+SMSlib text setup occurs only after that complete frame exists; the master BG
+palette is then restored exactly once, its implicit display enable is blanked
+again, VBlank is awaited, and display is deliberately enabled. This temporary
+sequence must be reviewed when startup becomes
+`logo -> main menu -> intro -> gameplay`; the gameplay transition must retain
+the complete-first-frame guarantee.
 
 ### Input
 
@@ -268,8 +270,8 @@ step does not divide evenly. Clipped portions above the viewport are skipped
 when the sampler is initialized.
 
 The generated texture stores two 4-bit pixels per byte. X parity selects the
-high or low nibble. Sampler initialization caches palette base 2 for X-side
-hits or 9 for Y-side hits. The hot sampler returns the final palette index in
+high or low nibble. Sampler initialization selects the generated X-side or
+Y-side palette-index map. The hot sampler returns the final palette index in
 one call, combining coordinate advancement, packed fetch, nibble selection,
 and directional shading without an additional texture or palette function.
 
@@ -492,18 +494,27 @@ unchanged projection adds no sprite-driven dirty columns or VRAM uploads.
 ### First-person HUD weapon composition
 
 The accepted first-person weapon is a screen-space overlay independent of
-camera projection, wall depth, and world-sprite occlusion. Its authored 8×8
-indexed texture is expanded to 24×24 with an exact three-entry-per-source-pixel
-coordinate table and occupies viewport bounds `[80, 104) × [40, 64)`.
+camera projection, wall depth, and world-sprite occlusion. Its authored
+`assets/sprites/weapons/gun_12x12.png` texture is expanded to exactly 24×24 by
+mapping destination coordinates with `>> 1`, an exact integer 2×
+nearest-neighbor scale. It occupies viewport bounds `[80, 104) × [40, 64)`.
 
 The resident renderer first builds ceiling, floor, and walls, then composes the
 world sprite, and finally calls the Bank 1 HUD compositor for the weapon's
-three-by-three tile footprint. Palette index 15 is transparent and preserves
-the completed world pixel. The fixed overlay participates in an already-dirty
-column only; it introduces no independent frame update or recurring VRAM
-upload. Because each regenerated tile is rebuilt from the world before the HUD
-is applied, transparent areas and previously covered pixels cannot become
-stale.
+three-by-three tile footprint. Palette index 6 is the weapon's semantic
+transparency sentinel and preserves the completed world pixel even though BG
+entry 6 contains a visible colour. The fixed overlay participates in an
+already-dirty column only; it introduces no independent frame update or
+recurring VRAM upload. Because each regenerated tile is rebuilt from the world
+before the HUD is applied, transparent areas and previously covered pixels
+cannot become stale.
+
+The packed 12×12 source retains an eight-byte row stride, using 96 ROM bytes,
+so its hot address calculation is `texture_y << 3`. Removing the former
+24-byte coordinate table saves 38 Bank 1 ROM bytes and approximately 19,152
+cycles for a complete nine-tile recomposition, with no RAM or VRAM change.
+Uploading the border only at startup removes 13 Bank 0 ROM bytes, one
+persistent RAM byte, and approximately 45 cycles from each debug frame.
 
 ### Active vertical row generation
 
@@ -528,8 +539,8 @@ calls and bytes without changing the intended image.
 Ceiling and floor use solid 1bpp tiles with existing BG palette entries. The
 ceiling uses global BG index 3, RGB `(7, 7, 7)` / `0x777`, and the floor uses
 global BG index 10, RGB `(3, 3, 3)` / `0x333`. Since
-`GAME_GEAR_WALL_PALETTE_BASE` is global index 2, the source constants use
-relative offsets `+1` and `+8`; these are not absolute palette indices.
+`GAME_GEAR_WALL_PALETTE_BASE` is global index 1, the source constants use
+relative offsets `+2` and `+9`; these are not absolute palette indices.
 
 Native wall tiles select the same ceiling or floor index for pixels outside the
 projected wall silhouette according to the viewport horizon. This keeps
@@ -559,11 +570,26 @@ This removed the hot per-bitplane loop. Exhaustive comparison of all 256
 left/right input pairs established identical output; gameplay and visuals did
 not change.
 
-### Directional palette mapping
+### Stable BG palette and directional mapping
 
-The generated source indices are contiguous. Adding cached palette base 2 for
-X sides or 9 for Y sides produces the same bright and dark indices without a
-per-pixel lookup table or function call.
+All walls, ceiling, floor, switches, the zombie, and the HUD weapon are
+software-composited through one 16-entry BG master palette. Hardware sprites
+and their palette remain unused. The master entries are:
+
+`0:000` black, `1:03a` gameplay brown, `2:555` concrete, `3:777`
+ceiling/light gray, `4:b80` bright blue, `5:02b` primary red, `6:057`
+door yellow-brown, `7:265` moss, `8:860` dark blue, `9:566` ordered LOD
+shade, `10:333` floor/dark wall, `11:acf` light skin, `12:fff` white,
+`13:222` darkest gray, `14:143` moss side shade, and `15:7af` dark skin.
+
+One moss green and one primary red are shared; dedicated brown and both skin
+tones are preserved. All entries are assigned. Zombie index 15 and weapon
+index 6 remain semantic transparency sentinels and are skipped by their
+compositors. LOD1 X uses indices 2/9, LOD1 Y uses 2/10, and LOD2 uses 0/2/10
+through precomputed ordered tables.
+
+`SMS_autoSetUpTextRenderer()` overwrites a BG palette entry, so startup restores
+the complete master palette exactly once after text initialization.
 
 ### Compile-time profiling removal
 

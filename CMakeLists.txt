@@ -118,7 +118,7 @@ set(GEAR_RAY_SPRITE_TEXTURE_GENERATOR "${CMAKE_SOURCE_DIR}/tools/generate_sprite
 set(GEAR_RAY_GENERATED_SPRITE_TEXTURE_SOURCE "${GEAR_RAY_GENERATED_DIR}/sprite_texture.c")
 set(GEAR_RAY_GENERATED_SPRITE_TEXTURE_HEADER "${GEAR_RAY_GENERATED_DIR}/sprite_texture.h")
 set(GEAR_RAY_GENERATED_SPRITE_TEXTURE_OBJECT "${CMAKE_BINARY_DIR}/generated_sprite_texture.rel")
-set(GEAR_RAY_WEAPON_TEXTURE_INPUT "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/gun.png")
+set(GEAR_RAY_WEAPON_TEXTURE_INPUT "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/gun_12x12.png")
 set(GEAR_RAY_GENERATED_WEAPON_TEXTURE_SOURCE "${GEAR_RAY_GENERATED_DIR}/weapon_texture.c")
 set(GEAR_RAY_GENERATED_WEAPON_TEXTURE_HEADER "${GEAR_RAY_GENERATED_DIR}/weapon_texture.h")
 set(GEAR_RAY_GENERATED_WEAPON_TEXTURE_OBJECT "${CMAKE_BINARY_DIR}/generated_weapon_texture.rel")
@@ -431,6 +431,7 @@ add_custom_command(
             -OutputSource "${GEAR_RAY_GENERATED_WEAPON_TEXTURE_SOURCE}"
             -OutputHeader "${GEAR_RAY_GENERATED_WEAPON_TEXTURE_HEADER}"
             -Symbol hud_weapon_pixels
+            -SpriteKind HudWeapon
     DEPENDS "${GEAR_RAY_WEAPON_TEXTURE_INPUT}"
             "${GEAR_RAY_SPRITE_TEXTURE_GENERATOR}"
     COMMENT "Generating packed static HUD weapon"

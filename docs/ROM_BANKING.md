@@ -73,10 +73,14 @@ The current finalized engine baseline reports:
 | Resource | Release | Profile |
 | --- | ---: | ---: |
 | Total ROM file | 32,768 bytes (2 banks) | 32,768 bytes (2 banks) |
-| Used ROM content | 17,967 bytes | 19,093 bytes |
-| Bank 0 used/free | 15,808 / 576 bytes | 16,331 / 53 bytes |
-| Bank 1 used/free | 2,159 / 14,225 bytes | 2,762 / 13,622 bytes |
-| Persistent RAM | 1,015 bytes | 1,049 bytes |
+| Used ROM content | 17,987 bytes | 19,113 bytes |
+| Bank 0 used/free | 15,803 / 581 bytes | 16,326 / 58 bytes |
+| Bank 1 used/free | 2,184 / 14,200 bytes | 2,787 / 13,597 bytes |
+| Persistent RAM | 1,014 bytes | 1,048 bytes |
+
+Profile Bank 0 has only 58 bytes free. This is a capacity constraint, not a
+runtime failure. Future resident growth should first consider moving clearly
+cold startup or debug code to Bank 1; the hot renderer should remain resident.
 
 The single-bank baseline had 35 free Bank 0 bytes. This first migration pays a
 one-time resident cost for SDCC's bank-call support: the 43-byte resident
@@ -117,7 +121,7 @@ The static billboard's inverse-camera projection is also a single Bank 1 call
 per frame. Its packed 32-byte standing texture remains resident in Bank 0 so
 the per-pixel composition path never switches banks.
 
-The static HUD weapon compositor and its packed 32-byte texture reside in Bank
+The static HUD weapon compositor and its padded packed 96-byte texture reside in Bank
 1. Bank calls occur only for the nine HUD tiles that are already being
 regenerated; the weapon does not create an independent upload pass.
 
@@ -280,9 +284,9 @@ switch-controlled red door.
 - The current low-frequency interaction ray and interaction dispatcher cross
   the bank boundary. More complex nested and cross-bank call graphs have not
   yet been validated in GearRay.
-- Bank 0 currently has 2,347 free bytes. New resident features still require
-  deliberate space management and cold systems should continue to be evaluated
-  for cohesive migration.
+- Release Bank 0 has 581 free bytes and Profile Bank 0 has 58 free bytes. New
+  resident features require deliberate space management; clearly cold
+  startup/debug code should be evaluated for Bank 1 before hot renderer code.
 - Bank switching has nonzero latency and changes mapper state. It must not be
   introduced into renderer inner loops.
 - The current ROM has two banks, not 32. The architecture can grow toward

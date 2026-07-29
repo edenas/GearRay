@@ -84,12 +84,13 @@ if ($textureHeader -notmatch '#define WALL_TEXTURE_COUNT 10' -or
     $textureHeader -notmatch '#define WALL_TEXTURE_COLOR_COUNT 10') {
     throw "Generated wall texture count contract mismatch"
 }
-Test-EqualBytes @(0x555, 0x777, 0xb80, 0x02b, 0x057, 0x265, 0x860,
-                  0x566, 0x333, 0x961, 0x119, 0x222, 0x143, 0x641) `
+Test-EqualBytes @(0x03a, 0x555, 0x777, 0xb80, 0x02b, 0x057, 0x265,
+                  0x860, 0x566, 0x333, 0xacf, 0xfff, 0x222, 0x143,
+                  0x7af) `
                 $paletteColors "wall palette"
-Test-EqualBytes @(0, 2, 3, 4, 5, 6, 7, 8, 1, 13) `
+Test-EqualBytes @(0, 2, 3, 4, 5, 6, 7, 8, 12, 13) `
                 $paletteXIndices "X palette lookup"
-Test-EqualBytes @(0, 10, 2, 11, 12, 6, 14, 15, 1, 13) `
+Test-EqualBytes @(0, 10, 2, 8, 5, 6, 14, 8, 12, 13) `
                 $paletteYIndices "Y palette lookup"
 if ($wallTextures.Count -ne (10 * 32)) {
     throw "Expected ten 32-byte wall textures; got $($wallTextures.Count) bytes"
@@ -105,14 +106,18 @@ for ($textureId = 7; $textureId -le 10; ++$textureId) {
     }
 
     $redCount = @($indices | Where-Object { $_ -eq 4 }).Count
-    $sharedGreenCount = @($indices | Where-Object { $_ -eq 6 }).Count
+    $oliveCount = @($indices | Where-Object { $_ -eq 6 }).Count
+    $greenCount = @($indices | Where-Object { $_ -eq 10 }).Count
+    $darkRedCount = @($indices | Where-Object { $_ -eq 11 }).Count
     if ($textureId -le 8) {
-        if ($redCount -ne 7 -or $sharedGreenCount -ne 8) {
-            throw "Switch OFF texture ID $textureId is not red-only"
+        if ($redCount -ne 7 -or $darkRedCount -ne 0 -or
+            $oliveCount -ne 8 -or $greenCount -ne 0) {
+            throw "Switch OFF texture ID $textureId does not use merged red"
         }
     }
-    elseif ($sharedGreenCount -ne 15 -or $redCount -ne 0) {
-        throw "Switch ON texture ID $textureId does not use shared green"
+    elseif ($greenCount -ne 0 -or $oliveCount -ne 15 -or
+            $redCount -ne 0 -or $darkRedCount -ne 0) {
+        throw "Switch ON texture ID $textureId does not use merged moss green"
     }
 }
 

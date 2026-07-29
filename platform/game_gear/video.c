@@ -16,8 +16,8 @@
 #define VIEWPORT_TILE_STATE_FLOOR 1
 #define VIEWPORT_TILE_STATE_WALL 2
 #define VIEWPORT_HORIZON_TILE_ROW (GAME_GEAR_VIEWPORT_TILE_ROWS / 2)
-#define CEILING_PALETTE_INDEX (GAME_GEAR_WALL_PALETTE_BASE + 1)
-#define FLOOR_PALETTE_INDEX (GAME_GEAR_WALL_PALETTE_BASE + 8)
+#define CEILING_PALETTE_INDEX (GAME_GEAR_WALL_PALETTE_BASE + 2)
+#define FLOOR_PALETTE_INDEX (GAME_GEAR_WALL_PALETTE_BASE + 9)
 #define WALL_COLUMN_VALID_FLAG 0x80
 #define WALL_COLUMN_LEFT_SIDE_Y_FLAG 0x01
 #define WALL_COLUMN_RIGHT_SIDE_Y_FLAG 0x02
@@ -489,15 +489,10 @@ static unsigned char game_gear_get_active_wall_rows(
     return 1;
 }
 
-void game_gear_video_initialize(void)
+void game_gear_video_load_background_palette(void)
 {
-    unsigned char tile_column;
-    unsigned char row;
     unsigned char wall_palette_offset;
-    unsigned int cell_index;
 
-    SMS_displayOff();
-    SMS_VRAMmemsetW(0, 0x0000, 16384);
     GG_setBGPaletteColor(0, RGB(0, 0, 0));
     SMS_setBackdropColor(0);
     for (wall_palette_offset = 0;
@@ -508,6 +503,17 @@ void game_gear_video_initialize(void)
             GAME_GEAR_WALL_PALETTE_BASE + wall_palette_offset,
             game_gear_get_wall_palette_color(wall_palette_offset));
     }
+}
+
+void game_gear_video_initialize(void)
+{
+    unsigned char tile_column;
+    unsigned char row;
+    unsigned int cell_index;
+
+    SMS_displayOff();
+    SMS_VRAMmemsetW(0, 0x0000, 16384);
+    game_gear_video_load_background_palette();
     SMS_load1bppTiles(ceiling_tile,
                       CEILING_TILE_INDEX,
                       sizeof(ceiling_tile),
@@ -854,17 +860,13 @@ void game_gear_video_draw_wall_columns(void)
 #if GEARRAY_DEBUG_VIEWPORT_BORDER
 void game_gear_video_draw_viewport_border(void)
 {
-    static unsigned char border_drawn;
     unsigned char tile_offset;
-
-    if (border_drawn)
-        return;
 
     SMS_load1bppTiles(debug_border_tiles,
                       DEBUG_BORDER_HORIZONTAL_TILE_INDEX,
                       sizeof(debug_border_tiles),
                       0,
-                      1);
+                      12);
 
     SMS_setTileatXY(GAME_GEAR_VIEWPORT_BORDER_TILE_LEFT,
                     GAME_GEAR_VIEWPORT_BORDER_TILE_TOP,
@@ -904,6 +906,5 @@ void game_gear_video_draw_viewport_border(void)
                         DEBUG_BORDER_VERTICAL_TILE_INDEX | TILE_FLIPPED_X);
     }
 
-    border_drawn = 1;
 }
 #endif

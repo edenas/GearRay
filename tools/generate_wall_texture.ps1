@@ -99,6 +99,9 @@ function Convert-SwitchToPalette {
             '#008cb4' { 3; break }
             '#006d8f' { 7; break }
             '#ffffff' { 8; break }
+            '#1a1a1a' { 9; break }
+            '#669c35' { 6; break }
+            '#831100' { 4; break }
             default { throw "Unexpected $Description source color: RGB $rgb." }
         }
         $result.Add($index)
@@ -129,9 +132,9 @@ $bloodWallColors = @('#4d4d4d', '#53602a', '#797878', '#b51a00')
 $yellowDoorColors = @('#000000', '#000009', '#4d4d4d', '#53602a', '#785700')
 $redDoorColors = @('#000000', '#000009', '#4d4d4d', '#53602a', '#b51a00')
 $offSwitchColors = @('#000000', '#4d4d4d', '#797878', '#53602a', '#b51a00',
-                     '#008cb4', '#006d8f', '#ffffff')
+                     '#008cb4', '#006d8f', '#ffffff', '#1a1a1a', '#831100')
 $onSwitchColors = @('#000000', '#4d4d4d', '#797878', '#53602a',
-                    '#008cb4', '#006d8f', '#ffffff')
+                    '#008cb4', '#006d8f', '#ffffff', '#1a1a1a', '#669c35')
 Assert-KnownColors $wallPixels $wallColors 'concrete wall'
 Assert-KnownColors $bloodWallPixels $bloodWallColors 'blood concrete wall'
 Assert-KnownColors $doorPixels $yellowDoorColors 'yellow door'
@@ -166,11 +169,11 @@ for ($height = $nearWallMinimumHeight; $height -le $maximumProjectedWallHeight; 
 }
 
 $paletteColors = @(
-    0x555, 0x777, 0xb80, 0x02b, 0x057, 0x265, 0x860, 0x566,
-    0x333, 0x961, 0x119, 0x222, 0x143, 0x641
+    0x03a, 0x555, 0x777, 0xb80, 0x02b, 0x057, 0x265, 0x860, 0x566,
+    0x333, 0xacf, 0xfff, 0x222, 0x143, 0x7af
 )
-$paletteXIndices = @(0, 2, 3, 4, 5, 6, 7, 8, 1, 13)
-$paletteYIndices = @(0, 10, 2, 11, 12, 6, 14, 15, 1, 13)
+$paletteXIndices = @(0, 2, 3, 4, 5, 6, 7, 8, 12, 13)
+$paletteYIndices = @(0, 10, 2, 8, 5, 6, 14, 8, 12, 13)
 
 $headerText = @"
 #ifndef GEAR_RAY_GENERATED_WALL_TEXTURE_H
@@ -185,7 +188,7 @@ $headerText = @"
 #define WALL_TEXTURE_COUNT 10
 #define WALL_TEXTURE_SAMPLER_MINIMUM_HEIGHT 17
 #define WALL_TEXTURE_SAMPLER_HEIGHT_COUNT 128
-#define WALL_PALETTE_COLOR_COUNT 14
+#define WALL_PALETTE_COLOR_COUNT 15
 
 extern const unsigned char wall_textures[WALL_TEXTURE_COUNT][WALL_TEXTURE_BYTE_COUNT];
 extern const unsigned int wall_texture_steps[WALL_TEXTURE_SAMPLER_HEIGHT_COUNT];

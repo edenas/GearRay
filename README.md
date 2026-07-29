@@ -32,16 +32,20 @@ GearRay is an engine foundation and workshop ROM, not yet a complete game.
   ceiling/dark-gray floor backgrounds.
 - One static floor-anchored billboard rendered into native background tiles
   with exact wall-depth occlusion.
-- One static 24×24 first-person HUD weapon, drawn in screen space with exact
-  3× nearest-neighbor scaling and transparent pixels.
+- One authored 12×12 first-person HUD weapon, drawn as the final screen-space
+  compositor at exactly 24×24 with shift-based 2× nearest-neighbor scaling and
+  transparent pixels.
+- One shared 16-entry BG master palette for the complete software-composited
+  scene; the hardware-sprite palette remains unused.
 - Complete first-frame preparation before the direct-to-game display becomes
   visible.
 - Two toggleable yellow doors, a switch-activated red door, interaction
   targeting, and a permanent 13×13 workshop map.
 - Banked 32 KiB ROM layout with isolated release and profiling builds.
 - Compile-time renderer profiling with no release-build counter overhead.
-- Host-side workshop-map, control, ray-direction rebuild, renderer-equivalence,
-  and static-sprite validators.
+- Host-side workshop-map, exhaustive control, ray-direction, renderer,
+  static-sprite, complete-palette, weapon-decoding, and startup-order
+  validators.
 
 ## Controls
 

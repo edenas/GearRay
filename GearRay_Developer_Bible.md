@@ -92,8 +92,8 @@ An aesthetic preference or desire to reorganize already-readable code is not eno
 | HUD weapon | one static 24×24 screen-space overlay at `[80, 104) × [40, 64)` |
 | Doors | standard instances at (6, 4) and (6, 8) toggle; red instance at (6, 2) opens from switch (6, 12) |
 | ROM | banked 32 KiB image; hot code in Bank 0, cold interaction/profile code in Bank 1 |
-| Stable release RAM | 936 bytes recorded at Engine Foundation v1.0.0 |
-| Profiling RAM | 959 bytes recorded at Engine Foundation v1.0.0 |
+| Stable release RAM | 1,014 bytes |
+| Profiling RAM | 1,048 bytes |
 
 ### 4.1 Layering
 
@@ -144,7 +144,15 @@ Reset
 
 `source/main.c` is a historical/minimal bootstrap example and is not linked by the current CMake build. The active entry point is `game/main.c`.
 
-The current ROM boots directly into gameplay. Display output remains disabled while the initial world, camera, rays, viewport, wall columns, and optional debug border are prepared. `SMS_autoSetUpTextRenderer()` runs only after that complete frame exists; because SMSlib enables the display internally, startup immediately disables it again, waits for VBlank, and then enables it deliberately. This is a temporary direct-boot transition. When the intended `logo -> main menu -> intro -> gameplay` flow exists, gameplay must prepare its first complete frame during that transition before becoming visible.
+The current ROM boots directly into gameplay. Display output remains disabled
+while gameplay VDP state, world, player, camera, raycaster, and the complete
+first frame are initialized. The optional white debug border is uploaded once.
+`SMS_autoSetUpTextRenderer()` then runs and overwrites BG palette state, so the
+master palette is restored exactly once before display output is disabled
+again, VBlank is awaited, and display is deliberately enabled. This is a
+temporary direct-boot transition. When the intended
+`logo -> main menu -> intro -> gameplay` flow exists, gameplay must prepare its
+first complete frame during that transition before becoming visible.
 
 ### 5.2 Frame order
 
@@ -443,7 +451,7 @@ The ceiling is a uniform global BG index 3, RGB `(7, 7, 7)` / `0x777`; the floor
 
 - texture table entry (`texture_id - 1`);
 - packed X byte and high/low nibble from the oriented 0…255 hit offset;
-- palette base 2 for X sides or 9 for Y sides;
+- generated X-side or Y-side palette-index mapping;
 - exact generated step and remainder for projected heights 17…144;
 - clipped starting texture position and wall bounds.
 
@@ -497,13 +505,13 @@ view.
 The frame casts rays before `SMS_waitForVBlank()` and performs VRAM changes after it. Moving this boundary may alter presentation or exceed safe hardware timing. The video layer alone owns native formats, pattern indices, tilemap writes, palette installation, and VRAM upload policy.
 
 The accepted first-person weapon is a fixed screen-space overlay. Its authored
-8×8 source is scaled to 24×24 by a 24-entry coordinate table that repeats each
-source coordinate exactly three times. It occupies tile columns 10–12 and rows
-5–7. Each dirty tile is composed in ceiling/floor, wall, world-sprite, then HUD
-order. Palette index 15 is transparent, so skipped pixels preserve the
-completed world. The Bank 1 compositor runs only for weapon tiles in columns
-that were already selected for regeneration; it introduces no independent
-dirty state or upload pass.
+12×12 source is scaled to exactly 24×24 using shift-based 2× nearest-neighbor
+coordinates. It occupies bounds `[80, 104) × [40, 64)`, tile columns 10–12 and
+rows 5–7. Each dirty tile is composed in ceiling/floor, wall, world-sprite,
+then HUD order. Semantic transparency index 6 is skipped even though that BG
+entry contains a visible colour. The Bank 1 compositor runs only for weapon
+tiles in columns already selected for regeneration; it introduces no
+independent dirty state or upload pass.
 
 **Contract:** renderer output is hardware-approved. Changes to sampling, packing, LOD, signatures, active-row bounds, VBlank sequencing, or tile allocation require byte-level equivalence where intended and emulator/original-hardware validation.
 
@@ -513,7 +521,18 @@ dirty state or upload pass.
 
 ### 13.1 Palette philosophy
 
-GearRay uses indexed color to turn shading into cheap index selection. Generated textures use ten local semantic indices drawn from the existing 14-entry directional wall palette. X and Y wall faces begin at palette indices 2 and 9, giving directional brightness without runtime RGB calculations.
+GearRay uses one stable 16-entry BG master palette for every software-composited
+wall, ceiling, floor, switch, zombie, and HUD pixel. Hardware sprites and their
+palette remain unused. The entries are `0:000` black, `1:03a` brown, `2:555`
+concrete, `3:777` light gray/ceiling, `4:b80` bright blue, `5:02b` primary red,
+`6:057` door yellow-brown, `7:265` moss, `8:860` dark blue, `9:566` ordered
+LOD shade, `10:333` floor/dark wall, `11:acf` light skin, `12:fff` white,
+`13:222` darkest gray, `14:143` moss side shade, and `15:7af` dark skin.
+There is one shared moss green and one shared primary red; dedicated brown and
+both skin tones are retained, and all entries are assigned. Zombie index 15
+and HUD index 6 are semantic transparency sentinels skipped by compositors.
+LOD1 X uses 2/9, LOD1 Y uses 2/10, and LOD2 uses 0/2/10 through precomputed
+ordered tables.
 
 The renderer values coherence and readability over maximal color variety. Distance treatment deliberately reduces detail when projected features become too small for stable display.
 
@@ -551,16 +570,15 @@ as source assets but have no runtime behavior or animation connection.
 The HUD weapon uses the same indexed sprite generator:
 
 ```text
-assets/sprites/weapons/gun.png
+assets/sprites/weapons/gun_12x12.png
   -> tools/generate_sprite_texture.ps1
   -> build/generated/weapon_texture.{c,h}
-  -> packed 8×8, 32-byte indexed texture in Bank 1
-  -> 3× nearest-neighbor HUD composition
+  -> padded 12×12, 96-byte indexed texture in Bank 1
+  -> shift-based 2× nearest-neighbor HUD composition at 24×24
 ```
 
-Its opaque authored colors map to BG indices 0 (`0x000`), 13 (`0x222`), 10
-(`0x333`), 8 (`0x860`), and 4 (`0xB80`); index 15 is the transparent source
-marker.
+Its opaque authored colors retain black, dedicated brown, concrete/light/dark
+grays, white, and both skin tones. Index 6 is its transparent source marker.
 
 `wall_concrete.png` remains the primary wall texture. The blood variant is a separate approved environmental texture that reuses the existing red palette color; brick and metal semantic slots intentionally retain concrete placeholder data.
 
@@ -591,15 +609,19 @@ Bank 0 contains startup, main loop, input, player, camera, world queries, door s
 
 The `_BANK1` segment links at virtual `0x14000`. Banked objects are placed after resident objects/libraries. The 32 KiB header is at physical/CPU `0x7FF0`; the obsolete 16 KiB header position must not return.
 
-Recorded Engine Foundation measurements:
+Current accepted rendering-milestone measurements:
 
 | Resource | Release | Profile |
 |---|---:|---:|
-| ROM used | 14,368 bytes | 15,433 bytes |
-| Bank 0 | 13,591 used / 2,793 free | recorded separately in build artifacts |
-| Bank 1 | 777 used / 15,607 free | includes profiler in profile build |
-| Persistent RAM | 936 bytes | 959 bytes |
+| ROM used | 17,987 bytes | 19,113 bytes |
+| Bank 0 free | 581 bytes | 58 bytes |
+| Bank 1 free | 14,200 bytes | 13,597 bytes |
+| Persistent RAM | 1,014 bytes | 1,048 bytes |
 | ROM file | 32,768 bytes | 32,768 bytes |
+
+Profile Bank 0's 58 free bytes are an engineering capacity constraint, not a
+runtime failure. Future resident growth should first consider moving clearly
+cold startup/debug code to Bank 1 instead of relocating hot renderer code.
 
 These are milestone measurements, not eternal constants; current release work must remeasure.
 
@@ -751,9 +773,11 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_workshop_map.
 powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_ray_direction_rebuild.ps1
 powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_renderer_equivalence.ps1
 powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_sprite_renderer.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_palette_usage.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/validate_startup_order.ps1
 ```
 
-The workshop validator checks the exact map, spawn, sprite marker, registered instances, enclosure, VOID, and bounds contracts. The control validator checks extracted constants and exhaustively explores session/input states and movement vectors. The ray-direction validator checks production-derived camera rays and all four physical wall-face orientations. The renderer oracle checks production formulas and native byte output, including sampler stepping, LOD boundaries, bitplane packing, signatures, and generated data assumptions. The sprite validator checks projection, clipping, floor anchoring, exact-depth occlusion, transparency, and old/current coverage cleanup.
+The workshop validator checks the exact map, spawn, sprite marker, registered instances, enclosure, VOID, and bounds contracts. The control validator checks all 65,536 input/session states and movement vectors. The ray-direction validator checks production-derived camera rays and all four physical wall-face orientations. The renderer oracle checks production formulas and native byte output, including sampler stepping, LOD boundaries, bitplane packing, signatures, and generated data assumptions. The sprite validator checks projection, clipping, floor anchoring, exact-depth occlusion, transparency, and old/current coverage cleanup. Palette validation completely decodes palette, switch, zombie, and weapon mappings; startup validation enforces first-frame, border, SMSlib, palette-restoration, and display order.
 
 For C, CMake, generator, or toolchain changes, build release, profile, then release again to prove profile isolation. Also run `git diff --check`.
 

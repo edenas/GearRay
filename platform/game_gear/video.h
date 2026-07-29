@@ -37,6 +37,7 @@
     ((GAME_GEAR_VIEWPORT_BOTTOM + 1) / GAME_GEAR_TILE_SIZE)
 
 void game_gear_video_initialize(void);
+void game_gear_video_load_background_palette(void);
 void game_gear_video_draw_wall_columns(void);
 #if GEARRAY_DEBUG_VIEWPORT_BORDER
 void game_gear_video_draw_viewport_border(void);
