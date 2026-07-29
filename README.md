@@ -32,6 +32,8 @@ GearRay is an engine foundation and workshop ROM, not yet a complete game.
   ceiling/dark-gray floor backgrounds.
 - One static floor-anchored billboard rendered into native background tiles
   with exact wall-depth occlusion.
+- One static 24×24 first-person HUD weapon, drawn in screen space with exact
+  3× nearest-neighbor scaling and transparent pixels.
 - Complete first-frame preparation before the direct-to-game display becomes
   visible.
 - Two toggleable yellow doors, a switch-activated red door, interaction

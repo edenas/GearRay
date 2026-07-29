@@ -59,7 +59,7 @@ The first banked build is a 32 KiB ROM containing two physical banks:
 | Bank | Current responsibility | Current contents |
 | ---: | --- | --- |
 | 0 | Fixed resident engine | Startup, interrupts, SMSlib, main loop, input, player, camera, raycaster, renderer, world queries, door state and bank trampolines |
-| 1 | Cold gameplay/diagnostic code | `world_interactions.c`, `interaction_ray.c`, `sprite_projection.c`, optional renderer-profile reporting, and the 32 KiB Sega header at file/CPU address `0x7FF0` |
+| 1 | Cold gameplay/diagnostic and HUD code | `world_interactions.c`, `interaction_ray.c`, `sprite_projection.c`, `hud_weapon.c`, the packed weapon texture, optional renderer-profile reporting, and the 32 KiB Sega header at file/CPU address `0x7FF0` |
 
 The linked `_BANK1` code segment starts at virtual address `0x14000`. SDCC and
 `makesms` translate that virtual segment into physical ROM Bank 1, visible to
@@ -73,9 +73,9 @@ The current finalized engine baseline reports:
 | Resource | Release | Profile |
 | --- | ---: | ---: |
 | Total ROM file | 32,768 bytes (2 banks) | 32,768 bytes (2 banks) |
-| Used ROM content | 17,382 bytes | 18,516 bytes |
-| Bank 0 used/free | 15,683 / 701 bytes | 16,214 / 170 bytes |
-| Bank 1 used/free | 1,699 / 14,685 bytes | 2,302 / 14,082 bytes |
+| Used ROM content | 17,967 bytes | 19,093 bytes |
+| Bank 0 used/free | 15,808 / 576 bytes | 16,331 / 53 bytes |
+| Bank 1 used/free | 2,159 / 14,225 bytes | 2,762 / 13,622 bytes |
 | Persistent RAM | 1,015 bytes | 1,049 bytes |
 
 The single-bank baseline had 35 free Bank 0 bytes. This first migration pays a
@@ -116,6 +116,10 @@ never bank-switch.
 The static billboard's inverse-camera projection is also a single Bank 1 call
 per frame. Its packed 32-byte standing texture remains resident in Bank 0 so
 the per-pixel composition path never switches banks.
+
+The static HUD weapon compositor and its packed 32-byte texture reside in Bank
+1. Bank calls occur only for the nine HUD tiles that are already being
+regenerated; the weapon does not create an independent upload pass.
 
 ## Build-system contract
 

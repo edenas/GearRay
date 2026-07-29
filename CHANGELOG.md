@@ -14,6 +14,8 @@ are retained as historical milestones.
 - Public-release documentation and open-source project guidance.
 - Acknowledgements, third-party notices, contributing guidance, security
   policy, and asset provenance record.
+- A static first-person HUD weapon with transparent 3× nearest-neighbor
+  screen-space composition.
 
 ### Changed
 

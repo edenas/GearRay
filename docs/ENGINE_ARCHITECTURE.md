@@ -489,6 +489,22 @@ When projection changes, the union of the old and current covered tile columns
 is regenerated. This restores underlying pixels and prevents trails. An
 unchanged projection adds no sprite-driven dirty columns or VRAM uploads.
 
+### First-person HUD weapon composition
+
+The accepted first-person weapon is a screen-space overlay independent of
+camera projection, wall depth, and world-sprite occlusion. Its authored 8×8
+indexed texture is expanded to 24×24 with an exact three-entry-per-source-pixel
+coordinate table and occupies viewport bounds `[80, 104) × [40, 64)`.
+
+The resident renderer first builds ceiling, floor, and walls, then composes the
+world sprite, and finally calls the Bank 1 HUD compositor for the weapon's
+three-by-three tile footprint. Palette index 15 is transparent and preserves
+the completed world pixel. The fixed overlay participates in an already-dirty
+column only; it introduces no independent frame update or recurring VRAM
+upload. Because each regenerated tile is rebuilt from the world before the HUD
+is applied, transparent areas and previously covered pixels cannot become
+stale.
+
 ### Active vertical row generation
 
 For a dirty column, only tile rows intersecting a visible projected wall are
@@ -777,11 +793,11 @@ optional diagnostic configuration rather than a shipping feature.
 - **Enemies and AI:** add sprite-based actors, state, navigation, perception,
   attacks, and deterministic update rules.
 - **Weapons:** define player combat state, weapon timing, hit detection,
-  ammunition, and first-person presentation.
-- **Sprites:** implement projected world objects with depth ordering, clipping,
-  transparency, and bounded VRAM/runtime cost.
-- **HUD and helmet overlay:** reserve and compose stable screen regions without
-  violating viewport tile and pattern ownership.
+  ammunition, animation, and switching around the accepted static presentation.
+- **Sprites:** expand the static projected world object into multiple actors
+  with animation and deterministic depth ordering.
+- **HUD and helmet overlay:** extend the accepted weapon overlay with status
+  information while preserving viewport tile and pattern ownership.
 - **Lighting:** extend the current side-based palette treatment only after its
   RAM, ROM, palette, and sampling costs are defined.
 - **Map system:** support additional maps, metadata, spawn points, objects, and

@@ -1,7 +1,8 @@
 param(
     [Parameter(Mandatory = $true)][string]$InputPath,
     [Parameter(Mandatory = $true)][string]$OutputSource,
-    [Parameter(Mandatory = $true)][string]$OutputHeader
+    [Parameter(Mandatory = $true)][string]$OutputHeader,
+    [Parameter(Mandatory = $true)][string]$Symbol
 )
 
 $ErrorActionPreference = "Stop"
@@ -10,7 +11,7 @@ Add-Type -AssemblyName System.Drawing
 $bitmap = [System.Drawing.Bitmap]::new($InputPath)
 try {
     if ($bitmap.Width -ne 8 -or $bitmap.Height -ne 8) {
-        throw "Standing zombie sprite must be exactly 8x8."
+        throw "Sprite must be exactly 8x8."
     }
 
     $pixels = [System.Collections.Generic.List[byte]]::new(64)
@@ -29,6 +30,9 @@ try {
                     $pixel.R, $pixel.G, $pixel.B)
             $index = switch ($rgb) {
                 '#000000' { 0; break }
+                '#1a1a1a' { 13; break }
+                '#2d2d2d' { 10; break }
+                '#008cb4' { 4; break }
                 '#b51a00' { 5; break }
                 '#53602a' { 7; break }
                 '#006d8f' { 8; break }
@@ -54,23 +58,21 @@ $rows = for ($index = 0; $index -lt 32; $index += 8) {
         ForEach-Object { "0x{0:x2}" -f $_ }) -join ", ")
 }
 
+$headerGuard = "GEAR_RAY_GENERATED_" + $Symbol.ToUpperInvariant() + "_H"
 $header = @"
-#ifndef GEAR_RAY_GENERATED_SPRITE_TEXTURE_H
-#define GEAR_RAY_GENERATED_SPRITE_TEXTURE_H
+#ifndef $headerGuard
+#define $headerGuard
 
-#define SPRITE_TEXTURE_WIDTH 8
-#define SPRITE_TEXTURE_HEIGHT 8
-#define SPRITE_TEXTURE_TRANSPARENT_INDEX 15
-
-extern const unsigned char zombie_01_standing_pixels[32];
+extern const unsigned char $Symbol[32];
 
 #endif
 "@
 
+$headerName = Split-Path -Leaf $OutputHeader
 $source = @"
-#include "sprite_texture.h"
+#include "$headerName"
 
-const unsigned char zombie_01_standing_pixels[32] = {
+const unsigned char $Symbol[32] = {
 $($rows -join ",`r`n")
 };
 "@

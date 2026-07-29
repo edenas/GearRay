@@ -99,7 +99,6 @@ function Convert-SwitchToPalette {
             '#008cb4' { 3; break }
             '#006d8f' { 7; break }
             '#ffffff' { 8; break }
-            '#669c35' { 9; break }
             default { throw "Unexpected $Description source color: RGB $rgb." }
         }
         $result.Add($index)
@@ -131,7 +130,7 @@ $yellowDoorColors = @('#000000', '#000009', '#4d4d4d', '#53602a', '#785700')
 $redDoorColors = @('#000000', '#000009', '#4d4d4d', '#53602a', '#b51a00')
 $offSwitchColors = @('#000000', '#4d4d4d', '#797878', '#53602a', '#b51a00',
                      '#008cb4', '#006d8f', '#ffffff')
-$onSwitchColors = @('#000000', '#4d4d4d', '#797878', '#53602a', '#669c35',
+$onSwitchColors = @('#000000', '#4d4d4d', '#797878', '#53602a',
                     '#008cb4', '#006d8f', '#ffffff')
 Assert-KnownColors $wallPixels $wallColors 'concrete wall'
 Assert-KnownColors $bloodWallPixels $bloodWallColors 'blood concrete wall'
@@ -168,7 +167,7 @@ for ($height = $nearWallMinimumHeight; $height -le $maximumProjectedWallHeight; 
 
 $paletteColors = @(
     0x555, 0x777, 0xb80, 0x02b, 0x057, 0x265, 0x860, 0x566,
-    0x333, 0x961, 0x119, 0x396, 0x143, 0x641
+    0x333, 0x961, 0x119, 0x222, 0x143, 0x641
 )
 $paletteXIndices = @(0, 2, 3, 4, 5, 6, 7, 8, 1, 13)
 $paletteYIndices = @(0, 10, 2, 11, 12, 6, 14, 15, 1, 13)

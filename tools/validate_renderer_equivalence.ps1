@@ -85,7 +85,7 @@ if ($textureHeader -notmatch '#define WALL_TEXTURE_COUNT 10' -or
     throw "Generated wall texture count contract mismatch"
 }
 Test-EqualBytes @(0x555, 0x777, 0xb80, 0x02b, 0x057, 0x265, 0x860,
-                  0x566, 0x333, 0x961, 0x119, 0x396, 0x143, 0x641) `
+                  0x566, 0x333, 0x961, 0x119, 0x222, 0x143, 0x641) `
                 $paletteColors "wall palette"
 Test-EqualBytes @(0, 2, 3, 4, 5, 6, 7, 8, 1, 13) `
                 $paletteXIndices "X palette lookup"
@@ -105,14 +105,14 @@ for ($textureId = 7; $textureId -le 10; ++$textureId) {
     }
 
     $redCount = @($indices | Where-Object { $_ -eq 4 }).Count
-    $greenCount = @($indices | Where-Object { $_ -eq 9 }).Count
+    $sharedGreenCount = @($indices | Where-Object { $_ -eq 6 }).Count
     if ($textureId -le 8) {
-        if ($redCount -eq 0 -or $greenCount -ne 0) {
+        if ($redCount -ne 7 -or $sharedGreenCount -ne 8) {
             throw "Switch OFF texture ID $textureId is not red-only"
         }
     }
-    elseif ($greenCount -eq 0 -or $redCount -ne 0) {
-        throw "Switch ON texture ID $textureId is not green-only"
+    elseif ($sharedGreenCount -ne 15 -or $redCount -ne 0) {
+        throw "Switch ON texture ID $textureId does not use shared green"
     }
 }
 

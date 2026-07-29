@@ -99,8 +99,16 @@ repository's source license.
 
 ## Audio, Fonts, Sprites, and Additional Media
 
-No standalone audio, font, or sprite asset collection is currently present.
-Before adding one, record:
+The active sprite sources are:
+
+| Asset | Runtime use | Provenance status |
+| --- | --- | --- |
+| `assets/sprites/enemies/zombie/zombie_01_standing.png` | Static world billboard | Creator, license, and redistribution confirmation required |
+| `assets/sprites/weapons/gun.png` | Static first-person HUD weapon | Creator, license, and redistribution confirmation required |
+
+Additional authored zombie frames are retained as source material but are not
+linked into the runtime. No standalone audio or font collection is currently
+present. Before adding further media, record:
 
 - exact filename and category;
 - creator and source URL or source project;

@@ -21,7 +21,7 @@ Status labels used throughout:
 - **Experimental/rejected:** evaluated but not retained.
 - **Planned:** a direction, not an implemented feature.
 
-GearRay is currently an engine foundation and technical workshop, not a finished game. It has movement, collision, raycasting, textured walls, distance treatment, interaction targeting, two toggleable yellow doors, a switch-activated red door, and one static billboard-rendering prototype. It does not yet have combat, enemy behavior, sprite animation, audio, save data, a HUD, menus, or complete game progression.
+GearRay is currently an engine foundation and technical workshop, not a finished game. It has movement, collision, raycasting, textured walls, distance treatment, interaction targeting, two toggleable yellow doors, a switch-activated red door, one static billboard, and one static first-person HUD weapon. It does not yet have combat, enemy behavior, sprite or weapon animation, audio, save data, menus, or complete game progression.
 
 ---
 
@@ -89,6 +89,7 @@ An aesthetic preference or desire to reorganize already-readable code is not eno
 | Interaction | range 512, sampled every 32 units |
 | Map | 13×13 workshop; spawn tile (6, 7) |
 | Static sprite | one standing billboard from marker (6, 10); no behavior or collision |
+| HUD weapon | one static 24×24 screen-space overlay at `[80, 104) × [40, 64)` |
 | Doors | standard instances at (6, 4) and (6, 8) toggle; red instance at (6, 2) opens from switch (6, 12) |
 | ROM | banked 32 KiB image; hot code in Bank 0, cold interaction/profile code in Bank 1 |
 | Stable release RAM | 936 bytes recorded at Engine Foundation v1.0.0 |
@@ -495,6 +496,15 @@ view.
 
 The frame casts rays before `SMS_waitForVBlank()` and performs VRAM changes after it. Moving this boundary may alter presentation or exceed safe hardware timing. The video layer alone owns native formats, pattern indices, tilemap writes, palette installation, and VRAM upload policy.
 
+The accepted first-person weapon is a fixed screen-space overlay. Its authored
+8×8 source is scaled to 24×24 by a 24-entry coordinate table that repeats each
+source coordinate exactly three times. It occupies tile columns 10–12 and rows
+5–7. Each dirty tile is composed in ceiling/floor, wall, world-sprite, then HUD
+order. Palette index 15 is transparent, so skipped pixels preserve the
+completed world. The Bank 1 compositor runs only for weapon tiles in columns
+that were already selected for regeneration; it introduces no independent
+dirty state or upload pass.
+
 **Contract:** renderer output is hardware-approved. Changes to sampling, packing, LOD, signatures, active-row bounds, VBlank sequencing, or tile allocation require byte-level equivalence where intended and emulator/original-hardware validation.
 
 ---
@@ -538,6 +548,20 @@ assets/sprites/enemies/zombie/zombie_01_standing.png
 Only the standing frame is linked. Other authored zombie frames are retained
 as source assets but have no runtime behavior or animation connection.
 
+The HUD weapon uses the same indexed sprite generator:
+
+```text
+assets/sprites/weapons/gun.png
+  -> tools/generate_sprite_texture.ps1
+  -> build/generated/weapon_texture.{c,h}
+  -> packed 8×8, 32-byte indexed texture in Bank 1
+  -> 3× nearest-neighbor HUD composition
+```
+
+Its opaque authored colors map to BG indices 0 (`0x000`), 13 (`0x222`), 10
+(`0x333`), 8 (`0x860`), and 4 (`0xB80`); index 15 is the transparent source
+marker.
+
 `wall_concrete.png` remains the primary wall texture. The blood variant is a separate approved environmental texture that reuses the existing red palette color; brick and metal semantic slots intentionally retain concrete placeholder data.
 
 Generated files are build artifacts, not hand-edited source. To change runtime texture data, change cleared source assets or the generator, regenerate both configurations, and validate native output.
@@ -563,7 +587,7 @@ SDCC banked calls use CRT `get_bank`/`set_bank` hooks and a resident trampoline.
 
 ### 14.2 Current placement
 
-Bank 0 contains startup, main loop, input, player, camera, world queries, door state, raycaster, texture sampling, renderer, the resident 32-byte standing texture, SMSlib, and trampolines. Bank 1 contains `interaction_ray.c`, `world_interactions.c`, static sprite projection, and optional profiling reporting.
+Bank 0 contains startup, main loop, input, player, camera, world queries, door state, raycaster, texture sampling, renderer, the resident 32-byte standing texture, SMSlib, and trampolines. Bank 1 contains `interaction_ray.c`, `world_interactions.c`, static sprite projection, the HUD weapon compositor and packed weapon texture, and optional profiling reporting.
 
 The `_BANK1` segment links at virtual `0x14000`. Banked objects are placed after resident objects/libraries. The 32 KiB header is at physical/CPU `0x7FF0`; the obsolete 16 KiB header position must not return.
 
@@ -880,7 +904,9 @@ An enemy system belongs in `game/` and owns actor state. Its sprite projection m
 
 An animated door should extend door state/instance behavior without teaching raycasting about animation storage. `world_is_wall()` remains the collision/raycast semantic boundary. Interaction continues to dispatch through the object system.
 
-A HUD must first allocate tiles, map cells, palette entries, and upload timing. It must not overwrite the viewport pattern cache or assume unused constants are actually free.
+The static weapon establishes HUD ownership inside regenerated viewport tiles.
+Any extension must preserve its palette mappings, final-layer composition,
+dirty-column behavior, and lack of an independent upload pass.
 
 ---
 
@@ -926,6 +952,7 @@ A HUD must first allocate tiles, map cells, palette entries, and upload timing. 
 | `platform/game_gear/input.c`, `.h` | SMSlib keys to semantic controls |
 | `platform/game_gear/video.c`, `.h` | viewport, native packing, LOD, caches, VRAM |
 | `platform/game_gear/sprite_projection.c`, `.h` | Bank 1 fixed-point billboard projection |
+| `platform/game_gear/hud_weapon.c`, `.h` | Bank 1 static screen-space weapon compositor and bounds |
 | `platform/game_gear/render_textures.c`, `.h` | exact packed texture sampler |
 | `platform/game_gear/wall_textures.c`, `.h` | generated texture/palette access and dimensions |
 | `platform/game_gear/renderer_profile.c`, `.h` | optional Bank 1 reporting and zero-cost-off macros |
@@ -936,7 +963,7 @@ A HUD must first allocate tiles, map cells, palette entries, and upload timing. 
 | Path | Purpose |
 |---|---|
 | `tools/generate_wall_texture.ps1` | validates/decodes active PNGs and emits packed data, palettes, sampler tables |
-| `tools/generate_sprite_texture.ps1` | validates/decodes the standing zombie PNG and emits packed indexed data |
+| `tools/generate_sprite_texture.ps1` | validates/decodes indexed zombie and weapon PNGs and emits packed data |
 | `tools/validate_workshop_map.ps1` | validates the exact 13×13 layout, spawn, instances, enclosure, VOID, and bounds contracts |
 | `tools/validate_renderer_equivalence.ps1` | host oracle for renderer math, packing, LOD, signatures, and generated assumptions |
 | `tools/validate_sprite_renderer.ps1` | validates static billboard projection, occlusion, clipping, and cleanup contracts |
@@ -1052,8 +1079,8 @@ Use focused branches/commits and pull requests. Architectural, performance, depe
 - SDCC/devkitSMS/Ninja are externally installed and not fully pinned;
 - the ROM is a technical workshop, not a complete game;
 - no fire/menu gameplay despite reserved input APIs;
-- no audio, animated enemies, weapons, HUD, save data, or progression; the one
-  standing billboard has no behavior, collision, or gameplay state;
+- no audio, animated enemies, combat, animated weapons, status HUD, save data,
+  or progression; the static billboard and HUD weapon have no behavior;
 - doors use binary instantaneous state; either yellow door toggles and the red door opens from its switch;
 - simulation advances once per loop rather than using elapsed-time integration;
 - collision is discrete, axis-biased, and static-world only;
@@ -1075,9 +1102,9 @@ Gameplay direction:
 
 - animated/obstructable doors;
 - deterministic enemies and AI;
-- weapons and combat;
-- projected sprites and depth ordering;
-- HUD/helmet overlay with explicit VRAM ownership;
+- weapon behavior and combat;
+- multiple projected sprites, animation, and depth ordering;
+- status HUD/helmet overlay extending the existing VRAM ownership;
 - audio with mapper coordination;
 - multiple maps, metadata, transitions, scripting, inventory, objectives, and progression.
 

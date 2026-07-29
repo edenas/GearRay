@@ -1,6 +1,7 @@
 #include "SMSlib.h"
 #include "../../engine/render/raycaster.h"
 #include "../../game/world_sprite.h"
+#include "hud_weapon.h"
 #include "render_textures.h"
 #include "renderer_profile.h"
 #include "sprite_projection.h"
@@ -663,6 +664,17 @@ void game_gear_video_draw_wall_columns(void)
             }
         }
 
+        if (tile_column >= HUD_WEAPON_FIRST_TILE_COLUMN
+            && tile_column <= HUD_WEAPON_LAST_TILE_COLUMN)
+        {
+            if (!has_active_wall)
+                first_active_row = HUD_WEAPON_FIRST_TILE_ROW;
+            else if (first_active_row > HUD_WEAPON_FIRST_TILE_ROW)
+                first_active_row = HUD_WEAPON_FIRST_TILE_ROW;
+            last_active_row = HUD_WEAPON_LAST_TILE_ROW;
+            has_active_wall = 1;
+        }
+
         if (has_active_wall)
         {
             first_screen_y = first_active_row * 8;
@@ -756,6 +768,14 @@ void game_gear_video_draw_wall_columns(void)
                                               row,
                                               &projected_sprite,
                                               rendered_rays);
+                if (tile_column >= HUD_WEAPON_FIRST_TILE_COLUMN
+                    && tile_column <= HUD_WEAPON_LAST_TILE_COLUMN
+                    && row >= HUD_WEAPON_FIRST_TILE_ROW)
+                {
+                    game_gear_overlay_hud_weapon_tile(native_tile,
+                                                      tile_column,
+                                                      row);
+                }
             }
 
             active_tile_count = last_active_row - first_active_row + 1;
