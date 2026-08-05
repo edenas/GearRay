@@ -59,7 +59,7 @@ The first banked build is a 32 KiB ROM containing two physical banks:
 | Bank | Current responsibility | Current contents |
 | ---: | --- | --- |
 | 0 | Fixed resident engine | Startup, interrupts, SMSlib, main loop, input, player, camera, raycaster, renderer, world queries, door state and bank trampolines |
-| 1 | Cold gameplay/diagnostic and HUD code | `world_interactions.c`, `interaction_ray.c`, `sprite_projection.c`, `hud_weapon.c`, the packed weapon texture, optional renderer-profile reporting, and the 32 KiB Sega header at file/CPU address `0x7FF0` |
+| 1 | Cold gameplay, sprite/HUD presentation, textures, and diagnostics | `world_interactions.c`, `interaction_ray.c`, `zombie_shooting.c`, `sprite_projection.c`, `hud_weapon.c`, full zombie and weapon textures, optional renderer-profile reporting, and the 32 KiB Sega header at file/CPU address `0x7FF0` |
 
 The linked `_BANK1` code segment starts at virtual address `0x14000`. SDCC and
 `makesms` translate that virtual segment into physical ROM Bank 1, visible to
@@ -73,12 +73,17 @@ The current finalized engine baseline reports:
 | Resource | Release | Profile |
 | --- | ---: | ---: |
 | Total ROM file | 32,768 bytes (2 banks) | 32,768 bytes (2 banks) |
-| Used ROM content | 17,987 bytes | 19,113 bytes |
-| Bank 0 used/free | 15,803 / 581 bytes | 16,326 / 58 bytes |
-| Bank 1 used/free | 2,184 / 14,200 bytes | 2,787 / 13,597 bytes |
-| Persistent RAM | 1,014 bytes | 1,048 bytes |
+| Used ROM content | 21,808 bytes | 21,991 bytes |
+| Bank 0 used/free | 16,013 / 371 bytes | 16,179 / 205 bytes |
+| Bank 1 used/free | 5,795 / 10,589 bytes | 5,812 / 10,572 bytes |
+| Persistent RAM | 1,207 bytes | 1,232 bytes |
 
-Profile Bank 0 has only 58 bytes free. This is a capacity constraint, not a
+The Release fixed segments end exclusively at `0x3E8D`; Profile fixed segments
+end exclusively at `0x3F33`. Both remain below the `0x4000` Bank 0 boundary.
+The measured Release SHA-256 is
+`3A1F32C1830DEBCA0ED1F89011E65AA25C7D0F9664DB6FA0B461CA67117A7C1D`.
+
+Profile Bank 0 has only 205 bytes free. This is a capacity constraint, not a
 runtime failure. Future resident growth should first consider moving clearly
 cold startup or debug code to Bank 1; the hot renderer should remain resident.
 
@@ -117,13 +122,15 @@ placed in Bank 1 and its begin/end routines use `__banked` declarations. These
 diagnostics run only at frame boundaries; renderer pixel and tile-row paths
 never bank-switch.
 
-The static billboard's inverse-camera projection is also a single Bank 1 call
-per frame. Its packed 32-byte standing texture remains resident in Bank 0 so
-the per-pixel composition path never switches banks.
+Zombie projection, render-budget selection, and shooting target selection are
+cohesive Bank 1 calls. All five linked full-detail zombie textures are also in
+Bank 1 and are consumed while the projection bank is mapped; resident tile
+composition uses the selected packed presentation prepared for the frame.
 
-The static HUD weapon compositor and its padded packed 96-byte texture reside in Bank
-1. Bank calls occur only for the nine HUD tiles that are already being
-regenerated; the weapon does not create an independent upload pass.
+The HUD weapon compositor and both padded 96-byte idle/firing textures reside
+in Bank 1. Bank calls occur only for weapon tiles already being regenerated;
+the weapon does not create an independent upload pass. The accepted call graph
+does not introduce a nested banked call.
 
 ## Build-system contract
 

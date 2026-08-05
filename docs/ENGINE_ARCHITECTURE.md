@@ -70,9 +70,9 @@ non-playable space outside the workshop's renderable enclosure. VOID and
 out-of-range coordinates are blocked; out-of-range tile queries resolve safely
 to VOID without indexing the map array. Tile IDs are empty 0, stone 1, blood
 concrete 2, brick placeholder 3, metal placeholder 4, standard door 5, red
-door 6, red-door switch 7, VOID 8, and static-sprite marker 9. The authored
-`Z` marker at (6, 10) creates one sprite at tile centre during initialization;
-runtime tile queries expose that marker as empty.
+door 6, red-door switch 7, VOID 8, and zombie marker 9. Every authored `Z`
+marker creates one sprite at tile centre during initialization, up to the
+eight-sprite limit; runtime tile queries expose all markers as empty.
 
 `world.c` maps ordinary semantic tile IDs directly to texture IDs; invalid IDs
 fall back to stone, while the red-door switch selects its current animation
@@ -472,35 +472,70 @@ The video layer skips tile-columns whose heights, offsets, and sides match the
 previous frame. This targets texture sampling, native tile construction, and
 VRAM transfer while leaving raycasting unchanged.
 
-### Static billboard composition
+### Multi-zombie billboard composition
 
-One `WorldSprite` stores the standing texture and the Q8.8 centre of the
-authored `Z` tile. A Bank 1 projection function applies the fixed-point inverse
-camera transform, rejects non-positive camera-space depth, caps projected
-height at 144 pixels, and anchors the sprite bottom to the floor horizon.
+World initialization extracts every authored `Z` marker, up to
+`WORLD_SPRITE_MAX_COUNT` (8), places its sprite at the tile centre, and exposes
+the underlying runtime tile as `EMPTY`. Each nine-byte `WorldSprite` stores
+position, presentation state, a texture pointer, a timer, and one packed byte:
+health `0..12` in the low nibble and successful-hit count in the high nibble.
 
-The resident video layer composes opaque sprite pixels into the generated
-native background tiles after their wall, ceiling, or floor pixels exist.
-Palette index 15 is transparent and leaves those underlying pixels untouched.
-A pixel is drawn only when sprite camera-space depth is strictly less than the
-corresponding ray's exact wall distance, so equal depth remains wall-occluded.
-The comparison uses the renderer's existing four-pixel ray resolution and
-does not perform another world raycast.
+The Bank 1 projection pass applies the renderer's fixed-point inverse camera
+transform to every sprite. Horizontal placement uses scale 80 around viewport
+centre 56. Living and `SHOT_DEAD` sprites use full detail at projected height
+17 or more, state-specific medium silhouettes at 15..16, simple silhouettes at
+13..14, and are hidden at 12 or less. Corpses use the authored texture at 17
+or more, a darkest-gray pile at 15..16, and are hidden at 14 or less. Hidden
+sprites exit before clipping, occlusion, budgeting, texture selection, column
+generation, or dirty composition.
 
-When projection changes, the union of the old and current covered tile columns
-is regenerated. This restores underlying pixels and prevents trails. An
-unchanged projection adds no sprite-driven dirty columns or VRAM uploads.
+Visible candidates are selected deterministically within a total render-cost
+budget of 12: full detail costs 5, medium costs 2, and simple or corpse-pile
+presentation costs 1. Gameplay state continues to update when presentation is
+culled or rejected by the budget.
+
+The resident video layer composes opaque sprite pixels into tile-local native
+background data after wall, ceiling, and floor pixels exist. Palette index 15
+is transparent. Sprite depth must be strictly less than the matching
+four-pixel ray's exact wall depth, so walls win equal-depth ties without a
+second raycast. The union of old and current coverage is regenerated, and a
+texture-pointer change invalidates otherwise identical coverage, preventing
+stale pose or movement pixels.
+
+### Zombie combat and state
+
+Button 1 is press-edge shooting input; holding it does not autofire. The main
+loop retains one `pending_shot` byte so the firing HUD appears for one rendered
+frame before the corresponding damage is applied, and remains visible on the
+damage frame. An accepted shot performs one Bank 1 target scan, selecting the
+nearest aligned living zombie and rejecting targets at or behind the nearest
+centre wall depth. The scan reuses the exact renderer-contract depth transform;
+there is no post-selection projected-height division.
+
+Pistol damage is cumulative. Projected heights 40+, 32..39, 17..31, and
+13..16 deal 12, 6, 4, and 3 damage respectively; height 12 or less is hidden
+and untargetable. The equivalent direct-depth ranges are 33..409, 410..512,
+513..963, and 964..1260. Distance chooses only the current shot's damage and
+never rescales existing health.
+
+Surviving odd and even hits display `shot_01` and `shot_02` for three rendered
+frames, then return to standing without changing health. A rapid hit replaces
+and restarts that reaction. Lethal damage clamps health to zero, holds
+`SHOT_DEAD` for four rendered frames, then enters persistent `CORPSE` state.
+Misses, hidden targets, walls, and corpses do not change health.
 
 ### First-person HUD weapon composition
 
 The accepted first-person weapon is a screen-space overlay independent of
-camera projection, wall depth, and world-sprite occlusion. Its authored
-`assets/sprites/weapons/gun_12x12.png` texture is expanded to exactly 24×24 by
+camera projection, wall depth, and world-sprite occlusion. Its authored idle
+and firing sources are `gun_12x12.png` and `gun_shoot_12x12.png`; each is
+expanded to exactly 24×24 by
 mapping destination coordinates with `>> 1`, an exact integer 2×
-nearest-neighbor scale. It occupies viewport bounds `[80, 104) × [40, 64)`.
+nearest-neighbor scale. The current input state selects the source without
+changing composition geometry. It occupies viewport bounds `[80, 104) × [40, 64)`.
 
 The resident renderer first builds ceiling, floor, and walls, then composes the
-world sprite, and finally calls the Bank 1 HUD compositor for the weapon's
+world sprites, and finally calls the Bank 1 HUD compositor for the weapon's
 three-by-three tile footprint. Palette index 6 is the weapon's semantic
 transparency sentinel and preserves the completed world pixel even though BG
 entry 6 contains a visible colour. The fixed overlay participates in an
@@ -803,9 +838,10 @@ oracle.
 The ROM banking model, module-placement rules, and future expansion strategy
 are defined in `docs/ROM_BANKING.md`.
 
-The workshop map, world/material/object boundaries, interaction ray, toggleable
-yellow door, and switch-activated red door are implemented and operational foundations. They
-are deliberately small rather than complete game systems.
+The workshop map, multi-zombie extraction, billboard LOD renderer,
+distance-scaled pistol combat, world/material/object boundaries, interaction
+ray, toggleable yellow doors, and switch-activated red door are implemented.
+Zombies remain stationary targets rather than a complete enemy/AI system.
 
 Normal movement and combined movement/rotation use the same translation speed.
 Forward/backward translation and left/right rotation remain symmetrical by
@@ -814,14 +850,13 @@ optional diagnostic configuration rather than a shipping feature.
 
 ## Future work
 
-- **Doors:** expand animation, timing, obstruction rules, audiovisual feedback,
-  and scalable instance data beyond instantaneous open/closed toggles.
-- **Enemies and AI:** add sprite-based actors, state, navigation, perception,
-  attacks, and deterministic update rules.
-- **Weapons:** define player combat state, weapon timing, hit detection,
-  ammunition, animation, and switching around the accepted static presentation.
-- **Sprites:** expand the static projected world object into multiple actors
-  with animation and deterministic depth ordering.
+- **Doors:** add animation, timing, obstruction rules, and audiovisual feedback
+  beyond the accepted instantaneous open/closed state.
+- **Enemies and AI:** add movement, navigation, perception, attacks, collision,
+  and walking/attack animation to the accepted stationary zombies.
+- **Weapons:** add ammunition, recoil, switching, and additional weapons around
+  the accepted press-edge pistol and firing frame.
+- **Sprites:** extend deterministic multi-sprite presentation to moving actors.
 - **HUD and helmet overlay:** extend the accepted weapon overlay with status
   information while preserving viewport tile and pattern ownership.
 - **Lighting:** extend the current side-based palette treatment only after its

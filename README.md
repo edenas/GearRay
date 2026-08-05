@@ -17,9 +17,9 @@ Historical renderer captures are available in [`artifacts/`](artifacts/).
 
 ## Current Status
 
-The hardware-tested **Engine Foundation v1.0.0** is complete. It provides a
-stable base for future gameplay work without changing the established
-renderer, movement, interaction, and ROM-banking contracts.
+The hardware-tested **Engine Foundation v1.0.0** now includes the accepted
+multi-zombie rendering and pistol-combat milestone. It preserves the
+established renderer, movement, interaction, and ROM-banking contracts.
 
 GearRay is an engine foundation and workshop ROM, not yet a complete game.
 
@@ -30,11 +30,14 @@ GearRay is an engine foundation and workshop ROM, not yet a complete game.
 - Native Game Gear tile rendering with indexed-colour wall textures.
 - Directional wall shading, distance-based wall detail, and uniform light-gray
   ceiling/dark-gray floor backgrounds.
-- One static floor-anchored billboard rendered into native background tiles
-  with exact wall-depth occlusion.
+- Up to eight floor-anchored zombie billboards extracted from workshop `Z`
+  markers, with exact wall-depth occlusion, distance LOD, deterministic render
+  budgeting, temporary hit reactions, death frames, and persistent corpses.
 - One authored 12×12 first-person HUD weapon, drawn as the final screen-space
   compositor at exactly 24×24 with shift-based 2× nearest-neighbor scaling and
-  transparent pixels.
+  transparent pixels, with idle and firing frames.
+- Press-edge pistol shooting with renderer-aligned target depth, cumulative
+  12-point zombie health, and distance-scaled one- through four-shot damage.
 - One shared 16-entry BG master palette for the complete software-composited
   scene; the hardware-sprite palette remains unused.
 - Complete first-frame preparation before the direct-to-game display becomes
@@ -44,7 +47,7 @@ GearRay is an engine foundation and workshop ROM, not yet a complete game.
 - Banked 32 KiB ROM layout with isolated release and profiling builds.
 - Compile-time renderer profiling with no release-build counter overhead.
 - Host-side workshop-map, exhaustive control, ray-direction, renderer,
-  static-sprite, complete-palette, weapon-decoding, and startup-order
+  multi-sprite, combat, complete-palette, weapon-decoding, and startup-order
   validators.
 
 ## Controls
@@ -54,12 +57,12 @@ GearRay is an engine foundation and workshop ROM, not yet a complete game.
 | D-pad Up / Down | Move forward / backward |
 | D-pad Left / Right | Turn left / right |
 | Button 1 + Left / Right | Strafe left / right |
-| Tap and release Button 1 | Interact |
-| Button 2 | Reserved for fire |
+| Tap Button 1 | Fire pistol; holding does not autofire |
+| Button 2 | Interact |
 | Start | Reserved for menu |
 
-Fire and menu actions are reserved by the input layer but are not implemented
-as gameplay systems yet.
+The pistol has no ammo, automatic fire, recoil, switching, or additional
+weapon system. Start remains reserved.
 
 ## Supported Toolchain
 
@@ -121,8 +124,8 @@ the Engine Foundation contracts.
 - SDCC and devkitSMS must be installed separately.
 - The devkitSMS revision is not yet pinned.
 - The ROM is a technical workshop rather than a finished game.
-- Fire, menu, audio, animated enemies, save data, and complete gameplay are
-  not yet implemented.
+- Zombie movement, AI, walking/attack animation, collision, audio, save data,
+  menu gameplay, and complete progression are not yet implemented.
 - Some asset ownership and release status still requires confirmation; see the
   [asset provenance record](docs/ASSET_PROVENANCE.md).
 

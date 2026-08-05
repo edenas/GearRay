@@ -21,7 +21,7 @@ Status labels used throughout:
 - **Experimental/rejected:** evaluated but not retained.
 - **Planned:** a direction, not an implemented feature.
 
-GearRay is currently an engine foundation and technical workshop, not a finished game. It has movement, collision, raycasting, textured walls, distance treatment, interaction targeting, two toggleable yellow doors, a switch-activated red door, one static billboard, and one static first-person HUD weapon. It does not yet have combat, enemy behavior, sprite or weapon animation, audio, save data, menus, or complete game progression.
+GearRay is currently an engine foundation and technical workshop, not a finished game. It has movement, collision, raycasting, textured walls, distance treatment, interaction targeting, two toggleable yellow doors, a switch-activated red door, up to eight stationary zombie billboards, and press-edge pistol combat. It does not yet have zombie movement or AI, walking/attack animation, zombie collision, audio, save data, menus, or complete game progression.
 
 ---
 
@@ -88,14 +88,51 @@ An aesthetic preference or desire to reorganize already-readable code is not eno
 | Collision | radius 32 in Q8.8; four-corner test; X then Y |
 | Interaction | range 512, sampled every 32 units |
 | Map | 13×13 workshop; spawn tile (6, 7) |
-| Static sprite | one standing billboard from marker (6, 10); no behavior or collision |
-| HUD weapon | one static 24×24 screen-space overlay at `[80, 104) × [40, 64)` |
+| World sprites | up to eight stationary zombies extracted from `Z` markers and placed at tile centres |
+| Zombie presentation | state-aware full detail, medium/simple LOD, corpse pile, exact wall occlusion, budget 12 |
+| Zombie health | 12 cumulative points packed with successful-hit count in one byte |
+| Pistol | press-edge shooting; 12/6/4/3 damage by exact renderer-aligned depth |
+| HUD weapon | idle/firing 24×24 screen-space overlay at `[80, 104) × [40, 64)` |
 | Doors | standard instances at (6, 4) and (6, 8) toggle; red instance at (6, 2) opens from switch (6, 12) |
 | ROM | banked 32 KiB image; hot code in Bank 0, cold interaction/profile code in Bank 1 |
-| Stable release RAM | 1,014 bytes |
-| Profiling RAM | 1,048 bytes |
+| Stable release RAM | 1,207 bytes |
+| Profiling RAM | 1,232 bytes |
 
-### 4.1 Layering
+### 4.1 Accepted zombie combat milestone
+
+World initialization extracts authored `Z` markers into at most eight
+`WorldSprite` records, centres each record in its tile, and exposes the marker
+tile as `EMPTY`. Each record remains nine bytes; its low packed nibble stores
+health `0..12`, while the high nibble stores successful-hit count.
+
+Living and `SHOT_DEAD` presentation uses authored full detail at projected
+height 17 or more, state-specific medium silhouettes at 15..16, simple
+silhouettes at 13..14, and is hidden at 12 or less. Corpses use the authored
+texture at 17 or more, a darkest-gray pile at 15..16, and are hidden at 14 or
+less. Horizontal projection uses scale 80 around viewport centre 56. Full,
+medium, simple, and corpse-pile costs are 5, 2, 1, and 1 within a deterministic
+total budget of 12. Rejected presentation never pauses gameplay state.
+
+Button 1 is press-edge pistol fire and does not autofire. One `pending_shot`
+byte gives the firing HUD a one-rendered-frame lead while keeping it visible on
+the damage frame. One target scan chooses the nearest aligned living zombie,
+rejects wall-hidden targets, and reuses the renderer's exact depth transform.
+No second scan, raycast, or post-selection projected-height division exists.
+
+Projected heights 40+, 32..39, 17..31, and 13..16 deal 12, 6, 4, and 3
+damage. Equivalent direct-depth ranges are 33..409, 410..512, 513..963, and
+964..1260; hidden depths do no damage. Health is cumulative across distance
+changes. Surviving odd/even hits show `shot_01`/`shot_02` for three rendered
+frames and return to standing. Lethal damage clamps health to zero, shows
+`shot_dead` for four rendered frames, then enters persistent corpse state.
+
+Tile-local composition preserves transparent wall, ceiling, and floor pixels.
+Walls win equal-depth ties. Texture changes invalidate cached presentation,
+and the union of old/current coverage prevents stale pixels. Full-detail
+runtime textures are standing, shot_01, shot_02, shot_dead, and corpse. Walking
+and attack PNGs remain source-only future assets.
+
+### 4.2 Layering
 
 ```text
 game/main.c
@@ -320,7 +357,7 @@ Tile IDs:
 
 ### 9.2 Workshop map
 
-The permanent laboratory is a 13×13 const array with spawn (6, 7), two standard doors at (6, 4) and (6, 8), the switch-controlled red door at (6, 2), its switch at (6, 12), and one `Z` static-sprite marker at (6, 10). Initialization creates a `WorldSprite` at the marker's Q8.8 tile centre `(6.5, 10.5)`, while runtime tile and solidity queries expose the marker as empty. `WORLD_TILE_VOID` represents non-existent, non-playable space outside the authored enclosure. VOID is blocked but has no authored texture; a valid map places a renderable wall or closed door between every reachable playable cell and VOID. Storage is private to `workshop_map.c`; callers use bounded world accessors.
+The permanent laboratory is a 13×13 const array with spawn (6, 7), two standard doors at (6, 4) and (6, 8), the switch-controlled red door at (6, 2), its switch at (6, 12), and six authored `Z` zombie markers. Initialization creates one `WorldSprite` at each marker's Q8.8 tile centre, while runtime tile and solidity queries expose every marker as empty. `WORLD_TILE_VOID` represents non-existent, non-playable space outside the authored enclosure. VOID is blocked but has no authored texture; a valid map places a renderable wall or closed door between every reachable playable cell and VOID. Storage is private to `workshop_map.c`; callers use bounded world accessors.
 
 Blood-wall placement is deterministic level data: there is no runtime randomization, distribution pass, or placement cost. Visual composition remains map-authoring ownership; the renderer receives the selected texture ID exactly like any other wall.
 
@@ -489,23 +526,22 @@ Dirty rendering is a presentation cache only. It never suppresses raycasting or 
 
 ### 12.7 VBlank and ownership
 
-One static standing sprite is projected by a Bank 1 fixed-point inverse camera
-transform. Non-positive depth is hidden; projected height is capped at 144
-pixels; and `bottom = horizon + projected_height / 2`, with
-`top = bottom - projected_height`, anchors it to the floor.
+Up to eight sprites are projected by a Bank 1 fixed-point inverse camera
+transform. Non-positive and LOD-hidden depths exit early; projected height is
+capped at 144 pixels and floor-anchored. State-aware full, medium, simple, and
+corpse-pile presentations are selected deterministically within budget 12.
 
-Opaque indexed pixels are composed into native background tile bitplanes after
-the underlying wall, ceiling, or floor row exists. Index 15 is transparent.
-Sprite camera-space depth and the ray's exact perpendicular Q8.8 wall distance
-are compared directly; only strictly nearer sprite pixels draw. The renderer
-regenerates the union of previous and current covered columns when projection
-changes, preventing stale pixels without recurring uploads for an unchanged
-view.
+Opaque indexed pixels are composed tile-locally into native background
+bitplanes after the underlying wall, ceiling, or floor row exists. Index 15 is
+transparent. Sprite depth and each ray's exact perpendicular Q8.8 wall depth
+are compared directly; only strictly nearer pixels draw. Texture-pointer
+changes invalidate cached presentation, and the union of previous/current
+coverage prevents stale pixels.
 
 The frame casts rays before `SMS_waitForVBlank()` and performs VRAM changes after it. Moving this boundary may alter presentation or exceed safe hardware timing. The video layer alone owns native formats, pattern indices, tilemap writes, palette installation, and VRAM upload policy.
 
 The accepted first-person weapon is a fixed screen-space overlay. Its authored
-12×12 source is scaled to exactly 24×24 using shift-based 2× nearest-neighbor
+idle and firing 12×12 sources are scaled to exactly 24×24 using shift-based 2× nearest-neighbor
 coordinates. It occupies bounds `[80, 104) × [40, 64)`, tile columns 10–12 and
 rows 5–7. Each dirty tile is composed in ceiling/floor, wall, world-sprite,
 then HUD order. Semantic transparency index 6 is skipped even though that BG
@@ -555,25 +591,24 @@ wall_concrete.png + wall_concrete_blood.png + door and switch PNGs
 
 Generation runs independently in `build/` and `build-profile/`; equivalence validation checks that their generated sources match.
 
-The standing zombie source follows a parallel, smaller path:
+The five runtime zombie poses follow a parallel, smaller path:
 
 ```text
-assets/sprites/enemies/zombie/zombie_01_standing.png
+assets/sprites/enemies/zombie/zombie_01_{standing,shot_01,shot_02,shot_dead,corps}.png
   -> tools/generate_sprite_texture.ps1
-  -> build/generated/sprite_texture.{c,h}
-  -> packed 8×8, 32-byte indexed texture
+  -> build/generated/*texture.{c,h}
+  -> packed 8×8, 32-byte indexed textures in Bank 1
 ```
 
-Only the standing frame is linked. Other authored zombie frames are retained
-as source assets but have no runtime behavior or animation connection.
+Walking and attack frames remain source-only future assets and are not linked.
 
 The HUD weapon uses the same indexed sprite generator:
 
 ```text
-assets/sprites/weapons/gun_12x12.png
+assets/sprites/weapons/gun_12x12.png + gun_shoot_12x12.png
   -> tools/generate_sprite_texture.ps1
-  -> build/generated/weapon_texture.{c,h}
-  -> padded 12×12, 96-byte indexed texture in Bank 1
+  -> build/generated/weapon*_texture.{c,h}
+  -> two padded 12×12, 96-byte indexed textures in Bank 1
   -> shift-based 2× nearest-neighbor HUD composition at 24×24
 ```
 
@@ -605,7 +640,7 @@ SDCC banked calls use CRT `get_bank`/`set_bank` hooks and a resident trampoline.
 
 ### 14.2 Current placement
 
-Bank 0 contains startup, main loop, input, player, camera, world queries, door state, raycaster, texture sampling, renderer, the resident 32-byte standing texture, SMSlib, and trampolines. Bank 1 contains `interaction_ray.c`, `world_interactions.c`, static sprite projection, the HUD weapon compositor and packed weapon texture, and optional profiling reporting.
+Bank 0 contains startup, main loop, input, player, camera, world queries, door state, raycaster, texture sampling, renderer, SMSlib, and trampolines. Bank 1 contains `interaction_ray.c`, `world_interactions.c`, `zombie_shooting.c`, multi-sprite projection/budget selection, the HUD weapon compositor, all linked full-detail zombie and weapon textures, and optional profiling reporting. The accepted graph introduces no nested banked call.
 
 The `_BANK1` segment links at virtual `0x14000`. Banked objects are placed after resident objects/libraries. The 32 KiB header is at physical/CPU `0x7FF0`; the obsolete 16 KiB header position must not return.
 
@@ -613,13 +648,17 @@ Current accepted rendering-milestone measurements:
 
 | Resource | Release | Profile |
 |---|---:|---:|
-| ROM used | 17,987 bytes | 19,113 bytes |
-| Bank 0 free | 581 bytes | 58 bytes |
-| Bank 1 free | 14,200 bytes | 13,597 bytes |
-| Persistent RAM | 1,014 bytes | 1,048 bytes |
+| ROM used | 21,808 bytes | 21,991 bytes |
+| Bank 0 free | 371 bytes | 205 bytes |
+| Bank 1 free | 10,589 bytes | 10,572 bytes |
+| Persistent RAM | 1,207 bytes | 1,232 bytes |
 | ROM file | 32,768 bytes | 32,768 bytes |
 
-Profile Bank 0's 58 free bytes are an engineering capacity constraint, not a
+Release fixed segments end exclusively at `0x3E8D`; Profile fixed segments end
+exclusively at `0x3F33`. The Release SHA-256 is
+`3A1F32C1830DEBCA0ED1F89011E65AA25C7D0F9664DB6FA0B461CA67117A7C1D`.
+
+Profile Bank 0's 205 free bytes are an engineering capacity constraint, not a
 runtime failure. Future resident growth should first consider moving clearly
 cold startup/debug code to Bank 1 instead of relocating hot renderer code.
 
@@ -636,6 +675,8 @@ These are milestone measurements, not eternal constants; current release work mu
 | workshop map `[13][13]` (169 bytes) | map | world/map API | none; const | ROM lifetime |
 | object definitions | world objects | interactions | none; const | ROM lifetime |
 | door instances `[3]` | door instances | world/interactions | none; const | ROM lifetime |
+| world sprites `[8]` (72 bytes) | world sprites | shooting/projection/video | initialization, damage, timers | entire run |
+| `pending_shot` (1 byte) | main | main/shooting | main | entire run |
 | rendered rays `[28]` | raycaster | video | raycaster | overwritten each frame |
 | ray directions `[28]×2` | raycaster | raycaster | raycaster on basis change | entire run |
 | DDA reciprocal `[513]` | raycaster | raycaster | none; const | ROM lifetime |
@@ -963,7 +1004,8 @@ dirty-column behavior, and lack of an independent upload pass.
 | `game/player.c`, `.h` | position, movement composition, collision, interaction initiation; depends on input/camera/world |
 | `game/world.c`, `.h` | semantic world façade and tile IDs; depends on workshop map and doors |
 | `game/workshop_map.c`, `.h` | immutable 13×13 laboratory, VOID layout, and spawn |
-| `game/world_sprite.c`, `.h` | one static Q8.8 sprite instance and standing texture reference |
+| `game/world_sprite.c`, `.h` | eight-sprite storage, packed health/hit count, reactions, death and corpse timing |
+| `game/zombie_shooting.c`, `.h` | Bank 1 nearest visible target scan and cumulative distance-scaled pistol damage |
 | `game/world_object.h` | `WorldObjectId` and IDs |
 | `game/world_objects.c`, `.h` | opaque immutable object definitions and interactivity |
 | `game/door_instances.c`, `.h` | immutable door coordinates and instance IDs |
@@ -975,8 +1017,8 @@ dirty-column behavior, and lack of an independent upload pass.
 | `engine/render/raycaster.c`, `.h` | fixed projection, DDA, hit data, 28-ray snapshot |
 | `platform/game_gear/input.c`, `.h` | SMSlib keys to semantic controls |
 | `platform/game_gear/video.c`, `.h` | viewport, native packing, LOD, caches, VRAM |
-| `platform/game_gear/sprite_projection.c`, `.h` | Bank 1 fixed-point billboard projection |
-| `platform/game_gear/hud_weapon.c`, `.h` | Bank 1 static screen-space weapon compositor and bounds |
+| `platform/game_gear/sprite_projection.c`, `.h` | Bank 1 multi-billboard projection, state-aware LOD, and deterministic budget |
+| `platform/game_gear/hud_weapon.c`, `.h` | Bank 1 idle/firing screen-space weapon compositor and bounds |
 | `platform/game_gear/render_textures.c`, `.h` | exact packed texture sampler |
 | `platform/game_gear/wall_textures.c`, `.h` | generated texture/palette access and dimensions |
 | `platform/game_gear/renderer_profile.c`, `.h` | optional Bank 1 reporting and zero-cost-off macros |
@@ -990,7 +1032,8 @@ dirty-column behavior, and lack of an independent upload pass.
 | `tools/generate_sprite_texture.ps1` | validates/decodes indexed zombie and weapon PNGs and emits packed data |
 | `tools/validate_workshop_map.ps1` | validates the exact 13×13 layout, spawn, instances, enclosure, VOID, and bounds contracts |
 | `tools/validate_renderer_equivalence.ps1` | host oracle for renderer math, packing, LOD, signatures, and generated assumptions |
-| `tools/validate_sprite_renderer.ps1` | validates static billboard projection, occlusion, clipping, and cleanup contracts |
+| `tools/validate_sprite_renderer.ps1` | validates multi-sprite projection, LOD, budget, occlusion, clipping, and cleanup |
+| `tools/validate_zombie_shooting.ps1` | validates targeting, timing, packed health, and cumulative damage tiers |
 | `tools/validate_final_controls.ps1` | exhaustive control/session and movement validation |
 
 ### 21.4 Maintained and historical documentation
@@ -1102,9 +1145,10 @@ Use focused branches/commits and pull requests. Architectural, performance, depe
 - supported workflow is Windows-only;
 - SDCC/devkitSMS/Ninja are externally installed and not fully pinned;
 - the ROM is a technical workshop, not a complete game;
-- no fire/menu gameplay despite reserved input APIs;
-- no audio, animated enemies, combat, animated weapons, status HUD, save data,
-  or progression; the static billboard and HUD weapon have no behavior;
+- no menu gameplay despite the reserved input API;
+- no zombie movement, AI, walking/attack animation, collision, or attacks;
+- no automatic fire, ammunition, recoil, multiple weapons, audio, status HUD,
+  save data, or progression;
 - doors use binary instantaneous state; either yellow door toggles and the red door opens from its switch;
 - simulation advances once per loop rather than using elapsed-time integration;
 - collision is discrete, axis-biased, and static-world only;
@@ -1126,8 +1170,8 @@ Gameplay direction:
 
 - animated/obstructable doors;
 - deterministic enemies and AI;
-- weapon behavior and combat;
-- multiple projected sprites, animation, and depth ordering;
+- extend pistol combat with ammunition, recoil, and multiple weapons;
+- extend stationary multi-sprite rendering to moving actors and animation;
 - status HUD/helmet overlay extending the existing VRAM ownership;
 - audio with mapper coordination;
 - multiple maps, metadata, transitions, scripting, inventory, objectives, and progression.
