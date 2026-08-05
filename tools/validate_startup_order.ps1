@@ -10,8 +10,6 @@ $orderedCalls = @(
     'raycaster_update();',
     'game_gear_video_draw_wall_columns();',
     'game_gear_video_draw_viewport_border();',
-    'SMS_autoSetUpTextRenderer();',
-    'game_gear_video_load_background_palette();',
     'SMS_displayOff();',
     'SMS_waitForVBlank();',
     'SMS_displayOn();',
@@ -31,9 +29,8 @@ if ([regex]::Matches(
         $main, 'game_gear_video_draw_viewport_border\(\);').Count -ne 1) {
     throw 'Debug border must be drawn exactly once during startup'
 }
-if ([regex]::Matches(
-        $main, 'game_gear_video_load_background_palette\(\);').Count -ne 1) {
-    throw 'Master palette must be restored exactly once after text setup'
+if ($main -match 'SMS_autoSetUpTextRenderer\(\);') {
+    throw 'Profile-only SMSlib font setup must not consume fixed Bank 0'
 }
 if ($video -notmatch
     'SMS_load1bppTiles\(debug_border_tiles,[\s\S]*?sizeof\(debug_border_tiles\),\s*0,\s*12\);') {
@@ -42,5 +39,5 @@ if ($video -notmatch
 
 Write-Output 'Startup-order validation PASS'
 Write-Output '- complete gameplay frame and border precede display enable'
-Write-Output '- text setup precedes exactly one master-palette restoration'
+Write-Output '- no profile-only SMSlib font or palette-repair startup path'
 Write-Output '- static debug border is uploaded once with white BG index 12'

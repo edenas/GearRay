@@ -118,7 +118,9 @@ typedef struct
 static GameGearWallColumnSignature previous_wall_columns[
     GAME_GEAR_VIEWPORT_TILE_COLUMNS];
 
-static GameGearProjectedSprite previous_projected_sprite;
+static GameGearProjectedSprite previous_projected_sprites[
+    WORLD_SPRITE_MAX_COUNT];
+static unsigned char previous_projected_sprite_count;
 
 static const unsigned char left_palette_bitplanes[16][4] = {
     {0x00, 0x00, 0x00, 0x00}, {0xf0, 0x00, 0x00, 0x00},
@@ -150,17 +152,6 @@ static unsigned char game_gear_get_background_palette_index(
         : FLOOR_PALETTE_INDEX;
 }
 
-static unsigned char game_gear_projected_sprite_changed(
-    const GameGearProjectedSprite *current)
-{
-    return current->visible != previous_projected_sprite.visible
-        || current->left != previous_projected_sprite.left
-        || current->right != previous_projected_sprite.right
-        || current->top != previous_projected_sprite.top
-        || current->bottom != previous_projected_sprite.bottom
-        || current->depth != previous_projected_sprite.depth;
-}
-
 static unsigned char game_gear_sprite_covers_tile_column(
     const GameGearProjectedSprite *sprite,
     unsigned char tile_column)
@@ -173,6 +164,18 @@ static unsigned char game_gear_sprite_covers_tile_column(
         && sprite->left < tile_right;
 }
 
+static unsigned char game_gear_sprite_covers_tile(
+    const GameGearProjectedSprite *sprite,
+    unsigned char tile_column,
+    unsigned char tile_row)
+{
+    signed int tile_top = tile_row * 8;
+
+    return game_gear_sprite_covers_tile_column(sprite, tile_column)
+        && sprite->bottom > tile_top
+        && sprite->top < tile_top + 8;
+}
+
 static void game_gear_overlay_sprite_tile(
     unsigned char *destination,
     unsigned char tile_column,
@@ -180,7 +183,7 @@ static void game_gear_overlay_sprite_tile(
     const GameGearProjectedSprite *projected,
     const RaycasterRay *rays)
 {
-    const WorldSprite *sprite = world_sprite_get();
+    const unsigned char *pixels = projected->pixels;
     signed int tile_left = tile_column * 8;
     signed int tile_top = tile_row * 8;
     signed int screen_x;
@@ -193,12 +196,8 @@ static void game_gear_overlay_sprite_tile(
     unsigned char plane;
     unsigned char mask;
 
-    if (!game_gear_sprite_covers_tile_column(projected, tile_column)
-        || projected->bottom <= tile_top
-        || projected->top >= tile_top + 8)
-    {
+    if (!game_gear_sprite_covers_tile(projected, tile_column, tile_row))
         return;
-    }
 
     for (pixel_y = 0; pixel_y < 8; ++pixel_y)
     {
@@ -227,7 +226,7 @@ static void game_gear_overlay_sprite_tile(
                  * projected->texture_step) >> 8;
             if (texture_x >= 8)
                 texture_x = 7;
-            palette_index = sprite->pixels[
+            palette_index = pixels[
                 texture_y * 4 + (texture_x >> 1)];
             if (texture_x & 1)
                 palette_index &= 15;
@@ -552,6 +551,8 @@ void game_gear_video_draw_wall_columns(void)
 {
     unsigned char tile_column;
     unsigned char row;
+    unsigned char sprite_index;
+    unsigned char projected_sprite_count;
     unsigned char left_wall_height;
     unsigned char right_wall_height;
     unsigned char left_hit_offset;
@@ -574,6 +575,7 @@ void game_gear_video_draw_wall_columns(void)
     signed int right_wall_top;
     unsigned char first_screen_y;
     unsigned char sprite_changed;
+    unsigned char hud_weapon_changed;
     unsigned char current_sprite_column;
     unsigned char previous_sprite_column;
     signed int sprite_visible_top;
@@ -585,11 +587,23 @@ void game_gear_video_draw_wall_columns(void)
     const RaycasterRay *rendered_rays = raycaster_get_rendered_rays();
     const RaycasterRay *left_ray = rendered_rays;
     const RaycasterRay *right_ray;
-    GameGearProjectedSprite projected_sprite;
+    GameGearProjectedSprite projected_sprites[WORLD_SPRITE_MAX_COUNT];
 
-    game_gear_project_world_sprite(&projected_sprite);
-    sprite_changed =
-        game_gear_projected_sprite_changed(&projected_sprite);
+    projected_sprite_count = world_sprite_get_count();
+    for (sprite_index = 0;
+         sprite_index < projected_sprite_count;
+         ++sprite_index)
+    {
+        game_gear_project_world_sprite(
+            world_sprite_get(sprite_index),
+            &projected_sprites[sprite_index]);
+    }
+    sprite_changed = game_gear_apply_sprite_render_budget(
+        projected_sprites,
+        projected_sprite_count,
+        previous_projected_sprites,
+        previous_projected_sprite_count);
+    hud_weapon_changed = game_gear_hud_weapon_changed();
 
     for (tile_column = 0;
          tile_column < GAME_GEAR_VIEWPORT_TILE_COLUMNS;
@@ -606,10 +620,28 @@ void game_gear_video_draw_wall_columns(void)
         right_hit_offset = right_ray->hit_offset;
         left_wall_side = left_ray->hit_side;
         right_wall_side = right_ray->hit_side;
-        current_sprite_column = game_gear_sprite_covers_tile_column(
-            &projected_sprite, tile_column);
-        previous_sprite_column = game_gear_sprite_covers_tile_column(
-            &previous_projected_sprite, tile_column);
+        current_sprite_column = 0;
+        previous_sprite_column = 0;
+        for (sprite_index = 0;
+             sprite_index < projected_sprite_count;
+             ++sprite_index)
+        {
+            if (game_gear_sprite_covers_tile_column(
+                    &projected_sprites[sprite_index], tile_column))
+            {
+                current_sprite_column = 1;
+            }
+        }
+        for (sprite_index = 0;
+             sprite_index < previous_projected_sprite_count;
+             ++sprite_index)
+        {
+            if (game_gear_sprite_covers_tile_column(
+                    &previous_projected_sprites[sprite_index], tile_column))
+            {
+                previous_sprite_column = 1;
+            }
+        }
 
         if (game_gear_wall_column_is_unchanged(previous_wall_column,
                                                left_wall_height,
@@ -621,7 +653,10 @@ void game_gear_video_draw_wall_columns(void)
                                                left_wall_side,
                                                right_wall_side)
             && !(sprite_changed
-                 && (current_sprite_column || previous_sprite_column)))
+                 && (current_sprite_column || previous_sprite_column))
+            && !(hud_weapon_changed
+                 && tile_column >= HUD_WEAPON_FIRST_TILE_COLUMN
+                 && tile_column <= HUD_WEAPON_LAST_TILE_COLUMN))
         {
             continue;
         }
@@ -642,30 +677,40 @@ void game_gear_video_draw_wall_columns(void)
 
         if (current_sprite_column)
         {
-            sprite_visible_top = projected_sprite.top;
-            sprite_visible_bottom = projected_sprite.bottom;
-            if (sprite_visible_top < 0)
-                sprite_visible_top = 0;
-            if (sprite_visible_bottom > GAME_GEAR_VIEWPORT_PIXEL_HEIGHT)
-                sprite_visible_bottom = GAME_GEAR_VIEWPORT_PIXEL_HEIGHT;
-            if (sprite_visible_bottom > sprite_visible_top)
+            for (sprite_index = 0;
+                 sprite_index < projected_sprite_count;
+                 ++sprite_index)
             {
-                sprite_first_row =
-                    (unsigned char)(sprite_visible_top / 8);
-                sprite_last_row =
-                    (unsigned char)((sprite_visible_bottom - 1) / 8);
-                if (!has_active_wall)
+                if (!game_gear_sprite_covers_tile_column(
+                        &projected_sprites[sprite_index], tile_column))
                 {
-                    first_active_row = sprite_first_row;
-                    last_active_row = sprite_last_row;
-                    has_active_wall = 1;
+                    continue;
                 }
-                else
+                sprite_visible_top = projected_sprites[sprite_index].top;
+                sprite_visible_bottom = projected_sprites[sprite_index].bottom;
+                if (sprite_visible_top < 0)
+                    sprite_visible_top = 0;
+                if (sprite_visible_bottom > GAME_GEAR_VIEWPORT_PIXEL_HEIGHT)
+                    sprite_visible_bottom = GAME_GEAR_VIEWPORT_PIXEL_HEIGHT;
+                if (sprite_visible_bottom > sprite_visible_top)
                 {
-                    if (sprite_first_row < first_active_row)
+                    sprite_first_row =
+                        (unsigned char)(sprite_visible_top / 8);
+                    sprite_last_row =
+                        (unsigned char)((sprite_visible_bottom - 1) / 8);
+                    if (!has_active_wall)
+                    {
                         first_active_row = sprite_first_row;
-                    if (sprite_last_row > last_active_row)
                         last_active_row = sprite_last_row;
+                        has_active_wall = 1;
+                    }
+                    else
+                    {
+                        if (sprite_first_row < first_active_row)
+                            first_active_row = sprite_first_row;
+                        if (sprite_last_row > last_active_row)
+                            last_active_row = sprite_last_row;
+                    }
                 }
             }
         }
@@ -705,8 +750,6 @@ void game_gear_video_draw_wall_columns(void)
                         : &left_lod1_y_rows[0][0];
                     GEAR_RAY_PROFILE_INCREMENT(lod1_wall_halves_rendered);
                 }
-                GEAR_RAY_PROFILE_ADD(texture_samples_avoided,
-                                     left_wall_height);
             }
             else
             {
@@ -734,8 +777,6 @@ void game_gear_video_draw_wall_columns(void)
                         : &right_lod1_y_rows[0][0];
                     GEAR_RAY_PROFILE_INCREMENT(lod1_wall_halves_rendered);
                 }
-                GEAR_RAY_PROFILE_ADD(texture_samples_avoided,
-                                     right_wall_height);
             }
             else
             {
@@ -769,11 +810,48 @@ void game_gear_video_draw_wall_columns(void)
                     right_wall_top,
                     right_wall_height,
                     row * 8);
-                game_gear_overlay_sprite_tile(native_tile,
-                                              tile_column,
-                                              row,
-                                              &projected_sprite,
-                                              rendered_rays);
+                /*
+                 * Map order is stable. Draw farther sprites first so a nearer
+                 * sprite wins where multiple instances overlap.
+                 */
+                {
+                    unsigned char draw_count = projected_sprite_count;
+                    unsigned char drawn_mask = 0;
+                    while (draw_count != 0)
+                    {
+                        unsigned char selected = WORLD_SPRITE_MAX_COUNT;
+                        unsigned int selected_depth = 0;
+                        for (sprite_index = 0;
+                             sprite_index < projected_sprite_count;
+                             ++sprite_index)
+                        {
+                            unsigned int depth =
+                                projected_sprites[sprite_index].depth;
+                            if (projected_sprites[sprite_index].visible
+                                && !(drawn_mask & (1U << sprite_index))
+                                && game_gear_sprite_covers_tile(
+                                    &projected_sprites[sprite_index],
+                                    tile_column,
+                                    row)
+                                && (selected == WORLD_SPRITE_MAX_COUNT
+                                    || depth > selected_depth))
+                            {
+                                selected = sprite_index;
+                                selected_depth = depth;
+                            }
+                        }
+                        if (selected == WORLD_SPRITE_MAX_COUNT)
+                            break;
+                        game_gear_overlay_sprite_tile(
+                            native_tile,
+                            tile_column,
+                            row,
+                            &projected_sprites[selected],
+                            rendered_rays);
+                        drawn_mask |= (1U << selected);
+                        --draw_count;
+                    }
+                }
                 if (tile_column >= HUD_WEAPON_FIRST_TILE_COLUMN
                     && tile_column <= HUD_WEAPON_LAST_TILE_COLUMN
                     && row >= HUD_WEAPON_FIRST_TILE_ROW)
@@ -848,13 +926,16 @@ void game_gear_video_draw_wall_columns(void)
                                               right_wall_side);
     }
 
-    previous_projected_sprite = projected_sprite;
+    previous_projected_sprite_count = projected_sprite_count;
+    for (sprite_index = 0;
+         sprite_index < projected_sprite_count;
+         ++sprite_index)
+    {
+        previous_projected_sprites[sprite_index] =
+            projected_sprites[sprite_index];
+    }
+    game_gear_hud_weapon_render_complete();
 
-#ifdef GEARRAY_PROFILE_RENDERER
-    game_gear_renderer_profile.near_wall_halves_rendered =
-        game_gear_renderer_profile.dirty_columns_rendered * 2
-        - game_gear_renderer_profile.far_wall_halves_rendered;
-#endif
 }
 
 #if GEARRAY_DEBUG_VIEWPORT_BORDER

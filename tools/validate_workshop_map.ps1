@@ -106,17 +106,17 @@ foreach ($rowMatch in $rowMatches) {
 
 $approvedRows = @(
     "XXXXXSBSXXXXX",
-    "XXXXXSESXXXXX",
+    "XXXXXSZSXXXXX",
     "XXXXXBRSXXXXX",
     "XXXXSEEESXXXX",
     "XSBSSSDSSSBSX",
     "XSEEEEEEEEESX",
-    "BEEEEEEEEEEES",
+    "BZEEEEEEEEEES",
     "XSEEEEEEEEESX",
     "XSBSSBDSSSSSX",
     "XXXXSEEESXXXX",
-    "XXXXSEZEBXXXX",
-    "XXXXSEEESXXXX",
+    "XXXXSEEEBXXXX",
+    "XXXXSZEZSXXXX",
     "XXXXSBWSSXXXX"
 )
 for ($y = 0; $y -lt $height; ++$y) {
@@ -131,9 +131,20 @@ for ($y = 0; $y -lt $height; ++$y) {
         }
     }
 }
-Assert-Equal 1 $spriteMarkers.Count "Static sprite marker count"
-Assert-Equal 6 $spriteMarkers[0][0] "Static sprite marker X"
-Assert-Equal 10 $spriteMarkers[0][1] "Static sprite marker Y"
+$expectedSpriteMarkers = @(
+    @(6, 1),
+    @(1, 6),
+    @(5, 11),
+    @(7, 11)
+)
+Assert-Equal $expectedSpriteMarkers.Count $spriteMarkers.Count `
+    "Static sprite marker count"
+for ($index = 0; $index -lt $expectedSpriteMarkers.Count; ++$index) {
+    Assert-Equal $expectedSpriteMarkers[$index][0] $spriteMarkers[$index][0] `
+        "Static sprite marker $index X"
+    Assert-Equal $expectedSpriteMarkers[$index][1] $spriteMarkers[$index][1] `
+        "Static sprite marker $index Y"
+}
 
 function Get-Tile {
     param([int]$X, [int]$Y)
@@ -226,14 +237,16 @@ for ($y = 0; $y -lt $height; ++$y) {
                     throw "Openable door at ($x,$y) exposes VOID or out-of-bounds."
                 }
             }
-            Assert-Equal "E" (Get-Tile $x ($y - 1)) "Door north opening at ($x,$y)"
+            $expectedNorthOpening = if ($x -eq 6 -and $y -eq 2) { "Z" } else { "E" }
+            Assert-Equal $expectedNorthOpening (Get-Tile $x ($y - 1)) `
+                "Door north opening at ($x,$y)"
             Assert-Equal "E" (Get-Tile $x ($y + 1)) "Door south opening at ($x,$y)"
         }
     }
 }
 
 Assert-Equal "R" (Get-Tile 6 2) "Top red door"
-Assert-Equal "E" (Get-Tile 6 1) "Top red door north opening"
+Assert-Equal "Z" (Get-Tile 6 1) "Top red door north opening"
 Assert-Equal "E" (Get-Tile 6 3) "Top red door south opening"
 Assert-Equal "B" (Get-Tile 6 0) "Top chamber north cap"
 

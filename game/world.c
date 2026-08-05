@@ -9,6 +9,7 @@ void world_initialize(void)
 
     door_states_initialize();
     red_door_switch_initialize();
+    world_sprites_initialize();
 
     for (y = 0; y < WORLD_HEIGHT; ++y)
     {

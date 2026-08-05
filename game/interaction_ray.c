@@ -3,7 +3,7 @@
 #include "world_objects.h"
 
 #define FIXED_POINT_SCALE 256
-#define PLAYER_INTERACTION_RANGE 512
+#define PLAYER_INTERACTION_RANGE 586
 #define PLAYER_INTERACTION_STEP 32
 
 unsigned char interaction_ray_cast(

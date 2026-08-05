@@ -1,20 +1,118 @@
 #include "world_sprite.h"
 #include "sprite_texture.h"
+#include "zombie_01_corps_texture.h"
+#include "zombie_01_shot_01_texture.h"
+#include "zombie_01_shot_02_texture.h"
+#include "zombie_01_shot_dead_texture.h"
 
 #define FIXED_POINT_SCALE 256
 
-static WorldSprite world_sprite;
+static WorldSprite world_sprites[WORLD_SPRITE_MAX_COUNT];
+static unsigned char world_sprite_count;
+
+static void world_sprite_set_state(WorldSprite *sprite, ZombieState state)
+{
+    sprite->state = state;
+    sprite->state_timer = 0;
+
+    if (state == ZOMBIE_STATE_ALIVE)
+        sprite->pixels = zombie_01_standing_pixels;
+    else if (state == ZOMBIE_STATE_SHOT_DEAD)
+    {
+        sprite->pixels = zombie_01_shot_dead_pixels;
+        sprite->state_timer = ZOMBIE_SHOT_DEAD_FRAME_COUNT;
+    }
+    else
+        sprite->pixels = zombie_01_corps_pixels;
+}
+
+void world_sprites_initialize(void)
+{
+    world_sprite_count = 0;
+}
 
 void world_sprite_initialize(unsigned char map_x, unsigned char map_y)
 {
-    world_sprite.world_x =
+    WorldSprite *sprite;
+
+    if (world_sprite_count >= WORLD_SPRITE_MAX_COUNT)
+        return;
+
+    sprite = &world_sprites[world_sprite_count++];
+    sprite->world_x =
         (signed int)map_x * FIXED_POINT_SCALE + FIXED_POINT_SCALE / 2;
-    world_sprite.world_y =
+    sprite->world_y =
         (signed int)map_y * FIXED_POINT_SCALE + FIXED_POINT_SCALE / 2;
-    world_sprite.pixels = zombie_01_standing_pixels;
+    sprite->health_and_hit_count = ZOMBIE_MAX_HEALTH;
+    world_sprite_set_state(sprite, ZOMBIE_STATE_ALIVE);
 }
 
-const WorldSprite *world_sprite_get(void)
+void world_sprites_update(void)
 {
-    return &world_sprite;
+    unsigned char sprite_index;
+
+    for (sprite_index = 0;
+         sprite_index < world_sprite_count;
+         ++sprite_index)
+    {
+        WorldSprite *sprite = &world_sprites[sprite_index];
+
+        if (sprite->state_timer == 0)
+            continue;
+
+        --sprite->state_timer;
+        if (sprite->state_timer != 0)
+            continue;
+
+        if (sprite->state == ZOMBIE_STATE_SHOT_DEAD)
+            world_sprite_set_state(sprite, ZOMBIE_STATE_CORPSE);
+        else
+            sprite->pixels = zombie_01_standing_pixels;
+    }
+}
+
+void world_sprite_apply_damage(unsigned char sprite_index,
+                               unsigned char damage)
+{
+    WorldSprite *sprite;
+    unsigned char health;
+    unsigned char hit_count;
+
+    if (sprite_index >= world_sprite_count)
+        return;
+
+    sprite = &world_sprites[sprite_index];
+    if (sprite->state != ZOMBIE_STATE_ALIVE)
+        return;
+
+    health = sprite->health_and_hit_count & ZOMBIE_HEALTH_MASK;
+    hit_count = sprite->health_and_hit_count >> ZOMBIE_HIT_COUNT_SHIFT;
+    ++hit_count;
+    if (damage < health)
+    {
+        health -= damage;
+        sprite->health_and_hit_count =
+            (hit_count << ZOMBIE_HIT_COUNT_SHIFT) | health;
+        sprite->pixels = hit_count & 1U
+            ? zombie_01_shot_01_pixels
+            : zombie_01_shot_02_pixels;
+        sprite->state_timer = ZOMBIE_HIT_REACTION_FRAME_COUNT;
+        return;
+    }
+
+    sprite->health_and_hit_count = hit_count << ZOMBIE_HIT_COUNT_SHIFT;
+    world_sprite_set_state(sprite, ZOMBIE_STATE_SHOT_DEAD);
+}
+
+unsigned char world_sprite_get_count(void)
+{
+    return world_sprite_count;
+}
+
+const WorldSprite *world_sprite_get(unsigned char sprite_index)
+{
+    if (sprite_index >= world_sprite_count)
+        return 0;
+
+    return &world_sprites[sprite_index];
 }

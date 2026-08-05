@@ -22,6 +22,16 @@
 #define HUD_WEAPON_FIRST_TILE_ROW (HUD_WEAPON_TOP / 8)
 #define HUD_WEAPON_LAST_TILE_ROW ((HUD_WEAPON_BOTTOM - 1) / 8)
 
+typedef enum HudWeaponState
+{
+    IDLE,
+    SHOOT
+} HudWeaponState;
+
+void game_gear_hud_weapon_initialize(void) __banked;
+void game_gear_hud_weapon_update(unsigned char shoot_requested) __banked;
+unsigned char game_gear_hud_weapon_changed(void) __banked;
+void game_gear_hud_weapon_render_complete(void) __banked;
 void game_gear_overlay_hud_weapon_tile(
     unsigned char *destination,
     unsigned char tile_column,

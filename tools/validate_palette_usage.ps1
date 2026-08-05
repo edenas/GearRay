@@ -10,6 +10,10 @@ $weaponSource = Get-Content -Raw -LiteralPath (
     Join-Path $root "$BuildDirectory\generated\weapon_texture.c")
 $weaponHeader = Get-Content -Raw -LiteralPath (
     Join-Path $root "$BuildDirectory\generated\weapon_texture.h")
+$zombieStateTextures = @(
+    @{ File = 'zombie_01_shot_dead_texture'; Symbol = 'zombie_01_shot_dead_pixels' },
+    @{ File = 'zombie_01_corps_texture'; Symbol = 'zombie_01_corps_pixels' }
+)
 $weaponPath = Join-Path $root "assets\sprites\weapons\gun_12x12.png"
 $mainSource = Get-Content -Raw -LiteralPath (Join-Path $root "game\main.c")
 $videoSource = Get-Content -Raw -LiteralPath (
@@ -46,11 +50,28 @@ for ($index = 0; $index -lt 16; ++$index) {
 Assert-Equal 16 (@($palette | Select-Object -Unique).Count) `
     'Distinct BG palette entry count'
 
+foreach ($texture in $zombieStateTextures) {
+    $generatedHeader = Get-Content -Raw -LiteralPath (
+        Join-Path $root "$BuildDirectory\generated\$($texture.File).h")
+    $generatedSource = Get-Content -Raw -LiteralPath (
+        Join-Path $root "$BuildDirectory\generated\$($texture.File).c")
+    $symbol = $texture.Symbol
+    if ($generatedHeader -notmatch "#define ${symbol}_WIDTH 8" -or
+        $generatedHeader -notmatch "#define ${symbol}_HEIGHT 8" -or
+        $generatedHeader -notmatch "#define ${symbol}_PACKED_ROW_STRIDE 4" -or
+        $generatedHeader -notmatch "#define ${symbol}_TRANSPARENT_INDEX 15" -or
+        $generatedHeader -notmatch "#define ${symbol}_BYTE_COUNT 32") {
+        throw "Generated zombie texture contract mismatch: $symbol"
+    }
+    Assert-Equal 32 (@(Get-HexValues $generatedSource $symbol).Count) `
+        "$symbol packed byte count"
+}
+
 $weaponBytes = @(Get-HexValues $weaponSource 'hud_weapon_pixels')
 if ($weaponHeader -notmatch '#define hud_weapon_pixels_WIDTH 12' -or
     $weaponHeader -notmatch '#define hud_weapon_pixels_HEIGHT 12' -or
     $weaponHeader -notmatch '#define hud_weapon_pixels_PACKED_ROW_STRIDE 8' -or
-    $weaponHeader -notmatch '#define hud_weapon_pixels_TRANSPARENT_INDEX 6' -or
+    $weaponHeader -notmatch '#define hud_weapon_pixels_TRANSPARENT_INDEX 14' -or
     $weaponHeader -notmatch '#define hud_weapon_pixels_BYTE_COUNT 96') {
     throw 'Generated weapon texture contract mismatch'
 }
@@ -100,7 +121,7 @@ try {
             if ($generatedIndex -eq 15) { ++$generatedDark }
             if ($generatedIndex -eq 1) { ++$generatedBrown }
             $expectedIndex = if ($rgb -eq 'transparent') {
-                6
+                14
             }
             else {
                 $expectedIndices[$rgb]
@@ -126,17 +147,9 @@ if ($palette[11] -eq $palette[15] -or 11 -eq 6 -or 15 -eq 6) {
 }
 Assert-Equal 0x03a $palette[1] 'Final dedicated brown palette value'
 
-$setupOffset = $mainSource.IndexOf('SMS_autoSetUpTextRenderer();')
-$restoreOffset = $mainSource.IndexOf('game_gear_video_load_background_palette();',
-                                     $setupOffset)
-$displayOffset = $mainSource.IndexOf('SMS_displayOn();', $setupOffset)
-if ($setupOffset -lt 0 -or $restoreOffset -le $setupOffset -or
-    $displayOffset -le $restoreOffset) {
-    throw 'BG palette is not restored after text-renderer setup and before display'
-}
-if ([regex]::Matches(
-        $mainSource, 'game_gear_video_load_background_palette\(\);').Count -ne 1) {
-    throw 'Unexpected gameplay palette-reload call count'
+if ($mainSource -match 'SMS_autoSetUpTextRenderer\(\);' -or
+    $mainSource -match 'game_gear_video_load_background_palette\(\);') {
+    throw 'Profile-only text setup or palette repair remains in the main path'
 }
 if ($videoSource -notmatch
     'GAME_GEAR_WALL_PALETTE_BASE \+ wall_palette_offset,[\s\S]*?game_gear_get_wall_palette_color') {
@@ -151,4 +164,5 @@ Write-Output '- dedicated brown index 1'
 Write-Output '- accepted LOD shade restored at index 9'
 Write-Output "- skin pixels: #ffc4ab=$sourceLight, #ffa57d=$sourceDark"
 Write-Output "- brown pixels: source=$sourceBrown, generated=$generatedBrown, displayed=$($generatedBrown * 4)"
-Write-Output '- BG index 1 restored to 0x03a after text-renderer setup'
+Write-Output '- BG index 1 remains 0x03a with no profile text palette overwrite'
+Write-Output '- shot-dead and corpse textures use the 8x8/32-byte/index-15 contract'

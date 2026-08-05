@@ -86,19 +86,19 @@ function Get-ForwardIntent([int]$Keys) {
 }
 
 function Get-StrafeIntent([int]$Keys) {
-    if (($Keys -band $Button1) -eq 0) { return 0 }
+    if (($Keys -band $Button2) -eq 0) { return 0 }
     return [int](($Keys -band $Right) -ne 0) - [int](($Keys -band $Left) -ne 0)
 }
 
 function Get-RotationIntent([int]$Keys) {
-    if (($Keys -band $Button1) -ne 0) { return 0 }
+    if (($Keys -band $Button2) -ne 0) { return 0 }
     return [int](($Keys -band $Right) -ne 0) - [int](($Keys -band $Left) -ne 0)
 }
 
 function Update-State {
     param([int]$Previous, [int]$Current, [bool]$HoldActive, [bool]$StrafeUsed)
 
-    if (($Current -band $Button1) -ne 0) {
+    if (($Current -band $Button2) -ne 0) {
         if (-not $HoldActive) {
             $HoldActive = $true
             $StrafeUsed = $false
@@ -113,11 +113,11 @@ function Update-State {
     return @{
         HoldActive = $HoldActive
         StrafeUsed = $StrafeUsed
-        Interaction = (($Current -band $Button1) -eq 0) -and
-                      (($Previous -band $Button1) -ne 0) -and
+        Interaction = (($Current -band $Button2) -eq 0) -and
+                      (($Previous -band $Button2) -ne 0) -and
                       (-not $StrafeUsed)
-        Fire = (($Current -band $Button2) -ne 0) -and
-               (($Previous -band $Button2) -eq 0)
+        Fire = (($Current -band $Button1) -ne 0) -and
+               (($Previous -band $Button1) -eq 0)
         Menu = (($Current -band $Start) -ne 0) -and
                (($Previous -band $Start) -eq 0)
     }
@@ -144,10 +144,10 @@ foreach ($previous in $masks) {
                 if (($rotation -ne 0) -and ($strafe -ne 0)) {
                     throw "Simultaneous rotation and strafe for mask $current"
                 }
-                if (($current -band $Button1) -ne 0) {
-                    Assert-Equal 0 $rotation "Button 1 must suppress rotation"
+                if (($current -band $Button2) -ne 0) {
+                    Assert-Equal 0 $rotation "Button 2 must suppress rotation"
                 } else {
-                    Assert-Equal 0 $strafe "Strafe must require Button 1"
+                    Assert-Equal 0 $strafe "Strafe must require Button 2"
                 }
             }
         }
@@ -160,31 +160,31 @@ Assert-Equal 0 (Get-ForwardIntent ($Up -bor $Down)) "Up + Down"
 Assert-Equal -1 (Get-RotationIntent $Left) "Left rotation"
 Assert-Equal 1 (Get-RotationIntent $Right) "Right rotation"
 Assert-Equal 0 (Get-RotationIntent ($Left -bor $Right)) "Left + Right rotation"
-Assert-Equal -1 (Get-StrafeIntent ($Button1 -bor $Left)) "Button 1 + Left"
-Assert-Equal 1 (Get-StrafeIntent ($Button1 -bor $Right)) "Button 1 + Right"
-Assert-Equal 0 (Get-StrafeIntent ($Button1 -bor $Left -bor $Right)) "Opposing strafe"
-Assert-Equal 1 (Get-ForwardIntent ($Button1 -bor $Up)) "Button 1 + Up"
-Assert-Equal -1 (Get-ForwardIntent ($Button1 -bor $Down)) "Button 1 + Down"
+Assert-Equal -1 (Get-StrafeIntent ($Button2 -bor $Left)) "Button 2 + Left"
+Assert-Equal 1 (Get-StrafeIntent ($Button2 -bor $Right)) "Button 2 + Right"
+Assert-Equal 0 (Get-StrafeIntent ($Button2 -bor $Left -bor $Right)) "Opposing strafe"
+Assert-Equal 1 (Get-ForwardIntent ($Button2 -bor $Up)) "Button 2 + Up"
+Assert-Equal -1 (Get-ForwardIntent ($Button2 -bor $Down)) "Button 2 + Down"
 
-$press = Update-State 0 $Button1 $false $false
-$hold = Update-State $Button1 $Button1 $press.HoldActive $press.StrafeUsed
-$release = Update-State $Button1 0 $hold.HoldActive $hold.StrafeUsed
-Assert-Equal $false $press.Interaction "Button 1 press interaction"
-Assert-Equal $false $hold.Interaction "Button 1 hold interaction"
-Assert-Equal $true $release.Interaction "Button 1 release interaction"
+$press = Update-State 0 $Button2 $false $false
+$hold = Update-State $Button2 $Button2 $press.HoldActive $press.StrafeUsed
+$release = Update-State $Button2 0 $hold.HoldActive $hold.StrafeUsed
+Assert-Equal $false $press.Interaction "Button 2 press interaction"
+Assert-Equal $false $hold.Interaction "Button 2 hold interaction"
+Assert-Equal $true $release.Interaction "Button 2 release interaction"
 
-$strafe = Update-State $Button1 ($Button1 -bor $Left) $true $false
-$strafeRelease = Update-State ($Button1 -bor $Left) 0 $strafe.HoldActive $strafe.StrafeUsed
-Assert-Equal $true $strafe.StrafeUsed "Strafe used after Button 1"
+$strafe = Update-State $Button2 ($Button2 -bor $Left) $true $false
+$strafeRelease = Update-State ($Button2 -bor $Left) 0 $strafe.HoldActive $strafe.StrafeUsed
+Assert-Equal $true $strafe.StrafeUsed "Strafe used after Button 2"
 Assert-Equal $false $strafeRelease.Interaction "Interaction after strafe"
 
-$modifierPressed = Update-State $Left ($Left -bor $Button1) $false $false
-Assert-Equal $true $modifierPressed.StrafeUsed "Button 1 pressed while Left held"
-$opposed = Update-State 0 ($Button1 -bor $Left -bor $Right) $false $false
+$modifierPressed = Update-State $Left ($Left -bor $Button2) $false $false
+Assert-Equal $true $modifierPressed.StrafeUsed "Button 2 pressed while Left held"
+$opposed = Update-State 0 ($Button2 -bor $Left -bor $Right) $false $false
 Assert-Equal $true $opposed.StrafeUsed "Opposing modifier-horizontal input counts as strafe use"
 
-Assert-Equal $true (Update-State 0 $Button2 $false $false).Fire "Button 2 edge"
-Assert-Equal $false (Update-State $Button2 $Button2 $false $false).Fire "Button 2 hold"
+Assert-Equal $true (Update-State 0 $Button1 $false $false).Fire "Button 1 edge"
+Assert-Equal $false (Update-State $Button1 $Button1 $false $false).Fire "Button 1 hold"
 Assert-Equal $true (Update-State 0 $Start $false $false).Menu "Start edge"
 Assert-Equal $false (Update-State $Start $Start $false $false).Menu "Start hold"
 

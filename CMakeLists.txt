@@ -6,8 +6,10 @@ project(gear_ray VERSION 0.1.0 LANGUAGES NONE)
 option(GEARRAY_PROFILE_RENDERER "Collect renderer profiling counters" OFF)
 if(GEARRAY_PROFILE_RENDERER)
     set(GEAR_RAY_RENDERER_PROFILE_DEFINE -DGEARRAY_PROFILE_RENDERER)
+    set(GEAR_RAY_RENDERER_PROFILE_SIZE_OPTIMIZATION --opt-code-size)
 else()
     set(GEAR_RAY_RENDERER_PROFILE_DEFINE)
+    set(GEAR_RAY_RENDERER_PROFILE_SIZE_OPTIMIZATION)
 endif()
 
 set(GEAR_RAY_BUILD_DIR "${CMAKE_BINARY_DIR}" CACHE PATH "Generated build output directory")
@@ -66,6 +68,9 @@ set(GEAR_RAY_WORLD_OBJECTS_OBJECT "${CMAKE_BINARY_DIR}/world_objects.rel")
 set(GEAR_RAY_WORLD_SPRITE_SOURCE "${GEAR_RAY_GAME_DIR}/world_sprite.c")
 set(GEAR_RAY_WORLD_SPRITE_HEADER "${GEAR_RAY_GAME_DIR}/world_sprite.h")
 set(GEAR_RAY_WORLD_SPRITE_OBJECT "${CMAKE_BINARY_DIR}/world_sprite.rel")
+set(GEAR_RAY_ZOMBIE_SHOOTING_SOURCE "${GEAR_RAY_GAME_DIR}/zombie_shooting.c")
+set(GEAR_RAY_ZOMBIE_SHOOTING_HEADER "${GEAR_RAY_GAME_DIR}/zombie_shooting.h")
+set(GEAR_RAY_ZOMBIE_SHOOTING_OBJECT "${CMAKE_BINARY_DIR}/zombie_shooting.rel")
 set(GEAR_RAY_DOOR_STATES_SOURCE "${GEAR_RAY_GAME_DIR}/door_states.c")
 set(GEAR_RAY_DOOR_STATES_HEADER "${GEAR_RAY_GAME_DIR}/door_states.h")
 set(GEAR_RAY_DOOR_STATES_OBJECT "${CMAKE_BINARY_DIR}/door_states.rel")
@@ -109,6 +114,7 @@ set(GEAR_RAY_RED_DOOR_SWITCH_ON_FRAME_1_INPUT "${CMAKE_SOURCE_DIR}/assets/textur
 set(GEAR_RAY_RED_DOOR_SWITCH_ON_FRAME_2_INPUT "${CMAKE_SOURCE_DIR}/assets/textures/walls/switch_on_02.png")
 set(GEAR_RAY_WALL_TEXTURE_GENERATOR "${CMAKE_SOURCE_DIR}/tools/generate_wall_texture.ps1")
 set(GEAR_RAY_WORKSHOP_MAP_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_workshop_map.ps1")
+set(GEAR_RAY_ZOMBIE_SHOOTING_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_zombie_shooting.ps1")
 set(GEAR_RAY_GENERATED_DIR "${CMAKE_BINARY_DIR}/generated")
 set(GEAR_RAY_GENERATED_WALL_TEXTURE_SOURCE "${GEAR_RAY_GENERATED_DIR}/wall_texture.c")
 set(GEAR_RAY_GENERATED_WALL_TEXTURE_HEADER "${GEAR_RAY_GENERATED_DIR}/wall_texture.h")
@@ -118,10 +124,30 @@ set(GEAR_RAY_SPRITE_TEXTURE_GENERATOR "${CMAKE_SOURCE_DIR}/tools/generate_sprite
 set(GEAR_RAY_GENERATED_SPRITE_TEXTURE_SOURCE "${GEAR_RAY_GENERATED_DIR}/sprite_texture.c")
 set(GEAR_RAY_GENERATED_SPRITE_TEXTURE_HEADER "${GEAR_RAY_GENERATED_DIR}/sprite_texture.h")
 set(GEAR_RAY_GENERATED_SPRITE_TEXTURE_OBJECT "${CMAKE_BINARY_DIR}/generated_sprite_texture.rel")
+set(GEAR_RAY_ZOMBIE_SHOT_01_TEXTURE_INPUT "${CMAKE_SOURCE_DIR}/assets/sprites/enemies/zombie/zombie_01_shot_01.png")
+set(GEAR_RAY_GENERATED_ZOMBIE_SHOT_01_TEXTURE_SOURCE "${GEAR_RAY_GENERATED_DIR}/zombie_01_shot_01_texture.c")
+set(GEAR_RAY_GENERATED_ZOMBIE_SHOT_01_TEXTURE_HEADER "${GEAR_RAY_GENERATED_DIR}/zombie_01_shot_01_texture.h")
+set(GEAR_RAY_GENERATED_ZOMBIE_SHOT_01_TEXTURE_OBJECT "${CMAKE_BINARY_DIR}/generated_zombie_01_shot_01_texture.rel")
+set(GEAR_RAY_ZOMBIE_SHOT_02_TEXTURE_INPUT "${CMAKE_SOURCE_DIR}/assets/sprites/enemies/zombie/zombie_01_shot_02.png")
+set(GEAR_RAY_GENERATED_ZOMBIE_SHOT_02_TEXTURE_SOURCE "${GEAR_RAY_GENERATED_DIR}/zombie_01_shot_02_texture.c")
+set(GEAR_RAY_GENERATED_ZOMBIE_SHOT_02_TEXTURE_HEADER "${GEAR_RAY_GENERATED_DIR}/zombie_01_shot_02_texture.h")
+set(GEAR_RAY_GENERATED_ZOMBIE_SHOT_02_TEXTURE_OBJECT "${CMAKE_BINARY_DIR}/generated_zombie_01_shot_02_texture.rel")
+set(GEAR_RAY_ZOMBIE_SHOT_DEAD_TEXTURE_INPUT "${CMAKE_SOURCE_DIR}/assets/sprites/enemies/zombie/zombie_01_shot_dead.png")
+set(GEAR_RAY_GENERATED_ZOMBIE_SHOT_DEAD_TEXTURE_SOURCE "${GEAR_RAY_GENERATED_DIR}/zombie_01_shot_dead_texture.c")
+set(GEAR_RAY_GENERATED_ZOMBIE_SHOT_DEAD_TEXTURE_HEADER "${GEAR_RAY_GENERATED_DIR}/zombie_01_shot_dead_texture.h")
+set(GEAR_RAY_GENERATED_ZOMBIE_SHOT_DEAD_TEXTURE_OBJECT "${CMAKE_BINARY_DIR}/generated_zombie_01_shot_dead_texture.rel")
+set(GEAR_RAY_ZOMBIE_CORPS_TEXTURE_INPUT "${CMAKE_SOURCE_DIR}/assets/sprites/enemies/zombie/zombie_01_corps.png")
+set(GEAR_RAY_GENERATED_ZOMBIE_CORPS_TEXTURE_SOURCE "${GEAR_RAY_GENERATED_DIR}/zombie_01_corps_texture.c")
+set(GEAR_RAY_GENERATED_ZOMBIE_CORPS_TEXTURE_HEADER "${GEAR_RAY_GENERATED_DIR}/zombie_01_corps_texture.h")
+set(GEAR_RAY_GENERATED_ZOMBIE_CORPS_TEXTURE_OBJECT "${CMAKE_BINARY_DIR}/generated_zombie_01_corps_texture.rel")
 set(GEAR_RAY_WEAPON_TEXTURE_INPUT "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/gun_12x12.png")
 set(GEAR_RAY_GENERATED_WEAPON_TEXTURE_SOURCE "${GEAR_RAY_GENERATED_DIR}/weapon_texture.c")
 set(GEAR_RAY_GENERATED_WEAPON_TEXTURE_HEADER "${GEAR_RAY_GENERATED_DIR}/weapon_texture.h")
 set(GEAR_RAY_GENERATED_WEAPON_TEXTURE_OBJECT "${CMAKE_BINARY_DIR}/generated_weapon_texture.rel")
+set(GEAR_RAY_WEAPON_SHOOT_TEXTURE_INPUT "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/gun_shoot_12x12.png")
+set(GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_SOURCE "${GEAR_RAY_GENERATED_DIR}/weapon_shoot_texture.c")
+set(GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_HEADER "${GEAR_RAY_GENERATED_DIR}/weapon_shoot_texture.h")
+set(GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_OBJECT "${CMAKE_BINARY_DIR}/generated_weapon_shoot_texture.rel")
 set(GEAR_RAY_VRAM_LAYOUT_HEADER "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/vram_layout.h")
 set(GEAR_RAY_IHX "${CMAKE_BINARY_DIR}/GearRay.ihx")
 set(GEAR_RAY_ROM_DIR "${CMAKE_SOURCE_DIR}/rom")
@@ -144,6 +170,7 @@ add_custom_command(
             -mz80
             -DTARGET_GG
             ${GEAR_RAY_RENDERER_PROFILE_DEFINE}
+            ${GEAR_RAY_RENDERER_PROFILE_SIZE_OPTIMIZATION}
             "-I${GEAR_RAY_SMSLIB_INCLUDE}"
             "-I${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}"
             "-I${GEAR_RAY_GAME_DIR}"
@@ -151,7 +178,7 @@ add_custom_command(
             --peep-file "${GEAR_RAY_SMSLIB_INCLUDE}/peep-rules.txt"
             -c "${GEAR_RAY_MAIN_SOURCE}"
             -o "${GEAR_RAY_MAIN_OBJECT}"
-    DEPENDS "${GEAR_RAY_MAIN_SOURCE}" "${GEAR_RAY_CAMERA_HEADER}" "${GEAR_RAY_RAYCASTER_HEADER}" "${GEAR_RAY_WALL_SIDE_HEADER}" "${GEAR_RAY_INPUT_HEADER}" "${GEAR_RAY_PLAYER_HEADER}" "${GEAR_RAY_RED_DOOR_SWITCH_HEADER}" "${GEAR_RAY_VIDEO_HEADER}" "${GEAR_RAY_RENDERER_PROFILE_HEADER}" "${GEAR_RAY_WORLD_HEADER}" "${GEAR_RAY_WORKSHOP_MAP_HEADER}" "${GEAR_RAY_WORLD_OBJECT_HEADER}" "${GEAR_RAY_DOOR_INSTANCES_HEADER}" "${GEAR_RAY_DOOR_STATES_HEADER}" "${GEAR_RAY_SMSLIB_INCLUDE}/SMSlib.h"
+    DEPENDS "${GEAR_RAY_MAIN_SOURCE}" "${GEAR_RAY_CAMERA_HEADER}" "${GEAR_RAY_RAYCASTER_HEADER}" "${GEAR_RAY_WALL_SIDE_HEADER}" "${GEAR_RAY_INPUT_HEADER}" "${GEAR_RAY_HUD_WEAPON_HEADER}" "${GEAR_RAY_PLAYER_HEADER}" "${GEAR_RAY_RED_DOOR_SWITCH_HEADER}" "${GEAR_RAY_VIDEO_HEADER}" "${GEAR_RAY_RENDERER_PROFILE_HEADER}" "${GEAR_RAY_WORLD_HEADER}" "${GEAR_RAY_WORKSHOP_MAP_HEADER}" "${GEAR_RAY_WORLD_OBJECT_HEADER}" "${GEAR_RAY_DOOR_INSTANCES_HEADER}" "${GEAR_RAY_DOOR_STATES_HEADER}" "${GEAR_RAY_SMSLIB_INCLUDE}/SMSlib.h"
     COMMENT "Compiling game/main.c for Game Gear"
     VERBATIM
 )
@@ -175,6 +202,7 @@ add_custom_command(
             -mz80
             -DTARGET_GG
             ${GEAR_RAY_RENDERER_PROFILE_DEFINE}
+            ${GEAR_RAY_RENDERER_PROFILE_SIZE_OPTIMIZATION}
             "-I${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}"
             "-I${GEAR_RAY_GAME_DIR}"
             "-I${GEAR_RAY_RENDER_DIR}"
@@ -190,6 +218,7 @@ add_custom_command(
     COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
             -mz80
             -DTARGET_GG
+            ${GEAR_RAY_RENDERER_PROFILE_SIZE_OPTIMIZATION}
             "-I${GEAR_RAY_GAME_DIR}"
             -c "${GEAR_RAY_CAMERA_SOURCE}"
             -o "${GEAR_RAY_CAMERA_OBJECT}"
@@ -203,6 +232,7 @@ add_custom_command(
     COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
             -mz80
             -DTARGET_GG
+            ${GEAR_RAY_RENDERER_PROFILE_SIZE_OPTIMIZATION}
             "-I${GEAR_RAY_SMSLIB_INCLUDE}"
             "-I${GEAR_RAY_GAME_DIR}"
             --peep-file "${GEAR_RAY_SMSLIB_INCLUDE}/peep-rules.txt"
@@ -244,12 +274,17 @@ add_custom_command(
     COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
             -mz80
             -DTARGET_GG
+            ${GEAR_RAY_RENDERER_PROFILE_SIZE_OPTIMIZATION}
             "-I${GEAR_RAY_GAME_DIR}"
             "-I${GEAR_RAY_GENERATED_DIR}"
             -c "${GEAR_RAY_WORLD_SPRITE_SOURCE}"
             -o "${GEAR_RAY_WORLD_SPRITE_OBJECT}"
     DEPENDS "${GEAR_RAY_WORLD_SPRITE_SOURCE}" "${GEAR_RAY_WORLD_SPRITE_HEADER}"
             "${GEAR_RAY_GENERATED_SPRITE_TEXTURE_HEADER}"
+            "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_01_TEXTURE_HEADER}"
+            "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_02_TEXTURE_HEADER}"
+            "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_DEAD_TEXTURE_HEADER}"
+            "${GEAR_RAY_GENERATED_ZOMBIE_CORPS_TEXTURE_HEADER}"
     COMMENT "Compiling static world sprite"
     VERBATIM
 )
@@ -264,6 +299,25 @@ add_custom_command(
             -o "${GEAR_RAY_DOOR_INSTANCES_OBJECT}"
     DEPENDS "${GEAR_RAY_DOOR_INSTANCES_SOURCE}" "${GEAR_RAY_DOOR_INSTANCES_HEADER}"
     COMMENT "Compiling game/door_instances.c for Game Gear"
+    VERBATIM
+)
+
+add_custom_command(
+    OUTPUT "${GEAR_RAY_ZOMBIE_SHOOTING_OBJECT}"
+    COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
+            -mz80
+            -DTARGET_GG
+            "-I${GEAR_RAY_GAME_DIR}"
+            "-I${GEAR_RAY_ENGINE_DIR}/render"
+            --codeseg BANK1
+            -c "${GEAR_RAY_ZOMBIE_SHOOTING_SOURCE}"
+            -o "${GEAR_RAY_ZOMBIE_SHOOTING_OBJECT}"
+    DEPENDS "${GEAR_RAY_ZOMBIE_SHOOTING_SOURCE}"
+            "${GEAR_RAY_ZOMBIE_SHOOTING_HEADER}"
+            "${GEAR_RAY_WORLD_SPRITE_HEADER}"
+            "${GEAR_RAY_CAMERA_HEADER}"
+            "${GEAR_RAY_RAYCASTER_HEADER}"
+    COMMENT "Compiling banked zombie hitscan"
     VERBATIM
 )
 
@@ -286,6 +340,7 @@ add_custom_command(
             -mz80
             -DTARGET_GG
             ${GEAR_RAY_RENDERER_PROFILE_DEFINE}
+            ${GEAR_RAY_RENDERER_PROFILE_SIZE_OPTIMIZATION}
             "-I${GEAR_RAY_SMSLIB_INCLUDE}"
             "-I${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}"
             --peep-file "${GEAR_RAY_SMSLIB_INCLUDE}/peep-rules.txt"
@@ -311,6 +366,7 @@ add_custom_command(
             "${GEAR_RAY_HUD_WEAPON_HEADER}"
             "${GEAR_RAY_VIDEO_HEADER}"
             "${GEAR_RAY_GENERATED_WEAPON_TEXTURE_HEADER}"
+            "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_HEADER}"
     COMMENT "Compiling banked static HUD weapon overlay"
     VERBATIM
 )
@@ -323,6 +379,7 @@ add_custom_command(
             "-I${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}"
             "-I${GEAR_RAY_GAME_DIR}"
             --codeseg BANK1
+            --constseg BANK1
             -c "${GEAR_RAY_SPRITE_PROJECTION_SOURCE}"
             -o "${GEAR_RAY_SPRITE_PROJECTION_OBJECT}"
     DEPENDS "${GEAR_RAY_SPRITE_PROJECTION_SOURCE}"
@@ -340,6 +397,7 @@ add_custom_command(
             -mz80
             -DTARGET_GG
             ${GEAR_RAY_RENDERER_PROFILE_DEFINE}
+            ${GEAR_RAY_RENDERER_PROFILE_SIZE_OPTIMIZATION}
             "-I${GEAR_RAY_SMSLIB_INCLUDE}"
             "-I${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}"
             "-I${GEAR_RAY_GAME_DIR}"
@@ -359,6 +417,7 @@ add_custom_command(
             -mz80
             -DTARGET_GG
             ${GEAR_RAY_RENDERER_PROFILE_DEFINE}
+            ${GEAR_RAY_RENDERER_PROFILE_SIZE_OPTIMIZATION}
             "-I${GEAR_RAY_SMSLIB_INCLUDE}"
             "-I${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}"
             --codeseg BANK1
@@ -438,6 +497,40 @@ add_custom_command(
     VERBATIM
 )
 
+foreach(zombie_state IN ITEMS SHOT_01 SHOT_02 SHOT_DEAD CORPS)
+    string(TOLOWER "${zombie_state}" zombie_state_lower)
+    add_custom_command(
+        OUTPUT "${GEAR_RAY_GENERATED_ZOMBIE_${zombie_state}_TEXTURE_SOURCE}"
+               "${GEAR_RAY_GENERATED_ZOMBIE_${zombie_state}_TEXTURE_HEADER}"
+        COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}"
+                -NoProfile
+                -ExecutionPolicy Bypass
+                -File "${GEAR_RAY_SPRITE_TEXTURE_GENERATOR}"
+                -InputPath "${GEAR_RAY_ZOMBIE_${zombie_state}_TEXTURE_INPUT}"
+                -OutputSource "${GEAR_RAY_GENERATED_ZOMBIE_${zombie_state}_TEXTURE_SOURCE}"
+                -OutputHeader "${GEAR_RAY_GENERATED_ZOMBIE_${zombie_state}_TEXTURE_HEADER}"
+                -Symbol "zombie_01_${zombie_state_lower}_pixels"
+        DEPENDS "${GEAR_RAY_ZOMBIE_${zombie_state}_TEXTURE_INPUT}"
+                "${GEAR_RAY_SPRITE_TEXTURE_GENERATOR}"
+        COMMENT "Generating packed zombie ${zombie_state_lower} sprite"
+        VERBATIM
+    )
+
+    add_custom_command(
+        OUTPUT "${GEAR_RAY_GENERATED_ZOMBIE_${zombie_state}_TEXTURE_OBJECT}"
+        COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
+                -mz80
+                "-I${GEAR_RAY_GENERATED_DIR}"
+                --constseg BANK1
+                -c "${GEAR_RAY_GENERATED_ZOMBIE_${zombie_state}_TEXTURE_SOURCE}"
+                -o "${GEAR_RAY_GENERATED_ZOMBIE_${zombie_state}_TEXTURE_OBJECT}"
+        DEPENDS "${GEAR_RAY_GENERATED_ZOMBIE_${zombie_state}_TEXTURE_SOURCE}"
+                "${GEAR_RAY_GENERATED_ZOMBIE_${zombie_state}_TEXTURE_HEADER}"
+        COMMENT "Compiling generated zombie ${zombie_state_lower} sprite"
+        VERBATIM
+    )
+endforeach()
+
 add_custom_command(
     OUTPUT "${GEAR_RAY_GENERATED_WEAPON_TEXTURE_OBJECT}"
     COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
@@ -453,10 +546,43 @@ add_custom_command(
 )
 
 add_custom_command(
+    OUTPUT "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_SOURCE}"
+           "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_HEADER}"
+    COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}"
+            -NoProfile
+            -ExecutionPolicy Bypass
+            -File "${GEAR_RAY_SPRITE_TEXTURE_GENERATOR}"
+            -InputPath "${GEAR_RAY_WEAPON_SHOOT_TEXTURE_INPUT}"
+            -OutputSource "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_SOURCE}"
+            -OutputHeader "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_HEADER}"
+            -Symbol hud_weapon_shoot_pixels
+            -SpriteKind HudWeapon
+    DEPENDS "${GEAR_RAY_WEAPON_SHOOT_TEXTURE_INPUT}"
+            "${GEAR_RAY_SPRITE_TEXTURE_GENERATOR}"
+    COMMENT "Generating packed shooting HUD weapon"
+    VERBATIM
+)
+
+add_custom_command(
+    OUTPUT "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_OBJECT}"
+    COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
+            -mz80
+            "-I${GEAR_RAY_GENERATED_DIR}"
+            --constseg BANK1
+            -c "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_SOURCE}"
+            -o "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_OBJECT}"
+    DEPENDS "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_SOURCE}"
+            "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_HEADER}"
+    COMMENT "Compiling generated shooting HUD weapon"
+    VERBATIM
+)
+
+add_custom_command(
     OUTPUT "${GEAR_RAY_GENERATED_SPRITE_TEXTURE_OBJECT}"
     COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
             -mz80
             "-I${GEAR_RAY_GENERATED_DIR}"
+            --constseg BANK1
             -c "${GEAR_RAY_GENERATED_SPRITE_TEXTURE_SOURCE}"
             -o "${GEAR_RAY_GENERATED_SPRITE_TEXTURE_OBJECT}"
     DEPENDS "${GEAR_RAY_GENERATED_SPRITE_TEXTURE_SOURCE}"
@@ -471,6 +597,7 @@ add_custom_command(
             -mz80
             -DTARGET_GG
             ${GEAR_RAY_RENDERER_PROFILE_DEFINE}
+            ${GEAR_RAY_RENDERER_PROFILE_SIZE_OPTIMIZATION}
             "-I${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}"
             "-I${GEAR_RAY_GENERATED_DIR}"
             --peep-file "${GEAR_RAY_SMSLIB_INCLUDE}/peep-rules.txt"
@@ -514,6 +641,7 @@ add_custom_command(
     COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
             -mz80
             -DTARGET_GG
+            ${GEAR_RAY_RENDERER_PROFILE_SIZE_OPTIMIZATION}
             "-I${GEAR_RAY_SMSLIB_INCLUDE}"
             "-I${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}"
             "-I${GEAR_RAY_GAME_DIR}"
@@ -530,6 +658,7 @@ add_custom_command(
     COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
             -mz80
             -DTARGET_GG
+            ${GEAR_RAY_RENDERER_PROFILE_SIZE_OPTIMIZATION}
             "-I${GEAR_RAY_SMSLIB_INCLUDE}"
             "-I${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}"
             --peep-file "${GEAR_RAY_SMSLIB_INCLUDE}/peep-rules.txt"
@@ -558,6 +687,7 @@ add_custom_command(
             "${GEAR_RAY_WORKSHOP_MAP_OBJECT}"
             "${GEAR_RAY_WORLD_OBJECTS_OBJECT}"
             "${GEAR_RAY_WORLD_SPRITE_OBJECT}"
+            "${GEAR_RAY_ZOMBIE_SHOOTING_OBJECT}"
             "${GEAR_RAY_DOOR_INSTANCES_OBJECT}"
             "${GEAR_RAY_DOOR_STATES_OBJECT}"
             "${GEAR_RAY_INPUT_OBJECT}"
@@ -568,12 +698,17 @@ add_custom_command(
             "${GEAR_RAY_WALL_TEXTURES_OBJECT}"
             "${GEAR_RAY_GENERATED_WALL_TEXTURE_OBJECT}"
             "${GEAR_RAY_GENERATED_SPRITE_TEXTURE_OBJECT}"
+            "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_01_TEXTURE_OBJECT}"
+            "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_02_TEXTURE_OBJECT}"
+            "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_DEAD_TEXTURE_OBJECT}"
+            "${GEAR_RAY_GENERATED_ZOMBIE_CORPS_TEXTURE_OBJECT}"
             "${GEAR_RAY_GENERATED_WEAPON_TEXTURE_OBJECT}"
+            "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_OBJECT}"
             "${GEAR_RAY_SMSLIB_LIBRARY}"
             "${GEAR_RAY_INTERACTION_RAY_OBJECT}"
             "${GEAR_RAY_WORLD_INTERACTIONS_OBJECT}"
             ${GEAR_RAY_RENDERER_PROFILE_LINK_OBJECT}
-    DEPENDS "${GEAR_RAY_MAIN_OBJECT}" "${GEAR_RAY_CAMERA_OBJECT}" "${GEAR_RAY_RAYCASTER_OBJECT}" "${GEAR_RAY_PLAYER_OBJECT}" "${GEAR_RAY_RED_DOOR_SWITCH_OBJECT}" "${GEAR_RAY_INTERACTION_RAY_OBJECT}" "${GEAR_RAY_WORLD_INTERACTIONS_OBJECT}" "${GEAR_RAY_WORLD_OBJECT}" "${GEAR_RAY_WORKSHOP_MAP_OBJECT}" "${GEAR_RAY_WORLD_OBJECTS_OBJECT}" "${GEAR_RAY_WORLD_SPRITE_OBJECT}" "${GEAR_RAY_DOOR_INSTANCES_OBJECT}" "${GEAR_RAY_DOOR_STATES_OBJECT}" "${GEAR_RAY_INPUT_OBJECT}" "${GEAR_RAY_VIDEO_OBJECT}" "${GEAR_RAY_HUD_WEAPON_OBJECT}" "${GEAR_RAY_SPRITE_PROJECTION_OBJECT}" "${GEAR_RAY_RENDER_TEXTURES_OBJECT}" ${GEAR_RAY_RENDERER_PROFILE_LINK_OBJECT} "${GEAR_RAY_WALL_TEXTURES_OBJECT}" "${GEAR_RAY_GENERATED_WALL_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_SPRITE_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_WEAPON_TEXTURE_OBJECT}" "${GEAR_RAY_CRT0}" "${GEAR_RAY_SMSLIB_LIBRARY}"
+    DEPENDS "${GEAR_RAY_MAIN_OBJECT}" "${GEAR_RAY_CAMERA_OBJECT}" "${GEAR_RAY_RAYCASTER_OBJECT}" "${GEAR_RAY_PLAYER_OBJECT}" "${GEAR_RAY_RED_DOOR_SWITCH_OBJECT}" "${GEAR_RAY_INTERACTION_RAY_OBJECT}" "${GEAR_RAY_WORLD_INTERACTIONS_OBJECT}" "${GEAR_RAY_WORLD_OBJECT}" "${GEAR_RAY_WORKSHOP_MAP_OBJECT}" "${GEAR_RAY_WORLD_OBJECTS_OBJECT}" "${GEAR_RAY_WORLD_SPRITE_OBJECT}" "${GEAR_RAY_ZOMBIE_SHOOTING_OBJECT}" "${GEAR_RAY_DOOR_INSTANCES_OBJECT}" "${GEAR_RAY_DOOR_STATES_OBJECT}" "${GEAR_RAY_INPUT_OBJECT}" "${GEAR_RAY_VIDEO_OBJECT}" "${GEAR_RAY_HUD_WEAPON_OBJECT}" "${GEAR_RAY_SPRITE_PROJECTION_OBJECT}" "${GEAR_RAY_RENDER_TEXTURES_OBJECT}" ${GEAR_RAY_RENDERER_PROFILE_LINK_OBJECT} "${GEAR_RAY_WALL_TEXTURES_OBJECT}" "${GEAR_RAY_GENERATED_WALL_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_SPRITE_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_01_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_02_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_DEAD_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_CORPS_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_WEAPON_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_OBJECT}" "${GEAR_RAY_CRT0}" "${GEAR_RAY_SMSLIB_LIBRARY}"
     COMMENT "Linking GearRay for Game Gear"
     VERBATIM
 )
@@ -609,7 +744,24 @@ add_custom_target(gear_ray_validate_workshop
     VERBATIM
 )
 add_custom_target(gear_ray_game ALL DEPENDS "${GEAR_RAY_ROM}")
-add_dependencies(gear_ray_game gear_ray_engine gear_ray_validate_workshop)
+add_custom_target(gear_ray_validate_zombie_shooting
+    COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}"
+            -NoProfile
+            -ExecutionPolicy Bypass
+            -File "${GEAR_RAY_ZOMBIE_SHOOTING_VALIDATOR}"
+    DEPENDS "${GEAR_RAY_ZOMBIE_SHOOTING_VALIDATOR}"
+            "${GEAR_RAY_WORLD_SPRITE_SOURCE}"
+            "${GEAR_RAY_WORLD_SPRITE_HEADER}"
+            "${GEAR_RAY_ZOMBIE_SHOOTING_SOURCE}"
+            "${GEAR_RAY_ZOMBIE_SHOOTING_HEADER}"
+            "${GEAR_RAY_MAIN_SOURCE}"
+            "${GEAR_RAY_INPUT_SOURCE}"
+            "${GEAR_RAY_SPRITE_PROJECTION_SOURCE}"
+    COMMENT "Validating zombie hitscan and death states"
+    VERBATIM
+)
+add_dependencies(gear_ray_game gear_ray_engine gear_ray_validate_workshop
+                 gear_ray_validate_zombie_shooting)
 
 add_custom_target(gear_ray_info ALL
     COMMAND "${CMAKE_COMMAND}" -E echo "GearRay Game Gear ROM: ${GEAR_RAY_ROM}"

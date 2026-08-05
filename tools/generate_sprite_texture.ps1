@@ -10,7 +10,7 @@ $ErrorActionPreference = "Stop"
 Add-Type -AssemblyName System.Drawing
 
 $expectedSize = if ($SpriteKind -eq 'HudWeapon') { 12 } else { 8 }
-$transparentIndex = if ($SpriteKind -eq 'HudWeapon') { 6 } else { 15 }
+$transparentIndex = if ($SpriteKind -eq 'HudWeapon') { 14 } else { 15 }
 $bitmap = [System.Drawing.Bitmap]::new($InputPath)
 try {
     if ($bitmap.Width -ne $expectedSize -or $bitmap.Height -ne $expectedSize) {
@@ -38,6 +38,8 @@ try {
                     '#ad3e00' { 1; break }
                     '#4d4d4d' { 2; break }
                     '#797878' { 3; break }
+                    '#b51a00' { 5; break }
+                    '#785700' { 6; break }
                     '#ffc4ab' { 11; break }
                     '#ffa57d' { 15; break }
                     '#1a1a1a' { 13; break }

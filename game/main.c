@@ -1,27 +1,31 @@
 #include "SMSlib.h"
 #include "camera.h"
 #include "input.h"
+#include "hud_weapon.h"
 #include "player.h"
 #include "red_door_switch.h"
 #include "raycaster.h"
 #include "renderer_profile.h"
 #include "video.h"
 #include "world.h"
+#include "world_sprite.h"
+#include "zombie_shooting.h"
 
 SMS_EMBED_SEGA_ROM_HEADER(0, 0);
+
+static unsigned char pending_shot;
 
 void main(void)
 {
     signed char forward_direction;
     signed char strafe_direction;
     signed char rotation_direction;
-#ifdef GEARRAY_PROFILE_RENDERER
-    signed int direction_x_before_rotation;
-    signed int direction_y_before_rotation;
-#endif
+    unsigned char shoot_requested;
 
     game_gear_video_initialize();
     game_gear_input_initialize();
+    game_gear_hud_weapon_initialize();
+    pending_shot = 0;
     world_initialize();
     player_initialize();
     camera_initialize();
@@ -41,8 +45,6 @@ void main(void)
 #if GEARRAY_DEBUG_VIEWPORT_BORDER
     game_gear_video_draw_viewport_border();
 #endif
-    SMS_autoSetUpTextRenderer();
-    game_gear_video_load_background_palette();
     SMS_displayOff();
     SMS_waitForVBlank();
     SMS_displayOn();
@@ -53,26 +55,18 @@ void main(void)
         game_gear_renderer_profile_begin_frame();
 #endif
         game_gear_input_update();
+        world_sprites_update();
+        shoot_requested = input_shoot_requested();
+        game_gear_hud_weapon_update(shoot_requested);
         rotation_direction = input_get_rotation_intent();
 
-#ifdef GEARRAY_PROFILE_RENDERER
-        direction_x_before_rotation = camera_get_direction_x();
-        direction_y_before_rotation = camera_get_direction_y();
-#endif
         if (rotation_direction < 0)
             camera_rotate_left();
         else if (rotation_direction > 0)
             camera_rotate_right();
 #ifdef GEARRAY_PROFILE_RENDERER
         if (rotation_direction != 0)
-        {
             GEAR_RAY_PROFILE_INCREMENT(rotation_steps);
-            if (camera_get_direction_x() == direction_x_before_rotation
-                && camera_get_direction_y() == direction_y_before_rotation)
-            {
-                GEAR_RAY_PROFILE_INCREMENT(repeated_rotation_directions);
-            }
-        }
 #endif
 
         forward_direction = input_get_forward_intent();
@@ -89,10 +83,10 @@ void main(void)
         red_door_switch_update();
 
         raycaster_update();
+        if (pending_shot)
+            zombie_shooting_process();
+        pending_shot = shoot_requested;
         SMS_waitForVBlank();
         game_gear_video_draw_wall_columns();
-#ifdef GEARRAY_PROFILE_RENDERER
-        game_gear_renderer_profile_end_frame();
-#endif
     }
 }

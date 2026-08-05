@@ -72,7 +72,6 @@ unsigned char game_gear_wall_texture_palette_sample_next(
     unsigned char indexed_color;
     unsigned int byte_offset;
 
-    GEAR_RAY_PROFILE_INCREMENT(sampler_calls);
 
     if (screen_y < sampler->wall_top ||
         screen_y >= sampler->wall_bottom)
@@ -97,7 +96,6 @@ unsigned char game_gear_wall_texture_palette_sample_next(
         indexed_color >>= 4;
 
     GEAR_RAY_PROFILE_INCREMENT(texture_samples);
-    GEAR_RAY_PROFILE_INCREMENT(palette_lookups);
     indexed_color &= 15;
     if (indexed_color >= WALL_TEXTURE_COLOR_COUNT)
         indexed_color = 0;

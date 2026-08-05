@@ -19,17 +19,17 @@
 static const unsigned char workshop_map
     [WORKSHOP_MAP_HEIGHT][WORKSHOP_MAP_WIDTH] = {
     { X, X, X, X, X, S, B, S, X, X, X, X, X },
-    { X, X, X, X, X, S, E, S, X, X, X, X, X },
+    { X, X, X, X, X, S, Z, S, X, X, X, X, X },
     { X, X, X, X, X, B, R, S, X, X, X, X, X },
     { X, X, X, X, S, E, E, E, S, X, X, X, X },
     { X, S, B, S, S, S, D, S, S, S, B, S, X },
     { X, S, E, E, E, E, E, E, E, E, E, S, X },
-    { B, E, E, E, E, E, E, E, E, E, E, E, S },
+    { B, Z, E, E, E, E, E, E, E, E, E, E, S },
     { X, S, E, E, E, E, E, E, E, E, E, S, X },
     { X, S, B, S, S, B, D, S, S, S, S, S, X },
     { X, X, X, X, S, E, E, E, S, X, X, X, X },
-    { X, X, X, X, S, E, Z, E, B, X, X, X, X },
-    { X, X, X, X, S, E, E, E, S, X, X, X, X },
+    { X, X, X, X, S, E, E, E, B, X, X, X, X },
+    { X, X, X, X, S, Z, E, Z, S, X, X, X, X },
     { X, X, X, X, S, B, W, S, S, X, X, X, X }
 };
 
