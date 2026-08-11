@@ -16,6 +16,9 @@ are retained as historical milestones.
   hit reactions, death/corpse states, and deterministic render budgeting.
 - Press-edge pistol combat with projected-footprint acquisition and exact
   one- through four-shot damage bands.
+- LOS-driven zombie activation and pursuit with distance hysteresis,
+  door-aware collision, player/living-zombie separation, and zero-byte
+  per-zombie packed chase state.
 - Public-release documentation and open-source project guidance.
 - Acknowledgements, third-party notices, contributing guidance, security
   policy, and asset provenance record.

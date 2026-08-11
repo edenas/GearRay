@@ -18,8 +18,9 @@ Historical renderer captures are available in [`artifacts/`](artifacts/).
 ## Current Status
 
 The hardware-tested **Engine Foundation v1.0.0** now includes the accepted
-multi-zombie rendering and pistol-combat milestone. It preserves the
-established renderer, movement, interaction, and ROM-banking contracts.
+multi-zombie rendering, pistol-combat, and LOS-driven pursuit milestones. It
+preserves the established renderer, movement, interaction, and ROM-banking
+contracts.
 
 GearRay is an engine foundation and workshop ROM, not yet a complete game.
 
@@ -41,6 +42,11 @@ GearRay is an engine foundation and workshop ROM, not yet a complete game.
 - Press-edge pistol shooting with renderer-aligned target depth, cumulative
   12-point packed zombie health, projected-footprint aiming, and cumulative
   one- through four-shot damage across the exact 36/28/17/13 height bands.
+- Deterministic zombie awareness and pursuit: clear-LOS activation within 963
+  world units, loss beyond 1260 or behind blocking geometry, and integer-only
+  dominant-axis movement at 3.28125 tiles per second.
+- Door-aware enemy collision with player and living-zombie separation; hit
+  reactions pause pursuit, while death and corpses remain stationary.
 - One shared 16-entry BG master palette for the complete software-composited
   scene; the hardware-sprite palette remains unused.
 - Complete first-frame preparation before the direct-to-game display becomes
@@ -127,7 +133,7 @@ the Engine Foundation contracts.
 - SDCC and devkitSMS must be installed separately.
 - The devkitSMS revision is not yet pinned.
 - The ROM is a technical workshop rather than a finished game.
-- Zombie movement, AI, walking/attack animation, collision, audio, save data,
+- Zombie attacks, player health, walking/attack animation, audio, save data,
   menu gameplay, and complete progression are not yet implemented.
 - Some asset ownership and release status still requires confirmation; see the
   [asset provenance record](docs/ASSET_PROVENANCE.md).

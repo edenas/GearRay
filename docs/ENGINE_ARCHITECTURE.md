@@ -476,7 +476,8 @@ World initialization extracts every authored `Z` marker, up to
 `WORLD_SPRITE_MAX_COUNT` (8), places its sprite at the tile centre, and exposes
 the underlying runtime tile as `EMPTY`. Each nine-byte `WorldSprite` stores
 position, presentation state, a texture pointer, a timer, and one packed byte:
-health `0..12` in the low nibble and successful-hit count in the high nibble.
+health in bits 0-3, successful-hit count in bits 4-6, and the AI chasing flag
+in bit 7.
 
 The Bank 1 projection pass applies the renderer's fixed-point inverse camera
 transform to every sprite. Horizontal placement uses scale 80 around viewport
@@ -527,6 +528,45 @@ frames, then return to standing without changing health. A rapid hit replaces
 and restarts that reaction. Lethal damage clamps health to zero, holds
 `SHOT_DEAD` for four rendered frames, then enters persistent `CORPSE` state.
 Misses, hidden targets, walls, and corpses do not change health.
+
+### Zombie awareness and pursuit
+
+Living zombies begin idle. An idle zombie enters chasing only when its cheap
+integer distance is at most 963 world units and one tile-Bresenham LOS reaches
+the player. Once chasing, it tracks the player's current position until the
+distance exceeds 1260 or LOS becomes blocked; it then stops at its current
+position without following a remembered target. This hysteresis permits later
+reactivation while preventing distant silhouettes from becoming aware.
+
+LOS delegates every traversed cell to `world_is_wall()`. Static walls, VOID,
+closed standard doors, and the closed red door therefore block awareness,
+while open doors permit it. Presentation culling and render-budget rejection
+do not affect AI state.
+
+The resident main loop owns one cadence byte and makes one banked
+`zombie_ai_update_all()` call every four gameplay frames, approximately 15
+times per second at 60 fps. The BANK1 coordinator iterates all zombies; there
+is no per-zombie bank transition and no nested banked call. On each admitted
+tick, an alive chasing zombie takes one 56-unit dominant-axis Q8.8 step toward
+the current player position. This is 840 world units or 3.28125 tiles per
+second, substantially slower than player movement, and requires no floating
+point, trigonometry, square root, or vector normalization.
+
+`enemy_position_is_walkable()` is the narrow BANK1 enemy/world collision API.
+It uses `world_is_wall()` for bounds, static walls, and live door state with a
+32-unit zombie radius. Candidate movement also preserves 64 units of body
+separation from the player and directly checks at most seven other living
+zombies. `SHOT_DEAD` sprites and corpses do not block, so a larger occupancy
+system is not justified for the eight-sprite maximum.
+
+The three-frame living hit reaction pauses movement without clearing the
+packed chasing flag. Pursuit resumes when the reaction expires if awareness
+conditions still hold. Lethal damage immediately prevents further AI work;
+`SHOT_DEAD` and `CORPSE` never move.
+
+Moving sprites use the renderer's existing union of old/current coverage and
+texture-change invalidation. The AI introduces no VRAM path or full-viewport
+redraw, although movement can increase data-dependent dirty-column work.
 
 ### First-person HUD weapon composition
 
@@ -845,7 +885,8 @@ are defined in `docs/ROM_BANKING.md`.
 The workshop map, multi-zombie extraction, billboard LOD renderer,
 distance-scaled pistol combat, world/material/object boundaries, interaction
 ray, toggleable yellow doors, and switch-activated red door are implemented.
-Zombies remain stationary targets rather than a complete enemy/AI system.
+Zombies implement LOS-driven activation and direct pursuit, but do not yet
+attack the player.
 
 Normal movement and combined movement/rotation use the same translation speed.
 Forward/backward translation and left/right rotation remain symmetrical by
@@ -854,23 +895,16 @@ optional diagnostic configuration rather than a shipping feature.
 
 ## Future work
 
-Before implementing zombie AI, evaluate a narrow reusable movement/collision
-query rather than duplicating player-only collision. It should eventually
-cover static walls, door state, world bounds, the player body, and other enemy
-bodies where appropriate. With at most eight sprites, first test direct
-active-sprite position comparisons for enemy blocking instead of assuming a
-persistent occupancy grid is necessary.
-
 Moving-zombie measurements should trigger another renderer review if practical
 frames repeatedly approach 10–12 dirty columns, 80–96 regenerated tiles, or
-about 2.5–3 KiB of pattern traffic. Profile Bank 0 currently has only 159 bytes
-free, so future AI should prefer safe Bank 1 placement and avoid adding
-multiple normal-frame bank transitions per zombie.
+about 2.5–3 KiB of pattern traffic. Profile Bank 0 currently has only 103 bytes
+free, so attack work must audit resident growth before adding code.
 
 - **Doors:** add animation, timing, obstruction rules, and audiovisual feedback
   beyond the accepted instantaneous open/closed state.
-- **Enemies and AI:** add movement, navigation, perception, attacks, collision,
-  and walking/attack animation to the accepted stationary zombies.
+- **Zombie attacks:** evaluate melee range, cooldown, player health, attack
+  animation, hit feedback, `state_timer` ownership, Bank 0 capacity, and
+  moving-zombie dirty-column pressure before implementation.
 - **Weapons:** add ammunition, recoil, switching, and additional weapons around
   the accepted press-edge pistol and firing frame.
 - **Sprites:** extend deterministic multi-sprite presentation to moving actors.

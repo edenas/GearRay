@@ -59,7 +59,7 @@ The first banked build is a 32 KiB ROM containing two physical banks:
 | Bank | Current responsibility | Current contents |
 | ---: | --- | --- |
 | 0 | Fixed resident engine | Reset/interrupt support, SMSlib, main loop, input, player, camera, raycaster, renderer, world queries, door state and bank trampolines |
-| 1 | Cold gameplay, startup/sprite/HUD presentation, textures, and diagnostics | `world_interactions.c`, `interaction_ray.c`, `zombie_shooting.c`, `sprite_projection.c`, `startup_logo.c`, `hud_weapon.c`, SEGA logo data, LOD tables, full zombie and weapon textures, optional renderer-profile reporting, and the 32 KiB Sega header at file/CPU address `0x7FF0` |
+| 1 | Cold gameplay, startup/sprite/HUD presentation, textures, and diagnostics | `world_interactions.c`, `interaction_ray.c`, `zombie_shooting.c`, `zombie_ai.c`, `enemy_collision.c`, `sprite_projection.c`, `startup_logo.c`, `hud_weapon.c`, SEGA logo data, LOD tables, full zombie and weapon textures, optional renderer-profile reporting, and the 32 KiB Sega header at file/CPU address `0x7FF0` |
 
 The linked `_BANK1` code segment starts at virtual address `0x14000`. SDCC and
 `makesms` translate that virtual segment into physical ROM Bank 1, visible to
@@ -73,19 +73,18 @@ The current finalized engine baseline reports:
 | Resource | Release | Profile |
 | --- | ---: | ---: |
 | Total ROM file | 32,768 bytes (2 banks) | 32,768 bytes (2 banks) |
-| Used ROM content | 23,623 bytes | 23,806 bytes |
-| Bank 0 used/free | 16,059 / 325 bytes | 16,225 / 159 bytes |
-| Bank 1 used/free | 7,548 / 8,820 bytes | 7,565 / 8,803 bytes |
-| Persistent RAM, including initialized data | 1,212 bytes | 1,237 bytes |
+| Used ROM content | 25,232 bytes | 25,243 bytes |
+| Bank 0 used/free | 16,287 / 97 bytes | 16,281 / 103 bytes |
+| Bank 1 used/free | 8,945 / 7,439 bytes | 8,962 / 7,422 bytes |
+| Persistent RAM, including initialized data | 1,213 bytes | 1,238 bytes |
 
-The Release fixed segments end exclusively at `0x3EBB`; Profile fixed segments
-end exclusively at `0x3F61`. Both remain below the `0x4000` Bank 0 boundary.
-The measured Release SHA-256 is
-`8BB4EF2094223215E3E4477CE014C3984FC87A35AB3474C0DFBEEC0CC65A512B`.
+The Release fixed segments end exclusively at `0x3F8A`; Profile fixed segments
+end exclusively at `0x3F84`. Both remain below the `0x4000` Bank 0 boundary.
 
-Profile Bank 0 has only 159 bytes free. This is a capacity constraint, not a
-runtime failure. Future resident growth should first consider moving clearly
-cold startup or debug code to Bank 1; the hot renderer should remain resident.
+Release and Profile Bank 0 have only 97 and 103 bytes free. This is a capacity
+constraint, not a runtime failure. Future resident growth should first
+consider moving clearly cold startup or debug code to Bank 1; the hot renderer
+should remain resident.
 
 The single-bank baseline had 35 free Bank 0 bytes. This first migration pays a
 one-time resident cost for SDCC's bank-call support: the 43-byte resident
@@ -126,6 +125,11 @@ Zombie projection, render-budget selection, and shooting target selection are
 cohesive Bank 1 calls. All five linked full-detail zombie textures are also in
 Bank 1 and are consumed while the projection bank is mapped; resident tile
 composition uses the selected packed presentation prepared for the frame.
+
+Zombie AI and its reusable enemy collision query are also in Bank 1. The main
+loop makes one `zombie_ai_update_all()` transition every four frames; the
+coordinator processes all zombies and calls resident world/sprite/player
+queries normally. There is no per-zombie transition and no nested banked call.
 
 The HUD weapon compositor and both padded 96-byte idle/firing textures reside
 in Bank 1. Bank calls occur only for weapon tiles already being regenerated;
@@ -297,7 +301,7 @@ switch-controlled red door.
 - The current low-frequency interaction ray and interaction dispatcher cross
   the bank boundary. More complex nested and cross-bank call graphs have not
   yet been validated in GearRay.
-- Release Bank 0 has 325 free bytes and Profile Bank 0 has 159 free bytes. New
+- Release Bank 0 has 97 free bytes and Profile Bank 0 has 103 free bytes. New
   resident features require deliberate space management; clearly cold
   startup/debug code should be evaluated for Bank 1 before hot renderer code.
 - Bank switching has nonzero latency and changes mapper state. It must not be
