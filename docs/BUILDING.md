@@ -183,6 +183,9 @@ powershell -NoProfile -ExecutionPolicy Bypass `
 powershell -NoProfile -ExecutionPolicy Bypass `
   -File tools/validate_startup_order.ps1
 
+powershell -NoProfile -ExecutionPolicy Bypass `
+  -File tools/validate_zombie_shooting.ps1
+
 git diff --check
 ```
 
@@ -201,7 +204,7 @@ For a release candidate:
 2. Build release and profiling configurations.
 3. Run the workshop-map, exhaustive 65,536-state controls, ray-direction,
    renderer-equivalence, sprite-renderer, complete palette/weapon-decoding,
-   and startup-order validators.
+   startup-order, and zombie-shooting validators.
 4. Review SDCC warnings against the documented Engine Foundation baseline.
 5. Confirm both ROMs are 32 KiB and contain a valid `TMR SEGA` header.
 6. Test the release ROM in a Game Gear emulator.

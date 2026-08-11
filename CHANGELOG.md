@@ -11,10 +11,15 @@ are retained as historical milestones.
 
 ### Added
 
+- A centred SEGA startup logo with an isolated palette and 180-frame hold.
+- Multi-zombie state-aware LOD rendering, packed cumulative health, temporary
+  hit reactions, death/corpse states, and deterministic render budgeting.
+- Press-edge pistol combat with projected-footprint acquisition and exact
+  one- through four-shot damage bands.
 - Public-release documentation and open-source project guidance.
 - Acknowledgements, third-party notices, contributing guidance, security
   policy, and asset provenance record.
-- A static first-person HUD weapon with transparent 3× nearest-neighbor
+- A static first-person HUD weapon with transparent 2× nearest-neighbor
   screen-space composition.
 
 ### Changed

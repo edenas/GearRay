@@ -25,6 +25,8 @@ GearRay is an engine foundation and workshop ROM, not yet a complete game.
 
 ## Features
 
+- An isolated SEGA startup presentation on black using its own palette and a
+  180-frame hold before gameplay initialization begins.
 - Centred 112×64 first-person viewport with 28 rays.
 - Deterministic fixed-point movement, rotation, collision, and raycasting.
 - Native Game Gear tile rendering with indexed-colour wall textures.
@@ -37,7 +39,8 @@ GearRay is an engine foundation and workshop ROM, not yet a complete game.
   compositor at exactly 24×24 with shift-based 2× nearest-neighbor scaling and
   transparent pixels, with idle and firing frames.
 - Press-edge pistol shooting with renderer-aligned target depth, cumulative
-  12-point zombie health, and distance-scaled one- through four-shot damage.
+  12-point packed zombie health, projected-footprint aiming, and cumulative
+  one- through four-shot damage across the exact 36/28/17/13 height bands.
 - One shared 16-entry BG master palette for the complete software-composited
   scene; the hardware-sprite palette remains unused.
 - Complete first-frame preparation before the direct-to-game display becomes

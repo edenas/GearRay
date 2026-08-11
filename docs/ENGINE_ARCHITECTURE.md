@@ -23,15 +23,13 @@ that coordinates input, player movement, camera rotation, interaction,
 raycasting, VBlank synchronization, and drawing. It does not contain rendering
 or collision algorithms.
 
-The current direct-to-game boot keeps display output disabled while gameplay
-VDP state, world, player, camera, raycaster, and the complete first gameplay
-frame are initialized. The optional white debug border is uploaded once.
-SMSlib text setup occurs only after that complete frame exists; the master BG
-palette is then restored exactly once, its implicit display enable is blanked
-again, VBlank is awaited, and display is deliberately enabled. This temporary
-sequence must be reviewed when startup becomes
-`logo -> main menu -> intro -> gameplay`; the gameplay transition must retain
-the complete-first-frame guarantee.
+Startup first clears VRAM and uploads the centred SEGA logo once against black
+using a dedicated palette. The display remains on for 180 VBlank frames, with
+no gameplay raycasting, sprite projection, or HUD composition. Startup then
+blanks the display and clears VRAM before gameplay video state and the gameplay
+palette are initialized. World, player, camera, raycaster, and the complete
+first gameplay frame are prepared while blanked; after VBlank the display is
+deliberately enabled. The startup palette is never reused by gameplay.
 
 ### Input
 
@@ -482,10 +480,14 @@ health `0..12` in the low nibble and successful-hit count in the high nibble.
 
 The Bank 1 projection pass applies the renderer's fixed-point inverse camera
 transform to every sprite. Horizontal placement uses scale 80 around viewport
-centre 56. Living and `SHOT_DEAD` sprites use full detail at projected height
+centre 56. Living and `SHOT_DEAD` visibility uses world-distance squared with
+an accepted radius of 1260, so rotating the camera cannot create a visibility
+hole. Eligible sprites use full detail at projected height
 17 or more, state-specific medium silhouettes at 15..16, simple silhouettes at
-13..14, and are hidden at 12 or less. Corpses use the authored texture at 17
-or more, a darkest-gray pile at 15..16, and are hidden at 14 or less. Hidden
+13..14, and are hidden outside the accepted world-distance radius. Corpses use
+their own distance eligibility: authored texture at 17 or more, a darkest-gray
+pile at 15..16 (including eligible farther projections clamped to 15), and are
+hidden beyond the separate corpse cutoff. Hidden
 sprites exit before clipping, occlusion, budgeting, texture selection, column
 generation, or dirty composition.
 
@@ -512,10 +514,12 @@ nearest aligned living zombie and rejecting targets at or behind the nearest
 centre wall depth. The scan reuses the exact renderer-contract depth transform;
 there is no post-selection projected-height division.
 
-Pistol damage is cumulative. Projected heights 40+, 32..39, 17..31, and
-13..16 deal 12, 6, 4, and 3 damage respectively; height 12 or less is hidden
-and untargetable. The equivalent direct-depth ranges are 33..409, 410..512,
-513..963, and 964..1260. Distance chooses only the current shot's damage and
+The target footprint test is division-free:
+`abs(lateral_product) * 5 <= abs(determinant) * 2`. It is symmetric, with
+offsets ±67 accepted and ±68 rejected. Pistol damage is cumulative. Projected
+heights 36+, 28..35, 17..27, and 13..16 deal 12, 6, 4, and 3 damage
+respectively. The equivalent direct-depth ranges are 33..455, 456..585,
+586..963, and 964..1260. Distance chooses only the current shot's damage and
 never rescales existing health.
 
 Surviving odd and even hits display `shot_01` and `shot_02` for three rendered
@@ -849,6 +853,19 @@ construction. Renderer profiling remains an
 optional diagnostic configuration rather than a shipping feature.
 
 ## Future work
+
+Before implementing zombie AI, evaluate a narrow reusable movement/collision
+query rather than duplicating player-only collision. It should eventually
+cover static walls, door state, world bounds, the player body, and other enemy
+bodies where appropriate. With at most eight sprites, first test direct
+active-sprite position comparisons for enemy blocking instead of assuming a
+persistent occupancy grid is necessary.
+
+Moving-zombie measurements should trigger another renderer review if practical
+frames repeatedly approach 10–12 dirty columns, 80–96 regenerated tiles, or
+about 2.5–3 KiB of pattern traffic. Profile Bank 0 currently has only 159 bytes
+free, so future AI should prefer safe Bank 1 placement and avoid adding
+multiple normal-frame bank transitions per zombie.
 
 - **Doors:** add animation, timing, obstruction rules, and audiovisual feedback
   beyond the accepted instantaneous open/closed state.

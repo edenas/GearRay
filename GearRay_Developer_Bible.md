@@ -107,9 +107,11 @@ health `0..12`, while the high nibble stores successful-hit count.
 
 Living and `SHOT_DEAD` presentation uses authored full detail at projected
 height 17 or more, state-specific medium silhouettes at 15..16, simple
-silhouettes at 13..14, and is hidden at 12 or less. Corpses use the authored
-texture at 17 or more, a darkest-gray pile at 15..16, and are hidden at 14 or
-less. Horizontal projection uses scale 80 around viewport centre 56. Full,
+silhouettes at 13..14, and is hidden outside the accepted world-distance radius
+of 1260. Corpses use separate distance eligibility: authored texture at 17 or
+more, a darkest-gray pile at 15..16 (including eligible farther projections
+clamped to 15), and hidden beyond the corpse cutoff. Horizontal projection uses
+scale 80 around viewport centre 56. Full,
 medium, simple, and corpse-pile costs are 5, 2, 1, and 1 within a deterministic
 total budget of 12. Rejected presentation never pauses gameplay state.
 
@@ -119,9 +121,12 @@ the damage frame. One target scan chooses the nearest aligned living zombie,
 rejects wall-hidden targets, and reuses the renderer's exact depth transform.
 No second scan, raycast, or post-selection projected-height division exists.
 
-Projected heights 40+, 32..39, 17..31, and 13..16 deal 12, 6, 4, and 3
-damage. Equivalent direct-depth ranges are 33..409, 410..512, 513..963, and
-964..1260; hidden depths do no damage. Health is cumulative across distance
+Projected heights 36+, 28..35, 17..27, and 13..16 deal 12, 6, 4, and 3
+damage. Equivalent direct-depth ranges are 33..455, 456..585, 586..963, and
+964..1260; hidden depths do no damage. Target acquisition uses the
+division-free projected-footprint rule
+`abs(lateral_product) * 5 <= abs(determinant) * 2`, with validated symmetric
+offsets ±67 hitting and ±68 missing. Health is cumulative across distance
 changes. Surviving odd/even hits show `shot_01`/`shot_02` for three rendered
 frames and return to standing. Lethal damage clamps health to zero, shows
 `shot_dead` for four rendered frames, then enters persistent corpse state.
@@ -166,6 +171,9 @@ Reset
   -> devkitSMS CRT
      -> initialize mapper, runtime, RAM, vectors
      -> call game/main.c::main
+        -> clear VRAM and load the dedicated SEGA logo palette/content
+        -> display the centred logo on black for 180 VBlank frames
+        -> blank the display and clear startup VRAM
         -> initialize video
         -> initialize input history
         -> initialize world/door state
@@ -174,22 +182,19 @@ Reset
         -> copy player position into camera
         -> initialize ray results
         -> cast and upload the complete initial gameplay frame while blanked
-        -> initialize SMSlib text support, re-blank, wait for VBlank
         -> enable display
         -> enter permanent frame loop
 ```
 
 `source/main.c` is a historical/minimal bootstrap example and is not linked by the current CMake build. The active entry point is `game/main.c`.
 
-The current ROM boots directly into gameplay. Display output remains disabled
-while gameplay VDP state, world, player, camera, raycaster, and the complete
-first frame are initialized. The optional white debug border is uploaded once.
-`SMS_autoSetUpTextRenderer()` then runs and overwrites BG palette state, so the
-master palette is restored exactly once before display output is disabled
-again, VBlank is awaited, and display is deliberately enabled. This is a
-temporary direct-boot transition. When the intended
-`logo -> main menu -> intro -> gameplay` flow exists, gameplay must prepare its
-first complete frame during that transition before becoming visible.
+The startup logo owns a dedicated palette and uploads its patterns and tilemap
+once. No gameplay raycasting, projection, HUD composition, or gameplay palette
+write occurs during its 180-frame hold. The display is then blanked and VRAM
+cleared before the normal gameplay palette and content are initialized. The
+complete first gameplay frame and optional white debug border are prepared
+while output remains disabled, followed by VBlank and deliberate display
+enable. The startup palette therefore cannot leak into gameplay.
 
 ### 5.2 Frame order
 
@@ -640,7 +645,13 @@ SDCC banked calls use CRT `get_bank`/`set_bank` hooks and a resident trampoline.
 
 ### 14.2 Current placement
 
-Bank 0 contains startup, main loop, input, player, camera, world queries, door state, raycaster, texture sampling, renderer, SMSlib, and trampolines. Bank 1 contains `interaction_ray.c`, `world_interactions.c`, `zombie_shooting.c`, multi-sprite projection/budget selection, the HUD weapon compositor, all linked full-detail zombie and weapon textures, and optional profiling reporting. The accepted graph introduces no nested banked call.
+Bank 0 contains reset/interrupt support, the main loop, input, player, camera,
+world queries, door state, raycaster, texture sampling, renderer, SMSlib, and
+trampolines. Bank 1 contains `interaction_ray.c`, `world_interactions.c`,
+`zombie_shooting.c`, multi-sprite projection/budget selection, the startup-logo
+routine and assets, the HUD weapon compositor, LOD tables, all linked
+full-detail zombie and weapon textures, and optional profiling reporting. The
+accepted graph introduces no nested banked call.
 
 The `_BANK1` segment links at virtual `0x14000`. Banked objects are placed after resident objects/libraries. The 32 KiB header is at physical/CPU `0x7FF0`; the obsolete 16 KiB header position must not return.
 
@@ -648,19 +659,24 @@ Current accepted rendering-milestone measurements:
 
 | Resource | Release | Profile |
 |---|---:|---:|
-| ROM used | 21,808 bytes | 21,991 bytes |
-| Bank 0 free | 371 bytes | 205 bytes |
-| Bank 1 free | 10,589 bytes | 10,572 bytes |
-| Persistent RAM | 1,207 bytes | 1,232 bytes |
+| ROM used | 23,623 bytes | 23,806 bytes |
+| Bank 0 free | 325 bytes | 159 bytes |
+| Bank 1 free | 8,820 bytes | 8,803 bytes |
+| Persistent RAM, including initialized data | 1,212 bytes | 1,237 bytes |
 | ROM file | 32,768 bytes | 32,768 bytes |
 
-Release fixed segments end exclusively at `0x3E8D`; Profile fixed segments end
-exclusively at `0x3F33`. The Release SHA-256 is
-`3A1F32C1830DEBCA0ED1F89011E65AA25C7D0F9664DB6FA0B461CA67117A7C1D`.
+Release fixed segments end exclusively at `0x3EBB`; Profile fixed segments end
+exclusively at `0x3F61`. The Release SHA-256 is
+`8BB4EF2094223215E3E4477CE014C3984FC87A35AB3474C0DFBEEC0CC65A512B`.
 
-Profile Bank 0's 205 free bytes are an engineering capacity constraint, not a
+Profile Bank 0's 159 free bytes are an engineering capacity constraint, not a
 runtime failure. Future resident growth should first consider moving clearly
 cold startup/debug code to Bank 1 instead of relocating hot renderer code.
+
+All persistent BANK1 texture pointers are safe in the current two-bank image
+because their data and consumers share BANK1. This assumption must be reviewed
+before BANK2 is introduced; no BANK1 pointer may survive an incompatible bank
+mapping or nested cross-bank call.
 
 These are milestone measurements, not eternal constants; current release work must remeasure.
 
@@ -1175,6 +1191,20 @@ Gameplay direction:
 - status HUD/helmet overlay extending the existing VRAM ownership;
 - audio with mapper coordination;
 - multiple maps, metadata, transitions, scripting, inventory, objectives, and progression.
+
+Before implementing zombie AI, evaluate a narrow reusable enemy
+movement/collision query instead of duplicating player-specific collision. It
+should eventually account for static walls, open/closed doors, world bounds,
+the player body, and enemy bodies where appropriate. Since at most eight world
+sprites exist, first evaluate direct comparisons with other active sprite
+positions for enemy blocking; do not assume a persistent occupancy grid is
+needed.
+
+Measure moving-zombie renderer load before broadening AI. Re-audit if practical
+frames repeatedly approach 10–12 dirty columns, 80–96 regenerated tiles, or
+approximately 2.5–3 KiB of pattern traffic. Profile Bank 0 currently has only
+159 bytes free, so AI should prefer safe Bank 1 placement and avoid multiple
+normal-frame bank transitions per zombie.
 
 Future systems must grow around, not through, the stable renderer and movement contracts.
 

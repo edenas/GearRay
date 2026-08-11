@@ -58,8 +58,8 @@ The first banked build is a 32 KiB ROM containing two physical banks:
 
 | Bank | Current responsibility | Current contents |
 | ---: | --- | --- |
-| 0 | Fixed resident engine | Startup, interrupts, SMSlib, main loop, input, player, camera, raycaster, renderer, world queries, door state and bank trampolines |
-| 1 | Cold gameplay, sprite/HUD presentation, textures, and diagnostics | `world_interactions.c`, `interaction_ray.c`, `zombie_shooting.c`, `sprite_projection.c`, `hud_weapon.c`, full zombie and weapon textures, optional renderer-profile reporting, and the 32 KiB Sega header at file/CPU address `0x7FF0` |
+| 0 | Fixed resident engine | Reset/interrupt support, SMSlib, main loop, input, player, camera, raycaster, renderer, world queries, door state and bank trampolines |
+| 1 | Cold gameplay, startup/sprite/HUD presentation, textures, and diagnostics | `world_interactions.c`, `interaction_ray.c`, `zombie_shooting.c`, `sprite_projection.c`, `startup_logo.c`, `hud_weapon.c`, SEGA logo data, LOD tables, full zombie and weapon textures, optional renderer-profile reporting, and the 32 KiB Sega header at file/CPU address `0x7FF0` |
 
 The linked `_BANK1` code segment starts at virtual address `0x14000`. SDCC and
 `makesms` translate that virtual segment into physical ROM Bank 1, visible to
@@ -73,17 +73,17 @@ The current finalized engine baseline reports:
 | Resource | Release | Profile |
 | --- | ---: | ---: |
 | Total ROM file | 32,768 bytes (2 banks) | 32,768 bytes (2 banks) |
-| Used ROM content | 21,808 bytes | 21,991 bytes |
-| Bank 0 used/free | 16,013 / 371 bytes | 16,179 / 205 bytes |
-| Bank 1 used/free | 5,795 / 10,589 bytes | 5,812 / 10,572 bytes |
-| Persistent RAM | 1,207 bytes | 1,232 bytes |
+| Used ROM content | 23,623 bytes | 23,806 bytes |
+| Bank 0 used/free | 16,059 / 325 bytes | 16,225 / 159 bytes |
+| Bank 1 used/free | 7,548 / 8,820 bytes | 7,565 / 8,803 bytes |
+| Persistent RAM, including initialized data | 1,212 bytes | 1,237 bytes |
 
-The Release fixed segments end exclusively at `0x3E8D`; Profile fixed segments
-end exclusively at `0x3F33`. Both remain below the `0x4000` Bank 0 boundary.
+The Release fixed segments end exclusively at `0x3EBB`; Profile fixed segments
+end exclusively at `0x3F61`. Both remain below the `0x4000` Bank 0 boundary.
 The measured Release SHA-256 is
-`3A1F32C1830DEBCA0ED1F89011E65AA25C7D0F9664DB6FA0B461CA67117A7C1D`.
+`8BB4EF2094223215E3E4477CE014C3984FC87A35AB3474C0DFBEEC0CC65A512B`.
 
-Profile Bank 0 has only 205 bytes free. This is a capacity constraint, not a
+Profile Bank 0 has only 159 bytes free. This is a capacity constraint, not a
 runtime failure. Future resident growth should first consider moving clearly
 cold startup or debug code to Bank 1; the hot renderer should remain resident.
 
@@ -131,6 +131,12 @@ The HUD weapon compositor and both padded 96-byte idle/firing textures reside
 in Bank 1. Bank calls occur only for weapon tiles already being regenerated;
 the weapon does not create an independent upload pass. The accepted call graph
 does not introduce a nested banked call.
+
+The startup-logo routine, its 1,536-byte tile data, palette, and tilemap are
+also in Bank 1 and execute before gameplay initialization. Persistent sprite
+texture pointers currently rely on all referenced textures and consumers
+sharing BANK1. Revisit that pointer lifetime and the no-nested-call invariant
+before introducing BANK2.
 
 ## Build-system contract
 
@@ -291,7 +297,7 @@ switch-controlled red door.
 - The current low-frequency interaction ray and interaction dispatcher cross
   the bank boundary. More complex nested and cross-bank call graphs have not
   yet been validated in GearRay.
-- Release Bank 0 has 581 free bytes and Profile Bank 0 has 58 free bytes. New
+- Release Bank 0 has 325 free bytes and Profile Bank 0 has 159 free bytes. New
   resident features require deliberate space management; clearly cold
   startup/debug code should be evaluated for Bank 1 before hot renderer code.
 - Bank switching has nonzero latency and changes mapper state. It must not be
