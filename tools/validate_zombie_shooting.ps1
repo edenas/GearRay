@@ -114,7 +114,8 @@ Assert-True ($spriteSource -match
     $spriteSource -match
     "health_and_hit_count\s*&\s*ZOMBIE_HEALTH_MASK" -and
     $spriteSource -match
-    "health_and_hit_count\s*>>\s*ZOMBIE_HIT_COUNT_SHIFT" -and
+    "health_and_hit_count\s*&\s*ZOMBIE_HIT_COUNT_MASK\)[\s\S]*?" +
+    ">>\s*ZOMBIE_HIT_COUNT_SHIFT" -and
     $spriteSource -match "\+\+hit_count" -and
     $spriteSource -match
     "hit_count\s*&\s*1U[\s\S]*?" +

@@ -11,10 +11,12 @@
 #include "world.h"
 #include "world_sprite.h"
 #include "zombie_shooting.h"
+#include "zombie_ai.h"
 
 SMS_EMBED_SEGA_ROM_HEADER(0, 0);
 
 static unsigned char pending_shot;
+static unsigned char zombie_ai_frame_counter;
 
 void main(void)
 {
@@ -28,6 +30,7 @@ void main(void)
     game_gear_input_initialize();
     game_gear_hud_weapon_initialize();
     pending_shot = 0;
+    zombie_ai_frame_counter = 0;
     world_initialize();
     player_initialize();
     camera_initialize();
@@ -79,6 +82,12 @@ void main(void)
             player_move_combined(forward_direction, strafe_direction);
             camera_set_fixed_position(player_get_position_x(),
                                       player_get_position_y());
+        }
+
+        if (++zombie_ai_frame_counter >= ZOMBIE_AI_UPDATE_INTERVAL)
+        {
+            zombie_ai_frame_counter = 0;
+            zombie_ai_update_all();
         }
 
         player_process_interaction();

@@ -86,13 +86,15 @@ void world_sprite_apply_damage(unsigned char sprite_index,
         return;
 
     health = sprite->health_and_hit_count & ZOMBIE_HEALTH_MASK;
-    hit_count = sprite->health_and_hit_count >> ZOMBIE_HIT_COUNT_SHIFT;
+    hit_count = (sprite->health_and_hit_count & ZOMBIE_HIT_COUNT_MASK)
+              >> ZOMBIE_HIT_COUNT_SHIFT;
     ++hit_count;
     if (damage < health)
     {
         health -= damage;
         sprite->health_and_hit_count =
-            (hit_count << ZOMBIE_HIT_COUNT_SHIFT) | health;
+            (sprite->health_and_hit_count & ZOMBIE_AI_CHASING_MASK)
+            | (hit_count << ZOMBIE_HIT_COUNT_SHIFT) | health;
         sprite->pixels = hit_count & 1U
             ? zombie_01_shot_01_pixels
             : zombie_01_shot_02_pixels;
@@ -109,7 +111,7 @@ unsigned char world_sprite_get_count(void)
     return world_sprite_count;
 }
 
-const WorldSprite *world_sprite_get(unsigned char sprite_index)
+WorldSprite *world_sprite_get(unsigned char sprite_index)
 {
     if (sprite_index >= world_sprite_count)
         return 0;
