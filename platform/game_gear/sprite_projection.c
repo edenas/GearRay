@@ -5,6 +5,10 @@
 #include "video.h"
 
 #define SPRITE_NEAR_PLANE_DEPTH 32
+#define SPRITE_CORPSE_VISIBLE_MAX_DISTANCE_SQUARED 1446540UL
+#define SPRITE_VISIBLE_MAX_DISTANCE 1260UL
+#define SPRITE_VISIBLE_MAX_DISTANCE_SQUARED \
+    (SPRITE_VISIBLE_MAX_DISTANCE * SPRITE_VISIBLE_MAX_DISTANCE)
 
 static const unsigned char zombie_standing_medium_lod_pixels[32] = {
     0xff, 0xfd, 0xdf, 0xff,
@@ -151,6 +155,9 @@ void game_gear_project_world_sprite(
         - (signed long)direction_x * plane_y;
     signed long depth;
     signed long horizontal;
+    unsigned long distance_squared =
+        (unsigned long)((signed long)relative_x * relative_x)
+        + (unsigned long)((signed long)relative_y * relative_y);
     signed long center_x;
     signed long left;
     signed long right;
@@ -191,7 +198,7 @@ void game_gear_project_world_sprite(
         projected_height = 144;
     if (sprite->state == ZOMBIE_STATE_CORPSE)
     {
-        if (projected_height < SPRITE_CORPSE_LOD_MIN_HEIGHT)
+        if (distance_squared > SPRITE_CORPSE_VISIBLE_MAX_DISTANCE_SQUARED)
             return;
         if (projected_height < SPRITE_FULL_DETAIL_MIN_HEIGHT)
         {
@@ -201,7 +208,7 @@ void game_gear_project_world_sprite(
     }
     else
     {
-        if (projected_height < SPRITE_SIMPLE_LOD_MIN_HEIGHT)
+        if (distance_squared > SPRITE_VISIBLE_MAX_DISTANCE_SQUARED)
             return;
         if (projected_height < SPRITE_MEDIUM_LOD_MIN_HEIGHT)
         {

@@ -5,9 +5,10 @@
 
 #define FIXED_POINT_SCALE 256
 #define ZOMBIE_MAX_SHOOTING_DISTANCE (8 * FIXED_POINT_SCALE)
-#define ZOMBIE_AIM_WIDTH_DIVISOR 14
-#define PISTOL_ONE_SHOT_MIN_PROJECTED_HEIGHT 40
-#define PISTOL_TWO_SHOT_MIN_PROJECTED_HEIGHT 32
+#define ZOMBIE_AIM_LATERAL_SCALE 5
+#define ZOMBIE_AIM_DETERMINANT_SCALE 2
+#define PISTOL_ONE_SHOT_MIN_PROJECTED_HEIGHT 36
+#define PISTOL_TWO_SHOT_MIN_PROJECTED_HEIGHT 28
 #define PISTOL_THREE_SHOT_MIN_PROJECTED_HEIGHT 17
 #define PISTOL_VISIBLE_MIN_PROJECTED_HEIGHT 13
 #define PISTOL_MIN_TARGET_DEPTH 33
@@ -42,6 +43,9 @@ static unsigned char zombie_shooting_find_aimed_target(
     signed long determinant =
         (signed long)plane_x * direction_y
         - (signed long)direction_x * plane_y;
+    unsigned long determinant_magnitude = determinant < 0
+        ? (unsigned long)-determinant
+        : (unsigned long)determinant;
     const RaycasterRay *rays = raycaster_get_rendered_rays();
     unsigned int wall_depth = rays[CENTER_RAY_LEFT].wall_distance;
 
@@ -71,16 +75,13 @@ static unsigned char zombie_shooting_find_aimed_target(
         if (depth_product <= 0)
             continue;
 
-        depth = (unsigned int)(depth_product / FIXED_POINT_SCALE);
-
         lateral_product = (signed long)relative_x * direction_y
                         - (signed long)relative_y * direction_x;
         lateral = lateral_product < 0
             ? (unsigned long)-lateral_product
             : (unsigned long)lateral_product;
-        lateral /= FIXED_POINT_SCALE;
-
-        if (lateral * ZOMBIE_AIM_WIDTH_DIVISOR > depth)
+        if (lateral * ZOMBIE_AIM_LATERAL_SCALE
+            > determinant_magnitude * ZOMBIE_AIM_DETERMINANT_SCALE)
             continue;
 
         exact_depth =

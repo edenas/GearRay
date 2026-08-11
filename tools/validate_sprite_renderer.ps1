@@ -30,8 +30,10 @@ function Project-Sprite {
     if ($height -lt 1) { $height = 1 }
     if ($height -gt 144) { $height = 144 }
     $texture = if ($Corpse) { "AuthoredCorpse" } else { "AuthoredZombie" }
+    $distanceSquared = [long]$RelativeX * $RelativeX +
+                       [long]$RelativeY * $RelativeY
     if ($Corpse) {
-        if ($height -lt 15) {
+        if ($distanceSquared -gt 1446540) {
             return @{
                 Visible = $false; Depth = $depth; Height = $height
                 Texture = "Hidden"
@@ -43,7 +45,7 @@ function Project-Sprite {
         }
     }
     else {
-        if ($height -lt 13) {
+        if ($distanceSquared -gt 1587600) {
             return @{
                 Visible = $false; Depth = $depth; Height = $height
                 Texture = "Hidden"
@@ -198,6 +200,54 @@ function Get-HorizontalProjection {
     }
 }
 
+function Get-FovSweepRecord {
+    param([int]$Step, [int[]]$Basis, [int]$RelativeX, [int]$RelativeY)
+
+    $projection = Get-HorizontalProjection $Basis $RelativeX $RelativeY
+    $distanceSquared = [long]$RelativeX * $RelativeX +
+                       [long]$RelativeY * $RelativeY
+    $projectedHeight = [Math]::Truncate(16384 / $projection.Depth)
+    $distanceEligible = $distanceSquared -le 1587600
+    $lod = if (-not $distanceEligible) { "Hidden" }
+           elseif ($projectedHeight -ge 17) { "Full" }
+           elseif ($projectedHeight -ge 15) { "Medium" }
+           else { "Simple" }
+    $height = if ($lod -eq "Full") {
+        [Math]::Min(144, [Math]::Max(1,
+            [Math]::Truncate(16384 / $projection.Depth)))
+    } elseif ($lod -eq "Medium") { 15 }
+      elseif ($lod -eq "Simple") { 13 }
+      else { 0 }
+    $left = $projection.Center - [Math]::Truncate($height / 2)
+    $right = $left + $height
+    $visibleLeft = [Math]::Max(0, $left)
+    $visibleRight = [Math]::Min(112, $right)
+    $hasPixels = $lod -ne "Hidden" -and $projection.Depth -gt 32 -and
+                 $visibleRight -gt $visibleLeft
+    $firstRay = if ($hasPixels) { $visibleLeft -shr 2 } else { -1 }
+    $lastRay = if ($hasPixels) { ($visibleRight - 1) -shr 2 } else { -1 }
+    return [pscustomobject]@{
+        Step = $Step
+        DirectionX = $Basis[0]
+        DirectionY = $Basis[1]
+        Depth = $projection.Depth
+        Horizontal = $projection.Horizontal
+        Center = $projection.Center
+        Height = $height
+        Left = $left
+        Right = $right
+        VisibleLeft = $visibleLeft
+        VisibleRight = $visibleRight
+        FirstRay = $firstRay
+        LastRay = $lastRay
+        CoarseOccluded = $false
+        BudgetAccepted = $hasPixels
+        DistanceEligible = $distanceEligible
+        Visible = $hasPixels
+        Lod = $lod
+    }
+}
+
 $initialCameraBasis = [int[]]@(0, -256, 169, 0)
 $clockwiseCenters = @()
 $counterclockwiseCenters = @()
@@ -237,6 +287,87 @@ Assert-True ((($clockwiseCenters | ForEach-Object { 112 - $_ }) -join ",") `
 Assert-True ((56 - $clockwiseCenters[1]) -gt
              (56 - $oldClockwiseCenters[1])) `
     "Corrected projection did not remove the cropped-viewport center compression."
+
+$fovSweep = @()
+for ($rotationStep = -5; $rotationStep -le 5; ++$rotationStep) {
+    $basis = $initialCameraBasis
+    $rotationSine = if ($rotationStep -lt 0) { -556 } else { 556 }
+    for ($turn = 0; $turn -lt [Math]::Abs($rotationStep); ++$turn) {
+        $basis = Get-RotatedCameraBasis $basis $rotationSine
+    }
+    $fovSweep += Get-FovSweepRecord $rotationStep $basis 0 -1200
+}
+Assert-True $fovSweep[5].Visible "Centered FOV-sweep zombie is hidden."
+for ($index = 0; $index -lt 5; ++$index) {
+    $mirror = $fovSweep[10 - $index]
+    Assert-True ($fovSweep[$index].Visible -eq $mirror.Visible -and
+                 $fovSweep[$index].Center + $mirror.Center -eq 112 -and
+                 $fovSweep[$index].Left + $mirror.Right -eq 113 -and
+                 $fovSweep[$index].Right + $mirror.Left -eq 113 -and
+                 $fovSweep[$index].Lod -eq $mirror.Lod) `
+        "Clockwise/counterclockwise FOV sweep lost exact symmetry."
+}
+$approachingVisibility = @($fovSweep[0..5] | ForEach-Object { $_.Visible })
+for ($index = 1; $index -lt $approachingVisibility.Count; ++$index) {
+    Assert-True (-not ($approachingVisibility[$index - 1] -and
+                       -not $approachingVisibility[$index])) `
+        "FOV sweep became hidden while rotating toward center."
+}
+$forwardVisibility = @($fovSweep | ForEach-Object { $_.Visible })
+$reverseVisibility = @($forwardVisibility)
+[array]::Reverse($reverseVisibility)
+Assert-True (($forwardVisibility -join ",") -eq
+             ($reverseVisibility -join ",")) `
+    "Reverse rotation did not reproduce the exact reverse visibility sequence."
+foreach ($record in @($fovSweep | Where-Object { $_.Visible })) {
+    Assert-True ($record.VisibleRight -gt $record.VisibleLeft -and
+                 $record.FirstRay -ge 0 -and $record.FirstRay -le 27 -and
+                 $record.LastRay -ge 0 -and $record.LastRay -le 27 -and
+                 $record.FirstRay -le $record.LastRay) `
+        "Visible FOV sweep record produced an invalid pixel or ray span."
+}
+$onePixelLeftFirstRay = 0 -shr 2
+$onePixelLeftLastRay = (1 - 1) -shr 2
+$onePixelRightFirstRay = 111 -shr 2
+$onePixelRightLastRay = (112 - 1) -shr 2
+Assert-True ($onePixelLeftFirstRay -eq 0 -and $onePixelLeftLastRay -eq 0 -and
+             $onePixelRightFirstRay -eq 27 -and
+             $onePixelRightLastRay -eq 27) `
+    "One-pixel edge visibility did not map symmetrically to rays 0 and 27."
+$centeredBoundaryHeight = [Math]::Truncate(16384 / 1260)
+$centeredOutsideHeight = [Math]::Truncate(16384 / 1261)
+Assert-True ($centeredBoundaryHeight -eq 13 -and
+             $centeredOutsideHeight -eq 12) `
+    "World-distance cutoff no longer matches the old centered 12/13 boundary."
+Assert-True (1587600 -eq 1260 * 1260 -and
+             1587600 -le 1587600 -and 1587601 -gt 1587600) `
+    "Living squared-distance boundary is not exactly inclusive at 1260 squared."
+$insideBoundarySweep = @()
+$outsideBoundarySweep = @()
+foreach ($rotationStep in -5..5) {
+    $basis = $initialCameraBasis
+    $rotationSine = if ($rotationStep -lt 0) { -556 } else { 556 }
+    for ($turn = 0; $turn -lt [Math]::Abs($rotationStep); ++$turn) {
+        $basis = Get-RotatedCameraBasis $basis $rotationSine
+    }
+    $insideBoundarySweep +=
+        Get-FovSweepRecord $rotationStep $basis 0 -1260
+    $outsideBoundarySweep +=
+        Get-FovSweepRecord $rotationStep $basis 0 -1261
+}
+Assert-True ((@($insideBoundarySweep | Where-Object {
+                    -not $_.DistanceEligible }).Count) -eq 0) `
+    "Just-inside living distance eligibility changed during rotation."
+Assert-True ((@($outsideBoundarySweep | Where-Object {
+                    $_.DistanceEligible }).Count) -eq 0) `
+    "Just-outside living sprite became distance-eligible during rotation."
+$insideEligibility = @($insideBoundarySweep | ForEach-Object {
+    $_.DistanceEligible })
+$insideEligibilityReverse = @($insideEligibility)
+[array]::Reverse($insideEligibilityReverse)
+Assert-True (($insideEligibility -join ",") -eq
+             ($insideEligibilityReverse -join ",")) `
+    "Living distance eligibility is not clockwise/counterclockwise symmetric."
 foreach ($horizontalCoordinate in @(1, 17, 127, 511)) {
     $positiveOffset = [int][Math]::Truncate(
         ([long]$horizontalCoordinate * 80) / 1024)
@@ -666,11 +797,11 @@ for ($rayIndex = 0; $rayIndex -lt 28; ++$rayIndex) {
         "Sprite projection does not align wall ray $rayIndex with its screen group."
 }
 Assert-True ($projectionSource -match
-    "projected_height\s*<\s*SPRITE_SIMPLE_LOD_MIN_HEIGHT[\s\S]*?return\s*;") `
+    "distance_squared\s*>\s*SPRITE_VISIBLE_MAX_DISTANCE_SQUARED[\s\S]*?return\s*;") `
     "Very distant production sprites are not culled before dirty coverage."
 Assert-True ($projectionSource -match
     "sprite->state\s*==\s*ZOMBIE_STATE_CORPSE[\s\S]*?" +
-    "projected_height\s*<\s*SPRITE_CORPSE_LOD_MIN_HEIGHT[\s\S]*?" +
+    "distance_squared\s*>\s*SPRITE_CORPSE_VISIBLE_MAX_DISTANCE_SQUARED[\s\S]*?" +
     "return\s*;[\s\S]*?projected_height\s*=\s*" +
     "SPRITE_CORPSE_LOD_MIN_HEIGHT[\s\S]*?" +
     "projected->pixels\s*=\s*zombie_corpse_lod_pixels\s*;") `

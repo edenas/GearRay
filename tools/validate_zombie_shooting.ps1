@@ -10,6 +10,8 @@ function Find-AimedTarget(
     [int]$PlayerY,
     [int]$DirectionX,
     [int]$DirectionY,
+    [int]$PlaneX,
+    [int]$PlaneY,
     [int]$WallDepth
 ) {
     $nearest = $null
@@ -24,9 +26,11 @@ function Find-AimedTarget(
             $depth -ge $nearestDepth -or $depth -ge $WallDepth) {
             continue
         }
-        $lateral = [Math]::Abs([Math]::Truncate(
-            ($relativeX * $DirectionY - $relativeY * $DirectionX) / 256))
-        if ($lateral * 14 -gt $depth) { continue }
+        $lateralProduct = [Math]::Abs(
+            $relativeX * $DirectionY - $relativeY * $DirectionX)
+        $determinant = [Math]::Abs(
+            $PlaneX * $DirectionY - $DirectionX * $PlaneY)
+        if ($lateralProduct * 5 -gt $determinant * 2) { continue }
         $nearest = $zombie
         $nearestDepth = $depth
     }
@@ -38,20 +42,50 @@ $side = [pscustomobject]@{ X = 1664; Y = 512; State = "ALIVE" }
 $far = [pscustomobject]@{ X = 1280; Y = 0; State = "ALIVE" }
 $corpse = [pscustomobject]@{ X = 1280; Y = 512; State = "CORPSE" }
 
-Assert-True ($null -eq (Find-AimedTarget @() 1280 1024 0 -256 4096)) `
+Assert-True ($null -eq (Find-AimedTarget @() 1280 1024 0 -256 169 0 4096)) `
     "Empty firing line selected a zombie."
-Assert-True ($null -eq (Find-AimedTarget @($ahead) 1280 1024 0 -256 400)) `
+Assert-True ($null -eq (Find-AimedTarget @($ahead) 1280 1024 0 -256 169 0 400)) `
     "A zombie behind a wall was selected."
-Assert-True ($null -eq (Find-AimedTarget @($side) 1280 1024 0 -256 4096)) `
+Assert-True ($null -eq (Find-AimedTarget @($side) 1280 1024 0 -256 169 0 4096)) `
     "A side-of-screen zombie was selected."
-Assert-True ((Find-AimedTarget @($ahead) 1280 1024 0 -256 4096) -eq $ahead) `
+Assert-True ((Find-AimedTarget @($ahead) 1280 1024 0 -256 169 0 4096) -eq $ahead) `
     "The centered unobstructed zombie was not selected."
-Assert-True ((Find-AimedTarget @($far, $ahead) 1280 1024 0 -256 4096) -eq $ahead) `
+Assert-True ((Find-AimedTarget @($far, $ahead) 1280 1024 0 -256 169 0 4096) -eq $ahead) `
     "The nearest aligned zombie was not selected."
-Assert-True ($null -eq (Find-AimedTarget @($corpse) 1280 1024 0 -256 4096)) `
+Assert-True ($null -eq (Find-AimedTarget @($corpse) 1280 1024 0 -256 169 0 4096)) `
     "A corpse was selected."
-Assert-True ($null -eq (Find-AimedTarget @($ahead) 1280 1024 0 256 4096)) `
+Assert-True ($null -eq (Find-AimedTarget @($ahead) 1280 1024 0 256 -169 0 4096)) `
     "A zombie behind the player was selected."
+
+$closeCentered = [pscustomobject]@{ X = 1280; Y = 896; State = "ALIVE" }
+$closeLeftInside = [pscustomobject]@{ X = 1213; Y = 896; State = "ALIVE" }
+$closeRightInside = [pscustomobject]@{ X = 1347; Y = 896; State = "ALIVE" }
+$closeLeftOutside = [pscustomobject]@{ X = 1212; Y = 896; State = "ALIVE" }
+$closeRightOutside = [pscustomobject]@{ X = 1348; Y = 896; State = "ALIVE" }
+$farSameAngle = [pscustomobject]@{ X = 1816; Y = 0; State = "ALIVE" }
+Assert-True ((Find-AimedTarget @($closeCentered) 1280 1024 0 -256 169 0 4096) `
+             -eq $closeCentered) "Centered close zombie was not acquired."
+Assert-True ((Find-AimedTarget @($closeLeftInside) 1280 1024 0 -256 169 0 4096) `
+             -eq $closeLeftInside -and
+             (Find-AimedTarget @($closeRightInside) 1280 1024 0 -256 169 0 4096) `
+             -eq $closeRightInside) `
+    "Visible-footprint acquisition is not symmetric at offsets +/-67."
+Assert-True ($null -eq
+             (Find-AimedTarget @($closeLeftOutside) 1280 1024 0 -256 169 0 4096) `
+             -and $null -eq
+             (Find-AimedTarget @($closeRightOutside) 1280 1024 0 -256 169 0 4096)) `
+    "Zombie centers outside the projected half-width were acquired."
+Assert-True ($null -eq
+             (Find-AimedTarget @($farSameAngle) 1280 1024 0 -256 169 0 4096)) `
+    "A farther zombie at the same close-case screen angle was acquired."
+Assert-True ($null -eq
+             (Find-AimedTarget @($closeCentered) 1280 1024 0 -256 169 0 100)) `
+    "Close target-width acquisition bypassed the center wall depth."
+$nearOverlap = [pscustomobject]@{ X = 1312; Y = 768; State = "ALIVE" }
+$farOverlap = [pscustomobject]@{ X = 1248; Y = 512; State = "ALIVE" }
+Assert-True ((Find-AimedTarget @($farOverlap, $nearOverlap) `
+                 1280 1024 0 -256 169 0 4096) -eq $nearOverlap) `
+    "Farther overlapping zombie stole the shot from the nearer target."
 
 $root = Split-Path -Parent $PSScriptRoot
 $spriteHeader = Get-Content (Join-Path $root "game\world_sprite.h") -Raw
@@ -140,8 +174,8 @@ Assert-True ($shootingSource -match
     "\*\s*256L[\s\S]*?/\s*determinant") `
     "Shooting and sprite projection do not use the same exact depth transform."
 Assert-True ($shootingSource -match
-    "PISTOL_ONE_SHOT_MIN_PROJECTED_HEIGHT 40" -and
-    $shootingSource -match "PISTOL_TWO_SHOT_MIN_PROJECTED_HEIGHT 32" -and
+    "PISTOL_ONE_SHOT_MIN_PROJECTED_HEIGHT 36" -and
+    $shootingSource -match "PISTOL_TWO_SHOT_MIN_PROJECTED_HEIGHT 28" -and
     $shootingSource -match "PISTOL_THREE_SHOT_MIN_PROJECTED_HEIGHT 17" -and
     $shootingSource -match "PISTOL_VISIBLE_MIN_PROJECTED_HEIGHT 13" -and
     $shootingSource -match "PISTOL_ONE_SHOT_DAMAGE 12" -and
@@ -153,19 +187,25 @@ Assert-True ($shootingSource -match "PISTOL_MIN_TARGET_DEPTH 33" -and
     $shootingSource -match
     "exact_depth\s*<\s*PISTOL_MIN_TARGET_DEPTH") `
     "Shooting does not match the renderer's strict near plane."
+Assert-True ($shootingSource -match
+    "lateral\s*\*\s*ZOMBIE_AIM_LATERAL_SCALE[\s\S]*?>\s*" +
+    "determinant_magnitude\s*\*\s*ZOMBIE_AIM_DETERMINANT_SCALE" -and
+    $shootingSource -notmatch "ZOMBIE_AIM_WIDTH_DIVISOR" -and
+    $shootingSource -notmatch "16384U\s*/\s*depth") `
+    "Production aiming is not the division-free projected-footprint test."
 
 $positionBefore = @($ahead.X, $ahead.Y)
 function Get-PistolDamage([int]$ProjectedHeight) {
     if ($ProjectedHeight -le 12) { return 0 }
-    if ($ProjectedHeight -ge 40) { return 12 }
-    if ($ProjectedHeight -ge 32) { return 6 }
+    if ($ProjectedHeight -ge 36) { return 12 }
+    if ($ProjectedHeight -ge 28) { return 6 }
     if ($ProjectedHeight -ge 17) { return 4 }
     return 3
 }
 function Get-PistolDamageFromDepth([int]$Depth) {
     if ($Depth -lt 33 -or $Depth -gt [Math]::Floor(16384 / 13)) { return 0 }
-    if ($Depth -le [Math]::Floor(16384 / 40)) { return 12 }
-    if ($Depth -le [Math]::Floor(16384 / 32)) { return 6 }
+    if ($Depth -le [Math]::Floor(16384 / 36)) { return 12 }
+    if ($Depth -le [Math]::Floor(16384 / 28)) { return 6 }
     if ($Depth -le [Math]::Floor(16384 / 17)) { return 4 }
     return 3
 }
@@ -179,8 +219,8 @@ $knownDirectionX = 35
 $knownDirectionY = -254
 $knownPlaneX = 168
 $knownPlaneY = 23
-$knownRelativeX = -100
-$knownRelativeY = -428
+$knownRelativeX = -117
+$knownRelativeY = -476
 $knownDeterminant =
     $knownPlaneX * $knownDirectionY - $knownDirectionX * $knownPlaneY
 $knownExactDepth = [Math]::Truncate(
@@ -194,7 +234,7 @@ Assert-True ($knownExactDepth -ne $knownDotDepth -and
              (Get-PistolDamageFromDepth $knownDotDepth)) `
     "Depth-contract regression fixture no longer crosses a damage boundary."
 foreach ($case in @(@(12, 0), @(13, 3), @(16, 3), @(17, 4),
-                    @(31, 4), @(32, 6), @(39, 6), @(40, 12))) {
+                    @(27, 4), @(28, 6), @(35, 6), @(36, 12))) {
     Assert-True ((Get-PistolDamage $case[0]) -eq $case[1]) `
         "Projected height $($case[0]) produced the wrong pistol damage."
 }
@@ -215,17 +255,24 @@ function Test-KillSequence([int]$ProjectedHeight, [int]$ExpectedShots,
                  ($reactions -join ",") -eq $ExpectedReactions) `
         "$ExpectedShots-shot progression failed at height $ProjectedHeight."
 }
-Assert-True ((Get-PistolDamageFromDepth 409) -eq 12 -and
-             (Get-PistolDamageFromDepth 410) -eq 6) `
-    "Direct-depth one-shot boundary is not exactly 409/410."
-Test-KillSequence 40 1 "shot_dead"
-Test-KillSequence 32 2 "shot_01,shot_dead"
+Assert-True ((Get-PistolDamageFromDepth 455) -eq 12 -and
+             (Get-PistolDamageFromDepth 456) -eq 6) `
+    "Direct-depth one-shot boundary is not exactly 455/456."
+Assert-True ((Get-PistolDamageFromDepth 585) -eq 6 -and
+             (Get-PistolDamageFromDepth 586) -eq 4 -and
+             (Get-PistolDamageFromDepth 963) -eq 4 -and
+             (Get-PistolDamageFromDepth 964) -eq 3 -and
+             (Get-PistolDamageFromDepth 1260) -eq 3 -and
+             (Get-PistolDamageFromDepth 1261) -eq 0) `
+    "Direct-depth damage boundaries 585/586, 963/964, or 1260/1261 changed."
+Test-KillSequence 36 1 "shot_dead"
+Test-KillSequence 28 2 "shot_01,shot_dead"
 Test-KillSequence 17 3 "shot_01,shot_02,shot_dead"
 Test-KillSequence 13 4 "shot_01,shot_02,shot_01,shot_dead"
 $mixedHealth = 12
 $mixedHits = 0
 $mixedReactions = @()
-foreach ($height in @(13, 32, 13)) {
+foreach ($height in @(13, 28, 13)) {
     ++$mixedHits
     $mixedHealth = [Math]::Max(
         0, $mixedHealth - (Get-PistolDamage $height))
@@ -250,6 +297,10 @@ Test-CumulativeHealth @(3, 4, 4, 3) "12,9,5,1,0"
 Test-CumulativeHealth @(3, 6, 3) "12,9,3,0"
 Test-CumulativeHealth @(4, 6, 3) "12,8,2,0"
 Test-CumulativeHealth @(6, 4, 12) "12,6,2,0"
+Test-CumulativeHealth @(3, 4, 12) "12,9,5,0"
+Test-CumulativeHealth @(4, 4, 12) "12,8,4,0"
+Test-CumulativeHealth @(3, 4, 6) "12,9,5,0"
+Test-CumulativeHealth @(4, 6, 6) "12,8,2,0"
 Test-CumulativeHealth @(12) "12,0"
 Assert-True ([regex]::Matches(
     $spriteSource, "health_and_hit_count\s*=").Count -eq 3 -and
@@ -313,7 +364,8 @@ Assert-True ($visibleTrace[2].HudShoot -and $visibleTrace[2].Damage) `
 
 Write-Output "Zombie shooting validation passed."
 Write-Output "- center-line aim, range, wall depth, facing, and nearest-only targeting"
-Write-Output "- projected-height damage boundaries 12/13/16/17/31/32/39/40"
+Write-Output "- division-free projected-footprint aim: symmetric +/-67 boundary"
+Write-Output "- projected-height damage boundaries 12/13/16/17/27/28/35/36"
 Write-Output "- exact 1/2/3/4-shot and cumulative mixed-distance health sequences"
 Write-Output "- 3-frame odd/even reactions restart and return to standing"
 Write-Output "- lethal hit -> SHOT_DEAD (4 updates) -> CORPSE"
