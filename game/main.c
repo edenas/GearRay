@@ -6,6 +6,7 @@
 #include "red_door_switch.h"
 #include "raycaster.h"
 #include "renderer_profile.h"
+#include "startup_logo.h"
 #include "video.h"
 #include "world.h"
 #include "world_sprite.h"
@@ -22,6 +23,7 @@ void main(void)
     signed char rotation_direction;
     unsigned char shoot_requested;
 
+    game_gear_startup_logo_show();
     game_gear_video_initialize();
     game_gear_input_initialize();
     game_gear_hud_weapon_initialize();

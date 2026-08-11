@@ -10,14 +10,21 @@ $weaponSource = Get-Content -Raw -LiteralPath (
     Join-Path $root "$BuildDirectory\generated\weapon_texture.c")
 $weaponHeader = Get-Content -Raw -LiteralPath (
     Join-Path $root "$BuildDirectory\generated\weapon_texture.h")
+$logoSource = Get-Content -Raw -LiteralPath (
+    Join-Path $root "$BuildDirectory\generated\sega_logo.c")
+$logoHeader = Get-Content -Raw -LiteralPath (
+    Join-Path $root "$BuildDirectory\generated\sega_logo.h")
 $zombieStateTextures = @(
     @{ File = 'zombie_01_shot_dead_texture'; Symbol = 'zombie_01_shot_dead_pixels' },
     @{ File = 'zombie_01_corps_texture'; Symbol = 'zombie_01_corps_pixels' }
 )
 $weaponPath = Join-Path $root "assets\sprites\weapons\gun_12x12.png"
+$logoPath = Join-Path $root "assets\logos\sega_logo.png"
 $mainSource = Get-Content -Raw -LiteralPath (Join-Path $root "game\main.c")
 $videoSource = Get-Content -Raw -LiteralPath (
     Join-Path $root "platform\game_gear\video.c")
+$startupLogoSource = Get-Content -Raw -LiteralPath (
+    Join-Path $root "platform\game_gear\startup_logo.c")
 
 function Get-HexValues {
     param([string]$Source, [string]$ArrayName)
@@ -46,6 +53,52 @@ $expectedPalette = @(
 Assert-Equal 16 $palette.Count 'BG palette entry count'
 for ($index = 0; $index -lt 16; ++$index) {
     Assert-Equal $expectedPalette[$index] $palette[$index] "BG palette index $index"
+}
+
+$logoPalette = @(Get-HexValues $logoSource 'sega_logo_palette')
+$logoTileMap = @(Get-HexValues $logoSource 'sega_logo_tilemap')
+Assert-Equal 16 $logoPalette.Count 'SEGA logo palette entry count'
+Assert-Equal 0 $logoPalette[0] 'SEGA logo black palette entry'
+Assert-Equal 48 $logoTileMap.Count 'SEGA logo tilemap entry count'
+Assert-Equal 1 $logoTileMap[0] 'SEGA logo first tile index'
+Assert-Equal 48 $logoTileMap[47] 'SEGA logo last tile index'
+if ($logoHeader -notmatch '#define SEGA_LOGO_TILE_COLUMNS 12' -or
+    $logoHeader -notmatch '#define SEGA_LOGO_TILE_ROWS 4' -or
+    $logoHeader -notmatch '#define SEGA_LOGO_TILE_ORIGIN_X 10' -or
+    $logoHeader -notmatch '#define SEGA_LOGO_TILE_ORIGIN_Y 10' -or
+    $logoHeader -notmatch '#define SEGA_LOGO_TILE_BYTE_COUNT 1536') {
+    throw 'Generated centered SEGA logo tile contract mismatch'
+}
+$logoBitmap = [System.Drawing.Bitmap]::new($logoPath)
+try {
+    $expectedLogoColors = @{}
+    for ($y = 0; $y -lt $logoBitmap.Height; ++$y) {
+        for ($x = 0; $x -lt $logoBitmap.Width; ++$x) {
+            $pixel = $logoBitmap.GetPixel($x, $y)
+            $red = [int]$pixel.R -shr 4
+            $green = [int]$pixel.G -shr 4
+            $blue = [int]$pixel.B -shr 4
+            $color = $red -bor ($green -shl 4) -bor ($blue -shl 8)
+            $expectedLogoColors[[int]$color] = $true
+        }
+    }
+}
+finally {
+    $logoBitmap.Dispose()
+}
+$actualLogoColors = @($logoPalette | Where-Object {
+    $expectedLogoColors.ContainsKey([int]$_) } | Select-Object -Unique)
+Assert-Equal $expectedLogoColors.Count $actualLogoColors.Count `
+    'Dedicated SEGA logo palette color coverage'
+if ($startupLogoSource -notmatch
+    'GG_loadBGPalette\(sega_logo_palette\);' -or
+    $startupLogoSource -match
+    'game_gear_video_load_background_palette') {
+    throw 'SEGA logo does not exclusively own its dedicated startup palette'
+}
+if ($mainSource.IndexOf('game_gear_startup_logo_show();') -ge
+    $mainSource.IndexOf('game_gear_video_initialize();')) {
+    throw 'Gameplay palette initialization does not follow the SEGA logo'
 }
 Assert-Equal 16 (@($palette | Select-Object -Unique).Count) `
     'Distinct BG palette entry count'
@@ -158,6 +211,7 @@ if ($videoSource -notmatch
 
 Write-Output 'Complete palette usage validation PASS'
 Write-Output '- 16 distinct assigned BG entries; no unassigned hardware BG slot'
+Write-Output '- isolated 11-color SEGA palette precedes and never replaces gameplay palette'
 Write-Output '- bright green merged to moss index 7'
 Write-Output '- dark red merged to primary-red index 5'
 Write-Output '- dedicated brown index 1'
