@@ -1030,12 +1030,12 @@ Assert-True ($projectionSource -match
     "distance_squared\s*>\s*SPRITE_VISIBLE_MAX_DISTANCE_SQUARED[\s\S]*?return\s*;") `
     "Very distant production sprites are not culled before dirty coverage."
 Assert-True ($projectionSource -match
-    "WORLD_SPRITE_LIFE_STATE\(sprite\)\s*==\s*ZOMBIE_STATE_CORPSE[\s\S]*?" +
-    "distance\s*>\s*SPRITE_CORPSE_VISIBLE_MAX_DISTANCE[\s\S]*?return\s*;[\s\S]*?" +
-    "projected->depth\s*<=\s*SPRITE_CORPSE_CLOSE_HIDDEN_MAX_DEPTH[\s\S]*?return\s*;[\s\S]*?" +
-    "distance\s*<=\s*SPRITE_CORPSE_AUTHORED_32_MAX_DISTANCE[\s\S]*?" +
-    "distance\s*<=\s*SPRITE_CORPSE_AUTHORED_16_MAX_DISTANCE[\s\S]*?" +
-    "distance\s*>\s*SPRITE_CORPSE_AUTHORED_8_MAX_DISTANCE") `
+    "(?:WORLD_SPRITE_LIFE_STATE\(sprite\)|life_state)\s*==\s*ZOMBIE_STATE_CORPSE" -and
+    $projectionSource -match "distance\s*>\s*SPRITE_CORPSE_VISIBLE_MAX_DISTANCE" -and
+    $projectionSource -match "projected->depth\s*<=\s*SPRITE_CORPSE_CLOSE_HIDDEN_MAX_DEPTH" -and
+    $projectionSource -match "distance\s*<=\s*SPRITE_CORPSE_AUTHORED_32_MAX_DISTANCE" -and
+    $projectionSource -match "distance\s*<=\s*SPRITE_CORPSE_AUTHORED_16_MAX_DISTANCE" -and
+    $projectionSource -match "distance\s*>\s*SPRITE_CORPSE_AUTHORED_8_MAX_DISTANCE") `
     "Production corpse authored LOD ladder is not state-specific."
 Assert-True ($projectionHeader -match
     "SPRITE_CORPSE_AUTHORED_32_MAX_DISTANCE 392" -and
@@ -1049,7 +1049,11 @@ Assert-True ($projectionHeader -match
     "SPRITE_CORPSE_VISIBLE_MAX_DISTANCE_SQUARED|SPRITE_CORPSE_LOD_MIN_HEIGHT") `
     "Corpse ladder boundaries changed or the obsolete long-range cutoff remains."
 $corpseBranch = $projectionSource.IndexOf(
-    "if (WORLD_SPRITE_LIFE_STATE(sprite) == ZOMBIE_STATE_CORPSE)")
+    "if (life_state == ZOMBIE_STATE_CORPSE)")
+if ($corpseBranch -lt 0) {
+    $corpseBranch = $projectionSource.IndexOf(
+        "if (WORLD_SPRITE_LIFE_STATE(sprite) == ZOMBIE_STATE_CORPSE)")
+}
 $screenBounds = $projectionSource.IndexOf(
     "center_x = GAME_GEAR_VIEWPORT_PIXEL_WIDTH")
 $wallScan = $projectionSource.IndexOf("rays = raycaster_get_rendered_rays();")

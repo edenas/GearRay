@@ -266,10 +266,8 @@ void game_gear_project_world_sprite(
         - (signed long)direction_x * plane_y;
     signed long depth;
     signed long horizontal;
-    unsigned long distance_squared =
-        (unsigned long)((signed long)relative_x * relative_x)
-        + (unsigned long)((signed long)relative_y * relative_y);
-    unsigned int distance = zombie_distance_metric(relative_x, relative_y);
+    unsigned long distance_squared;
+    unsigned int distance;
     signed long center_x;
     signed long left;
     signed long right;
@@ -279,6 +277,7 @@ void game_gear_project_world_sprite(
     signed int visible_right;
     unsigned char first_ray;
     unsigned char last_ray;
+    ZombieState life_state;
     unsigned char presentation_pose;
     const RaycasterRay *rays;
 
@@ -302,6 +301,25 @@ void game_gear_project_world_sprite(
         return;
 
     projected->depth = (unsigned int)depth;
+    life_state = WORLD_SPRITE_LIFE_STATE(sprite);
+    if (life_state == ZOMBIE_STATE_CORPSE)
+    {
+        distance = zombie_distance_metric(relative_x, relative_y);
+        if (distance > SPRITE_CORPSE_VISIBLE_MAX_DISTANCE
+            || projected->depth <= SPRITE_CORPSE_CLOSE_HIDDEN_MAX_DEPTH)
+        {
+            return;
+        }
+    }
+    else
+    {
+        distance_squared =
+            (unsigned long)((signed long)relative_x * relative_x)
+            + (unsigned long)((signed long)relative_y * relative_y);
+        if (distance_squared > SPRITE_VISIBLE_MAX_DISTANCE_SQUARED)
+            return;
+        distance = zombie_distance_metric(relative_x, relative_y);
+    }
     presentation_pose = game_gear_get_zombie_presentation_pose(
         sprite, distance);
     horizontal = ((signed long)direction_y * relative_x
@@ -313,14 +331,8 @@ void game_gear_project_world_sprite(
         projected_height = 1;
     if (projected_height > 144)
         projected_height = 144;
-    if (WORLD_SPRITE_LIFE_STATE(sprite) == ZOMBIE_STATE_CORPSE)
+    if (life_state == ZOMBIE_STATE_CORPSE)
     {
-        if (distance > SPRITE_CORPSE_VISIBLE_MAX_DISTANCE)
-            return;
-        if (projected->depth <= SPRITE_CORPSE_CLOSE_HIDDEN_MAX_DEPTH)
-        {
-            return;
-        }
         if (distance <= SPRITE_CORPSE_AUTHORED_32_MAX_DISTANCE)
         {
             projected->near_texture_id =
@@ -339,8 +351,6 @@ void game_gear_project_world_sprite(
     }
     else
     {
-        if (distance_squared > SPRITE_VISIBLE_MAX_DISTANCE_SQUARED)
-            return;
         if (projected_height < SPRITE_MEDIUM_LOD_MIN_HEIGHT)
         {
             projected_height = SPRITE_SIMPLE_LOD_MIN_HEIGHT;
@@ -365,7 +375,7 @@ void game_gear_project_world_sprite(
         }
     }
 
-    if (WORLD_SPRITE_LIFE_STATE(sprite) == ZOMBIE_STATE_ALIVE
+    if (life_state == ZOMBIE_STATE_ALIVE
         && projected->source_size == 8
         && projected->near_texture_id == NEAR_ZOMBIE_TEXTURE_NONE
         && projected_height > ZOMBIE_8X8_MAX_PROJECTED_HEIGHT)
@@ -380,7 +390,7 @@ void game_gear_project_world_sprite(
     right = left + projected_height;
     bottom = GAME_GEAR_VIEWPORT_PIXEL_HEIGHT / 2
            + (signed int)projected_height / 2;
-    if (WORLD_SPRITE_LIFE_STATE(sprite) == ZOMBIE_STATE_CORPSE)
+    if (life_state == ZOMBIE_STATE_CORPSE)
         bottom += (signed int)projected_height / 3;
 
     if (right <= 0
@@ -439,6 +449,7 @@ unsigned char game_gear_apply_sprite_render_budget(
         unsigned char selected = WORLD_SPRITE_MAX_COUNT;
         unsigned char selected_center_distance = 255;
         unsigned char selected_visible_width = 0;
+        unsigned char selected_render_cost = 0;
         unsigned int selected_depth = 65535U;
 
         for (sprite_index = 0;
@@ -488,6 +499,7 @@ unsigned char game_gear_apply_sprite_render_budget(
                 selected_depth = projected->depth;
                 selected_center_distance = center_distance;
                 selected_visible_width = visible_width;
+                selected_render_cost = render_cost;
             }
         }
 
@@ -495,8 +507,7 @@ unsigned char game_gear_apply_sprite_render_budget(
             break;
 
         accepted_mask |= 1U << selected;
-        remaining_budget -= game_gear_get_sprite_render_cost(
-            &projected_sprites[selected]);
+        remaining_budget -= selected_render_cost;
     }
 
     for (sprite_index = 0;
