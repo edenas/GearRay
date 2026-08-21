@@ -27,6 +27,17 @@ are retained as historical milestones.
 
 ### Changed
 
+- Completed authored 16x16 middle and 32x32 near/melee zombie presentation,
+  with one walking phase shared across resolution changes.
+- Added inclusive-range zombie melee attacks, player health, damage shake, a
+  minimal health HUD, and the timed Game Over restart path.
+- Made corpse presentation stateless across hidden-close, authored 32x32,
+  authored 16x16, authored 8x8, distant-pile, and hidden-far tiers.
+- Added explicit Bank 2 placement and batch mapping for seven native 32x32
+  zombie payloads, with automated map/header/checksum validation.
+- Reduced rejected-sprite projection work and Bank 1 usage by 10 bytes without
+  changing gameplay, visuals, timing, or RAM.
+
 - Expanded the README into the public project landing page.
 - Clarified clean build, toolchain, and validation instructions.
 - Preserved creator attribution in the MIT copyright notice.

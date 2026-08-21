@@ -35,6 +35,10 @@ Makefile
 .vscode/
 Corel Auto-Preserve/
 .artifact-quarantine/
+/artifacts/game-over-playtest/
+/artifacts/manual-playtest/
+/artifacts/near-detail-playtest/
+/rom/GearRay-profile
 *.lnk
 *.suo
 *.user

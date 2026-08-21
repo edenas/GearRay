@@ -186,6 +186,33 @@ powershell -NoProfile -ExecutionPolicy Bypass `
 powershell -NoProfile -ExecutionPolicy Bypass `
   -File tools/validate_zombie_shooting.ps1
 
+powershell -NoProfile -ExecutionPolicy Bypass `
+  -File tools/validate_zombie_ai.ps1
+
+powershell -NoProfile -ExecutionPolicy Bypass `
+  -File tools/validate_zombie_attack.ps1 `
+  -BuildDirectory build -RequireMapPlacement
+
+powershell -NoProfile -ExecutionPolicy Bypass `
+  -File tools/validate_middle_zombie.ps1 `
+  -BuildDirectory build -RequireMapPlacement
+
+powershell -NoProfile -ExecutionPolicy Bypass `
+  -File tools/validate_near_zombie.ps1 `
+  -BuildDirectory build -RequireMapPlacement
+
+powershell -NoProfile -ExecutionPolicy Bypass `
+  -File tools/validate_health_hud.ps1 `
+  -BuildDirectory build -RequireMapPlacement
+
+powershell -NoProfile -ExecutionPolicy Bypass `
+  -File tools/validate_game_over.ps1 `
+  -BuildDirectory build -RequireMapPlacement
+
+powershell -NoProfile -ExecutionPolicy Bypass `
+  -File tools/validate_bank_layout.ps1 `
+  -MapPath build/GearRay.map -RomPath rom/GearRay.gg
+
 git diff --check
 ```
 
@@ -203,10 +230,12 @@ For a release candidate:
 1. Start from a clean Git working tree.
 2. Build release and profiling configurations.
 3. Run the workshop-map, exhaustive 65,536-state controls, ray-direction,
-   renderer-equivalence, sprite-renderer, complete palette/weapon-decoding,
-   startup-order, and zombie-shooting validators.
+   renderer-equivalence, sprite-renderer, palette, startup-order, zombie AI,
+   attack/health, shooting/death, middle/near presentation, HUD, Game Over,
+   and bank-layout validators.
 4. Review SDCC warnings against the documented Engine Foundation baseline.
-5. Confirm both ROMs are 32 KiB and contain a valid `TMR SEGA` header.
+5. Confirm the release ROM is 64 KiB, contains a valid `TMR SEGA` header, and
+   satisfies the Bank 0/1/2 placement and reserve contracts.
 6. Test the release ROM in a Game Gear emulator.
 7. Test on original hardware when renderer, timing, input, banking, or VRAM
    behaviour changes.

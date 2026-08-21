@@ -18,9 +18,9 @@ Historical renderer captures are available in [`artifacts/`](artifacts/).
 ## Current Status
 
 The hardware-tested **Engine Foundation v1.0.0** now includes the accepted
-multi-zombie rendering, pistol-combat, and LOS-driven pursuit milestones. It
-preserves the established renderer, movement, interaction, and ROM-banking
-contracts.
+multi-zombie combat, authored multi-resolution presentation, melee attack,
+player-health, HUD, and Game Over milestones. It preserves the established
+renderer, movement, interaction, and ROM-banking contracts.
 
 GearRay is an engine foundation and workshop ROM, not yet a complete game.
 
@@ -33,9 +33,10 @@ GearRay is an engine foundation and workshop ROM, not yet a complete game.
 - Native Game Gear tile rendering with indexed-colour wall textures.
 - Directional wall shading, distance-based wall detail, and uniform light-gray
   ceiling/dark-gray floor backgrounds.
-- Up to eight floor-anchored zombie billboards extracted from workshop `Z`
-  markers, with exact wall-depth occlusion, distance LOD, deterministic render
-  budgeting, temporary hit reactions, death frames, and persistent corpses.
+- Up to eight floor-anchored zombies with shared walking phase across 8x8,
+  authored 16x16, and authored 32x32 presentation, exact wall-depth occlusion,
+  deterministic render budgeting, temporary hit reactions, lethal
+  presentation, and stateless distance-derived corpses.
 - One authored 12×12 first-person HUD weapon, drawn as the final screen-space
   compositor at exactly 24×24 with shift-based 2× nearest-neighbor scaling and
   transparent pixels, with idle and firing frames.
@@ -47,13 +48,18 @@ GearRay is an engine foundation and workshop ROM, not yet a complete game.
   dominant-axis movement at 3.28125 tiles per second.
 - Door-aware enemy collision with player and living-zombie separation; hit
   reactions pause pursuit, while death and corpses remain stationary.
+- Inclusive 280-unit melee attacks with alternating authored attack poses,
+  independent per-zombie cooldowns, 20-point strikes, a 100-point player
+  health model, minimal health HUD, damage shake, and a three-second Game Over
+  presentation before the shared restart path.
 - One shared 16-entry BG master palette for the complete software-composited
   scene; the hardware-sprite palette remains unused.
 - Complete first-frame preparation before the direct-to-game display becomes
   visible.
 - Two toggleable yellow doors, a switch-activated red door, interaction
   targeting, and a permanent 13×13 workshop map.
-- Banked 32 KiB ROM layout with isolated release and profiling builds.
+- Banked 64 KiB packaged ROM with hot Bank 0 code, Bank 1 gameplay and
+  presentation code/data, and explicitly mapped Bank 2 near-zombie textures.
 - Compile-time renderer profiling with no release-build counter overhead.
 - Host-side workshop-map, exhaustive control, ray-direction, renderer,
   multi-sprite, combat, complete-palette, weapon-decoding, and startup-order
@@ -111,6 +117,7 @@ when configuring CMake. See the full [build guide](docs/BUILDING.md).
 - [Engine architecture](docs/ENGINE_ARCHITECTURE.md)
 - [Engine Foundation v1.0.0](docs/ENGINE_FOUNDATION_V1.0.0.md)
 - [ROM banking architecture](docs/ROM_BANKING.md)
+- [Zombie presentation and renderer audit](docs/ZOMBIE_PRESENTATION_PIPELINE.md)
 - [Asset provenance](docs/ASSET_PROVENANCE.md)
 - [Contributing](CONTRIBUTING.md)
 - [Changelog](CHANGELOG.md)
@@ -133,8 +140,8 @@ the Engine Foundation contracts.
 - SDCC and devkitSMS must be installed separately.
 - The devkitSMS revision is not yet pinned.
 - The ROM is a technical workshop rather than a finished game.
-- Zombie attacks, player health, walking/attack animation, audio, save data,
-  menu gameplay, and complete progression are not yet implemented.
+- Audio, save data, menu gameplay, and complete progression are not yet
+  implemented.
 - Some asset ownership and release status still requires confirmation; see the
   [asset provenance record](docs/ASSET_PROVENANCE.md).
 

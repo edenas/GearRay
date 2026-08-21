@@ -48,18 +48,21 @@ register `0xFFFE` through `get_bank` and `set_bank`. SDCC emits a resident
 trampoline call, maps the callee's bank into slot 1, invokes the function, and
 restores the caller's prior slot-1 bank when the function returns.
 
-Data paging is a separate mechanism. Future banked assets in slot 2 use
-`SMS_mapROMBank()` and mapper register `0xFFFF`; they are not automatically
-managed by `__banked` function calls.
+Data paging is a separate mechanism. Native 32x32 zombie assets use mapper slot
+2 and register `0xFFFF`; they are not automatically managed by `__banked`
+function calls.
 
 ## Current ROM layout
 
-The first banked build is a 32 KiB ROM containing two physical banks:
+The current package is a 64 KiB ROM. Linked content occupies the fixed region,
+Bank 1 code/data, and a dedicated Bank 2 asset segment; `makesms` pads and
+headers the final image.
 
 | Bank | Current responsibility | Current contents |
 | ---: | --- | --- |
 | 0 | Fixed resident engine | Reset/interrupt support, SMSlib, main loop, input, player, camera, raycaster, renderer, world queries, door state and bank trampolines |
 | 1 | Cold gameplay, startup/sprite/HUD presentation, textures, and diagnostics | `world_interactions.c`, `interaction_ray.c`, `zombie_shooting.c`, `zombie_ai.c`, `enemy_collision.c`, `sprite_projection.c`, `startup_logo.c`, `hud_weapon.c`, SEGA logo data, LOD tables, full zombie and weapon textures, optional renderer-profile reporting, and the 32 KiB Sega header at file/CPU address `0x7FF0` |
+| 2 | Explicitly paged near-zombie assets | Seven native 32x32 walking, melee, hit, and corpse payloads plus their lookup table |
 
 The linked `_BANK1` code segment starts at virtual address `0x14000`. SDCC and
 `makesms` translate that virtual segment into physical ROM Bank 1, visible to
@@ -68,23 +71,20 @@ the CPU at `0x4000–0x7FFF` when selected.
 The generated ROM uses the standard Game Gear header macro for ROMs of at least
 32 KiB. The former 16 KiB header at `0x3FF0` must not be restored.
 
-The current finalized engine baseline reports:
+The current audited release reports:
 
-| Resource | Release | Profile |
-| --- | ---: | ---: |
-| Total ROM file | 32,768 bytes (2 banks) | 32,768 bytes (2 banks) |
-| Used ROM content | 25,232 bytes | 25,243 bytes |
-| Bank 0 used/free | 16,287 / 97 bytes | 16,281 / 103 bytes |
-| Bank 1 used/free | 8,945 / 7,439 bytes | 8,962 / 7,422 bytes |
-| Persistent RAM, including initialized data | 1,213 bytes | 1,238 bytes |
+| Resource | Release |
+| --- | ---: |
+| Packaged ROM | 65,536 bytes |
+| Logical linked content | 34,730 bytes |
+| Bank 0 free | 385 bytes |
+| Bank 1 used/free | 15,117 / 1,251 bytes |
+| Bank 2 used/free | 3,598 / 12,786 bytes |
+| Audited checksum | `0xD092` |
 
-The Release fixed segments end exclusively at `0x3F8A`; Profile fixed segments
-end exclusively at `0x3F84`. Both remain below the `0x4000` Bank 0 boundary.
-
-Release and Profile Bank 0 have only 97 and 103 bytes free. This is a capacity
-constraint, not a runtime failure. Future resident growth should first
-consider moving clearly cold startup or debug code to Bank 1; the hot renderer
-should remain resident.
+The release fixed segments end exclusively at `0x3E7F`, below the `0x4000`
+Bank 0 boundary. Future resident growth should still prefer moving cohesive
+cold work rather than introducing mapper changes in renderer inner loops.
 
 The single-bank baseline had 35 free Bank 0 bytes. This first migration pays a
 one-time resident cost for SDCC's bank-call support: the 43-byte resident
@@ -122,9 +122,10 @@ diagnostics run only at frame boundaries; renderer pixel and tile-row paths
 never bank-switch.
 
 Zombie projection, render-budget selection, and shooting target selection are
-cohesive Bank 1 calls. All five linked full-detail zombie textures are also in
-Bank 1 and are consumed while the projection bank is mapped; resident tile
-composition uses the selected packed presentation prepared for the frame.
+cohesive Bank 1 calls. The 8x8 and authored 16x16 textures remain in Bank 1.
+Seven native 32x32 payloads live in Bank 2; projection stores a compact texture
+ID, and video maps slot 2 at most once after budget acceptance, then restores
+the previous page once after the render batch.
 
 Zombie AI and its reusable enemy collision query are also in Bank 1. The main
 loop makes one `zombie_ai_update_all()` transition every four frames; the
@@ -136,11 +137,10 @@ in Bank 1. Bank calls occur only for weapon tiles already being regenerated;
 the weapon does not create an independent upload pass. The accepted call graph
 does not introduce a nested banked call.
 
-The startup-logo routine, its 1,536-byte tile data, palette, and tilemap are
-also in Bank 1 and execute before gameplay initialization. Persistent sprite
-texture pointers currently rely on all referenced textures and consumers
-sharing BANK1. Revisit that pointer lifetime and the no-nested-call invariant
-before introducing BANK2.
+The startup-logo routine, Game Over presentation data, health HUD generation,
+and cold initialization code are also in Bank 1. Persistent 8x8/16x16 sprite
+pointers rely on their Bank 1 ownership; Bank 2 data is addressed only while
+slot 2 is explicitly mapped.
 
 ## Build-system contract
 
@@ -163,7 +163,7 @@ Examples:
 
 ```text
 Bank 1: --codeseg BANK1, -Wl-b_BANK1=0x14000
-Bank 2: --codeseg BANK2, -Wl-b_BANK2=0x24000
+Bank 2 data: --constseg BANK2, -Wl-b_BANK2=0x28000
 Bank 3: --codeseg BANK3, -Wl-b_BANK3=0x34000
 ```
 
@@ -249,11 +249,11 @@ ROM bank-number space.
 
 ## Expansion capacity
 
-A 512 KiB ROM contains 32 banks of 16 KiB. The current foundation emits only
-the two banks that contain linked content, producing a 32 KiB image. Future
-code segments or asset banks will cause the generated ROM to expand in 16 KiB
-increments. A final 512 KiB cartridge requires complete Sega mapper support
-for both slot 1 and slot 2 if the game uses banked code and banked assets.
+A 512 KiB ROM contains 32 banks of 16 KiB. The current build packages a 64 KiB
+image with linked fixed, Bank 1, and Bank 2 content. Future code segments or
+asset banks will continue to expand the mapped layout in 16 KiB increments. A
+final 512 KiB cartridge requires complete Sega mapper support for both slot 1
+and slot 2 if the game uses banked code and banked assets.
 
 Slot-2-only cartridge mappers are not sufficient for this architecture because
 SDCC banked code switches slot 1. Emulator testing must use Sega mapper
@@ -262,10 +262,10 @@ hardware.
 
 ## Data and asset banking
 
-No asset was migrated in this sprint. When asset banking begins, follow the
-devkitSMS-recommended `assets2banks` workflow or compile one constant-data
-source per bank with `--constseg BANKn`, link it at the appropriate virtual
-slot-2 address, and map it explicitly with `SMS_mapROMBank()`.
+The first asset bank is active. Each near-zombie generated source is compiled
+with `--constseg BANK2`, linked at virtual address `0x28000`, and accessed
+through mapper slot 2. The renderer scans accepted sprites before mapping, so
+budget-rejected or absent near sprites cause no Bank 2 change.
 
 Banked data pointers are valid only while their physical bank is mapped into
 slot 2. Copy required data to RAM or VRAM before restoring/replacing the bank.
@@ -301,12 +301,12 @@ switch-controlled red door.
 - The current low-frequency interaction ray and interaction dispatcher cross
   the bank boundary. More complex nested and cross-bank call graphs have not
   yet been validated in GearRay.
-- Release Bank 0 has 97 free bytes and Profile Bank 0 has 103 free bytes. New
-  resident features require deliberate space management; clearly cold
+- Release Bank 0 has 385 free bytes. New resident features require deliberate
+  space management; clearly cold
   startup/debug code should be evaluated for Bank 1 before hot renderer code.
 - Bank switching has nonzero latency and changes mapper state. It must not be
   introduced into renderer inner loops.
-- The current ROM has two banks, not 32. The architecture can grow toward
+- The current ROM package is 64 KiB, not 512 KiB. The architecture can grow toward
   512 KiB, but future banks must be explicitly built, linked, and validated.
 
 ## Recommendations for the next migration

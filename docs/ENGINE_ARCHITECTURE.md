@@ -481,21 +481,20 @@ in bit 7.
 
 The Bank 1 projection pass applies the renderer's fixed-point inverse camera
 transform to every sprite. Horizontal placement uses scale 80 around viewport
-centre 56. Living and `SHOT_DEAD` visibility uses world-distance squared with
-an accepted radius of 1260, so rotating the camera cannot create a visibility
-hole. Eligible sprites use full detail at projected height
-17 or more, state-specific medium silhouettes at 15..16, simple silhouettes at
-13..14, and are hidden outside the accepted world-distance radius. Corpses use
-their own distance eligibility: authored texture at 17 or more, a darkest-gray
-pile at 15..16 (including eligible farther projections clamped to 15), and are
-hidden beyond the separate corpse cutoff. Hidden
-sprites exit before clipping, occlusion, budgeting, texture selection, column
-generation, or dirty composition.
+centre 56. Living presentation is hidden beyond distance 1260, uses distant
+8x8 at 617..1260, authored 16x16 at 393..616, authored 32x32 locomotion at
+281..392, and authored 32x32 melee presentation at 280 or less. One packed
+walking phase is shared across resolutions. Corpses are stateless: depth 159
+or less is hidden-close; distance tiers are authored 32x32 through 392,
+authored 16x16 through 540, authored 8x8 through 688, dark pile through 836,
+then hidden-far. See
+[`ZOMBIE_PRESENTATION_PIPELINE.md`](ZOMBIE_PRESENTATION_PIPELINE.md) for the
+complete presentation, audit, memory, and deliberate non-change record.
 
 Visible candidates are selected deterministically within a total render-cost
-budget of 12: full detail costs 5, medium costs 2, and simple or corpse-pile
-presentation costs 1. Gameplay state continues to update when presentation is
-culled or rejected by the budget.
+budget of 12: native Bank 2 presentation costs 8, full detail costs 5, medium
+costs 2, and simple or corpse-pile presentation costs 1. Gameplay state
+continues to update when presentation is culled or rejected by the budget.
 
 The resident video layer composes opaque sprite pixels into tile-local native
 background data after wall, ceiling, and floor pixels exist. Palette index 15
@@ -563,6 +562,14 @@ The three-frame living hit reaction pauses movement without clearing the
 packed chasing flag. Pursuit resumes when the reaction expires if awareness
 conditions still hold. Lethal damage immediately prevents further AI work;
 `SHOT_DEAD` and `CORPSE` never move.
+
+At an inclusive octagonal distance of 280, a clear-LOS living zombie stops
+moving and attacks. Each zombie stores its cooldown and alternating attack
+phase in the existing packed state byte. An admitted strike removes 20 points
+from the player's 100-point health, triggers four-frame hardware-scroll damage
+shake, and presents standing/attack poses without changing movement cadence.
+At zero health, gameplay enters a cleared three-second Game Over presentation
+and then uses the shared session restart path.
 
 Moving sprites use the renderer's existing union of old/current coverage and
 texture-change invalidation. The AI introduces no VRAM path or full-viewport

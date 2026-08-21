@@ -21,7 +21,7 @@ Status labels used throughout:
 - **Experimental/rejected:** evaluated but not retained.
 - **Planned:** a direction, not an implemented feature.
 
-GearRay is currently an engine foundation and technical workshop, not a finished game. It has movement, collision, raycasting, textured walls, distance treatment, interaction targeting, two toggleable yellow doors, a switch-activated red door, up to eight LOS-driven pursuing zombie billboards, and press-edge pistol combat. It does not yet have zombie attacks, player health, walking/attack animation, audio, save data, menus, or complete game progression.
+GearRay is currently an engine foundation and technical workshop, not a finished game. It has movement, collision, raycasting, textured walls, distance treatment, interaction targeting, two toggleable yellow doors, a switch-activated red door, up to eight LOS-driven pursuing zombies, press-edge pistol combat, authored multi-resolution walking/melee presentation, zombie attacks, player health, a minimal health HUD, and Game Over restart. It does not yet have audio, save data, menus, or complete game progression.
 
 ---
 
@@ -95,9 +95,9 @@ An aesthetic preference or desire to reorganize already-readable code is not eno
 | Pistol | press-edge shooting; 12/6/4/3 damage by exact renderer-aligned depth |
 | HUD weapon | idle/firing 24×24 screen-space overlay at `[80, 104) × [40, 64)` |
 | Doors | standard instances at (6, 4) and (6, 8) toggle; red instance at (6, 2) opens from switch (6, 12) |
-| ROM | banked 32 KiB image; hot code in Bank 0, cold interaction/profile code in Bank 1 |
-| Stable release RAM | 1,213 bytes |
-| Profiling RAM | 1,238 bytes |
+| ROM | banked 64 KiB package; hot code in Bank 0, cold gameplay/presentation in Bank 1, native near-zombie assets in Bank 2 |
+| Video static renderer RAM | 620 bytes |
+| Compiler-visible renderer working storage | approximately 916 bytes; approximately 989 including persistent world sprites |
 
 ### 4.1 Accepted zombie combat milestone
 
@@ -107,15 +107,14 @@ tile as `EMPTY`. Each record remains nine bytes. Bits 0-3 of its packed byte
 store health `0..12`, bits 4-6 store successful-hit count, and bit 7 stores
 the AI chasing flag.
 
-Living and `SHOT_DEAD` presentation uses authored full detail at projected
-height 17 or more, state-specific medium silhouettes at 15..16, simple
-silhouettes at 13..14, and is hidden outside the accepted world-distance radius
-of 1260. Corpses use separate distance eligibility: authored texture at 17 or
-more, a darkest-gray pile at 15..16 (including eligible farther projections
-clamped to 15), and hidden beyond the corpse cutoff. Horizontal projection uses
-scale 80 around viewport centre 56. Full,
-medium, simple, and corpse-pile costs are 5, 2, 1, and 1 within a deterministic
-total budget of 12. Rejected presentation never pauses gameplay state.
+Living presentation is hidden beyond distance 1260, uses distant 8x8 at
+617..1260, authored 16x16 at 393..616, authored 32x32 locomotion at 281..392,
+and authored 32x32 melee presentation at 280 or less. One packed walking phase
+is shared across resolutions. Corpse presentation is stateless: depth 159 or
+less is hidden-close; distance tiers are authored 32x32 through 392, authored
+16x16 through 540, authored 8x8 through 688, dark pile through 836, then
+hidden-far. The complete current contract and audit measurements are in
+`docs/ZOMBIE_PRESENTATION_PIPELINE.md`.
 
 Button 1 is press-edge pistol fire and does not autofire. One `pending_shot`
 byte gives the firing HUD a one-rendered-frame lead while keeping it visible on
@@ -134,10 +133,10 @@ frames and return to standing. Lethal damage clamps health to zero, shows
 `shot_dead` for four rendered frames, then enters persistent corpse state.
 
 Tile-local composition preserves transparent wall, ceiling, and floor pixels.
-Walls win equal-depth ties. Texture changes invalidate cached presentation,
-and the union of old/current coverage prevents stale pixels. Full-detail
-runtime textures are standing, shot_01, shot_02, shot_dead, and corpse. Walking
-and attack PNGs remain source-only future assets.
+Walls win equal-depth ties. Texture, source-size, near-ID, geometry, and depth
+changes invalidate cached presentation, and the union of old/current coverage
+prevents stale pixels. Authored walking, attack, hit, death, and corpse assets
+are active across the 8x8, 16x16, and 32x32 presentation tiers.
 
 ### 4.2 Accepted zombie pursuit milestone
 
@@ -630,7 +629,8 @@ wall_concrete.png + wall_concrete_blood.png + door and switch PNGs
 
 Generation runs independently in `build/` and `build-profile/`; equivalence validation checks that their generated sources match.
 
-The five runtime zombie poses follow a parallel, smaller path:
+Zombie sources follow generated 8x8, authored 16x16, and authored 32x32
+presentation paths. The following base path is one part of that pipeline:
 
 ```text
 assets/sprites/enemies/zombie/zombie_01_{standing,shot_01,shot_02,shot_dead,corps}.png
@@ -639,7 +639,9 @@ assets/sprites/enemies/zombie/zombie_01_{standing,shot_01,shot_02,shot_dead,corp
   -> packed 8×8, 32-byte indexed textures in Bank 1
 ```
 
-Walking and attack frames remain source-only future assets and are not linked.
+Walking, attack, hit, death, and corpse frames are linked and selected by the
+active distance/state presentation pipeline. The complete inventory and Bank 2
+mapping contract are documented in `docs/ZOMBIE_PRESENTATION_PIPELINE.md`.
 
 The HUD weapon uses the same indexed sprite generator:
 
@@ -672,10 +674,10 @@ The provenance record explicitly says some asset ownership and release status st
 |---|---|---|
 | `0x0000–0x3FFF` | slot 0 / Bank 0 | permanent code, vectors, SMSlib core, trampolines |
 | `0x4000–0x7FFF` | slot 1 / initially Bank 1 | SDCC `__banked` code |
-| `0x8000–0xBFFF` | slot 2 / initially Bank 2 | future manually mapped data/assets |
+| `0x8000–0xBFFF` | slot 2 / initially Bank 2 | explicitly mapped native near-zombie assets |
 | `0xC000–0xDFFF` | RAM | static/runtime data; mirrored by hardware |
 
-SDCC banked calls use CRT `get_bank`/`set_bank` hooks and a resident trampoline. A call maps slot 1, executes the callee, and restores the previous bank. Slot 2 asset paging is separate and would use `SMS_mapROMBank()`.
+SDCC banked calls use CRT `get_bank`/`set_bank` hooks and a resident trampoline. A call maps slot 1, executes the callee, and restores the previous bank. Slot 2 asset paging is separate; the video batch maps Bank 2 only for accepted native near-zombie textures and restores the previous page afterward.
 
 ### 14.2 Current placement
 
@@ -684,29 +686,28 @@ world queries, door state, raycaster, texture sampling, renderer, SMSlib, and
 trampolines. Bank 1 contains `interaction_ray.c`, `world_interactions.c`,
 `zombie_shooting.c`, `zombie_ai.c`, `enemy_collision.c`, multi-sprite
 projection/budget selection, the startup-logo routine and assets, the HUD
-weapon compositor, LOD tables, all linked
-full-detail zombie and weapon textures, and optional profiling reporting. The
-accepted graph introduces no nested banked call.
+weapon compositor, LOD tables, 8x8/16x16 zombie and weapon textures, and
+optional profiling reporting. Bank 2 contains seven native 32x32 zombie
+payloads and their lookup table. The accepted graph introduces no nested
+banked call.
 
 The `_BANK1` segment links at virtual `0x14000`. Banked objects are placed after resident objects/libraries. The 32 KiB header is at physical/CPU `0x7FF0`; the obsolete 16 KiB header position must not return.
 
-Current accepted rendering-milestone measurements:
+Current audited release measurements:
 
-| Resource | Release | Profile |
-|---|---:|---:|
-| ROM used | 25,232 bytes | 25,243 bytes |
-| Bank 0 free | 97 bytes | 103 bytes |
-| Bank 1 free | 7,439 bytes | 7,422 bytes |
-| Persistent RAM, including initialized data | 1,213 bytes | 1,238 bytes |
-| ROM file | 32,768 bytes | 32,768 bytes |
+| Resource | Release |
+|---|---:|
+| Logical linked content | 34,730 bytes |
+| Bank 0 free | 385 bytes |
+| Bank 1 used/free | 15,117 / 1,251 bytes |
+| Bank 2 used/free | 3,598 / 12,786 bytes |
+| ROM file | 65,536 bytes |
+| ROM checksum | `0xD092` |
 
-Release fixed segments end exclusively at `0x3F8A`; Profile fixed segments end
-exclusively at `0x3F84`.
-
-Release and Profile Bank 0's 97 and 103 free bytes are engineering capacity
-constraints, not runtime failures. Future resident growth should first
-consider moving clearly cold startup/debug code to Bank 1 instead of
-relocating hot renderer code.
+Release fixed segments end exclusively at `0x3E7F`. The remaining 385 bytes
+are an engineering capacity constraint, not a runtime failure. Future resident
+growth should first consider moving cohesive cold work instead of relocating
+hot renderer code.
 
 All persistent BANK1 texture pointers are safe in the current two-bank image
 because their data and consumers share BANK1. This assumption must be reviewed
@@ -1200,7 +1201,6 @@ Use focused branches/commits and pull requests. Architectural, performance, depe
 - SDCC/devkitSMS/Ninja are externally installed and not fully pinned;
 - the ROM is a technical workshop, not a complete game;
 - no menu gameplay despite the reserved input API;
-- no zombie attacks, player health, walking/attack animation, or attack feedback;
 - no automatic fire, ammunition, recoil, multiple weapons, audio, status HUD,
   save data, or progression;
 - doors use binary instantaneous state; either yellow door toggles and the red door opens from its switch;
@@ -1223,24 +1223,22 @@ Near term:
 Gameplay direction:
 
 - animated/obstructable doors;
-- zombie melee attacks, cooldown, player health, animation, and hit feedback;
 - extend pistol combat with ammunition, recoil, and multiple weapons;
-- extend moving multi-sprite rendering with walking and attack animation;
-- status HUD/helmet overlay extending the existing VRAM ownership;
+- extend the minimal health HUD only when gameplay requires more status;
 - audio with mapper coordination;
 - multiple maps, metadata, transitions, scripting, inventory, objectives, and progression.
 
-Before implementing zombie attacks, evaluate melee range, cooldown, player
-health, attack animation, hit feedback, and whether `state_timer` can safely
-share attack timing. Audit Bank 0 capacity before adding resident code. The
-eight-zombie maximum still does not justify a persistent occupancy grid;
-direct living-zombie comparisons remain the accepted collision model.
+The accepted zombie attack uses inclusive distance 280, independent packed
+cooldown/phase state, 20-point damage, and existing timer ownership. Audit
+Bank 0 capacity before adding resident code. The eight-zombie maximum still
+does not justify a persistent occupancy grid; direct living-zombie comparisons
+remain the accepted collision model.
 
 Measure moving-zombie renderer load before broadening AI. Re-audit if practical
 frames repeatedly approach 10–12 dirty columns, 80–96 regenerated tiles, or
 approximately 2.5–3 KiB of pattern traffic. Profile Bank 0 currently has only
-103 bytes free, so attack work must preserve cohesive BANK1 placement and avoid
-multiple normal-frame bank transitions per zombie.
+385 bytes free in the audited release, so new work must preserve cohesive Bank
+1 placement and avoid multiple normal-frame bank transitions per zombie.
 
 Future systems must grow around, not through, the stable renderer and movement contracts.
 
