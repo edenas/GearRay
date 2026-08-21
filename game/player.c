@@ -7,12 +7,12 @@
 
 #define FIXED_POINT_SCALE 256
 #define CAMERA_PLANE_LENGTH 169
-#define PLAYER_MOVE_SPEED 74
 #define PLAYER_COLLISION_RADIUS 32
 #define PLAYER_DIAGONAL_SCALE 177
 
 static signed int player_position_x;
 static signed int player_position_y;
+static unsigned char player_health;
 
 static signed int player_scale_movement(signed int direction,
                                         unsigned int direction_scale)
@@ -79,6 +79,7 @@ void player_initialize(void)
                       + FIXED_POINT_SCALE / 2;
     player_position_y = world_get_spawn_y() * FIXED_POINT_SCALE
                       + FIXED_POINT_SCALE / 2;
+    player_health = PLAYER_MAX_HEALTH;
 }
 
 void player_move_combined(signed char forward_direction,
@@ -152,4 +153,22 @@ signed int player_get_position_x(void)
 signed int player_get_position_y(void)
 {
     return player_position_y;
+}
+
+unsigned char player_get_health(void)
+{
+    return player_health;
+}
+
+void player_apply_damage(unsigned char damage)
+{
+    if (damage >= player_health)
+        player_health = 0;
+    else
+        player_health -= damage;
+}
+
+unsigned char player_is_dead(void)
+{
+    return player_health == 0;
 }

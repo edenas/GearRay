@@ -19,7 +19,7 @@
 #define WORLD_TILE_VOID 8
 #define WORLD_TILE_SPRITE_MARKER 9
 
-void world_initialize(void);
+void world_initialize(void) __banked;
 unsigned char world_get_tile(unsigned char x, unsigned char y);
 unsigned char world_get_texture(unsigned char tile_id);
 unsigned char world_get_object(unsigned char tile_id);

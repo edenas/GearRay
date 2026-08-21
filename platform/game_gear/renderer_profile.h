@@ -12,6 +12,9 @@ typedef struct
     unsigned char ray_direction_rebuilds;
     unsigned char rotation_steps;
     unsigned int dirty_columns_rendered;
+    unsigned int sprite_driven_dirty_columns;
+    unsigned int sprite_candidate_tests;
+    unsigned char ordered_visible_sprites;
     unsigned int active_tile_columns_uploaded;
     unsigned int native_tiles_generated;
     unsigned int tile_state_changes;

@@ -16,6 +16,8 @@ $logoHeader = Get-Content -Raw -LiteralPath (
     Join-Path $root "$BuildDirectory\generated\sega_logo.h")
 $zombieStateTextures = @(
     @{ File = 'zombie_01_shot_dead_texture'; Symbol = 'zombie_01_shot_dead_pixels' },
+    @{ File = 'zombie_01_walking_01_texture'; Symbol = 'zombie_01_walking_01_pixels' },
+    @{ File = 'zombie_01_walking_02_texture'; Symbol = 'zombie_01_walking_02_pixels' },
     @{ File = 'zombie_01_corps_texture'; Symbol = 'zombie_01_corps_pixels' }
 )
 $weaponPath = Join-Path $root "assets\sprites\weapons\gun_12x12.png"
@@ -23,6 +25,8 @@ $logoPath = Join-Path $root "assets\logos\sega_logo.png"
 $mainSource = Get-Content -Raw -LiteralPath (Join-Path $root "game\main.c")
 $videoSource = Get-Content -Raw -LiteralPath (
     Join-Path $root "platform\game_gear\video.c")
+$videoInitializationSource = Get-Content -Raw -LiteralPath (
+    Join-Path $root "platform\game_gear\video_initialization.c")
 $startupLogoSource = Get-Content -Raw -LiteralPath (
     Join-Path $root "platform\game_gear\startup_logo.c")
 
@@ -204,7 +208,7 @@ if ($mainSource -match 'SMS_autoSetUpTextRenderer\(\);' -or
     $mainSource -match 'game_gear_video_load_background_palette\(\);') {
     throw 'Profile-only text setup or palette repair remains in the main path'
 }
-if ($videoSource -notmatch
+if ($videoInitializationSource -notmatch
     'GAME_GEAR_WALL_PALETTE_BASE \+ wall_palette_offset,[\s\S]*?game_gear_get_wall_palette_color') {
     throw 'Runtime palette loader does not load the generated master palette'
 }

@@ -125,12 +125,12 @@ Assert-True ($spriteSource -match
     "state_timer = ZOMBIE_HIT_REACTION_FRAME_COUNT" -and
     $spriteSource -match
     "sprite->state_timer == 0[\s\S]*?continue;[\s\S]*?" +
-    "--sprite->state_timer;[\s\S]*?sprite->state == ZOMBIE_STATE_SHOT_DEAD" +
+    "--sprite->state_timer;[\s\S]*?WORLD_SPRITE_LIFE_STATE\(sprite\) == ZOMBIE_STATE_SHOT_DEAD" +
     "[\s\S]*?else\s*sprite->pixels = zombie_01_standing_pixels;") `
     "Surviving hit reactions do not expire back to standing."
 Assert-True ($spriteSource -match "world_sprite_set_state\(sprite, ZOMBIE_STATE_CORPSE\)") `
     "SHOT_DEAD does not transition to CORPSE."
-Assert-True ($shootingSource -match "sprite->state != ZOMBIE_STATE_ALIVE") `
+Assert-True ($shootingSource -match "WORLD_SPRITE_LIFE_STATE\(sprite\) != ZOMBIE_STATE_ALIVE") `
     "Target acquisition does not reject non-living zombies."
 Assert-True ($mainSource -match
     "shoot_requested = input_shoot_requested\(\);[\s\S]*?game_gear_hud_weapon_update\(shoot_requested\);[\s\S]*?if \(pending_shot\)[\s\S]*?zombie_shooting_process\(\);[\s\S]*?pending_shot = shoot_requested;") `
@@ -150,7 +150,7 @@ Assert-True ($inputSource -match
     "\(keys & PORT_A_KEY_1\) != 0[\s\S]*?\(previous_keys & PORT_A_KEY_1\) == 0") `
     "Button 1 shooting is not press-edge triggered."
 Assert-True ($projectionSource -match
-    "sprite->state == ZOMBIE_STATE_CORPSE[\s\S]*?bottom \+=") `
+    "WORLD_SPRITE_LIFE_STATE\(sprite\) == ZOMBIE_STATE_CORPSE[\s\S]*?bottom \+=") `
     "Corpse projection is not floor-adjusted."
 Assert-True ($shootingSource -match
     "zombie_shooting_find_aimed_target\(\s*&target_depth\s*\)" -and

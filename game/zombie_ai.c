@@ -3,28 +3,39 @@
 #include "world.h"
 #include "world_sprite.h"
 #include "zombie_ai.h"
+#include "video.h"
+#include "sprite_texture.h"
+#include "zombie_01_walking_01_texture.h"
+#include "zombie_01_walking_02_texture.h"
+#include "zombie_01_shot_01_texture.h"
+#include "zombie_01_shot_02_texture.h"
 
 #define FIXED_POINT_SCALE 256
 #define ZOMBIE_ACTIVATION_DISTANCE 963
 #define ZOMBIE_LOSE_DISTANCE 1260
-#define ZOMBIE_MOVEMENT_STEP 56
 #define ZOMBIE_COLLISION_RADIUS 32
 #define ZOMBIE_COMBINED_COLLISION_RADIUS 64
+#define ZOMBIE_ATTACK_DAMAGE 20
+#define ZOMBIE_ATTACK_COOLDOWN_AI_TICKS 2
+
+static unsigned char zombie_ai_get_attack_cooldown(
+    const WorldSprite *sprite)
+{
+    return (sprite->state & ZOMBIE_ATTACK_COOLDOWN_MASK)
+        >> ZOMBIE_ATTACK_COOLDOWN_SHIFT;
+}
+
+static void zombie_ai_set_attack_cooldown(WorldSprite *sprite,
+                                           unsigned char cooldown)
+{
+    sprite->state = (ZombieState)(
+        (sprite->state & ~ZOMBIE_ATTACK_COOLDOWN_MASK)
+        | (cooldown << ZOMBIE_ATTACK_COOLDOWN_SHIFT));
+}
 
 static unsigned int zombie_ai_absolute(signed int value)
 {
     return value < 0 ? (unsigned int)-value : (unsigned int)value;
-}
-
-static unsigned int zombie_ai_distance(signed int delta_x,
-                                       signed int delta_y)
-{
-    unsigned int distance_x = zombie_ai_absolute(delta_x);
-    unsigned int distance_y = zombie_ai_absolute(delta_y);
-
-    return distance_x > distance_y
-        ? distance_x + (distance_y >> 1)
-        : distance_y + (distance_x >> 1);
 }
 
 static unsigned char world_has_clear_line_of_sight(signed int start_x,
@@ -95,7 +106,7 @@ static unsigned char zombie_ai_position_is_clear(
         if (other_index == moving_index)
             continue;
         other = world_sprite_get(other_index);
-        if (other->state != ZOMBIE_STATE_ALIVE)
+        if (WORLD_SPRITE_LIFE_STATE(other) != ZOMBIE_STATE_ALIVE)
             continue;
         if (zombie_ai_absolute(position_x - other->world_x)
                 < ZOMBIE_COMBINED_COLLISION_RADIUS &&
@@ -141,6 +152,9 @@ void zombie_ai_update_all(void) __banked
     signed int player_x = player_get_position_x();
     signed int player_y = player_get_position_y();
 
+    if (player_is_dead())
+        return;
+
     for (sprite_index = 0; sprite_index < sprite_count; ++sprite_index)
     {
         WorldSprite *sprite = world_sprite_get(sprite_index);
@@ -149,18 +163,29 @@ void zombie_ai_update_all(void) __banked
         unsigned int distance;
         unsigned char chasing;
 
-        if (sprite->state != ZOMBIE_STATE_ALIVE)
+        unsigned char attack_cooldown;
+
+        if (WORLD_SPRITE_LIFE_STATE(sprite) != ZOMBIE_STATE_ALIVE)
             continue;
+
+        attack_cooldown = zombie_ai_get_attack_cooldown(sprite);
+        if (attack_cooldown != 0)
+        {
+            --attack_cooldown;
+            zombie_ai_set_attack_cooldown(sprite, attack_cooldown);
+        }
 
         delta_x = player_x - sprite->world_x;
         delta_y = player_y - sprite->world_y;
-        distance = zombie_ai_distance(delta_x, delta_y);
+        distance = zombie_distance_metric(delta_x, delta_y);
         chasing = sprite->health_and_hit_count & ZOMBIE_AI_CHASING_MASK;
 
         if ((!chasing && distance > ZOMBIE_ACTIVATION_DISTANCE)
             || (chasing && distance > ZOMBIE_LOSE_DISTANCE))
         {
             sprite->health_and_hit_count &= ~ZOMBIE_AI_CHASING_MASK;
+            if (sprite->state_timer == 0)
+                sprite->pixels = zombie_01_standing_pixels;
             continue;
         }
 
@@ -168,12 +193,47 @@ void zombie_ai_update_all(void) __banked
                                            player_x, player_y))
         {
             sprite->health_and_hit_count &= ~ZOMBIE_AI_CHASING_MASK;
+            if (sprite->state_timer == 0)
+                sprite->pixels = zombie_01_standing_pixels;
             continue;
         }
 
         sprite->health_and_hit_count |= ZOMBIE_AI_CHASING_MASK;
-        if (sprite->state_timer != 0)
+
+        if (distance <= ZOMBIE_ATTACK_DISTANCE)
+        {
+            if (sprite->state_timer == 0)
+            {
+                if (attack_cooldown == 0)
+                {
+                    player_apply_damage(ZOMBIE_ATTACK_DAMAGE);
+                    game_gear_health_hud_update(player_get_health());
+                    game_gear_damage_shake_phase = 4;
+                    sprite->state_timer =
+                        ZOMBIE_ATTACK_PRESENTATION_FRAME_COUNT;
+                    zombie_ai_set_attack_cooldown(
+                        sprite, ZOMBIE_ATTACK_COOLDOWN_AI_TICKS);
+                    sprite->state ^= ZOMBIE_ATTACK_PHASE_MASK;
+                }
+            }
+            if (player_is_dead())
+                return;
             continue;
+        }
+
+        sprite->state ^= ZOMBIE_WALKING_PHASE_MASK;
+
+        if (sprite->state_timer != 0)
+        {
+            if (sprite->pixels == zombie_01_shot_01_pixels
+                || sprite->pixels == zombie_01_shot_02_pixels)
+                continue;
+            sprite->state_timer = 0;
+        }
+
+        sprite->pixels = sprite->state & ZOMBIE_WALKING_PHASE_MASK
+            ? zombie_01_walking_02_pixels
+            : zombie_01_walking_01_pixels;
 
         zombie_ai_move(sprite_index, sprite, player_x, player_y,
                        delta_x, delta_y);

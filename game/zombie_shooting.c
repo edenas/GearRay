@@ -65,7 +65,7 @@ static unsigned char zombie_shooting_find_aimed_target(
         unsigned int depth;
         unsigned long lateral;
 
-        if (sprite->state != ZOMBIE_STATE_ALIVE)
+        if (WORLD_SPRITE_LIFE_STATE(sprite) != ZOMBIE_STATE_ALIVE)
             continue;
 
         relative_x = sprite->world_x - position_x;

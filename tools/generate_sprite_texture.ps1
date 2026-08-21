@@ -3,13 +3,14 @@ param(
     [Parameter(Mandatory = $true)][string]$OutputSource,
     [Parameter(Mandatory = $true)][string]$OutputHeader,
     [Parameter(Mandatory = $true)][string]$Symbol,
-    [ValidateSet('WorldSprite', 'HudWeapon')][string]$SpriteKind = 'WorldSprite'
+    [ValidateSet('WorldSprite', 'HudWeapon', 'MiddleZombie', 'NearZombie')][string]$SpriteKind = 'WorldSprite',
+    [switch]$GenerateWalkingLod
 )
 
 $ErrorActionPreference = "Stop"
 Add-Type -AssemblyName System.Drawing
 
-$expectedSize = if ($SpriteKind -eq 'HudWeapon') { 12 } else { 8 }
+$expectedSize = if ($SpriteKind -eq 'HudWeapon') { 12 } elseif ($SpriteKind -eq 'MiddleZombie') { 16 } elseif ($SpriteKind -eq 'NearZombie') { 32 } else { 8 }
 $transparentIndex = if ($SpriteKind -eq 'HudWeapon') { 14 } else { 15 }
 $bitmap = [System.Drawing.Bitmap]::new($InputPath)
 try {
@@ -46,6 +47,21 @@ try {
                     '#ffffff' { 12; break }
                     default {
                         throw "Sprite color $rgb at ($x,$y) has no exact BG palette mapping."
+                    }
+                }
+            }
+            elseif ($SpriteKind -eq 'NearZombie' -or $SpriteKind -eq 'MiddleZombie') {
+                $index = switch ($rgb) {
+                    '#000000' { 0; break }
+                    '#1a1a1a' { 13; break }
+                    '#006d8f' { 8; break }
+                    '#53602a' { 7; break }
+                    '#785700' { 6; break }
+                    '#b51a00' { 5; break }
+                    '#bb2200' { 5; break }
+                    '#ffffff' { 12; break }
+                    default {
+                        throw "Near zombie color $rgb at ($x,$y) has no exact gameplay palette mapping."
                     }
                 }
             }
@@ -98,6 +114,62 @@ $rows = for ($index = 0; $index -lt $byteCount; $index += $packedRowStride) {
         ForEach-Object { "0x{0:x2}" -f $_ }) -join ", ")
 }
 
+$lodHeader = ""
+$lodSource = ""
+if ($GenerateWalkingLod) {
+    if ($SpriteKind -ne 'WorldSprite') {
+        throw 'Walking LOD generation requires an 8x8 WorldSprite.'
+    }
+
+    $mediumPixels = [System.Collections.Generic.List[byte]]::new($pixelCount)
+    $simplePixels = [System.Collections.Generic.List[byte]]::new($pixelCount)
+    foreach ($index in $pixels) {
+        if ($index -eq $transparentIndex) {
+            $mediumPixels.Add($transparentIndex)
+            $simplePixels.Add($transparentIndex)
+        }
+        else {
+            # Preserve the authored footprint exactly. The source red accent is
+            # the only Medium highlight; every other opaque pixel is dark.
+            $mediumPixels.Add($(if ($index -eq 5) { 10 } else { 13 }))
+            $simplePixels.Add(13)
+        }
+    }
+
+    function ConvertTo-PackedRows($indices) {
+        $packed = [System.Collections.Generic.List[byte]]::new($byteCount)
+        for ($row = 0; $row -lt $expectedSize; ++$row) {
+            $rowOffset = $row * $expectedSize
+            for ($column = 0; $column -lt $expectedSize; $column += 2) {
+                $packed.Add(($indices[$rowOffset + $column] -shl 4) -bor
+                            $indices[$rowOffset + $column + 1])
+            }
+        }
+        return @(for ($offset = 0; $offset -lt $byteCount;
+                       $offset += $packedRowStride) {
+            "    " + (($packed[$offset..($offset + $packedRowStride - 1)] |
+                ForEach-Object { "0x{0:x2}" -f $_ }) -join ", ")
+        })
+    }
+
+    $mediumRows = ConvertTo-PackedRows $mediumPixels
+    $simpleRows = ConvertTo-PackedRows $simplePixels
+    $lodHeader = @"
+extern const unsigned char ${Symbol}_medium_lod[${Symbol}_BYTE_COUNT];
+extern const unsigned char ${Symbol}_simple_lod[${Symbol}_BYTE_COUNT];
+"@
+    $lodSource = @"
+
+const unsigned char ${Symbol}_medium_lod[${Symbol}_BYTE_COUNT] = {
+$($mediumRows -join ",`r`n")
+};
+
+const unsigned char ${Symbol}_simple_lod[${Symbol}_BYTE_COUNT] = {
+$($simpleRows -join ",`r`n")
+};
+"@
+}
+
 $headerGuard = "GEAR_RAY_GENERATED_" + $Symbol.ToUpperInvariant() + "_H"
 $header = @"
 #ifndef $headerGuard
@@ -110,6 +182,7 @@ $header = @"
 #define ${Symbol}_BYTE_COUNT $byteCount
 
 extern const unsigned char $Symbol[${Symbol}_BYTE_COUNT];
+$lodHeader
 
 #endif
 "@
@@ -121,6 +194,7 @@ $source = @"
 const unsigned char $Symbol[${Symbol}_BYTE_COUNT] = {
 $($rows -join ",`r`n")
 };
+$lodSource
 "@
 
 $outputDirectory = Split-Path -Parent $OutputSource

@@ -311,6 +311,7 @@ $unexpectedMapCallers = @(
         Where-Object {
             $_.FullName -notin @(
                 (Join-Path $gamePath "world.c"),
+                (Join-Path $gamePath "world_initialization.c"),
                 (Join-Path $gamePath "workshop_map.c")
             )
         } |

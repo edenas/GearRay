@@ -59,6 +59,8 @@ set(GEAR_RAY_WORLD_SOURCE "${GEAR_RAY_GAME_DIR}/world.c")
 set(GEAR_RAY_WORLD_HEADER "${GEAR_RAY_GAME_DIR}/world.h")
 set(GEAR_RAY_WORLD_OBJECT_HEADER "${GEAR_RAY_GAME_DIR}/world_object.h")
 set(GEAR_RAY_WORLD_OBJECT "${CMAKE_BINARY_DIR}/world.rel")
+set(GEAR_RAY_WORLD_INITIALIZATION_SOURCE "${GEAR_RAY_GAME_DIR}/world_initialization.c")
+set(GEAR_RAY_WORLD_INITIALIZATION_OBJECT "${CMAKE_BINARY_DIR}/world_initialization.rel")
 set(GEAR_RAY_WORKSHOP_MAP_SOURCE "${GEAR_RAY_GAME_DIR}/workshop_map.c")
 set(GEAR_RAY_WORKSHOP_MAP_HEADER "${GEAR_RAY_GAME_DIR}/workshop_map.h")
 set(GEAR_RAY_WORKSHOP_MAP_OBJECT "${CMAKE_BINARY_DIR}/workshop_map.rel")
@@ -89,9 +91,15 @@ set(GEAR_RAY_INPUT_OBJECT "${CMAKE_BINARY_DIR}/input.rel")
 set(GEAR_RAY_STARTUP_LOGO_SOURCE "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/startup_logo.c")
 set(GEAR_RAY_STARTUP_LOGO_HEADER "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/startup_logo.h")
 set(GEAR_RAY_STARTUP_LOGO_OBJECT "${CMAKE_BINARY_DIR}/startup_logo.rel")
+set(GEAR_RAY_NEAR_ZOMBIE_TEXTURES_SOURCE "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/near_zombie_textures.c")
+set(GEAR_RAY_NEAR_ZOMBIE_TEXTURES_HEADER "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/near_zombie_textures.h")
+set(GEAR_RAY_NEAR_ZOMBIE_TEXTURES_OBJECT "${CMAKE_BINARY_DIR}/near_zombie_textures.rel")
 set(GEAR_RAY_VIDEO_SOURCE "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/video.c")
 set(GEAR_RAY_VIDEO_HEADER "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/video.h")
 set(GEAR_RAY_VIDEO_OBJECT "${CMAKE_BINARY_DIR}/video.rel")
+set(GEAR_RAY_VIDEO_INTERNAL_HEADER "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/video_internal.h")
+set(GEAR_RAY_VIDEO_INITIALIZATION_SOURCE "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/video_initialization.c")
+set(GEAR_RAY_VIDEO_INITIALIZATION_OBJECT "${CMAKE_BINARY_DIR}/video_initialization.rel")
 set(GEAR_RAY_HUD_WEAPON_SOURCE "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/hud_weapon.c")
 set(GEAR_RAY_HUD_WEAPON_HEADER "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/hud_weapon.h")
 set(GEAR_RAY_HUD_WEAPON_OBJECT "${CMAKE_BINARY_DIR}/hud_weapon.rel")
@@ -125,12 +133,26 @@ set(GEAR_RAY_WALL_TEXTURE_GENERATOR "${CMAKE_SOURCE_DIR}/tools/generate_wall_tex
 set(GEAR_RAY_WORKSHOP_MAP_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_workshop_map.ps1")
 set(GEAR_RAY_ZOMBIE_SHOOTING_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_zombie_shooting.ps1")
 set(GEAR_RAY_ZOMBIE_AI_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_zombie_ai.ps1")
+set(GEAR_RAY_ZOMBIE_ATTACK_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_zombie_attack.ps1")
+set(GEAR_RAY_HEALTH_HUD_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_health_hud.ps1")
+set(GEAR_RAY_BANK_LAYOUT_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_bank_layout.ps1")
+set(GEAR_RAY_NEAR_ZOMBIE_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_near_zombie.ps1")
+set(GEAR_RAY_MIDDLE_ZOMBIE_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_middle_zombie.ps1")
 set(GEAR_RAY_GENERATED_DIR "${CMAKE_BINARY_DIR}/generated")
+set(GEAR_RAY_HEALTH_HUD_ICON_INPUT "${CMAKE_SOURCE_DIR}/assets/ui/health_hud.png")
+set(GEAR_RAY_HEALTH_HUD_BAR_INPUT "${CMAKE_SOURCE_DIR}/assets/ui/health_hud_1.png")
+set(GEAR_RAY_HEALTH_HUD_GENERATOR "${CMAKE_SOURCE_DIR}/tools/generate_health_hud.ps1")
+set(GEAR_RAY_GENERATED_HEALTH_HUD_HEADER "${GEAR_RAY_GENERATED_DIR}/health_hud_tiles.h")
 set(GEAR_RAY_SEGA_LOGO_INPUT "${CMAKE_SOURCE_DIR}/assets/logos/sega_logo.png")
 set(GEAR_RAY_STARTUP_LOGO_GENERATOR "${CMAKE_SOURCE_DIR}/tools/generate_startup_logo.ps1")
 set(GEAR_RAY_GENERATED_SEGA_LOGO_SOURCE "${GEAR_RAY_GENERATED_DIR}/sega_logo.c")
 set(GEAR_RAY_GENERATED_SEGA_LOGO_HEADER "${GEAR_RAY_GENERATED_DIR}/sega_logo.h")
 set(GEAR_RAY_GENERATED_SEGA_LOGO_OBJECT "${CMAKE_BINARY_DIR}/generated_sega_logo.rel")
+set(GEAR_RAY_GAME_OVER_INPUT "${CMAKE_SOURCE_DIR}/assets/logos/game_over.png")
+set(GEAR_RAY_GAME_OVER_GENERATOR "${CMAKE_SOURCE_DIR}/tools/generate_game_over.ps1")
+set(GEAR_RAY_GENERATED_GAME_OVER_SOURCE "${GEAR_RAY_GENERATED_DIR}/game_over.c")
+set(GEAR_RAY_GENERATED_GAME_OVER_HEADER "${GEAR_RAY_GENERATED_DIR}/game_over.h")
+set(GEAR_RAY_GENERATED_GAME_OVER_OBJECT "${CMAKE_BINARY_DIR}/generated_game_over.rel")
 set(GEAR_RAY_GENERATED_WALL_TEXTURE_SOURCE "${GEAR_RAY_GENERATED_DIR}/wall_texture.c")
 set(GEAR_RAY_GENERATED_WALL_TEXTURE_HEADER "${GEAR_RAY_GENERATED_DIR}/wall_texture.h")
 set(GEAR_RAY_GENERATED_WALL_TEXTURE_OBJECT "${CMAKE_BINARY_DIR}/generated_wall_texture.rel")
@@ -139,6 +161,34 @@ set(GEAR_RAY_SPRITE_TEXTURE_GENERATOR "${CMAKE_SOURCE_DIR}/tools/generate_sprite
 set(GEAR_RAY_GENERATED_SPRITE_TEXTURE_SOURCE "${GEAR_RAY_GENERATED_DIR}/sprite_texture.c")
 set(GEAR_RAY_GENERATED_SPRITE_TEXTURE_HEADER "${GEAR_RAY_GENERATED_DIR}/sprite_texture.h")
 set(GEAR_RAY_GENERATED_SPRITE_TEXTURE_OBJECT "${CMAKE_BINARY_DIR}/generated_sprite_texture.rel")
+set(GEAR_RAY_NEAR_ZOMBIE_WALKING_01_INPUT "${CMAKE_SOURCE_DIR}/assets/sprites/enemies/zombie/zombie_01_walking_01_32x32.png")
+set(GEAR_RAY_NEAR_ZOMBIE_WALKING_02_INPUT "${CMAKE_SOURCE_DIR}/assets/sprites/enemies/zombie/zombie_01_walking_02_32x32.png")
+set(GEAR_RAY_NEAR_ZOMBIE_STANDING_ATTACK_INPUT "${CMAKE_SOURCE_DIR}/assets/sprites/enemies/zombie/zombie_01_standing_attack_32x32.png")
+set(GEAR_RAY_NEAR_ZOMBIE_ATTACK_01_INPUT "${CMAKE_SOURCE_DIR}/assets/sprites/enemies/zombie/zombie_01_attack_01_32x32.png")
+set(GEAR_RAY_NEAR_ZOMBIE_ATTACK_02_INPUT "${CMAKE_SOURCE_DIR}/assets/sprites/enemies/zombie/zombie_01_attack_02_32x32.png")
+set(GEAR_RAY_NEAR_ZOMBIE_SHOT_01_INPUT "${CMAKE_SOURCE_DIR}/assets/sprites/enemies/zombie/zombie_01_shot_01_32x32.png")
+set(GEAR_RAY_NEAR_ZOMBIE_CORPSE_INPUT "${CMAKE_SOURCE_DIR}/assets/sprites/enemies/zombie/zombie_01_corps_32x32.png")
+foreach(near_pose IN ITEMS WALKING_01 WALKING_02 STANDING_ATTACK ATTACK_01 ATTACK_02 SHOT_01 CORPSE)
+    string(TOLOWER "${near_pose}" near_pose_lower)
+    set(GEAR_RAY_GENERATED_NEAR_ZOMBIE_${near_pose}_SOURCE "${GEAR_RAY_GENERATED_DIR}/zombie_${near_pose_lower}_32x32_texture.c")
+    set(GEAR_RAY_GENERATED_NEAR_ZOMBIE_${near_pose}_HEADER "${GEAR_RAY_GENERATED_DIR}/zombie_${near_pose_lower}_32x32_texture.h")
+    set(GEAR_RAY_GENERATED_NEAR_ZOMBIE_${near_pose}_OBJECT "${CMAKE_BINARY_DIR}/generated_zombie_${near_pose_lower}_32x32_texture.rel")
+endforeach()
+foreach(middle_pose IN ITEMS STANDING WALKING_01 WALKING_02 SHOT_01 SHOT_DEAD CORPS)
+    string(TOLOWER "${middle_pose}" middle_pose_lower)
+    set(GEAR_RAY_MIDDLE_ZOMBIE_${middle_pose}_INPUT "${CMAKE_SOURCE_DIR}/assets/sprites/enemies/zombie/zombie_01_${middle_pose_lower}_16x16.png")
+    set(GEAR_RAY_GENERATED_MIDDLE_ZOMBIE_${middle_pose}_SOURCE "${GEAR_RAY_GENERATED_DIR}/zombie_${middle_pose_lower}_16x16_texture.c")
+    set(GEAR_RAY_GENERATED_MIDDLE_ZOMBIE_${middle_pose}_HEADER "${GEAR_RAY_GENERATED_DIR}/zombie_${middle_pose_lower}_16x16_texture.h")
+    set(GEAR_RAY_GENERATED_MIDDLE_ZOMBIE_${middle_pose}_OBJECT "${CMAKE_BINARY_DIR}/generated_zombie_${middle_pose_lower}_16x16_texture.rel")
+endforeach()
+set(GEAR_RAY_ZOMBIE_WALKING_01_TEXTURE_INPUT "${CMAKE_SOURCE_DIR}/assets/sprites/enemies/zombie/zombie_01_walking_01.png")
+set(GEAR_RAY_GENERATED_ZOMBIE_WALKING_01_TEXTURE_SOURCE "${GEAR_RAY_GENERATED_DIR}/zombie_01_walking_01_texture.c")
+set(GEAR_RAY_GENERATED_ZOMBIE_WALKING_01_TEXTURE_HEADER "${GEAR_RAY_GENERATED_DIR}/zombie_01_walking_01_texture.h")
+set(GEAR_RAY_GENERATED_ZOMBIE_WALKING_01_TEXTURE_OBJECT "${CMAKE_BINARY_DIR}/generated_zombie_01_walking_01_texture.rel")
+set(GEAR_RAY_ZOMBIE_WALKING_02_TEXTURE_INPUT "${CMAKE_SOURCE_DIR}/assets/sprites/enemies/zombie/zombie_01_walking_02.png")
+set(GEAR_RAY_GENERATED_ZOMBIE_WALKING_02_TEXTURE_SOURCE "${GEAR_RAY_GENERATED_DIR}/zombie_01_walking_02_texture.c")
+set(GEAR_RAY_GENERATED_ZOMBIE_WALKING_02_TEXTURE_HEADER "${GEAR_RAY_GENERATED_DIR}/zombie_01_walking_02_texture.h")
+set(GEAR_RAY_GENERATED_ZOMBIE_WALKING_02_TEXTURE_OBJECT "${CMAKE_BINARY_DIR}/generated_zombie_01_walking_02_texture.rel")
 set(GEAR_RAY_ZOMBIE_SHOT_01_TEXTURE_INPUT "${CMAKE_SOURCE_DIR}/assets/sprites/enemies/zombie/zombie_01_shot_01.png")
 set(GEAR_RAY_GENERATED_ZOMBIE_SHOT_01_TEXTURE_SOURCE "${GEAR_RAY_GENERATED_DIR}/zombie_01_shot_01_texture.c")
 set(GEAR_RAY_GENERATED_ZOMBIE_SHOT_01_TEXTURE_HEADER "${GEAR_RAY_GENERATED_DIR}/zombie_01_shot_01_texture.h")
@@ -259,6 +309,24 @@ add_custom_command(
 )
 
 add_custom_command(
+    OUTPUT "${GEAR_RAY_WORLD_INITIALIZATION_OBJECT}"
+    COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
+            -mz80
+            -DTARGET_GG
+            "-I${GEAR_RAY_GAME_DIR}"
+            --codeseg BANK1
+            -c "${GEAR_RAY_WORLD_INITIALIZATION_SOURCE}"
+            -o "${GEAR_RAY_WORLD_INITIALIZATION_OBJECT}"
+    DEPENDS "${GEAR_RAY_WORLD_INITIALIZATION_SOURCE}"
+            "${GEAR_RAY_WORLD_HEADER}"
+            "${GEAR_RAY_WORLD_SPRITE_HEADER}"
+            "${GEAR_RAY_RED_DOOR_SWITCH_HEADER}"
+            "${GEAR_RAY_DOOR_STATES_HEADER}"
+    COMMENT "Compiling banked world initialization"
+    VERBATIM
+)
+
+add_custom_command(
     OUTPUT "${GEAR_RAY_WORKSHOP_MAP_OBJECT}"
     COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
             -mz80
@@ -298,6 +366,7 @@ add_custom_command(
             "${GEAR_RAY_GENERATED_SPRITE_TEXTURE_HEADER}"
             "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_01_TEXTURE_HEADER}"
             "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_02_TEXTURE_HEADER}"
+            ${GEAR_RAY_MIDDLE_ZOMBIE_GENERATED_HEADERS}
             "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_DEAD_TEXTURE_HEADER}"
             "${GEAR_RAY_GENERATED_ZOMBIE_CORPS_TEXTURE_HEADER}"
     COMMENT "Compiling static world sprite"
@@ -342,6 +411,8 @@ add_custom_command(
             -mz80
             -DTARGET_GG
             "-I${GEAR_RAY_GAME_DIR}"
+            "-I${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}"
+            "-I${GEAR_RAY_GENERATED_DIR}"
             --codeseg BANK1
             -c "${GEAR_RAY_ZOMBIE_AI_SOURCE}"
             -o "${GEAR_RAY_ZOMBIE_AI_OBJECT}"
@@ -351,6 +422,10 @@ add_custom_command(
             "${GEAR_RAY_ENEMY_COLLISION_HEADER}"
             "${GEAR_RAY_WORLD_HEADER}"
             "${GEAR_RAY_WORLD_SPRITE_HEADER}"
+            "${GEAR_RAY_VIDEO_HEADER}"
+            "${GEAR_RAY_GENERATED_SPRITE_TEXTURE_HEADER}"
+            "${GEAR_RAY_GENERATED_ZOMBIE_WALKING_01_TEXTURE_HEADER}"
+            "${GEAR_RAY_GENERATED_ZOMBIE_WALKING_02_TEXTURE_HEADER}"
     COMMENT "Compiling banked zombie AI"
     VERBATIM
 )
@@ -394,10 +469,52 @@ add_custom_command(
             "-I${GEAR_RAY_SMSLIB_INCLUDE}"
             "-I${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}"
             --peep-file "${GEAR_RAY_SMSLIB_INCLUDE}/peep-rules.txt"
+            --constseg BANK1
             -c "${GEAR_RAY_VIDEO_SOURCE}"
             -o "${GEAR_RAY_VIDEO_OBJECT}"
-    DEPENDS "${GEAR_RAY_VIDEO_SOURCE}" "${GEAR_RAY_VIDEO_HEADER}" "${GEAR_RAY_HUD_WEAPON_HEADER}" "${GEAR_RAY_SPRITE_PROJECTION_HEADER}" "${GEAR_RAY_RENDER_TEXTURES_HEADER}" "${GEAR_RAY_RENDERER_PROFILE_HEADER}" "${GEAR_RAY_VRAM_LAYOUT_HEADER}" "${GEAR_RAY_WALL_TEXTURES_HEADER}" "${GEAR_RAY_RAYCASTER_HEADER}" "${GEAR_RAY_WALL_SIDE_HEADER}" "${GEAR_RAY_WORLD_SPRITE_HEADER}" "${GEAR_RAY_SMSLIB_INCLUDE}/SMSlib.h"
+    DEPENDS "${GEAR_RAY_VIDEO_SOURCE}" "${GEAR_RAY_VIDEO_HEADER}" "${GEAR_RAY_VIDEO_INTERNAL_HEADER}" "${GEAR_RAY_NEAR_ZOMBIE_TEXTURES_HEADER}" "${GEAR_RAY_HUD_WEAPON_HEADER}" "${GEAR_RAY_SPRITE_PROJECTION_HEADER}" "${GEAR_RAY_RENDER_TEXTURES_HEADER}" "${GEAR_RAY_RENDERER_PROFILE_HEADER}" "${GEAR_RAY_VRAM_LAYOUT_HEADER}" "${GEAR_RAY_WALL_TEXTURES_HEADER}" "${GEAR_RAY_RAYCASTER_HEADER}" "${GEAR_RAY_WALL_SIDE_HEADER}" "${GEAR_RAY_WORLD_SPRITE_HEADER}" "${GEAR_RAY_SMSLIB_INCLUDE}/SMSlib.h"
     COMMENT "Compiling platform/game_gear/video.c"
+    VERBATIM
+)
+
+add_custom_command(
+    OUTPUT "${GEAR_RAY_GENERATED_HEALTH_HUD_HEADER}"
+    COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}"
+            -NoProfile
+            -ExecutionPolicy Bypass
+            -File "${GEAR_RAY_HEALTH_HUD_GENERATOR}"
+            -IconPath "${GEAR_RAY_HEALTH_HUD_ICON_INPUT}"
+            -BarPath "${GEAR_RAY_HEALTH_HUD_BAR_INPUT}"
+            -OutputHeader "${GEAR_RAY_GENERATED_HEALTH_HUD_HEADER}"
+    DEPENDS "${GEAR_RAY_HEALTH_HUD_ICON_INPUT}"
+            "${GEAR_RAY_HEALTH_HUD_BAR_INPUT}"
+            "${GEAR_RAY_HEALTH_HUD_GENERATOR}"
+    COMMENT "Generating reference-derived health HUD tiles"
+    VERBATIM
+)
+
+add_custom_command(
+    OUTPUT "${GEAR_RAY_VIDEO_INITIALIZATION_OBJECT}"
+    COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
+            -mz80
+            -DTARGET_GG
+            "-I${GEAR_RAY_SMSLIB_INCLUDE}"
+            "-I${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}"
+            "-I${GEAR_RAY_GENERATED_DIR}"
+            --codeseg BANK1
+            --constseg BANK1
+            --peep-file "${GEAR_RAY_SMSLIB_INCLUDE}/peep-rules.txt"
+            -c "${GEAR_RAY_VIDEO_INITIALIZATION_SOURCE}"
+            -o "${GEAR_RAY_VIDEO_INITIALIZATION_OBJECT}"
+    DEPENDS "${GEAR_RAY_VIDEO_INITIALIZATION_SOURCE}"
+            "${GEAR_RAY_VIDEO_HEADER}"
+            "${GEAR_RAY_VIDEO_INTERNAL_HEADER}"
+            "${GEAR_RAY_VRAM_LAYOUT_HEADER}"
+            "${GEAR_RAY_WALL_TEXTURES_HEADER}"
+            "${GEAR_RAY_GENERATED_HEALTH_HUD_HEADER}"
+            "${GEAR_RAY_GENERATED_GAME_OVER_HEADER}"
+            "${GEAR_RAY_SMSLIB_INCLUDE}/SMSlib.h"
+    COMMENT "Compiling banked video initialization"
     VERBATIM
 )
 
@@ -428,6 +545,7 @@ add_custom_command(
             -DTARGET_GG
             "-I${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}"
             "-I${GEAR_RAY_GAME_DIR}"
+            "-I${GEAR_RAY_GENERATED_DIR}"
             --codeseg BANK1
             --constseg BANK1
             -c "${GEAR_RAY_SPRITE_PROJECTION_SOURCE}"
@@ -437,6 +555,17 @@ add_custom_command(
             "${GEAR_RAY_VIDEO_HEADER}"
             "${GEAR_RAY_CAMERA_HEADER}"
             "${GEAR_RAY_WORLD_SPRITE_HEADER}"
+            "${GEAR_RAY_NEAR_ZOMBIE_TEXTURES_HEADER}"
+            "${GEAR_RAY_GENERATED_ZOMBIE_WALKING_01_TEXTURE_HEADER}"
+            "${GEAR_RAY_GENERATED_ZOMBIE_WALKING_02_TEXTURE_HEADER}"
+            "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_01_TEXTURE_HEADER}"
+            "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_02_TEXTURE_HEADER}"
+            "${GEAR_RAY_GENERATED_MIDDLE_ZOMBIE_STANDING_HEADER}"
+            "${GEAR_RAY_GENERATED_MIDDLE_ZOMBIE_WALKING_01_HEADER}"
+            "${GEAR_RAY_GENERATED_MIDDLE_ZOMBIE_WALKING_02_HEADER}"
+            "${GEAR_RAY_GENERATED_MIDDLE_ZOMBIE_SHOT_01_HEADER}"
+            "${GEAR_RAY_GENERATED_MIDDLE_ZOMBIE_SHOT_DEAD_HEADER}"
+            "${GEAR_RAY_GENERATED_MIDDLE_ZOMBIE_CORPS_HEADER}"
     COMMENT "Compiling banked static sprite projection"
     VERBATIM
 )
@@ -510,6 +639,28 @@ add_custom_command(
 )
 
 add_custom_command(
+    OUTPUT "${GEAR_RAY_GENERATED_GAME_OVER_SOURCE}" "${GEAR_RAY_GENERATED_GAME_OVER_HEADER}"
+    COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}" -NoProfile -ExecutionPolicy Bypass
+            -File "${GEAR_RAY_GAME_OVER_GENERATOR}"
+            -InputPath "${GEAR_RAY_GAME_OVER_INPUT}"
+            -OutputSource "${GEAR_RAY_GENERATED_GAME_OVER_SOURCE}"
+            -OutputHeader "${GEAR_RAY_GENERATED_GAME_OVER_HEADER}"
+    DEPENDS "${GEAR_RAY_GAME_OVER_INPUT}" "${GEAR_RAY_GAME_OVER_GENERATOR}"
+    COMMENT "Generating centered Game Over screen"
+    VERBATIM
+)
+
+add_custom_command(
+    OUTPUT "${GEAR_RAY_GENERATED_GAME_OVER_OBJECT}"
+    COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}" -mz80 "-I${GEAR_RAY_GENERATED_DIR}"
+            --constseg BANK1 -c "${GEAR_RAY_GENERATED_GAME_OVER_SOURCE}"
+            -o "${GEAR_RAY_GENERATED_GAME_OVER_OBJECT}"
+    DEPENDS "${GEAR_RAY_GENERATED_GAME_OVER_SOURCE}" "${GEAR_RAY_GENERATED_GAME_OVER_HEADER}"
+    COMMENT "Compiling generated Game Over screen"
+    VERBATIM
+)
+
+add_custom_command(
     OUTPUT "${GEAR_RAY_GENERATED_WALL_TEXTURE_SOURCE}" "${GEAR_RAY_GENERATED_WALL_TEXTURE_HEADER}"
     COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}"
             -NoProfile
@@ -577,8 +728,100 @@ add_custom_command(
     VERBATIM
 )
 
-foreach(zombie_state IN ITEMS SHOT_01 SHOT_02 SHOT_DEAD CORPS)
+set(GEAR_RAY_NEAR_ZOMBIE_GENERATED_OBJECTS)
+set(GEAR_RAY_NEAR_ZOMBIE_GENERATED_HEADERS)
+foreach(near_pose IN ITEMS WALKING_01 WALKING_02 STANDING_ATTACK ATTACK_01 ATTACK_02 SHOT_01 CORPSE)
+    string(TOLOWER "${near_pose}" near_pose_lower)
+    set(near_input "${GEAR_RAY_NEAR_ZOMBIE_${near_pose}_INPUT}")
+    set(near_source "${GEAR_RAY_GENERATED_NEAR_ZOMBIE_${near_pose}_SOURCE}")
+    set(near_header "${GEAR_RAY_GENERATED_NEAR_ZOMBIE_${near_pose}_HEADER}")
+    set(near_object "${GEAR_RAY_GENERATED_NEAR_ZOMBIE_${near_pose}_OBJECT}")
+    add_custom_command(
+        OUTPUT "${near_source}" "${near_header}"
+        COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}"
+                -NoProfile -ExecutionPolicy Bypass
+                -File "${GEAR_RAY_SPRITE_TEXTURE_GENERATOR}"
+                -InputPath "${near_input}"
+                -OutputSource "${near_source}"
+                -OutputHeader "${near_header}"
+                -Symbol "zombie_near_${near_pose_lower}_pixels"
+                -SpriteKind NearZombie
+        DEPENDS "${near_input}" "${GEAR_RAY_SPRITE_TEXTURE_GENERATOR}"
+        COMMENT "Generating native 32x32 near zombie ${near_pose_lower}"
+        VERBATIM
+    )
+    add_custom_command(
+        OUTPUT "${near_object}"
+        COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
+                -mz80 "-I${GEAR_RAY_GENERATED_DIR}"
+                --constseg BANK2
+                -c "${near_source}" -o "${near_object}"
+        DEPENDS "${near_source}" "${near_header}"
+        COMMENT "Compiling Bank 2 near zombie ${near_pose_lower}"
+        VERBATIM
+    )
+    list(APPEND GEAR_RAY_NEAR_ZOMBIE_GENERATED_OBJECTS "${near_object}")
+    list(APPEND GEAR_RAY_NEAR_ZOMBIE_GENERATED_HEADERS "${near_header}")
+endforeach()
+
+set(GEAR_RAY_MIDDLE_ZOMBIE_GENERATED_OBJECTS)
+set(GEAR_RAY_MIDDLE_ZOMBIE_GENERATED_HEADERS)
+foreach(middle_pose IN ITEMS STANDING WALKING_01 WALKING_02 SHOT_01 SHOT_DEAD CORPS)
+    string(TOLOWER "${middle_pose}" middle_pose_lower)
+    set(middle_input "${GEAR_RAY_MIDDLE_ZOMBIE_${middle_pose}_INPUT}")
+    set(middle_source "${GEAR_RAY_GENERATED_MIDDLE_ZOMBIE_${middle_pose}_SOURCE}")
+    set(middle_header "${GEAR_RAY_GENERATED_MIDDLE_ZOMBIE_${middle_pose}_HEADER}")
+    set(middle_object "${GEAR_RAY_GENERATED_MIDDLE_ZOMBIE_${middle_pose}_OBJECT}")
+    add_custom_command(
+        OUTPUT "${middle_source}" "${middle_header}"
+        COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}"
+                -NoProfile -ExecutionPolicy Bypass
+                -File "${GEAR_RAY_SPRITE_TEXTURE_GENERATOR}"
+                -InputPath "${middle_input}"
+                -OutputSource "${middle_source}"
+                -OutputHeader "${middle_header}"
+                -Symbol "zombie_middle_${middle_pose_lower}_pixels"
+                -SpriteKind MiddleZombie
+        DEPENDS "${middle_input}" "${GEAR_RAY_SPRITE_TEXTURE_GENERATOR}"
+        COMMENT "Generating authored 16x16 zombie ${middle_pose_lower}"
+        VERBATIM
+    )
+    add_custom_command(
+        OUTPUT "${middle_object}"
+        COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
+                -mz80 "-I${GEAR_RAY_GENERATED_DIR}"
+                --constseg BANK1
+                -c "${middle_source}" -o "${middle_object}"
+        DEPENDS "${middle_source}" "${middle_header}"
+        COMMENT "Compiling Bank 1 middle zombie ${middle_pose_lower}"
+        VERBATIM
+    )
+    list(APPEND GEAR_RAY_MIDDLE_ZOMBIE_GENERATED_OBJECTS "${middle_object}")
+    list(APPEND GEAR_RAY_MIDDLE_ZOMBIE_GENERATED_HEADERS "${middle_header}")
+endforeach()
+
+add_custom_command(
+    OUTPUT "${GEAR_RAY_NEAR_ZOMBIE_TEXTURES_OBJECT}"
+    COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
+            -mz80
+            "-I${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}"
+            "-I${GEAR_RAY_GENERATED_DIR}"
+            --constseg BANK2
+            -c "${GEAR_RAY_NEAR_ZOMBIE_TEXTURES_SOURCE}"
+            -o "${GEAR_RAY_NEAR_ZOMBIE_TEXTURES_OBJECT}"
+    DEPENDS "${GEAR_RAY_NEAR_ZOMBIE_TEXTURES_SOURCE}"
+            "${GEAR_RAY_NEAR_ZOMBIE_TEXTURES_HEADER}"
+            ${GEAR_RAY_NEAR_ZOMBIE_GENERATED_HEADERS}
+    COMMENT "Compiling Bank 2 near zombie texture table"
+    VERBATIM
+)
+
+foreach(zombie_state IN ITEMS WALKING_01 WALKING_02 SHOT_01 SHOT_02 SHOT_DEAD CORPS)
     string(TOLOWER "${zombie_state}" zombie_state_lower)
+    set(zombie_lod_argument)
+    if(zombie_state STREQUAL "WALKING_01" OR zombie_state STREQUAL "WALKING_02")
+        set(zombie_lod_argument -GenerateWalkingLod)
+    endif()
     add_custom_command(
         OUTPUT "${GEAR_RAY_GENERATED_ZOMBIE_${zombie_state}_TEXTURE_SOURCE}"
                "${GEAR_RAY_GENERATED_ZOMBIE_${zombie_state}_TEXTURE_HEADER}"
@@ -590,6 +833,7 @@ foreach(zombie_state IN ITEMS SHOT_01 SHOT_02 SHOT_DEAD CORPS)
                 -OutputSource "${GEAR_RAY_GENERATED_ZOMBIE_${zombie_state}_TEXTURE_SOURCE}"
                 -OutputHeader "${GEAR_RAY_GENERATED_ZOMBIE_${zombie_state}_TEXTURE_HEADER}"
                 -Symbol "zombie_01_${zombie_state_lower}_pixels"
+                ${zombie_lod_argument}
         DEPENDS "${GEAR_RAY_ZOMBIE_${zombie_state}_TEXTURE_INPUT}"
                 "${GEAR_RAY_SPRITE_TEXTURE_GENERATOR}"
         COMMENT "Generating packed zombie ${zombie_state_lower} sprite"
@@ -777,6 +1021,7 @@ add_custom_command(
             --no-std-crt0
             --data-loc 0xC000
             -Wl-b_BANK1=0x14000
+            -Wl-b_BANK2=0x28000
             "${GEAR_RAY_CRT0}"
             "${GEAR_RAY_MAIN_OBJECT}"
             "${GEAR_RAY_CAMERA_OBJECT}"
@@ -799,8 +1044,11 @@ add_custom_command(
             "${GEAR_RAY_RENDER_TEXTURES_OBJECT}"
             "${GEAR_RAY_WALL_TEXTURES_OBJECT}"
             "${GEAR_RAY_GENERATED_SEGA_LOGO_OBJECT}"
+            "${GEAR_RAY_GENERATED_GAME_OVER_OBJECT}"
             "${GEAR_RAY_GENERATED_WALL_TEXTURE_OBJECT}"
             "${GEAR_RAY_GENERATED_SPRITE_TEXTURE_OBJECT}"
+            "${GEAR_RAY_GENERATED_ZOMBIE_WALKING_01_TEXTURE_OBJECT}"
+            "${GEAR_RAY_GENERATED_ZOMBIE_WALKING_02_TEXTURE_OBJECT}"
             "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_01_TEXTURE_OBJECT}"
             "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_02_TEXTURE_OBJECT}"
             "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_DEAD_TEXTURE_OBJECT}"
@@ -809,10 +1057,16 @@ add_custom_command(
             "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_OBJECT}"
             "${GEAR_RAY_SMSLIB_LIBRARY}"
             "${GEAR_RAY_STARTUP_LOGO_OBJECT}"
+            ${GEAR_RAY_NEAR_ZOMBIE_GENERATED_OBJECTS}
+            ${GEAR_RAY_MIDDLE_ZOMBIE_GENERATED_OBJECTS}
+            "${GEAR_RAY_NEAR_ZOMBIE_TEXTURES_OBJECT}"
             "${GEAR_RAY_INTERACTION_RAY_OBJECT}"
             "${GEAR_RAY_WORLD_INTERACTIONS_OBJECT}"
+            "${GEAR_RAY_WORLD_INITIALIZATION_OBJECT}"
+            "${GEAR_RAY_VIDEO_INITIALIZATION_OBJECT}"
             ${GEAR_RAY_RENDERER_PROFILE_LINK_OBJECT}
-    DEPENDS "${GEAR_RAY_MAIN_OBJECT}" "${GEAR_RAY_CAMERA_OBJECT}" "${GEAR_RAY_RAYCASTER_OBJECT}" "${GEAR_RAY_PLAYER_OBJECT}" "${GEAR_RAY_RED_DOOR_SWITCH_OBJECT}" "${GEAR_RAY_STARTUP_LOGO_OBJECT}" "${GEAR_RAY_INTERACTION_RAY_OBJECT}" "${GEAR_RAY_WORLD_INTERACTIONS_OBJECT}" "${GEAR_RAY_WORLD_OBJECT}" "${GEAR_RAY_WORKSHOP_MAP_OBJECT}" "${GEAR_RAY_WORLD_OBJECTS_OBJECT}" "${GEAR_RAY_WORLD_SPRITE_OBJECT}" "${GEAR_RAY_ZOMBIE_SHOOTING_OBJECT}" "${GEAR_RAY_ZOMBIE_AI_OBJECT}" "${GEAR_RAY_ENEMY_COLLISION_OBJECT}" "${GEAR_RAY_DOOR_INSTANCES_OBJECT}" "${GEAR_RAY_DOOR_STATES_OBJECT}" "${GEAR_RAY_INPUT_OBJECT}" "${GEAR_RAY_VIDEO_OBJECT}" "${GEAR_RAY_HUD_WEAPON_OBJECT}" "${GEAR_RAY_SPRITE_PROJECTION_OBJECT}" "${GEAR_RAY_RENDER_TEXTURES_OBJECT}" ${GEAR_RAY_RENDERER_PROFILE_LINK_OBJECT} "${GEAR_RAY_WALL_TEXTURES_OBJECT}" "${GEAR_RAY_GENERATED_SEGA_LOGO_OBJECT}" "${GEAR_RAY_GENERATED_WALL_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_SPRITE_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_01_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_02_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_DEAD_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_CORPS_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_WEAPON_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_OBJECT}" "${GEAR_RAY_CRT0}" "${GEAR_RAY_SMSLIB_LIBRARY}"
+    DEPENDS "${GEAR_RAY_MAIN_OBJECT}" "${GEAR_RAY_CAMERA_OBJECT}" "${GEAR_RAY_RAYCASTER_OBJECT}" "${GEAR_RAY_PLAYER_OBJECT}" "${GEAR_RAY_RED_DOOR_SWITCH_OBJECT}" "${GEAR_RAY_STARTUP_LOGO_OBJECT}" ${GEAR_RAY_NEAR_ZOMBIE_GENERATED_OBJECTS} ${GEAR_RAY_MIDDLE_ZOMBIE_GENERATED_OBJECTS} "${GEAR_RAY_NEAR_ZOMBIE_TEXTURES_OBJECT}" "${GEAR_RAY_INTERACTION_RAY_OBJECT}" "${GEAR_RAY_WORLD_INTERACTIONS_OBJECT}" "${GEAR_RAY_WORLD_INITIALIZATION_OBJECT}" "${GEAR_RAY_WORLD_OBJECT}" "${GEAR_RAY_WORKSHOP_MAP_OBJECT}" "${GEAR_RAY_WORLD_OBJECTS_OBJECT}" "${GEAR_RAY_WORLD_SPRITE_OBJECT}" "${GEAR_RAY_ZOMBIE_SHOOTING_OBJECT}" "${GEAR_RAY_ZOMBIE_AI_OBJECT}" "${GEAR_RAY_ENEMY_COLLISION_OBJECT}" "${GEAR_RAY_DOOR_INSTANCES_OBJECT}" "${GEAR_RAY_DOOR_STATES_OBJECT}" "${GEAR_RAY_INPUT_OBJECT}" "${GEAR_RAY_VIDEO_OBJECT}" "${GEAR_RAY_VIDEO_INITIALIZATION_OBJECT}" "${GEAR_RAY_HUD_WEAPON_OBJECT}" "${GEAR_RAY_SPRITE_PROJECTION_OBJECT}" "${GEAR_RAY_RENDER_TEXTURES_OBJECT}" ${GEAR_RAY_RENDERER_PROFILE_LINK_OBJECT} "${GEAR_RAY_WALL_TEXTURES_OBJECT}" "${GEAR_RAY_GENERATED_SEGA_LOGO_OBJECT}" "${GEAR_RAY_GENERATED_WALL_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_SPRITE_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_WALKING_01_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_WALKING_02_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_01_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_02_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_DEAD_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_CORPS_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_WEAPON_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_OBJECT}" "${GEAR_RAY_CRT0}" "${GEAR_RAY_SMSLIB_LIBRARY}"
+    DEPENDS "${GEAR_RAY_GENERATED_GAME_OVER_OBJECT}"
     COMMENT "Linking GearRay for Game Gear"
     VERBATIM
 )
@@ -820,8 +1074,15 @@ add_custom_command(
 add_custom_command(
     OUTPUT "${GEAR_RAY_ROM}"
     COMMAND "${CMAKE_COMMAND}" -E make_directory "${GEAR_RAY_ROM_DIR}"
-    COMMAND "${GEAR_RAY_MAKESMS_EXECUTABLE}" "${GEAR_RAY_IHX}" "${GEAR_RAY_ROM}"
+    COMMAND "${GEAR_RAY_MAKESMS_EXECUTABLE}" -pm "${GEAR_RAY_IHX}" "${GEAR_RAY_ROM}"
+    COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}"
+            -NoProfile
+            -ExecutionPolicy Bypass
+            -File "${GEAR_RAY_BANK_LAYOUT_VALIDATOR}"
+            -MapPath "${CMAKE_BINARY_DIR}/GearRay.map"
+            -RomPath "${GEAR_RAY_ROM}"
     DEPENDS "${GEAR_RAY_IHX}"
+            "${GEAR_RAY_BANK_LAYOUT_VALIDATOR}"
     COMMENT "Generating rom/${GEAR_RAY_ROM_FILENAME}"
     VERBATIM
 )
@@ -882,9 +1143,76 @@ add_custom_target(gear_ray_validate_zombie_ai
     COMMENT "Validating zombie activation, pursuit, and collision contracts"
     VERBATIM
 )
+
+add_custom_target(gear_ray_validate_zombie_attack
+    COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}"
+            -NoProfile
+            -ExecutionPolicy Bypass
+            -File "${GEAR_RAY_ZOMBIE_ATTACK_VALIDATOR}"
+            -BuildDirectory "${CMAKE_BINARY_DIR}"
+    DEPENDS
+            "${GEAR_RAY_ZOMBIE_ATTACK_VALIDATOR}"
+            "${GEAR_RAY_PLAYER_SOURCE}"
+            "${GEAR_RAY_PLAYER_HEADER}"
+            "${GEAR_RAY_ZOMBIE_AI_SOURCE}"
+            "${GEAR_RAY_WORLD_SPRITE_SOURCE}"
+            "${GEAR_RAY_WORLD_SPRITE_HEADER}"
+            "${GEAR_RAY_MAIN_SOURCE}"
+            "${GEAR_RAY_SPRITE_PROJECTION_SOURCE}"
+            ${GEAR_RAY_NEAR_ZOMBIE_GENERATED_HEADERS}
+    COMMENT "Validating zombie attack, player health, and game over"
+    VERBATIM
+)
+add_custom_target(gear_ray_validate_health_hud
+    COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}"
+            -NoProfile
+            -ExecutionPolicy Bypass
+            -File "${GEAR_RAY_HEALTH_HUD_VALIDATOR}"
+            -BuildDirectory "${CMAKE_BINARY_DIR}"
+    DEPENDS
+            "${GEAR_RAY_HEALTH_HUD_VALIDATOR}"
+            "${GEAR_RAY_PLAYER_HEADER}"
+            "${GEAR_RAY_ZOMBIE_AI_SOURCE}"
+            "${GEAR_RAY_VIDEO_INITIALIZATION_SOURCE}"
+            "${GEAR_RAY_VIDEO_HEADER}"
+            "${GEAR_RAY_GENERATED_HEALTH_HUD_HEADER}"
+            "${GEAR_RAY_STARTUP_LOGO_SOURCE}"
+            "${GEAR_RAY_WORLD_SPRITE_HEADER}"
+    COMMENT "Validating minimal player health HUD"
+    VERBATIM
+)
+add_custom_target(gear_ray_validate_near_zombie
+    COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}"
+            -NoProfile -ExecutionPolicy Bypass
+            -File "${GEAR_RAY_NEAR_ZOMBIE_VALIDATOR}"
+            -BuildDirectory "${CMAKE_BINARY_DIR}"
+    DEPENDS "${GEAR_RAY_NEAR_ZOMBIE_VALIDATOR}"
+            ${GEAR_RAY_NEAR_ZOMBIE_GENERATED_HEADERS}
+            "${GEAR_RAY_SPRITE_PROJECTION_SOURCE}"
+            "${GEAR_RAY_VIDEO_SOURCE}"
+            "${GEAR_RAY_NEAR_ZOMBIE_TEXTURES_SOURCE}"
+    COMMENT "Validating native 32x32 near-detail zombie"
+    VERBATIM
+)
+add_custom_target(gear_ray_validate_middle_zombie
+    COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}"
+            -NoProfile -ExecutionPolicy Bypass
+            -File "${GEAR_RAY_MIDDLE_ZOMBIE_VALIDATOR}"
+            -BuildDirectory "${CMAKE_BINARY_DIR}"
+    DEPENDS "${GEAR_RAY_MIDDLE_ZOMBIE_VALIDATOR}"
+            ${GEAR_RAY_MIDDLE_ZOMBIE_GENERATED_HEADERS}
+            "${GEAR_RAY_SPRITE_PROJECTION_SOURCE}"
+            "${GEAR_RAY_VIDEO_SOURCE}"
+    COMMENT "Validating 8x8/16x16/32x32 zombie presentation ladder"
+    VERBATIM
+)
 add_dependencies(gear_ray_game gear_ray_engine gear_ray_validate_workshop
                  gear_ray_validate_zombie_shooting
-                 gear_ray_validate_zombie_ai)
+                 gear_ray_validate_zombie_ai
+                 gear_ray_validate_zombie_attack
+                 gear_ray_validate_health_hud
+                 gear_ray_validate_near_zombie
+                 gear_ray_validate_middle_zombie)
 
 add_custom_target(gear_ray_info ALL
     COMMAND "${CMAKE_COMMAND}" -E echo "GearRay Game Gear ROM: ${GEAR_RAY_ROM}"

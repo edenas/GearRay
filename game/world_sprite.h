@@ -7,8 +7,29 @@
 #define ZOMBIE_HIT_COUNT_MASK 112
 #define ZOMBIE_HIT_COUNT_SHIFT 4
 #define ZOMBIE_AI_CHASING_MASK 128
+#define ZOMBIE_LIFE_STATE_MASK 3
+#define ZOMBIE_ATTACK_COOLDOWN_MASK 60
+#define ZOMBIE_ATTACK_COOLDOWN_SHIFT 2
+#define ZOMBIE_ATTACK_PHASE_MASK 64
+#define ZOMBIE_WALKING_PHASE_MASK 128
 #define ZOMBIE_HIT_REACTION_FRAME_COUNT 3
 #define ZOMBIE_SHOT_DEAD_FRAME_COUNT 4
+#define ZOMBIE_ATTACK_PRESENTATION_FRAME_COUNT 4
+#define ZOMBIE_ATTACK_DISTANCE 280
+#define ZOMBIE_MOVEMENT_STEP 56
+
+static unsigned int zombie_distance_metric(signed int delta_x,
+                                           signed int delta_y)
+{
+    unsigned int distance_x = delta_x < 0
+        ? (unsigned int)-delta_x : (unsigned int)delta_x;
+    unsigned int distance_y = delta_y < 0
+        ? (unsigned int)-delta_y : (unsigned int)delta_y;
+
+    return distance_x > distance_y
+        ? distance_x + (distance_y >> 1)
+        : distance_y + (distance_x >> 1);
+}
 
 typedef enum
 {
@@ -26,6 +47,9 @@ typedef struct
     unsigned char health_and_hit_count;
     unsigned char state_timer;
 } WorldSprite;
+
+#define WORLD_SPRITE_LIFE_STATE(sprite) \
+    ((ZombieState)((sprite)->state & ZOMBIE_LIFE_STATE_MASK))
 
 void world_sprites_initialize(void);
 void world_sprite_initialize(unsigned char map_x, unsigned char map_y);

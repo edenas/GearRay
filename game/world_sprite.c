@@ -64,7 +64,7 @@ void world_sprites_update(void)
         if (sprite->state_timer != 0)
             continue;
 
-        if (sprite->state == ZOMBIE_STATE_SHOT_DEAD)
+        if (WORLD_SPRITE_LIFE_STATE(sprite) == ZOMBIE_STATE_SHOT_DEAD)
             world_sprite_set_state(sprite, ZOMBIE_STATE_CORPSE);
         else
             sprite->pixels = zombie_01_standing_pixels;
@@ -82,7 +82,7 @@ void world_sprite_apply_damage(unsigned char sprite_index,
         return;
 
     sprite = &world_sprites[sprite_index];
-    if (sprite->state != ZOMBIE_STATE_ALIVE)
+    if (WORLD_SPRITE_LIFE_STATE(sprite) != ZOMBIE_STATE_ALIVE)
         return;
 
     health = sprite->health_and_hit_count & ZOMBIE_HEALTH_MASK;

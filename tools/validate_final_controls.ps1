@@ -37,9 +37,10 @@ function Get-InitializerValue {
 }
 
 $playerSource = Get-Content (Join-Path $PSScriptRoot "..\game\player.c") -Raw
+$playerHeader = Get-Content (Join-Path $PSScriptRoot "..\game\player.h") -Raw
 $cameraSource = Get-Content (Join-Path $PSScriptRoot "..\game\camera.c") -Raw
 $playerMoveSpeed = [int]([regex]::Match(
-    $playerSource,
+    $playerHeader,
     "#define\s+PLAYER_MOVE_SPEED\s+(\d+)").Groups[1].Value)
 $rotationCosine = [int]([regex]::Match(
     $cameraSource,

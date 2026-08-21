@@ -36,8 +36,11 @@
 #define GAME_GEAR_VIEWPORT_BORDER_TILE_BOTTOM \
     ((GAME_GEAR_VIEWPORT_BOTTOM + 1) / GAME_GEAR_TILE_SIZE)
 
-void game_gear_video_initialize(void);
-void game_gear_video_load_background_palette(void);
+void game_gear_video_initialize(void) __banked;
+void game_gear_video_present_player_death(void) __banked;
+extern unsigned char game_gear_damage_shake_phase;
+void game_gear_damage_shake_update(void);
+void game_gear_health_hud_update(unsigned char health);
 void game_gear_video_draw_wall_columns(void);
 #if GEARRAY_DEBUG_VIEWPORT_BORDER
 void game_gear_video_draw_viewport_border(void);

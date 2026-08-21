@@ -9,6 +9,7 @@ $startupLogo = Get-Content -Raw -LiteralPath (
 $cmake = Get-Content -Raw -LiteralPath (Join-Path $root "CMakeLists.txt")
 
 $orderedCalls = @(
+    'while (1)',
     'game_gear_startup_logo_show();',
     'game_gear_video_initialize();',
     'raycaster_update();',
@@ -17,7 +18,7 @@ $orderedCalls = @(
     'SMS_displayOff();',
     'SMS_waitForVBlank();',
     'SMS_displayOn();',
-    'while (1)'
+    'while (!player_is_dead())'
 )
 
 $offset = -1
@@ -56,6 +57,12 @@ if ($startupLogo -notmatch '#define STARTUP_LOGO_FRAME_COUNT 180' -or
     'SMS_VRAMmemsetW\(0, 0x0000, 16384\);') {
     throw 'Startup logo display, timeout, blackout, or VRAM reset changed'
 }
+if ($startupLogo -notmatch
+    'game_gear_damage_shake_phase = 0;[\s\S]*?' +
+    'SMS_setBGScrollX\(0\);[\s\S]*?' +
+    'SMS_setBGScrollY\(0\);[\s\S]*?SMS_displayOff\(\);') {
+    throw 'SEGA logo does not force neutral BG scroll before display'
+}
 if ([regex]::Matches($startupLogo,
         'GG_loadBGPalette\(sega_logo_palette\);').Count -ne 1 -or
     [regex]::Matches($startupLogo,
@@ -87,6 +94,8 @@ if ($video -notmatch
 
 Write-Output 'Startup-order validation PASS'
 Write-Output '- isolated 180-frame SEGA logo precedes every gameplay initializer'
+Write-Output '- cold boot and death restart share one authoritative session loop'
+Write-Output '- every SEGA logo entry forces neutral BG scroll'
 Write-Output '- dedicated palette and native logo VRAM content upload exactly once'
 Write-Output '- display blanks and VRAM clears before gameplay palette/content load'
 Write-Output '- complete gameplay frame and border precede display enable'
