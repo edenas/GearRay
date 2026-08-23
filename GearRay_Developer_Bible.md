@@ -116,6 +116,11 @@ less is hidden-close; distance tiers are authored 32x32 through 392, authored
 hidden-far. The complete current contract and audit measurements are in
 `docs/ZOMBIE_PRESENTATION_PIPELINE.md`.
 
+The accepted zombie AI, combat, collision, LOS, shooting, and melee-spacing
+architecture is audited in `docs/ZOMBIE_SYSTEM_ARCHITECTURE_AUDIT.md`. That
+reference records why camera rotation cannot affect awareness, quantifies the
+octagonal/dominant-step spacing variation, and retains the KEEP AS-IS verdict.
+
 Button 1 is press-edge pistol fire and does not autofire. One `pending_shot`
 byte gives the firing HUD a one-rendered-frame lead while keeping it visible on
 the damage frame. One target scan chooses the nearest aligned living zombie,
@@ -1105,6 +1110,7 @@ dirty-column behavior, and lack of an independent upload pass.
 | `docs/BUILDING.md` | maintained build/toolchain guide |
 | `docs/ENGINE_ARCHITECTURE.md` | maintained detailed engine baseline; source still wins |
 | `docs/ROM_BANKING.md` | maintained banking contract and future placement policy |
+| `docs/ZOMBIE_SYSTEM_ARCHITECTURE_AUDIT.md` | maintained zombie AI/combat/spatial audit and melee-spacing evidence |
 | `docs/ENGINE_FOUNDATION_V1.0.0.md` | immutable milestone record for Operation Solid Ground |
 | `docs/ASSET_PROVENANCE.md` | maintained provenance and unresolved-rights register |
 | `docs/PROJECT_BIBLE.md` | superseded placeholder; points to earlier maintained references |

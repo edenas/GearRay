@@ -22,6 +22,9 @@ are retained as historical milestones.
 - Public-release documentation and open-source project guidance.
 - Acknowledgements, third-party notices, contributing guidance, security
   policy, and asset provenance record.
+- A maintained zombie-system architecture and melee-spacing audit covering
+  camera-independent awareness, combat geometry, Z80 cost, and rejected
+  heavyweight alternatives.
 - A static first-person HUD weapon with transparent 2× nearest-neighbor
   screen-space composition.
 

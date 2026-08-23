@@ -497,6 +497,9 @@ authored 16x16 through 540, authored 8x8 through 688, dark pile through 836,
 then hidden-far. See
 [`ZOMBIE_PRESENTATION_PIPELINE.md`](ZOMBIE_PRESENTATION_PIPELINE.md) for the
 complete presentation, audit, memory, and deliberate non-change record.
+See [`ZOMBIE_SYSTEM_ARCHITECTURE_AUDIT.md`](ZOMBIE_SYSTEM_ARCHITECTURE_AUDIT.md)
+for the maintained AI/combat/spatial-model audit, camera-independence proof,
+melee-spacing measurements, and rejected heavyweight alternatives.
 
 Visible candidates are selected deterministically within a total render-cost
 budget of 12: native Bank 2 presentation costs 8, full detail costs 5, medium

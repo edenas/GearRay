@@ -117,6 +117,7 @@ when configuring CMake. See the full [build guide](docs/BUILDING.md).
 - [Engine architecture](docs/ENGINE_ARCHITECTURE.md)
 - [Engine Foundation v1.0.0](docs/ENGINE_FOUNDATION_V1.0.0.md)
 - [ROM banking architecture](docs/ROM_BANKING.md)
+- [Zombie system architecture and melee-spacing audit](docs/ZOMBIE_SYSTEM_ARCHITECTURE_AUDIT.md)
 - [Zombie presentation and renderer audit](docs/ZOMBIE_PRESENTATION_PIPELINE.md)
 - [Asset provenance](docs/ASSET_PROVENANCE.md)
 - [Contributing](CONTRIBUTING.md)
