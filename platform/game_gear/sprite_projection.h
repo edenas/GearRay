@@ -33,10 +33,7 @@ typedef struct
     unsigned char source_size;
 } GameGearProjectedSprite;
 
-void game_gear_project_world_sprite(
-    const WorldSprite *sprite,
-    GameGearProjectedSprite *projected) __banked;
-unsigned char game_gear_apply_sprite_render_budget(
+unsigned char game_gear_prepare_world_sprites(
     GameGearProjectedSprite *projected_sprites,
     unsigned char projected_sprite_count,
     const GameGearProjectedSprite *previous_sprites,

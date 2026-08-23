@@ -27,7 +27,7 @@ Assert-Match $ai 'while \(1\)[\s\S]*?world_is_wall' 'Tile LOS traversal is missi
 Assert-Match $spriteHeader 'ZOMBIE_MOVEMENT_STEP\s+56' 'Zombie movement step is not the shared 56 units'
 Assert-True ($ai -notmatch '#define ZOMBIE_MOVEMENT_STEP') 'Zombie AI duplicates the shared movement-step constant'
 Assert-Match $ai 'distance >= ZOMBIE_ATTACK_DISTANCE \+ ZOMBIE_MOVEMENT_STEP[\s\S]*?zombie_ai_move\([\s\S]*?else[\s\S]*?final_step =[\s\S]*?distance - ZOMBIE_ATTACK_DISTANCE' 'Constant-step chase fast path and inline final approach are missing'
-Assert-Match $ai 'ZOMBIE_COLLISION_RADIUS\s+32' 'Zombie collision radius changed'
+Assert-Match $spriteHeader 'ZOMBIE_COLLISION_RADIUS\s+32' 'Zombie collision radius changed'
 Assert-Match $ai 'world_is_wall' 'LOS does not use the authoritative blocker query'
 Assert-Match $ai 'enemy_position_is_walkable' 'Movement does not use reusable enemy collision'
 Assert-Match $ai 'WORLD_SPRITE_LIFE_STATE\(other\) != ZOMBIE_STATE_ALIVE' 'Non-living sprites may block movement'
@@ -45,7 +45,8 @@ Assert-Match $spriteHeader 'ZOMBIE_WALKING_PHASE_MASK\s+128' 'Packed walking ani
 Assert-Match $ai 'sprite->state \^= ZOMBIE_WALKING_PHASE_MASK;[\s\S]*?sprite->state_timer != 0[\s\S]*?sprite->pixels = sprite->state & ZOMBIE_WALKING_PHASE_MASK[\s\S]*?zombie_01_walking_02_pixels[\s\S]*?zombie_01_walking_01_pixels' 'Active chase does not advance and publish its walking phase on the fixed AI cadence'
 Assert-True ($ai -notmatch 'zombie_ai_position_is_clear[\s\S]{0,500}ZOMBIE_WALKING_PHASE_MASK') 'Walking phase still depends on accepted collision movement'
 Assert-True (([regex]::Matches($ai, 'world_has_clear_line_of_sight\(')).Count -eq 2) 'Walking animation added an extra LOS query'
-Assert-True (([regex]::Matches($ai, 'zombie_ai_position_is_clear\(')).Count -eq 3) 'Constant and final movement paths do not each contain exactly one collision query'
+Assert-True (([regex]::Matches($ai, 'zombie_ai_position_is_clear\(')).Count -eq 4) 'Constant and final movement collision queries changed unexpectedly'
+Assert-Match $ai 'if \(move_x\)[\s\S]*?slide_step = step_x < 0[\s\S]*?else[\s\S]*?slide_step = step_y < 0[\s\S]*?for \(slide_attempt = 0; slide_attempt != 2; \+\+slide_attempt\)[\s\S]*?slide_step = -slide_step;' 'Blocked chase movement lacks deterministic axis-separated wall sliding'
 Assert-True ($spriteHeader -notmatch '(?m)^\s*(unsigned|signed|ZombieState)[^;]*phase[^;]*;') 'Attack phase added a persistent struct field'
 
 function Test-Range([int]$Distance, [bool]$Chasing) {
@@ -69,9 +70,75 @@ foreach($tick in 1..6){$walkingPhase=$walkingPhase-bxor128;$sequence+=if($walkin
 Assert-True (($sequence-join',')-eq'walking_02,walking_01,walking_02,walking_01,walking_02,walking_01') 'Fixed-cadence walking sequence does not alternate continuously'
 Assert-True ((4 * 2) -eq 8) 'Two-frame walking loop cadence is not eight rendered frames'
 
+function Test-CornerPosition([int]$X, [int]$Y) {
+    $left = $X - 32; $right = $X + 32
+    $top = $Y - 32; $bottom = $Y + 32
+    return -not ($right -ge 512 -and $left -le 767 -and
+                 $bottom -ge 512 -and $top -le 767)
+}
+
+function Move-CornerModel([int]$X, [int]$Y, [int]$PlayerX,
+                          [int]$PlayerY) {
+    $deltaX = $PlayerX - $X; $deltaY = $PlayerY - $Y
+    $stepX = if ($deltaX -lt 0) { -56 } else { 56 }
+    $stepY = if ($deltaY -lt 0) { -56 } else { 56 }
+    $moveX = [Math]::Abs($deltaX) -ge [Math]::Abs($deltaY)
+    $candidates = @()
+    if ($moveX) {
+        $candidates += [pscustomobject]@{ X = $X + $stepX; Y = $Y }
+        $slide = if ($stepX -lt 0) { -56 } else { 56 }
+        $candidates += [pscustomobject]@{ X = $X; Y = $Y + $slide }
+        $candidates += [pscustomobject]@{ X = $X; Y = $Y - $slide }
+    }
+    else {
+        $candidates += [pscustomobject]@{ X = $X; Y = $Y + $stepY }
+        $slide = if ($stepY -lt 0) { 56 } else { -56 }
+        $candidates += [pscustomobject]@{ X = $X + $slide; Y = $Y }
+        $candidates += [pscustomobject]@{ X = $X - $slide; Y = $Y }
+    }
+    foreach ($candidate in $candidates) {
+        if (Test-CornerPosition $candidate.X $candidate.Y) {
+            return @($candidate.X, $candidate.Y)
+        }
+    }
+    return @($X, $Y)
+}
+
+$cornerCases = @(
+    @(450, 480, 900, 480),
+    @(830, 799, 400, 799),
+    @(480, 450, 480, 900),
+    @(799, 830, 799, 400),
+    @(450, 490, 900, 650),
+    @(830, 790, 400, 620))
+foreach ($case in $cornerCases) {
+    $position = @($case[0], $case[1]); $visited = @{}
+    $advanced = $false
+    foreach ($tick in 1..4) {
+        $key = "$($position[0]),$($position[1])"
+        Assert-True (-not $visited.ContainsKey($key)) `
+            "Corner slide repeated position $key."
+        $visited[$key] = $true
+        $next = Move-CornerModel $position[0] $position[1] $case[2] $case[3]
+        Assert-True (Test-CornerPosition $next[0] $next[1]) `
+            'Corner slide entered solid geometry.'
+        if ($next[0] -ne $position[0] -or $next[1] -ne $position[1]) {
+            $advanced = $true
+        }
+        $position = $next
+    }
+    Assert-True $advanced 'Corner slide made no progress.'
+}
+
+$unobstructed = Move-CornerModel 256 256 900 400
+Assert-True ($unobstructed[0] -eq 312 -and $unobstructed[1] -eq 256) `
+    'Unobstructed dominant-axis pursuit changed.'
+
 Write-Output 'Zombie AI validation PASS'
 Write-Output '- activation 963; hysteresis loss 1260; LOS via authoritative world blockers'
 Write-Output '- one BANK1 update every 4 frames; 56-unit step (3.28125 tiles/s)'
 Write-Output '- shared radius collision; living-zombie blocking; corpses ignored'
 Write-Output '- packed zero-byte per-zombie AI flag; hit/death state ownership preserved'
 Write-Output '- zero-RAM packed walking phase alternates every AI tick (4 frames), independent of movement acceptance'
+Write-Output '- blocked dominant-axis movement uses deterministic stateless wall sliding'
+Write-Output '- horizontal, vertical, aligned, and diagonal corner approaches avoid repeats and solid geometry'

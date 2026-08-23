@@ -3,6 +3,8 @@
 #include "red_door_switch.h"
 #include "world.h"
 #include "world_objects.h"
+#define GEAR_RAY_WORLD_SPRITE_NO_DISTANCE_METRIC
+#include "world_sprite.h"
 
 void world_interact(const InteractionTarget *target) __banked
 {
@@ -29,6 +31,8 @@ void world_interact(const InteractionTarget *target) __banked
         if (target->tile_id == WORLD_TILE_RED_DOOR)
             break;
 
+        if (door_state_get(door_instance) == DOOR_STATE_OPEN)
+            world_sprites_crush_in_door(target->map_y);
         door_state_toggle(door_instance);
         break;
 

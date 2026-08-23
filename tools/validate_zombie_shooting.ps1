@@ -128,7 +128,9 @@ Assert-True ($spriteSource -match
     "--sprite->state_timer;[\s\S]*?WORLD_SPRITE_LIFE_STATE\(sprite\) == ZOMBIE_STATE_SHOT_DEAD" +
     "[\s\S]*?else\s*sprite->pixels = zombie_01_standing_pixels;") `
     "Surviving hit reactions do not expire back to standing."
-Assert-True ($spriteSource -match "world_sprite_set_state\(sprite, ZOMBIE_STATE_CORPSE\)") `
+Assert-True ($spriteSource -match "zombie_corpses_finalize\(sprite_index\)" -and
+             $spriteSource -match
+             "world_sprite_set_state\(&world_sprites\[sprite_index\],\s*ZOMBIE_STATE_CORPSE\)") `
     "SHOT_DEAD does not transition to CORPSE."
 Assert-True ($shootingSource -match "WORLD_SPRITE_LIFE_STATE\(sprite\) != ZOMBIE_STATE_ALIVE") `
     "Target acquisition does not reject non-living zombies."

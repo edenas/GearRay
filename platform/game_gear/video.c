@@ -532,15 +532,7 @@ void game_gear_video_draw_wall_columns(void)
     GameGearProjectedSprite projected_sprites[WORLD_SPRITE_MAX_COUNT];
 
     projected_sprite_count = world_sprite_get_count();
-    for (sprite_index = 0;
-         sprite_index < projected_sprite_count;
-         ++sprite_index)
-    {
-        game_gear_project_world_sprite(
-            world_sprite_get(sprite_index),
-            &projected_sprites[sprite_index]);
-    }
-    sprite_changed_mask = game_gear_apply_sprite_render_budget(
+    sprite_changed_mask = game_gear_prepare_world_sprites(
         projected_sprites,
         projected_sprite_count,
         previous_projected_sprites,

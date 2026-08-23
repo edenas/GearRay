@@ -881,6 +881,21 @@ Assert-True ($videoSource -match
     $videoSource -match
     "for\s*\(ordered_sprite_index\s*=\s*0;[\s\S]*?ordered_sprite_index\s*<\s*ordered_sprite_count") `
     "Production renderer does not precompute and reuse far-to-near sprite order."
+Assert-True ($videoSource -match
+    "sprite_changed_mask\s*=\s*game_gear_prepare_world_sprites\s*\(" -and
+    $videoSource -notmatch "game_gear_project_world_sprite\s*\(" -and
+    $videoSource -notmatch "game_gear_apply_sprite_render_budget\s*\(" -and
+    $projectionSource -match
+    "static\s+void\s+game_gear_project_world_sprite\s*\(" -and
+    $projectionSource -notmatch
+    "game_gear_apply_sprite_render_budget\s*\(" -and
+    $projectionSource -match
+    "game_gear_prepare_world_sprites[\s\S]*?game_gear_project_world_sprite[\s\S]*?world_sprite_get\(sprite_index\)" -and
+    $projectionSource -match
+    "remaining_budget\s*=\s*SPRITE_RENDER_BUDGET[\s\S]*?return\s+changed_mask" -and
+    ([regex]::Matches($projectionHeader, "__banked").Count -eq 1) -and
+    ([regex]::Matches($projectionSource, "__banked").Count -eq 1)) `
+    "Sprite preparation is not one banked coordinator with same-Bank internals."
 Assert-True ($videoSource -notmatch "drawn_mask" -and
     $videoSource -notmatch "while\s*\(draw_count\s*!=\s*0\)") `
     "Per-tile repeated sprite-selection rescans remain."
@@ -1095,7 +1110,7 @@ Assert-True ($projectionSource -match
     $projectionSource -match
     "projected_sprites\[sprite_index\]\.visible\s*=\s*0\s*;" -and
     $videoSource -match
-    "game_gear_apply_sprite_render_budget\s*\(") `
+    "game_gear_prepare_world_sprites\s*\(") `
     "Production sprite render budget is not deterministic or enforced."
 $corpseInitializer = [regex]::Match(
     $projectionSource,

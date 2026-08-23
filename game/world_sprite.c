@@ -1,4 +1,5 @@
 #include "world_sprite.h"
+#include "zombie_corpses.h"
 #include "sprite_texture.h"
 #include "zombie_01_corps_texture.h"
 #include "zombie_01_shot_01_texture.h"
@@ -9,6 +10,13 @@
 
 static WorldSprite world_sprites[WORLD_SPRITE_MAX_COUNT];
 static unsigned char world_sprite_count;
+
+void world_sprite_remove(unsigned char sprite_index)
+{
+    --world_sprite_count;
+    if (sprite_index != world_sprite_count)
+        world_sprites[sprite_index] = world_sprites[world_sprite_count];
+}
 
 static void world_sprite_set_state(WorldSprite *sprite, ZombieState state)
 {
@@ -49,26 +57,46 @@ void world_sprite_initialize(unsigned char map_x, unsigned char map_y)
 
 void world_sprites_update(void)
 {
-    unsigned char sprite_index;
+    unsigned char sprite_index = 0;
 
-    for (sprite_index = 0;
-         sprite_index < world_sprite_count;
-         ++sprite_index)
+    while (sprite_index < world_sprite_count)
     {
         WorldSprite *sprite = &world_sprites[sprite_index];
 
         if (sprite->state_timer == 0)
+        {
+            ++sprite_index;
             continue;
+        }
 
         --sprite->state_timer;
         if (sprite->state_timer != 0)
+        {
+            ++sprite_index;
             continue;
+        }
 
         if (WORLD_SPRITE_LIFE_STATE(sprite) == ZOMBIE_STATE_SHOT_DEAD)
-            world_sprite_set_state(sprite, ZOMBIE_STATE_CORPSE);
+        {
+            if (zombie_corpses_finalize(sprite_index))
+                continue;
+        }
         else
             sprite->pixels = zombie_01_standing_pixels;
+        ++sprite_index;
     }
+}
+
+void world_sprite_make_corpse(unsigned char sprite_index)
+{
+    if (sprite_index < world_sprite_count)
+        world_sprite_set_state(&world_sprites[sprite_index],
+                               ZOMBIE_STATE_CORPSE);
+}
+
+void world_sprites_crush_in_door(unsigned char map_y)
+{
+    zombie_corpses_crush_in_door(map_y);
 }
 
 void world_sprite_apply_damage(unsigned char sprite_index,

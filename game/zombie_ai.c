@@ -13,8 +13,6 @@
 #define FIXED_POINT_SCALE 256
 #define ZOMBIE_ACTIVATION_DISTANCE 963
 #define ZOMBIE_LOSE_DISTANCE 1260
-#define ZOMBIE_COLLISION_RADIUS 32
-#define ZOMBIE_COMBINED_COLLISION_RADIUS 64
 #define ZOMBIE_ATTACK_DAMAGE 20
 #define ZOMBIE_ATTACK_COOLDOWN_AI_TICKS 2
 
@@ -123,7 +121,7 @@ static void zombie_ai_move(unsigned char sprite_index,
                            signed int player_x,
                            signed int player_y,
                            signed int delta_x,
-                           signed int delta_y)
+                           signed int delta_y) __sdcccall(0)
 {
     signed int step_x = delta_x < 0
         ? -ZOMBIE_MOVEMENT_STEP : ZOMBIE_MOVEMENT_STEP;
@@ -131,8 +129,12 @@ static void zombie_ai_move(unsigned char sprite_index,
         ? -ZOMBIE_MOVEMENT_STEP : ZOMBIE_MOVEMENT_STEP;
     signed int candidate_x = sprite->world_x;
     signed int candidate_y = sprite->world_y;
+    signed int slide_step;
+    unsigned char slide_attempt;
+    unsigned char move_x =
+        zombie_ai_absolute(delta_x) >= zombie_ai_absolute(delta_y);
 
-    if (zombie_ai_absolute(delta_x) >= zombie_ai_absolute(delta_y))
+    if (move_x)
         candidate_x += step_x;
     else
         candidate_y += step_y;
@@ -142,6 +144,34 @@ static void zombie_ai_move(unsigned char sprite_index,
     {
         sprite->world_x = candidate_x;
         sprite->world_y = candidate_y;
+        return;
+    }
+
+    if (move_x)
+        slide_step = step_x < 0
+            ? -ZOMBIE_MOVEMENT_STEP : ZOMBIE_MOVEMENT_STEP;
+    else
+        slide_step = step_y < 0
+            ? ZOMBIE_MOVEMENT_STEP : -ZOMBIE_MOVEMENT_STEP;
+
+    for (slide_attempt = 0; slide_attempt != 2; ++slide_attempt)
+    {
+        candidate_x = sprite->world_x;
+        candidate_y = sprite->world_y;
+        if (move_x)
+            candidate_y += slide_step;
+        else
+            candidate_x += slide_step;
+
+        if (zombie_ai_position_is_clear(
+                sprite_index, candidate_x, candidate_y,
+                player_x, player_y))
+        {
+            sprite->world_x = candidate_x;
+            sprite->world_y = candidate_y;
+            return;
+        }
+        slide_step = -slide_step;
     }
 }
 

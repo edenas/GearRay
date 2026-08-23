@@ -17,7 +17,11 @@
 #define ZOMBIE_ATTACK_PRESENTATION_FRAME_COUNT 4
 #define ZOMBIE_ATTACK_DISTANCE 280
 #define ZOMBIE_MOVEMENT_STEP 56
+#define ZOMBIE_COLLISION_RADIUS 32
+#define ZOMBIE_COMBINED_COLLISION_RADIUS (2 * ZOMBIE_COLLISION_RADIUS)
+#define ZOMBIE_CORPSE_MERGE_DISTANCE ZOMBIE_COMBINED_COLLISION_RADIUS
 
+#ifndef GEAR_RAY_WORLD_SPRITE_NO_DISTANCE_METRIC
 static unsigned int zombie_distance_metric(signed int delta_x,
                                            signed int delta_y)
 {
@@ -30,6 +34,7 @@ static unsigned int zombie_distance_metric(signed int delta_x,
         ? distance_x + (distance_y >> 1)
         : distance_y + (distance_x >> 1);
 }
+#endif
 
 typedef enum
 {
@@ -56,6 +61,9 @@ void world_sprite_initialize(unsigned char map_x, unsigned char map_y);
 void world_sprites_update(void);
 void world_sprite_apply_damage(unsigned char sprite_index,
                                unsigned char damage);
+void world_sprite_make_corpse(unsigned char sprite_index);
+void world_sprite_remove(unsigned char sprite_index);
+void world_sprites_crush_in_door(unsigned char map_y);
 unsigned char world_sprite_get_count(void);
 WorldSprite *world_sprite_get(unsigned char sprite_index);
 

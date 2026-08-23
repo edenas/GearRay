@@ -249,9 +249,9 @@ static unsigned char game_gear_get_near_zombie_texture_id(
     }
 }
 
-void game_gear_project_world_sprite(
+static void game_gear_project_world_sprite(
     const WorldSprite *sprite,
-    GameGearProjectedSprite *projected) __banked
+    GameGearProjectedSprite *projected)
 {
     signed int relative_x =
         sprite->world_x - camera_get_position_x();
@@ -429,7 +429,7 @@ void game_gear_project_world_sprite(
     projected->visible = 1;
 }
 
-unsigned char game_gear_apply_sprite_render_budget(
+unsigned char game_gear_prepare_world_sprites(
     GameGearProjectedSprite *projected_sprites,
     unsigned char projected_sprite_count,
     const GameGearProjectedSprite *previous_sprites,
@@ -443,6 +443,15 @@ unsigned char game_gear_apply_sprite_render_budget(
     unsigned char remaining_budget = SPRITE_RENDER_BUDGET;
     unsigned char sprite_index;
     unsigned char compared_sprite_count;
+
+    for (sprite_index = 0;
+         sprite_index < projected_sprite_count;
+         ++sprite_index)
+    {
+        game_gear_project_world_sprite(
+            world_sprite_get(sprite_index),
+            &projected_sprites[sprite_index]);
+    }
 
     while (remaining_budget != 0)
     {
