@@ -235,7 +235,28 @@ void zombie_ai_update_all(void) __banked
             ? zombie_01_walking_02_pixels
             : zombie_01_walking_01_pixels;
 
-        zombie_ai_move(sprite_index, sprite, player_x, player_y,
-                       delta_x, delta_y);
+        if (distance >= ZOMBIE_ATTACK_DISTANCE + ZOMBIE_MOVEMENT_STEP)
+            zombie_ai_move(sprite_index, sprite, player_x, player_y,
+                           delta_x, delta_y);
+        else
+        {
+            signed int candidate_x = sprite->world_x;
+            signed int candidate_y = sprite->world_y;
+            signed int final_step =
+                (signed int)(distance - ZOMBIE_ATTACK_DISTANCE);
+
+            if (zombie_ai_absolute(delta_x) >= zombie_ai_absolute(delta_y))
+                candidate_x += delta_x < 0 ? -final_step : final_step;
+            else
+                candidate_y += delta_y < 0 ? -final_step : final_step;
+
+            if (zombie_ai_position_is_clear(
+                    sprite_index, candidate_x, candidate_y,
+                    player_x, player_y))
+            {
+                sprite->world_x = candidate_x;
+                sprite->world_y = candidate_y;
+            }
+        }
     }
 }

@@ -119,6 +119,7 @@ Assert($cmake-match'middle_pose IN ITEMS STANDING WALKING_01 WALKING_02 SHOT_01 
 Assert($cmake-notmatch'zombie_02_attack_02_32x32|zombie_01_shot_dead_32x32') 'Obsolete close-range asset names remain in the build pipeline.'
 Assert($projection-match'zombie_01_walking_01_pixels'-and$projection-match'zombie_01_walking_02_pixels') 'Standard walking textures are no longer preserved by the normal LOD path.'
 Assert($ai-match'if \(sprite->pixels == zombie_01_shot_01_pixels[\s\S]*?zombie_01_shot_02_pixels\)[\s\S]*?continue;[\s\S]*?sprite->state_timer = 0;[\s\S]*?zombie_ai_move') 'Retreat does not cancel attack presentation, preserve locomotion phase, and resume chase.'
+Assert($ai-match'distance >= ZOMBIE_ATTACK_DISTANCE \+ ZOMBIE_MOVEMENT_STEP[\s\S]*?zombie_ai_move\([\s\S]*?else[\s\S]*?final_step =[\s\S]*?distance - ZOMBIE_ATTACK_DISTANCE') 'Final melee-entry movement is not isolated from the constant-step chase path.'
 Assert($ai-notmatch'distance <= ZOMBIE_ATTACK_DISTANCE[\s\S]{0,180}sprite->pixels = zombie_01_standing_pixels') 'Melee entry still destroys the authoritative walking phase.'
 Assert($projection-match'ZOMBIE_STATE_SHOT_DEAD[\s\S]*?ZOMBIE_PRESENTATION_DEAD'-and$projection-match'ZOMBIE_PRESENTATION_DEAD:[\s\S]*?NEAR_ZOMBIE_TEXTURE_SHOT_01') 'Very-close lethal shots do not use shot_01 artwork.'
 Assert($projection-match'ZOMBIE_STATE_CORPSE[\s\S]*?ZOMBIE_PRESENTATION_CORPSE'-and$projection-match'ZOMBIE_PRESENTATION_CORPSE:[\s\S]*?NEAR_ZOMBIE_TEXTURE_CORPSE') 'Close corpse does not use the final corpse artwork.'

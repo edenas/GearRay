@@ -26,6 +26,7 @@ Assert-Match $ai 'distance = zombie_distance_metric\(delta_x, delta_y\)' 'Zombie
 Assert-Match $ai 'while \(1\)[\s\S]*?world_is_wall' 'Tile LOS traversal is missing'
 Assert-Match $spriteHeader 'ZOMBIE_MOVEMENT_STEP\s+56' 'Zombie movement step is not the shared 56 units'
 Assert-True ($ai -notmatch '#define ZOMBIE_MOVEMENT_STEP') 'Zombie AI duplicates the shared movement-step constant'
+Assert-Match $ai 'distance >= ZOMBIE_ATTACK_DISTANCE \+ ZOMBIE_MOVEMENT_STEP[\s\S]*?zombie_ai_move\([\s\S]*?else[\s\S]*?final_step =[\s\S]*?distance - ZOMBIE_ATTACK_DISTANCE' 'Constant-step chase fast path and inline final approach are missing'
 Assert-Match $ai 'ZOMBIE_COLLISION_RADIUS\s+32' 'Zombie collision radius changed'
 Assert-Match $ai 'world_is_wall' 'LOS does not use the authoritative blocker query'
 Assert-Match $ai 'enemy_position_is_walkable' 'Movement does not use reusable enemy collision'
@@ -44,7 +45,7 @@ Assert-Match $spriteHeader 'ZOMBIE_WALKING_PHASE_MASK\s+128' 'Packed walking ani
 Assert-Match $ai 'sprite->state \^= ZOMBIE_WALKING_PHASE_MASK;[\s\S]*?sprite->state_timer != 0[\s\S]*?sprite->pixels = sprite->state & ZOMBIE_WALKING_PHASE_MASK[\s\S]*?zombie_01_walking_02_pixels[\s\S]*?zombie_01_walking_01_pixels' 'Active chase does not advance and publish its walking phase on the fixed AI cadence'
 Assert-True ($ai -notmatch 'zombie_ai_position_is_clear[\s\S]{0,500}ZOMBIE_WALKING_PHASE_MASK') 'Walking phase still depends on accepted collision movement'
 Assert-True (([regex]::Matches($ai, 'world_has_clear_line_of_sight\(')).Count -eq 2) 'Walking animation added an extra LOS query'
-Assert-True (([regex]::Matches($ai, 'zombie_ai_position_is_clear\(')).Count -eq 2) 'Walking animation added an extra collision query'
+Assert-True (([regex]::Matches($ai, 'zombie_ai_position_is_clear\(')).Count -eq 3) 'Constant and final movement paths do not each contain exactly one collision query'
 Assert-True ($spriteHeader -notmatch '(?m)^\s*(unsigned|signed|ZombieState)[^;]*phase[^;]*;') 'Attack phase added a persistent struct field'
 
 function Test-Range([int]$Distance, [bool]$Chasing) {
