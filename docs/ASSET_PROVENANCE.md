@@ -106,7 +106,7 @@ The active sprite sources are:
 | `assets/sprites/enemies/zombie/zombie_01_standing.png`, walking, hit, death, and corpse 8x8 sources | Active 8x8 zombie presentation and generated distant LOD sources | Creator, license, and redistribution confirmation required |
 | `assets/sprites/enemies/zombie/*_16x16.png` | Active authored middle zombie and corpse presentation | Creator, license, and redistribution confirmation required |
 | `assets/sprites/enemies/zombie/*_32x32.png` | Active authored near, melee, hit, and corpse presentation; seven generated payloads are linked in Bank 2 | Creator, license, and redistribution confirmation required |
-| `assets/sprites/weapons/gun.png` | Static first-person HUD weapon | Creator, license, and redistribution confirmation required |
+| `assets/sprites/weapons/gun_12x12.png`, `gun_shoot_12x12.png` | Active idle and firing first-person HUD weapon sources | Creator, license, and redistribution confirmation required |
 | `assets/ui/health_hud.png`, `health_hud_1.png` | Active minimal health icon and reusable bar source | Creator, license, and redistribution confirmation required |
 | `assets/logos/game_over.png` | Active centred Game Over presentation source | Creator, license, and redistribution confirmation required |
 

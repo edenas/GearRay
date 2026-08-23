@@ -236,14 +236,21 @@ Frame order is a temporal contract:
 ```text
 [profile: clear counters]
   -> poll input
+  -> advance zombie hit/death timers
+  -> sample press-edge fire and update weapon HUD state
   -> rotate camera
   -> derive forward/strafe intents
   -> compose and apply player movement
   -> synchronize camera position
+  -> [every fourth frame: update zombie AI, attacks, health, and attack HUD state]
+  -> stop gameplay if player health reached zero
   -> process release-edge interaction
   -> advance red-door switch animation
   -> cast all 28 rays
+  -> apply the previous frame's pending shot using the current rays
+  -> retain this frame's fire edge as the next pending shot
   -> wait for VBlank
+  -> update damage-shake presentation
   -> build/upload dirty native wall columns and tilemap transitions
   -> draw debug border once, when enabled
   -> [profile: report periodically]
@@ -275,20 +282,20 @@ There is no scheduler, threading, dynamic allocation, or simulation/render synch
 
 ## 6. Input and final controls
 
-`platform/game_gear/input.c` owns current keys, previous keys, and the Button 1 hold session. Its public API returns semantic intents rather than exposing raw hardware state.
+`platform/game_gear/input.c` owns current keys, previous keys, and the Button 2 hold session. Its public API returns semantic intents rather than exposing raw hardware state.
 
 | Input | Result |
 |---|---|
 | Up / Down | +1 / −1 forward intent; simultaneous input cancels |
-| Left / Right without Button 1 | −1 / +1 rotation intent; simultaneous input cancels |
-| Button 1 + Left / Right | −1 / +1 strafe intent; rotation is suppressed |
-| Release Button 1 after a hold with no horizontal strafe | one interaction request |
-| Button 2 rising edge | fire request, reserved and currently unused |
-| Start rising edge | menu request, reserved and currently unused |
+| Left / Right without Button 2 | -1 / +1 rotation intent; simultaneous input cancels |
+| Button 2 + Left / Right | -1 / +1 strafe intent; rotation is suppressed |
+| Release Button 2 after a hold with no horizontal strafe | one interaction request |
+| Button 1 rising edge | one fire request; holding does not repeat |
+| Start | reserved; no current semantic request API or consumer |
 
-The interaction rule deliberately distinguishes a tap/hold from a strafe session. Once Left or Right is used during a Button 1 hold, releasing Button 1 does not interact. `button_1_hold_active` starts a session and clears its `button_1_strafe_used` flag; release clears the active flag, while the previous/current edge and retained strafe flag define the request.
+The interaction rule deliberately distinguishes a tap/hold from a strafe session. Once Left or Right is used during a Button 2 hold, releasing Button 2 does not interact. `button_2_hold_active` starts a session and clears its `button_2_strafe_used` flag; release clears the active flag, while the previous/current edge and retained strafe flag define the request.
 
-**Contract:** input owns hardware history and gesture interpretation. It does not move the player, rotate the camera, open a door, or implement fire/menu gameplay. Consumers ask for intents or edge requests.
+**Contract:** input owns hardware history and gesture interpretation. It does not move the player, rotate the camera, open a door, or apply shot damage. Consumers ask for intents or edge requests. Start has no semantic request API in the current implementation.
 
 The validator enumerates all 65,536 relevant key/session combinations and checks intents, interaction edges, and movement vectors.
 
@@ -432,7 +439,7 @@ Doors toggle instantly. Animation, partial openness, obstruction, timing, sounds
 
 Interaction is deliberately cold and banked.
 
-1. Input produces one request on an eligible Button 1 release.
+1. Input produces one request on an eligible Button 2 release.
 2. Player invokes `interaction_ray_cast()` with position and forward direction.
 3. The Bank 1 interaction ray samples from distance 32 through 512 in steps of 32.
 4. It skips repeated samples within the same map cell.
@@ -691,7 +698,7 @@ optional profiling reporting. Bank 2 contains seven native 32x32 zombie
 payloads and their lookup table. The accepted graph introduces no nested
 banked call.
 
-The `_BANK1` segment links at virtual `0x14000`. Banked objects are placed after resident objects/libraries. The 32 KiB header is at physical/CPU `0x7FF0`; the obsolete 16 KiB header position must not return.
+The `_BANK1` segment links at virtual `0x14000`. Banked objects are placed after resident objects/libraries. The Sega header is at file/CPU address `0x7FF0` and declares the current 64 KiB package with region/size code `0x7E`; the obsolete 16 KiB header position must not return.
 
 Current audited release measurements:
 
@@ -881,7 +888,7 @@ For C, CMake, generator, or toolchain changes, build release, profile, then rele
 - inspect `.map`, `.noi`, `.asm`, and IHX placement;
 - confirm zero bank calls in renderer/raycaster hot paths;
 - test ordinary movement, opposing inputs, diagonals, rotation-plus-movement, wall sliding, and corners;
-- test Button 1 tap, hold, strafe session, both yellow-door toggles, rejected direct red-door interaction, and switch activation;
+- test Button 1 press-edge firing and hold-without-repeat; test Button 2 tap, hold, strafe session, both yellow-door toggles, rejected direct red-door interaction, and switch activation;
 - inspect static, rotating, near-wall, far-wall, and rapidly changing scenes;
 - test on original Game Gear using complete Sega mapper-compatible hardware when declaring a stable release.
 
@@ -893,7 +900,7 @@ The Engine Foundation record accepted existing SMSlib warning 336 and SDCC inter
 
 | Symptom | First checks |
 |---|---|
-| ROM does not boot | CRT first in link; 32 KiB header at `0x7FF0`; mapper-compatible emulator/cart; `makesms` used |
+| ROM does not boot | CRT first in link; Sega header at `0x7FF0` with 64 KiB code `0x7E`; mapper-compatible emulator/cart; `makesms` used |
 | banked call crashes | prototype and definition both `__banked`; BANK1 segment/link order; correct CRT hooks |
 | movement differs by direction | sign-aware rounding, camera normalization, opposing cancellation |
 | corner sticking changed | vector composition order and one X-then-Y collision pass |
@@ -1295,7 +1302,7 @@ Future systems must grow around, not through, the stable renderer and movement c
 
 ### Input
 
-`game_gear_input_initialize`, `game_gear_input_update`, three intent getters, and interaction/fire/menu request getters.
+`game_gear_input_initialize`, `game_gear_input_update`, three intent getters, and interaction/fire request getters. Start has no current request getter.
 
 ### World and content
 

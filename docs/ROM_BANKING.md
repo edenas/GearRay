@@ -61,15 +61,17 @@ headers the final image.
 | Bank | Current responsibility | Current contents |
 | ---: | --- | --- |
 | 0 | Fixed resident engine | Reset/interrupt support, SMSlib, main loop, input, player, camera, raycaster, renderer, world queries, door state and bank trampolines |
-| 1 | Cold gameplay, startup/sprite/HUD presentation, textures, and diagnostics | `world_interactions.c`, `interaction_ray.c`, `zombie_shooting.c`, `zombie_ai.c`, `enemy_collision.c`, `sprite_projection.c`, `startup_logo.c`, `hud_weapon.c`, SEGA logo data, LOD tables, full zombie and weapon textures, optional renderer-profile reporting, and the 32 KiB Sega header at file/CPU address `0x7FF0` |
+| 1 | Cold gameplay, startup/sprite/HUD presentation, textures, and diagnostics | `world_interactions.c`, `interaction_ray.c`, `zombie_shooting.c`, `zombie_ai.c`, `enemy_collision.c`, `sprite_projection.c`, `startup_logo.c`, `hud_weapon.c`, SEGA logo data, LOD tables, active 8x8/16x16 zombie and weapon textures, optional renderer-profile reporting, and the Sega header at file/CPU address `0x7FF0` |
 | 2 | Explicitly paged near-zombie assets | Seven native 32x32 walking, melee, hit, and corpse payloads plus their lookup table |
 
 The linked `_BANK1` code segment starts at virtual address `0x14000`. SDCC and
 `makesms` translate that virtual segment into physical ROM Bank 1, visible to
 the CPU at `0x4000–0x7FFF` when selected.
 
-The generated ROM uses the standard Game Gear header macro for ROMs of at least
-32 KiB. The former 16 KiB header at `0x3FF0` must not be restored.
+The main translation unit overrides the standard header macro's default size
+field with region/size code `0x7E`, declaring the current 64 KiB Game Gear ROM.
+The header remains at `0x7FF0`; the former 16 KiB position at `0x3FF0` must not
+be restored.
 
 The current audited release reports:
 

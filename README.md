@@ -71,9 +71,9 @@ GearRay is an engine foundation and workshop ROM, not yet a complete game.
 | --- | --- |
 | D-pad Up / Down | Move forward / backward |
 | D-pad Left / Right | Turn left / right |
-| Button 1 + Left / Right | Strafe left / right |
 | Tap Button 1 | Fire pistol; holding does not autofire |
-| Button 2 | Interact |
+| Hold Button 2 + Left / Right | Strafe left / right; rotation is suppressed |
+| Release Button 2 without strafing during that hold | Interact once |
 | Start | Reserved for menu |
 
 The pistol has no ammo, automatic fire, recoil, switching, or additional

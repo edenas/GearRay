@@ -35,13 +35,12 @@ deliberately enabled. The startup palette is never reused by gameplay.
 
 `platform/game_gear/input.c` owns the current and previous controller bitmasks.
 It reads `SMS_getKeysStatus()` once per processed frame and exposes semantic
-movement, rotation, interaction, fire, and menu requests. D-pad up/down move
-forward/backward. D-pad left/right rotate unless Button 1 is held, in which
-case they strafe. A Button 1 hold session that never uses horizontal strafe
-requests one interaction on release. Button 2 is reserved for firing and Start
-is reserved for the future menu/map screen; both expose edge-triggered requests
-but are intentionally ignored until those systems exist. Opposing inputs
-accumulate to zero.
+movement, rotation, interaction, and fire requests. D-pad up/down move
+forward/backward. D-pad left/right rotate unless Button 2 is held, in which
+case they strafe. A Button 2 hold session that never uses horizontal strafe
+requests one interaction on release. Button 1 produces one fire request on its
+rising edge; holding it does not repeat. Start is reserved and has no current
+semantic request API or consumer. Opposing inputs accumulate to zero.
 
 ### Player
 
@@ -155,7 +154,7 @@ player position -> camera position
 camera + world  -> per-ray results
 per-ray results -> native tile bytes + tile states
 tile bytes/states -> VRAM
-Button 1 release request -> interaction ray -> world/door/switch state
+eligible Button 2 release -> interaction ray -> world/door/switch state
 ```
 
 ## Frame pipeline
@@ -165,25 +164,33 @@ initialization, every processed frame runs in this exact order:
 
 1. Optional profiling counters are reset.
 2. Input copies the current key mask to `previous_keys` and reads a new mask.
-3. Input resolves rotation from Left/Right when Button 1 is not held. With
-   Button 1 held, Left/Right produce only strafe intent. Up/Down always produce
+3. `world_sprites_update()` advances active hit/death presentation timers.
+4. The loop samples the Button 1 fire edge and updates the weapon HUD state.
+5. Input resolves rotation from Left/Right when Button 2 is not held. With
+   Button 2 held, Left/Right produce only strafe intent. Up/Down always produce
    forward/backward intent. Each opposing pair cancels to zero.
-4. The camera applies the resolved rotation exactly once. Left and right use
+6. The camera applies the resolved rotation exactly once. Left and right use
    equal sine magnitudes with opposite signs.
-5. If movement is active, the player composes translation from the newly
+7. If movement is active, the player composes translation from the newly
    rotated camera basis. The retained 177/256 diagonal normalization runs once.
-6. The player performs X-then-Y collision and updates its authoritative position.
-7. The final player position is copied into the camera.
-8. A non-strafe Button 1 release request, if present, casts the interaction ray
-   using the player position and current camera direction, then may update door
-   or switch state.
-9. The red-door switch advances its animation by one processed frame.
-10. `raycaster_update()` generates and casts all 28 rays using the synchronized
+8. The player performs X-then-Y collision and updates its authoritative position.
+9. The final player position is copied into the camera.
+10. Every fourth gameplay frame, zombie AI updates movement, attacks, player
+    health, damage shake, and attack HUD state. Gameplay exits immediately if
+    player health has reached zero.
+11. A non-strafe Button 2 release request, if present, casts the interaction ray
+    using the player position and current camera direction, then may update door
+    or switch state.
+12. The red-door switch advances its animation by one processed frame.
+13. `raycaster_update()` generates and casts all 28 rays using the synchronized
     camera position and current direction/plane.
-11. The loop waits for VBlank with `SMS_waitForVBlank()`.
-12. The video renderer rebuilds and uploads only changed wall tile-columns and
-    required tilemap cells.
-13. Optional profiling completes and periodically prints the counters.
+14. The previous frame's `pending_shot`, if set, is resolved against the current
+    rays; the current fire edge is then retained as the next pending shot.
+15. The loop waits for VBlank with `SMS_waitForVBlank()`.
+16. Damage-shake presentation state advances.
+17. The renderer rebuilds/uploads changed background data and composites ordered
+    world sprites, weapon/health HUD elements, and attack feedback.
+18. Optional profiling completes and periodically prints the counters.
 
 There is one simulation update per rendered loop. There is no delta time,
 fixed-timestep accumulator, collision substep, or queued renderer snapshot.
@@ -889,11 +896,12 @@ oracle.
 The ROM banking model, module-placement rules, and future expansion strategy
 are defined in `docs/ROM_BANKING.md`.
 
-The workshop map, multi-zombie extraction, billboard LOD renderer,
+The workshop map, multi-zombie extraction, moving billboard LOD renderer,
 distance-scaled pistol combat, world/material/object boundaries, interaction
 ray, toggleable yellow doors, and switch-activated red door are implemented.
-Zombies implement LOS-driven activation and direct pursuit, but do not yet
-attack the player.
+Zombies implement LOS-driven activation, direct pursuit, shared walking phase,
+melee attacks, player damage, hit/death presentation, persistent corpse states,
+Game Over presentation, and full-session restart.
 
 Normal movement and combined movement/rotation use the same translation speed.
 Forward/backward translation and left/right rotation remain symmetrical by
@@ -904,19 +912,17 @@ optional diagnostic configuration rather than a shipping feature.
 
 Moving-zombie measurements should trigger another renderer review if practical
 frames repeatedly approach 10–12 dirty columns, 80–96 regenerated tiles, or
-about 2.5–3 KiB of pattern traffic. Profile Bank 0 currently has only 103 bytes
-free, so attack work must audit resident growth before adding code.
+about 2.5–3 KiB of pattern traffic. The current audited Release build has 385
+Bank 0 bytes free; future resident work must continue to audit that margin.
 
 - **Doors:** add animation, timing, obstruction rules, and audiovisual feedback
   beyond the accepted instantaneous open/closed state.
-- **Zombie attacks:** evaluate melee range, cooldown, player health, attack
-  animation, hit feedback, `state_timer` ownership, Bank 0 capacity, and
-  moving-zombie dirty-column pressure before implementation.
 - **Weapons:** add ammunition, recoil, switching, and additional weapons around
   the accepted press-edge pistol and firing frame.
-- **Sprites:** extend deterministic multi-sprite presentation to moving actors.
-- **HUD and helmet overlay:** extend the accepted weapon overlay with status
-  information while preserving viewport tile and pattern ownership.
+- **Sprites:** extend deterministic multi-sprite presentation to additional
+  moving actor types.
+- **HUD and helmet overlay:** extend the accepted weapon, health, damage, and
+  attack overlays while preserving viewport tile and pattern ownership.
 - **Lighting:** extend the current side-based palette treatment only after its
   RAM, ROM, palette, and sampling costs are defined.
 - **Map system:** support additional maps, metadata, spawn points, objects, and
