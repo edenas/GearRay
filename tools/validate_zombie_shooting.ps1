@@ -144,7 +144,7 @@ Assert-True ($mainSource -match
     "raycaster_update\(\);\s*if \(pending_shot\)\s*zombie_shooting_process\(\);") `
     "Resident caller does not suppress the banked hitscan call on no-shot frames."
 Assert-True ($mainSource -match
-    "world_sprites_update\(\);[\s\S]*?game_gear_hud_weapon_update\(shoot_requested\);[\s\S]*?if \(pending_shot\)[\s\S]*?zombie_shooting_process\(\);[\s\S]*?game_gear_video_draw_wall_columns\(\);") `
+    "world_sprites_update\([\s\S]*?\);[\s\S]*?game_gear_hud_weapon_update\(shoot_requested\);[\s\S]*?if \(pending_shot\)[\s\S]*?zombie_shooting_process\(\);[\s\S]*?game_gear_video_draw_wall_columns\(\);") `
     "Real main-loop order does not preserve the shot frame before the next death update."
 Assert-True ($hudSource -match "#define HUD_WEAPON_SHOOT_FRAME_COUNT 2") `
     "Shooting HUD does not remain visible through the delayed damage frame."
@@ -306,7 +306,7 @@ Test-CumulativeHealth @(3, 4, 6) "12,9,5,0"
 Test-CumulativeHealth @(4, 6, 6) "12,8,2,0"
 Test-CumulativeHealth @(12) "12,0"
 Assert-True ([regex]::Matches(
-    $spriteSource, "health_and_hit_count\s*=").Count -eq 3 -and
+    $spriteSource, "health_and_hit_count\s*=").Count -eq 4 -and
     $projectionSource -notmatch "health_and_hit_count\s*=") `
     "Health is mutated outside initialization and damage application."
 $packedHealthBeforeVisualUpdates = (2 -shl 4) -bor 5
@@ -314,9 +314,9 @@ $packedHealthAfterMovement = $packedHealthBeforeVisualUpdates
 $packedHealthAfterLodChange = $packedHealthAfterMovement
 $packedHealthAfterReactionExpiry = $packedHealthAfterLodChange
 $packedHealthAfterDeathTimer = $packedHealthAfterReactionExpiry
-$packedHealthAfterCorpse = $packedHealthAfterDeathTimer
-Assert-True ($packedHealthAfterCorpse -eq $packedHealthBeforeVisualUpdates) `
-    "Movement, LOD, reaction, death, or corpse updates changed packed health."
+Assert-True ($packedHealthAfterDeathTimer -eq $packedHealthBeforeVisualUpdates -and
+    $projectionSource -notmatch "health_and_hit_count\s*[|&^]?=") `
+    "Movement, LOD, reaction, or death updates changed living packed health."
 $rapidTimer = 3
 $rapidHits = 1
 $rapidPose = "shot_01"

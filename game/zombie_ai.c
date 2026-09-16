@@ -16,6 +16,9 @@
 #define ZOMBIE_ATTACK_DAMAGE 20
 #define ZOMBIE_ATTACK_COOLDOWN_AI_TICKS 2
 
+unsigned char zombie_ai_wall_following_mask;
+unsigned char zombie_ai_wall_negative_mask;
+
 static unsigned char zombie_ai_get_attack_cooldown(
     const WorldSprite *sprite)
 {
@@ -130,6 +133,7 @@ static void zombie_ai_move(unsigned char sprite_index,
     signed int candidate_x = sprite->world_x;
     signed int candidate_y = sprite->world_y;
     signed int slide_step;
+    unsigned char sprite_mask = 1U << sprite_index;
     unsigned char slide_attempt;
     unsigned char move_x =
         zombie_ai_absolute(delta_x) >= zombie_ai_absolute(delta_y);
@@ -144,16 +148,24 @@ static void zombie_ai_move(unsigned char sprite_index,
     {
         sprite->world_x = candidate_x;
         sprite->world_y = candidate_y;
+        zombie_ai_wall_following_mask &= ~sprite_mask;
         return;
     }
 
-    if (move_x)
-        slide_step = step_x < 0
+    if (zombie_ai_wall_following_mask & sprite_mask)
+    {
+        slide_step = zombie_ai_wall_negative_mask & sprite_mask
             ? -ZOMBIE_MOVEMENT_STEP : ZOMBIE_MOVEMENT_STEP;
+    }
     else
-        slide_step = step_y < 0
-            ? ZOMBIE_MOVEMENT_STEP : -ZOMBIE_MOVEMENT_STEP;
-
+    {
+        slide_step = move_x ? step_y : step_x;
+        zombie_ai_wall_following_mask |= sprite_mask;
+        if (slide_step < 0)
+            zombie_ai_wall_negative_mask |= sprite_mask;
+        else
+            zombie_ai_wall_negative_mask &= ~sprite_mask;
+    }
     for (slide_attempt = 0; slide_attempt != 2; ++slide_attempt)
     {
         candidate_x = sprite->world_x;
@@ -162,13 +174,14 @@ static void zombie_ai_move(unsigned char sprite_index,
             candidate_y += slide_step;
         else
             candidate_x += slide_step;
-
         if (zombie_ai_position_is_clear(
                 sprite_index, candidate_x, candidate_y,
                 player_x, player_y))
         {
             sprite->world_x = candidate_x;
             sprite->world_y = candidate_y;
+            if (slide_attempt != 0)
+                zombie_ai_wall_negative_mask ^= sprite_mask;
             return;
         }
         slide_step = -slide_step;
@@ -178,9 +191,13 @@ static void zombie_ai_move(unsigned char sprite_index,
 void zombie_ai_update_all(void) __banked
 {
     unsigned char sprite_index;
-    unsigned char sprite_count = world_sprite_get_count();
-    signed int player_x = player_get_position_x();
-    signed int player_y = player_get_position_y();
+    unsigned char sprite_count;
+    signed int player_x;
+    signed int player_y;
+
+    sprite_count = world_sprite_get_count();
+    player_x = player_get_position_x();
+    player_y = player_get_position_y();
 
     if (player_is_dead())
         return;
@@ -196,7 +213,10 @@ void zombie_ai_update_all(void) __banked
         unsigned char attack_cooldown;
 
         if (WORLD_SPRITE_LIFE_STATE(sprite) != ZOMBIE_STATE_ALIVE)
+        {
+            zombie_ai_wall_following_mask &= ~(1U << sprite_index);
             continue;
+        }
 
         attack_cooldown = zombie_ai_get_attack_cooldown(sprite);
         if (attack_cooldown != 0)
@@ -214,15 +234,18 @@ void zombie_ai_update_all(void) __banked
             || (chasing && distance > ZOMBIE_LOSE_DISTANCE))
         {
             sprite->health_and_hit_count &= ~ZOMBIE_AI_CHASING_MASK;
+            zombie_ai_wall_following_mask &= ~(1U << sprite_index);
             if (sprite->state_timer == 0)
                 sprite->pixels = zombie_01_standing_pixels;
             continue;
         }
 
-        if (!world_has_clear_line_of_sight(sprite->world_x, sprite->world_y,
-                                           player_x, player_y))
+        if (!chasing
+            && !world_has_clear_line_of_sight(
+                sprite->world_x, sprite->world_y, player_x, player_y))
         {
             sprite->health_and_hit_count &= ~ZOMBIE_AI_CHASING_MASK;
+            zombie_ai_wall_following_mask &= ~(1U << sprite_index);
             if (sprite->state_timer == 0)
                 sprite->pixels = zombie_01_standing_pixels;
             continue;

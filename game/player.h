@@ -3,6 +3,7 @@
 
 #define PLAYER_MAX_HEALTH 100
 #define PLAYER_MOVE_SPEED 74
+#define PLAYER_COLLISION_RADIUS 32
 
 void player_initialize(void);
 void player_move_combined(signed char forward_direction,

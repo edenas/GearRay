@@ -3,6 +3,9 @@ $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
 $interactions = Get-Content -Raw -LiteralPath (
     Join-Path $root 'game\world_interactions.c')
+$playerHeader = Get-Content -Raw -LiteralPath (Join-Path $root 'game\player.h')
+$interactionRay = Get-Content -Raw -LiteralPath (
+    Join-Path $root 'game\interaction_ray.c')
 $sprites = Get-Content -Raw -LiteralPath (
     Join-Path $root 'game\world_sprite.c')
 $corpses = Get-Content -Raw -LiteralPath (
@@ -21,9 +24,26 @@ function Assert-True([bool]$Condition, [string]$Message) {
 
 Assert-True ($interactions -match
     'door_state_get\(door_instance\) == DOOR_STATE_OPEN[\s\S]*?' +
+    'PLAYER_COLLISION_RADIUS[\s\S]*?' +
     'world_sprites_crush_in_door\(target->map_y\)[\s\S]*?' +
     'door_state_toggle\(door_instance\)') `
-    'Door crushing does not run immediately before an open door closes.'
+    'Player clearance, crushing, and closing are not ordered safely.'
+Assert-True ($playerHeader -match '#define PLAYER_COLLISION_RADIUS 32' -and
+    $interactions -match
+    'target->map_x[\s\S]*?>= \(unsigned char\)\(\(player_x[\s\S]*?' +
+    '- PLAYER_COLLISION_RADIUS\) >> 8\)[\s\S]*?' +
+    'target->map_x[\s\S]*?<= \(unsigned char\)\(\(player_x[\s\S]*?' +
+    '\+ PLAYER_COLLISION_RADIUS\) >> 8\)[\s\S]*?' +
+    'target->map_y[\s\S]*?>= \(unsigned char\)\(\(player_y[\s\S]*?' +
+    '- PLAYER_COLLISION_RADIUS\) >> 8\)[\s\S]*?' +
+    'target->map_y[\s\S]*?<= \(unsigned char\)\(\(player_y[\s\S]*?' +
+    '\+ PLAYER_COLLISION_RADIUS\) >> 8\)') `
+    'Player-door guard does not use the real collision footprint.'
+Assert-True ($interactionRay -match
+    'previous_map_x = \(unsigned int\)player_position_x >> 8' -and
+    $interactionRay -match
+    'previous_map_y = \(unsigned int\)player_position_y >> 8') `
+    'Interaction ray can still target the player starting tile.'
 Assert-True ($sprites -match
     'world_sprites_crush_in_door[\s\S]*?' +
     'zombie_corpses_crush_in_door\(map_y\)') `
@@ -92,6 +112,26 @@ function Test-DoorOverlap([int]$X, [int]$Y) {
                  $Y - $Radius -ge $DoorBottom)
 }
 
+function Invoke-Close([int]$PlayerX, [int]$PlayerY,
+                      [object[]]$Zombies) {
+    if (Test-DoorOverlap $PlayerX $PlayerY) {
+        return [pscustomobject]@{
+            Closed = $false
+            Crushed = 0
+            Zombies = $Zombies
+        }
+    }
+
+    $crushed = @($Zombies | Where-Object {
+        Test-DoorOverlap $_.X $_.Y
+    }).Count
+    return [pscustomobject]@{
+        Closed = $true
+        Crushed = $crushed
+        Zombies = $Zombies
+    }
+}
+
 function Get-RelocatedCorpse([int]$X, [int]$Y) {
     return [pscustomobject]@{
         X = $DoorCenterX
@@ -127,6 +167,35 @@ foreach ($position in $overlaps) {
     Assert-True (Test-DoorOverlap $position.X $position.Y) `
         'A centered, partial, or edge-touching zombie escaped crushing.'
 }
+
+$playerOutsidePositions = @(
+    [pscustomobject]@{ X = $DoorLeft - $Radius - 1; Y = $DoorCenterY },
+    [pscustomobject]@{ X = $DoorRight + $Radius; Y = $DoorCenterY },
+    [pscustomobject]@{ X = $DoorCenterX; Y = $DoorTop - $Radius - 1 },
+    [pscustomobject]@{ X = $DoorCenterX; Y = $DoorBottom + $Radius })
+foreach ($position in $playerOutsidePositions) {
+    Assert-True (-not (Test-DoorOverlap $position.X $position.Y)) `
+        'A player exactly outside a doorway boundary was blocked from closing.'
+}
+
+$zombie = [pscustomobject]@{ X = $DoorCenterX; Y = $DoorCenterY }
+foreach ($playerPosition in $overlaps) {
+    $result = Invoke-Close $playerPosition.X $playerPosition.Y @($zombie)
+    Assert-True (-not $result.Closed -and $result.Crushed -eq 0) `
+        'Player overlap did not reject close before zombie crushing.'
+}
+foreach ($playerPosition in $playerOutsidePositions) {
+    $result = Invoke-Close $playerPosition.X $playerPosition.Y @($zombie)
+    Assert-True ($result.Closed -and $result.Crushed -eq 1) `
+        'A clear player could not deliberately crush a doorway zombie.'
+}
+
+# The forward ray skips only its starting tile. Once clear, a player facing
+# either north or south reaches the same door normally; the opposite direction
+# cannot sample it. Renderer state is absent from this authoritative model.
+Assert-True ($corpses -notmatch
+    'visible|projected|render|texture|sprite_order|dirty') `
+    'Door crushing has acquired a presentation dependency.'
 
 $north = Get-RelocatedCorpse $DoorCenterX ($DoorCenterY - 1)
 $south = Get-RelocatedCorpse $DoorCenterX $DoorCenterY

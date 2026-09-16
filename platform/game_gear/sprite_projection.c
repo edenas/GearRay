@@ -250,7 +250,7 @@ static unsigned char game_gear_get_near_zombie_texture_id(
 }
 
 static void game_gear_project_world_sprite(
-    const WorldSprite *sprite,
+    WorldSprite *sprite,
     GameGearProjectedSprite *projected)
 {
     signed int relative_x =
@@ -287,7 +287,6 @@ static void game_gear_project_world_sprite(
     projected->top = 0;
     projected->bottom = 0;
     projected->texture_step = 0;
-    projected->sprite = sprite;
     projected->pixels = sprite->pixels;
     projected->near_texture_id = NEAR_ZOMBIE_TEXTURE_NONE;
     projected->source_size = 8;
@@ -302,24 +301,17 @@ static void game_gear_project_world_sprite(
 
     projected->depth = (unsigned int)depth;
     life_state = WORLD_SPRITE_LIFE_STATE(sprite);
-    if (life_state == ZOMBIE_STATE_CORPSE)
+    distance_squared =
+        (unsigned long)((signed long)relative_x * relative_x)
+        + (unsigned long)((signed long)relative_y * relative_y);
+    if (distance_squared > SPRITE_VISIBLE_MAX_DISTANCE_SQUARED)
+        return;
+    if (life_state == ZOMBIE_STATE_CORPSE
+        && projected->depth <= SPRITE_CORPSE_CLOSE_HIDDEN_MAX_DEPTH)
     {
-        distance = zombie_distance_metric(relative_x, relative_y);
-        if (distance > SPRITE_CORPSE_VISIBLE_MAX_DISTANCE
-            || projected->depth <= SPRITE_CORPSE_CLOSE_HIDDEN_MAX_DEPTH)
-        {
-            return;
-        }
+        return;
     }
-    else
-    {
-        distance_squared =
-            (unsigned long)((signed long)relative_x * relative_x)
-            + (unsigned long)((signed long)relative_y * relative_y);
-        if (distance_squared > SPRITE_VISIBLE_MAX_DISTANCE_SQUARED)
-            return;
-        distance = zombie_distance_metric(relative_x, relative_y);
-    }
+    distance = zombie_distance_metric(relative_x, relative_y);
     presentation_pose = game_gear_get_zombie_presentation_pose(
         sprite, distance);
     horizontal = ((signed long)direction_y * relative_x
@@ -331,50 +323,32 @@ static void game_gear_project_world_sprite(
         projected_height = 1;
     if (projected_height > 144)
         projected_height = 144;
-    if (life_state == ZOMBIE_STATE_CORPSE)
+    if (projected_height < SPRITE_MEDIUM_LOD_MIN_HEIGHT)
     {
-        if (distance <= SPRITE_CORPSE_AUTHORED_32_MAX_DISTANCE)
-        {
-            projected->near_texture_id =
-                game_gear_get_near_zombie_texture_id(presentation_pose);
-        }
-        else if (distance <= SPRITE_CORPSE_AUTHORED_16_MAX_DISTANCE)
-        {
-            projected->pixels =
-                game_gear_get_middle_zombie_pixels(presentation_pose);
-            projected->source_size = 16;
-        }
-        else if (distance > SPRITE_CORPSE_AUTHORED_8_MAX_DISTANCE)
-        {
-            projected->pixels = zombie_corpse_lod_pixels;
-        }
+        projected_height = SPRITE_SIMPLE_LOD_MIN_HEIGHT;
+        projected->pixels = life_state == ZOMBIE_STATE_CORPSE
+            ? zombie_corpse_lod_pixels
+            : game_gear_get_zombie_lod_pixels(sprite, 0);
     }
-    else
+    else if (projected_height < SPRITE_FULL_DETAIL_MIN_HEIGHT)
     {
-        if (projected_height < SPRITE_MEDIUM_LOD_MIN_HEIGHT)
-        {
-            projected_height = SPRITE_SIMPLE_LOD_MIN_HEIGHT;
-            projected->pixels = game_gear_get_zombie_lod_pixels(sprite, 0);
-        }
-        else if (projected_height < SPRITE_FULL_DETAIL_MIN_HEIGHT)
-        {
-            projected_height -=
-                (projected_height - SPRITE_MEDIUM_LOD_MIN_HEIGHT) & 1U;
-            projected->pixels = game_gear_get_zombie_lod_pixels(sprite, 1);
-        }
-        else if (distance <= SPRITE_NEAR_DETAIL_MAX_DISTANCE)
-        {
-            projected->near_texture_id =
-                game_gear_get_near_zombie_texture_id(presentation_pose);
-        }
-        else if (distance <= SPRITE_MIDDLE_DETAIL_MAX_DISTANCE)
-        {
-            projected->pixels =
-                game_gear_get_middle_zombie_pixels(presentation_pose);
-            projected->source_size = 16;
-        }
+        projected_height -=
+            (projected_height - SPRITE_MEDIUM_LOD_MIN_HEIGHT) & 1U;
+        projected->pixels = life_state == ZOMBIE_STATE_CORPSE
+            ? zombie_corpse_lod_pixels
+            : game_gear_get_zombie_lod_pixels(sprite, 1);
     }
-
+    else if (distance <= SPRITE_NEAR_DETAIL_MAX_DISTANCE)
+    {
+        projected->near_texture_id =
+            game_gear_get_near_zombie_texture_id(presentation_pose);
+    }
+    else if (distance <= SPRITE_MIDDLE_DETAIL_MAX_DISTANCE)
+    {
+        projected->pixels =
+            game_gear_get_middle_zombie_pixels(presentation_pose);
+        projected->source_size = 16;
+    }
     if (life_state == ZOMBIE_STATE_ALIVE
         && projected->source_size == 8
         && projected->near_texture_id == NEAR_ZOMBIE_TEXTURE_NONE

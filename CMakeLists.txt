@@ -137,6 +137,7 @@ set(GEAR_RAY_WORKSHOP_MAP_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_workshop
 set(GEAR_RAY_ZOMBIE_SHOOTING_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_zombie_shooting.ps1")
 set(GEAR_RAY_ZOMBIE_AI_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_zombie_ai.ps1")
 set(GEAR_RAY_ZOMBIE_ATTACK_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_zombie_attack.ps1")
+set(GEAR_RAY_CORPSE_PERSISTENCE_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_corpse_persistence.ps1")
 set(GEAR_RAY_HEALTH_HUD_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_health_hud.ps1")
 set(GEAR_RAY_BANK_LAYOUT_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_bank_layout.ps1")
 set(GEAR_RAY_NEAR_ZOMBIE_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_near_zombie.ps1")
@@ -216,6 +217,17 @@ set(GEAR_RAY_WEAPON_SHOOT_TEXTURE_INPUT "${CMAKE_SOURCE_DIR}/assets/sprites/weap
 set(GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_SOURCE "${GEAR_RAY_GENERATED_DIR}/weapon_shoot_texture.c")
 set(GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_HEADER "${GEAR_RAY_GENERATED_DIR}/weapon_shoot_texture.h")
 set(GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_OBJECT "${CMAKE_BINARY_DIR}/generated_weapon_shoot_texture.rel")
+
+# build.bat configures before building. Detect asset replacements that preserve
+# an older mtime too; file(CONFIGURE) updates each dependency only on content change.
+foreach(weapon_pose IN ITEMS WEAPON WEAPON_SHOOT)
+    file(SHA256 "${GEAR_RAY_${weapon_pose}_TEXTURE_INPUT}" weapon_input_sha256)
+    set(GEAR_RAY_${weapon_pose}_TEXTURE_FINGERPRINT
+        "${GEAR_RAY_GENERATED_DIR}/${weapon_pose}_input.sha256")
+    file(CONFIGURE
+        OUTPUT "${GEAR_RAY_${weapon_pose}_TEXTURE_FINGERPRINT}"
+        CONTENT "${weapon_input_sha256}\n" @ONLY)
+endforeach()
 set(GEAR_RAY_VRAM_LAYOUT_HEADER "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/vram_layout.h")
 set(GEAR_RAY_IHX "${CMAKE_BINARY_DIR}/GearRay.ihx")
 set(GEAR_RAY_ROM_DIR "${CMAKE_SOURCE_DIR}/rom")
@@ -367,6 +379,7 @@ add_custom_command(
             -c "${GEAR_RAY_WORLD_SPRITE_SOURCE}"
             -o "${GEAR_RAY_WORLD_SPRITE_OBJECT}"
     DEPENDS "${GEAR_RAY_WORLD_SPRITE_SOURCE}" "${GEAR_RAY_WORLD_SPRITE_HEADER}"
+            "${GEAR_RAY_ZOMBIE_AI_HEADER}"
             "${GEAR_RAY_GENERATED_SPRITE_TEXTURE_HEADER}"
             "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_01_TEXTURE_HEADER}"
             "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_02_TEXTURE_HEADER}"
@@ -746,6 +759,7 @@ add_custom_command(
             -Symbol hud_weapon_pixels
             -SpriteKind HudWeapon
     DEPENDS "${GEAR_RAY_WEAPON_TEXTURE_INPUT}"
+            "${GEAR_RAY_WEAPON_TEXTURE_FINGERPRINT}"
             "${GEAR_RAY_SPRITE_TEXTURE_GENERATOR}"
     COMMENT "Generating packed static HUD weapon"
     VERBATIM
@@ -905,6 +919,7 @@ add_custom_command(
             -Symbol hud_weapon_shoot_pixels
             -SpriteKind HudWeapon
     DEPENDS "${GEAR_RAY_WEAPON_SHOOT_TEXTURE_INPUT}"
+            "${GEAR_RAY_WEAPON_SHOOT_TEXTURE_FINGERPRINT}"
             "${GEAR_RAY_SPRITE_TEXTURE_GENERATOR}"
     COMMENT "Generating packed shooting HUD weapon"
     VERBATIM
@@ -1192,6 +1207,22 @@ add_custom_target(gear_ray_validate_zombie_ai
     VERBATIM
 )
 
+add_custom_target(gear_ray_validate_corpse_persistence
+    COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}"
+            -NoProfile
+            -ExecutionPolicy Bypass
+            -File "${GEAR_RAY_CORPSE_PERSISTENCE_VALIDATOR}"
+    DEPENDS "${GEAR_RAY_CORPSE_PERSISTENCE_VALIDATOR}"
+            "${GEAR_RAY_WORLD_SPRITE_SOURCE}"
+            "${GEAR_RAY_WORLD_SPRITE_HEADER}"
+            "${GEAR_RAY_ZOMBIE_CORPSES_SOURCE}"
+            "${GEAR_RAY_ZOMBIE_AI_SOURCE}"
+            "${GEAR_RAY_SPRITE_PROJECTION_SOURCE}"
+            "${GEAR_RAY_MAIN_SOURCE}"
+    COMMENT "Validating persistent corpse gameplay"
+    VERBATIM
+)
+
 add_custom_target(gear_ray_validate_zombie_attack
     COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}"
             -NoProfile
@@ -1257,6 +1288,7 @@ add_custom_target(gear_ray_validate_middle_zombie
 add_dependencies(gear_ray_game gear_ray_engine gear_ray_validate_workshop
                  gear_ray_validate_zombie_shooting
                  gear_ray_validate_zombie_ai
+                 gear_ray_validate_corpse_persistence
                  gear_ray_validate_zombie_attack
                  gear_ray_validate_health_hud
                  gear_ray_validate_near_zombie

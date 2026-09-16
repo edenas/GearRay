@@ -83,6 +83,7 @@ $projectionHeader=Get-Content -Raw (Join-Path $root 'platform\game_gear\sprite_p
 $video=Get-Content -Raw (Join-Path $root 'platform\game_gear\video.c')
 $nearTable=Get-Content -Raw (Join-Path $root 'platform\game_gear\near_zombie_textures.c')
 $worldHeader=Get-Content -Raw (Join-Path $root 'game\world_sprite.h')
+$worldSource=Get-Content -Raw (Join-Path $root 'game\world_sprite.c')
 $ai=Get-Content -Raw (Join-Path $root 'game\zombie_ai.c')
 $player=Get-Content -Raw (Join-Path $root 'game\player.c')
 $playerHeader=Get-Content -Raw (Join-Path $root 'game\player.h')
@@ -93,11 +94,11 @@ Assert($worldHeader-match'zombie_distance_metric[\s\S]*?distance_x \+ \(distance
 Assert($ai-match'distance = zombie_distance_metric\(delta_x, delta_y\)') 'Zombie AI does not use the shared distance helper.'
 Assert($projection-match'distance = zombie_distance_metric\(relative_x, relative_y\)') 'Native transition does not use the shared distance helper.'
 Assert($projection-match'else if \(distance <= SPRITE_NEAR_DETAIL_MAX_DISTANCE\)') 'Living native eligibility does not use authoritative octagonal distance.'
-Assert($projectionHeader-match'SPRITE_CORPSE_AUTHORED_32_MAX_DISTANCE 392'-and$projectionHeader-match'SPRITE_CORPSE_AUTHORED_16_MAX_DISTANCE 540'-and$projectionHeader-match'SPRITE_CORPSE_AUTHORED_8_MAX_DISTANCE 688'-and$projectionHeader-match'SPRITE_CORPSE_VISIBLE_MAX_DISTANCE 836') 'Corpse authored/dark-pile ladder boundaries changed.'
+Assert($projectionHeader-notmatch'SPRITE_CORPSE_AUTHORED_|SPRITE_CORPSE_VISIBLE_MAX_DISTANCE|VERY_FAR') 'A corpse-specific far-distance ladder remains.'
 Assert($projection-match'SPRITE_CORPSE_CLOSE_HIDDEN_MAX_DEPTH[\s\\]*\(16384U / \(3U \* GAME_GEAR_VIEWPORT_PIXEL_HEIGHT\) \+ PLAYER_MOVE_SPEED\)') 'Close corpse boundary is not derived from projection geometry plus one player step.'
-Assert($projection-match'ZOMBIE_STATE_CORPSE[\s\S]*?distance > SPRITE_CORPSE_VISIBLE_MAX_DISTANCE[\s\S]*?projected->depth <= SPRITE_CORPSE_CLOSE_HIDDEN_MAX_DEPTH[\s\S]*?return;[\s\S]*?distance <= SPRITE_CORPSE_AUTHORED_32_MAX_DISTANCE[\s\S]*?distance <= SPRITE_CORPSE_AUTHORED_16_MAX_DISTANCE[\s\S]*?distance > SPRITE_CORPSE_AUTHORED_8_MAX_DISTANCE') 'Corpse LOD ladder does not directly cull close 32x32 before the unchanged far ladder.'
+Assert($projection-match'distance_squared > SPRITE_VISIBLE_MAX_DISTANCE_SQUARED[\s\S]*?life_state == ZOMBIE_STATE_CORPSE[\s\S]*?projected->depth <= SPRITE_CORPSE_CLOSE_HIDDEN_MAX_DEPTH[\s\S]*?return;[\s\S]*?projected_height < SPRITE_MEDIUM_LOD_MIN_HEIGHT[\s\S]*?life_state == ZOMBIE_STATE_CORPSE[\s\S]*?zombie_corpse_lod_pixels[\s\S]*?projected_height < SPRITE_FULL_DETAIL_MIN_HEIGHT[\s\S]*?zombie_corpse_lod_pixels[\s\S]*?distance <= SPRITE_NEAR_DETAIL_MAX_DISTANCE[\s\S]*?distance <= SPRITE_MIDDLE_DETAIL_MAX_DISTANCE') 'Corpse does not share living visibility and projected-height LOD selection.'
 Assert($projection-notmatch'SPRITE_CORPSE_CLOSE_16_MIN_NATURAL_HEIGHT|natural_projected_height') 'Obsolete close-side corpse logic remains.'
-Assert($projection-match'zombie_corpse_lod_pixels\[32\]'-and$projection-match'projected->pixels == zombie_corpse_lod_pixels[\s\S]*?return 1') 'Short dark corpse pile or its cheap render cost is missing.'
+Assert($projection-match'zombie_corpse_lod_pixels\[32\]'-and$projection-notmatch'zombie_corpse_very_far_lod_pixels') 'Exactly one accepted dark corpse pile is not present.'
 Assert($projection-notmatch'SPRITE_CORPSE_VISIBLE_MAX_DISTANCE_SQUARED|distance_squared <= SPRITE_CORPSE|SPRITE_CORPSE_LOD_MIN_HEIGHT') 'Old corpse cutoff or artificial pile height remains.'
 Assert($projection-match'8192U[\s\S]*?source_size << 8') 'Generic 32x32/16x16/8x8 texture steps are missing.'
 foreach($id in @('WALKING_01','WALKING_02','STANDING_ATTACK','ATTACK_01','ATTACK_02','SHOT_01','CORPSE')){Assert($projection-match"NEAR_ZOMBIE_TEXTURE_$id") "Missing runtime pose mapping $id."}
@@ -107,6 +108,8 @@ Assert(([regex]::Matches($video,'SMS_MAPPER_SLOT2_REGISTER\s*=').Count)-eq2) 'Ba
 Assert($video-match'if \(near_bank_mapped\)[\s\S]*?SMS_MAPPER_SLOT2_REGISTER = previous_slot2_page') 'Slot 2 mapping is not restored.'
 Assert($video-match'near_texture_id == NEAR_ZOMBIE_TEXTURE_NONE[\s\S]*?projected->pixels') 'Normal 8x8 source path was not preserved.'
 Assert($worldHeader-notmatch'near_texture|texture_bank|anchor') 'WorldSprite gained persistent near-detail state.'
+Assert($worldHeader-match'typedef enum[\s\S]*?ZOMBIE_STATE_ALIVE,[\s\S]*?ZOMBIE_STATE_SHOT_DEAD,[\s\S]*?ZOMBIE_STATE_CORPSE[\s\S]*?ZombieState;') 'Corpse presentation added or changed a gameplay state.'
+Assert($projection-match'game_gear_project_world_sprite\(\s*WorldSprite \*sprite'-and$projection-notmatch'sprite->(world_[xy]|health_and_hit_count|state|state_timer|pixels)\s*([|&^+\-]=|=(?!=))') 'Projection mutates WorldSprite gameplay or presentation state.'
 Assert($ai-match'ZOMBIE_ATTACK_DAMAGE 20'-and([regex]::Matches($ai,'player_apply_damage\(ZOMBIE_ATTACK_DAMAGE\)').Count)-eq1) 'Independent -20 HP strike semantics changed.'
 Assert($worldHeader-match'ZOMBIE_ATTACK_DISTANCE 280') 'Attack distance is not the tuned 280-unit boundary.'
 Assert($worldHeader-match'ZOMBIE_MOVEMENT_STEP 56') 'Shared zombie movement step is not 56 units.'
@@ -137,18 +140,25 @@ function Get-LivingNearPose([int]$Distance,[int]$Timer,[int]$Cooldown,[int]$Phas
     return 'NONE'
 }
 function Get-ZombieDistance([int]$X,[int]$Y){$ax=[Math]::Abs($X);$ay=[Math]::Abs($Y);if($ax -gt $ay){return $ax + [int]($ay/2)};return $ay + [int]($ax/2)}
-function Get-CorpseLod([int]$Distance,[int]$Depth=$Distance){
-    if($Distance-gt836){return 'hidden'}
-    if($Depth-le159){return 'hidden-close'}
+function Get-SharedLod([int]$Distance,[int]$Depth=$Distance){
+    $height=[Math]::Min(144,[Math]::Truncate(16384/$Depth))
+    if($height-lt17){return '8'}
     if($Distance-le392){return '32'}
-    if($Distance-le540){return '16'}
-    if($Distance-le688){return '8'}
-    return 'pile'
+    if($Distance-le616){return '16'}
+    return '8'
+}
+function Get-CorpseLod([int]$Distance,[int]$Depth=$Distance){
+    if($Depth-le159){return 'hidden-close'}
+    if($Distance-gt1260){return 'hidden'}
+    $height=[Math]::Truncate(16384/$Depth)
+    if($height-lt15){return 'pile13'}
+    if($height-lt17){return 'pile15'}
+    return Get-SharedLod $Distance $Depth
 }
 $playerStep=[int]([regex]::Match($playerHeader,'#define PLAYER_MOVE_SPEED (\d+)').Groups[1].Value)
 Assert($playerStep-eq74) 'Corpse retreat audit is not using the real 74-unit player movement increment.'
 $retreatAudit=@()
-$corpseTierRank=@{'32'=0;'16'=1;'8'=2;'pile'=3}
+$corpseTierRank=@{'32'=0;'16'=1;'8'=2;'pile15'=3;'pile13'=4}
 foreach($start in 280,300,320,336,350,392){
     $tiers=@();$rows=@()
     for($step=0;$step-lt12;$step++){
@@ -162,12 +172,13 @@ foreach($start in 280,300,320,336,350,392){
         $rows+="step${step}:d${distance}:depth${distance}:${tier}:h${height}:src${source}:top${top}:bottom${bottom}:floor${opaqueFloor}:visible${visible}"
         if($tier-ne'hidden'){$tiers+=$tier}else{break}
     }
-    foreach($tier in '16','8','pile'){Assert((@($tiers|Where-Object{$_-eq$tier}).Count)-eq2) "Start $start does not provide two $tier retreat presentations: $($rows-join' -> ')"}
-    for($i=1;$i-lt$tiers.Count;$i++){Assert (($corpseTierRank[$tiers[$i]])-ge($corpseTierRank[$tiers[$i-1]])) "Corpse resolution grows while retreating from $start."}
+    Assert((@($tiers|Where-Object{$_-eq'16'}).Count)-ge2) "Start $start does not traverse shared 16 presentation: $($rows-join' -> ')"
+    Assert((@($tiers|Where-Object{$_-eq'pile15'}).Count)-ge1) "Start $start does not traverse the 15-pixel pile: $($rows-join' -> ')"
+    Assert((@($tiers|Where-Object{$_-eq'pile13'}).Count)-ge1) "Start $start does not traverse the 13-pixel pile: $($rows-join' -> ')"
     $retreatAudit+="start ${start}: $($rows-join' -> ')"
 }
 foreach($line in $retreatAudit){Write-Output "- $line"}
-foreach($point in @(@(224,224,'32'),@(298,224,'16'),@(372,224,'16'),@(446,224,'8'),@(520,224,'8'),@(594,224,'pile'),@(668,224,'pile'),@(742,224,'hidden'))){Assert((Get-CorpseLod (Get-ZombieDistance $point[0] $point[1]))-eq$point[2]) "Oblique corpse LOD mismatch at ($($point[0]),$($point[1]))."}
+foreach($case in @(@(392,392,'32'),@(393,393,'16'),@(616,616,'16'),@(617,617,'8'),@(963,963,'8'),@(964,964,'pile15'),@(1092,1092,'pile15'),@(1093,1093,'pile13'),@(1260,1260,'pile13'),@(1261,1261,'hidden'))){Assert((Get-CorpseLod $case[0] $case[1])-eq$case[2]) "Corpse LOD mismatch at $($case[0])/$($case[1])."}
 $straightClose=@(280,206,132|ForEach-Object{Get-CorpseLod $_ $_})
 Assert(($straightClose-join',')-eq'32,32,hidden-close') 'Straight close approach does not hide one player step earlier.'
 $straightReverse=@(132,206|ForEach-Object{Get-CorpseLod $_ $_})
@@ -175,10 +186,15 @@ Assert(($straightReverse-join',')-eq'hidden-close,32') 'Straight reverse movemen
 $obliqueClose=@(@(300,240),@(240,180),@(180,120)|ForEach-Object{Get-CorpseLod $_[0] $_[1]})
 Assert(($obliqueClose-join',')-eq'32,32,hidden-close') 'Oblique close approach does not hide one step earlier.'
 Assert((Get-CorpseLod 160 160)-eq'32'-and(Get-CorpseLod 159 159)-eq'hidden-close') 'Close corpse depth edge cases changed.'
-$completeForward=@(@(900,900),@(800,800),@(650,650),@(500,500),@(280,280),@(159,159)|ForEach-Object{Get-CorpseLod $_[0] $_[1]})
-$completeReverse=@(@(159,159),@(280,280),@(500,500),@(650,650),@(800,800),@(900,900)|ForEach-Object{Get-CorpseLod $_[0] $_[1]})
-Assert(($completeForward-join',')-eq'hidden,pile,8,16,32,hidden-close') 'Complete forward corpse traversal changed.'
-Assert(($completeReverse-join',')-eq'hidden-close,32,16,8,pile,hidden') 'Complete reverse corpse traversal changed.'
+$completeForward=@(@(1300,1300),@(1200,1200),@(1050,1050),@(900,900),@(500,500),@(280,280),@(159,159)|ForEach-Object{Get-CorpseLod $_[0] $_[1]})
+$completeReverse=@(@(159,159),@(280,280),@(500,500),@(900,900),@(1050,1050),@(1200,1200),@(1300,1300)|ForEach-Object{Get-CorpseLod $_[0] $_[1]})
+Assert(($completeForward-join',')-eq'hidden,pile13,pile15,8,16,32,hidden-close') 'Complete forward corpse traversal changed.'
+Assert(($completeReverse-join',')-eq'hidden-close,32,16,8,pile15,pile13,hidden') 'Complete reverse corpse traversal changed.'
+foreach($deathDistance in 300,500,900){Assert((Get-CorpseLod $deathDistance $deathDistance)-eq(Get-SharedLod $deathDistance $deathDistance)) "Normal corpse resolution changed at $deathDistance."}
+Assert($projection-match'projected->pixels = sprite->pixels;[\s\S]*?projected_height < SPRITE_MEDIUM_LOD_MIN_HEIGHT[\s\S]*?zombie_corpse_lod_pixels[\s\S]*?else if \(projected_height < SPRITE_FULL_DETAIL_MIN_HEIGHT\)[\s\S]*?zombie_corpse_lod_pixels[\s\S]*?else if \(distance <= SPRITE_NEAR_DETAIL_MAX_DISTANCE\)') 'Authored 8x8 corpse does not persist until the shared far silhouette stages.'
+Assert($projection-match'ZOMBIE_PRESENTATION_DEAD:[\s\S]*?zombie_middle_shot_dead_pixels'-and$projection-match'ZOMBIE_PRESENTATION_CORPSE:[\s\S]*?zombie_middle_corps_pixels') '16x16 death/corpse artwork is not state-selected within the shared tier.'
+Assert($projection-match'ZOMBIE_PRESENTATION_DEAD:[\s\S]*?NEAR_ZOMBIE_TEXTURE_SHOT_01'-and$projection-match'ZOMBIE_PRESENTATION_CORPSE:[\s\S]*?NEAR_ZOMBIE_TEXTURE_CORPSE') '32x32 death/corpse artwork is not state-selected within the shared tier.'
+Assert($worldHeader-match'ZOMBIE_SHOT_DEAD_FRAME_COUNT 4'-and$worldSource-match'ZOMBIE_STATE_SHOT_DEAD[\s\S]*?state_timer = ZOMBIE_SHOT_DEAD_FRAME_COUNT') 'SHOT_DEAD timing changed while sharing resolution tiers.'
 foreach($case in @(@(392,200),@(300,160),@(240,159),@(180,120))){
     $first=Get-CorpseLod $case[0] $case[1]
     $second=Get-CorpseLod $case[0] $case[1]
@@ -269,4 +285,5 @@ Write-Output '- forward/reverse 8x8/16x16/32x32 transitions preserve walking_01/
 Write-Output '- standing-attack anticipation/recovery around alternating attack_01/attack_02 wired'
 Write-Output '- slot 2 maps/restores page 2 once per visible-near render batch'
 Write-Output '- WorldSprite remains 9 bytes; obsolete 8x8 attack runtime data absent'
+Write-Output '- corpse LOD remains stateless: one CORPSE state and immutable world coordinates'
 foreach($pose in $poses){Write-Output "- $pose payload SHA-256: $($payloadHashes[$pose])"}

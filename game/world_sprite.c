@@ -1,5 +1,6 @@
 #include "world_sprite.h"
 #include "zombie_corpses.h"
+#include "zombie_ai.h"
 #include "sprite_texture.h"
 #include "zombie_01_corps_texture.h"
 #include "zombie_01_shot_01_texture.h"
@@ -13,6 +14,7 @@ static unsigned char world_sprite_count;
 
 void world_sprite_remove(unsigned char sprite_index)
 {
+    zombie_ai_wall_following_mask = 0;
     --world_sprite_count;
     if (sprite_index != world_sprite_count)
         world_sprites[sprite_index] = world_sprites[world_sprite_count];
@@ -36,6 +38,7 @@ static void world_sprite_set_state(WorldSprite *sprite, ZombieState state)
 
 void world_sprites_initialize(void)
 {
+    zombie_ai_wall_following_mask = 0;
     world_sprite_count = 0;
 }
 
@@ -62,6 +65,12 @@ void world_sprites_update(void)
     while (sprite_index < world_sprite_count)
     {
         WorldSprite *sprite = &world_sprites[sprite_index];
+
+        if (WORLD_SPRITE_LIFE_STATE(sprite) == ZOMBIE_STATE_CORPSE)
+        {
+            ++sprite_index;
+            continue;
+        }
 
         if (sprite->state_timer == 0)
         {
@@ -90,8 +99,11 @@ void world_sprites_update(void)
 void world_sprite_make_corpse(unsigned char sprite_index)
 {
     if (sprite_index < world_sprite_count)
+    {
         world_sprite_set_state(&world_sprites[sprite_index],
                                ZOMBIE_STATE_CORPSE);
+        world_sprites[sprite_index].health_and_hit_count = 0;
+    }
 }
 
 void world_sprites_crush_in_door(unsigned char map_y)

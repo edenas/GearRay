@@ -16,8 +16,8 @@ unsigned char interaction_ray_cast(
     const WorldObject *object;
     signed int map_x;
     signed int map_y;
-    signed int previous_map_x = -1;
-    signed int previous_map_y = -1;
+    signed int previous_map_x = (unsigned int)player_position_x >> 8;
+    signed int previous_map_y = (unsigned int)player_position_y >> 8;
     signed long sample_x;
     signed long sample_y;
     unsigned int distance;

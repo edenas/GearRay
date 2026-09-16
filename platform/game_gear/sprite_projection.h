@@ -13,11 +13,6 @@
     (ZOMBIE_ATTACK_DISTANCE + 2 * ZOMBIE_MOVEMENT_STEP)
 #define SPRITE_MIDDLE_DETAIL_MAX_DISTANCE \
     (SPRITE_NEAR_DETAIL_MAX_DISTANCE + 4 * ZOMBIE_MOVEMENT_STEP)
-#define SPRITE_CORPSE_AUTHORED_32_MAX_DISTANCE 392
-#define SPRITE_CORPSE_AUTHORED_16_MAX_DISTANCE 540
-#define SPRITE_CORPSE_AUTHORED_8_MAX_DISTANCE 688
-#define SPRITE_CORPSE_VISIBLE_MAX_DISTANCE 836
-
 typedef struct
 {
     unsigned char visible;
@@ -27,7 +22,6 @@ typedef struct
     signed int bottom;
     unsigned int depth;
     unsigned int texture_step;
-    const WorldSprite *sprite;
     const unsigned char *pixels;
     unsigned char near_texture_id;
     unsigned char source_size;

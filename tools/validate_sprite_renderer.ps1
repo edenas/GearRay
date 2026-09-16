@@ -42,7 +42,7 @@ function Project-Sprite {
         } else {
             $absoluteY + [Math]::Truncate($absoluteX / 2)
         }
-        if ($distance -gt 836) {
+        if ($distanceSquared -gt 1587600) {
             return @{
                 Visible = $false; Depth = $depth; Height = $height
                 Texture = "Hidden"
@@ -54,19 +54,24 @@ function Project-Sprite {
                 NaturalHeight = $naturalHeight; Texture = "HiddenClose"
             }
         }
-        if ($distance -le 392) {
+        if ($height -lt 15) {
+            $height = 13
+            $texture = "DarkPile13"
+        }
+        elseif ($height -lt 17) {
+            $height -= ($height - 15) -band 1
+            $texture = "DarkPile15"
+        }
+        elseif ($distance -le 392) {
             $texture = "AuthoredCorpse32"
             $sourceSize = 32
         }
-        elseif ($distance -le 540) {
+        elseif ($distance -le 616) {
             $texture = "AuthoredCorpse16"
             $sourceSize = 16
         }
-        elseif ($distance -le 688) {
-            $texture = "AuthoredCorpse8"
-        }
         else {
-            $texture = "CorpsePile"
+            $texture = "AuthoredCorpse8"
         }
     }
     else {
@@ -131,19 +136,20 @@ function Get-CorpseLod {
     param([int]$Distance)
 
     if ($Distance -le 392) { return "AuthoredCorpse32" }
-    if ($Distance -le 540) { return "AuthoredCorpse16" }
-    if ($Distance -le 688) { return "AuthoredCorpse8" }
-    if ($Distance -le 836) { return "CorpsePile" }
+    if ($Distance -le 616) { return "AuthoredCorpse16" }
+    if ($Distance -le 963) { return "AuthoredCorpse8" }
+    if ($Distance -le 1092) { return "DarkPile15" }
+    if ($Distance -le 1260) { return "DarkPile13" }
     return "Hidden"
 }
 
 function Get-CorpseRenderCost {
     param([string]$Texture, [int]$Height)
 
-    if ($Texture -eq "CorpsePile") { return 1 }
+    if ($Texture -eq "DarkPile15" -or $Texture -eq "DarkPile13") { return 1 }
     if ($Height -ge 17) { return 5 }
-    if ($Height -ge 15) { return 1 }
-    return 0
+    if ($Height -ge 15) { return 2 }
+    return 1
 }
 
 function Test-FullyOccluded {
@@ -532,21 +538,40 @@ Assert-True (-not $nearPlaneFront.Visible -and
 
 Assert-True ((Get-CorpseLod 392) -eq "AuthoredCorpse32" -and
              (Get-CorpseLod 393) -eq "AuthoredCorpse16" -and
-             (Get-CorpseLod 540) -eq "AuthoredCorpse16" -and
-             (Get-CorpseLod 541) -eq "AuthoredCorpse8" -and
-             (Get-CorpseLod 688) -eq "AuthoredCorpse8" -and
-             (Get-CorpseLod 689) -eq "CorpsePile" -and
-             (Get-CorpseLod 836) -eq "CorpsePile" -and
-             (Get-CorpseLod 837) -eq "Hidden") `
+             (Get-CorpseLod 616) -eq "AuthoredCorpse16" -and
+             (Get-CorpseLod 617) -eq "AuthoredCorpse8" -and
+             (Get-CorpseLod 963) -eq "AuthoredCorpse8" -and
+             (Get-CorpseLod 964) -eq "DarkPile15" -and
+             (Get-CorpseLod 1092) -eq "DarkPile15" -and
+             (Get-CorpseLod 1093) -eq "DarkPile13" -and
+             (Get-CorpseLod 1260) -eq "DarkPile13" -and
+             (Get-CorpseLod 1261) -eq "Hidden") `
     "Distance-based corpse LOD boundaries changed."
+$farSymmetry = foreach ($distance in 963,964,1092,1093,1260,1261) {
+    $living = Project-Sprite 0 (-$distance) 0 -256 169 0 $false
+    $corpse = Project-Sprite 0 (-$distance) 0 -256 169 0 $true
+    Assert-True ($living.Visible -eq $corpse.Visible -and
+                 (-not $living.Visible -or
+                  ($living.Height -eq $corpse.Height -and
+                   $living.Right-$living.Left -eq $corpse.Right-$corpse.Left))) `
+        "Living/corpse far geometry diverges at $distance."
+    if ($corpse.Visible) { $corpse.Height } else { 0 }
+}
+Assert-True (($farSymmetry -join ',') -eq '17,15,15,13,13,0') `
+    "Far corpse sizes are not monotonic or do not mirror living stages."
+$reverseFar = @($farSymmetry)
+[array]::Reverse($reverseFar)
+Assert-True (($reverseFar -join ',') -eq '0,13,13,15,15,17') `
+    "Far reverse traversal does not restore monotonically increasing sizes."
 $corpseSourceMetrics = @{
     AuthoredCorpse32 = @(32,10,31)
     AuthoredCorpse16 = @(16,6,15)
     AuthoredCorpse8 = @(8,3,7)
-    CorpsePile = @(8,5,7)
+    DarkPile15 = @(8,5,7)
+    DarkPile13 = @(8,5,7)
 }
 $corpseTransitions = @()
-foreach ($boundary in @(@(392,393),@(540,541),@(688,689))) {
+foreach ($boundary in @(@(392,393),@(616,617))) {
     $before = Project-Sprite 0 (-$boundary[0]) 0 -256 169 0 $true
     $after = Project-Sprite 0 (-$boundary[1]) 0 -256 169 0 $true
     $beforeMetric = $corpseSourceMetrics[$before.Texture]
@@ -589,35 +614,37 @@ Assert-True (($closeReverse -join ',') -eq
 $closeCleanupRedraw = $hiddenClose.Visible -ne $lastClose32.Visible
 Assert-True $closeCleanupRedraw `
     "Visible-to-hidden close corpse transition does not invalidate stale pixels."
-$naturalDepths = 614,688,689,762,836,837
+$naturalDepths = 392,393,616,617,963,964,1092,1093,1260,1261
 foreach($distance in $naturalDepths){
     $projected = Project-Sprite 0 (-$distance) 0 -256 169 0 $true
     $naturalHeight = [Math]::Truncate(16384/$distance)
-    Assert-True ((-not $projected.Visible -and $distance -eq 837) -or
-                 $projected.Height -eq $naturalHeight) `
-        "Corpse at distance $distance does not preserve natural perspective height."
+    $expectedHeight=if($naturalHeight-lt15){13}elseif($naturalHeight-lt17){$naturalHeight-(($naturalHeight-15)-band1)}else{$naturalHeight}
+    Assert-True ((-not $projected.Visible -and $distance -eq 1261) -or
+                 $projected.Height -eq $expectedHeight) `
+        "Corpse at distance $distance does not match living quantized height."
 }
 foreach ($visibleCorpse in @(
     (Project-Sprite 0 -392 0 -256 169 0 $true),
-    (Project-Sprite 0 -689 0 -256 169 0 $true))) {
+    (Project-Sprite 0 -1050 0 -256 169 0 $true))) {
     $standingBottom = 32 + [Math]::Truncate($visibleCorpse.Height / 2)
     Assert-True ($visibleCorpse.Bottom -eq
         $standingBottom + [Math]::Truncate($visibleCorpse.Height / 3)) `
         "Corpse tier lost its floor adjustment."
 }
-Assert-True ((Get-CorpseRenderCost "CorpsePile" 23) -eq 1 -and
+Assert-True ((Get-CorpseRenderCost "AuthoredCorpse8" 13) -eq 1 -and
+             (Get-CorpseRenderCost "AuthoredCorpse8" 15) -eq 2 -and
              (Get-CorpseRenderCost "AuthoredCorpse8" 23) -eq 5) `
     "Corpse render costs changed."
 $corpseTextures = @("AuthoredCorpse32", "AuthoredCorpse16",
-                    "AuthoredCorpse8", "CorpsePile", "Hidden")
+                    "AuthoredCorpse8", "DarkPile15", "DarkPile13", "Hidden")
 Assert-True (($corpseTextures -notcontains "Medium") -and
              ($corpseTextures -notcontains "Simple")) `
     "Corpse state selected an upright silhouette."
-$corpseCleanupRedraw = "CorpsePile" -ne "Hidden"
+$corpseCleanupRedraw = "AuthoredCorpse8" -ne "Hidden"
 $corpseHiddenRedraw = "Hidden" -ne "Hidden"
-$corpseReappearRedraw = "Hidden" -ne "CorpsePile"
-$corpseFullToPileRedraw = "AuthoredCorpse8" -ne "CorpsePile"
-$corpsePileToFullRedraw = "CorpsePile" -ne "AuthoredCorpse8"
+$corpseReappearRedraw = "Hidden" -ne "AuthoredCorpse8"
+$corpseFullToPileRedraw = "AuthoredCorpse16" -ne "AuthoredCorpse8"
+$corpsePileToFullRedraw = "AuthoredCorpse8" -ne "AuthoredCorpse16"
 Assert-True ($corpseCleanupRedraw -and -not $corpseHiddenRedraw -and
              $corpseReappearRedraw -and $corpseFullToPileRedraw -and
              $corpsePileToFullRedraw) `
@@ -1046,29 +1073,22 @@ Assert-True ($projectionSource -match
     "Very distant production sprites are not culled before dirty coverage."
 Assert-True ($projectionSource -match
     "(?:WORLD_SPRITE_LIFE_STATE\(sprite\)|life_state)\s*==\s*ZOMBIE_STATE_CORPSE" -and
-    $projectionSource -match "distance\s*>\s*SPRITE_CORPSE_VISIBLE_MAX_DISTANCE" -and
     $projectionSource -match "projected->depth\s*<=\s*SPRITE_CORPSE_CLOSE_HIDDEN_MAX_DEPTH" -and
-    $projectionSource -match "distance\s*<=\s*SPRITE_CORPSE_AUTHORED_32_MAX_DISTANCE" -and
-    $projectionSource -match "distance\s*<=\s*SPRITE_CORPSE_AUTHORED_16_MAX_DISTANCE" -and
-    $projectionSource -match "distance\s*>\s*SPRITE_CORPSE_AUTHORED_8_MAX_DISTANCE") `
-    "Production corpse authored LOD ladder is not state-specific."
+    $projectionSource -match "distance\s*<=\s*SPRITE_NEAR_DETAIL_MAX_DISTANCE" -and
+    $projectionSource -match "distance\s*<=\s*SPRITE_MIDDLE_DETAIL_MAX_DISTANCE") `
+    "Production corpse does not use the shared authored LOD ladder."
 Assert-True ($projectionHeader -match
-    "SPRITE_CORPSE_AUTHORED_32_MAX_DISTANCE 392" -and
-    $projectionHeader -match "SPRITE_CORPSE_AUTHORED_16_MAX_DISTANCE 540" -and
-    $projectionHeader -match "SPRITE_CORPSE_AUTHORED_8_MAX_DISTANCE 688" -and
-    $projectionHeader -match "SPRITE_CORPSE_VISIBLE_MAX_DISTANCE 836" -and
+    "SPRITE_NEAR_DETAIL_MAX_DISTANCE" -and
+    $projectionHeader -match "SPRITE_MIDDLE_DETAIL_MAX_DISTANCE" -and
     $projectionSource -match "SPRITE_CORPSE_CLOSE_HIDDEN_MAX_DEPTH[\s\\]*" +
         "\(16384U / \(3U \* GAME_GEAR_VIEWPORT_PIXEL_HEIGHT\) \+ PLAYER_MOVE_SPEED\)" -and
+    $projectionHeader -notmatch "SPRITE_CORPSE_AUTHORED_|SPRITE_CORPSE_VISIBLE_MAX_DISTANCE|VERY_FAR" -and
     $projectionHeader -notmatch "SPRITE_CORPSE_CLOSE_.*NATURAL_HEIGHT" -and
     $projectionSource -notmatch
     "SPRITE_CORPSE_VISIBLE_MAX_DISTANCE_SQUARED|SPRITE_CORPSE_LOD_MIN_HEIGHT") `
     "Corpse ladder boundaries changed or the obsolete long-range cutoff remains."
 $corpseBranch = $projectionSource.IndexOf(
-    "if (life_state == ZOMBIE_STATE_CORPSE)")
-if ($corpseBranch -lt 0) {
-    $corpseBranch = $projectionSource.IndexOf(
-        "if (WORLD_SPRITE_LIFE_STATE(sprite) == ZOMBIE_STATE_CORPSE)")
-}
+    "projected->depth <= SPRITE_CORPSE_CLOSE_HIDDEN_MAX_DEPTH")
 $screenBounds = $projectionSource.IndexOf(
     "center_x = GAME_GEAR_VIEWPORT_PIXEL_WIDTH")
 $wallScan = $projectionSource.IndexOf("rays = raycaster_get_rendered_rays();")
@@ -1091,16 +1111,18 @@ Assert-True ($projectionSource -match
     "projected->pixels\s*=\s*sprite->pixels\s*;" -and
     $projectionSource -match
     "projected_height\s*<\s*SPRITE_MEDIUM_LOD_MIN_HEIGHT[\s\S]*?" +
-    "projected->pixels\s*=\s*game_gear_get_zombie_lod_pixels\(sprite,\s*0\)\s*;" -and
+    "zombie_corpse_lod_pixels[\s\S]*?game_gear_get_zombie_lod_pixels\(sprite,\s*0\)\s*;" -and
     $projectionSource -match
     "projected_height\s*<\s*SPRITE_FULL_DETAIL_MIN_HEIGHT[\s\S]*?" +
-    "projected->pixels\s*=\s*game_gear_get_zombie_lod_pixels\(sprite,\s*1\)\s*;") `
+    "zombie_corpse_lod_pixels[\s\S]*?game_gear_get_zombie_lod_pixels\(sprite,\s*1\)\s*;") `
     "Production projection does not select the approved LOD textures."
 Assert-True ($projectionSource -match
-    "projected->pixels\s*==\s*zombie_corpse_lod_pixels[\s\S]*?return\s*1\s*;" -and
+    "zombie_corpse_lod_pixels\[32\]" -and
+    $projectionSource -notmatch "zombie_corpse_very_far_lod_pixels" -and
+    $projectionSource -match "projected->pixels == zombie_corpse_lod_pixels[\s\S]*?return 1" -and
     $projectionSource -match
     "projected_height\s*>=\s*SPRITE_FULL_DETAIL_MIN_HEIGHT[\s\S]*?return\s*5\s*;") `
-    "Production corpse-pile or authored sprite render cost changed."
+    "Obsolete corpse render-cost exception remains or normal cost changed."
 Assert-True ($projectionSource -match
     "remaining_budget\s*=\s*SPRITE_RENDER_BUDGET" -and
     $projectionSource -match
@@ -1112,15 +1134,6 @@ Assert-True ($projectionSource -match
     $videoSource -match
     "game_gear_prepare_world_sprites\s*\(") `
     "Production sprite render budget is not deterministic or enforced."
-$corpseInitializer = [regex]::Match(
-    $projectionSource,
-    "zombie_corpse_lod_pixels\[32\]\s*=\s*\{(?<bytes>[\s\S]*?)\};")
-Assert-True ($corpseInitializer.Success -and
-    [regex]::Matches($projectionSource,
-                     'zombie_corpse_lod_pixels\[32\]').Count -eq 1 -and
-    [regex]::Matches($corpseInitializer.Groups['bytes'].Value,
-                     '0x[0-9a-fA-F]{2}').Count -eq 32) `
-    "The dark corpse pile is not linked exactly once as a 32-byte payload."
 function Get-PackedLodIndices([string]$Name) {
     $initializer = [regex]::Match($lodTextureSources,
         $Name + "\[[^\]]+\]\s*=\s*\{(?<bytes>[\s\S]*?)\};")
@@ -1285,8 +1298,8 @@ Write-Output "- tile-local four-sprite model: candidate tests 16 -> 8; overlays 
 Write-Output "- sprite LOD: full >=17, medium 15..16, simple 13..14, hidden <=12"
 Write-Output "- movement-phase walking silhouettes remain distinct at every living LOD"
 Write-Output "- WorldSprite remains 9 bytes; all six walking arrays are in BANK1"
-Write-Output "- corpse LOD: authored 32x32 <=392, 16x16 <=540, 8x8 <=688"
-Write-Output "- dark corpse pile 689..836, hidden >=837; shared octagonal distance"
+Write-Output "- corpse LOD: 32x32 <=392, 16x16 393..616, authored 8x8 through projected height 17"
+Write-Output "- one pile texture mirrors living far geometry at 15px then 13px; shared far hide"
 Write-Output "- exact wall-edge mapping: absolute screen X >> 2; wall wins ties"
 Write-Output "- progressive four-pixel clipping, off-screen and LOD edge cases"
 Write-Output "- horizontal rotation sweep: symmetric, monotonic 160-pixel projection"
