@@ -117,7 +117,7 @@ Assert-True ($main -match 'game_gear_input_initialize\(\)' -and
              $main -match 'pending_shot = 0' -and
              $main -match 'zombie_ai_frame_counter = 0') `
     'Restart does not reset input, HUD, pending shot, and AI cadence.'
-Assert-True ($input -match 'keys = 0;[\s\S]*?previous_keys = 0;[\s\S]*?button_2_hold_active = 0;[\s\S]*?button_2_strafe_used = 0') `
+Assert-True ($input -match 'keys = 0;[\s\S]*?previous_keys = 0;[\s\S]*?input_blocked = 0;[\s\S]*?button_2_strafe_used = 0') `
     'Input initialization does not prevent phantom edge actions.'
 Assert-True ($hud -match 'weapon_state = IDLE;[\s\S]*?rendered_weapon_state = IDLE;[\s\S]*?animation_timer = 0') `
     'HUD initialization does not restore an idle weapon.'

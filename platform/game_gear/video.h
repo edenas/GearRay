@@ -37,6 +37,7 @@
     ((GAME_GEAR_VIEWPORT_BOTTOM + 1) / GAME_GEAR_TILE_SIZE)
 
 void game_gear_video_initialize(void) __banked;
+void game_gear_video_restore_gameplay(void) __banked;
 void game_gear_video_present_player_death(void) __banked;
 extern unsigned char game_gear_damage_shake_phase;
 void game_gear_damage_shake_update(void);

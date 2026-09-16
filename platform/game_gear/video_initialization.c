@@ -5,6 +5,8 @@
 #include "wall_textures.h"
 #include "health_hud_tiles.h"
 #include "game_over.h"
+#include "../../game/player.h"
+#include "pause_map.h"
 
 #define CEILING_PALETTE_INDEX (GAME_GEAR_WALL_PALETTE_BASE + 2)
 #define FLOOR_PALETTE_INDEX (GAME_GEAR_WALL_PALETTE_BASE + 9)
@@ -110,6 +112,11 @@ void game_gear_video_initialize(void) __banked
 
     SMS_displayOff();
     SMS_VRAMmemsetW(0, 0x0000, 16384);
+    /* Gameplay uses BG-composited sprites. Terminate the pause hardware marker
+     * and initialize its otherwise-unused sprite color from the same palette. */
+    SMS_VRAMmemsetW(PAUSE_MAP_SAT_Y, 0x00d0, 2);
+    GG_setSpritePaletteColor(PAUSE_MAP_PLAYER_COLOR,
+        game_gear_get_wall_palette_color(PAUSE_MAP_PLAYER_COLOR - GAME_GEAR_WALL_PALETTE_BASE));
     game_gear_damage_shake_phase = 0;
     SMS_setBGScrollX(0);
     SMS_setBGScrollY(0);
@@ -148,6 +155,24 @@ void game_gear_video_initialize(void) __banked
                                 : FLOOR_TILE_INDEX);
         }
     }
+}
+
+void game_gear_video_restore_gameplay(void) __banked
+{
+    unsigned char shake_phase = game_gear_damage_shake_phase;
+
+    /* Display/cache initialization only: never initialize the session or weapon. */
+    game_gear_video_initialize();
+    game_gear_health_hud_update(player_get_health());
+    /* The last raycast still describes the frozen camera/world exactly. */
+    game_gear_video_draw_wall_columns();
+#if GEARRAY_DEBUG_VIEWPORT_BORDER
+    game_gear_video_draw_viewport_border();
+#endif
+    game_gear_damage_shake_phase = shake_phase;
+    SMS_setBGScrollX(game_gear_damage_shake_offsets[shake_phase]);
+    SMS_waitForVBlank();
+    SMS_displayOn();
 }
 
 void game_gear_video_present_player_death(void) __banked

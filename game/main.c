@@ -3,12 +3,14 @@
 #include "input.h"
 #include "hud_weapon.h"
 #include "player.h"
+#include "pause_map.h"
 #include "red_door_switch.h"
 #include "raycaster.h"
 #include "renderer_profile.h"
 #include "startup_logo.h"
 #include "video.h"
 #include "world.h"
+#define GEAR_RAY_WORLD_SPRITE_NO_DISTANCE_METRIC
 #include "world_sprite.h"
 #include "zombie_shooting.h"
 #include "zombie_ai.h"
@@ -66,6 +68,12 @@ void main(void)
             game_gear_renderer_profile_begin_frame();
 #endif
             game_gear_input_update();
+            if (input_pause_requested())
+            {
+                game_gear_pause_map_show();
+                game_gear_video_restore_gameplay();
+                continue;
+            }
             world_sprites_update();
             shoot_requested = input_shoot_requested();
             game_gear_hud_weapon_update(shoot_requested);

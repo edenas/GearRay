@@ -8,5 +8,6 @@ signed char input_get_strafe_intent(void);
 signed char input_get_rotation_intent(void);
 unsigned char input_interaction_requested(void);
 unsigned char input_shoot_requested(void);
+unsigned char input_pause_requested(void);
 
 #endif
