@@ -67,16 +67,16 @@ Assert-True ($spriteHeader -notmatch
     '(?m)^\s*(unsigned|signed|ZombieState)[^;]*(crush|merge)[^;]*;') `
     'Door crushing or corpse merging added persistent WorldSprite state.'
 Assert-True ($corpseHeader -match
-    'zombie_corpses_finalize\([^;]+\) __banked;' -and
+    'zombie_corpses_finalize\([^;]+\);' -and
     $corpseHeader -match
-    'zombie_corpses_crush_in_door\([^;]+\) __banked;' -and
+    'zombie_corpses_crush_in_door\([^;]+\);' -and
     $cmake -match
     'OUTPUT "\$\{GEAR_RAY_ZOMBIE_CORPSES_OBJECT\}"[\s\S]*?--codeseg BANK2') `
-    'Cold corpse management is not isolated in Bank 2 behind banked calls.'
+    'Cold corpse management is not isolated in permanently mapped Bank 2.'
 
 $mapBody = [regex]::Match($workshopMap,
     'workshop_map[\s\S]*?=\s*\{(?<body>[\s\S]*?)\};').Groups['body'].Value
-$mapTokens = @([regex]::Matches($mapBody, '(?<![A-Z_])[XESBDRWZ](?![A-Z_])') |
+$mapTokens = @([regex]::Matches($mapBody, '(?<![A-Z_])[XESBDRWZG](?![A-Z_])') |
     ForEach-Object { $_.Value })
 Assert-True ($mapTokens.Count -eq 13 * 13) `
     'Could not parse the 13x13 workshop map for door relocation validation.'

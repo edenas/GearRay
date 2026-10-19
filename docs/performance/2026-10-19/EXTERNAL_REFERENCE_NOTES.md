@@ -1,0 +1,11 @@
+# External reference boundaries
+
+References accessed during this investigation on2026-10-19. Actual local source, linked ROM and emulator execution establish the performance claims; these references explain interfaces or guide independent hardware review.
+
+- [Zilog Z80 CPU manual](https://www.zilog.com/docs/z80/z80cpu_um.pdf): primary documented instruction/interrupt timing reference. Copy-loop timing is additionally measured in the linked ROM rather than inferred only from this table.
+- [devkitSMS upstream](https://github.com/sverx/devkitSMS): primary banked-code and ROM-paging design. The installed CRT hooks, library assembly, header macros and component hashes determine this project's actual mapper/ABI behavior. The installation is not revision-pinned.
+- [Emulicious debugger implementation](https://github.com/Calindro/emulicious-debugger/blob/master/src/extension.ts): primary remote-debug launch integration; `-remotedebug` and TCP DAP transport enabled the independent IRQ/input-boundary cross-check. Debugger capabilities are recorded from the installed emulator, not assumed from current upstream.
+- [SMS Power development index](https://www.smspower.org/Development/Index), [VDP registers](https://www.smspower.org/Development/VDPRegisters), and [original VDP timing-test discussion](https://www.smspower.org/forums/10695-SMSVDPTester?start=50): starting points for hardware documentation and author-reported GG ASIC timing tests. They do not replace an original-hardware GearRay experiment. Detailed port-spacing, fetch timing and expanded-cartridge questions remain assigned to independent review.
+- [CFR](https://www.benf.org/other/cfr/): the author's tool documentation supplied0.152 for inspecting local emulator API/control flow while constructing the measurement bridge. It did not change the emulator or production code. Third-party decompiled implementation is retained only in generated local scratch output, not copied into report prose or evidence source archives.
+
+No online FPS report, nominal clock table or previous hardware approval is represented as a new timing measurement of this ROM. The primary configuration's3,579,545T/s and59,736T/display period are returned by the exact installed Emulicious Game Gear system. Physical clock/panel/ASIC variation remains a separate validation question.

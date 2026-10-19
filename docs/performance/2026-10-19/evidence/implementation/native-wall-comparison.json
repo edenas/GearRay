@@ -1,0 +1,44 @@
+[
+  {
+    "scenario": "A_static",
+    "baseline_exact": 125578.1875,
+    "candidate": 65811.6875,
+    "reduction_percent": 47.59305830879268,
+    "mismatches": []
+  },
+  {
+    "scenario": "B_rotation",
+    "baseline_exact": 2818613.875,
+    "candidate": 1796343.0625,
+    "reduction_percent": 36.26856525355038,
+    "mismatches": []
+  },
+  {
+    "scenario": "G_zombies",
+    "baseline_exact": 3360988.9375,
+    "candidate": 1827148.125,
+    "reduction_percent": 45.63659211687007,
+    "mismatches": []
+  },
+  {
+    "scenario": "I_shotgun",
+    "baseline_exact": 1833538.4375,
+    "candidate": 881334.625,
+    "reduction_percent": 51.932579815360434,
+    "mismatches": []
+  },
+  {
+    "scenario": "J_lod",
+    "baseline_exact": 13974186.125,
+    "candidate": 5729643.5625,
+    "reduction_percent": 58.9983737782797,
+    "mismatches": []
+  },
+  {
+    "scenario": "L_mixed",
+    "baseline_exact": 5601086.0625,
+    "candidate": 2897943.9375,
+    "reduction_percent": 48.261035357015636,
+    "mismatches": []
+  }
+]

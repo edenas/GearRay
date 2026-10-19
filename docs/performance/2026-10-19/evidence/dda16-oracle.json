@@ -1,0 +1,11 @@
+{
+  "classification": "OBSERVED host differential integer model; not compiled-function exhaustive proof",
+  "cases": 11790240,
+  "mismatches": 0,
+  "max_hit_distance": 2836,
+  "max_steps": 12,
+  "positions_per_floor_cell": 5,
+  "camera_states": 242,
+  "door_masks": 8,
+  "scope": "All current non-solid cells, five subcell samples, every reachable camera state, all 28 rays, all door states. Map and controls unchanged. Larger maps not covered."
+}

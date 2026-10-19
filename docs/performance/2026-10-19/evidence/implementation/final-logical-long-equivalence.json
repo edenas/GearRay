@@ -1,0 +1,98 @@
+{
+  "records": 2880,
+  "warmup_each": 32,
+  "mismatches": [],
+  "candidate_rom_sha256": "e0fcfdd6fae28794fed9b56cd256d27fcd029248a9a8da846c12bb05dbf05566",
+  "statistics": [
+    {
+      "scenario": "A_static",
+      "measured": 256,
+      "baseline_total": 137631746,
+      "candidate_total": 15292427,
+      "reduction_percent": 88.88888105800822,
+      "baseline_max": 537646,
+      "candidate_max": 59767
+    },
+    {
+      "scenario": "B_rotation",
+      "measured": 256,
+      "baseline_total": 1292885793,
+      "candidate_total": 482708370,
+      "reduction_percent": 62.664268366664615,
+      "baseline_max": 7098399,
+      "candidate_max": 2150626
+    },
+    {
+      "scenario": "C_forward",
+      "measured": 256,
+      "baseline_total": 839171332,
+      "candidate_total": 461639811,
+      "reduction_percent": 44.988610383082055,
+      "baseline_max": 3286051,
+      "candidate_max": 1852393
+    },
+    {
+      "scenario": "F_geometry",
+      "measured": 256,
+      "baseline_total": 1232587628,
+      "candidate_total": 481765912,
+      "reduction_percent": 60.91426677860505,
+      "baseline_max": 6737681,
+      "candidate_max": 2126742
+    },
+    {
+      "scenario": "G_zombies",
+      "measured": 256,
+      "baseline_total": 227828357,
+      "candidate_total": 72796205,
+      "reduction_percent": 68.04778564066105,
+      "baseline_max": 28728693,
+      "candidate_max": 25678282
+    },
+    {
+      "scenario": "I_pistol",
+      "measured": 256,
+      "baseline_total": 600227332,
+      "candidate_total": 137631733,
+      "reduction_percent": 77.07006567971483,
+      "baseline_max": 4096846,
+      "candidate_max": 941774
+    },
+    {
+      "scenario": "I_shotgun",
+      "measured": 256,
+      "baseline_total": 737859050,
+      "candidate_total": 145277931,
+      "reduction_percent": 80.31088308803693,
+      "baseline_max": 5195653,
+      "candidate_max": 1041963
+    },
+    {
+      "scenario": "J_lod",
+      "measured": 256,
+      "baseline_total": 1592284994,
+      "candidate_total": 580482893,
+      "reduction_percent": 63.54403293459663,
+      "baseline_max": 39451068,
+      "candidate_max": 25684122
+    },
+    {
+      "scenario": "L_mixed",
+      "measured": 256,
+      "baseline_total": 1914517762,
+      "candidate_total": 656828450,
+      "reduction_percent": 65.69222479744224,
+      "baseline_max": 32467472,
+      "candidate_max": 25705812
+    },
+    {
+      "scenario": "M_authored",
+      "measured": 256,
+      "baseline_total": 198801386,
+      "candidate_total": 45877263,
+      "reduction_percent": 76.92306682409146,
+      "baseline_max": 776588,
+      "candidate_max": 179235
+    }
+  ]
+}

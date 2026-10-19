@@ -21,6 +21,8 @@ $projection = Get-Content -Raw -LiteralPath (
     Join-Path $root "platform\game_gear\sprite_projection.c")
 $videoInitialization = Get-Content -Raw -LiteralPath (
     Join-Path $root "platform\game_gear\video_initialization.c")
+$gameOverPresentation = Get-Content -Raw -LiteralPath (
+    Join-Path $root "platform\game_gear\game_over_presentation.c")
 $video = Get-Content -Raw -LiteralPath (
     Join-Path $root "platform\game_gear\video.c")
 $startupLogo = Get-Content -Raw -LiteralPath (
@@ -136,15 +138,15 @@ Assert-True $shakeFunctions.Success 'Could not isolate shake implementation.'
 Assert-True ($shakeFunctions.Value -notmatch
              'player_|camera_|raycaster_|world_x|world_y') `
     'Presentation shake modifies or depends on gameplay geometry.'
-Assert-True ($videoInitialization -match 'game_gear_damage_shake_phase = 0' -and
+Assert-True ($gameOverPresentation -match 'game_gear_damage_shake_phase = 0' -and
              $startupLogo -match 'game_gear_damage_shake_phase = 0') `
     'Session initialization or SEGA logo does not reset BG scroll.'
-Assert-True ($videoInitialization -match 'game_gear_damage_shake_phase = 0;[\s\S]*?SMS_setBGScrollX\(0\);[\s\S]*?SMS_setBGScrollY\(0\);') `
+Assert-True ($gameOverPresentation -match 'game_gear_damage_shake_phase = 0;[\s\S]*?SMS_setBGScrollX\(0\);[\s\S]*?SMS_setBGScrollY\(0\);') `
     'Shake reset does not restore neutral X/Y scroll.'
-Assert-True ($videoInitialization -match 'GAME_OVER_DISPLAY_FRAME_COUNT\s+180' -and
-             $videoInitialization -notmatch 'DEATH_FADE|game_gear_video_dim_color') `
+Assert-True ($gameOverPresentation -match 'GAME_OVER_DISPLAY_FRAME_COUNT\s+180' -and
+             $gameOverPresentation -notmatch 'DEATH_FADE|game_gear_video_dim_color') `
     'Death presentation is not 180 frames or still contains fading.'
-Assert-True ($videoInitialization -match 'SMS_displayOff\(\);[\s\S]*?SMS_VRAMmemsetW\(0, 0x0000, 16384\);[\s\S]*?GG_loadBGPalette\(game_over_palette\);') `
+Assert-True ($gameOverPresentation -match 'SMS_displayOff\(\);[\s\S]*?SMS_VRAMmemsetW\(0, 0x0000, 16384\);[\s\S]*?GG_loadBGPalette\(game_over_palette\);') `
     'Game Over presentation does not clear gameplay before loading artwork.'
 Assert-True ($projection -notmatch 'hud_weapon|HUD_WEAPON') `
     'World-sprite projection depends on HUD weapon coordinates.'

@@ -1,0 +1,2 @@
+# Frozen research evidence must retain its original bytes and line endings.
+docs/performance/2026-10-19/evidence/** -text

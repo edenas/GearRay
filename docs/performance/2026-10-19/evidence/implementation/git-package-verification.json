@@ -1,0 +1,128 @@
+{
+  "retained_authoritative_replay_records": 2880,
+  "replay_mismatches": 0,
+  "replay_fields": [
+    "scenario",
+    "update",
+    "warmup",
+    "camera_hex",
+    "vram_sha256",
+    "ray_hex",
+    "polled_key_mask",
+    "state_json (parsed)"
+  ],
+  "rom_sha256": "e0fcfdd6fae28794fed9b56cd256d27fcd029248a9a8da846c12bb05dbf05566",
+  "rom_bytes": 65536,
+  "archives": [
+    {
+      "archive": "docs/performance/2026-10-19/evidence/astra/hud-mask-experiment.zip",
+      "entries": 506,
+      "bytes": 1029287,
+      "sha256": "bb85bbe70aebc66054a4cf80849fb9f3a769cd43cf15b644a22f3a372b4ebe68"
+    },
+    {
+      "archive": "docs/performance/2026-10-19/evidence/baseline-build.zip",
+      "entries": 295,
+      "bytes": 682290,
+      "sha256": "f5dc46193879c8b13e9aa7e75bfde06d70a4552be097f080b29959f56d25f99a"
+    },
+    {
+      "archive": "docs/performance/2026-10-19/evidence/baseline-inputs.zip",
+      "entries": 262,
+      "bytes": 567754,
+      "sha256": "3877d63c4413ddd3ab0b908fe940baf917d929f76f3f0648e09867874c11bedf"
+    },
+    {
+      "archive": "docs/performance/2026-10-19/evidence/experiments.zip",
+      "entries": 960,
+      "bytes": 1364221,
+      "sha256": "00eeae3a641d5e4acd0c7ab602caf57ea96eec7da113faed2f670f9c77bab2e1"
+    },
+    {
+      "archive": "docs/performance/2026-10-19/evidence/implementation/architecture-0cf805602b30b1866c5d101f5a0c5dd3f84151333cedbfe9504ead1547b6bcf4.zip",
+      "entries": 199,
+      "bytes": 336005,
+      "sha256": "dfd423983468b67aafb771d7ea673f7df243c02fcdf86225eb7e93886cc49527"
+    },
+    {
+      "archive": "docs/performance/2026-10-19/evidence/implementation/architecture-3668f6a15af369d7b6f5e17b0e24148a38995921df6ed372a2099a5d1819cecd.zip",
+      "entries": 195,
+      "bytes": 337635,
+      "sha256": "48ceee0ee92ae9e39a2af57a71881352bac5a24236385bd38d67b2c0e81ba6f2"
+    },
+    {
+      "archive": "docs/performance/2026-10-19/evidence/implementation/architecture-4ae2b783e53bca5f6cea5a084f71046b847c7b31e2926955bfb7ba1db43239b8.zip",
+      "entries": 199,
+      "bytes": 335944,
+      "sha256": "7a4335b40fe591bb7b4f26c6894c0f90a5d893a96286c5b421630e014027fc4e"
+    },
+    {
+      "archive": "docs/performance/2026-10-19/evidence/implementation/architecture-539af655291b12b84cd35218743c2dcff84086a9e780edac7b6d236bbf13ab5f.zip",
+      "entries": 199,
+      "bytes": 335946,
+      "sha256": "87825ed101c16fc174659cb42ea477a37d91c6d9efc9fbe0610d638e0fe67578"
+    },
+    {
+      "archive": "docs/performance/2026-10-19/evidence/implementation/architecture-78b9b1be46160ea2634178b073016dc55298839af245e36ac4df64efe5f8c131.zip",
+      "entries": 199,
+      "bytes": 336005,
+      "sha256": "82268b05468450a4093cb29d088665d6e75d8ef1d9043effcd3b1561cf27bf81"
+    },
+    {
+      "archive": "docs/performance/2026-10-19/evidence/implementation/architecture-97fef3fd765c23f0245a757d394c2f52dda069f1ede3b72759dea78eed229776.zip",
+      "entries": 199,
+      "bytes": 336001,
+      "sha256": "fb5c1d1ff570c23730897a91877f67b5b94eab5c7109846b6bd878d9fe53d168"
+    },
+    {
+      "archive": "docs/performance/2026-10-19/evidence/implementation/architecture-bda433f29ee7bc5b837c15998fec388c5be4a74fd2816f2651f37d047758f104.zip",
+      "entries": 195,
+      "bytes": 338488,
+      "sha256": "deeb0f7d4a57271465ec596647d07145313bf648a1df9190d86f41ddca750cc0"
+    },
+    {
+      "archive": "docs/performance/2026-10-19/evidence/implementation/architecture-before-64k.zip",
+      "entries": 120,
+      "bytes": 231330,
+      "sha256": "08ea158c7d9505bfecfcdc9047680fb4da8010887d94a1636ec08bf6fd894030"
+    },
+    {
+      "archive": "docs/performance/2026-10-19/evidence/implementation/architecture-before-buffer-cache.zip",
+      "entries": 119,
+      "bytes": 227359,
+      "sha256": "232ac2133a8cb3fcec8519c41bc2f04541a8fcddb2055ba106fd383e2dab7e32"
+    },
+    {
+      "archive": "docs/performance/2026-10-19/evidence/implementation/architecture-trace-evidence.zip",
+      "entries": 3290,
+      "bytes": 5378895,
+      "sha256": "51d5be859155442886cdd8464fd37fd15e84bc418d796bc8f46605b4b705c38f"
+    },
+    {
+      "archive": "docs/performance/2026-10-19/evidence/implementation/authorized-inputs.zip",
+      "entries": 262,
+      "bytes": 567754,
+      "sha256": "3877d63c4413ddd3ab0b908fe940baf917d929f76f3f0648e09867874c11bedf"
+    },
+    {
+      "archive": "docs/performance/2026-10-19/evidence/implementation/exact-source.zip",
+      "entries": 107,
+      "bytes": 218634,
+      "sha256": "782156b74f0767771434958909acdc5a09d95fd18a5aa6aaeb2be472e8a0b2fd"
+    },
+    {
+      "archive": "docs/performance/2026-10-19/evidence/implementation/production-final-source.zip",
+      "entries": 432,
+      "bytes": 932286,
+      "sha256": "2adf98ba94730f638705712fbf3b1bc13d6c3d88f5712dfcd89652e0ac9c6e2b"
+    },
+    {
+      "archive": "docs/performance/2026-10-19/evidence/implementation/production-replay-evidence.zip",
+      "entries": 24,
+      "bytes": 1685760,
+      "sha256": "d575ef1ee6b457c284345837d1f22b25cec04c30e3b7210b7dcf58ea2cd96693"
+    }
+  ],
+  "secret_pattern_scan": "No matches in selected source/document text or archive text entries; heuristic scan, not a credential audit.",
+  "note": "Rechecked retained replay data; no new long emulator benchmark was run during Git packaging."
+}

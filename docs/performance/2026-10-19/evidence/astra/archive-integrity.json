@@ -1,0 +1,17 @@
+{
+  "baseline-inputs.zip": {
+    "sha256": "3877d63c4413ddd3ab0b908fe940baf917d929f76f3f0648e09867874c11bedf",
+    "entries": 262,
+    "bad_member": null
+  },
+  "baseline-build.zip": {
+    "sha256": "f5dc46193879c8b13e9aa7e75bfde06d70a4552be097f080b29959f56d25f99a",
+    "entries": 295,
+    "bad_member": null
+  },
+  "experiments.zip": {
+    "sha256": "00eeae3a641d5e4acd0c7ab602caf57ea96eec7da113faed2f670f9c77bab2e1",
+    "entries": 960,
+    "bad_member": null
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "required_documents": 16,
+  "total_primary_and_supplement_documents": 18,
+  "evidence_ids": 26,
+  "preserved_inputs": 262,
+  "validators_passed": 23,
+  "local_links": "PASS",
+  "new_document_whitespace": "PASS",
+  "archive_integrity": "PASS",
+  "release_rom_preserved": "PASS",
+  "release_profiling_symbols": 0,
+  "reproduction_samples_exact": 8,
+  "git_diff_check": "PASS",
+  "production_changes_by_this_audit": [],
+  "commit_or_push_performed": false
+}

@@ -1,22 +1,44 @@
 #include "hud_weapon.h"
-#include "weapon_texture.h"
-#include "weapon_shoot_texture.h"
+#include "hud_masks.h"
+#include "../../game/weapons.h"
+#include "../../game/player.h"
 
 #define HUD_WEAPON_SHOOT_FRAME_COUNT 2
+/* Touch one additional movement step before the previous contact boundary.
+ * Independent of the renderer's world canvas or projected size. */
+#define SHOTGUN_PICKUP_TOUCH_EXTENT (128U + 2U * PLAYER_MOVE_SPEED)
 
 static HudWeaponState weapon_state;
 static HudWeaponState rendered_weapon_state;
 static unsigned char animation_timer;
 
-void game_gear_hud_weapon_initialize(void) __banked
+void game_gear_hud_weapon_initialize(void)
 {
     weapon_state = IDLE;
     rendered_weapon_state = IDLE;
     animation_timer = 0;
 }
 
-void game_gear_hud_weapon_update(unsigned char shoot_requested) __banked
+void game_gear_hud_weapon_update(unsigned char shoot_requested)
 {
+    /* Reuse this existing gameplay dispatch; never collect during pause. */
+    if (SHOTGUN_PICKUP_PRESENT
+        && (unsigned int)(player_get_position_x()
+            - ((unsigned int)shotgun_cell_x << 8)
+            + (SHOTGUN_PICKUP_TOUCH_EXTENT - 128U))
+            <= 2U * SHOTGUN_PICKUP_TOUCH_EXTENT
+        && (unsigned int)(player_get_position_y()
+            - ((unsigned int)shotgun_cell_y << 8)
+            + (SHOTGUN_PICKUP_TOUCH_EXTENT - 128U))
+            <= 2U * SHOTGUN_PICKUP_TOUCH_EXTENT)
+    {
+        /* First ownership equips the reward; an owned pickup never switches.
+         * Drop the old pose, then accept this frame's fresh fire edge below. */
+        owned_weapons |= WEAPON_OWNED_SHOTGUN;
+        selected_weapon = WEAPON_SHOTGUN;
+        weapon_state = IDLE;
+        animation_timer = 0;
+    }
     if (shoot_requested)
     {
         weapon_state = SHOOT;
@@ -30,71 +52,64 @@ void game_gear_hud_weapon_update(unsigned char shoot_requested) __banked
     }
 }
 
-unsigned char game_gear_hud_weapon_changed(void) __banked
+unsigned char game_gear_hud_weapon_changed(void)
 {
-    return weapon_state != rendered_weapon_state;
+    return (weapon_state | (selected_weapon << 1)) != rendered_weapon_state;
 }
 
-void game_gear_hud_weapon_render_complete(void) __banked
+void game_gear_hud_weapon_render_complete(void)
 {
-    rendered_weapon_state = weapon_state;
+    rendered_weapon_state = weapon_state | (selected_weapon << 1);
 }
 
+/* Masks retain transparent destination bits; each source row covers two rows. */
 void game_gear_overlay_hud_weapon_tile(
     unsigned char *destination,
     unsigned char tile_column,
-    unsigned char tile_row) __banked
+    unsigned char tile_row)
 {
-    signed int tile_left = tile_column * 8;
-    signed int tile_top = tile_row * 8;
-    signed int screen_x;
-    signed int screen_y;
-    unsigned char texture_x;
-    unsigned char texture_y;
-    unsigned char texture_offset;
-    unsigned char pixel_x;
-    unsigned char pixel_y;
-    unsigned char palette_index;
-    unsigned char plane;
-    unsigned char mask;
-    const unsigned char *weapon_pixels = weapon_state == SHOOT
-        ? hud_weapon_shoot_pixels
-        : hud_weapon_pixels;
+    const unsigned char *mask;
+    unsigned char tile_index;
+    unsigned char row;
+    unsigned char repeat;
+    unsigned char keep;
 
-    for (pixel_y = 0; pixel_y < 8; ++pixel_y)
+    if (selected_weapon == WEAPON_SHOTGUN)
     {
-        screen_y = tile_top + pixel_y;
-        if (screen_y < HUD_WEAPON_TOP || screen_y >= HUD_WEAPON_BOTTOM)
-            continue;
-        texture_y =
-            (unsigned char)(screen_y - HUD_WEAPON_TOP) >> 1;
-
-        for (pixel_x = 0; pixel_x < 8; ++pixel_x)
+        if (tile_column < HUD_SHOTGUN_LEFT / 8
+            || tile_column >= HUD_WEAPON_RIGHT / 8
+            || tile_row < HUD_SHOTGUN_TOP / 8
+            || tile_row >= HUD_WEAPON_BOTTOM / 8)
+            return;
+        tile_index = (tile_row - HUD_SHOTGUN_TOP / 8)
+            * (HUD_SHOTGUN_WIDTH / 8) + tile_column - HUD_SHOTGUN_LEFT / 8;
+        mask = weapon_state == SHOOT
+            ? hud_mask_shotgun_fire : hud_mask_shotgun_held;
+    }
+    else
+    {
+        if (tile_column < HUD_WEAPON_LEFT / 8
+            || tile_column >= HUD_WEAPON_RIGHT / 8
+            || tile_row < HUD_WEAPON_TOP / 8
+            || tile_row >= HUD_WEAPON_BOTTOM / 8)
+            return;
+        tile_index = (tile_row - HUD_WEAPON_TOP / 8)
+            * (HUD_WEAPON_WIDTH / 8) + tile_column - HUD_WEAPON_LEFT / 8;
+        mask = weapon_state == SHOOT
+            ? hud_mask_weapon_shoot_texture : hud_mask_weapon_texture;
+    }
+    mask += (unsigned int)tile_index * 20;
+    for (row = 0; row < 4; ++row)
+    {
+        keep = mask[0];
+        for (repeat = 0; repeat < 2; ++repeat)
         {
-            screen_x = tile_left + pixel_x;
-            if (screen_x < HUD_WEAPON_LEFT || screen_x >= HUD_WEAPON_RIGHT)
-                continue;
-            texture_x =
-                (unsigned char)(screen_x - HUD_WEAPON_LEFT) >> 1;
-            texture_offset =
-                (texture_y << 3) + (texture_x >> 1);
-            palette_index = weapon_pixels[texture_offset];
-            if (texture_x & 1)
-                palette_index &= 15;
-            else
-                palette_index >>= 4;
-            if (palette_index == hud_weapon_pixels_TRANSPARENT_INDEX)
-                continue;
-
-            mask = (unsigned char)(0x80U >> pixel_x);
-            for (plane = 0; plane < 4; ++plane)
-            {
-                if (palette_index & (1U << plane))
-                    destination[pixel_y * 4 + plane] |= mask;
-                else
-                    destination[pixel_y * 4 + plane] &=
-                        (unsigned char)~mask;
-            }
+            destination[0] = (destination[0] & keep) | mask[1];
+            destination[1] = (destination[1] & keep) | mask[2];
+            destination[2] = (destination[2] & keep) | mask[3];
+            destination[3] = (destination[3] & keep) | mask[4];
+            destination += 4;
         }
+        mask += 5;
     }
 }

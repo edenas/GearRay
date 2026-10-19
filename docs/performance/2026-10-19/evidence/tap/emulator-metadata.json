@@ -1,0 +1,9 @@
+{
+  "rom_sha256": "6322efcc0434ad8d4fc3f066ced47e0a1fb4cdb140d6da8654521e3834371136",
+  "emulicious_sha256": "db185a1ed0af3bdab5ebdeb254612d02d3848bac155dbc89333d1b04e21c371d",
+  "cycles_per_frame": 59736,
+  "cycles_per_second": 3579545,
+  "samples_per_scenario": 8,
+  "pinned_reset_timer": 228,
+  "method": "Unmodified installed Emulicious CPU and VDP. executeOnce(0), elapsed=-return. RAM-seeded scenarios after cloned boot; physical input via SMSJoypad provider. No wall-clock timing."
+}

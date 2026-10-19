@@ -1,0 +1,94 @@
+[
+    {
+        "Validator":  "validate_bank_call_topology",
+        "ExitCode":  0
+    },
+    {
+        "Validator":  "validate_bank_layout",
+        "ExitCode":  0
+    },
+    {
+        "Validator":  "validate_corpse_persistence",
+        "ExitCode":  0
+    },
+    {
+        "Validator":  "validate_door_crush",
+        "ExitCode":  0
+    },
+    {
+        "Validator":  "validate_final_controls",
+        "ExitCode":  0
+    },
+    {
+        "Validator":  "validate_game_over",
+        "ExitCode":  0
+    },
+    {
+        "Validator":  "validate_health_hud",
+        "ExitCode":  0
+    },
+    {
+        "Validator":  "validate_middle_zombie",
+        "ExitCode":  0
+    },
+    {
+        "Validator":  "validate_near_zombie",
+        "ExitCode":  0
+    },
+    {
+        "Validator":  "validate_palette_usage",
+        "ExitCode":  0
+    },
+    {
+        "Validator":  "validate_pause_map",
+        "ExitCode":  0
+    },
+    {
+        "Validator":  "validate_ray_direction_rebuild",
+        "ExitCode":  0
+    },
+    {
+        "Validator":  "validate_renderer_equivalence",
+        "ExitCode":  0
+    },
+    {
+        "Validator":  "validate_shotgun_combat",
+        "ExitCode":  0
+    },
+    {
+        "Validator":  "validate_sprite_renderer",
+        "ExitCode":  0
+    },
+    {
+        "Validator":  "validate_startup_order",
+        "ExitCode":  0
+    },
+    {
+        "Validator":  "validate_weapon_assets",
+        "ExitCode":  0
+    },
+    {
+        "Validator":  "validate_weapon_runtime",
+        "ExitCode":  0
+    },
+    {
+        "Validator":  "validate_workshop_map",
+        "ExitCode":  0
+    },
+    {
+        "Validator":  "validate_z80_hardening",
+        "ExitCode":  0
+    },
+    {
+        "Validator":  "validate_zombie_ai",
+        "ExitCode":  0
+    },
+    {
+        "Validator":  "validate_zombie_attack",
+        "ExitCode":  0
+    },
+    {
+        "Validator":  "validate_zombie_shooting",
+        "ExitCode":  0
+    }
+]

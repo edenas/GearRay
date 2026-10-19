@@ -131,7 +131,11 @@ The release pipeline is:
 ```text
 wall and door PNG inputs
     -> tools/generate_wall_texture.ps1
-    -> generated wall_texture.c and wall_texture.h
+    -> generated packed wall_texture.c/.h (generator/reference input)
+    -> wall_palette.c (linked palette only)
+    -> generate_native_wall_tables.ps1 -> wall_schedules.h
+weapon PNG -> generated packed artwork -> generate_hud_masks.ps1 -> hud_masks.h
+legacy camera constants -> generate_camera_graph.ps1 -> camera_graph.c/.h
     -> SDCC Z80 object compilation
     -> link with crt0_sms.rel and SMSlib_GG.lib
     -> GearRay.ihx
@@ -306,3 +310,15 @@ Build the requested configuration first, then pass its directory through
 The checked-in launchers explicitly set the profiling option and ROM filename.
 For custom configurations, inspect the cache or configure a fresh build
 directory rather than reusing an incompatible one.
+
+## Verified performance build (2026-10-19)
+
+```powershell
+cmake -S . -B build-implementation-production -G Ninja '-DCMAKE_BUILD_TYPE=Release' '-DGEARRAY_PROFILE_RENDERER=OFF' '-DGEAR_RAY_ROM_FILENAME=GearRay-implementation-production.gg'
+cmake --build build-implementation-production
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/full_z80_audit.ps1 -BuildDirectory build-implementation-production -RunValidators
+```
+
+The audit resolves the selected build's configured ROM and validates every mapped IHX payload byte, excluding the checksum patched by makesms. It must not substitute a different `rom/GearRay.gg`. There are now 24 validators, including native wall generation/placement. Keep profile builds separate. PowerShell child processes may require the standard Windows PowerShell Modules directory in `PSModulePath` for `Get-FileHash`.
+
+Generated masks, graph and wall schedules depend on current source artwork/metadata; do not hand-edit generated tables. Scalar wall code is preserved under performance evidence and is excluded from production. See the [implementation report](performance/2026-10-19/IMPLEMENTATION_REPORT.md) for emulator/driver identities, commands, limitations and experimental source bundles.

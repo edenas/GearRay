@@ -97,7 +97,7 @@ foreach ($rowMatch in $rowMatches) {
     )
     Assert-Equal $width $tiles.Count "Workshop row width"
     foreach ($tile in $tiles) {
-        if ($tile -notin @("X", "E", "S", "B", "D", "R", "W", "Z")) {
+        if ($tile -notin @("X", "E", "S", "B", "D", "R", "W", "Z", "G")) {
             throw "Unknown workshop tile symbol: $tile"
         }
     }
@@ -111,7 +111,7 @@ $approvedRows = @(
     "XXXXSEEESXXXX",
     "XSBSSSDSSSBSX",
     "XSEEEEEEEEESX",
-    "BZEEEEEEEEEES",
+    "BZEEEEEEEEEGS",
     "XSEEEEEEEEESX",
     "XSBSSBDSSSSSX",
     "XXXXSEEESXXXX",
@@ -222,7 +222,7 @@ $cardinalDirections = @(@(0, -1), @(1, 0), @(0, 1), @(-1, 0))
 for ($y = 0; $y -lt $height; ++$y) {
     for ($x = 0; $x -lt $width; ++$x) {
         $tile = Get-Tile $x $y
-        if ($tile -in @("E", "Z")) {
+        if ($tile -in @("E", "Z", "G")) {
             foreach ($direction in $cardinalDirections) {
                 $neighbor = Get-Tile ($x + $direction[0]) ($y + $direction[1])
                 if ($null -eq $neighbor -or $neighbor -eq "X") {
@@ -270,7 +270,7 @@ while ($pending.Count -ne 0) {
         if ($null -eq $neighbor -or $neighbor -eq "X") {
             throw "Reachable region at ($x,$y) is not enclosed."
         }
-        if ($neighbor -in @("E", "D", "R", "Z")) {
+        if ($neighbor -in @("E", "D", "R", "Z", "G")) {
             $pending.Enqueue("$nextX,$nextY")
         }
     }
@@ -279,7 +279,7 @@ while ($pending.Count -ne 0) {
 $playableCount = 0
 for ($y = 0; $y -lt $height; ++$y) {
     for ($x = 0; $x -lt $width; ++$x) {
-        if ((Get-Tile $x $y) -in @("E", "D", "R", "Z")) {
+        if ((Get-Tile $x $y) -in @("E", "D", "R", "Z", "G")) {
             ++$playableCount
             if (-not $visited.ContainsKey("$x,$y")) {
                 throw "Playable tile at ($x,$y) is unreachable from spawn."
@@ -289,15 +289,16 @@ for ($y = 0; $y -lt $height; ++$y) {
 }
 Assert-Equal $playableCount $visited.Count "Reachable playable tile count"
 
-# Runtime semantic checks: VOID and out-of-bounds are blocked before the map
-# array can be read. Since every reachable frontier is renderable, a DDA's
-# cardinal cell sequence must hit a wall/closed door before reaching VOID.
+# Runtime semantic checks: world_get_tile owns the single bounds check, so the
+# map array cannot be read out of bounds. world_is_wall then treats its VOID
+# result as a solid non-door tile. Since every reachable frontier is renderable,
+# a DDA's cardinal cell sequence must hit a wall/closed door before VOID.
 if ($worldSource -notmatch
     "if\s*\(\s*x\s*>=\s*WORLD_WIDTH\s*\|\|\s*y\s*>=\s*WORLD_HEIGHT\s*\)\s*return\s+WORLD_TILE_VOID\s*;" -or
     $worldSource -notmatch
-    "if\s*\(\s*x\s*>=\s*WORLD_WIDTH\s*\|\|\s*y\s*>=\s*WORLD_HEIGHT\s*\)\s*return\s+1\s*;" -or
-    $worldSource -notmatch
     "if\s*\(\s*tile_id\s*==\s*WORLD_TILE_EMPTY\s*\)\s*return\s+0\s*;" -or
+    $worldSource -notmatch
+    "tile_id\s*!=\s*WORLD_TILE_DOOR[\s\S]*?tile_id\s*!=\s*WORLD_TILE_RED_DOOR[\s\S]*?return\s+1\s*;" -or
     $worldSource -notmatch
     "tile_id\s*==\s*WORLD_TILE_SPRITE_MARKER") {
     throw "World bounds/solidity semantics do not safely block VOID."

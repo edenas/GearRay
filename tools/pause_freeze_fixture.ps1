@@ -13,8 +13,12 @@ $freezeStep=Get-FreezeBody $freezeMain 'while\s*\(!player_is_dead\(\)\)'
 $freezeStep=$freezeStep.Replace('continue;','return;').Replace('break;','return;').Replace('shoot_requested = input_shoot_requested();','shoot_requested = input_shoot_requested() ? 1 : 0;').Replace('if (pending_shot)','if (pending_shot != 0)')
 $freezeSprite=Get-FreezeBody (Get-Content "$root/game/world_sprite.c" -Raw) 'void world_sprites_update\(void\)'
 $freezeSprite=$freezeSprite.Replace('&world_sprites[','Corpses[').Replace('world_sprite_count','Corpses.Length')
-$freezeWeapon=Get-FreezeBody (Get-Content "$root/platform/game_gear/hud_weapon.c" -Raw) 'void game_gear_hud_weapon_update\(unsigned char shoot_requested\)\s*__banked'
+$freezeWeapon=Get-FreezeBody (Get-Content "$root/platform/game_gear/hud_weapon.c" -Raw) 'void game_gear_hud_weapon_update\(unsigned char shoot_requested\)'
+$touchLiteral=[string](128+2*[int][regex]::Match((Get-Content "$root/game/player.h" -Raw),'#define PLAYER_MOVE_SPEED\s+(\d+)').Groups[1].Value)+'U'
+$freezeWeapon=$freezeWeapon.Replace('(unsigned int)','(ushort)').Replace('SHOTGUN_PICKUP_TOUCH_EXTENT',$touchLiteral)
 $freezeWeapon=$freezeWeapon.Replace('if (shoot_requested)','if (shoot_requested != 0)')
+$freezeWeapon=$freezeWeapon.Replace('SHOTGUN_PICKUP_PRESENT','(owned_weapons & WEAPON_OWNED_SHOTGUN) == 0')
+$freezeWeapon=$freezeWeapon.Replace('player_get_position_x()','PlayerX').Replace('player_get_position_y()','PlayerY')
 $freezeSwitch=Get-FreezeBody (Get-Content "$root/game/red_door_switch.c" -Raw) 'void red_door_switch_update\(void\)'
 $freezeProduction=@"
 static void FreezeMainStep(void) {
@@ -41,7 +45,7 @@ public static int[] WriteFrames=new int[40016];
 public static byte[] GameplayBytes(){
  var b=new System.Collections.Generic.List<byte>();
  foreach(int v in new int[]{PlayerX,PlayerY,CameraX,CameraY,DirectionX,DirectionY,PlaneX,PlaneY}){b.Add((byte)v);b.Add((byte)(v>>8));}
- foreach(int v in new int[]{PlayerHealth,DamagePhase,pending_shot,zombie_ai_frame_counter,weapon_state,animation_timer,SwitchState,red_door_switch_frame_counter,red_door_switch_frame,FollowingMask,NegativeMask,Corpses.Length})b.Add((byte)v);
+ foreach(int v in new int[]{PlayerHealth,DamagePhase,pending_shot,zombie_ai_frame_counter,weapon_state,animation_timer,SwitchState,red_door_switch_frame_counter,red_door_switch_frame,FollowingMask,NegativeMask,Corpses.Length,owned_weapons,shotgun_cell_x,shotgun_cell_y})b.Add((byte)v);
  foreach(int v in door_states)b.Add((byte)v);
  foreach(WorldSprite s in Corpses){foreach(int v in new int[]{s.world_x,s.world_y,s.pixels}){b.Add((byte)v);b.Add((byte)(v>>8));}b.Add((byte)s.state);b.Add((byte)s.health_and_hit_count);b.Add((byte)s.state_timer);}
  return b.ToArray();
@@ -75,8 +79,8 @@ public static void SeedFreeze(){
 }
 public static void RunFreeze(int frames,int mode,int held){
  SeedFreeze();int exitHeld=mode==7?0:held;Script=new int[frames+8];Script[0]=GG_KEY_START|held;Script[frames]=GG_KEY_START|exitHeld;
- if(mode==1)Script[3]=2;
- if(mode>=2&&mode<=4)Script[3]=16;
+ if(mode==1)Script[3]=1;
+ if(mode>=2&&mode<=4){Script[2]=1;Script[3]=16;}
  if(mode==3)for(int f=4;f<frames;f++)Script[f]=8;
  if(mode==4)for(int f=4;f<frames;f++)Script[f]=4;
  if(mode==5){Script[3]=2;Script[4]=16;Script[5]=0;Script[6]=16;}
@@ -88,7 +92,7 @@ public static void RunFreeze(int frames,int mode,int held){
  if(GameplayCalls!=0)throw new Exception("Main advanced simulation on pause/resume iteration");
  for(int f=2;f<frames;f++){
   bool pan=mode==3&&f>=4&&(f==4||f>=16&&(f-16)%4==0)&&f<=80;
-  bool focus=(mode==1&&f==3)||(mode>=2&&mode!=5&&f==3)||(mode==5&&f==3);
+  bool focus=(mode==1&&f==3)||(mode>=2&&mode<=4&&(f==2||f==3));
   if(!pan){if(QueryFrames[f]+DoorFrames[f]+DoorFindFrames[f]+ScanFrames[f]+EntityFrames[f]+CorpseWrites[f]+SatFrames[f]!=0)throw new Exception("Non-pan frame queried or rendered world: "+f);}
   if(!pan&&!focus&&WriteFrames[f]!=0)throw new Exception("Idle/delay/rejected frame wrote VRAM: "+f);
  }

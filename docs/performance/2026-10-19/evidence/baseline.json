@@ -1,0 +1,33 @@
+{
+    "Banks":  [
+                  {
+                      "Bank":  0,
+                      "Used":  15629,
+                      "Free":  755
+                  },
+                  {
+                      "Bank":  1,
+                      "Used":  13516,
+                      "Free":  2852
+                  },
+                  {
+                      "Bank":  2,
+                      "Used":  9317,
+                      "Free":  7067
+                  },
+                  {
+                      "Bank":  3,
+                      "Used":  4605,
+                      "Free":  11779
+                  }
+              ],
+    "LinkedExtentSum":  43067,
+    "PersistentRAM":  1239,
+    "DataEnd":  50391,
+    "ROMBytes":  65536,
+    "SHA256":  "6322EFCC0434AD8D4FC3F066CED47E0A1FB4CDB140D6DA8654521E3834371136",
+    "ModuleCount":  57,
+    "HelperSites":  48,
+    "BankCallSites":  8,
+    "EmittedIHXBytes":  42922
+}

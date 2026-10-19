@@ -3,25 +3,27 @@ param(
     [Parameter(Mandatory = $true)][string]$OutputSource,
     [Parameter(Mandatory = $true)][string]$OutputHeader,
     [Parameter(Mandatory = $true)][string]$Symbol,
-    [ValidateSet('WorldSprite', 'HudWeapon', 'MiddleZombie', 'NearZombie')][string]$SpriteKind = 'WorldSprite',
+    [ValidateSet('WorldSprite', 'HudWeapon', 'HudWeapon16', 'HudWeapon20x16', 'WorldPickup', 'MiddleZombie', 'NearZombie')][string]$SpriteKind = 'WorldSprite',
     [switch]$GenerateWalkingLod
 )
 
 $ErrorActionPreference = "Stop"
 Add-Type -AssemblyName System.Drawing
 
-$expectedSize = if ($SpriteKind -eq 'HudWeapon') { 12 } elseif ($SpriteKind -eq 'MiddleZombie') { 16 } elseif ($SpriteKind -eq 'NearZombie') { 32 } else { 8 }
-$transparentIndex = if ($SpriteKind -eq 'HudWeapon') { 14 } else { 15 }
+$expectedSize = if ($SpriteKind -eq 'HudWeapon') { 12 } elseif ($SpriteKind -in @('HudWeapon16','WorldPickup','MiddleZombie')) { 16 } elseif ($SpriteKind -eq 'NearZombie') { 32 } else { 8 }
+$expectedWidth = if ($SpriteKind -eq 'HudWeapon20x16') { 20 } else { $expectedSize }
+$expectedHeight = if ($SpriteKind -eq 'HudWeapon20x16') { 16 } else { $expectedSize }
+$transparentIndex = if ($SpriteKind -in @('HudWeapon','HudWeapon16','HudWeapon20x16')) { 14 } else { 15 }
 $bitmap = [System.Drawing.Bitmap]::new($InputPath)
 try {
-    if ($bitmap.Width -ne $expectedSize -or $bitmap.Height -ne $expectedSize) {
-        throw "Sprite must be exactly ${expectedSize}x${expectedSize}."
+    if ($bitmap.Width -ne $expectedWidth -or $bitmap.Height -ne $expectedHeight) {
+        throw "Sprite must be exactly ${expectedWidth}x${expectedHeight}."
     }
 
-    $pixelCount = $expectedSize * $expectedSize
+    $pixelCount = $expectedWidth * $expectedHeight
     $pixels = [System.Collections.Generic.List[byte]]::new($pixelCount)
-    for ($y = 0; $y -lt $expectedSize; ++$y) {
-        for ($x = 0; $x -lt $expectedSize; ++$x) {
+    for ($y = 0; $y -lt $expectedHeight; ++$y) {
+        for ($x = 0; $x -lt $expectedWidth; ++$x) {
             $pixel = $bitmap.GetPixel($x, $y)
             if ($pixel.A -eq 0) {
                 $pixels.Add($transparentIndex)
@@ -33,7 +35,7 @@ try {
 
             $rgb = ('#{0:x2}{1:x2}{2:x2}' -f
                     $pixel.R, $pixel.G, $pixel.B)
-            if ($SpriteKind -eq 'HudWeapon') {
+            if ($SpriteKind -in @('HudWeapon','HudWeapon16','HudWeapon20x16','WorldPickup')) {
                 $index = switch ($rgb) {
                     '#000000' { 0; break }
                     '#ad3e00' { 1; break }
@@ -80,6 +82,7 @@ try {
                 }
             }
             $pixels.Add($index)
+            if($index -eq $transparentIndex){throw "Opaque sprite color $rgb collides with transparent index"}
         }
     }
 }
@@ -87,18 +90,18 @@ finally {
     $bitmap.Dispose()
 }
 
-$packedSourceRowStride = $expectedSize / 2
+$packedSourceRowStride = $expectedWidth / 2
 $packedRowStride = if ($SpriteKind -eq 'HudWeapon') {
     8
 }
 else {
     $packedSourceRowStride
 }
-$byteCount = $packedRowStride * $expectedSize
+$byteCount = $packedRowStride * $expectedHeight
 $bytes = [System.Collections.Generic.List[byte]]::new($byteCount)
-for ($y = 0; $y -lt $expectedSize; ++$y) {
-    $sourceRowOffset = $y * $expectedSize
-    for ($x = 0; $x -lt $expectedSize; $x += 2) {
+for ($y = 0; $y -lt $expectedHeight; ++$y) {
+    $sourceRowOffset = $y * $expectedWidth
+    for ($x = 0; $x -lt $expectedWidth; $x += 2) {
         $bytes.Add(($pixels[$sourceRowOffset + $x] -shl 4) -bor
                    $pixels[$sourceRowOffset + $x + 1])
     }
@@ -175,8 +178,8 @@ $header = @"
 #ifndef $headerGuard
 #define $headerGuard
 
-#define ${Symbol}_WIDTH $expectedSize
-#define ${Symbol}_HEIGHT $expectedSize
+#define ${Symbol}_WIDTH $expectedWidth
+#define ${Symbol}_HEIGHT $expectedHeight
 #define ${Symbol}_PACKED_ROW_STRIDE $packedRowStride
 #define ${Symbol}_TRANSPARENT_INDEX $transparentIndex
 #define ${Symbol}_BYTE_COUNT $byteCount

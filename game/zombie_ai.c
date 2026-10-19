@@ -188,7 +188,7 @@ static void zombie_ai_move(unsigned char sprite_index,
     }
 }
 
-void zombie_ai_update_all(void) __banked
+void zombie_ai_update_all(void)
 {
     unsigned char sprite_index;
     unsigned char sprite_count;

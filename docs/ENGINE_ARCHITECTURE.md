@@ -16,6 +16,10 @@ is intentional.
 
 ## Engine architecture
 
+### Verified performance implementation (2026-10-19)
+
+[Current behavior](CURRENT_BEHAVIOR.md) and the [measured implementation report](performance/2026-10-19/IMPLEMENTATION_REPORT.md) define the current bank/resource/timing contract. Exact HUD masks, the legacy camera graph, full ray/material invalidation, native wall schedules, sprite spans and complete preparation reuse are enabled. Fixed scheduling and double buffering remain measured experiments outside production linkage. The production renderer owns a completed preparation cache and still updates live VRAM.
+
 ### Game loop
 
 `game/main.c` owns initialization and frame sequencing. It is the only module
@@ -98,13 +102,10 @@ The active Game Gear renderer is implemented primarily in
 Game Gear wall tiles, tracks dirty tile-columns, uploads changed patterns, and
 changes tilemap cells when their ceiling/wall/floor state changes.
 
-`render_textures.c` advances texture coordinates down projected walls.
-`wall_textures.c` reads the generated packed 8×8 texture and maps its indexed
-colours to bright X-side or dark Y-side palette entries. `video.c` packs those
-palette indices directly into four Game Gear bitplanes.
+`native_wall.c` prepares exact column plans from generated height/source-row schedules and directional palette columns. Its slot-2 Bank 3 worker emits native four-plane rows while preserving near, ordered-attenuation and fog decisions. `video.c` owns mapper restoration, sprite row merging and VRAM writes. `wall_textures.c` supplies the palette. Packed wall art is generator/reference input outside runtime linkage; the scalar sampler is retained in performance test evidence.
 
 Projected height selects one of three conservative wall levels in `video.c`.
-Heights above 16 retain the full sampler and directional shading. Heights 9
+Heights above 16 use exact source-row schedules and directional shading. Heights 9
 through 16 use the opaque ordered attenuation tables from Sprint 28. Heights 8
 and below use Sprint 29 Candidate C hybrid fog: 87.5% opaque attenuated wall
 pixels and 12.5% deterministic background contribution. Each ray in a native
@@ -552,13 +553,15 @@ closed standard doors, and the closed red door therefore block awareness,
 while open doors permit it. Presentation culling and render-budget rejection
 do not affect AI state.
 
-The resident main loop owns one cadence byte and makes one banked
-`zombie_ai_update_all()` call every four gameplay frames, approximately 15
-times per second at 60 fps. The BANK1 coordinator iterates all zombies; there
+The resident main loop owns one cadence byte and makes one direct same-page
+`zombie_ai_update_all()` call every four completed gameplay updates. This is
+workload dependent; 15 calls per second would require 60 gameplay updates,
+which the display counter does not establish. The BANK1 coordinator iterates all zombies; there
 is no per-zombie bank transition and no nested banked call. On each admitted
 tick, an alive chasing zombie takes one 56-unit dominant-axis Q8.8 step toward
-the current player position. This is 840 world units or 3.28125 tiles per
-second, substantially slower than player movement, and requires no floating
+the current player position. A hypothetical 15 AI updates per second would move 840 world units or
+3.28125 tiles per second; production has no fixed wall-clock AI rate. The
+movement requires no floating
 point, trigonometry, square root, or vector normalization.
 
 `enemy_position_is_walkable()` is the narrow BANK1 enemy/world collision API.
@@ -643,28 +646,17 @@ projected wall silhouette according to the viewport horizon. This keeps
 partially occupied wall tiles continuous with the flat backgrounds without
 changing wall samples, shading, geometry, dirty signatures, or upload counts.
 
-### Incremental texture sampler
+### Generated native wall plans
 
-Texture Y is initialized once and advanced incrementally for each screen row.
-Generated exact step/remainder tables cover every near projected height from
-17 through 144, removing sampler-initialization division. Clipping setup is
-performed only for walls extending above the viewport. Output remains
-equivalent to direct integer mapping.
+The earlier incremental step/remainder scalar sampler is preserved only as a test reference. Production generates packed exact source-row schedules for near heights17..144. Two51-byte plans cache the column's source rows and palette columns. Clipping is encoded with a background sentinel. All emitted rows match the old direct integer mapping, including heights extending above the viewport.
 
-### Packed texture storage
+### Artwork storage and runtime colors
 
-The 8×8 wall texture stores two 4-bit indexed pixels per byte. Sampling uses
-an offset, parity branch, and nibble mask, then adds the side's cached palette
-base. This halves source storage relative to an eight-bit indexed texture and
-avoids a separate per-pixel palette lookup call.
+Packed two-pixel-per-byte wall artwork remains the generator input. The final runtime palette object contains only15 RGB444 colors. Generated directional source-color columns eliminate per-output-pixel nibble decoding and repeated palette lookup; no raw artwork or old step/remainder arrays are linked merely for this path.
 
-### Lookup-table native bitplane packing
+### Native bitplane packing
 
-Two 16×4 constant maps translate left and right palette indices into their
-native bitplane nibbles. The renderer combines them with four OR operations.
-This removed the hot per-bitplane loop. Exhaustive comparison of all 256
-left/right input pairs established identical output; gameplay and visuals did
-not change.
+A256x4 native pair table combines the two half-tile palette indices into four complete plane bytes. Existing ordered attenuation/fog fragments retain their exact pixel/background patterns. The Bank3 tail worker owns these constants under slot2 mapping; the resident renderer owns restoration, sprite overlays and transfer. Compiled168,960-tile comparisons and host all-offset proofs establish byte equality.
 
 ### Stable BG palette and directional mapping
 
@@ -711,12 +703,15 @@ ray-direction rebuild optimization and emulator/original-hardware control
 evaluation. None of these adjustments changes camera normalization, the
 projection plane length, ray generation, or renderer output rules.
 
+Production now follows the generated242-state/484-edge closure of that legacy arithmetic. It copies exact normalized vectors/planes rather than computing a turn at runtime. All484 compiled transitions match; the retained constants define generation provenance. These new performance changes await physical hardware validation.
+
 ## Design decisions
 
 - Player position is authoritative; camera position is a synchronized copy.
   Do not create a second independently moving camera state.
-- Camera direction and plane remain an orthogonal normalized pair. Rebuild the
-  plane after direction changes rather than rotating both indefinitely.
+- Camera direction and plane remain the exact legacy normalized pair. The
+  generated graph copies both vectors from proven states; do not rotate the
+  plane independently or substitute uniform angles.
 - Movement composition happens before collision, and collision runs once.
   Applying collision separately to input vectors would change diagonal and
   sliding behaviour.
@@ -726,9 +721,9 @@ projection plane length, ray generation, or renderer output rules.
 - Treat speed 74, diagonal scale 177/256, and the 4058/556 rotation pair as the
   control baseline.
   Retune them only through explicit emulator and original-hardware validation.
-- Preserve rotation symmetry: left passes the positive sine magnitude and
-  right passes the negative magnitude through the same rotation and
-  normalization path.
+- Preserve every directed legacy transition. The graph generator applies
+  positive sine for left and negative sine for right through the old signed
+  arithmetic/normalization path; runtime turns follow those exact edges.
 - Preserve X-then-Y collision unless corner behaviour is intentionally being
   redesigned.
 - Keep world semantics out of the raycaster. The raycaster asks whether a cell

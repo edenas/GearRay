@@ -1,0 +1,7 @@
+{
+  "intervals": 2880,
+  "measured_per_route": 256,
+  "warmup_per_route": 32,
+  "mismatches": [],
+  "note": "SMSlib sampled mask seeded at each logical input entry; IRQ pad agrees with this mask. Separate absolute-time pulse replay retained."
+}

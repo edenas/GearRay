@@ -11,6 +11,7 @@
 #define R WORLD_TILE_RED_DOOR
 #define W WORLD_TILE_RED_DOOR_SWITCH
 #define Z WORLD_TILE_SPRITE_MARKER
+#define G WORLD_TILE_SHOTGUN_MARKER
 
 /*
  * Permanent engine laboratory. VOID cells are non-existent space outside
@@ -24,7 +25,7 @@ static const unsigned char workshop_map
     { X, X, X, X, S, E, E, E, S, X, X, X, X },
     { X, S, B, S, S, S, D, S, S, S, B, S, X },
     { X, S, E, E, E, E, E, E, E, E, E, S, X },
-    { B, Z, E, E, E, E, E, E, E, E, E, E, S },
+    { B, Z, E, E, E, E, E, E, E, E, E, G, S },
     { X, S, E, E, E, E, E, E, E, E, E, S, X },
     { X, S, B, S, S, B, D, S, S, S, S, S, X },
     { X, X, X, X, S, E, E, E, S, X, X, X, X },

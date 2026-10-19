@@ -1,0 +1,50 @@
+[
+  {
+    "Archive": "production-replay-evidence.zip",
+    "SHA256": "D575EF1EE6B457C284345837D1F22B25CEC04C30E3B7210B7DCF58EA2CD96693",
+    "Bytes": 1685760,
+    "Entries": 24,
+    "SourceBytes": 28063392,
+    "Directories": [
+      "build-implementation-baseline/logical-long",
+      "build-implementation-baseline/logical-state-final",
+      "build-implementation-production/logical-long",
+      "build-implementation-production/logical-extra",
+      "build-implementation-production/logical-state-final",
+      "build-implementation-production/absolute-pulse"
+    ]
+  },
+  {
+    "Archive": "architecture-trace-evidence.zip",
+    "SHA256": "51D5BE859155442886CDD8464FD37FD15E84BC418D796BC8F46605B4B705C38F",
+    "Bytes": 5378895,
+    "Entries": 3290,
+    "SourceBytes": 90333103,
+    "Directories": [
+      "build-implementation-coherent-12\\trace-combat-hold0",
+      "build-implementation-coherent-12\\trace-combat-hold120",
+      "build-implementation-coherent-12\\trace-combat-hold16",
+      "build-implementation-coherent-12\\trace-combat-hold2",
+      "build-implementation-coherent-12\\trace-combat-hold4",
+      "build-implementation-coherent-12\\trace-crowd-hold0",
+      "build-implementation-coherent-12\\trace-turn-hold0",
+      "build-implementation-coherent-4\\trace-combat-hold0",
+      "build-implementation-coherent-6\\trace-combat-hold0",
+      "build-implementation-coherent64-12\\trace-combat-hold0",
+      "build-implementation-coherent64-12\\trace-combat-hold120",
+      "build-implementation-coherent64-12\\trace-combat-hold16",
+      "build-implementation-coherent64-12\\trace-combat-hold2",
+      "build-implementation-coherent64-12\\trace-combat-hold4",
+      "build-implementation-coherent64-12\\trace-death-hold0",
+      "build-implementation-coherent64-12\\trace-pause-hold0",
+      "build-implementation-coherent64-12\\trace-pose-hold0",
+      "build-implementation-coherent64-12\\trace-pulses-hold0",
+      "build-implementation-coherent64-12\\trace-static-hold0",
+      "build-implementation-coherent64-12\\trace-turn-hold0",
+      "build-implementation-coherent64-4\\trace-combat-hold0",
+      "build-implementation-coherent64-6\\trace-combat-hold0",
+      "build-implementation-live-12\\trace-combat-hold0",
+      "build-implementation-live64-12\\trace-combat-hold0"
+    ]
+  }
+]

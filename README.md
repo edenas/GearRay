@@ -15,6 +15,10 @@ release._
 
 Historical renderer captures are available in [`artifacts/`](artifacts/).
 
+## Measured performance implementation
+
+The [2026-10-19 implementation report](docs/performance/2026-10-19/IMPLEMENTATION_REPORT.md) records exact renderer/camera/cache improvements, 2,880 matching replay records, and cooperative scheduling/presentation experiments. Production retains its per-completed-loop timing; display refresh is not gameplay FPS. Physical hardware validation of these changes remains pending.
+
 ## Current Status
 
 The hardware-tested **Engine Foundation v1.0.0** now includes the accepted
@@ -45,7 +49,7 @@ GearRay is an engine foundation and workshop ROM, not yet a complete game.
   one- through four-shot damage across the exact 36/28/17/13 height bands.
 - Deterministic zombie awareness and pursuit: clear-LOS activation within 963
   world units, loss beyond 1260 or behind blocking geometry, and integer-only
-  dominant-axis movement at 3.28125 tiles per second.
+  dominant-axis movement of56 Q8.8 units per AI pass, once per four gameplay updates; wall-clock speed varies with workload.
 - Door-aware enemy collision with player and living-zombie separation; hit
   reactions pause pursuit, while death and corpses remain stationary.
 - Inclusive 280-unit melee attacks with alternating authored attack poses,
@@ -113,6 +117,7 @@ when configuring CMake. See the full [build guide](docs/BUILDING.md).
 
 ## Documentation
 
+- [Current behavior and architecture](docs/CURRENT_BEHAVIOR.md)
 - [Building GearRay](docs/BUILDING.md)
 - [Engine architecture](docs/ENGINE_ARCHITECTURE.md)
 - [Engine Foundation v1.0.0](docs/ENGINE_FOUNDATION_V1.0.0.md)
@@ -130,8 +135,9 @@ evidence; they are not all descriptions of the current implementation.
 ## Roadmap
 
 Near-term work focuses on public-release documentation, provenance, and
-reproducible builds. The consolidated current reference is the
-[GearRay Developer Bible](GearRay_Developer_Bible.md). Later work may add
+reproducible builds. The maintained current reference is
+[Current behavior and architecture](docs/CURRENT_BEHAVIOR.md). The broader
+[GearRay Developer Bible](GearRay_Developer_Bible.md) includes historical background. Later work may add
 gameplay systems, content, audio, and user-interface features while preserving
 the Engine Foundation contracts.
 

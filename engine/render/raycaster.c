@@ -2,6 +2,8 @@
 #include "raycaster.h"
 #include "renderer_profile.h"
 #include "world.h"
+#include "door_states.h"
+#include "red_door_switch.h"
 
 #define WALL_HEIGHT_SCALE 16384
 #define GAME_GEAR_SCREEN_HEIGHT 144
@@ -10,6 +12,9 @@
 #define DDA_INFINITY 0xffffffffUL
 #define DDA_RECIPROCAL_MAX_MAGNITUDE 512
 #define CAMERA_PLANE_RANGE 512
+#if DOOR_INSTANCE_COUNT != 3
+#error Extend the complete ray-output door key for the new door layout
+#endif
 
 /*
  * Exact Q8.8 DDA reciprocals for camera ray magnitudes 1..512.
@@ -129,23 +134,29 @@ static signed int cached_camera_plane_y;
 static signed int frame_position_x;
 static signed int frame_position_y;
 static unsigned char ray_directions_valid;
+/* Full output key. Map cells are immutable; actors do not affect wall rays.
+ * Compare resolved material and door values directly: no generation wrap or
+ * mutation-site bookkeeping can leave a stale combat/render result. */
+static unsigned char ray_output_valid;
+static signed int cached_position_x;
+static signed int cached_position_y;
+static DoorState cached_doors[DOOR_INSTANCE_COUNT];
+static unsigned char cached_switch_texture;
+static unsigned char ray_hits_switch[RAY_COUNT];
+static unsigned char cast_hits_switch;
 
 static unsigned char raycaster_calculate_hit_offset(
     signed int position,
     signed int direction,
     unsigned long ray_distance)
 {
-    signed long scaled_offset = (signed long)direction
-                              * (signed long)ray_distance;
-    signed long impact_position;
+    /* floor(product / 256) mod 256 is bits 8..15 of the product, including
+     * negative products. Only those bits can affect this 8.8 texture offset. */
+    unsigned int fractional_product =
+        (unsigned int)direction * (unsigned int)ray_distance;
 
-    /* Round negative products down to preserve the 8.8 fraction. */
-    if (scaled_offset < 0)
-        scaled_offset -= FIXED_POINT_SCALE - 1;
-
-    impact_position = position + scaled_offset / FIXED_POINT_SCALE;
-
-    return (unsigned char)(impact_position & (FIXED_POINT_SCALE - 1));
+    return (unsigned char)((unsigned int)position
+                           + (fractional_product >> 8));
 }
 
 static unsigned char cast_ray(signed int direction_x,
@@ -268,6 +279,7 @@ static unsigned char cast_ray(signed int direction_x,
 
     world_tile_id = world_get_tile((unsigned char)map_x,
                                    (unsigned char)map_y);
+    cast_hits_switch = world_tile_id == WORLD_TILE_RED_DOOR_SWITCH;
     *result_texture_id = world_get_texture(world_tile_id);
     if (*result_side == WALL_SIDE_X)
     {
@@ -320,6 +332,7 @@ void raycaster_initialize(void)
     unsigned char ray_index;
 
     ray_directions_valid = 0;
+    ray_output_valid = 0;
 
     for (ray_index = 0; ray_index < RAY_COUNT; ++ray_index)
     {
@@ -338,6 +351,8 @@ void raycaster_update(void)
     signed int camera_direction_y;
     signed int camera_plane_x;
     signed int camera_plane_y;
+    DoorState doors[DOOR_INSTANCE_COUNT];
+    unsigned char switch_texture;
 
     camera_direction_x = camera_get_direction_x();
     camera_direction_y = camera_get_direction_y();
@@ -345,6 +360,34 @@ void raycaster_update(void)
     camera_plane_y = camera_get_plane_y();
     frame_position_x = camera_get_position_x();
     frame_position_y = camera_get_position_y();
+    doors[0] = door_state_get(DOOR_INSTANCE_ROOM_ENTRANCE);
+    doors[1] = door_state_get(DOOR_INSTANCE_ROOM_INTERNAL);
+    doors[2] = door_state_get(DOOR_INSTANCE_SOUTH_ENTRANCE);
+    switch_texture = red_door_switch_get_texture();
+
+    if (ray_output_valid
+        && frame_position_x == cached_position_x
+        && frame_position_y == cached_position_y
+        && camera_direction_x == cached_camera_direction_x
+        && camera_direction_y == cached_camera_direction_y
+        && camera_plane_x == cached_camera_plane_x
+        && camera_plane_y == cached_camera_plane_y
+        && doors[0] == cached_doors[0]
+        && doors[1] == cached_doors[1]
+        && doors[2] == cached_doors[2])
+    {
+        /* Material animation does not change a ray's traversal or distance.
+         * Its terminal classification belongs to the same complete pose/door
+         * key, so only rays ending on the switch require a texture refresh. */
+        if (switch_texture != cached_switch_texture)
+        {
+            for (ray_index = 0; ray_index < RAY_COUNT; ++ray_index)
+                if (ray_hits_switch[ray_index])
+                    rendered_rays[ray_index].texture_id = switch_texture;
+            cached_switch_texture = switch_texture;
+        }
+        return;
+    }
 
     if (!ray_directions_valid
         || camera_direction_x != cached_camera_direction_x
@@ -381,7 +424,15 @@ void raycaster_update(void)
             &rendered_rays[ray_index].hit_offset,
             &rendered_rays[ray_index].texture_id,
             &rendered_rays[ray_index].wall_distance);
+        ray_hits_switch[ray_index] = cast_hits_switch;
     }
+    cached_position_x = frame_position_x;
+    cached_position_y = frame_position_y;
+    cached_doors[0] = doors[0];
+    cached_doors[1] = doors[1];
+    cached_doors[2] = doors[2];
+    cached_switch_texture = switch_texture;
+    ray_output_valid = 1;
 }
 
 const RaycasterRay *raycaster_get_rendered_rays(void)

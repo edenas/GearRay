@@ -1,5 +1,9 @@
 # GearRay Developer Bible
 
+> Current executable behavior and banking rules are maintained in [docs/CURRENT_BEHAVIOR.md](docs/CURRENT_BEHAVIOR.md). Historical sections below explain how the project arrived there and can describe superseded limits.
+
+> The [2026-10-19 implementation report](docs/performance/2026-10-19/IMPLEMENTATION_REPORT.md) records the exact performance changes. Production retains its per-completed-loop timebase. Historical 60-FPS-derived movement and AI rates below are hypothetical. These changes have emulator validation; physical hardware validation remains pending.
+
 > **Status:** Official technical, architectural, historical, and engineering reference
 > **Project:** GearRay
 > **Current foundation:** Engine Foundation v1.0.0, codename **Operation Solid Ground**
@@ -90,7 +94,7 @@ An aesthetic preference or desire to reorganize already-readable code is not eno
 | Map | 13×13 workshop; spawn tile (6, 7) |
 | World sprites | up to eight pursuing zombies extracted from `Z` markers and placed at tile centres |
 | Zombie presentation | state-aware full detail, medium/simple LOD, corpse pile, exact wall occlusion, budget 12 |
-| Zombie AI | LOS activation at 963; loss at 1260; 15 BANK1 ticks/s; 3.28125 tiles/s |
+| Zombie AI | LOS activation at 963; loss at 1260; one BANK1 AI pass per four gameplay updates; wall-clock rate varies |
 | Zombie health | 12 cumulative points packed with hit count and chasing flag in one byte |
 | Pistol | press-edge shooting; 12/6/4/3 damage by exact renderer-aligned depth |
 | HUD weapon | idle/firing 24×24 screen-space overlay at `[80, 104) × [40, 64)` |
@@ -154,13 +158,14 @@ later. Render-budget rejection never changes awareness.
 Every LOS cell uses authoritative `world_is_wall()` semantics: walls, VOID,
 closed standard doors, and the closed red door block sight; open doors permit
 it. One shared resident byte triggers one BANK1 `zombie_ai_update_all()` call
-every four frames, approximately 15 times per second. The coordinator updates
-all zombies in one transition and makes no nested banked call.
+every four completed gameplay updates. Its wall-clock rate depends on scene
+work; the display refresh counter does not establish 15 AI passes per second.
+The coordinator uses direct same-page calls with no per-actor bank transition.
 
 Pursuit is integer-only dominant-axis movement. One admitted tick moves 56
-Q8.8 world units toward the player's current position: 840 units or 3.28125
-tiles per second. This remains substantially slower than the player's
-74-unit-per-frame movement. No normalization, square root, trigonometry,
+Q8.8 world units toward the player's current position. There is no fixed
+wall-clock distance per second. Player movement remains74 units per accepted
+cardinal gameplay update. No normalization, square root, trigonometry,
 floating point, navigation mesh, or pathfinding is used.
 
 The BANK1 `enemy_position_is_walkable()` query applies the existing
@@ -189,7 +194,7 @@ game/main.c
    +-- engine/render/raycaster.* -------> camera + abstract world queries
    |
    +-- platform/game_gear/video.* ------> ray snapshot + VRAM/VDP
-           +-- render_textures.*
+           +-- native_wall.* (generated native schedules)
            +-- wall_textures.*
            +-- generated wall_texture.*
 ```
@@ -1085,7 +1090,7 @@ dirty-column behavior, and lack of an independent upload pass.
 | `platform/game_gear/video.c`, `.h` | viewport, native packing, LOD, caches, VRAM |
 | `platform/game_gear/sprite_projection.c`, `.h` | Bank 1 multi-billboard projection, state-aware LOD, and deterministic budget |
 | `platform/game_gear/hud_weapon.c`, `.h` | Bank 1 idle/firing screen-space weapon compositor and bounds |
-| `platform/game_gear/render_textures.c`, `.h` | exact packed texture sampler |
+| `platform/game_gear/native_wall.c`, `.h` | generated exact native wall plans in the slot-2 Bank 3 tail |
 | `platform/game_gear/wall_textures.c`, `.h` | generated texture/palette access and dimensions |
 | `platform/game_gear/renderer_profile.c`, `.h` | optional Bank 1 reporting and zero-cost-off macros |
 | `platform/game_gear/vram_layout.h` | shared pattern index allocation/history; audit before extension |

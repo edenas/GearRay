@@ -76,7 +76,6 @@ void main(void)
             }
             world_sprites_update();
             shoot_requested = input_shoot_requested();
-            game_gear_hud_weapon_update(shoot_requested);
             rotation_direction = input_get_rotation_intent();
 
             if (rotation_direction < 0)
@@ -98,6 +97,7 @@ void main(void)
                                           player_get_position_y());
             }
 
+            game_gear_hud_weapon_update(shoot_requested);
             if (++zombie_ai_frame_counter >= ZOMBIE_AI_UPDATE_INTERVAL)
             {
                 zombie_ai_frame_counter = 0;

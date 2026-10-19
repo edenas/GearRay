@@ -1,12 +1,18 @@
 # Development-only generated-call census and conservative stack bound.
 function Test-PauseFreezeAssembly {
     $functions=@{}
-    foreach($file in Get-ChildItem -LiteralPath $build -Filter '*.asm'){
+    . "$PSScriptRoot/production_build_artifacts.ps1"
+    foreach($file in Get-ProductionBuildAssembly $build){
         $text=Get-Content $file.FullName -Raw
         $objectPath=[IO.Path]::ChangeExtension($file.FullName,'.rel')
         if(!(Test-Path $objectPath)){continue}
         $object=Get-Content $objectPath -Raw
-        $bank=if($object -match 'A _BANK2 size [1-9A-F]'){2}elseif($object -match 'A _BANK1 size [1-9A-F]'){1}else{0}
+        $bank=0
+        foreach($area in [regex]::Matches($object,'(?m)^A (_BANK\w+) size ([0-9A-Fa-f]+)')){
+            if([Convert]::ToInt32($area.Groups[2].Value,16) -eq 0){continue}
+            Require ($area.Groups[1].Value -match '^_BANK(?:[123]|3WALL)$') "Unknown non-empty bank in $($file.Name)"
+            $bank=[int]$area.Groups[1].Value.Substring(5,1)
+        }
         foreach($m in [regex]::Matches($text,'(?ms)^; Function (\w+)\r?\n(.*?)(?=^; Function |\z)')){
             $name=$m.Groups[1].Value;$body=$m.Groups[2].Value
             $calls=@()
@@ -40,8 +46,10 @@ function Test-PauseFreezeAssembly {
         }
     }
     Walk-PauseCalls 'game_gear_pause_map_show'
-    $allowed='^(game_gear_pause_map_show|window_origin|map_tile|passage|cell_pattern|pattern_color|pattern_rows|player_facing|draw_player|frame_rows|draw_rect|draw_focus|load_arrows|load_ui|draw_window|place_player|corpse_read_row|corpse_pixel|draw_corpses|pan_axis|world_get_tile|workshop_map_get_tile|door_instance_find_at|door_state_get|world_sprite_get_count|world_sprite_get|player_get_position_[xy]|camera_get_direction_[xy]|game_gear_input_update|input_pause_requested|SMS_\w+)$'
+    $allowed='^(game_gear_pause_map_show|window_origin|map_tile|passage|cell_pattern|pattern_color|pattern_rows|player_facing|draw_player|frame_rows|draw_rect|draw_focus|load_arrows|load_ui|load_weapon_patterns|draw_window|place_player|corpse_read_row|corpse_pixel|draw_corpses|pan_axis|adjacent_weapon|draw_weapon_slot|draw_weapons|world_get_tile|workshop_map_get_tile|door_instance_find_at|door_state_get|world_sprite_get_count|world_sprite_get|player_get_position_[xy]|camera_get_direction_[xy]|game_gear_input_update|input_pause_requested|SMS_\w+)$'
     foreach($name in $seen.Keys){Require ($name -match $allowed) "Unexpected gameplay/helper reachable from pause: $name"}
+    $loader=$functions['load_weapon_patterns']
+    Require ($loader.Module -eq 'pause_map' -and $loader.Bank -eq 2 -and $loader.Calls.Count -eq 1 -and $loader.Calls[0].Target -eq 'SMS_VRAMmemcpy' -and !$loader.Calls[0].Banked) 'Precomposed weapon row loader must stay local and call only resident VRAM copy'
     $map=Get-Content "$build/GearRay.map" -Raw
     $nodes=@()
     foreach($name in $seen.Keys|Sort-Object){
@@ -90,10 +98,10 @@ function Test-PauseFreezeAssembly {
     $stackGap=0xdff0-$dataEnd
     Require ($pauseBound.Bytes+20 -lt $stackGap -and $restoreBound.Bytes+20 -lt $stackGap) 'Conservative call-chain budget overlaps persistent data'
     $mainAsm=[regex]::Replace($functions['main'].Body,'(?m)^;.*$','')
-    Require ($mainAsm -match '(?s)#_game_gear_pause_map_show\s+call\s+___sdcc_bcall_ehl.*?#_game_gear_video_restore_gameplay\s+call\s+___sdcc_bcall_ehl\s+j[pr]\s+\w+\$.*?call\s+_world_sprites_update') 'Generated main pause gate/continue changed'
+    Require ($mainAsm -match '(?s)call\s+_game_gear_pause_map_show.*?#_game_gear_video_restore_gameplay\s+call\s+___sdcc_bcall_ehl\s+j[pr]\s+\w+\$.*?call\s+_world_sprites_update') 'Generated main pause gate/continue changed'
     $sources=(Get-ChildItem "$root/game","$root/platform/game_gear" -Filter '*.c'|ForEach-Object{Get-Content $_.FullName -Raw}) -join "`n"
     Require ($sources -notmatch '(?:SMS_setFrameInterruptHandler|SMS_setLineInterruptHandler|GG_setNMIHandler)\s*\(') 'New interrupt callback requires a freeze audit'
-    $rom=[IO.File]::ReadAllBytes("$root/rom/GearRay.gg")
+    $rom=[IO.File]::ReadAllBytes((Get-ProductionBuildRom $build))
     function LinkAddress([string]$symbol){$m=[regex]::Match($map,"(?m)^\s*([0-9A-F]{8})\s+_+$symbol\s");Require $m.Success "Missing $symbol";return [Convert]::ToInt32($m.Groups[1].Value,16)}
     function WordBytes([int]$value){return ('{0:X2}-{1:X2}' -f ($value-band 255),($value-shr 8))}
     $isr=LinkAddress 'SMS_isr';$callHL=LinkAddress 'sdcc_call_hl'

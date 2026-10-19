@@ -55,14 +55,15 @@ function calls.
 ## Current ROM layout
 
 The current package is a 64 KiB ROM. Linked content occupies the fixed region,
-Bank 1 code/data, and a dedicated Bank 2 asset segment; `makesms` pads and
-headers the final image.
+Bank1 gameplay/art, Bank2 code/data and a physically disjoint Bank3 wall
+worker/cold-screen layout; `makesms` pads and headers the final image.
 
 | Bank | Current responsibility | Current contents |
 | ---: | --- | --- |
 | 0 | Fixed resident engine | Reset/interrupt support, SMSlib, main loop, input, player, camera, raycaster, renderer, world queries, door state and bank trampolines |
-| 1 | Cold gameplay, startup/sprite/HUD presentation, textures, and diagnostics | `world_interactions.c`, `interaction_ray.c`, `zombie_shooting.c`, `zombie_ai.c`, `enemy_collision.c`, `sprite_projection.c`, `startup_logo.c`, `hud_weapon.c`, SEGA logo data, LOD tables, active 8x8/16x16 zombie and weapon textures, optional renderer-profile reporting, and the Sega header at file/CPU address `0x7FF0` |
-| 2 | Explicitly paged near-zombie assets | Seven native 32x32 walking, melee, hit, and corpse payloads plus their lookup table |
+| 1 | Same-page gameplay, sprite/HUD presentation and diagnostics | `world_interactions.c`, `interaction_ray.c`, `zombie_shooting.c`, `zombie_ai.c`, `enemy_collision.c`, `sprite_projection.c`, `hud_weapon.c`, native HUD masks, LOD tables, active 8x8/16x16 zombie and weapon textures, optional renderer-profile reporting, and the Sega header at file/CPU address `0x7FF0` |
+| 2 | Default slot-2 code/data | Near-zombie payloads and lookup table, camera graph, pause and corpse management |
+| 3 | Cold slot-1 screens and disjoint slot-2 native wall tail | Startup/Game Over code/art; native wall plans, schedules and color fragments |
 
 The linked `_BANK1` code segment starts at virtual address `0x14000`. SDCC and
 `makesms` translate that virtual segment into physical ROM Bank 1, visible to
@@ -73,20 +74,20 @@ field with region/size code `0x7E`, declaring the current 64 KiB Game Gear ROM.
 The header remains at `0x7FF0`; the former 16 KiB position at `0x3FF0` must not
 be restored.
 
-The current audited release reports:
+The 2026-10-19 measured Release has the following linked extents:
 
 | Resource | Release |
 | --- | ---: |
-| Packaged ROM | 65,536 bytes |
-| Logical linked content | 34,730 bytes |
-| Bank 0 free | 385 bytes |
-| Bank 1 used/free | 15,117 / 1,251 bytes |
-| Bank 2 used/free | 3,598 / 12,786 bytes |
-| Audited checksum | `0xD092` |
+| Packaged ROM/header | 65,536 bytes / `0x7E` |
+| Bank 0 extent/free | 12,961 / 3,423 bytes |
+| Bank 1 extent/free before header | 14,217 / 2,151 bytes |
+| Bank 2 extent/free | 11,737 / 4,647 bytes |
+| Bank 3 physical extent/free | 12,756 / 3,628 bytes |
+| Static RAM | 1,538 bytes |
 
-The release fixed segments end exclusively at `0x3E7F`, below the `0x4000`
-Bank 0 boundary. Future resident growth should still prefer moving cohesive
-cold work rather than introducing mapper changes in renderer inner loops.
+Bank 2 also contains the exact camera graph, pause UI and corpse management. Bank 3 contains cold logo/Game Over code in slot 1 and the native wall worker/tables in a disjoint physical tail: `_BANK3WALL=0x39200`, CPU slot-2 address `0x9200`, physical offset `0x1200`. Cold Bank 3 length is `0x11FD`; the wall tail length is `0x1FD4`. Map Bank 3 only while executing this worker, then restore slot 2 to page 2. No pointer into that mapped tail survives the mapper scope. Do not route its calls through the slot-1 SDCC trampoline. Validators reject unexpected tail occupants, overlap, overflow, and map/ROM payload disagreement.
+
+These values supersede the original migration's headroom figures. [Current behavior](CURRENT_BEHAVIOR.md) identifies the exact ROM; [the report](performance/2026-10-19/IMPLEMENTATION_REPORT.md) distinguishes measured experiments from production.
 
 The single-bank baseline had 35 free Bank 0 bytes. This first migration pays a
 one-time resident cost for SDCC's bank-call support: the 43-byte resident

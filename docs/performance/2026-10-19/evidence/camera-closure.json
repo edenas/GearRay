@@ -1,0 +1,13 @@
+{
+  "classification": "PROVEN integer model, pending generated-Z80 replay",
+  "reachable_direction_states": 242,
+  "constant_right_transient": 8,
+  "right_cycle": 46,
+  "right_step_degrees_min": 7.638133975787736,
+  "right_step_degrees_max": 7.950937787611986,
+  "state_table_bytes_xy_plane": 1936,
+  "transition_table_bytes_uint16": 968,
+  "transition_table_bytes_uint8": 484,
+  "state_index_ram": 1,
+  "note": "A graph LUT can preserve repeated left/right history exactly. This is not a conventional uniform-angle LUT. Plane reconstructs from normalized direction with signed rounding."
+}

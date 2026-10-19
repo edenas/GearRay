@@ -100,7 +100,7 @@ Assert($header-notmatch'NEAR_ZOMBIE_TEXTURE_STANDING\s') 'Unused neutral 32x32 s
 Assert($projection-match'ZOMBIE_WALKING_PHASE_MASK[\s\S]*?ZOMBIE_PRESENTATION_WALKING_02[\s\S]*?ZOMBIE_PRESENTATION_WALKING_01'-and$projection-match'ZOMBIE_PRESENTATION_WALKING_02[\s\S]*?zombie_middle_walking_02_pixels') 'Presentation walking phase is not shared by authored resolutions.'
 Assert($projection-match'ZOMBIE_STATE_SHOT_DEAD[\s\S]*?zombie_middle_shot_dead_pixels') 'Lethal middle pose is missing.'
 Assert($projection-match'ZOMBIE_STATE_CORPSE[\s\S]*?zombie_middle_corps_pixels') 'Middle corpse pose is missing.'
-Assert($video-match'projected->source_size'-and$video-match'packed_row_stride = \(unsigned char\)source_size >> 1') 'Shared 8/16/32 compositor metadata is missing.'
+Assert($video-match'projected->source_size'-and$video-match'packed_row_stride\s*=\s*(?:\(unsigned char\))?source_size\s*>>\s*1') 'Shared 8/16/32 compositor metadata is missing.'
 Assert($video-match'projected->depth[\s\S]*?>=[\s\S]*?wall_distance') 'Wall-wins occlusion changed.'
 Assert($projection-notmatch'ZOMBIE_NATIVE_(WALKING|CLOSE)_VISUAL_DEPTH_OFFSET|ZOMBIE_NATIVE_MIN_VISUAL_DEPTH|visual_depth') 'Obsolete native visual-depth bridge remains.'
 Assert($projection-match'(?:WORLD_SPRITE_LIFE_STATE\(sprite\)|life_state) == ZOMBIE_STATE_ALIVE\s*&& projected->source_size == 8\s*&& projected->near_texture_id == NEAR_ZOMBIE_TEXTURE_NONE') 'The projected-height cap is not restricted to 8x8 living sprites.'

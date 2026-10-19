@@ -103,15 +103,14 @@ set(GEAR_RAY_VIDEO_OBJECT "${CMAKE_BINARY_DIR}/video.rel")
 set(GEAR_RAY_VIDEO_INTERNAL_HEADER "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/video_internal.h")
 set(GEAR_RAY_VIDEO_INITIALIZATION_SOURCE "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/video_initialization.c")
 set(GEAR_RAY_VIDEO_INITIALIZATION_OBJECT "${CMAKE_BINARY_DIR}/video_initialization.rel")
+set(GEAR_RAY_GAME_OVER_PRESENTATION_SOURCE "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/game_over_presentation.c")
+set(GEAR_RAY_GAME_OVER_PRESENTATION_OBJECT "${CMAKE_BINARY_DIR}/game_over_presentation.rel")
 set(GEAR_RAY_HUD_WEAPON_SOURCE "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/hud_weapon.c")
 set(GEAR_RAY_HUD_WEAPON_HEADER "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/hud_weapon.h")
 set(GEAR_RAY_HUD_WEAPON_OBJECT "${CMAKE_BINARY_DIR}/hud_weapon.rel")
 set(GEAR_RAY_SPRITE_PROJECTION_SOURCE "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/sprite_projection.c")
 set(GEAR_RAY_SPRITE_PROJECTION_HEADER "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/sprite_projection.h")
 set(GEAR_RAY_SPRITE_PROJECTION_OBJECT "${CMAKE_BINARY_DIR}/sprite_projection.rel")
-set(GEAR_RAY_RENDER_TEXTURES_SOURCE "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/render_textures.c")
-set(GEAR_RAY_RENDER_TEXTURES_HEADER "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/render_textures.h")
-set(GEAR_RAY_RENDER_TEXTURES_OBJECT "${CMAKE_BINARY_DIR}/render_textures.rel")
 set(GEAR_RAY_RENDERER_PROFILE_SOURCE "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/renderer_profile.c")
 set(GEAR_RAY_RENDERER_PROFILE_HEADER "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/renderer_profile.h")
 set(GEAR_RAY_RENDERER_PROFILE_OBJECT "${CMAKE_BINARY_DIR}/renderer_profile.rel")
@@ -135,6 +134,7 @@ set(GEAR_RAY_RED_DOOR_SWITCH_ON_FRAME_2_INPUT "${CMAKE_SOURCE_DIR}/assets/textur
 set(GEAR_RAY_WALL_TEXTURE_GENERATOR "${CMAKE_SOURCE_DIR}/tools/generate_wall_texture.ps1")
 set(GEAR_RAY_WORKSHOP_MAP_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_workshop_map.ps1")
 set(GEAR_RAY_ZOMBIE_SHOOTING_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_zombie_shooting.ps1")
+set(GEAR_RAY_SHOTGUN_COMBAT_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_shotgun_combat.ps1")
 set(GEAR_RAY_ZOMBIE_AI_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_zombie_ai.ps1")
 set(GEAR_RAY_ZOMBIE_ATTACK_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_zombie_attack.ps1")
 set(GEAR_RAY_CORPSE_PERSISTENCE_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_corpse_persistence.ps1")
@@ -212,11 +212,9 @@ set(GEAR_RAY_GENERATED_ZOMBIE_CORPS_TEXTURE_OBJECT "${CMAKE_BINARY_DIR}/generate
 set(GEAR_RAY_WEAPON_TEXTURE_INPUT "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/gun_12x12.png")
 set(GEAR_RAY_GENERATED_WEAPON_TEXTURE_SOURCE "${GEAR_RAY_GENERATED_DIR}/weapon_texture.c")
 set(GEAR_RAY_GENERATED_WEAPON_TEXTURE_HEADER "${GEAR_RAY_GENERATED_DIR}/weapon_texture.h")
-set(GEAR_RAY_GENERATED_WEAPON_TEXTURE_OBJECT "${CMAKE_BINARY_DIR}/generated_weapon_texture.rel")
 set(GEAR_RAY_WEAPON_SHOOT_TEXTURE_INPUT "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/gun_shoot_12x12.png")
 set(GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_SOURCE "${GEAR_RAY_GENERATED_DIR}/weapon_shoot_texture.c")
 set(GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_HEADER "${GEAR_RAY_GENERATED_DIR}/weapon_shoot_texture.h")
-set(GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_OBJECT "${CMAKE_BINARY_DIR}/generated_weapon_shoot_texture.rel")
 
 # build.bat configures before building. Detect asset replacements that preserve
 # an older mtime too; file(CONFIGURE) updates each dependency only on content change.
@@ -301,9 +299,12 @@ add_custom_command(
             -DTARGET_GG
             ${GEAR_RAY_RENDERER_PROFILE_SIZE_OPTIMIZATION}
             "-I${GEAR_RAY_GAME_DIR}"
+            "-I${GEAR_RAY_GENERATED_DIR}"
+            "-I${GEAR_RAY_SMSLIB_INCLUDE}"
             -c "${GEAR_RAY_CAMERA_SOURCE}"
             -o "${GEAR_RAY_CAMERA_OBJECT}"
     DEPENDS "${GEAR_RAY_CAMERA_SOURCE}" "${GEAR_RAY_CAMERA_HEADER}"
+            "${GEAR_RAY_GENERATED_DIR}/camera_graph.h"
     COMMENT "Compiling game/camera.c for Game Gear"
     VERBATIM
 )
@@ -334,6 +335,7 @@ add_custom_command(
             -c "${GEAR_RAY_WORLD_INITIALIZATION_SOURCE}"
             -o "${GEAR_RAY_WORLD_INITIALIZATION_OBJECT}"
     DEPENDS "${GEAR_RAY_WORLD_INITIALIZATION_SOURCE}"
+            "${GEAR_RAY_GAME_DIR}/weapons.h"
             "${GEAR_RAY_WORLD_HEADER}"
             "${GEAR_RAY_WORLD_SPRITE_HEADER}"
             "${GEAR_RAY_RED_DOOR_SWITCH_HEADER}"
@@ -506,7 +508,8 @@ add_custom_command(
             --constseg BANK1
             -c "${GEAR_RAY_VIDEO_SOURCE}"
             -o "${GEAR_RAY_VIDEO_OBJECT}"
-    DEPENDS "${GEAR_RAY_VIDEO_SOURCE}" "${GEAR_RAY_VIDEO_HEADER}" "${GEAR_RAY_VIDEO_INTERNAL_HEADER}" "${GEAR_RAY_NEAR_ZOMBIE_TEXTURES_HEADER}" "${GEAR_RAY_HUD_WEAPON_HEADER}" "${GEAR_RAY_SPRITE_PROJECTION_HEADER}" "${GEAR_RAY_RENDER_TEXTURES_HEADER}" "${GEAR_RAY_RENDERER_PROFILE_HEADER}" "${GEAR_RAY_VRAM_LAYOUT_HEADER}" "${GEAR_RAY_WALL_TEXTURES_HEADER}" "${GEAR_RAY_RAYCASTER_HEADER}" "${GEAR_RAY_WALL_SIDE_HEADER}" "${GEAR_RAY_WORLD_SPRITE_HEADER}" "${GEAR_RAY_SMSLIB_INCLUDE}/SMSlib.h"
+    DEPENDS "${GEAR_RAY_VIDEO_SOURCE}" "${GEAR_RAY_VIDEO_HEADER}" "${GEAR_RAY_VIDEO_INTERNAL_HEADER}" "${GEAR_RAY_NEAR_ZOMBIE_TEXTURES_HEADER}" "${GEAR_RAY_HUD_WEAPON_HEADER}" "${GEAR_RAY_SPRITE_PROJECTION_HEADER}" "${GEAR_RAY_RENDERER_PROFILE_HEADER}" "${GEAR_RAY_VRAM_LAYOUT_HEADER}" "${GEAR_RAY_WALL_TEXTURES_HEADER}" "${GEAR_RAY_RAYCASTER_HEADER}" "${GEAR_RAY_WALL_SIDE_HEADER}" "${GEAR_RAY_WORLD_SPRITE_HEADER}" "${GEAR_RAY_SMSLIB_INCLUDE}/SMSlib.h"
+    DEPENDS "${GEAR_RAY_GAME_DIR}/weapons.h"
     COMMENT "Compiling platform/game_gear/video.c"
     VERBATIM
 )
@@ -555,6 +558,25 @@ add_custom_command(
 )
 
 add_custom_command(
+    OUTPUT "${GEAR_RAY_GENERATED_DIR}/hud_masks.h"
+    COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}" -NoProfile -ExecutionPolicy Bypass
+            -File "${CMAKE_SOURCE_DIR}/tools/generate_hud_masks.ps1"
+            -GeneratedDirectory "${GEAR_RAY_GENERATED_DIR}"
+            -OutputHeader "${GEAR_RAY_GENERATED_DIR}/hud_masks.h"
+    DEPENDS "${CMAKE_SOURCE_DIR}/tools/generate_hud_masks.ps1"
+            "${GEAR_RAY_HUD_WEAPON_HEADER}"
+            "${GEAR_RAY_GENERATED_DIR}/weapon_texture.c"
+            "${GEAR_RAY_GENERATED_DIR}/weapon_texture.h"
+            "${GEAR_RAY_GENERATED_DIR}/weapon_shoot_texture.c"
+            "${GEAR_RAY_GENERATED_DIR}/weapon_shoot_texture.h"
+            "${GEAR_RAY_GENERATED_DIR}/shotgun_held.c"
+            "${GEAR_RAY_GENERATED_DIR}/shotgun_held.h"
+            "${GEAR_RAY_GENERATED_DIR}/shotgun_fire.c"
+            "${GEAR_RAY_GENERATED_DIR}/shotgun_fire.h"
+    VERBATIM
+)
+
+add_custom_command(
     OUTPUT "${GEAR_RAY_HUD_WEAPON_OBJECT}"
     COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
             -mz80
@@ -566,6 +588,10 @@ add_custom_command(
             -c "${GEAR_RAY_HUD_WEAPON_SOURCE}"
             -o "${GEAR_RAY_HUD_WEAPON_OBJECT}"
     DEPENDS "${GEAR_RAY_HUD_WEAPON_SOURCE}"
+            "${GEAR_RAY_GENERATED_DIR}/hud_masks.h"
+            "${GEAR_RAY_GENERATED_DIR}/shotgun_held.h"
+            "${GEAR_RAY_GENERATED_DIR}/shotgun_fire.h"
+            "${GEAR_RAY_GAME_DIR}/weapons.h"
             "${GEAR_RAY_HUD_WEAPON_HEADER}"
             "${GEAR_RAY_VIDEO_HEADER}"
             "${GEAR_RAY_GENERATED_WEAPON_TEXTURE_HEADER}"
@@ -587,6 +613,9 @@ add_custom_command(
             -c "${GEAR_RAY_SPRITE_PROJECTION_SOURCE}"
             -o "${GEAR_RAY_SPRITE_PROJECTION_OBJECT}"
     DEPENDS "${GEAR_RAY_SPRITE_PROJECTION_SOURCE}"
+            "${GEAR_RAY_GENERATED_DIR}/shotgun_world.h"
+            "${GEAR_RAY_GENERATED_DIR}/shotgun_far_lod.h"
+            "${GEAR_RAY_GAME_DIR}/weapons.h"
             "${GEAR_RAY_SPRITE_PROJECTION_HEADER}"
             "${GEAR_RAY_VIDEO_HEADER}"
             "${GEAR_RAY_CAMERA_HEADER}"
@@ -603,26 +632,6 @@ add_custom_command(
             "${GEAR_RAY_GENERATED_MIDDLE_ZOMBIE_SHOT_DEAD_HEADER}"
             "${GEAR_RAY_GENERATED_MIDDLE_ZOMBIE_CORPS_HEADER}"
     COMMENT "Compiling banked static sprite projection"
-    VERBATIM
-)
-
-add_custom_command(
-    OUTPUT "${GEAR_RAY_RENDER_TEXTURES_OBJECT}"
-    COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
-            -mz80
-            -DTARGET_GG
-            ${GEAR_RAY_RENDERER_PROFILE_DEFINE}
-            ${GEAR_RAY_RENDERER_PROFILE_SIZE_OPTIMIZATION}
-            "-I${GEAR_RAY_SMSLIB_INCLUDE}"
-            "-I${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}"
-            "-I${GEAR_RAY_GAME_DIR}"
-            "-I${GEAR_RAY_RENDER_DIR}"
-            "-I${GEAR_RAY_GENERATED_DIR}"
-            --peep-file "${GEAR_RAY_SMSLIB_INCLUDE}/peep-rules.txt"
-            -c "${GEAR_RAY_RENDER_TEXTURES_SOURCE}"
-            -o "${GEAR_RAY_RENDER_TEXTURES_OBJECT}"
-    DEPENDS "${GEAR_RAY_RENDER_TEXTURES_SOURCE}" "${GEAR_RAY_RENDER_TEXTURES_HEADER}" "${GEAR_RAY_WALL_SIDE_HEADER}" "${GEAR_RAY_RENDERER_PROFILE_HEADER}" "${GEAR_RAY_WALL_TEXTURES_HEADER}" "${GEAR_RAY_GENERATED_WALL_TEXTURE_HEADER}"
-    COMMENT "Compiling platform/game_gear/render_textures.c"
     VERBATIM
 )
 
@@ -665,7 +674,7 @@ add_custom_command(
     COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
             -mz80
             "-I${GEAR_RAY_GENERATED_DIR}"
-            --constseg BANK1
+            --constseg BANK3
             -c "${GEAR_RAY_GENERATED_SEGA_LOGO_SOURCE}"
             -o "${GEAR_RAY_GENERATED_SEGA_LOGO_OBJECT}"
     DEPENDS "${GEAR_RAY_GENERATED_SEGA_LOGO_SOURCE}"
@@ -689,7 +698,7 @@ add_custom_command(
 add_custom_command(
     OUTPUT "${GEAR_RAY_GENERATED_GAME_OVER_OBJECT}"
     COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}" -mz80 "-I${GEAR_RAY_GENERATED_DIR}"
-            --constseg BANK1 -c "${GEAR_RAY_GENERATED_GAME_OVER_SOURCE}"
+            --constseg BANK3 -c "${GEAR_RAY_GENERATED_GAME_OVER_SOURCE}"
             -o "${GEAR_RAY_GENERATED_GAME_OVER_OBJECT}"
     DEPENDS "${GEAR_RAY_GENERATED_GAME_OVER_SOURCE}" "${GEAR_RAY_GENERATED_GAME_OVER_HEADER}"
     COMMENT "Compiling generated Game Over screen"
@@ -697,7 +706,27 @@ add_custom_command(
 )
 
 add_custom_command(
-    OUTPUT "${GEAR_RAY_GENERATED_WALL_TEXTURE_SOURCE}" "${GEAR_RAY_GENERATED_WALL_TEXTURE_HEADER}"
+    OUTPUT "${GEAR_RAY_GAME_OVER_PRESENTATION_OBJECT}"
+    COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
+            -mz80 -DTARGET_GG
+            "-I${GEAR_RAY_SMSLIB_INCLUDE}"
+            "-I${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}"
+            "-I${GEAR_RAY_GENERATED_DIR}"
+            --codeseg BANK3 --constseg BANK3
+            --peep-file "${GEAR_RAY_SMSLIB_INCLUDE}/peep-rules.txt"
+            -c "${GEAR_RAY_GAME_OVER_PRESENTATION_SOURCE}"
+            -o "${GEAR_RAY_GAME_OVER_PRESENTATION_OBJECT}"
+    DEPENDS "${GEAR_RAY_GAME_OVER_PRESENTATION_SOURCE}"
+            "${GEAR_RAY_VIDEO_HEADER}"
+            "${GEAR_RAY_VIDEO_INTERNAL_HEADER}"
+            "${GEAR_RAY_GENERATED_GAME_OVER_HEADER}"
+            "${GEAR_RAY_SMSLIB_INCLUDE}/SMSlib.h"
+    COMMENT "Compiling cold Game Over presentation in Bank 3"
+    VERBATIM
+)
+
+add_custom_command(
+    OUTPUT "${GEAR_RAY_GENERATED_WALL_TEXTURE_SOURCE}" "${GEAR_RAY_GENERATED_WALL_TEXTURE_HEADER}" "${GEAR_RAY_GENERATED_DIR}/wall_palette.c"
     COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}"
             -NoProfile
             -ExecutionPolicy Bypass
@@ -712,6 +741,7 @@ add_custom_command(
             -SwitchOnFrame2InputPath "${GEAR_RAY_RED_DOOR_SWITCH_ON_FRAME_2_INPUT}"
             -OutputSource "${GEAR_RAY_GENERATED_WALL_TEXTURE_SOURCE}"
             -OutputHeader "${GEAR_RAY_GENERATED_WALL_TEXTURE_HEADER}"
+            -OutputPaletteSource "${GEAR_RAY_GENERATED_DIR}/wall_palette.c"
     DEPENDS "${GEAR_RAY_WALL_TEXTURE_INPUT}" "${GEAR_RAY_BLOOD_WALL_TEXTURE_INPUT}" "${GEAR_RAY_DOOR_TEXTURE_INPUT}" "${GEAR_RAY_RED_DOOR_TEXTURE_INPUT}" "${GEAR_RAY_RED_DOOR_SWITCH_OFF_FRAME_1_INPUT}" "${GEAR_RAY_RED_DOOR_SWITCH_OFF_FRAME_2_INPUT}" "${GEAR_RAY_RED_DOOR_SWITCH_ON_FRAME_1_INPUT}" "${GEAR_RAY_RED_DOOR_SWITCH_ON_FRAME_2_INPUT}" "${GEAR_RAY_WALL_TEXTURE_GENERATOR}"
     COMMENT "Generating packed 4bpp indexed-color wall texture"
     VERBATIM
@@ -722,9 +752,9 @@ add_custom_command(
     COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
             -mz80
             "-I${GEAR_RAY_GENERATED_DIR}"
-            -c "${GEAR_RAY_GENERATED_WALL_TEXTURE_SOURCE}"
+            -c "${GEAR_RAY_GENERATED_DIR}/wall_palette.c"
             -o "${GEAR_RAY_GENERATED_WALL_TEXTURE_OBJECT}"
-    DEPENDS "${GEAR_RAY_GENERATED_WALL_TEXTURE_SOURCE}" "${GEAR_RAY_GENERATED_WALL_TEXTURE_HEADER}"
+    DEPENDS "${GEAR_RAY_GENERATED_DIR}/wall_palette.c" "${GEAR_RAY_GENERATED_WALL_TEXTURE_HEADER}"
     COMMENT "Compiling generated wall texture"
     VERBATIM
 )
@@ -893,20 +923,6 @@ foreach(zombie_state IN ITEMS WALKING_01 WALKING_02 SHOT_01 SHOT_02 SHOT_DEAD CO
 endforeach()
 
 add_custom_command(
-    OUTPUT "${GEAR_RAY_GENERATED_WEAPON_TEXTURE_OBJECT}"
-    COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
-            -mz80
-            "-I${GEAR_RAY_GENERATED_DIR}"
-            --constseg BANK1
-            -c "${GEAR_RAY_GENERATED_WEAPON_TEXTURE_SOURCE}"
-            -o "${GEAR_RAY_GENERATED_WEAPON_TEXTURE_OBJECT}"
-    DEPENDS "${GEAR_RAY_GENERATED_WEAPON_TEXTURE_SOURCE}"
-            "${GEAR_RAY_GENERATED_WEAPON_TEXTURE_HEADER}"
-    COMMENT "Compiling generated static HUD weapon"
-    VERBATIM
-)
-
-add_custom_command(
     OUTPUT "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_SOURCE}"
            "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_HEADER}"
     COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}"
@@ -922,20 +938,6 @@ add_custom_command(
             "${GEAR_RAY_WEAPON_SHOOT_TEXTURE_FINGERPRINT}"
             "${GEAR_RAY_SPRITE_TEXTURE_GENERATOR}"
     COMMENT "Generating packed shooting HUD weapon"
-    VERBATIM
-)
-
-add_custom_command(
-    OUTPUT "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_OBJECT}"
-    COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
-            -mz80
-            "-I${GEAR_RAY_GENERATED_DIR}"
-            --constseg BANK1
-            -c "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_SOURCE}"
-            -o "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_OBJECT}"
-    DEPENDS "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_SOURCE}"
-            "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_HEADER}"
-    COMMENT "Compiling generated shooting HUD weapon"
     VERBATIM
 )
 
@@ -1040,7 +1042,7 @@ add_custom_command(
             "-I${GEAR_RAY_SMSLIB_INCLUDE}"
             "-I${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}"
             "-I${GEAR_RAY_GENERATED_DIR}"
-            --codeseg BANK1
+            --codeseg BANK3 --constseg BANK3
             --peep-file "${GEAR_RAY_SMSLIB_INCLUDE}/peep-rules.txt"
             -c "${GEAR_RAY_STARTUP_LOGO_SOURCE}"
             -o "${GEAR_RAY_STARTUP_LOGO_OBJECT}"
@@ -1053,16 +1055,81 @@ add_custom_command(
 )
 
 set(GEAR_RAY_PAUSE_MAP_OBJECT "${CMAKE_BINARY_DIR}/pause_map.rel")
+set(GEAR_RAY_PAUSE_WEAPON_HEADER "${GEAR_RAY_GENERATED_DIR}/pause_weapon_icon.h")
+set(GEAR_RAY_PAUSE_SHOTGUN_HEADER "${GEAR_RAY_GENERATED_DIR}/pause_shotgun_icon.h")
+set(GEAR_RAY_SHOTGUN_FAR_HEADER "${GEAR_RAY_GENERATED_DIR}/shotgun_far_lod.h")
+set(GEAR_RAY_SHOTGUN_OBJECTS)
+foreach(kind IN ITEMS held fire world)
+    if(kind STREQUAL "held")
+        set(asset shotgun_held.png)
+        set(sprite_kind HudWeapon20x16)
+    elseif(kind STREQUAL "fire")
+        set(asset shotgun_held_shoot.png)
+        set(sprite_kind HudWeapon20x16)
+    else()
+        set(asset pick_up_shotgun.png)
+        set(sprite_kind WorldPickup)
+    endif()
+    set(source "${GEAR_RAY_GENERATED_DIR}/shotgun_${kind}.c")
+    set(header "${GEAR_RAY_GENERATED_DIR}/shotgun_${kind}.h")
+    set(object "${CMAKE_BINARY_DIR}/shotgun_${kind}.rel")
+    add_custom_command(OUTPUT "${source}" "${header}"
+        COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}" -NoProfile -ExecutionPolicy Bypass
+            -File "${CMAKE_SOURCE_DIR}/tools/generate_sprite_texture.ps1"
+            -InputPath "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/${asset}"
+            -OutputSource "${source}" -OutputHeader "${header}"
+            -Symbol "shotgun_${kind}_pixels" -SpriteKind "${sprite_kind}"
+        DEPENDS "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/${asset}"
+            "${CMAKE_SOURCE_DIR}/tools/generate_sprite_texture.ps1" VERBATIM)
+    if(kind STREQUAL "world")
+    add_custom_command(OUTPUT "${object}"
+        COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}" -mz80 --constseg BANK1
+            -c "${source}" -o "${object}" DEPENDS "${source}" "${header}" VERBATIM)
+    list(APPEND GEAR_RAY_SHOTGUN_OBJECTS "${object}")
+    endif()
+endforeach()
+add_custom_command(OUTPUT "${GEAR_RAY_PAUSE_SHOTGUN_HEADER}"
+    COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}" -NoProfile -ExecutionPolicy Bypass
+        -File "${CMAKE_SOURCE_DIR}/tools/generate_pause_weapon_icon.ps1"
+        -InputPath "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/shotgun.png"
+        -OutputHeader "${GEAR_RAY_PAUSE_SHOTGUN_HEADER}"
+        -Symbol pause_shotgun_tiles
+    DEPENDS "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/shotgun.png"
+        "${CMAKE_SOURCE_DIR}/tools/generate_pause_weapon_icon.ps1" VERBATIM)
+add_custom_command(OUTPUT "${GEAR_RAY_SHOTGUN_FAR_HEADER}"
+    COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}" -NoProfile -ExecutionPolicy Bypass
+        -File "${CMAKE_SOURCE_DIR}/tools/generate_shotgun_lod.ps1"
+        -InputPath "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/pick_up_shotgun.png"
+        -OutputDirectory "${GEAR_RAY_GENERATED_DIR}"
+    DEPENDS "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/pick_up_shotgun.png"
+        "${CMAKE_SOURCE_DIR}/tools/generate_shotgun_lod.ps1" VERBATIM)
+add_custom_target(gear_ray_weapon_assets DEPENDS ${GEAR_RAY_SHOTGUN_OBJECTS}
+    "${GEAR_RAY_GENERATED_DIR}/hud_masks.h"
+    "${GEAR_RAY_PAUSE_SHOTGUN_HEADER}" "${GEAR_RAY_SHOTGUN_FAR_HEADER}")
+
+add_custom_command(
+    OUTPUT "${GEAR_RAY_PAUSE_WEAPON_HEADER}"
+    COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}" -NoProfile -ExecutionPolicy Bypass
+            -File "${CMAKE_SOURCE_DIR}/tools/generate_pause_weapon_icon.ps1"
+            -InputPath "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/pistol.png"
+            -OutputHeader "${GEAR_RAY_PAUSE_WEAPON_HEADER}"
+    DEPENDS "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/pistol.png"
+            "${CMAKE_SOURCE_DIR}/tools/generate_pause_weapon_icon.ps1"
+    VERBATIM
+)
 add_custom_command(
     OUTPUT "${GEAR_RAY_PAUSE_MAP_OBJECT}"
     COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
             -mz80 -DTARGET_GG
+            "-I${GEAR_RAY_GENERATED_DIR}"
             "-I${GEAR_RAY_SMSLIB_INCLUDE}"
             "-I${GEAR_RAY_GAME_DIR}"
             --codeseg BANK2 --constseg BANK2
             -c "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/pause_map.c"
             -o "${GEAR_RAY_PAUSE_MAP_OBJECT}"
     DEPENDS "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/pause_map.c"
+            "${GEAR_RAY_PAUSE_WEAPON_HEADER}"
+            "${GEAR_RAY_PAUSE_SHOTGUN_HEADER}"
             "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/pause_map.h"
             "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/input_internal.h"
             "${GEAR_RAY_WORLD_SPRITE_HEADER}"
@@ -1071,9 +1138,39 @@ add_custom_command(
             "${GEAR_RAY_CAMERA_HEADER}"
             "${GEAR_RAY_WORLD_HEADER}" "${GEAR_RAY_WORKSHOP_MAP_HEADER}"
     COMMENT "Compiling event-only Bank 2 pause map"
+    DEPENDS "${GEAR_RAY_GAME_DIR}/weapons.h"
     VERBATIM
 )
 
+add_custom_command(
+    OUTPUT "${GEAR_RAY_GENERATED_DIR}/camera_graph.c" "${GEAR_RAY_GENERATED_DIR}/camera_graph.h"
+    COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}" -NoProfile -ExecutionPolicy Bypass
+            -File "${CMAKE_SOURCE_DIR}/tools/generate_camera_graph.ps1"
+            -CameraSource "${GEAR_RAY_CAMERA_SOURCE}"
+            -OutputSource "${GEAR_RAY_GENERATED_DIR}/camera_graph.c"
+            -OutputHeader "${GEAR_RAY_GENERATED_DIR}/camera_graph.h"
+    DEPENDS "${CMAKE_SOURCE_DIR}/tools/generate_camera_graph.ps1" "${GEAR_RAY_CAMERA_SOURCE}"
+    VERBATIM
+)
+add_custom_command(
+    OUTPUT "${CMAKE_BINARY_DIR}/camera_graph.rel"
+    COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}" -mz80 --constseg BANK2
+            -c "${GEAR_RAY_GENERATED_DIR}/camera_graph.c"
+            -o "${CMAKE_BINARY_DIR}/camera_graph.rel"
+    DEPENDS "${GEAR_RAY_GENERATED_DIR}/camera_graph.c" "${GEAR_RAY_GENERATED_DIR}/camera_graph.h"
+    VERBATIM
+)
+
+add_custom_command(OUTPUT "${GEAR_RAY_GENERATED_DIR}/wall_schedules.h"
+ COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}" -NoProfile -ExecutionPolicy Bypass
+ -File "${CMAKE_SOURCE_DIR}/tools/generate_native_wall_tables.ps1"
+ -OutputHeader "${GEAR_RAY_GENERATED_DIR}/wall_schedules.h" -GeneratedDirectory "${GEAR_RAY_GENERATED_DIR}"
+ DEPENDS "${CMAKE_SOURCE_DIR}/tools/generate_native_wall_tables.ps1" "${GEAR_RAY_GENERATED_DIR}/wall_texture.c" VERBATIM)
+add_custom_command(OUTPUT "${CMAKE_BINARY_DIR}/native_wall.rel"
+ COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}" -mz80 -DTARGET_GG --codeseg BANK3WALL --constseg BANK3WALL
+ "-I${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}" "-I${GEAR_RAY_GENERATED_DIR}"
+ -c "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/native_wall.c" -o "${CMAKE_BINARY_DIR}/native_wall.rel"
+ DEPENDS "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/native_wall.c" "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/native_wall.h" "${GEAR_RAY_GENERATED_DIR}/wall_schedules.h" VERBATIM)
 add_custom_command(
     OUTPUT "${GEAR_RAY_IHX}"
     COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
@@ -1083,10 +1180,13 @@ add_custom_command(
             --data-loc 0xC000
             -Wl-b_BANK1=0x14000
             -Wl-b_BANK2=0x28000
+            -Wl-b_BANK3=0x34000
+            -Wl-b_BANK3WALL=0x39200
             "${GEAR_RAY_CRT0}"
             "${GEAR_RAY_MAIN_OBJECT}"
             "${GEAR_RAY_PAUSE_MAP_OBJECT}"
             "${GEAR_RAY_CAMERA_OBJECT}"
+            "${CMAKE_BINARY_DIR}/camera_graph.rel"
             "${GEAR_RAY_RAYCASTER_OBJECT}"
             "${GEAR_RAY_PLAYER_OBJECT}"
             "${GEAR_RAY_RED_DOOR_SWITCH_OBJECT}"
@@ -1102,12 +1202,15 @@ add_custom_command(
             "${GEAR_RAY_DOOR_STATES_OBJECT}"
             "${GEAR_RAY_INPUT_OBJECT}"
             "${GEAR_RAY_VIDEO_OBJECT}"
+            "${CMAKE_BINARY_DIR}/native_wall.rel"
             "${GEAR_RAY_HUD_WEAPON_OBJECT}"
+            ${GEAR_RAY_SHOTGUN_OBJECTS}
             "${GEAR_RAY_SPRITE_PROJECTION_OBJECT}"
-            "${GEAR_RAY_RENDER_TEXTURES_OBJECT}"
+
             "${GEAR_RAY_WALL_TEXTURES_OBJECT}"
             "${GEAR_RAY_GENERATED_SEGA_LOGO_OBJECT}"
             "${GEAR_RAY_GENERATED_GAME_OVER_OBJECT}"
+            "${GEAR_RAY_GAME_OVER_PRESENTATION_OBJECT}"
             "${GEAR_RAY_GENERATED_WALL_TEXTURE_OBJECT}"
             "${GEAR_RAY_GENERATED_SPRITE_TEXTURE_OBJECT}"
             "${GEAR_RAY_GENERATED_ZOMBIE_WALKING_01_TEXTURE_OBJECT}"
@@ -1116,8 +1219,8 @@ add_custom_command(
             "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_02_TEXTURE_OBJECT}"
             "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_DEAD_TEXTURE_OBJECT}"
             "${GEAR_RAY_GENERATED_ZOMBIE_CORPS_TEXTURE_OBJECT}"
-            "${GEAR_RAY_GENERATED_WEAPON_TEXTURE_OBJECT}"
-            "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_OBJECT}"
+
+
             "${GEAR_RAY_SMSLIB_LIBRARY}"
             "${GEAR_RAY_STARTUP_LOGO_OBJECT}"
             ${GEAR_RAY_NEAR_ZOMBIE_GENERATED_OBJECTS}
@@ -1128,8 +1231,10 @@ add_custom_command(
             "${GEAR_RAY_WORLD_INITIALIZATION_OBJECT}"
             "${GEAR_RAY_VIDEO_INITIALIZATION_OBJECT}"
             ${GEAR_RAY_RENDERER_PROFILE_LINK_OBJECT}
-    DEPENDS "${GEAR_RAY_MAIN_OBJECT}" "${GEAR_RAY_CAMERA_OBJECT}" "${GEAR_RAY_RAYCASTER_OBJECT}" "${GEAR_RAY_PLAYER_OBJECT}" "${GEAR_RAY_RED_DOOR_SWITCH_OBJECT}" "${GEAR_RAY_STARTUP_LOGO_OBJECT}" ${GEAR_RAY_NEAR_ZOMBIE_GENERATED_OBJECTS} ${GEAR_RAY_MIDDLE_ZOMBIE_GENERATED_OBJECTS} "${GEAR_RAY_NEAR_ZOMBIE_TEXTURES_OBJECT}" "${GEAR_RAY_INTERACTION_RAY_OBJECT}" "${GEAR_RAY_WORLD_INTERACTIONS_OBJECT}" "${GEAR_RAY_WORLD_INITIALIZATION_OBJECT}" "${GEAR_RAY_WORLD_OBJECT}" "${GEAR_RAY_WORKSHOP_MAP_OBJECT}" "${GEAR_RAY_WORLD_OBJECTS_OBJECT}" "${GEAR_RAY_WORLD_SPRITE_OBJECT}" "${GEAR_RAY_ZOMBIE_SHOOTING_OBJECT}" "${GEAR_RAY_ZOMBIE_AI_OBJECT}" "${GEAR_RAY_ZOMBIE_CORPSES_OBJECT}" "${GEAR_RAY_ENEMY_COLLISION_OBJECT}" "${GEAR_RAY_DOOR_INSTANCES_OBJECT}" "${GEAR_RAY_DOOR_STATES_OBJECT}" "${GEAR_RAY_INPUT_OBJECT}" "${GEAR_RAY_VIDEO_OBJECT}" "${GEAR_RAY_VIDEO_INITIALIZATION_OBJECT}" "${GEAR_RAY_HUD_WEAPON_OBJECT}" "${GEAR_RAY_SPRITE_PROJECTION_OBJECT}" "${GEAR_RAY_RENDER_TEXTURES_OBJECT}" ${GEAR_RAY_RENDERER_PROFILE_LINK_OBJECT} "${GEAR_RAY_WALL_TEXTURES_OBJECT}" "${GEAR_RAY_GENERATED_SEGA_LOGO_OBJECT}" "${GEAR_RAY_GENERATED_WALL_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_SPRITE_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_WALKING_01_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_WALKING_02_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_01_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_02_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_DEAD_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_CORPS_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_WEAPON_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_OBJECT}" "${GEAR_RAY_CRT0}" "${GEAR_RAY_SMSLIB_LIBRARY}"
-    DEPENDS "${GEAR_RAY_PAUSE_MAP_OBJECT}" "${GEAR_RAY_GENERATED_GAME_OVER_OBJECT}"
+    DEPENDS "${GEAR_RAY_MAIN_OBJECT}" "${GEAR_RAY_CAMERA_OBJECT}" "${GEAR_RAY_RAYCASTER_OBJECT}" "${GEAR_RAY_PLAYER_OBJECT}" "${GEAR_RAY_RED_DOOR_SWITCH_OBJECT}" "${GEAR_RAY_STARTUP_LOGO_OBJECT}" ${GEAR_RAY_NEAR_ZOMBIE_GENERATED_OBJECTS} ${GEAR_RAY_MIDDLE_ZOMBIE_GENERATED_OBJECTS} "${GEAR_RAY_NEAR_ZOMBIE_TEXTURES_OBJECT}" "${GEAR_RAY_INTERACTION_RAY_OBJECT}" "${GEAR_RAY_WORLD_INTERACTIONS_OBJECT}" "${GEAR_RAY_WORLD_INITIALIZATION_OBJECT}" "${GEAR_RAY_WORLD_OBJECT}" "${GEAR_RAY_WORKSHOP_MAP_OBJECT}" "${GEAR_RAY_WORLD_OBJECTS_OBJECT}" "${GEAR_RAY_WORLD_SPRITE_OBJECT}" "${GEAR_RAY_ZOMBIE_SHOOTING_OBJECT}" "${GEAR_RAY_ZOMBIE_AI_OBJECT}" "${GEAR_RAY_ZOMBIE_CORPSES_OBJECT}" "${GEAR_RAY_ENEMY_COLLISION_OBJECT}" "${GEAR_RAY_DOOR_INSTANCES_OBJECT}" "${GEAR_RAY_DOOR_STATES_OBJECT}" "${GEAR_RAY_INPUT_OBJECT}" "${GEAR_RAY_VIDEO_OBJECT}" "${GEAR_RAY_VIDEO_INITIALIZATION_OBJECT}" "${GEAR_RAY_HUD_WEAPON_OBJECT}" "${GEAR_RAY_SPRITE_PROJECTION_OBJECT}" ${GEAR_RAY_RENDERER_PROFILE_LINK_OBJECT} "${GEAR_RAY_WALL_TEXTURES_OBJECT}" "${GEAR_RAY_GENERATED_SEGA_LOGO_OBJECT}" "${GEAR_RAY_GENERATED_WALL_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_SPRITE_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_WALKING_01_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_WALKING_02_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_01_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_02_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_DEAD_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_CORPS_TEXTURE_OBJECT}" "${GEAR_RAY_CRT0}" "${GEAR_RAY_SMSLIB_LIBRARY}"
+    DEPENDS "${GEAR_RAY_PAUSE_MAP_OBJECT}" "${GEAR_RAY_GENERATED_GAME_OVER_OBJECT}" "${GEAR_RAY_GAME_OVER_PRESENTATION_OBJECT}"
+    DEPENDS ${GEAR_RAY_SHOTGUN_OBJECTS}
+    DEPENDS "${CMAKE_BINARY_DIR}/native_wall.rel" "${CMAKE_BINARY_DIR}/camera_graph.rel"
     COMMENT "Linking GearRay for Game Gear"
     VERBATIM
 )
@@ -1146,6 +1251,7 @@ add_custom_command(
             -RomPath "${GEAR_RAY_ROM}"
     DEPENDS "${GEAR_RAY_IHX}"
             "${GEAR_RAY_BANK_LAYOUT_VALIDATOR}"
+            "${CMAKE_SOURCE_DIR}/tools/production_build_artifacts.ps1"
     COMMENT "Generating rom/${GEAR_RAY_ROM_FILENAME}"
     VERBATIM
 )
@@ -1186,6 +1292,19 @@ add_custom_target(gear_ray_validate_zombie_shooting
             "${GEAR_RAY_INPUT_SOURCE}"
             "${GEAR_RAY_SPRITE_PROJECTION_SOURCE}"
     COMMENT "Validating zombie hitscan and death states"
+    VERBATIM
+)
+add_custom_target(gear_ray_validate_shotgun_combat
+    COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}"
+            -NoProfile -ExecutionPolicy Bypass
+            -File "${GEAR_RAY_SHOTGUN_COMBAT_VALIDATOR}"
+            -BuildDirectory "${CMAKE_BINARY_DIR}"
+            -RequireAssembly
+    DEPENDS "${GEAR_RAY_SHOTGUN_COMBAT_VALIDATOR}"
+            "${GEAR_RAY_ZOMBIE_SHOOTING_SOURCE}"
+            "${GEAR_RAY_ZOMBIE_SHOOTING_OBJECT}"
+            "${GEAR_RAY_MAIN_SOURCE}" "${GEAR_RAY_INPUT_SOURCE}"
+    COMMENT "Validating shotgun combat identity and off-axis occlusion"
     VERBATIM
 )
 add_custom_target(gear_ray_validate_zombie_ai
@@ -1287,6 +1406,7 @@ add_custom_target(gear_ray_validate_middle_zombie
 )
 add_dependencies(gear_ray_game gear_ray_engine gear_ray_validate_workshop
                  gear_ray_validate_zombie_shooting
+                 gear_ray_validate_shotgun_combat
                  gear_ray_validate_zombie_ai
                  gear_ray_validate_corpse_persistence
                  gear_ray_validate_zombie_attack
@@ -1307,7 +1427,35 @@ add_custom_target(gear_ray_validate_pause_map
             -BuildDirectory "${CMAKE_BINARY_DIR}"
     DEPENDS "${GEAR_RAY_PAUSE_MAP_OBJECT}"
             "${GEAR_RAY_GENERATED_WALL_TEXTURE_SOURCE}"
+            "${CMAKE_SOURCE_DIR}/tools/production_build_artifacts.ps1"
     COMMENT "Validating pause map geometry, START edges, and restoration contracts"
     VERBATIM
 )
 add_dependencies(gear_ray_game gear_ray_validate_pause_map)
+
+add_dependencies(gear_ray_game gear_ray_weapon_assets)
+foreach(validator IN ITEMS weapon_assets weapon_runtime)
+    add_custom_target(gear_ray_validate_${validator}
+        COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}" -NoProfile -ExecutionPolicy Bypass
+            -File "${CMAKE_SOURCE_DIR}/tools/validate_${validator}.ps1"
+            -BuildDirectory "${CMAKE_BINARY_DIR}"
+        DEPENDS "${GEAR_RAY_HUD_WEAPON_OBJECT}" "${GEAR_RAY_SPRITE_PROJECTION_OBJECT}"
+            "${GEAR_RAY_MAIN_OBJECT}" "${GEAR_RAY_VIDEO_OBJECT}" ${GEAR_RAY_SHOTGUN_OBJECTS}
+            "${GEAR_RAY_PAUSE_SHOTGUN_HEADER}" "${GEAR_RAY_SHOTGUN_FAR_HEADER}"
+            "${GEAR_RAY_ROM}"
+            "${CMAKE_SOURCE_DIR}/tools/production_build_artifacts.ps1"
+        VERBATIM)
+    add_dependencies(gear_ray_game gear_ray_validate_${validator})
+endforeach()
+
+add_custom_command(OUTPUT "${GEAR_RAY_VIDEO_OBJECT}" APPEND DEPENDS "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/native_wall.h")
+
+add_custom_target(gear_ray_validate_native_wall ALL
+ COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}" -NoProfile -ExecutionPolicy Bypass
+ -File "${CMAKE_SOURCE_DIR}/tools/validate_native_wall.ps1" -BuildDirectory "${CMAKE_BINARY_DIR}"
+ -RequireMapPlacement -RequireAssembly
+ DEPENDS "${GEAR_RAY_IHX}" "${CMAKE_SOURCE_DIR}/tools/validate_native_wall.ps1" VERBATIM)
+
+# Public layout dependencies used by generated native wall/projection clients.
+add_custom_command(OUTPUT "${CMAKE_BINARY_DIR}/native_wall.rel" APPEND DEPENDS "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/video.h" "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/wall_textures.h" "${GEAR_RAY_GENERATED_WALL_TEXTURE_HEADER}")
+add_custom_command(OUTPUT "${GEAR_RAY_VIDEO_INITIALIZATION_OBJECT}" APPEND DEPENDS "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/sprite_projection.h")

@@ -1,3 +1,4 @@
+#define GEAR_RAY_WORLD_SPRITE_NO_DISTANCE_METRIC
 #include "world_sprite.h"
 #include "zombie_corpses.h"
 #include "zombie_ai.h"

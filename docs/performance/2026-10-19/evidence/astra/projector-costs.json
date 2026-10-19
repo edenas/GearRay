@@ -1,0 +1,104 @@
+{
+  "classification": "MEASURED actual linked per-entity projector with injected C ABI arguments, IRQ disabled; excludes preparation/budget/order/overlay/upload",
+  "cases": [
+    {
+      "case": "behind",
+      "cycles": 17606,
+      "stack_below_injected_sp": 72,
+      "visible": 0,
+      "near_id": 255,
+      "source_size": 8,
+      "output_hex": "000000000000000000000000007669ff08"
+    },
+    {
+      "case": "distant_rejected",
+      "cycles": 21576,
+      "stack_below_injected_sp": 72,
+      "visible": 0,
+      "near_id": 255,
+      "source_size": 8,
+      "output_hex": "000000000000000000780500007669ff08"
+    },
+    {
+      "case": "far_simple",
+      "cycles": 58412,
+      "stack_below_injected_sp": 72,
+      "visible": 1,
+      "near_id": 255,
+      "source_size": 8,
+      "output_hex": "0132003f0019002600e2049d002e59ff08"
+    },
+    {
+      "case": "far_full",
+      "cycles": 57069,
+      "stack_below_injected_sp": 72,
+      "visible": 1,
+      "near_id": 255,
+      "source_size": 8,
+      "output_hex": "012e00420016002a00200366007669ff08"
+    },
+    {
+      "case": "middle",
+      "cycles": 57969,
+      "stack_below_injected_sp": 72,
+      "visible": 1,
+      "near_id": 255,
+      "source_size": 16,
+      "output_hex": "012800480010003000f4018000966bff10"
+    },
+    {
+      "case": "near",
+      "cycles": 57424,
+      "stack_below_injected_sp": 72,
+      "visible": 1,
+      "near_id": 0,
+      "source_size": 8,
+      "output_hex": "011d00530005003b002c01970076690008"
+    },
+    {
+      "case": "near_partial_occlusion",
+      "cycles": 57424,
+      "stack_below_injected_sp": 72,
+      "visible": 1,
+      "near_id": 0,
+      "source_size": 8,
+      "output_hex": "011d00530005003b002c01970076690008"
+    },
+    {
+      "case": "near_fully_occluded",
+      "cycles": 62603,
+      "stack_below_injected_sp": 72,
+      "visible": 0,
+      "near_id": 0,
+      "source_size": 8,
+      "output_hex": "0000000000000000002c01000076690008"
+    },
+    {
+      "case": "corpse",
+      "cycles": 58858,
+      "stack_below_injected_sp": 72,
+      "visible": 1,
+      "near_id": 255,
+      "source_size": 16,
+      "output_hex": "01280048001a003a00f4018000166eff10"
+    },
+    {
+      "case": "corpse_hidden_close",
+      "cycles": 20832,
+      "stack_below_injected_sp": 72,
+      "visible": 0,
+      "near_id": 255,
+      "source_size": 8,
+      "output_hex": "000000000000000000640000007669ff08"
+    },
+    {
+      "case": "pickup",
+      "cycles": 52725,
+      "stack_below_injected_sp": 72,
+      "visible": 1,
+      "near_id": 255,
+      "source_size": 16,
+      "output_hex": "01280048001800380000028000aa57ff10"
+    }
+  ]
+}

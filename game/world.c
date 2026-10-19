@@ -1,5 +1,6 @@
 #include "world.h"
 #include "red_door_switch.h"
+#define GEAR_RAY_WORLD_SPRITE_NO_DISTANCE_METRIC
 #include "world_sprite.h"
 
 unsigned char world_get_tile(unsigned char x, unsigned char y)
@@ -9,7 +10,8 @@ unsigned char world_get_tile(unsigned char x, unsigned char y)
 
     {
         unsigned char tile_id = workshop_map_get_tile(x, y);
-        return tile_id == WORLD_TILE_SPRITE_MARKER
+        return (tile_id == WORLD_TILE_SPRITE_MARKER
+                || tile_id == WORLD_TILE_SHOTGUN_MARKER)
             ? WORLD_TILE_EMPTY
             : tile_id;
     }
@@ -52,9 +54,6 @@ unsigned char world_is_wall(unsigned char x, unsigned char y)
 {
     DoorInstanceId door_instance;
     unsigned char tile_id;
-
-    if (x >= WORLD_WIDTH || y >= WORLD_HEIGHT)
-        return 1;
 
     tile_id = world_get_tile(x, y);
 

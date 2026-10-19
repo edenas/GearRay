@@ -1,0 +1,11623 @@
+{
+  "cases": 484,
+  "mismatches": [],
+  "method": "Actual baseline/experimental Z80 direct calls for all 242 states x left/right, interrupts disabled only for microbenchmark",
+  "results": [
+    {
+      "variant": "baseline",
+      "state": 0,
+      "right": 0,
+      "cycles": 82335,
+      "values": [
+        -35,
+        -254,
+        168,
+        -23
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 0,
+      "right": 1,
+      "cycles": 81726,
+      "values": [
+        35,
+        -254,
+        168,
+        23
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 1,
+      "right": 0,
+      "cycles": 82810,
+      "values": [
+        -69,
+        -247,
+        163,
+        -46
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 1,
+      "right": 1,
+      "cycles": 78872,
+      "values": [
+        0,
+        -256,
+        169,
+        0
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 2,
+      "right": 0,
+      "cycles": 78628,
+      "values": [
+        0,
+        -256,
+        169,
+        0
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 2,
+      "right": 1,
+      "cycles": 82155,
+      "values": [
+        69,
+        -247,
+        163,
+        46
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 3,
+      "right": 0,
+      "cycles": 82822,
+      "values": [
+        -102,
+        -235,
+        155,
+        -67
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 3,
+      "right": 1,
+      "cycles": 82637,
+      "values": [
+        -35,
+        -254,
+        168,
+        -23
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 4,
+      "right": 0,
+      "cycles": 81970,
+      "values": [
+        35,
+        -254,
+        168,
+        23
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 4,
+      "right": 1,
+      "cycles": 82167,
+      "values": [
+        102,
+        -235,
+        155,
+        67
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 5,
+      "right": 0,
+      "cycles": 82017,
+      "values": [
+        -133,
+        -219,
+        145,
+        -88
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 5,
+      "right": 1,
+      "cycles": 82868,
+      "values": [
+        -69,
+        -247,
+        163,
+        -46
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 6,
+      "right": 0,
+      "cycles": 82201,
+      "values": [
+        69,
+        -247,
+        163,
+        46
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 6,
+      "right": 1,
+      "cycles": 81362,
+      "values": [
+        133,
+        -219,
+        145,
+        88
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 7,
+      "right": 0,
+      "cycles": 83241,
+      "values": [
+        -162,
+        -200,
+        132,
+        -107
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 7,
+      "right": 1,
+      "cycles": 82858,
+      "values": [
+        -102,
+        -235,
+        155,
+        -67
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 8,
+      "right": 0,
+      "cycles": 82191,
+      "values": [
+        102,
+        -235,
+        155,
+        67
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 8,
+      "right": 1,
+      "cycles": 82586,
+      "values": [
+        162,
+        -200,
+        132,
+        107
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 9,
+      "right": 0,
+      "cycles": 83934,
+      "values": [
+        -187,
+        -175,
+        116,
+        -123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 9,
+      "right": 1,
+      "cycles": 82516,
+      "values": [
+        -132,
+        -219,
+        145,
+        -87
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 10,
+      "right": 0,
+      "cycles": 81849,
+      "values": [
+        132,
+        -219,
+        145,
+        87
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 10,
+      "right": 1,
+      "cycles": 83279,
+      "values": [
+        187,
+        -175,
+        116,
+        123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 11,
+      "right": 0,
+      "cycles": 81519,
+      "values": [
+        -209,
+        -148,
+        98,
+        -138
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 11,
+      "right": 1,
+      "cycles": 82412,
+      "values": [
+        -162,
+        -199,
+        131,
+        -107
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 12,
+      "right": 0,
+      "cycles": 83219,
+      "values": [
+        -162,
+        -200,
+        132,
+        -107
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 12,
+      "right": 1,
+      "cycles": 84080,
+      "values": [
+        -101,
+        -236,
+        156,
+        -67
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 13,
+      "right": 0,
+      "cycles": 83413,
+      "values": [
+        101,
+        -236,
+        156,
+        67
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 13,
+      "right": 1,
+      "cycles": 82564,
+      "values": [
+        162,
+        -200,
+        132,
+        107
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 14,
+      "right": 0,
+      "cycles": 81745,
+      "values": [
+        162,
+        -199,
+        131,
+        107
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 14,
+      "right": 1,
+      "cycles": 80864,
+      "values": [
+        209,
+        -148,
+        98,
+        138
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 15,
+      "right": 0,
+      "cycles": 84462,
+      "values": [
+        -228,
+        -118,
+        78,
+        -151
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 15,
+      "right": 1,
+      "cycles": 83854,
+      "values": [
+        -187,
+        -175,
+        116,
+        -123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 16,
+      "right": 0,
+      "cycles": 83262,
+      "values": [
+        -188,
+        -175,
+        116,
+        -124
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 16,
+      "right": 1,
+      "cycles": 82031,
+      "values": [
+        -133,
+        -219,
+        145,
+        -88
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 17,
+      "right": 0,
+      "cycles": 81963,
+      "values": [
+        -132,
+        -220,
+        145,
+        -87
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 17,
+      "right": 1,
+      "cycles": 82815,
+      "values": [
+        -68,
+        -247,
+        163,
+        -45
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 18,
+      "right": 0,
+      "cycles": 82148,
+      "values": [
+        68,
+        -247,
+        163,
+        45
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 18,
+      "right": 1,
+      "cycles": 81308,
+      "values": [
+        132,
+        -220,
+        145,
+        87
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 19,
+      "right": 0,
+      "cycles": 81364,
+      "values": [
+        133,
+        -219,
+        145,
+        88
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 19,
+      "right": 1,
+      "cycles": 82607,
+      "values": [
+        188,
+        -175,
+        116,
+        124
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 20,
+      "right": 0,
+      "cycles": 83187,
+      "values": [
+        187,
+        -175,
+        116,
+        123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 20,
+      "right": 1,
+      "cycles": 83807,
+      "values": [
+        228,
+        -118,
+        78,
+        151
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 21,
+      "right": 0,
+      "cycles": 81947,
+      "values": [
+        -242,
+        -86,
+        57,
+        -160
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 21,
+      "right": 1,
+      "cycles": 81706,
+      "values": [
+        -210,
+        -148,
+        98,
+        -139
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 22,
+      "right": 0,
+      "cycles": 81692,
+      "values": [
+        -210,
+        -148,
+        98,
+        -139
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 22,
+      "right": 1,
+      "cycles": 82459,
+      "values": [
+        -162,
+        -198,
+        131,
+        -107
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 23,
+      "right": 0,
+      "cycles": 81102,
+      "values": [
+        -161,
+        -200,
+        132,
+        -106
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 23,
+      "right": 1,
+      "cycles": 82252,
+      "values": [
+        -101,
+        -236,
+        156,
+        -67
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 24,
+      "right": 0,
+      "cycles": 84044,
+      "values": [
+        -101,
+        -236,
+        156,
+        -67
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 24,
+      "right": 1,
+      "cycles": 82095,
+      "values": [
+        -34,
+        -254,
+        168,
+        -22
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 25,
+      "right": 0,
+      "cycles": 81428,
+      "values": [
+        34,
+        -254,
+        168,
+        22
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 25,
+      "right": 1,
+      "cycles": 83389,
+      "values": [
+        101,
+        -236,
+        156,
+        67
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 26,
+      "right": 0,
+      "cycles": 81585,
+      "values": [
+        101,
+        -236,
+        156,
+        67
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 26,
+      "right": 1,
+      "cycles": 80447,
+      "values": [
+        161,
+        -200,
+        132,
+        106
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 27,
+      "right": 0,
+      "cycles": 81792,
+      "values": [
+        162,
+        -198,
+        131,
+        107
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 27,
+      "right": 1,
+      "cycles": 81037,
+      "values": [
+        210,
+        -148,
+        98,
+        139
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 28,
+      "right": 0,
+      "cycles": 81039,
+      "values": [
+        210,
+        -148,
+        98,
+        139
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 28,
+      "right": 1,
+      "cycles": 81292,
+      "values": [
+        242,
+        -86,
+        57,
+        160
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 29,
+      "right": 0,
+      "cycles": 82266,
+      "values": [
+        -251,
+        -52,
+        34,
+        -166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 29,
+      "right": 1,
+      "cycles": 82758,
+      "values": [
+        -228,
+        -118,
+        78,
+        -151
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 30,
+      "right": 0,
+      "cycles": 82656,
+      "values": [
+        -228,
+        -118,
+        78,
+        -151
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 30,
+      "right": 1,
+      "cycles": 83298,
+      "values": [
+        -188,
+        -175,
+        116,
+        -124
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 31,
+      "right": 0,
+      "cycles": 85006,
+      "values": [
+        -188,
+        -175,
+        116,
+        -124
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 31,
+      "right": 1,
+      "cycles": 84251,
+      "values": [
+        -135,
+        -219,
+        145,
+        -89
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 32,
+      "right": 0,
+      "cycles": 82943,
+      "values": [
+        -187,
+        -176,
+        116,
+        -123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 32,
+      "right": 1,
+      "cycles": 81955,
+      "values": [
+        -132,
+        -220,
+        145,
+        -87
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 33,
+      "right": 0,
+      "cycles": 82517,
+      "values": [
+        -68,
+        -247,
+        163,
+        -45
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 33,
+      "right": 1,
+      "cycles": 79266,
+      "values": [
+        1,
+        -256,
+        169,
+        1
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 34,
+      "right": 0,
+      "cycles": 79725,
+      "values": [
+        -1,
+        -256,
+        169,
+        -1
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 34,
+      "right": 1,
+      "cycles": 81862,
+      "values": [
+        68,
+        -247,
+        163,
+        45
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 35,
+      "right": 0,
+      "cycles": 81288,
+      "values": [
+        132,
+        -220,
+        145,
+        87
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 35,
+      "right": 1,
+      "cycles": 82288,
+      "values": [
+        187,
+        -176,
+        116,
+        123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 36,
+      "right": 0,
+      "cycles": 83584,
+      "values": [
+        135,
+        -219,
+        145,
+        89
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 36,
+      "right": 1,
+      "cycles": 84351,
+      "values": [
+        188,
+        -175,
+        116,
+        124
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 37,
+      "right": 0,
+      "cycles": 82631,
+      "values": [
+        188,
+        -175,
+        116,
+        124
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 37,
+      "right": 1,
+      "cycles": 82001,
+      "values": [
+        228,
+        -118,
+        78,
+        151
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 38,
+      "right": 0,
+      "cycles": 82091,
+      "values": [
+        228,
+        -118,
+        78,
+        151
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 38,
+      "right": 1,
+      "cycles": 81611,
+      "values": [
+        251,
+        -52,
+        34,
+        166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 39,
+      "right": 0,
+      "cycles": 80598,
+      "values": [
+        -256,
+        -17,
+        11,
+        -169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 39,
+      "right": 1,
+      "cycles": 82027,
+      "values": [
+        -242,
+        -86,
+        57,
+        -160
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 40,
+      "right": 0,
+      "cycles": 82379,
+      "values": [
+        -162,
+        -198,
+        131,
+        -107
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 40,
+      "right": 1,
+      "cycles": 82555,
+      "values": [
+        -104,
+        -235,
+        155,
+        -69
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 41,
+      "right": 0,
+      "cycles": 81784,
+      "values": [
+        -209,
+        -149,
+        98,
+        -138
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 41,
+      "right": 1,
+      "cycles": 81204,
+      "values": [
+        -161,
+        -200,
+        132,
+        -106
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 42,
+      "right": 0,
+      "cycles": 81837,
+      "values": [
+        -34,
+        -254,
+        168,
+        -22
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 42,
+      "right": 1,
+      "cycles": 82691,
+      "values": [
+        36,
+        -254,
+        168,
+        24
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 43,
+      "right": 0,
+      "cycles": 83346,
+      "values": [
+        -36,
+        -254,
+        168,
+        -24
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 43,
+      "right": 1,
+      "cycles": 81378,
+      "values": [
+        34,
+        -254,
+        168,
+        22
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 44,
+      "right": 0,
+      "cycles": 80537,
+      "values": [
+        161,
+        -200,
+        132,
+        106
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 44,
+      "right": 1,
+      "cycles": 81129,
+      "values": [
+        209,
+        -149,
+        98,
+        138
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 45,
+      "right": 0,
+      "cycles": 81888,
+      "values": [
+        104,
+        -235,
+        155,
+        69
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 45,
+      "right": 1,
+      "cycles": 81724,
+      "values": [
+        162,
+        -198,
+        131,
+        107
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 46,
+      "right": 0,
+      "cycles": 81360,
+      "values": [
+        242,
+        -86,
+        57,
+        160
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 46,
+      "right": 1,
+      "cycles": 79944,
+      "values": [
+        256,
+        -17,
+        11,
+        169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 47,
+      "right": 0,
+      "cycles": 80556,
+      "values": [
+        -256,
+        18,
+        -12,
+        -169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 47,
+      "right": 1,
+      "cycles": 82192,
+      "values": [
+        -251,
+        -52,
+        34,
+        -166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 48,
+      "right": 0,
+      "cycles": 81923,
+      "values": [
+        -134,
+        -218,
+        144,
+        -88
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 48,
+      "right": 1,
+      "cycles": 83254,
+      "values": [
+        -71,
+        -246,
+        162,
+        -47
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 49,
+      "right": 0,
+      "cycles": 83298,
+      "values": [
+        -227,
+        -119,
+        79,
+        -150
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 49,
+      "right": 1,
+      "cycles": 83045,
+      "values": [
+        -187,
+        -176,
+        116,
+        -123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 50,
+      "right": 0,
+      "cycles": 79522,
+      "values": [
+        1,
+        -256,
+        169,
+        1
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 50,
+      "right": 1,
+      "cycles": 82169,
+      "values": [
+        70,
+        -247,
+        163,
+        46
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 51,
+      "right": 0,
+      "cycles": 82824,
+      "values": [
+        -70,
+        -247,
+        163,
+        -46
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 51,
+      "right": 1,
+      "cycles": 80189,
+      "values": [
+        -1,
+        -256,
+        169,
+        -1
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 52,
+      "right": 0,
+      "cycles": 82378,
+      "values": [
+        187,
+        -176,
+        116,
+        123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 52,
+      "right": 1,
+      "cycles": 82643,
+      "values": [
+        227,
+        -119,
+        79,
+        150
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 53,
+      "right": 0,
+      "cycles": 82587,
+      "values": [
+        71,
+        -246,
+        162,
+        47
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 53,
+      "right": 1,
+      "cycles": 81268,
+      "values": [
+        134,
+        -218,
+        144,
+        88
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 54,
+      "right": 0,
+      "cycles": 81525,
+      "values": [
+        251,
+        -52,
+        34,
+        166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 54,
+      "right": 1,
+      "cycles": 79902,
+      "values": [
+        256,
+        18,
+        -12,
+        169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 55,
+      "right": 0,
+      "cycles": 83029,
+      "values": [
+        -251,
+        53,
+        -35,
+        -166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 55,
+      "right": 1,
+      "cycles": 80352,
+      "values": [
+        -256,
+        -17,
+        11,
+        -169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 56,
+      "right": 0,
+      "cycles": 83974,
+      "values": [
+        -163,
+        -199,
+        131,
+        -108
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 56,
+      "right": 1,
+      "cycles": 84620,
+      "values": [
+        -103,
+        -235,
+        155,
+        -68
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 57,
+      "right": 0,
+      "cycles": 82007,
+      "values": [
+        -104,
+        -234,
+        154,
+        -69
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 57,
+      "right": 1,
+      "cycles": 83923,
+      "values": [
+        -37,
+        -254,
+        168,
+        -24
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 58,
+      "right": 0,
+      "cycles": 83372,
+      "values": [
+        -241,
+        -87,
+        57,
+        -159
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 58,
+      "right": 1,
+      "cycles": 81886,
+      "values": [
+        -209,
+        -149,
+        98,
+        -138
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 59,
+      "right": 0,
+      "cycles": 81147,
+      "values": [
+        36,
+        -254,
+        168,
+        24
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 59,
+      "right": 1,
+      "cycles": 82225,
+      "values": [
+        103,
+        -235,
+        155,
+        68
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 60,
+      "right": 0,
+      "cycles": 82880,
+      "values": [
+        -103,
+        -235,
+        155,
+        -68
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 60,
+      "right": 1,
+      "cycles": 81814,
+      "values": [
+        -36,
+        -254,
+        168,
+        -24
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 61,
+      "right": 0,
+      "cycles": 81219,
+      "values": [
+        209,
+        -149,
+        98,
+        138
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 61,
+      "right": 1,
+      "cycles": 82717,
+      "values": [
+        241,
+        -87,
+        57,
+        159
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 62,
+      "right": 0,
+      "cycles": 83256,
+      "values": [
+        37,
+        -254,
+        168,
+        24
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 62,
+      "right": 1,
+      "cycles": 81352,
+      "values": [
+        104,
+        -234,
+        154,
+        69
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 63,
+      "right": 0,
+      "cycles": 83953,
+      "values": [
+        103,
+        -235,
+        155,
+        68
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 63,
+      "right": 1,
+      "cycles": 83319,
+      "values": [
+        163,
+        -199,
+        131,
+        108
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 64,
+      "right": 0,
+      "cycles": 79789,
+      "values": [
+        256,
+        -17,
+        11,
+        169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 64,
+      "right": 1,
+      "cycles": 82270,
+      "values": [
+        251,
+        53,
+        -35,
+        166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 65,
+      "right": 0,
+      "cycles": 83693,
+      "values": [
+        -241,
+        87,
+        -57,
+        -159
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 65,
+      "right": 1,
+      "cycles": 80640,
+      "values": [
+        -256,
+        18,
+        -12,
+        -169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 66,
+      "right": 0,
+      "cycles": 83692,
+      "values": [
+        -188,
+        -174,
+        115,
+        -124
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 66,
+      "right": 1,
+      "cycles": 82089,
+      "values": [
+        -134,
+        -219,
+        145,
+        -88
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 67,
+      "right": 0,
+      "cycles": 82075,
+      "values": [
+        -134,
+        -219,
+        145,
+        -88
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 67,
+      "right": 1,
+      "cycles": 82926,
+      "values": [
+        -70,
+        -247,
+        163,
+        -46
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 68,
+      "right": 0,
+      "cycles": 82021,
+      "values": [
+        -135,
+        -218,
+        144,
+        -89
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 68,
+      "right": 1,
+      "cycles": 82872,
+      "values": [
+        -71,
+        -246,
+        162,
+        -47
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 69,
+      "right": 0,
+      "cycles": 83218,
+      "values": [
+        -71,
+        -246,
+        162,
+        -47
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 69,
+      "right": 1,
+      "cycles": 80229,
+      "values": [
+        -2,
+        -256,
+        169,
+        -1
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 70,
+      "right": 0,
+      "cycles": 82850,
+      "values": [
+        -251,
+        -53,
+        35,
+        -166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 70,
+      "right": 1,
+      "cycles": 83400,
+      "values": [
+        -227,
+        -119,
+        79,
+        -150
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 71,
+      "right": 0,
+      "cycles": 82259,
+      "values": [
+        70,
+        -247,
+        163,
+        46
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 71,
+      "right": 1,
+      "cycles": 81420,
+      "values": [
+        134,
+        -219,
+        145,
+        88
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 72,
+      "right": 0,
+      "cycles": 82733,
+      "values": [
+        227,
+        -119,
+        79,
+        150
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 72,
+      "right": 1,
+      "cycles": 82195,
+      "values": [
+        251,
+        -53,
+        35,
+        166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 73,
+      "right": 0,
+      "cycles": 79562,
+      "values": [
+        2,
+        -256,
+        169,
+        1
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 73,
+      "right": 1,
+      "cycles": 82563,
+      "values": [
+        71,
+        -246,
+        162,
+        47
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 74,
+      "right": 0,
+      "cycles": 82205,
+      "values": [
+        71,
+        -246,
+        162,
+        47
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 74,
+      "right": 1,
+      "cycles": 81366,
+      "values": [
+        135,
+        -218,
+        144,
+        89
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 75,
+      "right": 0,
+      "cycles": 81422,
+      "values": [
+        134,
+        -219,
+        145,
+        88
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 75,
+      "right": 1,
+      "cycles": 83037,
+      "values": [
+        188,
+        -174,
+        115,
+        124
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 76,
+      "right": 0,
+      "cycles": 80078,
+      "values": [
+        256,
+        18,
+        -12,
+        169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 76,
+      "right": 1,
+      "cycles": 82934,
+      "values": [
+        241,
+        87,
+        -57,
+        159
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 77,
+      "right": 0,
+      "cycles": 83651,
+      "values": [
+        -227,
+        119,
+        -79,
+        -150
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 77,
+      "right": 1,
+      "cycles": 83137,
+      "values": [
+        -251,
+        53,
+        -35,
+        -166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 78,
+      "right": 0,
+      "cycles": 81965,
+      "values": [
+        -210,
+        -147,
+        97,
+        -139
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 78,
+      "right": 1,
+      "cycles": 82059,
+      "values": [
+        -163,
+        -198,
+        131,
+        -108
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 79,
+      "right": 0,
+      "cycles": 82288,
+      "values": [
+        -162,
+        -199,
+        131,
+        -107
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 79,
+      "right": 1,
+      "cycles": 82916,
+      "values": [
+        -103,
+        -235,
+        155,
+        -68
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 80,
+      "right": 0,
+      "cycles": 81979,
+      "values": [
+        -163,
+        -198,
+        131,
+        -108
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 80,
+      "right": 1,
+      "cycles": 82043,
+      "values": [
+        -104,
+        -234,
+        154,
+        -69
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 81,
+      "right": 0,
+      "cycles": 83689,
+      "values": [
+        -37,
+        -254,
+        168,
+        -24
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 81,
+      "right": 1,
+      "cycles": 81342,
+      "values": [
+        33,
+        -254,
+        168,
+        22
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 82,
+      "right": 0,
+      "cycles": 80335,
+      "values": [
+        -256,
+        -18,
+        12,
+        -169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 82,
+      "right": 1,
+      "cycles": 83430,
+      "values": [
+        -241,
+        -87,
+        57,
+        -159
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 83,
+      "right": 0,
+      "cycles": 82249,
+      "values": [
+        103,
+        -235,
+        155,
+        68
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 83,
+      "right": 1,
+      "cycles": 81633,
+      "values": [
+        162,
+        -199,
+        131,
+        107
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 84,
+      "right": 0,
+      "cycles": 82763,
+      "values": [
+        241,
+        -87,
+        57,
+        159
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 84,
+      "right": 1,
+      "cycles": 79681,
+      "values": [
+        256,
+        -18,
+        12,
+        169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 85,
+      "right": 0,
+      "cycles": 81801,
+      "values": [
+        -33,
+        -254,
+        168,
+        -22
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 85,
+      "right": 1,
+      "cycles": 83034,
+      "values": [
+        37,
+        -254,
+        168,
+        24
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 86,
+      "right": 0,
+      "cycles": 81376,
+      "values": [
+        104,
+        -234,
+        154,
+        69
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 86,
+      "right": 1,
+      "cycles": 81324,
+      "values": [
+        163,
+        -198,
+        131,
+        108
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 87,
+      "right": 0,
+      "cycles": 81392,
+      "values": [
+        163,
+        -198,
+        131,
+        108
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 87,
+      "right": 1,
+      "cycles": 81310,
+      "values": [
+        210,
+        -147,
+        97,
+        139
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 88,
+      "right": 0,
+      "cycles": 82574,
+      "values": [
+        251,
+        53,
+        -35,
+        166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 88,
+      "right": 1,
+      "cycles": 82892,
+      "values": [
+        227,
+        119,
+        -79,
+        150
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 89,
+      "right": 0,
+      "cycles": 82161,
+      "values": [
+        -209,
+        149,
+        -98,
+        -138
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 89,
+      "right": 1,
+      "cycles": 83647,
+      "values": [
+        -241,
+        87,
+        -57,
+        -159
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 90,
+      "right": 0,
+      "cycles": 82714,
+      "values": [
+        -228,
+        -117,
+        77,
+        -151
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 90,
+      "right": 1,
+      "cycles": 83328,
+      "values": [
+        -188,
+        -174,
+        115,
+        -124
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 91,
+      "right": 0,
+      "cycles": 83270,
+      "values": [
+        -188,
+        -174,
+        115,
+        -124
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 91,
+      "right": 1,
+      "cycles": 82079,
+      "values": [
+        -135,
+        -218,
+        144,
+        -89
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 92,
+      "right": 0,
+      "cycles": 79743,
+      "values": [
+        -2,
+        -256,
+        169,
+        -1
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 92,
+      "right": 1,
+      "cycles": 82945,
+      "values": [
+        67,
+        -248,
+        164,
+        44
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 93,
+      "right": 0,
+      "cycles": 80847,
+      "values": [
+        -256,
+        17,
+        -11,
+        -169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 93,
+      "right": 1,
+      "cycles": 82754,
+      "values": [
+        -251,
+        -53,
+        35,
+        -166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 94,
+      "right": 0,
+      "cycles": 82087,
+      "values": [
+        251,
+        -53,
+        35,
+        166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 94,
+      "right": 1,
+      "cycles": 80192,
+      "values": [
+        256,
+        17,
+        -11,
+        169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 95,
+      "right": 0,
+      "cycles": 83600,
+      "values": [
+        -67,
+        -248,
+        164,
+        -44
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 95,
+      "right": 1,
+      "cycles": 79284,
+      "values": [
+        2,
+        -256,
+        169,
+        1
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 96,
+      "right": 0,
+      "cycles": 81412,
+      "values": [
+        135,
+        -218,
+        144,
+        89
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 96,
+      "right": 1,
+      "cycles": 82615,
+      "values": [
+        188,
+        -174,
+        115,
+        124
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 97,
+      "right": 0,
+      "cycles": 82661,
+      "values": [
+        188,
+        -174,
+        115,
+        124
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 97,
+      "right": 1,
+      "cycles": 82059,
+      "values": [
+        228,
+        -117,
+        77,
+        151
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 98,
+      "right": 0,
+      "cycles": 83084,
+      "values": [
+        241,
+        87,
+        -57,
+        159
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 98,
+      "right": 1,
+      "cycles": 81402,
+      "values": [
+        209,
+        149,
+        -98,
+        138
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 99,
+      "right": 0,
+      "cycles": 83309,
+      "values": [
+        -187,
+        176,
+        -116,
+        -123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 99,
+      "right": 1,
+      "cycles": 83561,
+      "values": [
+        -227,
+        119,
+        -79,
+        -150
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 100,
+      "right": 0,
+      "cycles": 81734,
+      "values": [
+        -242,
+        -85,
+        56,
+        -160
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 100,
+      "right": 1,
+      "cycles": 82001,
+      "values": [
+        -210,
+        -147,
+        97,
+        -139
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 101,
+      "right": 0,
+      "cycles": 81730,
+      "values": [
+        33,
+        -254,
+        168,
+        22
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 101,
+      "right": 1,
+      "cycles": 81365,
+      "values": [
+        100,
+        -236,
+        156,
+        66
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 102,
+      "right": 0,
+      "cycles": 82467,
+      "values": [
+        -251,
+        52,
+        -34,
+        -166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 102,
+      "right": 1,
+      "cycles": 80067,
+      "values": [
+        -256,
+        -18,
+        12,
+        -169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 103,
+      "right": 0,
+      "cycles": 79505,
+      "values": [
+        256,
+        -18,
+        12,
+        169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 103,
+      "right": 1,
+      "cycles": 81708,
+      "values": [
+        251,
+        52,
+        -34,
+        166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 104,
+      "right": 0,
+      "cycles": 82020,
+      "values": [
+        -100,
+        -236,
+        156,
+        -66
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 104,
+      "right": 1,
+      "cycles": 82397,
+      "values": [
+        -33,
+        -254,
+        168,
+        -22
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 105,
+      "right": 0,
+      "cycles": 81334,
+      "values": [
+        210,
+        -147,
+        97,
+        139
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 105,
+      "right": 1,
+      "cycles": 81079,
+      "values": [
+        242,
+        -85,
+        56,
+        160
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 106,
+      "right": 0,
+      "cycles": 82998,
+      "values": [
+        227,
+        119,
+        -79,
+        150
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 106,
+      "right": 1,
+      "cycles": 82550,
+      "values": [
+        187,
+        176,
+        -116,
+        123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 107,
+      "right": 0,
+      "cycles": 81473,
+      "values": [
+        -161,
+        200,
+        -132,
+        -106
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 107,
+      "right": 1,
+      "cycles": 82071,
+      "values": [
+        -209,
+        149,
+        -98,
+        -138
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 108,
+      "right": 0,
+      "cycles": 82543,
+      "values": [
+        -251,
+        -51,
+        34,
+        -166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 108,
+      "right": 1,
+      "cycles": 82794,
+      "values": [
+        -228,
+        -117,
+        77,
+        -151
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 109,
+      "right": 0,
+      "cycles": 82969,
+      "values": [
+        67,
+        -248,
+        164,
+        44
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 109,
+      "right": 1,
+      "cycles": 81380,
+      "values": [
+        131,
+        -220,
+        145,
+        86
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 110,
+      "right": 0,
+      "cycles": 82296,
+      "values": [
+        -242,
+        86,
+        -57,
+        -160
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 110,
+      "right": 1,
+      "cycles": 80909,
+      "values": [
+        -256,
+        17,
+        -11,
+        -169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 111,
+      "right": 0,
+      "cycles": 80347,
+      "values": [
+        256,
+        17,
+        -11,
+        169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 111,
+      "right": 1,
+      "cycles": 81537,
+      "values": [
+        242,
+        86,
+        -57,
+        160
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 112,
+      "right": 0,
+      "cycles": 82035,
+      "values": [
+        -131,
+        -220,
+        145,
+        -86
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 112,
+      "right": 1,
+      "cycles": 83636,
+      "values": [
+        -67,
+        -248,
+        164,
+        -44
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 113,
+      "right": 0,
+      "cycles": 82127,
+      "values": [
+        228,
+        -117,
+        77,
+        151
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 113,
+      "right": 1,
+      "cycles": 81888,
+      "values": [
+        251,
+        -51,
+        34,
+        166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 114,
+      "right": 0,
+      "cycles": 81508,
+      "values": [
+        209,
+        149,
+        -98,
+        138
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 114,
+      "right": 1,
+      "cycles": 80714,
+      "values": [
+        161,
+        200,
+        -132,
+        106
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 115,
+      "right": 0,
+      "cycles": 82206,
+      "values": [
+        -132,
+        220,
+        -145,
+        -87
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 115,
+      "right": 1,
+      "cycles": 83218,
+      "values": [
+        -187,
+        176,
+        -116,
+        -123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 116,
+      "right": 0,
+      "cycles": 80271,
+      "values": [
+        -256,
+        -16,
+        11,
+        -169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 116,
+      "right": 1,
+      "cycles": 81836,
+      "values": [
+        -242,
+        -85,
+        56,
+        -160
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 117,
+      "right": 0,
+      "cycles": 81051,
+      "values": [
+        100,
+        -236,
+        156,
+        66
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 117,
+      "right": 1,
+      "cycles": 80145,
+      "values": [
+        160,
+        -200,
+        132,
+        106
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 118,
+      "right": 0,
+      "cycles": 83015,
+      "values": [
+        -228,
+        118,
+        -78,
+        -151
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 118,
+      "right": 1,
+      "cycles": 82553,
+      "values": [
+        -251,
+        52,
+        -34,
+        -166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 119,
+      "right": 0,
+      "cycles": 81990,
+      "values": [
+        251,
+        52,
+        -34,
+        166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 119,
+      "right": 1,
+      "cycles": 82256,
+      "values": [
+        228,
+        118,
+        -78,
+        151
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 120,
+      "right": 0,
+      "cycles": 80799,
+      "values": [
+        -160,
+        -200,
+        132,
+        -106
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 120,
+      "right": 1,
+      "cycles": 81718,
+      "values": [
+        -100,
+        -236,
+        156,
+        -66
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 121,
+      "right": 0,
+      "cycles": 81169,
+      "values": [
+        242,
+        -85,
+        56,
+        160
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 121,
+      "right": 1,
+      "cycles": 79617,
+      "values": [
+        256,
+        -16,
+        11,
+        169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 122,
+      "right": 0,
+      "cycles": 82655,
+      "values": [
+        187,
+        176,
+        -116,
+        123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 122,
+      "right": 1,
+      "cycles": 81447,
+      "values": [
+        132,
+        220,
+        -145,
+        87
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 123,
+      "right": 0,
+      "cycles": 82503,
+      "values": [
+        -101,
+        236,
+        -156,
+        -67
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 123,
+      "right": 1,
+      "cycles": 81383,
+      "values": [
+        -161,
+        200,
+        -132,
+        -106
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 124,
+      "right": 0,
+      "cycles": 81054,
+      "values": [
+        -256,
+        19,
+        -13,
+        -169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 124,
+      "right": 1,
+      "cycles": 82447,
+      "values": [
+        -251,
+        -51,
+        34,
+        -166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 125,
+      "right": 0,
+      "cycles": 81360,
+      "values": [
+        131,
+        -220,
+        145,
+        86
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 125,
+      "right": 1,
+      "cycles": 81941,
+      "values": [
+        186,
+        -176,
+        116,
+        123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 126,
+      "right": 0,
+      "cycles": 81981,
+      "values": [
+        -210,
+        148,
+        -98,
+        -139
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 126,
+      "right": 1,
+      "cycles": 82228,
+      "values": [
+        -242,
+        86,
+        -57,
+        -160
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 127,
+      "right": 0,
+      "cycles": 81665,
+      "values": [
+        242,
+        86,
+        -57,
+        160
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 127,
+      "right": 1,
+      "cycles": 81222,
+      "values": [
+        210,
+        148,
+        -98,
+        139
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 128,
+      "right": 0,
+      "cycles": 82596,
+      "values": [
+        -186,
+        -176,
+        116,
+        -123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 128,
+      "right": 1,
+      "cycles": 82027,
+      "values": [
+        -131,
+        -220,
+        145,
+        -86
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 129,
+      "right": 0,
+      "cycles": 81780,
+      "values": [
+        251,
+        -51,
+        34,
+        166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 129,
+      "right": 1,
+      "cycles": 80400,
+      "values": [
+        256,
+        19,
+        -13,
+        169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 130,
+      "right": 0,
+      "cycles": 80820,
+      "values": [
+        161,
+        200,
+        -132,
+        106
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 130,
+      "right": 1,
+      "cycles": 81744,
+      "values": [
+        101,
+        236,
+        -156,
+        67
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 131,
+      "right": 0,
+      "cycles": 83054,
+      "values": [
+        -68,
+        247,
+        -163,
+        -45
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 131,
+      "right": 1,
+      "cycles": 82226,
+      "values": [
+        -132,
+        220,
+        -145,
+        -87
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 132,
+      "right": 0,
+      "cycles": 82742,
+      "values": [
+        -251,
+        54,
+        -36,
+        -166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 132,
+      "right": 1,
+      "cycles": 80025,
+      "values": [
+        -256,
+        -16,
+        11,
+        -169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 133,
+      "right": 0,
+      "cycles": 80190,
+      "values": [
+        160,
+        -200,
+        132,
+        106
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 133,
+      "right": 1,
+      "cycles": 83028,
+      "values": [
+        209,
+        -150,
+        99,
+        138
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 134,
+      "right": 0,
+      "cycles": 83549,
+      "values": [
+        -188,
+        175,
+        -116,
+        -124
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 134,
+      "right": 1,
+      "cycles": 82925,
+      "values": [
+        -228,
+        118,
+        -78,
+        -151
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 135,
+      "right": 0,
+      "cycles": 82362,
+      "values": [
+        228,
+        118,
+        -78,
+        151
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 135,
+      "right": 1,
+      "cycles": 82790,
+      "values": [
+        188,
+        175,
+        -116,
+        124
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 136,
+      "right": 0,
+      "cycles": 83683,
+      "values": [
+        -209,
+        -150,
+        99,
+        -138
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 136,
+      "right": 1,
+      "cycles": 80857,
+      "values": [
+        -160,
+        -200,
+        132,
+        -106
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 137,
+      "right": 0,
+      "cycles": 79462,
+      "values": [
+        256,
+        -16,
+        11,
+        169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 137,
+      "right": 1,
+      "cycles": 81983,
+      "values": [
+        251,
+        54,
+        -36,
+        166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 138,
+      "right": 0,
+      "cycles": 81663,
+      "values": [
+        132,
+        220,
+        -145,
+        87
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 138,
+      "right": 1,
+      "cycles": 82295,
+      "values": [
+        68,
+        247,
+        -163,
+        45
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 139,
+      "right": 0,
+      "cycles": 82328,
+      "values": [
+        -34,
+        254,
+        -168,
+        -22
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 139,
+      "right": 1,
+      "cycles": 84307,
+      "values": [
+        -101,
+        236,
+        -156,
+        -67
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 140,
+      "right": 0,
+      "cycles": 83073,
+      "values": [
+        -241,
+        88,
+        -58,
+        -159
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 140,
+      "right": 1,
+      "cycles": 81160,
+      "values": [
+        -256,
+        19,
+        -13,
+        -169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 141,
+      "right": 0,
+      "cycles": 82453,
+      "values": [
+        186,
+        -176,
+        116,
+        123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 141,
+      "right": 1,
+      "cycles": 82089,
+      "values": [
+        227,
+        -120,
+        79,
+        150
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 142,
+      "right": 0,
+      "cycles": 82728,
+      "values": [
+        -162,
+        198,
+        -131,
+        -107
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 142,
+      "right": 1,
+      "cycles": 81979,
+      "values": [
+        -210,
+        148,
+        -98,
+        -139
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 143,
+      "right": 0,
+      "cycles": 81416,
+      "values": [
+        210,
+        148,
+        -98,
+        139
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 143,
+      "right": 1,
+      "cycles": 81969,
+      "values": [
+        162,
+        198,
+        -131,
+        107
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 144,
+      "right": 0,
+      "cycles": 82744,
+      "values": [
+        -227,
+        -120,
+        79,
+        -150
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 144,
+      "right": 1,
+      "cycles": 83120,
+      "values": [
+        -186,
+        -176,
+        116,
+        -123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 145,
+      "right": 0,
+      "cycles": 80597,
+      "values": [
+        256,
+        19,
+        -13,
+        169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 145,
+      "right": 1,
+      "cycles": 82314,
+      "values": [
+        241,
+        88,
+        -58,
+        159
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 146,
+      "right": 0,
+      "cycles": 83744,
+      "values": [
+        101,
+        236,
+        -156,
+        67
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 146,
+      "right": 1,
+      "cycles": 81569,
+      "values": [
+        34,
+        254,
+        -168,
+        22
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 147,
+      "right": 0,
+      "cycles": 79523,
+      "values": [
+        1,
+        256,
+        -169,
+        1
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 147,
+      "right": 1,
+      "cycles": 82768,
+      "values": [
+        -68,
+        247,
+        -163,
+        -45
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 148,
+      "right": 0,
+      "cycles": 83059,
+      "values": [
+        -227,
+        120,
+        -79,
+        -150
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 148,
+      "right": 1,
+      "cycles": 82784,
+      "values": [
+        -251,
+        54,
+        -36,
+        -166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 149,
+      "right": 0,
+      "cycles": 81228,
+      "values": [
+        208,
+        -149,
+        98,
+        137
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 149,
+      "right": 1,
+      "cycles": 82047,
+      "values": [
+        241,
+        -88,
+        58,
+        159
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 150,
+      "right": 0,
+      "cycles": 84502,
+      "values": [
+        -135,
+        219,
+        -145,
+        -89
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 150,
+      "right": 1,
+      "cycles": 85269,
+      "values": [
+        -188,
+        175,
+        -116,
+        -124
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 151,
+      "right": 0,
+      "cycles": 84706,
+      "values": [
+        188,
+        175,
+        -116,
+        124
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 151,
+      "right": 1,
+      "cycles": 83743,
+      "values": [
+        135,
+        219,
+        -145,
+        89
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 152,
+      "right": 0,
+      "cycles": 82702,
+      "values": [
+        -241,
+        -88,
+        58,
+        -159
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 152,
+      "right": 1,
+      "cycles": 81895,
+      "values": [
+        -208,
+        -149,
+        98,
+        -137
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 153,
+      "right": 0,
+      "cycles": 82221,
+      "values": [
+        251,
+        54,
+        -36,
+        166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 153,
+      "right": 1,
+      "cycles": 82300,
+      "values": [
+        227,
+        120,
+        -79,
+        150
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 154,
+      "right": 0,
+      "cycles": 82205,
+      "values": [
+        68,
+        247,
+        -163,
+        45
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 154,
+      "right": 1,
+      "cycles": 79890,
+      "values": [
+        -1,
+        256,
+        -169,
+        -1
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 155,
+      "right": 0,
+      "cycles": 83028,
+      "values": [
+        36,
+        254,
+        -168,
+        24
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 155,
+      "right": 1,
+      "cycles": 81978,
+      "values": [
+        -34,
+        254,
+        -168,
+        -22
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 156,
+      "right": 0,
+      "cycles": 82170,
+      "values": [
+        -208,
+        149,
+        -98,
+        -137
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 156,
+      "right": 1,
+      "cycles": 82983,
+      "values": [
+        -241,
+        88,
+        -58,
+        -159
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 157,
+      "right": 0,
+      "cycles": 82031,
+      "values": [
+        186,
+        -176,
+        116,
+        123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 157,
+      "right": 1,
+      "cycles": 84347,
+      "values": [
+        227,
+        -119,
+        79,
+        150
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 158,
+      "right": 0,
+      "cycles": 82135,
+      "values": [
+        227,
+        -120,
+        79,
+        150
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 158,
+      "right": 1,
+      "cycles": 81848,
+      "values": [
+        251,
+        -54,
+        36,
+        166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 159,
+      "right": 0,
+      "cycles": 82806,
+      "values": [
+        -104,
+        235,
+        -155,
+        -69
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 159,
+      "right": 1,
+      "cycles": 82660,
+      "values": [
+        -162,
+        198,
+        -131,
+        -107
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 160,
+      "right": 0,
+      "cycles": 82097,
+      "values": [
+        162,
+        198,
+        -131,
+        107
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 160,
+      "right": 1,
+      "cycles": 82047,
+      "values": [
+        104,
+        235,
+        -155,
+        69
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 161,
+      "right": 0,
+      "cycles": 82503,
+      "values": [
+        -251,
+        -54,
+        36,
+        -166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 161,
+      "right": 1,
+      "cycles": 82802,
+      "values": [
+        -227,
+        -120,
+        79,
+        -150
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 162,
+      "right": 0,
+      "cycles": 85002,
+      "values": [
+        -227,
+        -119,
+        79,
+        -150
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 162,
+      "right": 1,
+      "cycles": 82698,
+      "values": [
+        -186,
+        -176,
+        116,
+        -123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 163,
+      "right": 0,
+      "cycles": 82420,
+      "values": [
+        241,
+        88,
+        -58,
+        159
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 163,
+      "right": 1,
+      "cycles": 81411,
+      "values": [
+        208,
+        149,
+        -98,
+        137
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 164,
+      "right": 0,
+      "cycles": 81611,
+      "values": [
+        34,
+        254,
+        -168,
+        22
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 164,
+      "right": 1,
+      "cycles": 83591,
+      "values": [
+        -36,
+        254,
+        -168,
+        -24
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 165,
+      "right": 0,
+      "cycles": 82512,
+      "values": [
+        70,
+        247,
+        -163,
+        46
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 165,
+      "right": 1,
+      "cycles": 79687,
+      "values": [
+        1,
+        256,
+        -169,
+        1
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 166,
+      "right": 0,
+      "cycles": 82962,
+      "values": [
+        -186,
+        176,
+        -116,
+        -123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 166,
+      "right": 1,
+      "cycles": 85265,
+      "values": [
+        -227,
+        119,
+        -79,
+        -150
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 167,
+      "right": 0,
+      "cycles": 82137,
+      "values": [
+        241,
+        -88,
+        58,
+        159
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 167,
+      "right": 1,
+      "cycles": 80206,
+      "values": [
+        256,
+        -19,
+        13,
+        169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 168,
+      "right": 0,
+      "cycles": 83499,
+      "values": [
+        -71,
+        246,
+        -162,
+        -47
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 168,
+      "right": 1,
+      "cycles": 82192,
+      "values": [
+        -134,
+        218,
+        -144,
+        -88
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 169,
+      "right": 0,
+      "cycles": 81629,
+      "values": [
+        134,
+        218,
+        -144,
+        88
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 169,
+      "right": 1,
+      "cycles": 82740,
+      "values": [
+        71,
+        246,
+        -162,
+        47
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 170,
+      "right": 0,
+      "cycles": 80861,
+      "values": [
+        -256,
+        -19,
+        13,
+        -169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 170,
+      "right": 1,
+      "cycles": 82804,
+      "values": [
+        -241,
+        -88,
+        58,
+        -159
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 171,
+      "right": 0,
+      "cycles": 84702,
+      "values": [
+        227,
+        119,
+        -79,
+        150
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 171,
+      "right": 1,
+      "cycles": 82203,
+      "values": [
+        186,
+        176,
+        -116,
+        123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 172,
+      "right": 0,
+      "cycles": 80446,
+      "values": [
+        -1,
+        256,
+        -169,
+        -1
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 172,
+      "right": 1,
+      "cycles": 83075,
+      "values": [
+        -70,
+        247,
+        -163,
+        -46
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 173,
+      "right": 0,
+      "cycles": 82580,
+      "values": [
+        103,
+        235,
+        -155,
+        68
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 173,
+      "right": 1,
+      "cycles": 81288,
+      "values": [
+        36,
+        254,
+        -168,
+        24
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 174,
+      "right": 0,
+      "cycles": 81126,
+      "values": [
+        -160,
+        200,
+        -132,
+        -106
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 174,
+      "right": 1,
+      "cycles": 83964,
+      "values": [
+        -209,
+        150,
+        -99,
+        -138
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 175,
+      "right": 0,
+      "cycles": 81806,
+      "values": [
+        251,
+        -54,
+        36,
+        166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 175,
+      "right": 1,
+      "cycles": 79854,
+      "values": [
+        256,
+        16,
+        -11,
+        169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 176,
+      "right": 0,
+      "cycles": 84156,
+      "values": [
+        -37,
+        254,
+        -168,
+        -24
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 176,
+      "right": 1,
+      "cycles": 82276,
+      "values": [
+        -104,
+        234,
+        -154,
+        -69
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 177,
+      "right": 0,
+      "cycles": 84871,
+      "values": [
+        -103,
+        235,
+        -155,
+        -68
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 177,
+      "right": 1,
+      "cycles": 84249,
+      "values": [
+        -163,
+        199,
+        -131,
+        -108
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 178,
+      "right": 0,
+      "cycles": 83686,
+      "values": [
+        163,
+        199,
+        -131,
+        108
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 178,
+      "right": 1,
+      "cycles": 84112,
+      "values": [
+        103,
+        235,
+        -155,
+        68
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 179,
+      "right": 0,
+      "cycles": 81713,
+      "values": [
+        104,
+        234,
+        -154,
+        69
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 179,
+      "right": 1,
+      "cycles": 83397,
+      "values": [
+        37,
+        254,
+        -168,
+        24
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 180,
+      "right": 0,
+      "cycles": 80509,
+      "values": [
+        -256,
+        16,
+        -11,
+        -169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 180,
+      "right": 1,
+      "cycles": 82473,
+      "values": [
+        -251,
+        -54,
+        36,
+        -166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 181,
+      "right": 0,
+      "cycles": 83401,
+      "values": [
+        209,
+        150,
+        -99,
+        138
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 181,
+      "right": 1,
+      "cycles": 80367,
+      "values": [
+        160,
+        200,
+        -132,
+        106
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 182,
+      "right": 0,
+      "cycles": 82047,
+      "values": [
+        -36,
+        254,
+        -168,
+        -24
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 182,
+      "right": 1,
+      "cycles": 83143,
+      "values": [
+        -103,
+        235,
+        -155,
+        -68
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 183,
+      "right": 0,
+      "cycles": 81775,
+      "values": [
+        134,
+        219,
+        -145,
+        88
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 183,
+      "right": 1,
+      "cycles": 82406,
+      "values": [
+        70,
+        247,
+        -163,
+        46
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 184,
+      "right": 0,
+      "cycles": 82278,
+      "values": [
+        -131,
+        220,
+        -145,
+        -86
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 184,
+      "right": 1,
+      "cycles": 82871,
+      "values": [
+        -186,
+        176,
+        -116,
+        -123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 185,
+      "right": 0,
+      "cycles": 83383,
+      "values": [
+        -186,
+        176,
+        -116,
+        -123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 185,
+      "right": 1,
+      "cycles": 83013,
+      "values": [
+        -227,
+        120,
+        -79,
+        -150
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 186,
+      "right": 0,
+      "cycles": 80009,
+      "values": [
+        256,
+        -19,
+        13,
+        169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 186,
+      "right": 1,
+      "cycles": 81963,
+      "values": [
+        251,
+        51,
+        -34,
+        166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 187,
+      "right": 0,
+      "cycles": 80486,
+      "values": [
+        -2,
+        256,
+        -169,
+        -1
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 187,
+      "right": 1,
+      "cycles": 83475,
+      "values": [
+        -71,
+        246,
+        -162,
+        -47
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 188,
+      "right": 0,
+      "cycles": 83117,
+      "values": [
+        -71,
+        246,
+        -162,
+        -47
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 188,
+      "right": 1,
+      "cycles": 82290,
+      "values": [
+        -135,
+        218,
+        -144,
+        -89
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 189,
+      "right": 0,
+      "cycles": 83165,
+      "values": [
+        -70,
+        247,
+        -163,
+        -46
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 189,
+      "right": 1,
+      "cycles": 82338,
+      "values": [
+        -134,
+        219,
+        -145,
+        -88
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 190,
+      "right": 0,
+      "cycles": 82340,
+      "values": [
+        -134,
+        219,
+        -145,
+        -88
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 190,
+      "right": 1,
+      "cycles": 83961,
+      "values": [
+        -188,
+        174,
+        -115,
+        -124
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 191,
+      "right": 0,
+      "cycles": 83398,
+      "values": [
+        188,
+        174,
+        -115,
+        124
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 191,
+      "right": 1,
+      "cycles": 81581,
+      "values": [
+        134,
+        219,
+        -145,
+        88
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 192,
+      "right": 0,
+      "cycles": 81727,
+      "values": [
+        135,
+        218,
+        -144,
+        89
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 192,
+      "right": 1,
+      "cycles": 82358,
+      "values": [
+        71,
+        246,
+        -162,
+        47
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 193,
+      "right": 0,
+      "cycles": 82912,
+      "values": [
+        71,
+        246,
+        -162,
+        47
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 193,
+      "right": 1,
+      "cycles": 79727,
+      "values": [
+        2,
+        256,
+        -169,
+        1
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 194,
+      "right": 0,
+      "cycles": 82722,
+      "values": [
+        -251,
+        51,
+        -34,
+        -166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 194,
+      "right": 1,
+      "cycles": 80571,
+      "values": [
+        -256,
+        -19,
+        13,
+        -169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 195,
+      "right": 0,
+      "cycles": 82450,
+      "values": [
+        227,
+        120,
+        -79,
+        150
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 195,
+      "right": 1,
+      "cycles": 82624,
+      "values": [
+        186,
+        176,
+        -116,
+        123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 196,
+      "right": 0,
+      "cycles": 82308,
+      "values": [
+        186,
+        176,
+        -116,
+        123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 196,
+      "right": 1,
+      "cycles": 81519,
+      "values": [
+        131,
+        220,
+        -145,
+        86
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 197,
+      "right": 0,
+      "cycles": 82000,
+      "values": [
+        162,
+        199,
+        -131,
+        107
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 197,
+      "right": 1,
+      "cycles": 82408,
+      "values": [
+        103,
+        235,
+        -155,
+        68
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 198,
+      "right": 0,
+      "cycles": 81969,
+      "values": [
+        -100,
+        236,
+        -156,
+        -66
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 198,
+      "right": 1,
+      "cycles": 81080,
+      "values": [
+        -160,
+        200,
+        -132,
+        -106
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 199,
+      "right": 0,
+      "cycles": 80008,
+      "values": [
+        256,
+        16,
+        -11,
+        169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 199,
+      "right": 1,
+      "cycles": 81352,
+      "values": [
+        242,
+        85,
+        -56,
+        160
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 200,
+      "right": 0,
+      "cycles": 81575,
+      "values": [
+        33,
+        254,
+        -168,
+        22
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 200,
+      "right": 1,
+      "cycles": 83934,
+      "values": [
+        -37,
+        254,
+        -168,
+        -24
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 201,
+      "right": 0,
+      "cycles": 82300,
+      "values": [
+        -104,
+        234,
+        -154,
+        -69
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 201,
+      "right": 1,
+      "cycles": 82260,
+      "values": [
+        -163,
+        198,
+        -131,
+        -108
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 202,
+      "right": 0,
+      "cycles": 83167,
+      "values": [
+        -103,
+        235,
+        -155,
+        -68
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 202,
+      "right": 1,
+      "cycles": 82563,
+      "values": [
+        -162,
+        199,
+        -131,
+        -107
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 203,
+      "right": 0,
+      "cycles": 82328,
+      "values": [
+        -163,
+        198,
+        -131,
+        -108
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 203,
+      "right": 1,
+      "cycles": 82252,
+      "values": [
+        -210,
+        147,
+        -97,
+        -139
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 204,
+      "right": 0,
+      "cycles": 81689,
+      "values": [
+        210,
+        147,
+        -97,
+        139
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 204,
+      "right": 1,
+      "cycles": 81569,
+      "values": [
+        163,
+        198,
+        -131,
+        108
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 205,
+      "right": 0,
+      "cycles": 81697,
+      "values": [
+        163,
+        198,
+        -131,
+        108
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 205,
+      "right": 1,
+      "cycles": 81541,
+      "values": [
+        104,
+        234,
+        -154,
+        69
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 206,
+      "right": 0,
+      "cycles": 83371,
+      "values": [
+        37,
+        254,
+        -168,
+        24
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 206,
+      "right": 1,
+      "cycles": 81942,
+      "values": [
+        -33,
+        254,
+        -168,
+        -22
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 207,
+      "right": 0,
+      "cycles": 82111,
+      "values": [
+        -242,
+        85,
+        -56,
+        -160
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 207,
+      "right": 1,
+      "cycles": 80570,
+      "values": [
+        -256,
+        16,
+        -11,
+        -169
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 208,
+      "right": 0,
+      "cycles": 80518,
+      "values": [
+        160,
+        200,
+        -132,
+        106
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 208,
+      "right": 1,
+      "cycles": 81210,
+      "values": [
+        100,
+        236,
+        -156,
+        66
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 209,
+      "right": 0,
+      "cycles": 82962,
+      "values": [
+        188,
+        175,
+        -116,
+        124
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 209,
+      "right": 1,
+      "cycles": 81523,
+      "values": [
+        133,
+        219,
+        -145,
+        88
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 210,
+      "right": 0,
+      "cycles": 83881,
+      "values": [
+        -67,
+        248,
+        -164,
+        -44
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 210,
+      "right": 1,
+      "cycles": 82298,
+      "values": [
+        -131,
+        220,
+        -145,
+        -86
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 211,
+      "right": 0,
+      "cycles": 82267,
+      "values": [
+        251,
+        51,
+        -34,
+        166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 211,
+      "right": 1,
+      "cycles": 82298,
+      "values": [
+        228,
+        117,
+        -77,
+        151
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 212,
+      "right": 0,
+      "cycles": 83294,
+      "values": [
+        67,
+        248,
+        -164,
+        44
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 212,
+      "right": 1,
+      "cycles": 79908,
+      "values": [
+        -2,
+        256,
+        -169,
+        -1
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 213,
+      "right": 0,
+      "cycles": 82336,
+      "values": [
+        -135,
+        218,
+        -144,
+        -89
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 213,
+      "right": 1,
+      "cycles": 83539,
+      "values": [
+        -188,
+        174,
+        -115,
+        -124
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 214,
+      "right": 0,
+      "cycles": 82282,
+      "values": [
+        -133,
+        219,
+        -145,
+        -88
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 214,
+      "right": 1,
+      "cycles": 83525,
+      "values": [
+        -188,
+        175,
+        -116,
+        -124
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 215,
+      "right": 0,
+      "cycles": 83585,
+      "values": [
+        -188,
+        174,
+        -115,
+        -124
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 215,
+      "right": 1,
+      "cycles": 82989,
+      "values": [
+        -228,
+        117,
+        -77,
+        -151
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 216,
+      "right": 0,
+      "cycles": 82426,
+      "values": [
+        228,
+        117,
+        -77,
+        151
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 216,
+      "right": 1,
+      "cycles": 82826,
+      "values": [
+        188,
+        174,
+        -115,
+        124
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 217,
+      "right": 0,
+      "cycles": 82976,
+      "values": [
+        188,
+        174,
+        -115,
+        124
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 217,
+      "right": 1,
+      "cycles": 81577,
+      "values": [
+        135,
+        218,
+        -144,
+        89
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 218,
+      "right": 0,
+      "cycles": 79541,
+      "values": [
+        2,
+        256,
+        -169,
+        1
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 218,
+      "right": 1,
+      "cycles": 83857,
+      "values": [
+        -67,
+        248,
+        -164,
+        -44
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 219,
+      "right": 0,
+      "cycles": 83057,
+      "values": [
+        -228,
+        117,
+        -77,
+        -151
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 219,
+      "right": 1,
+      "cycles": 82830,
+      "values": [
+        -251,
+        51,
+        -34,
+        -166
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 220,
+      "right": 0,
+      "cycles": 81735,
+      "values": [
+        131,
+        220,
+        -145,
+        86
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 220,
+      "right": 1,
+      "cycles": 83122,
+      "values": [
+        67,
+        248,
+        -164,
+        44
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 221,
+      "right": 0,
+      "cycles": 82959,
+      "values": [
+        162,
+        200,
+        -132,
+        107
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 221,
+      "right": 1,
+      "cycles": 82350,
+      "values": [
+        102,
+        235,
+        -155,
+        67
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 222,
+      "right": 0,
+      "cycles": 82630,
+      "values": [
+        -33,
+        254,
+        -168,
+        -22
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 222,
+      "right": 1,
+      "cycles": 82283,
+      "values": [
+        -100,
+        236,
+        -156,
+        -66
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 223,
+      "right": 0,
+      "cycles": 81458,
+      "values": [
+        242,
+        85,
+        -56,
+        160
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 223,
+      "right": 1,
+      "cycles": 81517,
+      "values": [
+        210,
+        147,
+        -97,
+        139
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 224,
+      "right": 0,
+      "cycles": 81720,
+      "values": [
+        100,
+        236,
+        -156,
+        66
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 224,
+      "right": 1,
+      "cycles": 81871,
+      "values": [
+        33,
+        254,
+        -168,
+        22
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 225,
+      "right": 0,
+      "cycles": 83109,
+      "values": [
+        -102,
+        235,
+        -155,
+        -67
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 225,
+      "right": 1,
+      "cycles": 83522,
+      "values": [
+        -162,
+        200,
+        -132,
+        -107
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 226,
+      "right": 0,
+      "cycles": 82276,
+      "values": [
+        -210,
+        147,
+        -97,
+        -139
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 226,
+      "right": 1,
+      "cycles": 82021,
+      "values": [
+        -242,
+        85,
+        -56,
+        -160
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 227,
+      "right": 0,
+      "cycles": 83634,
+      "values": [
+        187,
+        175,
+        -116,
+        123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 227,
+      "right": 1,
+      "cycles": 82008,
+      "values": [
+        132,
+        219,
+        -145,
+        87
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 228,
+      "right": 0,
+      "cycles": 81717,
+      "values": [
+        133,
+        219,
+        -145,
+        88
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 228,
+      "right": 1,
+      "cycles": 82348,
+      "values": [
+        69,
+        247,
+        -163,
+        46
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 229,
+      "right": 0,
+      "cycles": 83107,
+      "values": [
+        -69,
+        247,
+        -163,
+        -46
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 229,
+      "right": 1,
+      "cycles": 82280,
+      "values": [
+        -133,
+        219,
+        -145,
+        -88
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 230,
+      "right": 0,
+      "cycles": 82767,
+      "values": [
+        -132,
+        219,
+        -145,
+        -87
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 230,
+      "right": 1,
+      "cycles": 84197,
+      "values": [
+        -187,
+        175,
+        -116,
+        -123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 231,
+      "right": 0,
+      "cycles": 81243,
+      "values": [
+        209,
+        148,
+        -98,
+        138
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 231,
+      "right": 1,
+      "cycles": 81916,
+      "values": [
+        162,
+        199,
+        -131,
+        107
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 232,
+      "right": 0,
+      "cycles": 82937,
+      "values": [
+        162,
+        200,
+        -132,
+        107
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 232,
+      "right": 1,
+      "cycles": 83572,
+      "values": [
+        101,
+        236,
+        -156,
+        67
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 233,
+      "right": 0,
+      "cycles": 82522,
+      "values": [
+        102,
+        235,
+        -155,
+        67
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 233,
+      "right": 1,
+      "cycles": 82111,
+      "values": [
+        35,
+        254,
+        -168,
+        23
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 234,
+      "right": 0,
+      "cycles": 82870,
+      "values": [
+        -35,
+        254,
+        -168,
+        -23
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 234,
+      "right": 1,
+      "cycles": 83085,
+      "values": [
+        -102,
+        235,
+        -155,
+        -67
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 235,
+      "right": 0,
+      "cycles": 84331,
+      "values": [
+        -101,
+        236,
+        -156,
+        -67
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 235,
+      "right": 1,
+      "cycles": 83500,
+      "values": [
+        -162,
+        200,
+        -132,
+        -107
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 236,
+      "right": 0,
+      "cycles": 82675,
+      "values": [
+        -162,
+        199,
+        -131,
+        -107
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 236,
+      "right": 1,
+      "cycles": 81806,
+      "values": [
+        -209,
+        148,
+        -98,
+        -138
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 237,
+      "right": 0,
+      "cycles": 84168,
+      "values": [
+        228,
+        118,
+        -78,
+        151
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 237,
+      "right": 1,
+      "cycles": 83346,
+      "values": [
+        187,
+        175,
+        -116,
+        123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 238,
+      "right": 0,
+      "cycles": 82498,
+      "values": [
+        69,
+        247,
+        -163,
+        46
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 238,
+      "right": 1,
+      "cycles": 78793,
+      "values": [
+        0,
+        256,
+        -169,
+        0
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 239,
+      "right": 0,
+      "cycles": 79129,
+      "values": [
+        0,
+        256,
+        -169,
+        0
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 239,
+      "right": 1,
+      "cycles": 83061,
+      "values": [
+        -69,
+        247,
+        -163,
+        -46
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 240,
+      "right": 0,
+      "cycles": 84105,
+      "values": [
+        -187,
+        175,
+        -116,
+        -123
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 240,
+      "right": 1,
+      "cycles": 84731,
+      "values": [
+        -228,
+        118,
+        -78,
+        -151
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 241,
+      "right": 0,
+      "cycles": 82063,
+      "values": [
+        35,
+        254,
+        -168,
+        23
+      ]
+    },
+    {
+      "variant": "baseline",
+      "state": 241,
+      "right": 1,
+      "cycles": 82476,
+      "values": [
+        -35,
+        254,
+        -168,
+        -23
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 0,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -35,
+        -254,
+        168,
+        -23
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 0,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        35,
+        -254,
+        168,
+        23
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 1,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -69,
+        -247,
+        163,
+        -46
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 1,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        0,
+        -256,
+        169,
+        0
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 2,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        0,
+        -256,
+        169,
+        0
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 2,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        69,
+        -247,
+        163,
+        46
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 3,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -102,
+        -235,
+        155,
+        -67
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 3,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -35,
+        -254,
+        168,
+        -23
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 4,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        35,
+        -254,
+        168,
+        23
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 4,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        102,
+        -235,
+        155,
+        67
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 5,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -133,
+        -219,
+        145,
+        -88
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 5,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -69,
+        -247,
+        163,
+        -46
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 6,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        69,
+        -247,
+        163,
+        46
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 6,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        133,
+        -219,
+        145,
+        88
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 7,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -162,
+        -200,
+        132,
+        -107
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 7,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -102,
+        -235,
+        155,
+        -67
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 8,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        102,
+        -235,
+        155,
+        67
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 8,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        162,
+        -200,
+        132,
+        107
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 9,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -187,
+        -175,
+        116,
+        -123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 9,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -132,
+        -219,
+        145,
+        -87
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 10,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        132,
+        -219,
+        145,
+        87
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 10,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        187,
+        -175,
+        116,
+        123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 11,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -209,
+        -148,
+        98,
+        -138
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 11,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -162,
+        -199,
+        131,
+        -107
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 12,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -162,
+        -200,
+        132,
+        -107
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 12,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -101,
+        -236,
+        156,
+        -67
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 13,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        101,
+        -236,
+        156,
+        67
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 13,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        162,
+        -200,
+        132,
+        107
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 14,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        162,
+        -199,
+        131,
+        107
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 14,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        209,
+        -148,
+        98,
+        138
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 15,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -228,
+        -118,
+        78,
+        -151
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 15,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -187,
+        -175,
+        116,
+        -123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 16,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -188,
+        -175,
+        116,
+        -124
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 16,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -133,
+        -219,
+        145,
+        -88
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 17,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -132,
+        -220,
+        145,
+        -87
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 17,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -68,
+        -247,
+        163,
+        -45
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 18,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        68,
+        -247,
+        163,
+        45
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 18,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        132,
+        -220,
+        145,
+        87
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 19,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        133,
+        -219,
+        145,
+        88
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 19,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        188,
+        -175,
+        116,
+        124
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 20,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        187,
+        -175,
+        116,
+        123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 20,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        228,
+        -118,
+        78,
+        151
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 21,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -242,
+        -86,
+        57,
+        -160
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 21,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -210,
+        -148,
+        98,
+        -139
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 22,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -210,
+        -148,
+        98,
+        -139
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 22,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -162,
+        -198,
+        131,
+        -107
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 23,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -161,
+        -200,
+        132,
+        -106
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 23,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -101,
+        -236,
+        156,
+        -67
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 24,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -101,
+        -236,
+        156,
+        -67
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 24,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -34,
+        -254,
+        168,
+        -22
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 25,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        34,
+        -254,
+        168,
+        22
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 25,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        101,
+        -236,
+        156,
+        67
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 26,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        101,
+        -236,
+        156,
+        67
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 26,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        161,
+        -200,
+        132,
+        106
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 27,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        162,
+        -198,
+        131,
+        107
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 27,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        210,
+        -148,
+        98,
+        139
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 28,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        210,
+        -148,
+        98,
+        139
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 28,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        242,
+        -86,
+        57,
+        160
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 29,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -251,
+        -52,
+        34,
+        -166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 29,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -228,
+        -118,
+        78,
+        -151
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 30,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -228,
+        -118,
+        78,
+        -151
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 30,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -188,
+        -175,
+        116,
+        -124
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 31,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -188,
+        -175,
+        116,
+        -124
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 31,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -135,
+        -219,
+        145,
+        -89
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 32,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -187,
+        -176,
+        116,
+        -123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 32,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -132,
+        -220,
+        145,
+        -87
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 33,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -68,
+        -247,
+        163,
+        -45
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 33,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        1,
+        -256,
+        169,
+        1
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 34,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -1,
+        -256,
+        169,
+        -1
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 34,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        68,
+        -247,
+        163,
+        45
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 35,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        132,
+        -220,
+        145,
+        87
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 35,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        187,
+        -176,
+        116,
+        123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 36,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        135,
+        -219,
+        145,
+        89
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 36,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        188,
+        -175,
+        116,
+        124
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 37,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        188,
+        -175,
+        116,
+        124
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 37,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        228,
+        -118,
+        78,
+        151
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 38,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        228,
+        -118,
+        78,
+        151
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 38,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        251,
+        -52,
+        34,
+        166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 39,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -256,
+        -17,
+        11,
+        -169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 39,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -242,
+        -86,
+        57,
+        -160
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 40,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -162,
+        -198,
+        131,
+        -107
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 40,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -104,
+        -235,
+        155,
+        -69
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 41,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -209,
+        -149,
+        98,
+        -138
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 41,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -161,
+        -200,
+        132,
+        -106
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 42,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -34,
+        -254,
+        168,
+        -22
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 42,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        36,
+        -254,
+        168,
+        24
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 43,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -36,
+        -254,
+        168,
+        -24
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 43,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        34,
+        -254,
+        168,
+        22
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 44,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        161,
+        -200,
+        132,
+        106
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 44,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        209,
+        -149,
+        98,
+        138
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 45,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        104,
+        -235,
+        155,
+        69
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 45,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        162,
+        -198,
+        131,
+        107
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 46,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        242,
+        -86,
+        57,
+        160
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 46,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        256,
+        -17,
+        11,
+        169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 47,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -256,
+        18,
+        -12,
+        -169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 47,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -251,
+        -52,
+        34,
+        -166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 48,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -134,
+        -218,
+        144,
+        -88
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 48,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -71,
+        -246,
+        162,
+        -47
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 49,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -227,
+        -119,
+        79,
+        -150
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 49,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -187,
+        -176,
+        116,
+        -123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 50,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        1,
+        -256,
+        169,
+        1
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 50,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        70,
+        -247,
+        163,
+        46
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 51,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -70,
+        -247,
+        163,
+        -46
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 51,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -1,
+        -256,
+        169,
+        -1
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 52,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        187,
+        -176,
+        116,
+        123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 52,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        227,
+        -119,
+        79,
+        150
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 53,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        71,
+        -246,
+        162,
+        47
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 53,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        134,
+        -218,
+        144,
+        88
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 54,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        251,
+        -52,
+        34,
+        166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 54,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        256,
+        18,
+        -12,
+        169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 55,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -251,
+        53,
+        -35,
+        -166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 55,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -256,
+        -17,
+        11,
+        -169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 56,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -163,
+        -199,
+        131,
+        -108
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 56,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -103,
+        -235,
+        155,
+        -68
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 57,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -104,
+        -234,
+        154,
+        -69
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 57,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -37,
+        -254,
+        168,
+        -24
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 58,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -241,
+        -87,
+        57,
+        -159
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 58,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -209,
+        -149,
+        98,
+        -138
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 59,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        36,
+        -254,
+        168,
+        24
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 59,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        103,
+        -235,
+        155,
+        68
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 60,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -103,
+        -235,
+        155,
+        -68
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 60,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -36,
+        -254,
+        168,
+        -24
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 61,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        209,
+        -149,
+        98,
+        138
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 61,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        241,
+        -87,
+        57,
+        159
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 62,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        37,
+        -254,
+        168,
+        24
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 62,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        104,
+        -234,
+        154,
+        69
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 63,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        103,
+        -235,
+        155,
+        68
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 63,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        163,
+        -199,
+        131,
+        108
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 64,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        256,
+        -17,
+        11,
+        169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 64,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        251,
+        53,
+        -35,
+        166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 65,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -241,
+        87,
+        -57,
+        -159
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 65,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -256,
+        18,
+        -12,
+        -169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 66,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -188,
+        -174,
+        115,
+        -124
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 66,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -134,
+        -219,
+        145,
+        -88
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 67,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -134,
+        -219,
+        145,
+        -88
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 67,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -70,
+        -247,
+        163,
+        -46
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 68,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -135,
+        -218,
+        144,
+        -89
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 68,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -71,
+        -246,
+        162,
+        -47
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 69,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -71,
+        -246,
+        162,
+        -47
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 69,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -2,
+        -256,
+        169,
+        -1
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 70,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -251,
+        -53,
+        35,
+        -166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 70,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -227,
+        -119,
+        79,
+        -150
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 71,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        70,
+        -247,
+        163,
+        46
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 71,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        134,
+        -219,
+        145,
+        88
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 72,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        227,
+        -119,
+        79,
+        150
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 72,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        251,
+        -53,
+        35,
+        166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 73,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        2,
+        -256,
+        169,
+        1
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 73,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        71,
+        -246,
+        162,
+        47
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 74,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        71,
+        -246,
+        162,
+        47
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 74,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        135,
+        -218,
+        144,
+        89
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 75,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        134,
+        -219,
+        145,
+        88
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 75,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        188,
+        -174,
+        115,
+        124
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 76,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        256,
+        18,
+        -12,
+        169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 76,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        241,
+        87,
+        -57,
+        159
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 77,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -227,
+        119,
+        -79,
+        -150
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 77,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -251,
+        53,
+        -35,
+        -166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 78,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -210,
+        -147,
+        97,
+        -139
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 78,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -163,
+        -198,
+        131,
+        -108
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 79,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -162,
+        -199,
+        131,
+        -107
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 79,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -103,
+        -235,
+        155,
+        -68
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 80,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -163,
+        -198,
+        131,
+        -108
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 80,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -104,
+        -234,
+        154,
+        -69
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 81,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -37,
+        -254,
+        168,
+        -24
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 81,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        33,
+        -254,
+        168,
+        22
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 82,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -256,
+        -18,
+        12,
+        -169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 82,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -241,
+        -87,
+        57,
+        -159
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 83,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        103,
+        -235,
+        155,
+        68
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 83,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        162,
+        -199,
+        131,
+        107
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 84,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        241,
+        -87,
+        57,
+        159
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 84,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        256,
+        -18,
+        12,
+        169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 85,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -33,
+        -254,
+        168,
+        -22
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 85,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        37,
+        -254,
+        168,
+        24
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 86,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        104,
+        -234,
+        154,
+        69
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 86,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        163,
+        -198,
+        131,
+        108
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 87,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        163,
+        -198,
+        131,
+        108
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 87,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        210,
+        -147,
+        97,
+        139
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 88,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        251,
+        53,
+        -35,
+        166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 88,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        227,
+        119,
+        -79,
+        150
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 89,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -209,
+        149,
+        -98,
+        -138
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 89,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -241,
+        87,
+        -57,
+        -159
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 90,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -228,
+        -117,
+        77,
+        -151
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 90,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -188,
+        -174,
+        115,
+        -124
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 91,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -188,
+        -174,
+        115,
+        -124
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 91,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -135,
+        -218,
+        144,
+        -89
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 92,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -2,
+        -256,
+        169,
+        -1
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 92,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        67,
+        -248,
+        164,
+        44
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 93,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -256,
+        17,
+        -11,
+        -169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 93,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -251,
+        -53,
+        35,
+        -166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 94,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        251,
+        -53,
+        35,
+        166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 94,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        256,
+        17,
+        -11,
+        169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 95,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -67,
+        -248,
+        164,
+        -44
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 95,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        2,
+        -256,
+        169,
+        1
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 96,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        135,
+        -218,
+        144,
+        89
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 96,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        188,
+        -174,
+        115,
+        124
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 97,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        188,
+        -174,
+        115,
+        124
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 97,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        228,
+        -117,
+        77,
+        151
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 98,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        241,
+        87,
+        -57,
+        159
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 98,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        209,
+        149,
+        -98,
+        138
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 99,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -187,
+        176,
+        -116,
+        -123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 99,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -227,
+        119,
+        -79,
+        -150
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 100,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -242,
+        -85,
+        56,
+        -160
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 100,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -210,
+        -147,
+        97,
+        -139
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 101,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        33,
+        -254,
+        168,
+        22
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 101,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        100,
+        -236,
+        156,
+        66
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 102,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -251,
+        52,
+        -34,
+        -166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 102,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -256,
+        -18,
+        12,
+        -169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 103,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        256,
+        -18,
+        12,
+        169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 103,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        251,
+        52,
+        -34,
+        166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 104,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -100,
+        -236,
+        156,
+        -66
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 104,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -33,
+        -254,
+        168,
+        -22
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 105,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        210,
+        -147,
+        97,
+        139
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 105,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        242,
+        -85,
+        56,
+        160
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 106,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        227,
+        119,
+        -79,
+        150
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 106,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        187,
+        176,
+        -116,
+        123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 107,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -161,
+        200,
+        -132,
+        -106
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 107,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -209,
+        149,
+        -98,
+        -138
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 108,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -251,
+        -51,
+        34,
+        -166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 108,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -228,
+        -117,
+        77,
+        -151
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 109,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        67,
+        -248,
+        164,
+        44
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 109,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        131,
+        -220,
+        145,
+        86
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 110,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -242,
+        86,
+        -57,
+        -160
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 110,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -256,
+        17,
+        -11,
+        -169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 111,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        256,
+        17,
+        -11,
+        169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 111,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        242,
+        86,
+        -57,
+        160
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 112,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -131,
+        -220,
+        145,
+        -86
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 112,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -67,
+        -248,
+        164,
+        -44
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 113,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        228,
+        -117,
+        77,
+        151
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 113,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        251,
+        -51,
+        34,
+        166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 114,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        209,
+        149,
+        -98,
+        138
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 114,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        161,
+        200,
+        -132,
+        106
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 115,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -132,
+        220,
+        -145,
+        -87
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 115,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -187,
+        176,
+        -116,
+        -123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 116,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -256,
+        -16,
+        11,
+        -169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 116,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -242,
+        -85,
+        56,
+        -160
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 117,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        100,
+        -236,
+        156,
+        66
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 117,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        160,
+        -200,
+        132,
+        106
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 118,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -228,
+        118,
+        -78,
+        -151
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 118,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -251,
+        52,
+        -34,
+        -166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 119,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        251,
+        52,
+        -34,
+        166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 119,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        228,
+        118,
+        -78,
+        151
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 120,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -160,
+        -200,
+        132,
+        -106
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 120,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -100,
+        -236,
+        156,
+        -66
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 121,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        242,
+        -85,
+        56,
+        160
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 121,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        256,
+        -16,
+        11,
+        169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 122,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        187,
+        176,
+        -116,
+        123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 122,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        132,
+        220,
+        -145,
+        87
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 123,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -101,
+        236,
+        -156,
+        -67
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 123,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -161,
+        200,
+        -132,
+        -106
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 124,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -256,
+        19,
+        -13,
+        -169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 124,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -251,
+        -51,
+        34,
+        -166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 125,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        131,
+        -220,
+        145,
+        86
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 125,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        186,
+        -176,
+        116,
+        123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 126,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -210,
+        148,
+        -98,
+        -139
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 126,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -242,
+        86,
+        -57,
+        -160
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 127,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        242,
+        86,
+        -57,
+        160
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 127,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        210,
+        148,
+        -98,
+        139
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 128,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -186,
+        -176,
+        116,
+        -123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 128,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -131,
+        -220,
+        145,
+        -86
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 129,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        251,
+        -51,
+        34,
+        166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 129,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        256,
+        19,
+        -13,
+        169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 130,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        161,
+        200,
+        -132,
+        106
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 130,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        101,
+        236,
+        -156,
+        67
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 131,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -68,
+        247,
+        -163,
+        -45
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 131,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -132,
+        220,
+        -145,
+        -87
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 132,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -251,
+        54,
+        -36,
+        -166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 132,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -256,
+        -16,
+        11,
+        -169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 133,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        160,
+        -200,
+        132,
+        106
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 133,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        209,
+        -150,
+        99,
+        138
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 134,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -188,
+        175,
+        -116,
+        -124
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 134,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -228,
+        118,
+        -78,
+        -151
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 135,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        228,
+        118,
+        -78,
+        151
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 135,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        188,
+        175,
+        -116,
+        124
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 136,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -209,
+        -150,
+        99,
+        -138
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 136,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -160,
+        -200,
+        132,
+        -106
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 137,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        256,
+        -16,
+        11,
+        169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 137,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        251,
+        54,
+        -36,
+        166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 138,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        132,
+        220,
+        -145,
+        87
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 138,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        68,
+        247,
+        -163,
+        45
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 139,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -34,
+        254,
+        -168,
+        -22
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 139,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -101,
+        236,
+        -156,
+        -67
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 140,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -241,
+        88,
+        -58,
+        -159
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 140,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -256,
+        19,
+        -13,
+        -169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 141,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        186,
+        -176,
+        116,
+        123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 141,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        227,
+        -120,
+        79,
+        150
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 142,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -162,
+        198,
+        -131,
+        -107
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 142,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -210,
+        148,
+        -98,
+        -139
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 143,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        210,
+        148,
+        -98,
+        139
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 143,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        162,
+        198,
+        -131,
+        107
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 144,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -227,
+        -120,
+        79,
+        -150
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 144,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -186,
+        -176,
+        116,
+        -123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 145,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        256,
+        19,
+        -13,
+        169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 145,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        241,
+        88,
+        -58,
+        159
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 146,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        101,
+        236,
+        -156,
+        67
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 146,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        34,
+        254,
+        -168,
+        22
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 147,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        1,
+        256,
+        -169,
+        1
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 147,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -68,
+        247,
+        -163,
+        -45
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 148,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -227,
+        120,
+        -79,
+        -150
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 148,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -251,
+        54,
+        -36,
+        -166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 149,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        208,
+        -149,
+        98,
+        137
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 149,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        241,
+        -88,
+        58,
+        159
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 150,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -135,
+        219,
+        -145,
+        -89
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 150,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -188,
+        175,
+        -116,
+        -124
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 151,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        188,
+        175,
+        -116,
+        124
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 151,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        135,
+        219,
+        -145,
+        89
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 152,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -241,
+        -88,
+        58,
+        -159
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 152,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -208,
+        -149,
+        98,
+        -137
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 153,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        251,
+        54,
+        -36,
+        166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 153,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        227,
+        120,
+        -79,
+        150
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 154,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        68,
+        247,
+        -163,
+        45
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 154,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -1,
+        256,
+        -169,
+        -1
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 155,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        36,
+        254,
+        -168,
+        24
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 155,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -34,
+        254,
+        -168,
+        -22
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 156,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -208,
+        149,
+        -98,
+        -137
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 156,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -241,
+        88,
+        -58,
+        -159
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 157,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        186,
+        -176,
+        116,
+        123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 157,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        227,
+        -119,
+        79,
+        150
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 158,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        227,
+        -120,
+        79,
+        150
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 158,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        251,
+        -54,
+        36,
+        166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 159,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -104,
+        235,
+        -155,
+        -69
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 159,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -162,
+        198,
+        -131,
+        -107
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 160,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        162,
+        198,
+        -131,
+        107
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 160,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        104,
+        235,
+        -155,
+        69
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 161,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -251,
+        -54,
+        36,
+        -166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 161,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -227,
+        -120,
+        79,
+        -150
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 162,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -227,
+        -119,
+        79,
+        -150
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 162,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -186,
+        -176,
+        116,
+        -123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 163,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        241,
+        88,
+        -58,
+        159
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 163,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        208,
+        149,
+        -98,
+        137
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 164,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        34,
+        254,
+        -168,
+        22
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 164,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -36,
+        254,
+        -168,
+        -24
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 165,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        70,
+        247,
+        -163,
+        46
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 165,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        1,
+        256,
+        -169,
+        1
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 166,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -186,
+        176,
+        -116,
+        -123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 166,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -227,
+        119,
+        -79,
+        -150
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 167,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        241,
+        -88,
+        58,
+        159
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 167,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        256,
+        -19,
+        13,
+        169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 168,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -71,
+        246,
+        -162,
+        -47
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 168,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -134,
+        218,
+        -144,
+        -88
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 169,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        134,
+        218,
+        -144,
+        88
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 169,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        71,
+        246,
+        -162,
+        47
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 170,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -256,
+        -19,
+        13,
+        -169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 170,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -241,
+        -88,
+        58,
+        -159
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 171,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        227,
+        119,
+        -79,
+        150
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 171,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        186,
+        176,
+        -116,
+        123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 172,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -1,
+        256,
+        -169,
+        -1
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 172,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -70,
+        247,
+        -163,
+        -46
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 173,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        103,
+        235,
+        -155,
+        68
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 173,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        36,
+        254,
+        -168,
+        24
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 174,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -160,
+        200,
+        -132,
+        -106
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 174,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -209,
+        150,
+        -99,
+        -138
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 175,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        251,
+        -54,
+        36,
+        166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 175,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        256,
+        16,
+        -11,
+        169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 176,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -37,
+        254,
+        -168,
+        -24
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 176,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -104,
+        234,
+        -154,
+        -69
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 177,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -103,
+        235,
+        -155,
+        -68
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 177,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -163,
+        199,
+        -131,
+        -108
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 178,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        163,
+        199,
+        -131,
+        108
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 178,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        103,
+        235,
+        -155,
+        68
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 179,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        104,
+        234,
+        -154,
+        69
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 179,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        37,
+        254,
+        -168,
+        24
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 180,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -256,
+        16,
+        -11,
+        -169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 180,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -251,
+        -54,
+        36,
+        -166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 181,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        209,
+        150,
+        -99,
+        138
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 181,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        160,
+        200,
+        -132,
+        106
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 182,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -36,
+        254,
+        -168,
+        -24
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 182,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -103,
+        235,
+        -155,
+        -68
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 183,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        134,
+        219,
+        -145,
+        88
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 183,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        70,
+        247,
+        -163,
+        46
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 184,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -131,
+        220,
+        -145,
+        -86
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 184,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -186,
+        176,
+        -116,
+        -123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 185,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -186,
+        176,
+        -116,
+        -123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 185,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -227,
+        120,
+        -79,
+        -150
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 186,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        256,
+        -19,
+        13,
+        169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 186,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        251,
+        51,
+        -34,
+        166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 187,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -2,
+        256,
+        -169,
+        -1
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 187,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -71,
+        246,
+        -162,
+        -47
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 188,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -71,
+        246,
+        -162,
+        -47
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 188,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -135,
+        218,
+        -144,
+        -89
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 189,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -70,
+        247,
+        -163,
+        -46
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 189,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -134,
+        219,
+        -145,
+        -88
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 190,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -134,
+        219,
+        -145,
+        -88
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 190,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -188,
+        174,
+        -115,
+        -124
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 191,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        188,
+        174,
+        -115,
+        124
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 191,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        134,
+        219,
+        -145,
+        88
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 192,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        135,
+        218,
+        -144,
+        89
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 192,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        71,
+        246,
+        -162,
+        47
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 193,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        71,
+        246,
+        -162,
+        47
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 193,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        2,
+        256,
+        -169,
+        1
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 194,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -251,
+        51,
+        -34,
+        -166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 194,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -256,
+        -19,
+        13,
+        -169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 195,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        227,
+        120,
+        -79,
+        150
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 195,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        186,
+        176,
+        -116,
+        123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 196,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        186,
+        176,
+        -116,
+        123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 196,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        131,
+        220,
+        -145,
+        86
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 197,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        162,
+        199,
+        -131,
+        107
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 197,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        103,
+        235,
+        -155,
+        68
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 198,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -100,
+        236,
+        -156,
+        -66
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 198,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -160,
+        200,
+        -132,
+        -106
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 199,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        256,
+        16,
+        -11,
+        169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 199,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        242,
+        85,
+        -56,
+        160
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 200,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        33,
+        254,
+        -168,
+        22
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 200,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -37,
+        254,
+        -168,
+        -24
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 201,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -104,
+        234,
+        -154,
+        -69
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 201,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -163,
+        198,
+        -131,
+        -108
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 202,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -103,
+        235,
+        -155,
+        -68
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 202,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -162,
+        199,
+        -131,
+        -107
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 203,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -163,
+        198,
+        -131,
+        -108
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 203,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -210,
+        147,
+        -97,
+        -139
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 204,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        210,
+        147,
+        -97,
+        139
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 204,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        163,
+        198,
+        -131,
+        108
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 205,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        163,
+        198,
+        -131,
+        108
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 205,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        104,
+        234,
+        -154,
+        69
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 206,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        37,
+        254,
+        -168,
+        24
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 206,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -33,
+        254,
+        -168,
+        -22
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 207,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -242,
+        85,
+        -56,
+        -160
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 207,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -256,
+        16,
+        -11,
+        -169
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 208,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        160,
+        200,
+        -132,
+        106
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 208,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        100,
+        236,
+        -156,
+        66
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 209,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        188,
+        175,
+        -116,
+        124
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 209,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        133,
+        219,
+        -145,
+        88
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 210,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -67,
+        248,
+        -164,
+        -44
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 210,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -131,
+        220,
+        -145,
+        -86
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 211,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        251,
+        51,
+        -34,
+        166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 211,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        228,
+        117,
+        -77,
+        151
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 212,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        67,
+        248,
+        -164,
+        44
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 212,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -2,
+        256,
+        -169,
+        -1
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 213,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -135,
+        218,
+        -144,
+        -89
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 213,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -188,
+        174,
+        -115,
+        -124
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 214,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -133,
+        219,
+        -145,
+        -88
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 214,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -188,
+        175,
+        -116,
+        -124
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 215,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -188,
+        174,
+        -115,
+        -124
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 215,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -228,
+        117,
+        -77,
+        -151
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 216,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        228,
+        117,
+        -77,
+        151
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 216,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        188,
+        174,
+        -115,
+        124
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 217,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        188,
+        174,
+        -115,
+        124
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 217,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        135,
+        218,
+        -144,
+        89
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 218,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        2,
+        256,
+        -169,
+        1
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 218,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -67,
+        248,
+        -164,
+        -44
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 219,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -228,
+        117,
+        -77,
+        -151
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 219,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -251,
+        51,
+        -34,
+        -166
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 220,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        131,
+        220,
+        -145,
+        86
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 220,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        67,
+        248,
+        -164,
+        44
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 221,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        162,
+        200,
+        -132,
+        107
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 221,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        102,
+        235,
+        -155,
+        67
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 222,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -33,
+        254,
+        -168,
+        -22
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 222,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -100,
+        236,
+        -156,
+        -66
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 223,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        242,
+        85,
+        -56,
+        160
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 223,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        210,
+        147,
+        -97,
+        139
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 224,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        100,
+        236,
+        -156,
+        66
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 224,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        33,
+        254,
+        -168,
+        22
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 225,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -102,
+        235,
+        -155,
+        -67
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 225,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -162,
+        200,
+        -132,
+        -107
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 226,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -210,
+        147,
+        -97,
+        -139
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 226,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -242,
+        85,
+        -56,
+        -160
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 227,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        187,
+        175,
+        -116,
+        123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 227,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        132,
+        219,
+        -145,
+        87
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 228,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        133,
+        219,
+        -145,
+        88
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 228,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        69,
+        247,
+        -163,
+        46
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 229,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -69,
+        247,
+        -163,
+        -46
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 229,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -133,
+        219,
+        -145,
+        -88
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 230,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -132,
+        219,
+        -145,
+        -87
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 230,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -187,
+        175,
+        -116,
+        -123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 231,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        209,
+        148,
+        -98,
+        138
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 231,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        162,
+        199,
+        -131,
+        107
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 232,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        162,
+        200,
+        -132,
+        107
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 232,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        101,
+        236,
+        -156,
+        67
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 233,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        102,
+        235,
+        -155,
+        67
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 233,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        35,
+        254,
+        -168,
+        23
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 234,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -35,
+        254,
+        -168,
+        -23
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 234,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -102,
+        235,
+        -155,
+        -67
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 235,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -101,
+        236,
+        -156,
+        -67
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 235,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -162,
+        200,
+        -132,
+        -107
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 236,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -162,
+        199,
+        -131,
+        -107
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 236,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -209,
+        148,
+        -98,
+        -138
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 237,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        228,
+        118,
+        -78,
+        151
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 237,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        187,
+        175,
+        -116,
+        123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 238,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        69,
+        247,
+        -163,
+        46
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 238,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        0,
+        256,
+        -169,
+        0
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 239,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        0,
+        256,
+        -169,
+        0
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 239,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -69,
+        247,
+        -163,
+        -46
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 240,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        -187,
+        175,
+        -116,
+        -123
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 240,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -228,
+        118,
+        -78,
+        -151
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 241,
+      "right": 0,
+      "cycles": 462,
+      "values": [
+        35,
+        254,
+        -168,
+        23
+      ]
+    },
+    {
+      "variant": "graph",
+      "state": 241,
+      "right": 1,
+      "cycles": 465,
+      "values": [
+        -35,
+        254,
+        -168,
+        -23
+      ]
+    }
+  ]
+}

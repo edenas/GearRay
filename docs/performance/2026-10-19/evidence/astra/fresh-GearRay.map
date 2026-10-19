@@ -1,0 +1,632 @@
+ASxxxx Linker V05.50.4-SDLD,  page 1.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+         Value  Global                             Global Defined In Module
+         -----  --------------------------------   ------------------------
+     00000000  .__.ABS.                           __muluint2slong
+     00000000  l__BSEG                         
+     00000000  l__BSS                          
+     00000000  l__CABS                         
+     00000000  l__DABS                         
+     00000000  l__HEADER                       
+     00000000  l__HEAP                         
+     00000000  s__CABS                         
+     00000000  s__CABS0                        
+     00000000  s__DABS                         
+     00000000  s__HEADER                       
+     00000000  s__HEADER0                      
+     00000000  s__HEADER1                      
+     00000000  s__HEADER2                      
+     00000000  s__HEADER3                      
+     00000000  s__HEADER4                      
+     00000001  b_game_gear_video_initialize       video_initialization
+     00000001  b_game_gear_video_restore_gamepl   video_initialization
+     00000001  b_interaction_ray_cast             interaction_ray
+     00000001  b_world_initialize                 world_initialization
+     00000001  b_world_interact                   world_interactions
+     00000001  l__GSFINAL                      
+     00000003  b_game_gear_startup_logo_show      startup_logo
+     00000003  b_game_gear_video_present_player   game_over_presentation
+     00000005  l__INITIALIZED                  
+     00000005  l__INITIALIZER                  
+     00000008  l__HEADER0                      
+     00000009  l__HEADER1                      
+     0000000F  l__GSINIT                       
+     00000010  l__CABS0                        
+     0000001F  l__HEADER2                      
+     0000002B  l__HEADER3                      
+     00000104  l__HEADER4                      
+     000001F6  l__HOME                         
+     00000200  s__CODE                         
+     000004D2  l__DATA                         
+     000011FD  l__BANK3                        
+     00002465  l__BANK2                        
+     000034CC  l__BANK1                        
+     00003902  l__CODE                         
+     00003B02  s__HOME                         
+     00003CF8  s__INITIALIZER                  
+     00003CFD  s__GSINIT                       
+     00003D0C  s__GSFINAL                      
+     00008000  _SMS_SRAM                          SMSlib_VRAMmemcpy
+     0000C000  s__DATA                         
+     0000C4D2  s__INITIALIZED                  
+     0000C4D7  s__BSEG                         
+     0000C4D7  s__BSS                          
+     0000C4D7  s__HEAP                         
+ASxxxx Linker V05.50.4-SDLD,  page 2.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+         Value  Global                             Global Defined In Module
+         -----  --------------------------------   ------------------------
+     0000FFFC  _SRAM_bank_to_be_mapped_on_slot2   SMSlib_VRAMmemcpy
+     0000FFFD  _ROM_bank_to_be_mapped_on_slot0    SMSlib_VRAMmemcpy
+     0000FFFE  _ROM_bank_to_be_mapped_on_slot1    SMSlib_VRAMmemcpy
+     0000FFFF  _ROM_bank_to_be_mapped_on_slot2    SMSlib_VRAMmemcpy
+     00014000  s__BANK1                        
+     00028000  s__BANK2                        
+     00034000  s__BANK3                        
+ASxxxx Linker V05.50.4-SDLD,  page 3.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               00000200    00003902 =       14594. bytes (REL,CON)
+
+         Value  Global                             Global Defined In Module
+         -----  --------------------------------   ------------------------
+     00000200  _main                              main
+     000006B9  _camera_initialize                 camera
+     000006D8  _camera_set_fixed_position         camera
+     000006E0  _camera_rotate_left                camera
+     000006E6  _camera_rotate_right               camera
+     000006EC  _camera_get_position_x             camera
+     000006F1  _camera_get_position_y             camera
+     000006F6  _camera_get_direction_x            camera
+     000006FB  _camera_get_direction_y            camera
+     00000700  _camera_get_plane_x                camera
+     00000705  _camera_get_plane_y                camera
+     00001386  _raycaster_initialize              raycaster
+     000013BE  _raycaster_update                  raycaster
+     000015CF  _raycaster_get_rendered_rays       raycaster
+     00001738  _player_initialize                 player
+     00001758  _player_move_combined              player
+     0000184F  _player_process_interaction        player
+     00001899  _player_get_position_x             player
+     0000189E  _player_get_position_y             player
+     000018A3  _player_get_health                 player
+     000018A7  _player_apply_damage               player
+     000018BA  _player_is_dead                    player
+     000018C3  _red_door_switch_initialize        red_door_switch
+     000018CF  _red_door_switch_update            red_door_switch
+     000018E6  _red_door_switch_activate          red_door_switch
+     000018F4  _red_door_switch_get_texture       red_door_switch
+     00001910  _world_get_tile                    world
+     0000192A  _world_get_spawn_x                 world
+     0000192D  _world_get_spawn_y                 world
+     00001930  _world_get_texture                 world
+     0000193D  _world_get_object                  world
+     0000194F  _world_is_wall                     world
+     00001977  _workshop_map_get_tile             workshop_map
+     00001A34  _workshop_map_get_spawn_x          workshop_map
+     00001A37  _workshop_map_get_spawn_y          workshop_map
+     00001A3A  _world_object_get                  world_objects
+     00001A4C  _world_object_is_interactive       world_objects
+     00001A51  _world_sprite_remove               world_sprite
+     00001ACE  _world_sprites_initialize          world_sprite
+     00001AD6  _world_sprite_initialize           world_sprite
+     00001B22  _world_sprites_update              world_sprite
+     00001BA6  _world_sprite_make_corpse          world_sprite
+     00001BC8  _world_sprites_crush_in_door       world_sprite
+     00001BCB  _world_sprite_apply_damage         world_sprite
+     00001D1E  _world_sprite_get_count            world_sprite
+     00001D22  _world_sprite_get                  world_sprite
+     00001D3B  _door_instance_find_at             door_instances
+     00001D8B  _door_states_initialize            door_states
+     00001D9C  _door_state_get                    door_states
+     00001DAB  _door_state_toggle                 door_states
+ASxxxx Linker V05.50.4-SDLD,  page 4.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               00000200    00003902 =       14594. bytes (REL,CON)
+
+         Value  Global                             Global Defined In Module
+         -----  --------------------------------   ------------------------
+     00001DBF  _door_state_open                   door_states
+     00001DCC  _game_gear_input_initialize        input
+     00001DDD  _game_gear_input_update            input
+     00001E21  _input_get_forward_intent          input
+     00001E33  _input_get_strafe_intent           input
+     00001E4E  _input_get_rotation_intent         input
+     00001E69  _input_interaction_requested       input
+     00001E82  _input_shoot_requested             input
+     00001E95  _input_pause_requested             input
+     00001EA8  _game_gear_damage_shake_update     video
+     00002779  _game_gear_video_draw_wall_colum   video
+     0000303F  _game_gear_video_draw_viewport_b   video
+     000030CB  _game_gear_wall_texture_sampler_   render_textures
+     00003283  _game_gear_wall_texture_palette_   render_textures
+     000033D3  _game_gear_get_wall_palette_colo   wall_textures
+     000033DF  _wall_textures                     wall_texture
+     0000351F  _wall_texture_steps                wall_texture
+     0000361F  _wall_texture_step_remainders      wall_texture
+     0000369F  _wall_palette_colors               wall_texture
+     000036BD  _wall_palette_x_indices            wall_texture
+     000036C7  _wall_palette_y_indices            wall_texture
+     000036D1  __divuchar                         divunsigned
+     000036D3  __divu8                            divunsigned
+     000036D6  __divu16                           divunsigned
+     000036D6  __divuint                          divunsigned
+     00003705  _SMS_init                          SMSlib
+     00003737  _VDPReg_init                       SMSlib
+     00003742  _SMS_VDPturnOnFeature              SMSlib
+     00003757  _SMS_VDPturnOffFeature             SMSlib
+     0000376E  _SMS_setBGScrollX                  SMSlib
+     00003778  _SMS_setBGScrollY                  SMSlib
+     00003782  _SMS_setBackdropColor              SMSlib
+     0000378C  _SMS_useFirstHalfTilesforSprites   SMSlib
+     0000379D  _SMS_setSpriteMode                 SMSlib
+     000037EA  _GG_setBGPaletteColor              SMSlib
+     000037F7  _GG_setSpritePaletteColor          SMSlib
+     00003804  _GG_loadBGPalette                  SMSlib
+     00003818  _GG_loadSpritePalette              SMSlib
+     0000382C  _SMS_waitForVBlank                 SMSlib
+     00003838  _SMS_getKeysStatus                 SMSlib
+     0000383D  _SMS_getKeysPressed                SMSlib
+     00003852  _SMS_getKeysHeld                   SMSlib
+     00003865  _SMS_getKeysReleased               SMSlib
+     0000387E  _GG_setNMIHandler                  SMSlib
+     00003882  _SMS_setFrameInterruptHandler      SMSlib
+     00003886  _SMS_setLineInterruptHandler       SMSlib
+     0000388A  _SMS_setLineCounter                SMSlib
+     00003894  _SMS_getVCount                     SMSlib
+     0000389E  _SMS_isr                           SMSlib
+     000038DF  _SMS_nmi_isr                       SMSlib
+     000038F7  _SMS_load1bppTiles                 SMSlib_load1bppTiles
+ASxxxx Linker V05.50.4-SDLD,  page 5.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               00000200    00003902 =       14594. bytes (REL,CON)
+
+         Value  Global                             Global Defined In Module
+         -----  --------------------------------   ------------------------
+     00003958  _SMS_loadTileMapAreaatAddr         SMSlib_loadTileMapArea
+     0000397E  _SMS_VRAMmemset_f                  SMSlib_VRAMmemset
+     0000399A  _SMS_VRAMmemsetW                   SMSlib_VRAMmemset
+     000039AD  _SMS_initSprites                   SMSlib_sprite
+     000039B2  _SMS_addSprite_f                   SMSlib_sprite
+     000039DD  _SMS_copySpritestoSAT              SMSlib_sprite
+     00003A11  __mulint                           mul
+     00003A13  __mul16                            mul
+     00003A28  ___sdcc_call_hl                    
+     00003A29  ___memcpy                          memcpy
+     00003A29  _memcpy                            memcpy
+     00003A37  ___sdcc_bcall                      
+     00003A40  ___sdcc_bcall_abc                  
+     00003A56  ___sdcc_bcall_ehl                  
+     00003A6C  _SMS_VRAMmemcpy                    SMSlib_VRAMmemcpy
+     00003A83  ___mulsint2slong                   __mulsint2slong
+     00003AB1  __divschar                         divsigned
+     00003AB3  __div8                             divsigned
+     00003AB7  __div_signexte                     divsigned
+     00003ABB  __div16                            divsigned
+     00003ABB  __divsint                          divsigned
+     00003AE1  __get_remainder                    divsigned
+     00003AEB  ___muluint2ulong                   __muluint2slong
+
+ASxxxx Linker V05.50.4-SDLD,  page 6.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_HEADER0                            00000000    00000008 =           8. bytes (ABS,CON)
+
+         Value  Global                             Global Defined In Module
+         -----  --------------------------------   ------------------------
+ASxxxx Linker V05.50.4-SDLD,  page 7.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_HEADER1                            00000000    00000009 =           9. bytes (ABS,CON)
+
+         Value  Global                             Global Defined In Module
+         -----  --------------------------------   ------------------------
+     00000008  _SMS_crt0_RST08                    crt0
+
+ASxxxx Linker V05.50.4-SDLD,  page 8.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_HEADER2                            00000000    0000001F =          31. bytes (ABS,CON)
+
+         Value  Global                             Global Defined In Module
+         -----  --------------------------------   ------------------------
+     00000018  _SMS_crt0_RST18                    crt0
+     0000002F  get_bank                           crt0
+     00000033  set_bank                           crt0
+ASxxxx Linker V05.50.4-SDLD,  page 9.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_HEADER3                            00000000    0000002B =          43. bytes (ABS,CON)
+
+         Value  Global                             Global Defined In Module
+         -----  --------------------------------   ------------------------
+ASxxxx Linker V05.50.4-SDLD,  page 10.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_HEADER4                            00000000    00000104 =         260. bytes (ABS,CON)
+
+         Value  Global                             Global Defined In Module
+         -----  --------------------------------   ------------------------
+     00000069  _OUTI128                           crt0
+     000000A9  _OUTI96                            crt0
+     000000E9  _OUTI64                            crt0
+     00000129  _OUTI32                            crt0
+     00000169  _outi_block                        crt0
+
+ASxxxx Linker V05.50.4-SDLD,  page 11.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_HOME                               00003B02    000001F6 =         502. bytes (REL,CON)
+
+         Value  Global                             Global Defined In Module
+         -----  --------------------------------   ------------------------
+     00003B02  __divslong                         _divslong
+     00003B92  __divulong                         _divulong
+     00003C15  __mullong                          _mullong
+ASxxxx Linker V05.50.4-SDLD,  page 12.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_INITIALIZER                        00003CF8    00000005 =           5. bytes (REL,CON)
+
+         Value  Global                             Global Defined In Module
+         -----  --------------------------------   ------------------------
+ASxxxx Linker V05.50.4-SDLD,  page 13.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_GSINIT                             00003CFD    0000000F =          15. bytes (REL,CON)
+
+         Value  Global                             Global Defined In Module
+         -----  --------------------------------   ------------------------
+     00003CFD  crt0_gsinit                        crt0
+
+ASxxxx Linker V05.50.4-SDLD,  page 14.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_GSFINAL                            00003D0C    00000001 =           1. bytes (REL,CON)
+
+         Value  Global                             Global Defined In Module
+         -----  --------------------------------   ------------------------
+ASxxxx Linker V05.50.4-SDLD,  page 15.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_DATA                               0000C000    000004D2 =        1234. bytes (REL,CON)
+
+         Value  Global                             Global Defined In Module
+         -----  --------------------------------   ------------------------
+     0000C184  _zombie_ai_wall_following_mask     zombie_ai
+     0000C185  _zombie_ai_wall_negative_mask      zombie_ai
+     0000C189  _keys                              input
+     0000C18B  _previous_keys                     input
+     0000C18D  _input_blocked                     input
+     0000C28F  _viewport_tile_states              video
+     0000C2FF  _previous_wall_columns             video
+     0000C3FA  _previous_projected_sprite_count   video
+     0000C3FB  _game_gear_damage_shake_phase      video
+     0000C3FF  _owned_weapons                     world_initialization
+     0000C400  _selected_weapon                   world_initialization
+     0000C401  _shotgun_cell_x                    world_initialization
+     0000C402  _shotgun_cell_y                    world_initialization
+     0000C404  _VDPBlank                          SMSlib
+     0000C405  _SMS_VDPFlags                      SMSlib
+     0000C406  _SMS_Port3EBIOSvalue               SMSlib
+     0000C407  _SMS_theFrameInterruptHandler      SMSlib
+     0000C409  _KeysStatus                        SMSlib
+     0000C40B  _PreviousKeysStatus                SMSlib
+     0000C40D  _SMS_theLineInterruptHandler       SMSlib
+     0000C40F  _GG_theNMIHandler                  SMSlib
+     0000C411  _SpriteTableY                      SMSlib_sprite
+     0000C451  _SpriteTableXN                     SMSlib_sprite
+     0000C4D1  _SpriteNextFree                    SMSlib_sprite
+ASxxxx Linker V05.50.4-SDLD,  page 16.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_INITIALIZED                        0000C4D2    00000005 =           5. bytes (REL,CON)
+
+         Value  Global                             Global Defined In Module
+         -----  --------------------------------   ------------------------
+     0000C4D2  _VDPReg                            SMSlib
+     0000C4D4  _spritesHeight                     SMSlib
+     0000C4D5  _spritesWidth                      SMSlib
+     0000C4D6  _spritesTileOffset                 SMSlib
+
+ASxxxx Linker V05.50.4-SDLD,  page 17.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CABS0                              00000000    00000010 =          16. bytes (ABS,CON)
+
+         Value  Global                             Global Defined In Module
+         -----  --------------------------------   ------------------------
+     00007FF0  ___SMS__SEGA_signature             main
+
+ASxxxx Linker V05.50.4-SDLD,  page 18.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_BANK2                              00028000    00002465 =        9317. bytes (REL,CON)
+
+         Value  Global                             Global Defined In Module
+         -----  --------------------------------   ------------------------
+     0002924A  _game_gear_pause_map_show          pause_map
+     00029550  _zombie_corpses_finalize           zombie_corpses
+     0002955B  _zombie_corpses_crush_in_door      zombie_corpses
+     00029657  _zombie_near_walking_01_pixels     zombie_walking_01_32x32_text
+     00029857  _zombie_near_walking_02_pixels     zombie_walking_02_32x32_text
+     00029A57  _zombie_near_standing_attack_pix   zombie_standing_attack_32x32
+     00029C57  _zombie_near_attack_01_pixels      zombie_attack_01_32x32_textu
+     00029E57  _zombie_near_attack_02_pixels      zombie_attack_02_32x32_textu
+     0002A057  _zombie_near_shot_01_pixels        zombie_shot_01_32x32_texture
+     0002A257  _zombie_near_corpse_pixels         zombie_corpse_32x32_texture
+     0002A457  _near_zombie_texture_pixels        near_zombie_textures
+
+ASxxxx Linker V05.50.4-SDLD,  page 19.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_BANK1                              00014000    000034CC =       13516. bytes (REL,CON)
+
+         Value  Global                             Global Defined In Module
+         -----  --------------------------------   ------------------------
+     0001464A  _zombie_shooting_process           zombie_shooting
+     00014BF0  _zombie_ai_update_all              zombie_ai
+     00014F9E  _enemy_position_is_walkable        enemy_collision
+     000151F0  _game_gear_hud_weapon_initialize   hud_weapon
+     000151FC  _game_gear_hud_weapon_update       hud_weapon
+     0001526F  _game_gear_hud_weapon_changed      hud_weapon
+     0001528B  _game_gear_hud_weapon_render_com   hud_weapon
+     0001547E  _game_gear_overlay_hud_weapon_ti   hud_weapon
+     0001566A  _shotgun_held_pixels               shotgun_held
+     0001570A  _shotgun_fire_pixels               shotgun_fire
+     000157AA  _shotgun_world_pixels              shotgun_world
+     0001642B  _game_gear_prepare_world_sprites   sprite_projection
+     00016976  _zombie_01_standing_pixels         sprite_texture
+     00016996  _zombie_01_walking_01_pixels       zombie_01_walking_01_texture
+     000169B6  _zombie_01_walking_01_pixels_med   zombie_01_walking_01_texture
+     000169D6  _zombie_01_walking_01_pixels_sim   zombie_01_walking_01_texture
+     000169F6  _zombie_01_walking_02_pixels       zombie_01_walking_02_texture
+     00016A16  _zombie_01_walking_02_pixels_med   zombie_01_walking_02_texture
+     00016A36  _zombie_01_walking_02_pixels_sim   zombie_01_walking_02_texture
+     00016A56  _zombie_01_shot_01_pixels          zombie_01_shot_01_texture
+     00016A76  _zombie_01_shot_02_pixels          zombie_01_shot_02_texture
+     00016A96  _zombie_01_shot_dead_pixels        zombie_01_shot_dead_texture
+     00016AB6  _zombie_01_corps_pixels            zombie_01_corps_texture
+     00016AD6  _hud_weapon_pixels                 weapon_texture
+     00016B36  _hud_weapon_shoot_pixels           weapon_shoot_texture
+     00016B96  _zombie_middle_standing_pixels     zombie_standing_16x16_textur
+     00016C16  _zombie_middle_walking_01_pixels   zombie_walking_01_16x16_text
+     00016C96  _zombie_middle_walking_02_pixels   zombie_walking_02_16x16_text
+     00016D16  _zombie_middle_shot_01_pixels      zombie_shot_01_16x16_texture
+     00016D96  _zombie_middle_shot_dead_pixels    zombie_shot_dead_16x16_textu
+     00016E16  _zombie_middle_corps_pixels        zombie_corps_16x16_texture
+     00016E96  _interaction_ray_cast              interaction_ray
+     00017150  _world_interact                    world_interactions
+     0001721A  _world_initialize                  world_initialization
+     00017308  _game_gear_damage_shake_offsets    video_initialization
+     00017312  _game_gear_health_hud_update       video_initialization
+     00017399  _game_gear_video_initialize        video_initialization
+     0001749B  _game_gear_video_restore_gamepla   video_initialization
+
+ASxxxx Linker V05.50.4-SDLD,  page 20.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_BANK3                              00034000    000011FD =        4605. bytes (REL,CON)
+
+         Value  Global                             Global Defined In Module
+         -----  --------------------------------   ------------------------
+     00034000  _sega_logo_tiles                   sega_logo
+     00034600  _sega_logo_palette                 sega_logo
+     00034620  _sega_logo_tilemap                 sega_logo
+     00034680  _game_over_tiles                   game_over
+     00035080  _game_over_palette                 game_over
+     000350A0  _game_over_tilemap                 game_over
+     00035140  _game_gear_video_present_player_   game_over_presentation
+     00035197  _game_gear_startup_logo_show       startup_logo
+
+ASxxxx Linker V05.50.4-SDLD,  page 21.
+
+Files Linked                              [ module(s) ]
+
+D:/Tools/devkitSMS/crt0/crt0_sms.rel      [ crt0 ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/main.rel
+                                          [ main ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/pause_map.rel
+                                          [ pause_map ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/camera.rel
+                                          [ camera ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/raycaster.rel
+                                          [ raycaster ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/player.rel
+                                          [ player ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/red_door_switch.rel
+                                          [ red_door_switch ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/world.rel
+                                          [ world ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/workshop_map.rel
+                                          [ workshop_map ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/world_objects.rel
+                                          [ world_objects ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/world_sprite.rel
+                                          [ world_sprite ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/zombie_shooting.rel
+                                          [ zombie_shooting ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/zombie_ai.rel
+                                          [ zombie_ai ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/zombie_corpses.rel
+                                          [ zombie_corpses ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/enemy_collision.rel
+                                          [ enemy_collision ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/door_instances.rel
+                                          [ door_instances ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/door_states.rel
+                                          [ door_states ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/input.rel
+                                          [ input ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/video.rel
+                                          [ video ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/hud_weapon.rel
+                                          [ hud_weapon ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/shotgun_held.rel
+                                          [ shotgun_held ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/shotgun_fire.rel
+                                          [ shotgun_fire ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/shotgun_world.rel
+                                          [ shotgun_world ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/sprite_projection.rel
+                                          [ sprite_projection ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/render_textures.rel
+                                          [ render_textures ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/wall_textures.rel
+                                          [ wall_textures ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_sega_logo.rel
+                                          [ sega_logo ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_game_over.rel
+                                          [ game_over ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/game_over_presentation.rel
+                                          [ game_over_presentation ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_wall_texture.rel
+                                          [ wall_texture ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_sprite_texture.rel
+                                          [ sprite_texture ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_01_walking_01_texture.rel
+                                          [ zombie_01_walking_01_texture ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_01_walking_02_texture.rel
+                                          [ zombie_01_walking_02_texture ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_01_shot_01_texture.rel
+                                          [ zombie_01_shot_01_texture ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_01_shot_02_texture.rel
+                                          [ zombie_01_shot_02_texture ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_01_shot_dead_texture.rel
+                                          [ zombie_01_shot_dead_texture ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_01_corps_texture.rel
+                                          [ zombie_01_corps_texture ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_weapon_texture.rel
+                                          [ weapon_texture ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_weapon_shoot_texture.rel
+                                          [ weapon_shoot_texture ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/startup_logo.rel
+                                          [ startup_logo ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_walking_01_32x32_texture.rel
+                                          [ zombie_walking_01_32x32_texture ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_walking_02_32x32_texture.rel
+                                          [ zombie_walking_02_32x32_texture ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_standing_attack_32x32_texture.rel
+                                          [ zombie_standing_attack_32x32_tex ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_attack_01_32x32_texture.rel
+                                          [ zombie_attack_01_32x32_texture ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_attack_02_32x32_texture.rel
+                                          [ zombie_attack_02_32x32_texture ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_shot_01_32x32_texture.rel
+                                          [ zombie_shot_01_32x32_texture ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_corpse_32x32_texture.rel
+                                          [ zombie_corpse_32x32_texture ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_standing_16x16_texture.rel
+                                          [ zombie_standing_16x16_texture ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_walking_01_16x16_texture.rel
+                                          [ zombie_walking_01_16x16_texture ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_walking_02_16x16_texture.rel
+                                          [ zombie_walking_02_16x16_texture ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_shot_01_16x16_texture.rel
+                                          [ zombie_shot_01_16x16_texture ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_shot_dead_16x16_texture.rel
+                                          [ zombie_shot_dead_16x16_texture ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_corps_16x16_texture.rel
+                                          [ zombie_corps_16x16_texture ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/near_zombie_textures.rel
+                                          [ near_zombie_textures ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/interaction_ray.rel
+                                          [ interaction_ray ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/world_interactions.rel
+                                          [ world_interactions ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/world_initialization.rel
+                                          [ world_initialization ]
+D:/mano_projektai/GearRay/build-astra-review-20261019/video_initialization.rel
+                                          [ video_initialization ]
+
+
+Libraries Linked                          [ object file ]
+
+C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
+                                          [ divunsigned.rel ]
+D:/Tools/devkitSMS/SMSlib/SMSlib_GG.lib   [ SMSlib_GG.rel ]
+D:/Tools/devkitSMS/SMSlib/SMSlib_GG.lib   [ SMSlib_load1bppTiles.rel ]
+D:/Tools/devkitSMS/SMSlib/SMSlib_GG.lib   [ SMSlib_loadTileMapArea.rel ]
+D:/Tools/devkitSMS/SMSlib/SMSlib_GG.lib   [ SMSlib_VRAMmemset.rel ]
+D:/Tools/devkitSMS/SMSlib/SMSlib_GG.lib   [ SMSlib_sprite.rel ]
+C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
+                                          [ mul.rel ]
+C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
+                                          [ _divslong.rel ]
+C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
+                                          [ _divulong.rel ]
+C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
+                                          [ __sdcc_call_hl.rel ]
+C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
+                                          [ memcpy.rel ]
+C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
+                                          [ __sdcc_bcall.rel ]
+D:/Tools/devkitSMS/SMSlib/SMSlib_GG.lib   [ SMSlib_VRAMmemcpy.rel ]
+C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
+                                          [ _mullong.rel ]
+C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
+                                          [ __mulsint2slong.rel ]
+C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
+                                          [ divsigned.rel ]
+C:\Program Files\SDCC\bin\..\lib\z80/z80.lib
+                                          [ __muluint2ulong.rel ]
+
+ASxxxx Linker V05.50.4-SDLD,  page 22.
+
+User Base Address Definitions
+
+_CODE = 0x0200
+_DATA = 0xc000
+_BANK1=0x14000
+_BANK2=0x28000
+_BANK3=0x34000
+
+

@@ -29,6 +29,6 @@
 #define PAUSE_MAP_SAT_Y 0x3f00
 #define PAUSE_MAP_SAT_X_TILE 0x3f80
 
-void game_gear_pause_map_show(void) __banked;
+void game_gear_pause_map_show(void);
 
 #endif

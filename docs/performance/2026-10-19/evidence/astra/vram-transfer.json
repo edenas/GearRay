@@ -1,0 +1,35 @@
+{
+  "classification": "MEASURED linked routine in Emulicious, IRQ disabled, excludes caller CALL/argument setup; no physical transfer measurement",
+  "results": [
+    {
+      "bytes": 32,
+      "cycles": 1047,
+      "fraction_of_display_period": 0.017527119325030132
+    },
+    {
+      "bytes": 64,
+      "cycles": 1943,
+      "fraction_of_display_period": 0.032526449712066426
+    },
+    {
+      "bytes": 128,
+      "cycles": 3735,
+      "fraction_of_display_period": 0.06252511048613901
+    },
+    {
+      "bytes": 256,
+      "cycles": 7319,
+      "fraction_of_display_period": 0.12252243203428419
+    },
+    {
+      "bytes": 512,
+      "cycles": 14496,
+      "fraction_of_display_period": 0.2426677380474086
+    },
+    {
+      "bytes": 3584,
+      "cycles": 101172,
+      "fraction_of_display_period": 1.6936520691040577
+    }
+  ]
+}

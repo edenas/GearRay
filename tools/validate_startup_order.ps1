@@ -76,8 +76,8 @@ if ($cmake -notmatch
     'generate_startup_logo\.ps1[\s\S]*?' +
     'generated_sega_logo\.rel' -or
     $cmake -notmatch
-    'startup_logo\.c[\s\S]*?--codeseg BANK1') {
-    throw 'Startup logo asset generation or isolated Bank 1 placement is missing'
+    'OUTPUT "\$\{GEAR_RAY_STARTUP_LOGO_OBJECT\}"[\s\S]*?--codeseg BANK3 --constseg BANK3') {
+    throw 'Startup logo asset generation or isolated Bank 3 placement is missing'
 }
 
 if ([regex]::Matches(

@@ -1,0 +1,70 @@
+-mjwx
+-i D:/mano_projektai/GearRay/build-astra-review-20261019/GearRay.ihx
+-b _CODE = 0x0200
+-b _DATA = 0xc000
+-b_BANK1=0x14000
+-b_BANK2=0x28000
+-b_BANK3=0x34000
+-k C:\Program Files\SDCC\bin\..\lib\z80
+-l D:/Tools/devkitSMS/SMSlib/SMSlib_GG.lib
+-l z80
+D:/Tools/devkitSMS/crt0/crt0_sms.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/main.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/pause_map.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/camera.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/raycaster.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/player.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/red_door_switch.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/world.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/workshop_map.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/world_objects.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/world_sprite.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/zombie_shooting.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/zombie_ai.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/zombie_corpses.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/enemy_collision.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/door_instances.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/door_states.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/input.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/video.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/hud_weapon.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/shotgun_held.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/shotgun_fire.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/shotgun_world.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/sprite_projection.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/render_textures.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/wall_textures.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_sega_logo.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_game_over.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/game_over_presentation.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_wall_texture.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_sprite_texture.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_01_walking_01_texture.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_01_walking_02_texture.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_01_shot_01_texture.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_01_shot_02_texture.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_01_shot_dead_texture.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_01_corps_texture.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_weapon_texture.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_weapon_shoot_texture.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/startup_logo.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_walking_01_32x32_texture.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_walking_02_32x32_texture.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_standing_attack_32x32_texture.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_attack_01_32x32_texture.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_attack_02_32x32_texture.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_shot_01_32x32_texture.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_corpse_32x32_texture.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_standing_16x16_texture.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_walking_01_16x16_texture.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_walking_02_16x16_texture.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_shot_01_16x16_texture.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_shot_dead_16x16_texture.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/generated_zombie_corps_16x16_texture.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/near_zombie_textures.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/interaction_ray.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/world_interactions.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/world_initialization.rel
+D:/mano_projektai/GearRay/build-astra-review-20261019/video_initialization.rel
+
+-e

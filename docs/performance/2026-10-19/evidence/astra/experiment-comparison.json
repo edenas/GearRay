@@ -1,0 +1,92 @@
+[
+  {
+    "variant": "hud-mask-replay",
+    "scenario": "A_static",
+    "n": 8,
+    "baseline_mean": 549836.875,
+    "variant_mean": 549832.625,
+    "reduction_percent": 0.0007729565246055932,
+    "camera_mismatches": 0,
+    "vram_mismatches": 0,
+    "max_stack": 324,
+    "ray_mean": 485031
+  },
+  {
+    "variant": "hud-mask-replay",
+    "scenario": "B_rotation",
+    "n": 8,
+    "baseline_mean": 3827674.25,
+    "variant_mean": 2503561,
+    "reduction_percent": 34.593154054319015,
+    "camera_mismatches": 0,
+    "vram_mismatches": 0,
+    "max_stack": 324
+  },
+  {
+    "variant": "hud-mask-replay",
+    "scenario": "I_pistol",
+    "n": 8,
+    "baseline_mean": 4463613.375,
+    "variant_mean": 3714459.625,
+    "reduction_percent": 16.783571673028245,
+    "camera_mismatches": 0,
+    "vram_mismatches": 0,
+    "max_stack": 404
+  },
+  {
+    "variant": "hud-mask-replay",
+    "scenario": "I_shotgun",
+    "n": 8,
+    "baseline_mean": 5122252.625,
+    "variant_mean": 3479902.875,
+    "reduction_percent": 32.063036914349766,
+    "camera_mismatches": 0,
+    "vram_mismatches": 0,
+    "max_stack": 404
+  },
+  {
+    "variant": "hud-mask-replay",
+    "scenario": "J_lod",
+    "n": 4,
+    "baseline_mean": 5763245,
+    "variant_mean": 4623348.5,
+    "reduction_percent": 19.778727088645372,
+    "camera_mismatches": 0,
+    "vram_mismatches": 0,
+    "max_stack": 410
+  },
+  {
+    "variant": "planes-replay",
+    "scenario": "B_rotation",
+    "n": 8,
+    "baseline_mean": 3827674.25,
+    "variant_mean": 3306470.25,
+    "reduction_percent": 13.616728226023936,
+    "camera_mismatches": 0,
+    "vram_mismatches": 0,
+    "max_stack": 324
+  },
+  {
+    "variant": "planes-replay",
+    "scenario": "J_lod",
+    "n": 4,
+    "baseline_mean": 5763245,
+    "variant_mean": 4967280,
+    "reduction_percent": 13.811056097736605,
+    "camera_mismatches": 0,
+    "vram_mismatches": 0,
+    "max_stack": 410
+  },
+  {
+    "variant": "dda16-replay",
+    "scenario": "A_static",
+    "n": 4,
+    "baseline_mean": 562044.25,
+    "variant_mean": 562047.25,
+    "reduction_percent": -0.0005337658022477767,
+    "camera_mismatches": 0,
+    "vram_mismatches": 0,
+    "max_stack": 324,
+    "ray_mean": 488332
+  }
+]

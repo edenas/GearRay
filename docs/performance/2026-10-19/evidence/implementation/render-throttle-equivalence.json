@@ -1,0 +1,72 @@
+[
+  {
+    "hold": 0,
+    "ticks": 342,
+    "mismatches": [],
+    "frame_overflow": 0,
+    "action_overflow": 0,
+    "deadline_misses": 0,
+    "captured_edges": 342,
+    "consumed_edges": 341,
+    "bank_violations": 0,
+    "irq_register_violations": 0,
+    "latch_resets": 0,
+    "unmasked_control_pairs": 0
+  },
+  {
+    "hold": 2,
+    "ticks": 342,
+    "mismatches": [],
+    "frame_overflow": 0,
+    "action_overflow": 0,
+    "deadline_misses": 0,
+    "captured_edges": 342,
+    "consumed_edges": 341,
+    "bank_violations": 0,
+    "irq_register_violations": 0,
+    "latch_resets": 0,
+    "unmasked_control_pairs": 0
+  },
+  {
+    "hold": 4,
+    "ticks": 342,
+    "mismatches": [],
+    "frame_overflow": 0,
+    "action_overflow": 0,
+    "deadline_misses": 0,
+    "captured_edges": 342,
+    "consumed_edges": 341,
+    "bank_violations": 0,
+    "irq_register_violations": 0,
+    "latch_resets": 0,
+    "unmasked_control_pairs": 0
+  },
+  {
+    "hold": 16,
+    "ticks": 342,
+    "mismatches": [],
+    "frame_overflow": 0,
+    "action_overflow": 0,
+    "deadline_misses": 0,
+    "captured_edges": 342,
+    "consumed_edges": 341,
+    "bank_violations": 0,
+    "irq_register_violations": 0,
+    "latch_resets": 0,
+    "unmasked_control_pairs": 0
+  },
+  {
+    "hold": 120,
+    "ticks": 342,
+    "mismatches": [],
+    "frame_overflow": 0,
+    "action_overflow": 0,
+    "deadline_misses": 0,
+    "captured_edges": 342,
+    "consumed_edges": 341,
+    "bank_violations": 0,
+    "irq_register_violations": 0,
+    "latch_resets": 0,
+    "unmasked_control_pairs": 0
+  }
+]

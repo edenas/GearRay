@@ -14,9 +14,9 @@ static signed int player_position_y;
 static unsigned char player_health;
 
 static signed int player_scale_movement(signed int direction,
-                                        unsigned int direction_scale)
+                                        signed int direction_scale)
 {
-    signed long movement = (signed long)direction * PLAYER_MOVE_SPEED;
+    signed int movement = direction * PLAYER_MOVE_SPEED;
 
     if (movement < 0)
         movement -= direction_scale / 2;
@@ -28,8 +28,7 @@ static signed int player_scale_movement(signed int direction,
 
 static signed int player_scale_diagonal(signed int movement)
 {
-    signed long scaled_movement =
-        (signed long)movement * PLAYER_DIAGONAL_SCALE;
+    signed int scaled_movement = movement * PLAYER_DIAGONAL_SCALE;
 
     if (scaled_movement < 0)
         scaled_movement -= FIXED_POINT_SCALE / 2;

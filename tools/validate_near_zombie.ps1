@@ -104,9 +104,10 @@ Assert($projection-match'8192U[\s\S]*?source_size << 8') 'Generic 32x32/16x16/8x
 foreach($id in @('WALKING_01','WALKING_02','STANDING_ATTACK','ATTACK_01','ATTACK_02','SHOT_01','CORPSE')){Assert($projection-match"NEAR_ZOMBIE_TEXTURE_$id") "Missing runtime pose mapping $id."}
 Assert($nearTable-match'near_zombie_texture_pixels'-and$nearTable-match'zombie_near_walking_01_pixels'-and$nearTable-match'zombie_near_walking_02_pixels') 'Bank 2 texture table is not wired.'
 Assert($video-match'SMS_MAPPER_SLOT2_REGISTER'-and$video-match'NEAR_ZOMBIE_ROM_PAGE 2') 'Near compositor does not map physical page 2 through slot 2.'
-Assert(([regex]::Matches($video,'SMS_MAPPER_SLOT2_REGISTER\s*=').Count)-eq2) 'Bank 2 must be mapped/restored once, never per pixel.'
+$slot2Sites=if($video -match 'wall_plan_rows'){6}else{2}
+Assert(([regex]::Matches($video,'SMS_MAPPER_SLOT2_REGISTER\s*=').Count)-eq$slot2Sites) 'Near-art batch and native-wall phases must have their declared slot-2 mapping/restoration sites outside pixel loops.'
 Assert($video-match'if \(near_bank_mapped\)[\s\S]*?SMS_MAPPER_SLOT2_REGISTER = previous_slot2_page') 'Slot 2 mapping is not restored.'
-Assert($video-match'near_texture_id == NEAR_ZOMBIE_TEXTURE_NONE[\s\S]*?projected->pixels') 'Normal 8x8 source path was not preserved.'
+Assert($video-match'near_texture_id\s*==\s*NEAR_ZOMBIE_TEXTURE_NONE[\s\S]*?projected->pixels') 'Normal 8x8 source path was not preserved.'
 Assert($worldHeader-notmatch'near_texture|texture_bank|anchor') 'WorldSprite gained persistent near-detail state.'
 Assert($worldHeader-match'typedef enum[\s\S]*?ZOMBIE_STATE_ALIVE,[\s\S]*?ZOMBIE_STATE_SHOT_DEAD,[\s\S]*?ZOMBIE_STATE_CORPSE[\s\S]*?ZombieState;') 'Corpse presentation added or changed a gameplay state.'
 Assert($projection-match'game_gear_project_world_sprite\(\s*WorldSprite \*sprite'-and$projection-notmatch'sprite->(world_[xy]|health_and_hit_count|state|state_timer|pixels)\s*([|&^+\-]=|=(?!=))') 'Projection mutates WorldSprite gameplay or presentation state.'

@@ -2,6 +2,11 @@
 /build/*
 !/build/.gitkeep
 /build-profile/*
+/build-*/
+
+# Local Python caches
+__pycache__/
+*.py[cod]
 
 # CMake generated files
 CMakeCache.txt
@@ -29,6 +34,16 @@ Makefile
 *.noi
 *.rel
 *.sym
+
+# Keep the selected release ROM; other packaged builds stay local.
+/rom/*
+!/rom/GearRay-verified-20261019.gg
+
+# Frozen performance evidence is deliberately versioned.
+!/docs/performance/2026-10-19/evidence/**/*.gg
+!/docs/performance/2026-10-19/evidence/**/*.lk
+!/docs/performance/2026-10-19/evidence/**/*.map
+!/docs/performance/2026-10-19/evidence/**/*.noi
 
 # Editor and OS files
 .vs/

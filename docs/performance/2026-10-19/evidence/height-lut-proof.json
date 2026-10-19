@@ -1,0 +1,12 @@
+{
+  "cases": 65536,
+  "mismatches": 0,
+  "table_bytes": 4097,
+  "table4096_entry": 4,
+  "thresholds": [
+    4096,
+    5461,
+    8192
+  ],
+  "classification": "PROVEN integer domain; no runtime performance claim"
+}

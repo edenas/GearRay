@@ -38,13 +38,13 @@ static unsigned char zombie_corpses_merge(unsigned char sprite_index)
 }
 
 unsigned char zombie_corpses_finalize(
-    unsigned char sprite_index) __banked
+    unsigned char sprite_index)
 {
     world_sprite_make_corpse(sprite_index);
     return zombie_corpses_merge(sprite_index);
 }
 
-void zombie_corpses_crush_in_door(unsigned char map_y) __banked
+void zombie_corpses_crush_in_door(unsigned char map_y)
 {
     signed int door_center_y = ((signed int)map_y << 8) + 128;
     unsigned char sprite_index = 0;

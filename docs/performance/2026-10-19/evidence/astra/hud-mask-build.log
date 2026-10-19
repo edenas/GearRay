@@ -1,0 +1,121 @@
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: D:/mano_projektai/GearRay/build-astra-review-20261019/hud-mask-build
+[1/90] Generating generated/shotgun_held.c, generated/shotgun_held.h
+[2/90] Generating generated/shotgun_fire.c, generated/shotgun_fire.h
+[3/90] Generating packed static HUD weapon
+[4/90] Generating packed shooting HUD weapon
+[5/90] Generating generated/shotgun_world.c, generated/shotgun_world.h
+[6/90] Generating packed zombie corps sprite
+[7/90] Generating packed zombie shot_01 sprite
+[8/90] Generating generated/pause_shotgun_icon.h
+[9/90] Generating native SEGA startup logo
+[10/90] Generating centered Game Over screen
+[11/90] Generating packed standing zombie sprite
+[12/90] Generating packed zombie walking_02 sprite
+[13/90] Generating packed zombie shot_02 sprite
+[14/90] Generating packed zombie walking_01 sprite
+[15/90] Generating packed zombie shot_dead sprite
+[16/90] Generating packed 4bpp indexed-color wall texture
+[17/90] Generating native 32x32 near zombie attack_01
+[18/90] Generating authored 16x16 zombie corps
+[19/90] Generating native 32x32 near zombie shot_01
+[20/90] Generating native 32x32 near zombie attack_02
+[21/90] Generating native 32x32 near zombie corpse
+[22/90] Generating authored 16x16 zombie shot_01
+[23/90] Generating shotgun_fire.rel
+[24/90] Generating shotgun_held.rel
+[25/90] Generating generated/shotgun_far_lod.h
+........
+........
+........
+dddddd..
+.ddddddd
+.....d..
+........
+........
+Generated FAR LOD: 32 packed ROM bytes.
+[26/90] Generating authored 16x16 zombie shot_dead
+[27/90] Generating native 32x32 near zombie walking_01
+[28/90] Generating authored 16x16 zombie walking_02
+[29/90] Generating shotgun_world.rel
+[30/90] Generating authored 16x16 zombie standing
+[31/90] Generating native 32x32 near zombie standing_attack
+[32/90] Compiling game/door_states.c for Game Gear
+[33/90] Compiling cold Game Over presentation in Bank 3
+D:/Tools/devkitSMS/SMSlib/src/SMSlib.h:96: warning 336: incomplete array type has length 1 due to implicit initializer
+[34/90] Compiling game/door_instances.c for Game Gear
+[35/90] Generating native 32x32 near zombie walking_02
+[36/90] Compiling generated SEGA startup logo
+[37/90] Compiling generated Game Over screen
+[38/90] Compiling banked enemy collision query
+[39/90] Compiling generated standing zombie sprite
+[40/90] Generating authored 16x16 zombie walking_01
+[41/90] Generating reference-derived health HUD tiles
+[42/90] Compiling generated wall texture
+[43/90] Compiling generated zombie corps sprite
+[44/90] Compiling generated zombie shot_01 sprite
+[45/90] Compiling generated static HUD weapon
+[46/90] Compiling generated shooting HUD weapon
+[47/90] Compiling generated zombie shot_02 sprite
+[48/90] Compiling generated zombie shot_dead sprite
+[49/90] Compiling generated zombie walking_01 sprite
+[50/90] Compiling generated zombie walking_02 sprite
+[51/90] Compiling Bank 2 near zombie attack_01
+[52/90] Compiling Bank 1 middle zombie corps
+[53/90] Compiling Bank 2 near zombie attack_02
+[54/90] Compiling game/camera.c for Game Gear
+[55/90] Compiling Bank 1 middle zombie shot_01
+[56/90] Compiling Bank 2 near zombie corpse
+[57/90] Generating generated/pause_weapon_icon.h
+[58/90] Compiling Bank 2 near zombie shot_01
+[59/90] Compiling Bank 1 middle zombie standing
+[60/90] Compiling Bank 1 middle zombie shot_dead
+[61/90] Compiling Bank 1 middle zombie walking_02
+[62/90] Compiling Bank 2 near zombie standing_attack
+[63/90] Compiling Bank 1 middle zombie walking_01
+[64/90] Compiling Bank 2 near zombie walking_01
+[65/90] Compiling Bank 2 near zombie walking_02
+[66/90] Compiling Bank 2 near zombie texture table
+[67/90] Compiling platform/game_gear/input.c
+D:/Tools/devkitSMS/SMSlib/src/SMSlib.h:96: warning 336: incomplete array type has length 1 due to implicit initializer
+[68/90] Compiling red-door switch gameplay
+[69/90] Compiling game/main.c for Game Gear
+D:/Tools/devkitSMS/SMSlib/src/SMSlib.h:96: warning 336: incomplete array type has length 1 due to implicit initializer
+[70/90] Compiling isolated SEGA startup screen
+D:/Tools/devkitSMS/SMSlib/src/SMSlib.h:96: warning 336: incomplete array type has length 1 due to implicit initializer
+[71/90] Compiling platform/game_gear/wall_textures.c
+[72/90] Compiling game/workshop_map.c for Game Gear
+[73/90] Compiling game/world.c for Game Gear
+[74/90] Compiling banked world initialization
+[75/90] Compiling game/interaction_ray.c for Game Gear
+D:/mano_projektai/GearRay/build-astra-review-20261019/hud-mask-source/game/interaction_ray.c:44: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+D:/mano_projektai/GearRay/build-astra-review-20261019/hud-mask-source/game/interaction_ray.c:45: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+[76/90] Compiling game/world_objects.c for Game Gear
+[77/90] Compiling game/world_interactions.c for Game Gear
+[78/90] Compiling banked static HUD weapon overlay
+[79/90] Compiling game/player.c for Game Gear
+[80/90] Compiling banked video initialization
+D:/Tools/devkitSMS/SMSlib/src/SMSlib.h:96: warning 336: incomplete array type has length 1 due to implicit initializer
+[81/90] Compiling platform/game_gear/render_textures.c
+[82/90] Compiling cold Bank 2 zombie corpse management
+[83/90] Compiling static world sprite
+[84/90] Compiling engine/render/raycaster.c for Game Gear
+[85/90] Compiling banked zombie hitscan
+[86/90] Compiling banked zombie AI
+[87/90] Compiling event-only Bank 2 pause map
+D:/mano_projektai/GearRay/build-astra-review-20261019/hud-mask-source/platform/game_gear/pause_map.c:331: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+D:/mano_projektai/GearRay/build-astra-review-20261019/hud-mask-source/platform/game_gear/pause_map.c:344: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+D:/Tools/devkitSMS/SMSlib/src/SMSlib.h:96: warning 336: incomplete array type has length 1 due to implicit initializer
+[88/90] Compiling banked static sprite projection
+D:/mano_projektai/GearRay/build-astra-review-20261019/hud-mask-source/platform/game_gear/sprite_projection.c:413: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+D:/mano_projektai/GearRay/build-astra-review-20261019/hud-mask-source/platform/game_gear/sprite_projection.c:418: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+[89/90] Compiling platform/game_gear/video.c
+D:/mano_projektai/GearRay/build-astra-review-20261019/hud-mask-source/platform/game_gear/video.c:602: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+D:/mano_projektai/GearRay/build-astra-review-20261019/hud-mask-source/platform/game_gear/video.c:656: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+D:/Tools/devkitSMS/SMSlib/src/SMSlib.h:96: warning 336: incomplete array type has length 1 due to implicit initializer
+[90/90] Linking GearRay for Game Gear
+*** sverx's makesms converter ***
+Info: 43799 bytes used/65536 total [66.83%] - size of output ROM is 64 KB
+Info: [bank0 755] [bank1 2136] [bank2 7067] [bank3 11779] bytes free
+Info: SEGA header found, checksum updated

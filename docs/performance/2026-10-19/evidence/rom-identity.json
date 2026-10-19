@@ -1,0 +1,8 @@
+{
+  "sha256": "6322efcc0434ad8d4fc3f066ced47e0a1fb4cdb140d6da8654521e3834371136",
+  "rom_bytes": 65536,
+  "header": "544d522053454741ffff6e000000007e",
+  "header_checksum": "0x6e",
+  "sum_excluding_header_mod65536": "0x336",
+  "note": "Makesms checksum convention is validated by validate_bank_layout; the raw sum excluding 16-byte header is a separate diagnostic."
+}

@@ -1,0 +1,9 @@
+{
+  "samples": 8,
+  "fields": [
+    "interval_cycles",
+    "camera_hex",
+    "vram_sha256"
+  ],
+  "mismatches": []
+}

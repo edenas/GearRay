@@ -8,6 +8,7 @@
 #include "camera.h"
 #define GEAR_RAY_WORLD_SPRITE_NO_DISTANCE_METRIC
 #include "world_sprite.h"
+#include "weapons.h"
 
 #if WORLD_WIDTH < 1 || WORLD_WIDTH > 128 || WORLD_HEIGHT < 1 || WORLD_HEIGHT > 128
 #error Pause map expects positive world extents fitting the signed 8.8 world coordinates
@@ -25,6 +26,11 @@
 #define FRAME_PATTERN 32
 #define FOCUS_PATTERN 48
 #define ARROW_PATTERN 64
+#define PISTOL_PATTERN 72
+#define SHOTGUN_PATTERN 176
+#define SIDE_PISTOL_PATTERN 128
+#define SIDE_SHOTGUN_PATTERN 144
+#define SIDE_FRAME_PATTERN 160
 #define CORPSE_PATTERN 96
 #define WEAPON_FOCUS_PATTERN 58
 #define MAP_FOCUS 0
@@ -39,6 +45,12 @@
 #define MAP_Y (AUTOMAP_VIEW_Y + ((AUTOMAP_ROWS - MAP_HEIGHT) << 2))
 #define SCROLL_X (MAP_X & 7)
 #define SCROLL_Y ((8 - (MAP_Y & 7)) & 7)
+#define WEAPON_COLUMNS (SCROLL_X == 0 ? 4 : 3)
+#define WEAPON_ROWS (SCROLL_Y == 0 ? 4 : 3)
+
+#include "pause_weapon_icon.h"
+#include "pause_shotgun_icon.h"
+static const unsigned char empty_patterns[16] = {0, 1, 2, 3, 4, 0, 5, 0, 6, 7, 0, 0, 8, 0, 0, 0};
 
 /* N/E/S/W mounts: blue lives on the room side of the unmodified wall face. */
 static const unsigned char computer_rows[32] = {
@@ -242,13 +254,12 @@ static void frame_rows(unsigned char *rows, unsigned char edges,
 
 /* Shared fixed rectangle outlines, using the already loaded frame tiles. */
 static void draw_rect(unsigned char px, unsigned char py,
-                      unsigned char width, unsigned char height)
+                      unsigned char columns, unsigned char rows,
+                      unsigned char pattern_base)
 {
     unsigned char x;
     unsigned char y;
     unsigned char edges;
-    unsigned char columns = (width >> 3) + (SCROLL_X != 0);
-    unsigned char rows = (height >> 3) + (SCROLL_Y != 0);
     unsigned char tile_x = (px + PAUSE_LCD_BG_X - SCROLL_X) >> 3;
     unsigned char tile_y = (py + PAUSE_LCD_BG_Y + SCROLL_Y) >> 3;
     for (y = 0; y < rows; ++y)
@@ -259,7 +270,11 @@ static void draw_rect(unsigned char px, unsigned char py,
             if (x == columns - 1) edges |= EDGE_RIGHT;
             if (y == 0) edges |= EDGE_TOP;
             if (y == rows - 1) edges |= EDGE_BOTTOM;
-            if (edges != 0) SMS_setTileatXY(tile_x + x, tile_y + y, FRAME_PATTERN + edges);
+            if (edges != 0)
+            {
+                if (pattern_base == SIDE_FRAME_PATTERN) edges = empty_patterns[edges];
+                SMS_setTileatXY(tile_x + x, tile_y + y, pattern_base + edges);
+            }
         }
 }
 
@@ -276,9 +291,11 @@ static void draw_focus(unsigned char state, unsigned char visible)
         y = state == WEAPONS_FOCUS ? 108 : 12;
         if ((corner & 2) != 0) y += state == WEAPONS_FOCUS ? 21 : 85;
         tile = 0;
-        if (state != WEAPONS_FOCUS && SCROLL_X != 0 && SCROLL_Y != 0)
+#if SCROLL_X != 0 && SCROLL_Y != 0
+        if (state != WEAPONS_FOCUS)
             tile = FRAME_PATTERN + ((corner & 1) != 0 ? EDGE_RIGHT : EDGE_LEFT)
                 + ((corner & 2) != 0 ? EDGE_BOTTOM : EDGE_TOP);
+#endif
         if (visible != 0)
             tile = (state == WEAPONS_FOCUS ? WEAPON_FOCUS_PATTERN : FOCUS_PATTERN)
                 + corner + (state == MAP_BROWSE ? 4 : 0);
@@ -330,6 +347,75 @@ static void load_arrows(void)
         }
     }
 }
+/* Bounded circular search over a compile-time weapon count and owned mask. */
+static unsigned char adjacent_weapon(unsigned char current, unsigned char right)
+{
+    unsigned char remaining = WEAPON_COUNT;
+    while (remaining-- != 0)
+    {
+        if (right != 0) current = current + 1 == WEAPON_COUNT ? 0 : current + 1;
+        else current = current == 0 ? WEAPON_COUNT - 1 : current - 1;
+        if ((owned_weapons & (1U << current)) != 0) return current;
+    }
+    return selected_weapon;
+}
+
+static void draw_weapon_slot(unsigned char x, unsigned char weapon)
+{
+    unsigned char row;
+    unsigned char column;
+    unsigned char offset;
+    unsigned char pattern_base = weapon == WEAPON_PISTOL ? PISTOL_PATTERN : SHOTGUN_PATTERN;
+    if (weapon == WEAPON_COUNT) { draw_rect(x - 2, 110, WEAPON_COLUMNS, WEAPON_ROWS, SIDE_FRAME_PATTERN); return; }
+    if (x != 72)
+        pattern_base = weapon == WEAPON_PISTOL ? SIDE_PISTOL_PATTERN : SIDE_SHOTGUN_PATTERN;
+    for (row = 0; row < WEAPON_ROWS; ++row)
+        for (column = 0; column < WEAPON_COLUMNS; ++column)
+        {
+            offset = (row << 1) + (SCROLL_X == 0 ? (row << 1) : row) + column;
+            SMS_setTileatXY(((x - 2 + PAUSE_LCD_BG_X - SCROLL_X) >> 3) + column,
+                            ((110 + PAUSE_LCD_BG_Y + SCROLL_Y) >> 3) + row,
+                            pattern_base + offset);
+        }
+}
+
+static void draw_weapons(void)
+{
+    unsigned char previous = adjacent_weapon(selected_weapon, 0);
+    unsigned char next = adjacent_weapon(selected_weapon, 1);
+    draw_weapon_slot(40, previous == selected_weapon ? WEAPON_COUNT : previous);
+    draw_weapon_slot(72, selected_weapon);
+    draw_weapon_slot(104, next == selected_weapon ? WEAPON_COUNT : next);
+}
+
+/* Precomposed rows share static data; decode only once on pause entry.
+ * Both border variants already contain the exact authored artwork. */
+static void load_weapon_patterns(const unsigned char *indices,
+                                  const unsigned char *pixels,
+                                  unsigned char pattern_base)
+{
+    unsigned char tile;
+    unsigned char row;
+    unsigned char repeats = 0;
+    unsigned char index = 0;
+    for (tile = 0; tile < WEAPON_COLUMNS * WEAPON_ROWS; ++tile)
+        for (row = 0; row < 8; ++row)
+        {
+            if (repeats == 0)
+            {
+                index = *indices++;
+                if (index & 0x80)
+                {
+                    index &= 0x7f;
+                    repeats = *indices++;
+                }
+            }
+            else --repeats;
+            SMS_VRAMmemcpy(((unsigned int)(pattern_base + tile) << 5) + (row << 2),
+                pixels + ((unsigned int)index << 2), 4);
+        }
+}
+
 static void load_ui(void)
 {
     unsigned char rows[8];
@@ -350,6 +436,7 @@ static void load_ui(void)
         frame_rows(rows, pattern, SCROLL_X, SCROLL_Y);
         SMS_load1bppTiles(rows, FRAME_PATTERN + pattern, sizeof(rows), 0, PAUSE_MAP_WHITE);
     }
+    SMS_load1bppTiles(pause_empty_rows, SIDE_FRAME_PATTERN + 1, sizeof(pause_empty_rows), 0, 2);
     for (pattern = 0; pattern < 4; ++pattern)
     {
         x_offset = (((pattern & 1) != 0 ? 145 : 12) - SCROLL_X) & 7;
@@ -361,7 +448,7 @@ static void load_ui(void)
             if (y == ((pattern & 2) != 0 ? 2 : 0)) bits = 0xe0;
             rows[y_offset + y] = bits >> x_offset;
         }
-        SMS_load1bppTiles(rows, WEAPON_FOCUS_PATTERN + pattern, sizeof(rows), 0, 3);
+        SMS_load1bppTiles(rows, WEAPON_FOCUS_PATTERN + pattern, sizeof(rows), 0, PAUSE_MAP_WHITE);
         if (SCROLL_X != 0 && SCROLL_Y != 0)
         {
 #if SCROLL_X != 0 && SCROLL_Y != 0
@@ -375,11 +462,18 @@ static void load_ui(void)
         SMS_load1bppTiles(rows, FOCUS_PATTERN + pattern + 4, sizeof(rows), 0, PAUSE_MAP_WHITE);
     }
     load_arrows();
-    draw_rect(AUTOMAP_FRAME_X, AUTOMAP_FRAME_Y, AUTOMAP_FRAME_WIDTH, AUTOMAP_FRAME_HEIGHT);
-    draw_rect(40, 112, 16, 16);
-    draw_rect(72, 112, 16, 16);
-    draw_rect(104, 112, 16, 16);
-    draw_focus(MAP_FOCUS, 1);
+    draw_rect(AUTOMAP_FRAME_X, AUTOMAP_FRAME_Y,
+              (AUTOMAP_FRAME_WIDTH >> 3) + (SCROLL_X != 0),
+              (AUTOMAP_FRAME_HEIGHT >> 3) + (SCROLL_Y != 0), FRAME_PATTERN);
+
+    /* Static masked composite: full authored canvas origin is (72,112).
+     * Tile padding compensates BG scroll, without moving or scaling pixels. */
+    load_weapon_patterns(pause_pistol_tiles, pause_pistol_tiles_rows, PISTOL_PATTERN);
+    load_weapon_patterns(pause_pistol_tiles_side, pause_pistol_tiles_rows, SIDE_PISTOL_PATTERN);
+    load_weapon_patterns(pause_shotgun_tiles, pause_shotgun_tiles_rows, SHOTGUN_PATTERN);
+    load_weapon_patterns(pause_shotgun_tiles_side, pause_shotgun_tiles_rows, SIDE_SHOTGUN_PATTERN);
+    draw_weapons();
+    draw_focus(WEAPONS_FOCUS, 1);
 }
 
 static void draw_window(unsigned char origin_x, unsigned char origin_y)
@@ -489,14 +583,14 @@ static unsigned char pan_axis(unsigned char origin, unsigned char extent,
     return origin;
 }
 
-void game_gear_pause_map_show(void) __banked
+void game_gear_pause_map_show(void)
 {
     unsigned int player_x = player_get_position_x();
     unsigned int player_y = player_get_position_y();
     unsigned char facing = player_facing();
     unsigned char origin_x = window_origin(player_x >> 8, WORLD_WIDTH, AUTOMAP_COLUMNS);
     unsigned char origin_y = window_origin(player_y >> 8, WORLD_HEIGHT, AUTOMAP_ROWS);
-    unsigned char state = MAP_FOCUS;
+    unsigned char state = WEAPONS_FOCUS;
     unsigned char repeat = 0;
     unsigned char directions = 0;
     unsigned char pressed;
@@ -540,6 +634,17 @@ void game_gear_pause_map_show(void) __banked
                 directions = 0;
                 repeat = 0;
                 draw_focus(state, 1);
+            }
+            else if (state == WEAPONS_FOCUS
+                && ((pressed & PORT_A_KEY_LEFT) != 0) != ((pressed & PORT_A_KEY_RIGHT) != 0))
+            {
+                unsigned char next_weapon = adjacent_weapon(selected_weapon,
+                    pressed & PORT_A_KEY_RIGHT);
+                if (next_weapon != selected_weapon)
+                {
+                    selected_weapon = next_weapon;
+                    draw_weapons();
+                }
             }
             continue;
         }

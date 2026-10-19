@@ -1,0 +1,57 @@
+{
+  "date": "2026-10-19",
+  "documents": [
+    {
+      "path": "ASTRA_TECHNICAL_SOURCES.md",
+      "bytes": 10815,
+      "words": 1243,
+      "sha256": "0b07d9ec805f5a10d78410334b458023e112741ba78f9792d27e29dc57850256"
+    },
+    {
+      "path": "ASTRA_INDEPENDENT_REVIEW.md",
+      "bytes": 18054,
+      "words": 2510,
+      "sha256": "c92d6a53a5f416a13930381b98617e4482254d503b54e7837ddfbfe91b698a33"
+    },
+    {
+      "path": "ASTRA_OPTIMIZATION_DECISION_MATRIX.md",
+      "bytes": 12870,
+      "words": 1914,
+      "sha256": "ef30d1b07f5301ab6eeb4494bacd0268d7e5a27e0809f9500c300acc7985e754"
+    },
+    {
+      "path": "ASTRA_IMPLEMENTATION_ARCHITECTURE.md",
+      "bytes": 24029,
+      "words": 3351,
+      "sha256": "b6cfe12ac33570df96952f453adda2a7914283da98f3e1b3f07a3f87a9804793"
+    },
+    {
+      "path": "ASTRA_VALIDATION_PLAN.md",
+      "bytes": 16572,
+      "words": 2119,
+      "sha256": "163aa1a9d23486624a48fcc2c977dad58502b7cc29f7dc933cea08036353daec"
+    },
+    {
+      "path": "IMPLEMENTATION_MASTER_PROMPT.md",
+      "bytes": 22939,
+      "words": 2793,
+      "sha256": "32b0ddf47f83cc74a48034d7a33b433927722f70b36352fa23151fadec28ec18"
+    }
+  ],
+  "missing_local_links": [],
+  "source_inputs_checked": 262,
+  "changed_production_inputs": [],
+  "fresh_rom_sha256": "6322efcc0434ad8d4fc3f066ced47e0a1fb4cdb140d6da8654521e3834371136",
+  "production_rom_sha256": "6322efcc0434ad8d4fc3f066ced47e0a1fb4cdb140d6da8654521e3834371136",
+  "hud_rom_sha256": "2e2cad83b2acefd81e5dc26c1884e441131a5992d4e2875e5ad517884c53f59f",
+  "compiled_hud_cases": 1792,
+  "compiled_hud_mismatches": [],
+  "validators": 23,
+  "validator_failures": [],
+  "diff_check_exit": 0,
+  "experiment_archive_sha256": "bb85bbe70aebc66054a4cf80849fb9f3a769cd43cf15b644a22f3a372b4ebe68",
+  "experiment_archive_bad_member": null,
+  "hardware_tested": false,
+  "production_optimization_implemented": false,
+  "commit_or_push_performed": false
+}

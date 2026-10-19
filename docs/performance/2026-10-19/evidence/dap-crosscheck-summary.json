@@ -1,0 +1,207 @@
+{
+  "irq_entries": 47,
+  "input_intervals": 3,
+  "stops": [
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $1DDD",
+      "scanline": "scanline = $32"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $1DDD",
+      "scanline": "scanline = $32"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $389E",
+      "scanline": "scanline = $C1"
+    },
+    {
+      "pc": "pc = $1DDD",
+      "scanline": "scanline = $32"
+    }
+  ],
+  "method": "Separate standard Emulicious process with DAP function-address breakpoints. Original booted ROM; no seeded RAM."
+}

@@ -1,0 +1,42 @@
+[
+    {
+        "Root":  "main",
+        "Path":  "main::main -\u003e video_initialization::game_gear_video_restore_gameplay -\u003e video::game_gear_video_draw_wall_columns -\u003e sprite_projection::game_gear_prepare_cached_world_sprites -\u003e sprite_projection::game_gear_prepare_world_sprites -\u003e sprite_projection::game_gear_project_world_sprite -\u003e mulsint2slong",
+        "Bytes":  588
+    },
+    {
+        "Root":  "raycaster_update",
+        "Path":  "raycaster::raycaster_update -\u003e raycaster::cast_ray -\u003e raycaster::dda_get_side_distance -\u003e mullong",
+        "Bytes":  226
+    },
+    {
+        "Root":  "game_gear_video_draw_wall_columns",
+        "Path":  "video::game_gear_video_draw_wall_columns -\u003e sprite_projection::game_gear_prepare_cached_world_sprites -\u003e sprite_projection::game_gear_prepare_world_sprites -\u003e sprite_projection::game_gear_project_world_sprite -\u003e mulsint2slong",
+        "Bytes":  570
+    },
+    {
+        "Root":  "zombie_shooting_process",
+        "Path":  "zombie_shooting::zombie_shooting_process -\u003e zombie_shooting::zombie_shooting_find_aimed_target -\u003e mulsint2slong",
+        "Bytes":  164
+    },
+    {
+        "Root":  "zombie_ai_update_all",
+        "Path":  "zombie_ai::zombie_ai_update_all -\u003e zombie_ai::zombie_ai_move -\u003e zombie_ai::zombie_ai_position_is_clear -\u003e enemy_collision::enemy_position_is_walkable -\u003e world::world_is_wall -\u003e door_instances::door_instance_find_at -\u003e ",
+        "Bytes":  166
+    },
+    {
+        "Root":  "game_gear_pause_map_show",
+        "Path":  "pause_map::game_gear_pause_map_show -\u003e pause_map::load_ui -\u003e pause_map::load_arrows -\u003e SMS_load1bppTiles",
+        "Bytes":  222
+    },
+    {
+        "Root":  "game_gear_video_restore_gameplay",
+        "Path":  "video_initialization::game_gear_video_restore_gameplay -\u003e video::game_gear_video_draw_wall_columns -\u003e sprite_projection::game_gear_prepare_cached_world_sprites -\u003e sprite_projection::game_gear_prepare_world_sprites -\u003e sprite_projection::game_gear_project_world_sprite -\u003e mulsint2slong",
+        "Bytes":  574
+    },
+    {
+        "Root":  "player_process_interaction",
+        "Path":  "player::player_process_interaction -\u003e world_interactions::world_interact -\u003e world_sprite::world_sprites_crush_in_door -\u003e zombie_corpses::zombie_corpses_crush_in_door -\u003e zombie_corpses::zombie_corpses_merge -\u003e world_sprite::world_sprite_remove -\u003e memcpy",
+        "Bytes":  184
+    }
+]

@@ -1,11 +1,13 @@
+#include "native_wall.h"
 #include "SMSlib.h"
 #include "../../engine/render/raycaster.h"
+#define GEAR_RAY_WORLD_SPRITE_NO_DISTANCE_METRIC
 #include "../../game/world_sprite.h"
 #include "hud_weapon.h"
 #include "near_zombie_textures.h"
-#include "render_textures.h"
 #include "renderer_profile.h"
 #include "sprite_projection.h"
+#include "../../game/weapons.h"
 #include "video.h"
 #include "video_internal.h"
 #include "vram_layout.h"
@@ -24,60 +26,6 @@
 #define SPRITE_TRANSPARENT_INDEX 15
 #define SMS_MAPPER_SLOT2_REGISTER (*(volatile unsigned char *)0xFFFF)
 #define NEAR_ZOMBIE_ROM_PAGE 2
-
-static const unsigned char left_lod1_x_rows[8][4] = {
-    {0xa0, 0x50, 0x00, 0xa0}, {0x50, 0xa0, 0x00, 0x50},
-    {0xa0, 0x50, 0x00, 0xa0}, {0x50, 0xa0, 0x00, 0x50},
-    {0xa0, 0x50, 0x00, 0xa0}, {0x50, 0xa0, 0x00, 0x50},
-    {0xa0, 0x50, 0x00, 0xa0}, {0x50, 0xa0, 0x00, 0x50}
-};
-static const unsigned char right_lod1_x_rows[8][4] = {
-    {0x0a, 0x05, 0x00, 0x0a}, {0x05, 0x0a, 0x00, 0x05},
-    {0x0a, 0x05, 0x00, 0x0a}, {0x05, 0x0a, 0x00, 0x05},
-    {0x0a, 0x05, 0x00, 0x0a}, {0x05, 0x0a, 0x00, 0x05},
-    {0x0a, 0x05, 0x00, 0x0a}, {0x05, 0x0a, 0x00, 0x05}
-};
-static const unsigned char left_lod1_y_rows[8][4] = {
-    {0x00, 0xf0, 0x00, 0xa0}, {0x00, 0xf0, 0x00, 0x50},
-    {0x00, 0xf0, 0x00, 0xa0}, {0x00, 0xf0, 0x00, 0x50},
-    {0x00, 0xf0, 0x00, 0xa0}, {0x00, 0xf0, 0x00, 0x50},
-    {0x00, 0xf0, 0x00, 0xa0}, {0x00, 0xf0, 0x00, 0x50}
-};
-static const unsigned char right_lod1_y_rows[8][4] = {
-    {0x00, 0x0f, 0x00, 0x0a}, {0x00, 0x0f, 0x00, 0x05},
-    {0x00, 0x0f, 0x00, 0x0a}, {0x00, 0x0f, 0x00, 0x05},
-    {0x00, 0x0f, 0x00, 0x0a}, {0x00, 0x0f, 0x00, 0x05},
-    {0x00, 0x0f, 0x00, 0x0a}, {0x00, 0x0f, 0x00, 0x05}
-};
-
-static const unsigned char left_lod2_rows[2][8][4] = {
-    {
-        {0x00, 0xb0, 0x00, 0xa0}, {0x00, 0xf0, 0x00, 0x70},
-        {0x00, 0x70, 0x00, 0x50}, {0x00, 0xf0, 0x00, 0xb0},
-        {0x00, 0x70, 0x00, 0x60}, {0x00, 0xf0, 0x00, 0x70},
-        {0x00, 0xb0, 0x00, 0x90}, {0x00, 0xf0, 0x00, 0xb0}
-    },
-    {
-        {0x00, 0xf0, 0x00, 0xb0}, {0x00, 0x70, 0x00, 0x50},
-        {0x00, 0xf0, 0x00, 0x70}, {0x00, 0xb0, 0x00, 0xa0},
-        {0x00, 0xf0, 0x00, 0xb0}, {0x00, 0xb0, 0x00, 0x90},
-        {0x00, 0xf0, 0x00, 0x70}, {0x00, 0x70, 0x00, 0x60}
-    }
-};
-static const unsigned char right_lod2_rows[2][8][4] = {
-    {
-        {0x00, 0x0b, 0x00, 0x0a}, {0x00, 0x0f, 0x00, 0x07},
-        {0x00, 0x07, 0x00, 0x05}, {0x00, 0x0f, 0x00, 0x0b},
-        {0x00, 0x07, 0x00, 0x06}, {0x00, 0x0f, 0x00, 0x07},
-        {0x00, 0x0b, 0x00, 0x09}, {0x00, 0x0f, 0x00, 0x0b}
-    },
-    {
-        {0x00, 0x0f, 0x00, 0x0b}, {0x00, 0x07, 0x00, 0x05},
-        {0x00, 0x0f, 0x00, 0x07}, {0x00, 0x0b, 0x00, 0x0a},
-        {0x00, 0x0f, 0x00, 0x0b}, {0x00, 0x0b, 0x00, 0x09},
-        {0x00, 0x0f, 0x00, 0x07}, {0x00, 0x07, 0x00, 0x06}
-    }
-};
 
 #if GEARRAY_DEBUG_VIEWPORT_BORDER
 #define DEBUG_BORDER_HORIZONTAL_TILE_INDEX 97
@@ -99,7 +47,7 @@ GameGearWallColumnSignature previous_wall_columns[
     GAME_GEAR_VIEWPORT_TILE_COLUMNS];
 
 static GameGearProjectedSprite previous_projected_sprites[
-    WORLD_SPRITE_MAX_COUNT];
+    PROJECTED_SPRITE_MAX_COUNT];
 unsigned char previous_projected_sprite_count;
 unsigned char game_gear_damage_shake_phase;
 
@@ -111,36 +59,6 @@ void game_gear_damage_shake_update(void)
     --game_gear_damage_shake_phase;
     SMS_setBGScrollX(
         game_gear_damage_shake_offsets[game_gear_damage_shake_phase]);
-}
-
-static const unsigned char left_palette_bitplanes[16][4] = {
-    {0x00, 0x00, 0x00, 0x00}, {0xf0, 0x00, 0x00, 0x00},
-    {0x00, 0xf0, 0x00, 0x00}, {0xf0, 0xf0, 0x00, 0x00},
-    {0x00, 0x00, 0xf0, 0x00}, {0xf0, 0x00, 0xf0, 0x00},
-    {0x00, 0xf0, 0xf0, 0x00}, {0xf0, 0xf0, 0xf0, 0x00},
-    {0x00, 0x00, 0x00, 0xf0}, {0xf0, 0x00, 0x00, 0xf0},
-    {0x00, 0xf0, 0x00, 0xf0}, {0xf0, 0xf0, 0x00, 0xf0},
-    {0x00, 0x00, 0xf0, 0xf0}, {0xf0, 0x00, 0xf0, 0xf0},
-    {0x00, 0xf0, 0xf0, 0xf0}, {0xf0, 0xf0, 0xf0, 0xf0}
-};
-
-static const unsigned char right_palette_bitplanes[16][4] = {
-    {0x00, 0x00, 0x00, 0x00}, {0x0f, 0x00, 0x00, 0x00},
-    {0x00, 0x0f, 0x00, 0x00}, {0x0f, 0x0f, 0x00, 0x00},
-    {0x00, 0x00, 0x0f, 0x00}, {0x0f, 0x00, 0x0f, 0x00},
-    {0x00, 0x0f, 0x0f, 0x00}, {0x0f, 0x0f, 0x0f, 0x00},
-    {0x00, 0x00, 0x00, 0x0f}, {0x0f, 0x00, 0x00, 0x0f},
-    {0x00, 0x0f, 0x00, 0x0f}, {0x0f, 0x0f, 0x00, 0x0f},
-    {0x00, 0x00, 0x0f, 0x0f}, {0x0f, 0x00, 0x0f, 0x0f},
-    {0x00, 0x0f, 0x0f, 0x0f}, {0x0f, 0x0f, 0x0f, 0x0f}
-};
-
-static unsigned char game_gear_get_background_palette_index(
-    unsigned char screen_y)
-{
-    return screen_y < GAME_GEAR_VIEWPORT_PIXEL_HEIGHT / 2
-        ? CEILING_PALETTE_INDEX
-        : FLOOR_PALETTE_INDEX;
 }
 
 static unsigned char game_gear_sprite_covers_tile_column(
@@ -167,81 +85,48 @@ static unsigned char game_gear_sprite_covers_tile(
         && sprite->top < tile_top + 8;
 }
 
+/* Exact per-tile horizontal span and native row-plane merging experiment. */
 static void game_gear_overlay_sprite_tile(
-    unsigned char *destination,
-    unsigned char tile_column,
-    unsigned char tile_row,
-    const GameGearProjectedSprite *projected,
-    const RaycasterRay *rays)
+    unsigned char *destination,unsigned char tile_column,unsigned char tile_row,
+    const GameGearProjectedSprite *projected,const RaycasterRay *rays)
 {
-    const unsigned char *pixels =
-        projected->near_texture_id == NEAR_ZOMBIE_TEXTURE_NONE
-        ? projected->pixels
-        : near_zombie_texture_pixels[projected->near_texture_id];
-    unsigned int source_size = projected->near_texture_id
-        == NEAR_ZOMBIE_TEXTURE_NONE ? projected->source_size : 32;
-    unsigned char packed_row_stride = (unsigned char)source_size >> 1;
-    signed int tile_left = tile_column * 8;
-    signed int tile_top = tile_row * 8;
-    signed int screen_x;
-    signed int screen_y;
-    unsigned int texture_x;
-    unsigned int texture_y;
-    unsigned char pixel_x;
-    unsigned char pixel_y;
-    unsigned char palette_index;
-    unsigned char plane;
-    unsigned char mask;
-
-    if (!game_gear_sprite_covers_tile(projected, tile_column, tile_row))
-        return;
-
-    for (pixel_y = 0; pixel_y < 8; ++pixel_y)
-    {
-        screen_y = tile_top + pixel_y;
-        if (screen_y < projected->top || screen_y >= projected->bottom)
-            continue;
-        texture_y =
-            ((unsigned int)(screen_y - projected->top)
-             * projected->texture_step) >> 8;
-        if (texture_y >= source_size)
-            texture_y = source_size - 1;
-
-        for (pixel_x = 0; pixel_x < 8; ++pixel_x)
-        {
-            screen_x = tile_left + pixel_x;
-            if (screen_x < projected->left || screen_x >= projected->right)
-                continue;
-            if (projected->depth
-                >= rays[(unsigned char)screen_x >> 2].wall_distance)
-            {
-                continue;
-            }
-
-            texture_x =
-                ((unsigned int)(screen_x - projected->left)
-                 * projected->texture_step) >> 8;
-            if (texture_x >= source_size)
-                texture_x = source_size - 1;
-            palette_index = pixels[
-                texture_y * packed_row_stride + (texture_x >> 1)];
-            if (texture_x & 1)
-                palette_index &= 15;
-            else
-                palette_index >>= 4;
-            if (palette_index == SPRITE_TRANSPARENT_INDEX)
-                continue;
-
-            mask = (unsigned char)(0x80U >> pixel_x);
-            for (plane = 0; plane < 4; ++plane)
-            {
-                if (palette_index & (1U << plane))
-                    destination[pixel_y * 4 + plane] |= mask;
-                else
-                    destination[pixel_y * 4 + plane] &=
-                        (unsigned char)~mask;
-            }
+    const unsigned char *pixels=projected->near_texture_id==NEAR_ZOMBIE_TEXTURE_NONE
+        ?projected->pixels:near_zombie_texture_pixels[projected->near_texture_id];
+    unsigned char source_size=projected->near_texture_id==NEAR_ZOMBIE_TEXTURE_NONE
+        ?projected->source_size:32;
+    unsigned char packed_row_stride=source_size>>1;
+    signed int tile_left=tile_column*8,tile_top=tile_row*8,screen_x,screen_y;
+    unsigned int texture_x,texture_y;
+    unsigned char source_x[8],pixel_x,pixel_y,palette_index,mask,keep,b0,b1,b2,b3;
+    const unsigned char *source_row;
+    for(pixel_x=0;pixel_x<8;++pixel_x) {
+        screen_x=tile_left+pixel_x;source_x[pixel_x]=255;
+        if(screen_x<projected->left || screen_x>=projected->right) continue;
+        if(projected->depth>=rays[(unsigned char)screen_x>>2].wall_distance) continue;
+        texture_x=((unsigned int)(screen_x-projected->left)*projected->texture_step)>>8;
+        if(texture_x>=source_size) texture_x=source_size-1;
+        source_x[pixel_x]=(unsigned char)texture_x;
+    }
+    for(pixel_y=0;pixel_y<8;++pixel_y) {
+        screen_y=tile_top+pixel_y;
+        if(screen_y<projected->top || screen_y>=projected->bottom) continue;
+        texture_y=((unsigned int)(screen_y-projected->top)*projected->texture_step)>>8;
+        if(texture_y>=source_size) texture_y=source_size-1;
+        source_row=pixels+texture_y*packed_row_stride;
+        keep=255;b0=b1=b2=b3=0;
+        for(pixel_x=0;pixel_x<8;++pixel_x) {
+            texture_x=source_x[pixel_x];if(texture_x==255) continue;
+            palette_index=source_row[texture_x>>1];
+            if(texture_x&1) palette_index&=15;else palette_index>>=4;
+            if(palette_index==SPRITE_TRANSPARENT_INDEX) continue;
+            mask=128U>>pixel_x;keep&=(unsigned char)~mask;
+            if(palette_index&1) b0|=mask;if(palette_index&2) b1|=mask;
+            if(palette_index&4) b2|=mask;if(palette_index&8) b3|=mask;
         }
+        destination[pixel_y*4]=(destination[pixel_y*4]&keep)|b0;
+        destination[pixel_y*4+1]=(destination[pixel_y*4+1]&keep)|b1;
+        destination[pixel_y*4+2]=(destination[pixel_y*4+2]&keep)|b2;
+        destination[pixel_y*4+3]=(destination[pixel_y*4+3]&keep)|b3;
     }
 }
 
@@ -306,115 +191,12 @@ static void game_gear_store_wall_column_signature(
     previous->side_and_valid_flags = side_and_valid_flags;
 }
 
-static void game_gear_build_native_wall_tile(
-    unsigned char *destination,
-    GameGearWallTextureSampler *left_sampler,
-    unsigned char left_wall_is_far,
-    const unsigned char *left_flat_rows,
-    unsigned char left_wall_top,
-    unsigned char left_wall_height,
-    GameGearWallTextureSampler *right_sampler,
-    unsigned char right_wall_is_far,
-    const unsigned char *right_flat_rows,
-    unsigned char right_wall_top,
-    unsigned char right_wall_height,
-    unsigned char tile_pixel_y)
+static NativeWallPlan left_wall_plan,right_wall_plan;
+static void game_gear_build_native_wall_tile(unsigned char *destination,unsigned char screen_y)
 {
-    unsigned char tile_row;
-    unsigned char screen_y;
-    unsigned char background_palette_index;
-    unsigned char left_palette_index;
-    unsigned char right_palette_index;
-    const unsigned char *left_bitplanes;
-    const unsigned char *right_bitplanes;
-
-    left_wall_height += left_wall_top;
-    right_wall_height += right_wall_top;
-
-    if (!left_wall_is_far && !right_wall_is_far)
-    {
-        for (tile_row = 0; tile_row < 8; ++tile_row)
-        {
-            screen_y = tile_pixel_y + tile_row;
-            background_palette_index =
-                game_gear_get_background_palette_index(screen_y);
-            left_palette_index = game_gear_wall_texture_palette_sample_next(
-                left_sampler, screen_y);
-            right_palette_index = game_gear_wall_texture_palette_sample_next(
-                right_sampler, screen_y);
-
-            if (left_palette_index == GAME_GEAR_WALL_TEXTURE_OUTSIDE)
-                left_palette_index = background_palette_index;
-            if (right_palette_index == GAME_GEAR_WALL_TEXTURE_OUTSIDE)
-                right_palette_index = background_palette_index;
-
-            left_bitplanes = left_palette_bitplanes[left_palette_index];
-            right_bitplanes = right_palette_bitplanes[right_palette_index];
-            destination[0] = left_bitplanes[0] | right_bitplanes[0];
-            destination[1] = left_bitplanes[1] | right_bitplanes[1];
-            destination[2] = left_bitplanes[2] | right_bitplanes[2];
-            destination[3] = left_bitplanes[3] | right_bitplanes[3];
-            destination += NATIVE_TILE_ROW_BYTES;
-        }
-        return;
-    }
-
-    for (tile_row = 0; tile_row < 8; ++tile_row)
-    {
-        screen_y = tile_pixel_y + tile_row;
-        background_palette_index =
-            game_gear_get_background_palette_index(screen_y);
-        left_palette_index = background_palette_index;
-        right_palette_index = background_palette_index;
-
-        if (left_wall_is_far)
-        {
-            if (screen_y >= left_wall_top
-                && screen_y < left_wall_height)
-            {
-                left_bitplanes = left_flat_rows;
-            }
-            else
-                left_bitplanes =
-                    left_palette_bitplanes[background_palette_index];
-            left_flat_rows += NATIVE_TILE_ROW_BYTES;
-        }
-        else
-        {
-            left_palette_index = game_gear_wall_texture_palette_sample_next(
-                left_sampler, screen_y);
-            if (left_palette_index == GAME_GEAR_WALL_TEXTURE_OUTSIDE)
-                left_palette_index = background_palette_index;
-            left_bitplanes = left_palette_bitplanes[left_palette_index];
-        }
-
-        if (right_wall_is_far)
-        {
-            if (screen_y >= right_wall_top
-                && screen_y < right_wall_height)
-            {
-                right_bitplanes = right_flat_rows;
-            }
-            else
-                right_bitplanes =
-                    right_palette_bitplanes[background_palette_index];
-            right_flat_rows += NATIVE_TILE_ROW_BYTES;
-        }
-        else
-        {
-            right_palette_index = game_gear_wall_texture_palette_sample_next(
-                right_sampler, screen_y);
-            if (right_palette_index == GAME_GEAR_WALL_TEXTURE_OUTSIDE)
-                right_palette_index = background_palette_index;
-            right_bitplanes = right_palette_bitplanes[right_palette_index];
-        }
-
-        destination[0] = left_bitplanes[0] | right_bitplanes[0];
-        destination[1] = left_bitplanes[1] | right_bitplanes[1];
-        destination[2] = left_bitplanes[2] | right_bitplanes[2];
-        destination[3] = left_bitplanes[3] | right_bitplanes[3];
-        destination += NATIVE_TILE_ROW_BYTES;
-    }
+    SMS_MAPPER_SLOT2_REGISTER=3;
+    wall_plan_rows(destination,&left_wall_plan,&right_wall_plan,screen_y,8);
+    SMS_MAPPER_SLOT2_REGISTER=2;
 }
 
 static unsigned char game_gear_get_visible_wall_pixels(
@@ -503,16 +285,13 @@ void game_gear_video_draw_wall_columns(void)
     unsigned char has_active_wall;
     unsigned char left_wall_is_far;
     unsigned char right_wall_is_far;
-    const unsigned char *left_flat_rows = 0;
-    const unsigned char *right_flat_rows = 0;
     unsigned char desired_state;
     unsigned int desired_tile;
     unsigned char *tile_states = viewport_tile_states;
     GameGearWallColumnSignature *previous_wall_column = previous_wall_columns;
     signed int left_wall_top;
     signed int right_wall_top;
-    unsigned char first_screen_y;
-    unsigned char sprite_changed_mask;
+    unsigned int sprite_changed_mask;
     unsigned char sprite_dirty_column;
     unsigned char hud_weapon_changed;
     unsigned char current_sprite_column;
@@ -523,16 +302,15 @@ void game_gear_video_draw_wall_columns(void)
     unsigned char near_bank_mapped = 0;
     unsigned char previous_slot2_page = 0;
     unsigned char ordered_sprite_count = 0;
-    unsigned char ordered_sprite_indices[WORLD_SPRITE_MAX_COUNT];
-    GameGearWallTextureSampler left_sampler;
-    GameGearWallTextureSampler right_sampler;
+    unsigned char ordered_sprite_indices[PROJECTED_SPRITE_MAX_COUNT];
     const RaycasterRay *rendered_rays = raycaster_get_rendered_rays();
     const RaycasterRay *left_ray = rendered_rays;
     const RaycasterRay *right_ray;
-    GameGearProjectedSprite projected_sprites[WORLD_SPRITE_MAX_COUNT];
+    GameGearProjectedSprite projected_sprites[PROJECTED_SPRITE_MAX_COUNT];
 
     projected_sprite_count = world_sprite_get_count();
-    sprite_changed_mask = game_gear_prepare_world_sprites(
+    if (SHOTGUN_PICKUP_PRESENT) ++projected_sprite_count;
+    sprite_changed_mask = game_gear_prepare_cached_world_sprites(
         projected_sprites,
         projected_sprite_count,
         previous_projected_sprites,
@@ -685,7 +463,6 @@ void game_gear_video_draw_wall_columns(void)
 
         if (has_active_wall)
         {
-            first_screen_y = first_active_row * 8;
             left_wall_is_far =
                 left_wall_height <= DISTANT_WALL_MAX_PROJECTED_HEIGHT;
             right_wall_is_far =
@@ -693,59 +470,18 @@ void game_gear_video_draw_wall_columns(void)
             GEAR_RAY_PROFILE_ADD(far_wall_halves_rendered,
                                  left_wall_is_far + right_wall_is_far);
 
-            if (left_wall_is_far)
-            {
-                if (left_wall_height <= VERY_DISTANT_WALL_MAX_PROJECTED_HEIGHT)
-                {
-                    left_flat_rows = &left_lod2_rows[tile_column & 1][0][0];
-                    GEAR_RAY_PROFILE_INCREMENT(lod2_wall_halves_rendered);
-                }
-                else
-                {
-                    left_flat_rows = left_wall_side == WALL_SIDE_X
-                        ? &left_lod1_x_rows[0][0]
-                        : &left_lod1_y_rows[0][0];
-                    GEAR_RAY_PROFILE_INCREMENT(lod1_wall_halves_rendered);
-                }
+            if(left_wall_is_far) {
+                if(left_wall_height<=8) GEAR_RAY_PROFILE_INCREMENT(lod2_wall_halves_rendered);
+                else GEAR_RAY_PROFILE_INCREMENT(lod1_wall_halves_rendered);
             }
-            else
-            {
-                game_gear_wall_texture_sampler_initialize(
-                    &left_sampler,
-                    left_ray->texture_id,
-                    left_wall_side,
-                    left_hit_offset,
-                    left_wall_height,
-                    left_wall_top,
-                    first_screen_y);
+            if(right_wall_is_far) {
+                if(right_wall_height<=8) GEAR_RAY_PROFILE_INCREMENT(lod2_wall_halves_rendered);
+                else GEAR_RAY_PROFILE_INCREMENT(lod1_wall_halves_rendered);
             }
-
-            if (right_wall_is_far)
-            {
-                if (right_wall_height <= VERY_DISTANT_WALL_MAX_PROJECTED_HEIGHT)
-                {
-                    right_flat_rows = &right_lod2_rows[tile_column & 1][0][0];
-                    GEAR_RAY_PROFILE_INCREMENT(lod2_wall_halves_rendered);
-                }
-                else
-                {
-                    right_flat_rows = right_wall_side == WALL_SIDE_X
-                        ? &right_lod1_x_rows[0][0]
-                        : &right_lod1_y_rows[0][0];
-                    GEAR_RAY_PROFILE_INCREMENT(lod1_wall_halves_rendered);
-                }
-            }
-            else
-            {
-                game_gear_wall_texture_sampler_initialize(
-                    &right_sampler,
-                    right_ray->texture_id,
-                    right_wall_side,
-                    right_hit_offset,
-                    right_wall_height,
-                    right_wall_top,
-                    first_screen_y);
-            }
+            SMS_MAPPER_SLOT2_REGISTER=3;
+            wall_plan_prepare(left_ray,&left_wall_plan,tile_column);
+            wall_plan_prepare(right_ray,&right_wall_plan,tile_column);
+            SMS_MAPPER_SLOT2_REGISTER=2;
 
             for (row = first_active_row;
                  row <= last_active_row;
@@ -754,19 +490,7 @@ void game_gear_video_draw_wall_columns(void)
                 unsigned char *native_tile =
                     &projected_wall_column[
                         (row - first_active_row) * NATIVE_TILE_BYTES];
-                game_gear_build_native_wall_tile(
-                    native_tile,
-                    &left_sampler,
-                    left_wall_is_far,
-                    left_flat_rows,
-                    left_wall_top,
-                    left_wall_height,
-                    &right_sampler,
-                    right_wall_is_far,
-                    right_flat_rows,
-                    right_wall_top,
-                    right_wall_height,
-                    row * 8);
+                game_gear_build_native_wall_tile(native_tile,row*8);
                 /*
                  * Map order is stable. Draw farther sprites first so a nearer
                  * sprite wins where multiple instances overlap.

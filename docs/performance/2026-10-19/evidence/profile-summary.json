@@ -1,0 +1,22 @@
+{
+  "persistent_ram": 1269,
+  "fixed_end": 15596,
+  "bank1_bytes": 13533,
+  "bank2_bytes": 9317,
+  "bank3_bytes": 4605,
+  "rom_sha256": "ec4c25d3b688be5c240c33df597105607fa80f5b7b6e440f42ee11b8258500fa",
+  "profiling_symbols": [
+    [
+      "b_game_gear_renderer_profile_begin_frame",
+      "0x1"
+    ],
+    [
+      "_game_gear_renderer_profile",
+      "0xc404"
+    ],
+    [
+      "_game_gear_renderer_profile_begin_frame",
+      "0x174cc"
+    ]
+  ]
+}

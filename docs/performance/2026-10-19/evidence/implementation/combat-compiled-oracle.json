@@ -1,0 +1,10 @@
+{
+  "cases": 1630,
+  "mismatches": 0,
+  "rom_sha256": [
+    "6322efcc0434ad8d4fc3f066ced47e0a1fb4cdb140d6da8654521e3834371136",
+    "78b9b1be46160ea2634178b073016dc55298839af245e36ac4df64efe5f8c131"
+  ],
+  "digest": "a0c1f531811e979cda2b48f7d9ff48888171cd577e09f775cc0ddef1fbfa188f",
+  "coverage": "Both weapons; near 33; damage/visible/range boundaries +/-1; lateral gaps, each exact shotgun sample, wall ties, mixed occlusion, equal-depth first index, nearer/farther ordering and ineligible life state. Same compiled process verifies resulting life/health/timer bytes. Current complete-cache key is initialized from the actual scene before injected wall samples."
+}

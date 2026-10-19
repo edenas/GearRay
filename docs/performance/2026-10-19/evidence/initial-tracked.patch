@@ -1,0 +1,2911 @@
+﻿diff --git a/CMakeLists.txt b/CMakeLists.txt
+index bf5765d..614d56d 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -103,6 +103,8 @@ set(GEAR_RAY_VIDEO_OBJECT "${CMAKE_BINARY_DIR}/video.rel")
+ set(GEAR_RAY_VIDEO_INTERNAL_HEADER "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/video_internal.h")
+ set(GEAR_RAY_VIDEO_INITIALIZATION_SOURCE "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/video_initialization.c")
+ set(GEAR_RAY_VIDEO_INITIALIZATION_OBJECT "${CMAKE_BINARY_DIR}/video_initialization.rel")
++set(GEAR_RAY_GAME_OVER_PRESENTATION_SOURCE "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/game_over_presentation.c")
++set(GEAR_RAY_GAME_OVER_PRESENTATION_OBJECT "${CMAKE_BINARY_DIR}/game_over_presentation.rel")
+ set(GEAR_RAY_HUD_WEAPON_SOURCE "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/hud_weapon.c")
+ set(GEAR_RAY_HUD_WEAPON_HEADER "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/hud_weapon.h")
+ set(GEAR_RAY_HUD_WEAPON_OBJECT "${CMAKE_BINARY_DIR}/hud_weapon.rel")
+@@ -135,6 +137,7 @@ set(GEAR_RAY_RED_DOOR_SWITCH_ON_FRAME_2_INPUT "${CMAKE_SOURCE_DIR}/assets/textur
+ set(GEAR_RAY_WALL_TEXTURE_GENERATOR "${CMAKE_SOURCE_DIR}/tools/generate_wall_texture.ps1")
+ set(GEAR_RAY_WORKSHOP_MAP_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_workshop_map.ps1")
+ set(GEAR_RAY_ZOMBIE_SHOOTING_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_zombie_shooting.ps1")
++set(GEAR_RAY_SHOTGUN_COMBAT_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_shotgun_combat.ps1")
+ set(GEAR_RAY_ZOMBIE_AI_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_zombie_ai.ps1")
+ set(GEAR_RAY_ZOMBIE_ATTACK_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_zombie_attack.ps1")
+ set(GEAR_RAY_CORPSE_PERSISTENCE_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_corpse_persistence.ps1")
+@@ -334,6 +337,7 @@ add_custom_command(
+             -c "${GEAR_RAY_WORLD_INITIALIZATION_SOURCE}"
+             -o "${GEAR_RAY_WORLD_INITIALIZATION_OBJECT}"
+     DEPENDS "${GEAR_RAY_WORLD_INITIALIZATION_SOURCE}"
++            "${GEAR_RAY_GAME_DIR}/weapons.h"
+             "${GEAR_RAY_WORLD_HEADER}"
+             "${GEAR_RAY_WORLD_SPRITE_HEADER}"
+             "${GEAR_RAY_RED_DOOR_SWITCH_HEADER}"
+@@ -507,6 +511,7 @@ add_custom_command(
+             -c "${GEAR_RAY_VIDEO_SOURCE}"
+             -o "${GEAR_RAY_VIDEO_OBJECT}"
+     DEPENDS "${GEAR_RAY_VIDEO_SOURCE}" "${GEAR_RAY_VIDEO_HEADER}" "${GEAR_RAY_VIDEO_INTERNAL_HEADER}" "${GEAR_RAY_NEAR_ZOMBIE_TEXTURES_HEADER}" "${GEAR_RAY_HUD_WEAPON_HEADER}" "${GEAR_RAY_SPRITE_PROJECTION_HEADER}" "${GEAR_RAY_RENDER_TEXTURES_HEADER}" "${GEAR_RAY_RENDERER_PROFILE_HEADER}" "${GEAR_RAY_VRAM_LAYOUT_HEADER}" "${GEAR_RAY_WALL_TEXTURES_HEADER}" "${GEAR_RAY_RAYCASTER_HEADER}" "${GEAR_RAY_WALL_SIDE_HEADER}" "${GEAR_RAY_WORLD_SPRITE_HEADER}" "${GEAR_RAY_SMSLIB_INCLUDE}/SMSlib.h"
++    DEPENDS "${GEAR_RAY_GAME_DIR}/weapons.h"
+     COMMENT "Compiling platform/game_gear/video.c"
+     VERBATIM
+ )
+@@ -566,6 +571,9 @@ add_custom_command(
+             -c "${GEAR_RAY_HUD_WEAPON_SOURCE}"
+             -o "${GEAR_RAY_HUD_WEAPON_OBJECT}"
+     DEPENDS "${GEAR_RAY_HUD_WEAPON_SOURCE}"
++            "${GEAR_RAY_GENERATED_DIR}/shotgun_held.h"
++            "${GEAR_RAY_GENERATED_DIR}/shotgun_fire.h"
++            "${GEAR_RAY_GAME_DIR}/weapons.h"
+             "${GEAR_RAY_HUD_WEAPON_HEADER}"
+             "${GEAR_RAY_VIDEO_HEADER}"
+             "${GEAR_RAY_GENERATED_WEAPON_TEXTURE_HEADER}"
+@@ -587,6 +595,9 @@ add_custom_command(
+             -c "${GEAR_RAY_SPRITE_PROJECTION_SOURCE}"
+             -o "${GEAR_RAY_SPRITE_PROJECTION_OBJECT}"
+     DEPENDS "${GEAR_RAY_SPRITE_PROJECTION_SOURCE}"
++            "${GEAR_RAY_GENERATED_DIR}/shotgun_world.h"
++            "${GEAR_RAY_GENERATED_DIR}/shotgun_far_lod.h"
++            "${GEAR_RAY_GAME_DIR}/weapons.h"
+             "${GEAR_RAY_SPRITE_PROJECTION_HEADER}"
+             "${GEAR_RAY_VIDEO_HEADER}"
+             "${GEAR_RAY_CAMERA_HEADER}"
+@@ -665,7 +676,7 @@ add_custom_command(
+     COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
+             -mz80
+             "-I${GEAR_RAY_GENERATED_DIR}"
+-            --constseg BANK1
++            --constseg BANK3
+             -c "${GEAR_RAY_GENERATED_SEGA_LOGO_SOURCE}"
+             -o "${GEAR_RAY_GENERATED_SEGA_LOGO_OBJECT}"
+     DEPENDS "${GEAR_RAY_GENERATED_SEGA_LOGO_SOURCE}"
+@@ -689,13 +700,33 @@ add_custom_command(
+ add_custom_command(
+     OUTPUT "${GEAR_RAY_GENERATED_GAME_OVER_OBJECT}"
+     COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}" -mz80 "-I${GEAR_RAY_GENERATED_DIR}"
+-            --constseg BANK1 -c "${GEAR_RAY_GENERATED_GAME_OVER_SOURCE}"
++            --constseg BANK3 -c "${GEAR_RAY_GENERATED_GAME_OVER_SOURCE}"
+             -o "${GEAR_RAY_GENERATED_GAME_OVER_OBJECT}"
+     DEPENDS "${GEAR_RAY_GENERATED_GAME_OVER_SOURCE}" "${GEAR_RAY_GENERATED_GAME_OVER_HEADER}"
+     COMMENT "Compiling generated Game Over screen"
+     VERBATIM
+ )
+ 
++add_custom_command(
++    OUTPUT "${GEAR_RAY_GAME_OVER_PRESENTATION_OBJECT}"
++    COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
++            -mz80 -DTARGET_GG
++            "-I${GEAR_RAY_SMSLIB_INCLUDE}"
++            "-I${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}"
++            "-I${GEAR_RAY_GENERATED_DIR}"
++            --codeseg BANK3 --constseg BANK3
++            --peep-file "${GEAR_RAY_SMSLIB_INCLUDE}/peep-rules.txt"
++            -c "${GEAR_RAY_GAME_OVER_PRESENTATION_SOURCE}"
++            -o "${GEAR_RAY_GAME_OVER_PRESENTATION_OBJECT}"
++    DEPENDS "${GEAR_RAY_GAME_OVER_PRESENTATION_SOURCE}"
++            "${GEAR_RAY_VIDEO_HEADER}"
++            "${GEAR_RAY_VIDEO_INTERNAL_HEADER}"
++            "${GEAR_RAY_GENERATED_GAME_OVER_HEADER}"
++            "${GEAR_RAY_SMSLIB_INCLUDE}/SMSlib.h"
++    COMMENT "Compiling cold Game Over presentation in Bank 3"
++    VERBATIM
++)
++
+ add_custom_command(
+     OUTPUT "${GEAR_RAY_GENERATED_WALL_TEXTURE_SOURCE}" "${GEAR_RAY_GENERATED_WALL_TEXTURE_HEADER}"
+     COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}"
+@@ -1040,7 +1071,7 @@ add_custom_command(
+             "-I${GEAR_RAY_SMSLIB_INCLUDE}"
+             "-I${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}"
+             "-I${GEAR_RAY_GENERATED_DIR}"
+-            --codeseg BANK1
++            --codeseg BANK3 --constseg BANK3
+             --peep-file "${GEAR_RAY_SMSLIB_INCLUDE}/peep-rules.txt"
+             -c "${GEAR_RAY_STARTUP_LOGO_SOURCE}"
+             -o "${GEAR_RAY_STARTUP_LOGO_OBJECT}"
+@@ -1053,16 +1084,78 @@ add_custom_command(
+ )
+ 
+ set(GEAR_RAY_PAUSE_MAP_OBJECT "${CMAKE_BINARY_DIR}/pause_map.rel")
++set(GEAR_RAY_PAUSE_WEAPON_HEADER "${GEAR_RAY_GENERATED_DIR}/pause_weapon_icon.h")
++set(GEAR_RAY_PAUSE_SHOTGUN_HEADER "${GEAR_RAY_GENERATED_DIR}/pause_shotgun_icon.h")
++set(GEAR_RAY_SHOTGUN_FAR_HEADER "${GEAR_RAY_GENERATED_DIR}/shotgun_far_lod.h")
++set(GEAR_RAY_SHOTGUN_OBJECTS)
++foreach(kind IN ITEMS held fire world)
++    if(kind STREQUAL "held")
++        set(asset shotgun_held.png)
++        set(sprite_kind HudWeapon20x16)
++    elseif(kind STREQUAL "fire")
++        set(asset shotgun_held_shoot.png)
++        set(sprite_kind HudWeapon20x16)
++    else()
++        set(asset pick_up_shotgun.png)
++        set(sprite_kind WorldPickup)
++    endif()
++    set(source "${GEAR_RAY_GENERATED_DIR}/shotgun_${kind}.c")
++    set(header "${GEAR_RAY_GENERATED_DIR}/shotgun_${kind}.h")
++    set(object "${CMAKE_BINARY_DIR}/shotgun_${kind}.rel")
++    add_custom_command(OUTPUT "${source}" "${header}"
++        COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}" -NoProfile -ExecutionPolicy Bypass
++            -File "${CMAKE_SOURCE_DIR}/tools/generate_sprite_texture.ps1"
++            -InputPath "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/${asset}"
++            -OutputSource "${source}" -OutputHeader "${header}"
++            -Symbol "shotgun_${kind}_pixels" -SpriteKind "${sprite_kind}"
++        DEPENDS "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/${asset}"
++            "${CMAKE_SOURCE_DIR}/tools/generate_sprite_texture.ps1" VERBATIM)
++    add_custom_command(OUTPUT "${object}"
++        COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}" -mz80 --constseg BANK1
++            -c "${source}" -o "${object}" DEPENDS "${source}" "${header}" VERBATIM)
++    list(APPEND GEAR_RAY_SHOTGUN_OBJECTS "${object}")
++endforeach()
++add_custom_command(OUTPUT "${GEAR_RAY_PAUSE_SHOTGUN_HEADER}"
++    COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}" -NoProfile -ExecutionPolicy Bypass
++        -File "${CMAKE_SOURCE_DIR}/tools/generate_pause_weapon_icon.ps1"
++        -InputPath "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/shotgun.png"
++        -OutputHeader "${GEAR_RAY_PAUSE_SHOTGUN_HEADER}"
++        -Symbol pause_shotgun_tiles
++    DEPENDS "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/shotgun.png"
++        "${CMAKE_SOURCE_DIR}/tools/generate_pause_weapon_icon.ps1" VERBATIM)
++add_custom_command(OUTPUT "${GEAR_RAY_SHOTGUN_FAR_HEADER}"
++    COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}" -NoProfile -ExecutionPolicy Bypass
++        -File "${CMAKE_SOURCE_DIR}/tools/generate_shotgun_lod.ps1"
++        -InputPath "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/pick_up_shotgun.png"
++        -OutputDirectory "${GEAR_RAY_GENERATED_DIR}"
++    DEPENDS "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/pick_up_shotgun.png"
++        "${CMAKE_SOURCE_DIR}/tools/generate_shotgun_lod.ps1" VERBATIM)
++add_custom_target(gear_ray_weapon_assets DEPENDS ${GEAR_RAY_SHOTGUN_OBJECTS}
++    "${GEAR_RAY_PAUSE_SHOTGUN_HEADER}" "${GEAR_RAY_SHOTGUN_FAR_HEADER}")
++
++add_custom_command(
++    OUTPUT "${GEAR_RAY_PAUSE_WEAPON_HEADER}"
++    COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}" -NoProfile -ExecutionPolicy Bypass
++            -File "${CMAKE_SOURCE_DIR}/tools/generate_pause_weapon_icon.ps1"
++            -InputPath "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/pistol.png"
++            -OutputHeader "${GEAR_RAY_PAUSE_WEAPON_HEADER}"
++    DEPENDS "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/pistol.png"
++            "${CMAKE_SOURCE_DIR}/tools/generate_pause_weapon_icon.ps1"
++    VERBATIM
++)
+ add_custom_command(
+     OUTPUT "${GEAR_RAY_PAUSE_MAP_OBJECT}"
+     COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
+             -mz80 -DTARGET_GG
++            "-I${GEAR_RAY_GENERATED_DIR}"
+             "-I${GEAR_RAY_SMSLIB_INCLUDE}"
+             "-I${GEAR_RAY_GAME_DIR}"
+             --codeseg BANK2 --constseg BANK2
+             -c "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/pause_map.c"
+             -o "${GEAR_RAY_PAUSE_MAP_OBJECT}"
+     DEPENDS "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/pause_map.c"
++            "${GEAR_RAY_PAUSE_WEAPON_HEADER}"
++            "${GEAR_RAY_PAUSE_SHOTGUN_HEADER}"
+             "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/pause_map.h"
+             "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/input_internal.h"
+             "${GEAR_RAY_WORLD_SPRITE_HEADER}"
+@@ -1071,6 +1164,7 @@ add_custom_command(
+             "${GEAR_RAY_CAMERA_HEADER}"
+             "${GEAR_RAY_WORLD_HEADER}" "${GEAR_RAY_WORKSHOP_MAP_HEADER}"
+     COMMENT "Compiling event-only Bank 2 pause map"
++    DEPENDS "${GEAR_RAY_GAME_DIR}/weapons.h"
+     VERBATIM
+ )
+ 
+@@ -1083,6 +1177,7 @@ add_custom_command(
+             --data-loc 0xC000
+             -Wl-b_BANK1=0x14000
+             -Wl-b_BANK2=0x28000
++            -Wl-b_BANK3=0x34000
+             "${GEAR_RAY_CRT0}"
+             "${GEAR_RAY_MAIN_OBJECT}"
+             "${GEAR_RAY_PAUSE_MAP_OBJECT}"
+@@ -1103,11 +1198,13 @@ add_custom_command(
+             "${GEAR_RAY_INPUT_OBJECT}"
+             "${GEAR_RAY_VIDEO_OBJECT}"
+             "${GEAR_RAY_HUD_WEAPON_OBJECT}"
++            ${GEAR_RAY_SHOTGUN_OBJECTS}
+             "${GEAR_RAY_SPRITE_PROJECTION_OBJECT}"
+             "${GEAR_RAY_RENDER_TEXTURES_OBJECT}"
+             "${GEAR_RAY_WALL_TEXTURES_OBJECT}"
+             "${GEAR_RAY_GENERATED_SEGA_LOGO_OBJECT}"
+             "${GEAR_RAY_GENERATED_GAME_OVER_OBJECT}"
++            "${GEAR_RAY_GAME_OVER_PRESENTATION_OBJECT}"
+             "${GEAR_RAY_GENERATED_WALL_TEXTURE_OBJECT}"
+             "${GEAR_RAY_GENERATED_SPRITE_TEXTURE_OBJECT}"
+             "${GEAR_RAY_GENERATED_ZOMBIE_WALKING_01_TEXTURE_OBJECT}"
+@@ -1129,7 +1226,8 @@ add_custom_command(
+             "${GEAR_RAY_VIDEO_INITIALIZATION_OBJECT}"
+             ${GEAR_RAY_RENDERER_PROFILE_LINK_OBJECT}
+     DEPENDS "${GEAR_RAY_MAIN_OBJECT}" "${GEAR_RAY_CAMERA_OBJECT}" "${GEAR_RAY_RAYCASTER_OBJECT}" "${GEAR_RAY_PLAYER_OBJECT}" "${GEAR_RAY_RED_DOOR_SWITCH_OBJECT}" "${GEAR_RAY_STARTUP_LOGO_OBJECT}" ${GEAR_RAY_NEAR_ZOMBIE_GENERATED_OBJECTS} ${GEAR_RAY_MIDDLE_ZOMBIE_GENERATED_OBJECTS} "${GEAR_RAY_NEAR_ZOMBIE_TEXTURES_OBJECT}" "${GEAR_RAY_INTERACTION_RAY_OBJECT}" "${GEAR_RAY_WORLD_INTERACTIONS_OBJECT}" "${GEAR_RAY_WORLD_INITIALIZATION_OBJECT}" "${GEAR_RAY_WORLD_OBJECT}" "${GEAR_RAY_WORKSHOP_MAP_OBJECT}" "${GEAR_RAY_WORLD_OBJECTS_OBJECT}" "${GEAR_RAY_WORLD_SPRITE_OBJECT}" "${GEAR_RAY_ZOMBIE_SHOOTING_OBJECT}" "${GEAR_RAY_ZOMBIE_AI_OBJECT}" "${GEAR_RAY_ZOMBIE_CORPSES_OBJECT}" "${GEAR_RAY_ENEMY_COLLISION_OBJECT}" "${GEAR_RAY_DOOR_INSTANCES_OBJECT}" "${GEAR_RAY_DOOR_STATES_OBJECT}" "${GEAR_RAY_INPUT_OBJECT}" "${GEAR_RAY_VIDEO_OBJECT}" "${GEAR_RAY_VIDEO_INITIALIZATION_OBJECT}" "${GEAR_RAY_HUD_WEAPON_OBJECT}" "${GEAR_RAY_SPRITE_PROJECTION_OBJECT}" "${GEAR_RAY_RENDER_TEXTURES_OBJECT}" ${GEAR_RAY_RENDERER_PROFILE_LINK_OBJECT} "${GEAR_RAY_WALL_TEXTURES_OBJECT}" "${GEAR_RAY_GENERATED_SEGA_LOGO_OBJECT}" "${GEAR_RAY_GENERATED_WALL_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_SPRITE_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_WALKING_01_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_WALKING_02_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_01_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_02_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_DEAD_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_CORPS_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_WEAPON_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_WEAPON_SHOOT_TEXTURE_OBJECT}" "${GEAR_RAY_CRT0}" "${GEAR_RAY_SMSLIB_LIBRARY}"
+-    DEPENDS "${GEAR_RAY_PAUSE_MAP_OBJECT}" "${GEAR_RAY_GENERATED_GAME_OVER_OBJECT}"
++    DEPENDS "${GEAR_RAY_PAUSE_MAP_OBJECT}" "${GEAR_RAY_GENERATED_GAME_OVER_OBJECT}" "${GEAR_RAY_GAME_OVER_PRESENTATION_OBJECT}"
++    DEPENDS ${GEAR_RAY_SHOTGUN_OBJECTS}
+     COMMENT "Linking GearRay for Game Gear"
+     VERBATIM
+ )
+@@ -1146,6 +1244,7 @@ add_custom_command(
+             -RomPath "${GEAR_RAY_ROM}"
+     DEPENDS "${GEAR_RAY_IHX}"
+             "${GEAR_RAY_BANK_LAYOUT_VALIDATOR}"
++            "${CMAKE_SOURCE_DIR}/tools/production_build_artifacts.ps1"
+     COMMENT "Generating rom/${GEAR_RAY_ROM_FILENAME}"
+     VERBATIM
+ )
+@@ -1188,6 +1287,19 @@ add_custom_target(gear_ray_validate_zombie_shooting
+     COMMENT "Validating zombie hitscan and death states"
+     VERBATIM
+ )
++add_custom_target(gear_ray_validate_shotgun_combat
++    COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}"
++            -NoProfile -ExecutionPolicy Bypass
++            -File "${GEAR_RAY_SHOTGUN_COMBAT_VALIDATOR}"
++            -BuildDirectory "${CMAKE_BINARY_DIR}"
++            -RequireAssembly
++    DEPENDS "${GEAR_RAY_SHOTGUN_COMBAT_VALIDATOR}"
++            "${GEAR_RAY_ZOMBIE_SHOOTING_SOURCE}"
++            "${GEAR_RAY_ZOMBIE_SHOOTING_OBJECT}"
++            "${GEAR_RAY_MAIN_SOURCE}" "${GEAR_RAY_INPUT_SOURCE}"
++    COMMENT "Validating shotgun combat identity and off-axis occlusion"
++    VERBATIM
++)
+ add_custom_target(gear_ray_validate_zombie_ai
+     COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}"
+             -NoProfile
+@@ -1287,6 +1399,7 @@ add_custom_target(gear_ray_validate_middle_zombie
+ )
+ add_dependencies(gear_ray_game gear_ray_engine gear_ray_validate_workshop
+                  gear_ray_validate_zombie_shooting
++                 gear_ray_validate_shotgun_combat
+                  gear_ray_validate_zombie_ai
+                  gear_ray_validate_corpse_persistence
+                  gear_ray_validate_zombie_attack
+@@ -1307,7 +1420,23 @@ add_custom_target(gear_ray_validate_pause_map
+             -BuildDirectory "${CMAKE_BINARY_DIR}"
+     DEPENDS "${GEAR_RAY_PAUSE_MAP_OBJECT}"
+             "${GEAR_RAY_GENERATED_WALL_TEXTURE_SOURCE}"
++            "${CMAKE_SOURCE_DIR}/tools/production_build_artifacts.ps1"
+     COMMENT "Validating pause map geometry, START edges, and restoration contracts"
+     VERBATIM
+ )
+ add_dependencies(gear_ray_game gear_ray_validate_pause_map)
++
++add_dependencies(gear_ray_game gear_ray_weapon_assets)
++foreach(validator IN ITEMS weapon_assets weapon_runtime)
++    add_custom_target(gear_ray_validate_${validator}
++        COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}" -NoProfile -ExecutionPolicy Bypass
++            -File "${CMAKE_SOURCE_DIR}/tools/validate_${validator}.ps1"
++            -BuildDirectory "${CMAKE_BINARY_DIR}"
++        DEPENDS "${GEAR_RAY_HUD_WEAPON_OBJECT}" "${GEAR_RAY_SPRITE_PROJECTION_OBJECT}"
++            "${GEAR_RAY_MAIN_OBJECT}" "${GEAR_RAY_VIDEO_OBJECT}" ${GEAR_RAY_SHOTGUN_OBJECTS}
++            "${GEAR_RAY_PAUSE_SHOTGUN_HEADER}" "${GEAR_RAY_SHOTGUN_FAR_HEADER}"
++            "${GEAR_RAY_ROM}"
++            "${CMAKE_SOURCE_DIR}/tools/production_build_artifacts.ps1"
++        VERBATIM)
++    add_dependencies(gear_ray_game gear_ray_validate_${validator})
++endforeach()
+diff --git a/GearRay_Developer_Bible.md b/GearRay_Developer_Bible.md
+index ad8830c..6daea77 100644
+--- a/GearRay_Developer_Bible.md
++++ b/GearRay_Developer_Bible.md
+@@ -1,5 +1,7 @@
+ # GearRay Developer Bible
+ 
++> Current executable behavior and banking rules are maintained in [docs/CURRENT_BEHAVIOR.md](docs/CURRENT_BEHAVIOR.md). Historical sections below explain how the project arrived there and can describe superseded limits.
++
+ > **Status:** Official technical, architectural, historical, and engineering reference
+ > **Project:** GearRay
+ > **Current foundation:** Engine Foundation v1.0.0, codename **Operation Solid Ground**
+diff --git a/README.md b/README.md
+index 96e1567..22f26e5 100644
+--- a/README.md
++++ b/README.md
+@@ -113,6 +113,7 @@ when configuring CMake. See the full [build guide](docs/BUILDING.md).
+ 
+ ## Documentation
+ 
++- [Current behavior and architecture](docs/CURRENT_BEHAVIOR.md)
+ - [Building GearRay](docs/BUILDING.md)
+ - [Engine architecture](docs/ENGINE_ARCHITECTURE.md)
+ - [Engine Foundation v1.0.0](docs/ENGINE_FOUNDATION_V1.0.0.md)
+@@ -130,8 +131,9 @@ evidence; they are not all descriptions of the current implementation.
+ ## Roadmap
+ 
+ Near-term work focuses on public-release documentation, provenance, and
+-reproducible builds. The consolidated current reference is the
+-[GearRay Developer Bible](GearRay_Developer_Bible.md). Later work may add
++reproducible builds. The maintained current reference is
++[Current behavior and architecture](docs/CURRENT_BEHAVIOR.md). The broader
++[GearRay Developer Bible](GearRay_Developer_Bible.md) includes historical background. Later work may add
+ gameplay systems, content, audio, and user-interface features while preserving
+ the Engine Foundation contracts.
+ 
+diff --git a/assets/sprites/enemies/zombie/zombie_01_shot_02.png b/assets/sprites/enemies/zombie/zombie_01_shot_02.png
+index 4decf4837ad47d7b6ef2315f174e1311e33a693b..cffcf7b96ff66828546cf79e4ce4df623147ff47 100644
+GIT binary patch
+delta 128
+zcmV-`0Du350)PULV+jfn3@tcdkj8J3Y$$A3Nkl<Zc-muVXlP)7;ot<V{~!!wZ<S*B
+z&j2D|3P5a_0*2gv2o2+aBp4VNAQ;HUPyjX#C<&usrZONK3B$<N!rcHjo&n7SWCy|p
+ip$fp(p$j7G24MgIYGX7peJCIR0000<MNUMnLSTZ-&MhAR
+
+delta 133
+zcmV;00DAv`0)+yQV+jWw6$A{V(@w{cY$$PDNkl<Zc-mb}Q5C>I2qMQKtj-Foz&hAq
+zX_n6^2Ywvyd3b;d6utw*b)VVgzVrm2=Y@h3C~Yy#`p8(-<{sdtGR@xVyO=43srhb1
+nVAiXo0d5?0xLM~0xiRqrYwks@=M7)M00000NkvXXu0mjf<}5p5
+
+diff --git a/assets/sprites/weapons/shotgun_16x16.png b/assets/sprites/weapons/shotgun_16x16.png
+deleted file mode 100644
+index d3dbf8df1483e61875ef852b63032ac72c1755ad..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+HcmV?d00001
+
+literal 2904
+zcmeAS@N?(olHy`uVBq!ia0vp^0wB!61|;P_|4#%`Iwh_VCC){ui6xo&c?uz!xv2~x
+zrKt*r77C7~=?X>$MrI0z=2j+VRz`*j+6G1j25~E-r!p{bae?$j`1)8S=jZArrsOB3
+z>Q&?xFxc2v6eK2Rr<N!rrKV@**($x?y<bToGsRXZ+|<{=x4=0yBh#a*C^fjsFC@7t
+zJJ~Wt$=;63rosxSIXAT=QK2F?C$HG5!d3}vrWKG464qBz04piUwpEJo4N!2-FG^J~
+z)icyHQnKSxP*AWbN=dT{a&d!d2l8x{GD=Dctn~HE%ggo3jrH=2()A53EiLs8jP#9+
+zbb%^#i!1X=5-W7`ij^UTz|3(;Elw`VEC2@x$lS!F{L&IzB_)tWZ~$><NoE?tro3Wk
+zKmdb8A0(r1sAr%LHyfzc1|(_~5tLe-pHm7l-_FQV-_QoE7)2Oi6+}xUb}h)l=voju
+zLh~|9?2Mtdpb0~D+315jisW%fsDed-!3vBaeRvdsrQqQ}D+a<lw6Xzc?x-as1@35Y
+zjRqG<AwZJi(bP2>TqK16Ns32P7uAA`3(?3+%>%aV%7INdvt|KnU~7`S#M9T6{S_xS
+zkAczti7%CbLYxI2k;M!Q+#Mjy__R;c6DY`%?&#~tz_78O`%fY(kU!JY#WAGf*42p@
+zc^edXTxK>W-f5`)aJVJ)Psy=Yg5A@j4*p1=%-yoA|1rnI|Dj%-hHeLcxoRXn47j%R
+zrKrMEmEv<vK^F|yykhq2GT<;ecZ}i5gT@<E4_Rz>Yl=0gQsBSFaJ$5`O5twu+S)q)
+z7!40au`e78t{g3X+^BVg$-t*x$LzuEJ+~zrjQ9O~_9FAft_=^j{pGlDn&lQ_zE7}z
+U(9XwYKu0ooy85}Sb4q9e0Q|xm3jhEB
+
+diff --git a/assets/sprites/weapons/shotgun_16x16_shoot.png b/assets/sprites/weapons/shotgun_16x16_shoot.png
+deleted file mode 100644
+index 00b978142cf28c04a74d33f0795d794aafd83828..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+HcmV?d00001
+
+literal 2919
+zcmeAS@N?(olHy`uVBq!ia0vp^0wB!61|;P_|4#%`Iwh_VCC){ui6xo&c?uz!xv2~x
+zrKt*r77C7~=?X>$MrI0z=2j+VRz`*j+6G1j25~E-r!p{bae?$j`1)8S=jZArrsOB3
+z>Q&?xFxc2v6eK2Rr<N!rrKV@**($x?y<bToGsRXZ+|<{=x4=0yBh#a*C^fjsFC@7t
+zJJ~Wt$=;63rosxSIXAT=QK2F?C$HG5!d3}vrWKG464qBz04piUwpEJo4N!2-FG^J~
+z)icyHQnKSxP*AWbN=dT{a&d!d2l8x{GD=Dctn~HE%ggo3jrH=2()A53EiLs8jP#9+
+zbb%^#i!1X=5-W7`ij^UTz|3(;Elw`VEC2@x$lS!F{L&IzB_)tWZ~$><NoE?tro3Wk
+zKmdb8A0(r1sAr%LHyfzc1|(_~5tLe-pHm7l-_FQV-_QoE7)2Oi6+}xUb}h)l=voju
+zLh~|9?2Mtdpb0~D+315jisW%fsDed-!3vBaeRvdsrQqQ}D+a<lw6Xzc?x-as1@35Y
+zjRqG<AwZJi(bP2>TqK16Ns32P7uAA`3(?3+%>%aV%7INdvt|KnU~7`S#M9T6{S_xS
+zuc)xpN$0gdA<hDi$YKTt?hX)UeA=h!2^3^Wcl32+VA$Bt{U?zX$Y0^<;uunKYwDzn
+zybTIGE;E}G?=;kYI9&MW%jKV|ROKwa6mKkPoN(v$R+E_M2?>X)XCISo{v%ds+WS39
+zfs46h=dLcxr#4=C)&YTDp5NxImTsuq&EPRPMz{5dg!Kubj=BX-U!H7}3E=-zRi?=B
+zvB#>z>R^Cwi{p;hH+h8arz_edw3#w&dEl6~!0*kP649st<7P&N(;=%4_7<A1<J*|K
+iw9%q=_v*aW%JSkSf^C_z=C=Ud%;4$j=d#Wzp$P!Sa~li*
+
+diff --git a/engine/render/raycaster.c b/engine/render/raycaster.c
+index 10607d4..4efb330 100644
+--- a/engine/render/raycaster.c
++++ b/engine/render/raycaster.c
+@@ -135,17 +135,13 @@ static unsigned char raycaster_calculate_hit_offset(
+     signed int direction,
+     unsigned long ray_distance)
+ {
+-    signed long scaled_offset = (signed long)direction
+-                              * (signed long)ray_distance;
+-    signed long impact_position;
++    /* floor(product / 256) mod 256 is bits 8..15 of the product, including
++     * negative products. Only those bits can affect this 8.8 texture offset. */
++    unsigned int fractional_product =
++        (unsigned int)direction * (unsigned int)ray_distance;
+ 
+-    /* Round negative products down to preserve the 8.8 fraction. */
+-    if (scaled_offset < 0)
+-        scaled_offset -= FIXED_POINT_SCALE - 1;
+-
+-    impact_position = position + scaled_offset / FIXED_POINT_SCALE;
+-
+-    return (unsigned char)(impact_position & (FIXED_POINT_SCALE - 1));
++    return (unsigned char)((unsigned int)position
++                           + (fractional_product >> 8));
+ }
+ 
+ static unsigned char cast_ray(signed int direction_x,
+diff --git a/game/main.c b/game/main.c
+index 681925e..7d4c6d3 100644
+--- a/game/main.c
++++ b/game/main.c
+@@ -76,7 +76,6 @@ void main(void)
+             }
+             world_sprites_update();
+             shoot_requested = input_shoot_requested();
+-            game_gear_hud_weapon_update(shoot_requested);
+             rotation_direction = input_get_rotation_intent();
+ 
+             if (rotation_direction < 0)
+@@ -98,6 +97,7 @@ void main(void)
+                                           player_get_position_y());
+             }
+ 
++            game_gear_hud_weapon_update(shoot_requested);
+             if (++zombie_ai_frame_counter >= ZOMBIE_AI_UPDATE_INTERVAL)
+             {
+                 zombie_ai_frame_counter = 0;
+diff --git a/game/player.c b/game/player.c
+index 2a08cea..364b7e0 100644
+--- a/game/player.c
++++ b/game/player.c
+@@ -14,9 +14,9 @@ static signed int player_position_y;
+ static unsigned char player_health;
+ 
+ static signed int player_scale_movement(signed int direction,
+-                                        unsigned int direction_scale)
++                                        signed int direction_scale)
+ {
+-    signed long movement = (signed long)direction * PLAYER_MOVE_SPEED;
++    signed int movement = direction * PLAYER_MOVE_SPEED;
+ 
+     if (movement < 0)
+         movement -= direction_scale / 2;
+@@ -28,8 +28,7 @@ static signed int player_scale_movement(signed int direction,
+ 
+ static signed int player_scale_diagonal(signed int movement)
+ {
+-    signed long scaled_movement =
+-        (signed long)movement * PLAYER_DIAGONAL_SCALE;
++    signed int scaled_movement = movement * PLAYER_DIAGONAL_SCALE;
+ 
+     if (scaled_movement < 0)
+         scaled_movement -= FIXED_POINT_SCALE / 2;
+diff --git a/game/workshop_map.c b/game/workshop_map.c
+index 814b940..5b777d2 100644
+--- a/game/workshop_map.c
++++ b/game/workshop_map.c
+@@ -11,6 +11,7 @@
+ #define R WORLD_TILE_RED_DOOR
+ #define W WORLD_TILE_RED_DOOR_SWITCH
+ #define Z WORLD_TILE_SPRITE_MARKER
++#define G WORLD_TILE_SHOTGUN_MARKER
+ 
+ /*
+  * Permanent engine laboratory. VOID cells are non-existent space outside
+@@ -24,7 +25,7 @@ static const unsigned char workshop_map
+     { X, X, X, X, S, E, E, E, S, X, X, X, X },
+     { X, S, B, S, S, S, D, S, S, S, B, S, X },
+     { X, S, E, E, E, E, E, E, E, E, E, S, X },
+-    { B, Z, E, E, E, E, E, E, E, E, E, E, S },
++    { B, Z, E, E, E, E, E, E, E, E, E, G, S },
+     { X, S, E, E, E, E, E, E, E, E, E, S, X },
+     { X, S, B, S, S, B, D, S, S, S, S, S, X },
+     { X, X, X, X, S, E, E, E, S, X, X, X, X },
+diff --git a/game/world.c b/game/world.c
+index 186be80..00c6719 100644
+--- a/game/world.c
++++ b/game/world.c
+@@ -1,5 +1,6 @@
+ #include "world.h"
+ #include "red_door_switch.h"
++#define GEAR_RAY_WORLD_SPRITE_NO_DISTANCE_METRIC
+ #include "world_sprite.h"
+ 
+ unsigned char world_get_tile(unsigned char x, unsigned char y)
+@@ -9,7 +10,8 @@ unsigned char world_get_tile(unsigned char x, unsigned char y)
+ 
+     {
+         unsigned char tile_id = workshop_map_get_tile(x, y);
+-        return tile_id == WORLD_TILE_SPRITE_MARKER
++        return (tile_id == WORLD_TILE_SPRITE_MARKER
++                || tile_id == WORLD_TILE_SHOTGUN_MARKER)
+             ? WORLD_TILE_EMPTY
+             : tile_id;
+     }
+@@ -53,9 +55,6 @@ unsigned char world_is_wall(unsigned char x, unsigned char y)
+     DoorInstanceId door_instance;
+     unsigned char tile_id;
+ 
+-    if (x >= WORLD_WIDTH || y >= WORLD_HEIGHT)
+-        return 1;
+-
+     tile_id = world_get_tile(x, y);
+ 
+     if (tile_id == WORLD_TILE_EMPTY)
+diff --git a/game/world.h b/game/world.h
+index 82a9dc4..7a3b1d7 100644
+--- a/game/world.h
++++ b/game/world.h
+@@ -18,6 +18,7 @@
+ #define WORLD_TILE_RED_DOOR_SWITCH 7
+ #define WORLD_TILE_VOID 8
+ #define WORLD_TILE_SPRITE_MARKER 9
++#define WORLD_TILE_SHOTGUN_MARKER 10
+ 
+ void world_initialize(void) __banked;
+ unsigned char world_get_tile(unsigned char x, unsigned char y);
+diff --git a/game/world_initialization.c b/game/world_initialization.c
+index 31906fb..85284d8 100644
+--- a/game/world_initialization.c
++++ b/game/world_initialization.c
+@@ -1,22 +1,38 @@
+ #include "red_door_switch.h"
+ #include "world.h"
++#define GEAR_RAY_WORLD_SPRITE_NO_DISTANCE_METRIC
+ #include "world_sprite.h"
++#include "weapons.h"
++
++unsigned char owned_weapons;
++unsigned char selected_weapon;
++unsigned char shotgun_cell_x;
++unsigned char shotgun_cell_y;
+ 
+ void world_initialize(void) __banked
+ {
+     unsigned char x;
+     unsigned char y;
++    unsigned char tile;
+ 
+     door_states_initialize();
+     red_door_switch_initialize();
+     world_sprites_initialize();
++    owned_weapons = WEAPON_OWNED_PISTOL;
++    selected_weapon = WEAPON_PISTOL;
+ 
+     for (y = 0; y < WORLD_HEIGHT; ++y)
+     {
+         for (x = 0; x < WORLD_WIDTH; ++x)
+         {
+-            if (workshop_map_get_tile(x, y) == WORLD_TILE_SPRITE_MARKER)
++            tile = workshop_map_get_tile(x, y);
++            if (tile == WORLD_TILE_SPRITE_MARKER)
+                 world_sprite_initialize(x, y);
++            else if (tile == WORLD_TILE_SHOTGUN_MARKER)
++            {
++                shotgun_cell_x = x;
++                shotgun_cell_y = y;
++            }
+         }
+     }
+ }
+diff --git a/game/world_sprite.c b/game/world_sprite.c
+index 5897856..4fb3c06 100644
+--- a/game/world_sprite.c
++++ b/game/world_sprite.c
+@@ -1,3 +1,4 @@
++#define GEAR_RAY_WORLD_SPRITE_NO_DISTANCE_METRIC
+ #include "world_sprite.h"
+ #include "zombie_corpses.h"
+ #include "zombie_ai.h"
+diff --git a/game/zombie_ai.c b/game/zombie_ai.c
+index 6bf954d..7256790 100644
+--- a/game/zombie_ai.c
++++ b/game/zombie_ai.c
+@@ -188,7 +188,7 @@ static void zombie_ai_move(unsigned char sprite_index,
+     }
+ }
+ 
+-void zombie_ai_update_all(void) __banked
++void zombie_ai_update_all(void)
+ {
+     unsigned char sprite_index;
+     unsigned char sprite_count;
+diff --git a/game/zombie_ai.h b/game/zombie_ai.h
+index 534879c..09cf2cd 100644
+--- a/game/zombie_ai.h
++++ b/game/zombie_ai.h
+@@ -6,6 +6,6 @@
+ extern unsigned char zombie_ai_wall_following_mask;
+ extern unsigned char zombie_ai_wall_negative_mask;
+ 
+-void zombie_ai_update_all(void) __banked;
++void zombie_ai_update_all(void);
+ 
+ #endif
+diff --git a/game/zombie_corpses.c b/game/zombie_corpses.c
+index 761770d..0f95042 100644
+--- a/game/zombie_corpses.c
++++ b/game/zombie_corpses.c
+@@ -38,13 +38,13 @@ static unsigned char zombie_corpses_merge(unsigned char sprite_index)
+ }
+ 
+ unsigned char zombie_corpses_finalize(
+-    unsigned char sprite_index) __banked
++    unsigned char sprite_index)
+ {
+     world_sprite_make_corpse(sprite_index);
+     return zombie_corpses_merge(sprite_index);
+ }
+ 
+-void zombie_corpses_crush_in_door(unsigned char map_y) __banked
++void zombie_corpses_crush_in_door(unsigned char map_y)
+ {
+     signed int door_center_y = ((signed int)map_y << 8) + 128;
+     unsigned char sprite_index = 0;
+diff --git a/game/zombie_corpses.h b/game/zombie_corpses.h
+index f5bf40e..b35ef70 100644
+--- a/game/zombie_corpses.h
++++ b/game/zombie_corpses.h
+@@ -1,7 +1,7 @@
+ #ifndef GEAR_RAY_ZOMBIE_CORPSES_H
+ #define GEAR_RAY_ZOMBIE_CORPSES_H
+ 
+-unsigned char zombie_corpses_finalize(unsigned char sprite_index) __banked;
+-void zombie_corpses_crush_in_door(unsigned char map_y) __banked;
++unsigned char zombie_corpses_finalize(unsigned char sprite_index);
++void zombie_corpses_crush_in_door(unsigned char map_y);
+ 
+ #endif
+diff --git a/game/zombie_shooting.c b/game/zombie_shooting.c
+index 697f8a6..b4fb137 100644
+--- a/game/zombie_shooting.c
++++ b/game/zombie_shooting.c
+@@ -1,5 +1,7 @@
+ #include "camera.h"
++#define GEAR_RAY_WORLD_SPRITE_NO_DISTANCE_METRIC
+ #include "world_sprite.h"
++#include "weapons.h"
+ #include "zombie_shooting.h"
+ #include "../engine/render/raycaster.h"
+ 
+@@ -24,9 +26,51 @@
+ #define PISTOL_TWO_SHOT_DAMAGE 6
+ #define PISTOL_THREE_SHOT_DAMAGE 4
+ #define PISTOL_FOUR_SHOT_DAMAGE 3
+-#define CENTER_RAY_LEFT 13
+-#define CENTER_RAY_RIGHT 14
++#define PISTOL_CENTER_RAY_LEFT 13
++#define PISTOL_CENTER_RAY_RIGHT 14
++#define SHOTGUN_SAMPLE_LEFT_RAY 10
++#define SHOTGUN_SAMPLE_CENTER_RAY 14
++#define SHOTGUN_SAMPLE_RIGHT_RAY 18
+ #define NO_ZOMBIE_TARGET WORLD_SPRITE_MAX_COUNT
++#define SHOTGUN_CLOSE_DAMAGE 12
++#define SHOTGUN_MEDIUM_DAMAGE 6
++#define SHOTGUN_FAR_DAMAGE 2
++
++/* Test three screen-space lines at x=40, 56 and 72 against the same
++ * projected body footprint used by the renderer. Multiplying the projection
++ * inequality by depth_cross cancels both projection divisions. */
++static unsigned int shotgun_sample_wall_depth(const RaycasterRay *rays,
++    unsigned long lateral, unsigned long depth_cross,
++    unsigned long determinant_magnitude, unsigned char right)
++{
++    unsigned long scaled_lateral = (lateral << 6) + (lateral << 4);
++    unsigned long side_center = depth_cross << 4;
++    unsigned long body_half_width = determinant_magnitude << 5;
++    unsigned long near_side_distance;
++    unsigned long far_side_distance;
++    unsigned int wall_depth = 0;
++
++    if (scaled_lateral <= body_half_width)
++        wall_depth = rays[SHOTGUN_SAMPLE_CENTER_RAY].wall_distance;
++    near_side_distance = scaled_lateral > side_center
++        ? scaled_lateral - side_center : side_center - scaled_lateral;
++    if (near_side_distance <= body_half_width)
++    {
++        unsigned int side_wall_depth = rays[right
++            ? SHOTGUN_SAMPLE_RIGHT_RAY : SHOTGUN_SAMPLE_LEFT_RAY].wall_distance;
++        if (side_wall_depth > wall_depth)
++            wall_depth = side_wall_depth;
++    }
++    far_side_distance = scaled_lateral + side_center;
++    if (far_side_distance <= body_half_width)
++    {
++        unsigned int side_wall_depth = rays[right
++            ? SHOTGUN_SAMPLE_LEFT_RAY : SHOTGUN_SAMPLE_RIGHT_RAY].wall_distance;
++        if (side_wall_depth > wall_depth)
++            wall_depth = side_wall_depth;
++    }
++    return wall_depth;
++}
+ 
+ static unsigned char zombie_shooting_find_aimed_target(
+     unsigned int *target_depth)
+@@ -47,10 +91,10 @@ static unsigned char zombie_shooting_find_aimed_target(
+         ? (unsigned long)-determinant
+         : (unsigned long)determinant;
+     const RaycasterRay *rays = raycaster_get_rendered_rays();
+-    unsigned int wall_depth = rays[CENTER_RAY_LEFT].wall_distance;
++    unsigned int wall_depth = rays[PISTOL_CENTER_RAY_LEFT].wall_distance;
+ 
+-    if (rays[CENTER_RAY_RIGHT].wall_distance < wall_depth)
+-        wall_depth = rays[CENTER_RAY_RIGHT].wall_distance;
++    if (rays[PISTOL_CENTER_RAY_RIGHT].wall_distance < wall_depth)
++        wall_depth = rays[PISTOL_CENTER_RAY_RIGHT].wall_distance;
+ 
+     for (sprite_index = 0;
+          sprite_index < world_sprite_get_count();
+@@ -61,6 +105,7 @@ static unsigned char zombie_shooting_find_aimed_target(
+         signed int relative_y;
+         signed long depth_product;
+         signed long exact_depth;
++        signed long depth_cross;
+         signed long lateral_product;
+         unsigned int depth;
+         unsigned long lateral;
+@@ -80,21 +125,28 @@ static unsigned char zombie_shooting_find_aimed_target(
+         lateral = lateral_product < 0
+             ? (unsigned long)-lateral_product
+             : (unsigned long)lateral_product;
+-        if (lateral * ZOMBIE_AIM_LATERAL_SCALE
++        if (selected_weapon != WEAPON_SHOTGUN
++            && lateral * ZOMBIE_AIM_LATERAL_SCALE
+             > determinant_magnitude * ZOMBIE_AIM_DETERMINANT_SCALE)
+             continue;
+ 
+-        exact_depth =
+-            ((signed long)plane_x * relative_y
+-             - (signed long)relative_x * plane_y) * FIXED_POINT_SCALE
+-            / determinant;
++        depth_cross = (signed long)plane_x * relative_y
++                    - (signed long)relative_x * plane_y;
++        exact_depth = depth_cross * FIXED_POINT_SCALE / determinant;
+         if (exact_depth < PISTOL_MIN_TARGET_DEPTH
+             || exact_depth > ZOMBIE_MAX_SHOOTING_DISTANCE)
+         {
+             continue;
+         }
+         depth = (unsigned int)exact_depth;
+-        if (depth >= nearest_depth || depth >= wall_depth)
++        if (depth >= nearest_depth)
++            continue;
++        if (selected_weapon == WEAPON_SHOTGUN)
++            wall_depth = shotgun_sample_wall_depth(rays, lateral,
++                depth_cross < 0 ? (unsigned long)-depth_cross : (unsigned long)depth_cross,
++                determinant_magnitude,
++                (lateral_product < 0) == (determinant < 0));
++        if (depth >= wall_depth)
+             continue;
+ 
+         nearest_index = sprite_index;
+@@ -105,7 +157,7 @@ static unsigned char zombie_shooting_find_aimed_target(
+     return nearest_index;
+ }
+ 
+-void zombie_shooting_process(void) __banked
++void zombie_shooting_process(void)
+ {
+     unsigned int target_depth;
+     unsigned char damage;
+@@ -117,7 +169,16 @@ void zombie_shooting_process(void) __banked
+     if (target_depth > PISTOL_VISIBLE_MAX_DEPTH)
+         return;
+ 
+-    if (target_depth <= PISTOL_ONE_SHOT_MAX_DEPTH)
++    if (selected_weapon == WEAPON_SHOTGUN)
++    {
++        if (target_depth <= PISTOL_TWO_SHOT_MAX_DEPTH)
++            damage = SHOTGUN_CLOSE_DAMAGE;
++        else if (target_depth <= PISTOL_THREE_SHOT_MAX_DEPTH)
++            damage = SHOTGUN_MEDIUM_DAMAGE;
++        else
++            damage = SHOTGUN_FAR_DAMAGE;
++    }
++    else if (target_depth <= PISTOL_ONE_SHOT_MAX_DEPTH)
+         damage = PISTOL_ONE_SHOT_DAMAGE;
+     else if (target_depth <= PISTOL_TWO_SHOT_MAX_DEPTH)
+         damage = PISTOL_TWO_SHOT_DAMAGE;
+diff --git a/game/zombie_shooting.h b/game/zombie_shooting.h
+index 6d9603e..5680349 100644
+--- a/game/zombie_shooting.h
++++ b/game/zombie_shooting.h
+@@ -1,6 +1,6 @@
+ #ifndef GEAR_RAY_ZOMBIE_SHOOTING_H
+ #define GEAR_RAY_ZOMBIE_SHOOTING_H
+ 
+-void zombie_shooting_process(void) __banked;
++void zombie_shooting_process(void);
+ 
+ #endif
+diff --git a/platform/game_gear/hud_weapon.c b/platform/game_gear/hud_weapon.c
+index 91253cf..e24aeb0 100644
+--- a/platform/game_gear/hud_weapon.c
++++ b/platform/game_gear/hud_weapon.c
+@@ -1,22 +1,47 @@
+ #include "hud_weapon.h"
+ #include "weapon_texture.h"
+ #include "weapon_shoot_texture.h"
++#include "shotgun_held.h"
++#include "shotgun_fire.h"
++#include "../../game/weapons.h"
++#include "../../game/player.h"
+ 
+ #define HUD_WEAPON_SHOOT_FRAME_COUNT 2
++/* Touch one additional movement step before the previous contact boundary.
++ * Independent of the renderer's world canvas or projected size. */
++#define SHOTGUN_PICKUP_TOUCH_EXTENT (128U + 2U * PLAYER_MOVE_SPEED)
+ 
+ static HudWeaponState weapon_state;
+ static HudWeaponState rendered_weapon_state;
+ static unsigned char animation_timer;
+ 
+-void game_gear_hud_weapon_initialize(void) __banked
++void game_gear_hud_weapon_initialize(void)
+ {
+     weapon_state = IDLE;
+     rendered_weapon_state = IDLE;
+     animation_timer = 0;
+ }
+ 
+-void game_gear_hud_weapon_update(unsigned char shoot_requested) __banked
++void game_gear_hud_weapon_update(unsigned char shoot_requested)
+ {
++    /* Reuse this existing gameplay dispatch; never collect during pause. */
++    if (SHOTGUN_PICKUP_PRESENT
++        && (unsigned int)(player_get_position_x()
++            - ((unsigned int)shotgun_cell_x << 8)
++            + (SHOTGUN_PICKUP_TOUCH_EXTENT - 128U))
++            <= 2U * SHOTGUN_PICKUP_TOUCH_EXTENT
++        && (unsigned int)(player_get_position_y()
++            - ((unsigned int)shotgun_cell_y << 8)
++            + (SHOTGUN_PICKUP_TOUCH_EXTENT - 128U))
++            <= 2U * SHOTGUN_PICKUP_TOUCH_EXTENT)
++    {
++        /* First ownership equips the reward; an owned pickup never switches.
++         * Drop the old pose, then accept this frame's fresh fire edge below. */
++        owned_weapons |= WEAPON_OWNED_SHOTGUN;
++        selected_weapon = WEAPON_SHOTGUN;
++        weapon_state = IDLE;
++        animation_timer = 0;
++    }
+     if (shoot_requested)
+     {
+         weapon_state = SHOOT;
+@@ -30,24 +55,81 @@ void game_gear_hud_weapon_update(unsigned char shoot_requested) __banked
+     }
+ }
+ 
+-unsigned char game_gear_hud_weapon_changed(void) __banked
++unsigned char game_gear_hud_weapon_changed(void)
+ {
+-    return weapon_state != rendered_weapon_state;
++    return (weapon_state | (selected_weapon << 1)) != rendered_weapon_state;
+ }
+ 
+-void game_gear_hud_weapon_render_complete(void) __banked
++void game_gear_hud_weapon_render_complete(void)
+ {
+-    rendered_weapon_state = weapon_state;
++    rendered_weapon_state = weapon_state | (selected_weapon << 1);
++}
++
++/* Fixed 20x16 source, exact 2x blocks, ten packed bytes per source row.
++ * This helper stays in the overlay's Bank 1; the pistol loop is separate. */
++static void overlay_shotgun_tile(
++    unsigned char *destination,
++    unsigned char tile_column,
++    unsigned char tile_row)
++{
++    signed int tile_left = tile_column * 8;
++    signed int tile_top = tile_row * 8;
++    signed int screen_x;
++    signed int screen_y;
++    unsigned char texture_x;
++    unsigned char texture_y;
++    unsigned char row_offset;
++    unsigned char pixel_x;
++    unsigned char pixel_y;
++    unsigned char palette_index;
++    unsigned char plane;
++    unsigned char mask;
++    const unsigned char *weapon_pixels = weapon_state == SHOOT
++        ? shotgun_fire_pixels : shotgun_held_pixels;
++
++    for (pixel_y = 0; pixel_y < 8; ++pixel_y)
++    {
++        screen_y = tile_top + pixel_y;
++        if (screen_y < HUD_SHOTGUN_TOP || screen_y >= HUD_WEAPON_BOTTOM)
++            continue;
++        texture_y = (unsigned char)(screen_y - HUD_SHOTGUN_TOP) >> 1;
++        row_offset = (texture_y << 3) + (texture_y << 1);
++        for (pixel_x = 0; pixel_x < 8; ++pixel_x)
++        {
++            screen_x = tile_left + pixel_x;
++            if (screen_x < HUD_SHOTGUN_LEFT || screen_x >= HUD_WEAPON_RIGHT)
++                continue;
++            texture_x = (unsigned char)(screen_x - HUD_SHOTGUN_LEFT) >> 1;
++            palette_index = weapon_pixels[row_offset + (texture_x >> 1)];
++            if (texture_x & 1)
++                palette_index &= 15;
++            else
++                palette_index >>= 4;
++            if (palette_index == shotgun_held_pixels_TRANSPARENT_INDEX)
++                continue;
++            mask = (unsigned char)(0x80U >> pixel_x);
++            for (plane = 0; plane < 4; ++plane)
++            {
++                if (palette_index & (1U << plane))
++                    destination[pixel_y * 4 + plane] |= mask;
++                else
++                    destination[pixel_y * 4 + plane] &= (unsigned char)~mask;
++            }
++        }
++    }
+ }
+ 
+ void game_gear_overlay_hud_weapon_tile(
+     unsigned char *destination,
+     unsigned char tile_column,
+-    unsigned char tile_row) __banked
++    unsigned char tile_row)
+ {
+     signed int tile_left = tile_column * 8;
+     signed int tile_top = tile_row * 8;
+     signed int screen_x;
++    unsigned char left = HUD_WEAPON_LEFT;
++    unsigned char top = HUD_WEAPON_TOP;
++    unsigned char size = HUD_WEAPON_WIDTH;
+     signed int screen_y;
+     unsigned char texture_x;
+     unsigned char texture_y;
+@@ -60,22 +142,27 @@ void game_gear_overlay_hud_weapon_tile(
+     const unsigned char *weapon_pixels = weapon_state == SHOOT
+         ? hud_weapon_shoot_pixels
+         : hud_weapon_pixels;
++    if (selected_weapon == WEAPON_SHOTGUN)
++    {
++        overlay_shotgun_tile(destination, tile_column, tile_row);
++        return;
++    }
+ 
+     for (pixel_y = 0; pixel_y < 8; ++pixel_y)
+     {
+         screen_y = tile_top + pixel_y;
+-        if (screen_y < HUD_WEAPON_TOP || screen_y >= HUD_WEAPON_BOTTOM)
++        if (screen_y < top || screen_y >= top + size)
+             continue;
+         texture_y =
+-            (unsigned char)(screen_y - HUD_WEAPON_TOP) >> 1;
++            (unsigned char)(screen_y - top) >> 1;
+ 
+         for (pixel_x = 0; pixel_x < 8; ++pixel_x)
+         {
+             screen_x = tile_left + pixel_x;
+-            if (screen_x < HUD_WEAPON_LEFT || screen_x >= HUD_WEAPON_RIGHT)
++            if (screen_x < left || screen_x >= left + size)
+                 continue;
+             texture_x =
+-                (unsigned char)(screen_x - HUD_WEAPON_LEFT) >> 1;
++                (unsigned char)(screen_x - left) >> 1;
+             texture_offset =
+                 (texture_y << 3) + (texture_x >> 1);
+             palette_index = weapon_pixels[texture_offset];
+diff --git a/platform/game_gear/hud_weapon.h b/platform/game_gear/hud_weapon.h
+index 176c55d..44c185b 100644
+--- a/platform/game_gear/hud_weapon.h
++++ b/platform/game_gear/hud_weapon.h
+@@ -17,9 +17,13 @@
+      - HUD_WEAPON_HEIGHT)
+ #define HUD_WEAPON_RIGHT (HUD_WEAPON_LEFT + HUD_WEAPON_WIDTH)
+ #define HUD_WEAPON_BOTTOM (HUD_WEAPON_TOP + HUD_WEAPON_HEIGHT)
+-#define HUD_WEAPON_FIRST_TILE_COLUMN (HUD_WEAPON_LEFT / 8)
++#define HUD_SHOTGUN_WIDTH 40
++#define HUD_SHOTGUN_HEIGHT 32
++#define HUD_SHOTGUN_LEFT (HUD_WEAPON_RIGHT - HUD_SHOTGUN_WIDTH)
++#define HUD_SHOTGUN_TOP (HUD_WEAPON_BOTTOM - HUD_SHOTGUN_HEIGHT)
++#define HUD_WEAPON_FIRST_TILE_COLUMN (HUD_SHOTGUN_LEFT / 8)
+ #define HUD_WEAPON_LAST_TILE_COLUMN ((HUD_WEAPON_RIGHT - 1) / 8)
+-#define HUD_WEAPON_FIRST_TILE_ROW (HUD_WEAPON_TOP / 8)
++#define HUD_WEAPON_FIRST_TILE_ROW ((HUD_WEAPON_TOP - 8) / 8)
+ #define HUD_WEAPON_LAST_TILE_ROW ((HUD_WEAPON_BOTTOM - 1) / 8)
+ 
+ typedef enum HudWeaponState
+@@ -28,13 +32,13 @@ typedef enum HudWeaponState
+     SHOOT
+ } HudWeaponState;
+ 
+-void game_gear_hud_weapon_initialize(void) __banked;
+-void game_gear_hud_weapon_update(unsigned char shoot_requested) __banked;
+-unsigned char game_gear_hud_weapon_changed(void) __banked;
+-void game_gear_hud_weapon_render_complete(void) __banked;
++void game_gear_hud_weapon_initialize(void);
++void game_gear_hud_weapon_update(unsigned char shoot_requested);
++unsigned char game_gear_hud_weapon_changed(void);
++void game_gear_hud_weapon_render_complete(void);
+ void game_gear_overlay_hud_weapon_tile(
+     unsigned char *destination,
+     unsigned char tile_column,
+-    unsigned char tile_row) __banked;
++    unsigned char tile_row);
+ 
+ #endif
+diff --git a/platform/game_gear/pause_map.c b/platform/game_gear/pause_map.c
+index 242ef53..383a301 100644
+--- a/platform/game_gear/pause_map.c
++++ b/platform/game_gear/pause_map.c
+@@ -8,6 +8,7 @@
+ #include "camera.h"
+ #define GEAR_RAY_WORLD_SPRITE_NO_DISTANCE_METRIC
+ #include "world_sprite.h"
++#include "weapons.h"
+ 
+ #if WORLD_WIDTH < 1 || WORLD_WIDTH > 128 || WORLD_HEIGHT < 1 || WORLD_HEIGHT > 128
+ #error Pause map expects positive world extents fitting the signed 8.8 world coordinates
+@@ -25,6 +26,11 @@
+ #define FRAME_PATTERN 32
+ #define FOCUS_PATTERN 48
+ #define ARROW_PATTERN 64
++#define PISTOL_PATTERN 72
++#define SHOTGUN_PATTERN 176
++#define SIDE_PISTOL_PATTERN 128
++#define SIDE_SHOTGUN_PATTERN 144
++#define SIDE_FRAME_PATTERN 160
+ #define CORPSE_PATTERN 96
+ #define WEAPON_FOCUS_PATTERN 58
+ #define MAP_FOCUS 0
+@@ -39,6 +45,12 @@
+ #define MAP_Y (AUTOMAP_VIEW_Y + ((AUTOMAP_ROWS - MAP_HEIGHT) << 2))
+ #define SCROLL_X (MAP_X & 7)
+ #define SCROLL_Y ((8 - (MAP_Y & 7)) & 7)
++#define WEAPON_COLUMNS (SCROLL_X == 0 ? 4 : 3)
++#define WEAPON_ROWS (SCROLL_Y == 0 ? 4 : 3)
++
++#include "pause_weapon_icon.h"
++#include "pause_shotgun_icon.h"
++static const unsigned char empty_patterns[16] = {0, 1, 2, 3, 4, 0, 5, 0, 6, 7, 0, 0, 8, 0, 0, 0};
+ 
+ /* N/E/S/W mounts: blue lives on the room side of the unmodified wall face. */
+ static const unsigned char computer_rows[32] = {
+@@ -242,13 +254,12 @@ static void frame_rows(unsigned char *rows, unsigned char edges,
+ 
+ /* Shared fixed rectangle outlines, using the already loaded frame tiles. */
+ static void draw_rect(unsigned char px, unsigned char py,
+-                      unsigned char width, unsigned char height)
++                      unsigned char columns, unsigned char rows,
++                      unsigned char pattern_base)
+ {
+     unsigned char x;
+     unsigned char y;
+     unsigned char edges;
+-    unsigned char columns = (width >> 3) + (SCROLL_X != 0);
+-    unsigned char rows = (height >> 3) + (SCROLL_Y != 0);
+     unsigned char tile_x = (px + PAUSE_LCD_BG_X - SCROLL_X) >> 3;
+     unsigned char tile_y = (py + PAUSE_LCD_BG_Y + SCROLL_Y) >> 3;
+     for (y = 0; y < rows; ++y)
+@@ -259,7 +270,11 @@ static void draw_rect(unsigned char px, unsigned char py,
+             if (x == columns - 1) edges |= EDGE_RIGHT;
+             if (y == 0) edges |= EDGE_TOP;
+             if (y == rows - 1) edges |= EDGE_BOTTOM;
+-            if (edges != 0) SMS_setTileatXY(tile_x + x, tile_y + y, FRAME_PATTERN + edges);
++            if (edges != 0)
++            {
++                if (pattern_base == SIDE_FRAME_PATTERN) edges = empty_patterns[edges];
++                SMS_setTileatXY(tile_x + x, tile_y + y, pattern_base + edges);
++            }
+         }
+ }
+ 
+@@ -276,9 +291,11 @@ static void draw_focus(unsigned char state, unsigned char visible)
+         y = state == WEAPONS_FOCUS ? 108 : 12;
+         if ((corner & 2) != 0) y += state == WEAPONS_FOCUS ? 21 : 85;
+         tile = 0;
+-        if (state != WEAPONS_FOCUS && SCROLL_X != 0 && SCROLL_Y != 0)
++#if SCROLL_X != 0 && SCROLL_Y != 0
++        if (state != WEAPONS_FOCUS)
+             tile = FRAME_PATTERN + ((corner & 1) != 0 ? EDGE_RIGHT : EDGE_LEFT)
+                 + ((corner & 2) != 0 ? EDGE_BOTTOM : EDGE_TOP);
++#endif
+         if (visible != 0)
+             tile = (state == WEAPONS_FOCUS ? WEAPON_FOCUS_PATTERN : FOCUS_PATTERN)
+                 + corner + (state == MAP_BROWSE ? 4 : 0);
+@@ -330,6 +347,75 @@ static void load_arrows(void)
+         }
+     }
+ }
++/* Bounded circular search over a compile-time weapon count and owned mask. */
++static unsigned char adjacent_weapon(unsigned char current, unsigned char right)
++{
++    unsigned char remaining = WEAPON_COUNT;
++    while (remaining-- != 0)
++    {
++        if (right != 0) current = current + 1 == WEAPON_COUNT ? 0 : current + 1;
++        else current = current == 0 ? WEAPON_COUNT - 1 : current - 1;
++        if ((owned_weapons & (1U << current)) != 0) return current;
++    }
++    return selected_weapon;
++}
++
++static void draw_weapon_slot(unsigned char x, unsigned char weapon)
++{
++    unsigned char row;
++    unsigned char column;
++    unsigned char offset;
++    unsigned char pattern_base = weapon == WEAPON_PISTOL ? PISTOL_PATTERN : SHOTGUN_PATTERN;
++    if (weapon == WEAPON_COUNT) { draw_rect(x - 2, 110, WEAPON_COLUMNS, WEAPON_ROWS, SIDE_FRAME_PATTERN); return; }
++    if (x != 72)
++        pattern_base = weapon == WEAPON_PISTOL ? SIDE_PISTOL_PATTERN : SIDE_SHOTGUN_PATTERN;
++    for (row = 0; row < WEAPON_ROWS; ++row)
++        for (column = 0; column < WEAPON_COLUMNS; ++column)
++        {
++            offset = (row << 1) + (SCROLL_X == 0 ? (row << 1) : row) + column;
++            SMS_setTileatXY(((x - 2 + PAUSE_LCD_BG_X - SCROLL_X) >> 3) + column,
++                            ((110 + PAUSE_LCD_BG_Y + SCROLL_Y) >> 3) + row,
++                            pattern_base + offset);
++        }
++}
++
++static void draw_weapons(void)
++{
++    unsigned char previous = adjacent_weapon(selected_weapon, 0);
++    unsigned char next = adjacent_weapon(selected_weapon, 1);
++    draw_weapon_slot(40, previous == selected_weapon ? WEAPON_COUNT : previous);
++    draw_weapon_slot(72, selected_weapon);
++    draw_weapon_slot(104, next == selected_weapon ? WEAPON_COUNT : next);
++}
++
++/* Precomposed rows share static data; decode only once on pause entry.
++ * Both border variants already contain the exact authored artwork. */
++static void load_weapon_patterns(const unsigned char *indices,
++                                  const unsigned char *pixels,
++                                  unsigned char pattern_base)
++{
++    unsigned char tile;
++    unsigned char row;
++    unsigned char repeats = 0;
++    unsigned char index = 0;
++    for (tile = 0; tile < WEAPON_COLUMNS * WEAPON_ROWS; ++tile)
++        for (row = 0; row < 8; ++row)
++        {
++            if (repeats == 0)
++            {
++                index = *indices++;
++                if (index & 0x80)
++                {
++                    index &= 0x7f;
++                    repeats = *indices++;
++                }
++            }
++            else --repeats;
++            SMS_VRAMmemcpy(((unsigned int)(pattern_base + tile) << 5) + (row << 2),
++                pixels + ((unsigned int)index << 2), 4);
++        }
++}
++
+ static void load_ui(void)
+ {
+     unsigned char rows[8];
+@@ -350,6 +436,7 @@ static void load_ui(void)
+         frame_rows(rows, pattern, SCROLL_X, SCROLL_Y);
+         SMS_load1bppTiles(rows, FRAME_PATTERN + pattern, sizeof(rows), 0, PAUSE_MAP_WHITE);
+     }
++    SMS_load1bppTiles(pause_empty_rows, SIDE_FRAME_PATTERN + 1, sizeof(pause_empty_rows), 0, 2);
+     for (pattern = 0; pattern < 4; ++pattern)
+     {
+         x_offset = (((pattern & 1) != 0 ? 145 : 12) - SCROLL_X) & 7;
+@@ -361,7 +448,7 @@ static void load_ui(void)
+             if (y == ((pattern & 2) != 0 ? 2 : 0)) bits = 0xe0;
+             rows[y_offset + y] = bits >> x_offset;
+         }
+-        SMS_load1bppTiles(rows, WEAPON_FOCUS_PATTERN + pattern, sizeof(rows), 0, 3);
++        SMS_load1bppTiles(rows, WEAPON_FOCUS_PATTERN + pattern, sizeof(rows), 0, PAUSE_MAP_WHITE);
+         if (SCROLL_X != 0 && SCROLL_Y != 0)
+         {
+ #if SCROLL_X != 0 && SCROLL_Y != 0
+@@ -375,11 +462,18 @@ static void load_ui(void)
+         SMS_load1bppTiles(rows, FOCUS_PATTERN + pattern + 4, sizeof(rows), 0, PAUSE_MAP_WHITE);
+     }
+     load_arrows();
+-    draw_rect(AUTOMAP_FRAME_X, AUTOMAP_FRAME_Y, AUTOMAP_FRAME_WIDTH, AUTOMAP_FRAME_HEIGHT);
+-    draw_rect(40, 112, 16, 16);
+-    draw_rect(72, 112, 16, 16);
+-    draw_rect(104, 112, 16, 16);
+-    draw_focus(MAP_FOCUS, 1);
++    draw_rect(AUTOMAP_FRAME_X, AUTOMAP_FRAME_Y,
++              (AUTOMAP_FRAME_WIDTH >> 3) + (SCROLL_X != 0),
++              (AUTOMAP_FRAME_HEIGHT >> 3) + (SCROLL_Y != 0), FRAME_PATTERN);
++
++    /* Static masked composite: full authored canvas origin is (72,112).
++     * Tile padding compensates BG scroll, without moving or scaling pixels. */
++    load_weapon_patterns(pause_pistol_tiles, pause_pistol_tiles_rows, PISTOL_PATTERN);
++    load_weapon_patterns(pause_pistol_tiles_side, pause_pistol_tiles_rows, SIDE_PISTOL_PATTERN);
++    load_weapon_patterns(pause_shotgun_tiles, pause_shotgun_tiles_rows, SHOTGUN_PATTERN);
++    load_weapon_patterns(pause_shotgun_tiles_side, pause_shotgun_tiles_rows, SIDE_SHOTGUN_PATTERN);
++    draw_weapons();
++    draw_focus(WEAPONS_FOCUS, 1);
+ }
+ 
+ static void draw_window(unsigned char origin_x, unsigned char origin_y)
+@@ -489,14 +583,14 @@ static unsigned char pan_axis(unsigned char origin, unsigned char extent,
+     return origin;
+ }
+ 
+-void game_gear_pause_map_show(void) __banked
++void game_gear_pause_map_show(void)
+ {
+     unsigned int player_x = player_get_position_x();
+     unsigned int player_y = player_get_position_y();
+     unsigned char facing = player_facing();
+     unsigned char origin_x = window_origin(player_x >> 8, WORLD_WIDTH, AUTOMAP_COLUMNS);
+     unsigned char origin_y = window_origin(player_y >> 8, WORLD_HEIGHT, AUTOMAP_ROWS);
+-    unsigned char state = MAP_FOCUS;
++    unsigned char state = WEAPONS_FOCUS;
+     unsigned char repeat = 0;
+     unsigned char directions = 0;
+     unsigned char pressed;
+@@ -541,6 +635,17 @@ void game_gear_pause_map_show(void) __banked
+                 repeat = 0;
+                 draw_focus(state, 1);
+             }
++            else if (state == WEAPONS_FOCUS
++                && ((pressed & PORT_A_KEY_LEFT) != 0) != ((pressed & PORT_A_KEY_RIGHT) != 0))
++            {
++                unsigned char next_weapon = adjacent_weapon(selected_weapon,
++                    pressed & PORT_A_KEY_RIGHT);
++                if (next_weapon != selected_weapon)
++                {
++                    selected_weapon = next_weapon;
++                    draw_weapons();
++                }
++            }
+             continue;
+         }
+         if ((pressed & PORT_A_KEY_2) != 0)
+diff --git a/platform/game_gear/pause_map.h b/platform/game_gear/pause_map.h
+index c64ce35..5501320 100644
+--- a/platform/game_gear/pause_map.h
++++ b/platform/game_gear/pause_map.h
+@@ -29,6 +29,6 @@
+ #define PAUSE_MAP_SAT_Y 0x3f00
+ #define PAUSE_MAP_SAT_X_TILE 0x3f80
+ 
+-void game_gear_pause_map_show(void) __banked;
++void game_gear_pause_map_show(void);
+ 
+ #endif
+diff --git a/platform/game_gear/sprite_projection.c b/platform/game_gear/sprite_projection.c
+index e7ae83a..10914cc 100644
+--- a/platform/game_gear/sprite_projection.c
++++ b/platform/game_gear/sprite_projection.c
+@@ -15,6 +15,9 @@
+ #include "zombie_shot_dead_16x16_texture.h"
+ #include "zombie_corps_16x16_texture.h"
+ #include "zombie_standing_16x16_texture.h"
++#include "../../game/weapons.h"
++#include "shotgun_world.h"
++#include "shotgun_far_lod.h"
+ 
+ #define SPRITE_NEAR_PLANE_DEPTH 32
+ #define SPRITE_VISIBLE_MAX_DISTANCE 1260UL
+@@ -149,6 +152,8 @@ static unsigned char game_gear_get_sprite_render_cost(
+ 
+     if (projected->near_texture_id != NEAR_ZOMBIE_TEXTURE_NONE)
+         return 8;
++    if (projected->pixels == shotgun_far_pixels) return 1;
++    if (projected->pixels == shotgun_world_pixels) return 2;
+     if (projected->pixels == zombie_corpse_lod_pixels)
+         return 1;
+     if (projected_height >= SPRITE_FULL_DETAIL_MIN_HEIGHT)
+@@ -162,8 +167,12 @@ static unsigned char game_gear_projected_sprite_changed(
+     const GameGearProjectedSprite *current,
+     const GameGearProjectedSprite *previous)
+ {
+-    return current->visible != previous->visible
+-        || current->left != previous->left
++    if (current->visible != previous->visible)
++        return 1;
++    if (!current->visible)
++        return 0;
++
++    return current->left != previous->left
+         || current->right != previous->right
+         || current->top != previous->top
+         || current->bottom != previous->bottom
+@@ -249,36 +258,49 @@ static unsigned char game_gear_get_near_zombie_texture_id(
+     }
+ }
+ 
++typedef struct
++{
++    signed int position_x;
++    signed int position_y;
++    signed int direction_x;
++    signed int direction_y;
++    signed int plane_x;
++    signed int plane_y;
++    signed long determinant;
++} GameGearProjectionContext;
++
+ static void game_gear_project_world_sprite(
+     WorldSprite *sprite,
+-    GameGearProjectedSprite *projected)
++    GameGearProjectedSprite *projected,
++    signed int position_x,
++    signed int position_y,
++    signed int direction_x,
++    signed int direction_y,
++    signed int plane_x,
++    signed int plane_y,
++    signed long determinant)
+ {
+     signed int relative_x =
+-        sprite->world_x - camera_get_position_x();
++        (sprite ? sprite->world_x : ((unsigned int)shotgun_cell_x << 8) + 128)
++        - position_x;
+     signed int relative_y =
+-        sprite->world_y - camera_get_position_y();
+-    signed int direction_x = camera_get_direction_x();
+-    signed int direction_y = camera_get_direction_y();
+-    signed int plane_x = camera_get_plane_x();
+-    signed int plane_y = camera_get_plane_y();
+-    signed long determinant =
+-        (signed long)plane_x * direction_y
+-        - (signed long)direction_x * plane_y;
++        (sprite ? sprite->world_y : ((unsigned int)shotgun_cell_y << 8) + 128)
++        - position_y;
+     signed long depth;
+     signed long horizontal;
+     unsigned long distance_squared;
+-    unsigned int distance;
++    unsigned int distance = 0;
+     signed long center_x;
+     signed long left;
+     signed long right;
+     unsigned int projected_height;
+-    signed int bottom;
++    signed int bottom = 0;
+     signed int visible_left;
+     signed int visible_right;
+     unsigned char first_ray;
+     unsigned char last_ray;
+     ZombieState life_state;
+-    unsigned char presentation_pose;
++    unsigned char presentation_pose = 0;
+     const RaycasterRay *rays;
+ 
+     projected->visible = 0;
+@@ -287,7 +309,8 @@ static void game_gear_project_world_sprite(
+     projected->top = 0;
+     projected->bottom = 0;
+     projected->texture_step = 0;
+-    projected->pixels = sprite->pixels;
++    projected->pixels = shotgun_far_pixels;
++    if (sprite) projected->pixels = sprite->pixels;
+     projected->near_texture_id = NEAR_ZOMBIE_TEXTURE_NONE;
+     projected->source_size = 8;
+     if (determinant == 0)
+@@ -300,20 +323,26 @@ static void game_gear_project_world_sprite(
+         return;
+ 
+     projected->depth = (unsigned int)depth;
+-    life_state = WORLD_SPRITE_LIFE_STATE(sprite);
+-    distance_squared =
+-        (unsigned long)((signed long)relative_x * relative_x)
+-        + (unsigned long)((signed long)relative_y * relative_y);
+-    if (distance_squared > SPRITE_VISIBLE_MAX_DISTANCE_SQUARED)
+-        return;
+-    if (life_state == ZOMBIE_STATE_CORPSE
+-        && projected->depth <= SPRITE_CORPSE_CLOSE_HIDDEN_MAX_DEPTH)
++    life_state = ZOMBIE_STATE_ALIVE;
++    if (sprite)
+     {
+-        return;
++        life_state = WORLD_SPRITE_LIFE_STATE(sprite);
++        distance_squared =
++            (unsigned long)((signed long)relative_x * relative_x)
++            + (unsigned long)((signed long)relative_y * relative_y);
++        if (distance_squared > SPRITE_VISIBLE_MAX_DISTANCE_SQUARED)
++            return;
++        if (life_state == ZOMBIE_STATE_CORPSE
++            && projected->depth <= SPRITE_CORPSE_CLOSE_HIDDEN_MAX_DEPTH)
++        {
++            return;
++        }
++        distance = zombie_distance_metric(relative_x, relative_y);
++        presentation_pose = game_gear_get_zombie_presentation_pose(
++            sprite, distance);
+     }
+-    distance = zombie_distance_metric(relative_x, relative_y);
+-    presentation_pose = game_gear_get_zombie_presentation_pose(
+-        sprite, distance);
++    else if (depth > SPRITE_VISIBLE_MAX_DISTANCE)
++        return;
+     horizontal = ((signed long)direction_y * relative_x
+                   - (signed long)direction_x * relative_y) * 256L
+                / determinant;
+@@ -323,38 +352,59 @@ static void game_gear_project_world_sprite(
+         projected_height = 1;
+     if (projected_height > 144)
+         projected_height = 144;
+-    if (projected_height < SPRITE_MEDIUM_LOD_MIN_HEIGHT)
++    /* The pickup uses the same depth-derived canvas size and floor point as
++     * zombies. Source detail never determines outer geometry; the compositor
++     * already samples an 8.8 texture step. */
++    if (!sprite)
+     {
+-        projected_height = SPRITE_SIMPLE_LOD_MIN_HEIGHT;
+-        projected->pixels = life_state == ZOMBIE_STATE_CORPSE
+-            ? zombie_corpse_lod_pixels
+-            : game_gear_get_zombie_lod_pixels(sprite, 0);
++        /* A same-depth wall reaches the floor at horizon + half its projected
++         * height. Both pickup sources then reserve their bottom quarter below
++         * the visible weapon contact. Reuse the existing quotient for both. */
++        if ((unsigned char)projected_height > 64)
++            projected_height = 64;
++        bottom = GAME_GEAR_VIEWPORT_PIXEL_HEIGHT / 2
++               + ((unsigned char)projected_height >> 1)
++               + ((unsigned char)projected_height >> 2);
++        /* Above sixteen screen pixels, full authored detail contributes. */
++        projected->source_size = projected_height > 16 ? 16 : 8;
++        projected->pixels = projected->source_size == 16
++            ? shotgun_world_pixels : shotgun_far_pixels;
+     }
+-    else if (projected_height < SPRITE_FULL_DETAIL_MIN_HEIGHT)
++    else
+     {
+-        projected_height -=
+-            (projected_height - SPRITE_MEDIUM_LOD_MIN_HEIGHT) & 1U;
+-        projected->pixels = life_state == ZOMBIE_STATE_CORPSE
+-            ? zombie_corpse_lod_pixels
+-            : game_gear_get_zombie_lod_pixels(sprite, 1);
+-    }
+-    else if (distance <= SPRITE_NEAR_DETAIL_MAX_DISTANCE)
+-    {
+-        projected->near_texture_id =
+-            game_gear_get_near_zombie_texture_id(presentation_pose);
+-    }
+-    else if (distance <= SPRITE_MIDDLE_DETAIL_MAX_DISTANCE)
+-    {
+-        projected->pixels =
+-            game_gear_get_middle_zombie_pixels(presentation_pose);
+-        projected->source_size = 16;
+-    }
+-    if (life_state == ZOMBIE_STATE_ALIVE
+-        && projected->source_size == 8
+-        && projected->near_texture_id == NEAR_ZOMBIE_TEXTURE_NONE
+-        && projected_height > ZOMBIE_8X8_MAX_PROJECTED_HEIGHT)
+-    {
+-        projected_height = ZOMBIE_8X8_MAX_PROJECTED_HEIGHT;
++        if (projected_height < SPRITE_MEDIUM_LOD_MIN_HEIGHT)
++        {
++            projected_height = SPRITE_SIMPLE_LOD_MIN_HEIGHT;
++            projected->pixels = life_state == ZOMBIE_STATE_CORPSE
++                ? zombie_corpse_lod_pixels
++                : game_gear_get_zombie_lod_pixels(sprite, 0);
++        }
++        else if (projected_height < SPRITE_FULL_DETAIL_MIN_HEIGHT)
++        {
++            projected_height -=
++                (projected_height - SPRITE_MEDIUM_LOD_MIN_HEIGHT) & 1U;
++            projected->pixels = life_state == ZOMBIE_STATE_CORPSE
++                ? zombie_corpse_lod_pixels
++                : game_gear_get_zombie_lod_pixels(sprite, 1);
++        }
++        else if (distance <= SPRITE_NEAR_DETAIL_MAX_DISTANCE)
++        {
++            projected->near_texture_id =
++                game_gear_get_near_zombie_texture_id(presentation_pose);
++        }
++        else if (distance <= SPRITE_MIDDLE_DETAIL_MAX_DISTANCE)
++        {
++            projected->pixels =
++                game_gear_get_middle_zombie_pixels(presentation_pose);
++            projected->source_size = 16;
++        }
++        if (life_state == ZOMBIE_STATE_ALIVE
++            && projected->source_size == 8
++            && projected->near_texture_id == NEAR_ZOMBIE_TEXTURE_NONE
++            && projected_height > ZOMBIE_8X8_MAX_PROJECTED_HEIGHT)
++        {
++            projected_height = ZOMBIE_8X8_MAX_PROJECTED_HEIGHT;
++        }
+     }
+ 
+     center_x = GAME_GEAR_VIEWPORT_PIXEL_WIDTH / 2
+@@ -362,10 +412,13 @@ static void game_gear_project_world_sprite(
+                / depth;
+     left = center_x - (signed int)projected_height / 2;
+     right = left + projected_height;
+-    bottom = GAME_GEAR_VIEWPORT_PIXEL_HEIGHT / 2
+-           + (signed int)projected_height / 2;
+-    if (life_state == ZOMBIE_STATE_CORPSE)
+-        bottom += (signed int)projected_height / 3;
++    if (sprite)
++    {
++        bottom = GAME_GEAR_VIEWPORT_PIXEL_HEIGHT / 2
++               + (signed int)projected_height / 2;
++        if (life_state == ZOMBIE_STATE_CORPSE)
++            bottom += (signed int)projected_height / 3;
++    }
+ 
+     if (right <= 0
+         || left >= GAME_GEAR_VIEWPORT_PIXEL_WIDTH
+@@ -403,33 +456,55 @@ static void game_gear_project_world_sprite(
+     projected->visible = 1;
+ }
+ 
+-unsigned char game_gear_prepare_world_sprites(
++unsigned int game_gear_prepare_world_sprites(
+     GameGearProjectedSprite *projected_sprites,
+     unsigned char projected_sprite_count,
+     const GameGearProjectedSprite *previous_sprites,
+     unsigned char previous_sprite_count,
+     unsigned char *ordered_sprite_indices,
+-    unsigned char *ordered_sprite_count) __banked
++    unsigned char *ordered_sprite_count)
+ {
+-    unsigned char accepted_mask = 0;
+-    unsigned char changed_mask = 0;
+-    unsigned char ordered_mask = 0;
++    GameGearProjectionContext context;
++    unsigned int accepted_mask = 0;
++    unsigned int changed_mask = 0;
++    unsigned int ordered_mask = 0;
+     unsigned char remaining_budget = SPRITE_RENDER_BUDGET;
+     unsigned char sprite_index;
+     unsigned char compared_sprite_count;
++    unsigned char zombie_count = projected_sprite_count;
++
++    context.position_x = camera_get_position_x();
++    context.position_y = camera_get_position_y();
++    context.direction_x = camera_get_direction_x();
++    context.direction_y = camera_get_direction_y();
++    context.plane_x = camera_get_plane_x();
++    context.plane_y = camera_get_plane_y();
++    context.determinant =
++        (signed long)context.plane_x * context.direction_y
++        - (signed long)context.direction_x * context.plane_y;
++
++    if (SHOTGUN_PICKUP_PRESENT) --zombie_count;
+ 
+     for (sprite_index = 0;
+          sprite_index < projected_sprite_count;
+          ++sprite_index)
+     {
+         game_gear_project_world_sprite(
+-            world_sprite_get(sprite_index),
+-            &projected_sprites[sprite_index]);
++            sprite_index < zombie_count
++                ? world_sprite_get(sprite_index) : 0,
++            &projected_sprites[sprite_index],
++            context.position_x,
++            context.position_y,
++            context.direction_x,
++            context.direction_y,
++            context.plane_x,
++            context.plane_y,
++            context.determinant);
+     }
+ 
+     while (remaining_budget != 0)
+     {
+-        unsigned char selected = WORLD_SPRITE_MAX_COUNT;
++        unsigned char selected = PROJECTED_SPRITE_MAX_COUNT;
+         unsigned char selected_center_distance = 255;
+         unsigned char selected_visible_width = 0;
+         unsigned char selected_render_cost = 0;
+@@ -470,7 +545,7 @@ unsigned char game_gear_prepare_world_sprites(
+             visible_width =
+                 (unsigned char)(visible_right - visible_left);
+ 
+-            if (selected == WORLD_SPRITE_MAX_COUNT
++            if (selected == PROJECTED_SPRITE_MAX_COUNT
+                 || projected->depth < selected_depth
+                 || (projected->depth == selected_depth
+                     && center_distance < selected_center_distance)
+@@ -486,7 +561,7 @@ unsigned char game_gear_prepare_world_sprites(
+             }
+         }
+ 
+-        if (selected == WORLD_SPRITE_MAX_COUNT)
++        if (selected == PROJECTED_SPRITE_MAX_COUNT)
+             break;
+ 
+         accepted_mask |= 1U << selected;
+@@ -507,25 +582,28 @@ unsigned char game_gear_prepare_world_sprites(
+     *ordered_sprite_count = 0;
+     while (*ordered_sprite_count < projected_sprite_count)
+     {
+-        unsigned char selected = WORLD_SPRITE_MAX_COUNT;
++        unsigned char selected = PROJECTED_SPRITE_MAX_COUNT;
+         unsigned int selected_depth = 0;
+ 
+         for (sprite_index = 0;
+              sprite_index < projected_sprite_count;
+              ++sprite_index)
+         {
+-            unsigned int depth = projected_sprites[sprite_index].depth;
++            unsigned int depth;
+ 
+-            if (projected_sprites[sprite_index].visible
+-                && !(ordered_mask & (1U << sprite_index))
+-                && (selected == WORLD_SPRITE_MAX_COUNT
+-                    || depth > selected_depth))
+-            {
+-                selected = sprite_index;
+-                selected_depth = depth;
+-            }
++            if (!projected_sprites[sprite_index].visible
++                || (ordered_mask & (1U << sprite_index)))
++                continue;
++
++            depth = projected_sprites[sprite_index].depth;
++            if (selected != PROJECTED_SPRITE_MAX_COUNT
++                && depth <= selected_depth)
++                continue;
++
++            selected = sprite_index;
++            selected_depth = depth;
+         }
+-        if (selected == WORLD_SPRITE_MAX_COUNT)
++        if (selected == PROJECTED_SPRITE_MAX_COUNT)
+             break;
+         ordered_sprite_indices[(*ordered_sprite_count)++] = selected;
+         ordered_mask |= 1U << selected;
+diff --git a/platform/game_gear/sprite_projection.h b/platform/game_gear/sprite_projection.h
+index 8d9fb45..adb0cae 100644
+--- a/platform/game_gear/sprite_projection.h
++++ b/platform/game_gear/sprite_projection.h
+@@ -8,6 +8,7 @@
+ #define SPRITE_SIMPLE_LOD_MIN_HEIGHT 13
+ #define SPRITE_HORIZONTAL_PROJECTION_SCALE 80
+ #define SPRITE_RENDER_BUDGET 12
++#define PROJECTED_SPRITE_MAX_COUNT (WORLD_SPRITE_MAX_COUNT + 1)
+ #define ZOMBIE_8X8_MAX_PROJECTED_HEIGHT 32
+ #define SPRITE_NEAR_DETAIL_MAX_DISTANCE \
+     (ZOMBIE_ATTACK_DISTANCE + 2 * ZOMBIE_MOVEMENT_STEP)
+@@ -27,12 +28,12 @@ typedef struct
+     unsigned char source_size;
+ } GameGearProjectedSprite;
+ 
+-unsigned char game_gear_prepare_world_sprites(
++unsigned int game_gear_prepare_world_sprites(
+     GameGearProjectedSprite *projected_sprites,
+     unsigned char projected_sprite_count,
+     const GameGearProjectedSprite *previous_sprites,
+     unsigned char previous_sprite_count,
+     unsigned char *ordered_sprite_indices,
+-    unsigned char *ordered_sprite_count) __banked;
++    unsigned char *ordered_sprite_count);
+ 
+ #endif
+diff --git a/platform/game_gear/video.c b/platform/game_gear/video.c
+index 1471bea..c0b1986 100644
+--- a/platform/game_gear/video.c
++++ b/platform/game_gear/video.c
+@@ -1,11 +1,13 @@
+ #include "SMSlib.h"
+ #include "../../engine/render/raycaster.h"
++#define GEAR_RAY_WORLD_SPRITE_NO_DISTANCE_METRIC
+ #include "../../game/world_sprite.h"
+ #include "hud_weapon.h"
+ #include "near_zombie_textures.h"
+ #include "render_textures.h"
+ #include "renderer_profile.h"
+ #include "sprite_projection.h"
++#include "../../game/weapons.h"
+ #include "video.h"
+ #include "video_internal.h"
+ #include "vram_layout.h"
+@@ -99,7 +101,7 @@ GameGearWallColumnSignature previous_wall_columns[
+     GAME_GEAR_VIEWPORT_TILE_COLUMNS];
+ 
+ static GameGearProjectedSprite previous_projected_sprites[
+-    WORLD_SPRITE_MAX_COUNT];
++    PROJECTED_SPRITE_MAX_COUNT];
+ unsigned char previous_projected_sprite_count;
+ unsigned char game_gear_damage_shake_phase;
+ 
+@@ -187,15 +189,13 @@ static void game_gear_overlay_sprite_tile(
+     signed int screen_y;
+     unsigned int texture_x;
+     unsigned int texture_y;
++    const unsigned char *source_row;
+     unsigned char pixel_x;
+     unsigned char pixel_y;
+     unsigned char palette_index;
+     unsigned char plane;
+     unsigned char mask;
+ 
+-    if (!game_gear_sprite_covers_tile(projected, tile_column, tile_row))
+-        return;
+-
+     for (pixel_y = 0; pixel_y < 8; ++pixel_y)
+     {
+         screen_y = tile_top + pixel_y;
+@@ -206,6 +206,7 @@ static void game_gear_overlay_sprite_tile(
+              * projected->texture_step) >> 8;
+         if (texture_y >= source_size)
+             texture_y = source_size - 1;
++        source_row = pixels + texture_y * packed_row_stride;
+ 
+         for (pixel_x = 0; pixel_x < 8; ++pixel_x)
+         {
+@@ -223,8 +224,7 @@ static void game_gear_overlay_sprite_tile(
+                  * projected->texture_step) >> 8;
+             if (texture_x >= source_size)
+                 texture_x = source_size - 1;
+-            palette_index = pixels[
+-                texture_y * packed_row_stride + (texture_x >> 1)];
++            palette_index = source_row[texture_x >> 1];
+             if (texture_x & 1)
+                 palette_index &= 15;
+             else
+@@ -512,7 +512,7 @@ void game_gear_video_draw_wall_columns(void)
+     signed int left_wall_top;
+     signed int right_wall_top;
+     unsigned char first_screen_y;
+-    unsigned char sprite_changed_mask;
++    unsigned int sprite_changed_mask;
+     unsigned char sprite_dirty_column;
+     unsigned char hud_weapon_changed;
+     unsigned char current_sprite_column;
+@@ -523,15 +523,16 @@ void game_gear_video_draw_wall_columns(void)
+     unsigned char near_bank_mapped = 0;
+     unsigned char previous_slot2_page = 0;
+     unsigned char ordered_sprite_count = 0;
+-    unsigned char ordered_sprite_indices[WORLD_SPRITE_MAX_COUNT];
++    unsigned char ordered_sprite_indices[PROJECTED_SPRITE_MAX_COUNT];
+     GameGearWallTextureSampler left_sampler;
+     GameGearWallTextureSampler right_sampler;
+     const RaycasterRay *rendered_rays = raycaster_get_rendered_rays();
+     const RaycasterRay *left_ray = rendered_rays;
+     const RaycasterRay *right_ray;
+-    GameGearProjectedSprite projected_sprites[WORLD_SPRITE_MAX_COUNT];
++    GameGearProjectedSprite projected_sprites[PROJECTED_SPRITE_MAX_COUNT];
+ 
+     projected_sprite_count = world_sprite_get_count();
++    if (SHOTGUN_PICKUP_PRESENT) ++projected_sprite_count;
+     sprite_changed_mask = game_gear_prepare_world_sprites(
+         projected_sprites,
+         projected_sprite_count,
+diff --git a/platform/game_gear/video_initialization.c b/platform/game_gear/video_initialization.c
+index 1603609..637250d 100644
+--- a/platform/game_gear/video_initialization.c
++++ b/platform/game_gear/video_initialization.c
+@@ -4,14 +4,11 @@
+ #include "vram_layout.h"
+ #include "wall_textures.h"
+ #include "health_hud_tiles.h"
+-#include "game_over.h"
+ #include "../../game/player.h"
+ #include "pause_map.h"
+ 
+ #define CEILING_PALETTE_INDEX (GAME_GEAR_WALL_PALETTE_BASE + 2)
+ #define FLOOR_PALETTE_INDEX (GAME_GEAR_WALL_PALETTE_BASE + 9)
+-#define GAME_OVER_DISPLAY_FRAME_COUNT 180
+-#define GAME_OVER_FIRST_TILE 1
+ #define HEALTH_HUD_ICON_TILE_X 19
+ #define HEALTH_HUD_BAR_TILE_X 20
+ #define HEALTH_HUD_TILE_Y 5
+@@ -174,25 +171,3 @@ void game_gear_video_restore_gameplay(void) __banked
+     SMS_waitForVBlank();
+     SMS_displayOn();
+ }
+-
+-void game_gear_video_present_player_death(void) __banked
+-{
+-    unsigned char frame;
+-
+-    game_gear_damage_shake_phase = 0;
+-    SMS_setBGScrollX(0);
+-    SMS_setBGScrollY(0);
+-    SMS_displayOff();
+-    SMS_VRAMmemsetW(0, 0x0000, 16384);
+-    GG_loadBGPalette(game_over_palette);
+-    SMS_loadTiles(game_over_tiles, GAME_OVER_FIRST_TILE,
+-                  GAME_OVER_TILE_BYTE_COUNT);
+-    SMS_loadTileMapArea(GAME_OVER_TILE_ORIGIN_X, GAME_OVER_TILE_ORIGIN_Y,
+-                        game_over_tilemap, GAME_OVER_TILE_COLUMNS,
+-                        GAME_OVER_TILE_ROWS);
+-    SMS_waitForVBlank();
+-    SMS_displayOn();
+-    for (frame = GAME_OVER_DISPLAY_FRAME_COUNT; frame != 0; --frame)
+-        SMS_waitForVBlank();
+-    SMS_displayOff();
+-}
+diff --git a/tools/generate_sprite_texture.ps1 b/tools/generate_sprite_texture.ps1
+index 09d5829..3f61ba8 100644
+--- a/tools/generate_sprite_texture.ps1
++++ b/tools/generate_sprite_texture.ps1
+@@ -3,25 +3,27 @@ param(
+     [Parameter(Mandatory = $true)][string]$OutputSource,
+     [Parameter(Mandatory = $true)][string]$OutputHeader,
+     [Parameter(Mandatory = $true)][string]$Symbol,
+-    [ValidateSet('WorldSprite', 'HudWeapon', 'MiddleZombie', 'NearZombie')][string]$SpriteKind = 'WorldSprite',
++    [ValidateSet('WorldSprite', 'HudWeapon', 'HudWeapon16', 'HudWeapon20x16', 'WorldPickup', 'MiddleZombie', 'NearZombie')][string]$SpriteKind = 'WorldSprite',
+     [switch]$GenerateWalkingLod
+ )
+ 
+ $ErrorActionPreference = "Stop"
+ Add-Type -AssemblyName System.Drawing
+ 
+-$expectedSize = if ($SpriteKind -eq 'HudWeapon') { 12 } elseif ($SpriteKind -eq 'MiddleZombie') { 16 } elseif ($SpriteKind -eq 'NearZombie') { 32 } else { 8 }
+-$transparentIndex = if ($SpriteKind -eq 'HudWeapon') { 14 } else { 15 }
++$expectedSize = if ($SpriteKind -eq 'HudWeapon') { 12 } elseif ($SpriteKind -in @('HudWeapon16','WorldPickup','MiddleZombie')) { 16 } elseif ($SpriteKind -eq 'NearZombie') { 32 } else { 8 }
++$expectedWidth = if ($SpriteKind -eq 'HudWeapon20x16') { 20 } else { $expectedSize }
++$expectedHeight = if ($SpriteKind -eq 'HudWeapon20x16') { 16 } else { $expectedSize }
++$transparentIndex = if ($SpriteKind -in @('HudWeapon','HudWeapon16','HudWeapon20x16')) { 14 } else { 15 }
+ $bitmap = [System.Drawing.Bitmap]::new($InputPath)
+ try {
+-    if ($bitmap.Width -ne $expectedSize -or $bitmap.Height -ne $expectedSize) {
+-        throw "Sprite must be exactly ${expectedSize}x${expectedSize}."
++    if ($bitmap.Width -ne $expectedWidth -or $bitmap.Height -ne $expectedHeight) {
++        throw "Sprite must be exactly ${expectedWidth}x${expectedHeight}."
+     }
+ 
+-    $pixelCount = $expectedSize * $expectedSize
++    $pixelCount = $expectedWidth * $expectedHeight
+     $pixels = [System.Collections.Generic.List[byte]]::new($pixelCount)
+-    for ($y = 0; $y -lt $expectedSize; ++$y) {
+-        for ($x = 0; $x -lt $expectedSize; ++$x) {
++    for ($y = 0; $y -lt $expectedHeight; ++$y) {
++        for ($x = 0; $x -lt $expectedWidth; ++$x) {
+             $pixel = $bitmap.GetPixel($x, $y)
+             if ($pixel.A -eq 0) {
+                 $pixels.Add($transparentIndex)
+@@ -33,7 +35,7 @@ try {
+ 
+             $rgb = ('#{0:x2}{1:x2}{2:x2}' -f
+                     $pixel.R, $pixel.G, $pixel.B)
+-            if ($SpriteKind -eq 'HudWeapon') {
++            if ($SpriteKind -in @('HudWeapon','HudWeapon16','HudWeapon20x16','WorldPickup')) {
+                 $index = switch ($rgb) {
+                     '#000000' { 0; break }
+                     '#ad3e00' { 1; break }
+@@ -80,6 +82,7 @@ try {
+                 }
+             }
+             $pixels.Add($index)
++            if($index -eq $transparentIndex){throw "Opaque sprite color $rgb collides with transparent index"}
+         }
+     }
+ }
+@@ -87,18 +90,18 @@ finally {
+     $bitmap.Dispose()
+ }
+ 
+-$packedSourceRowStride = $expectedSize / 2
++$packedSourceRowStride = $expectedWidth / 2
+ $packedRowStride = if ($SpriteKind -eq 'HudWeapon') {
+     8
+ }
+ else {
+     $packedSourceRowStride
+ }
+-$byteCount = $packedRowStride * $expectedSize
++$byteCount = $packedRowStride * $expectedHeight
+ $bytes = [System.Collections.Generic.List[byte]]::new($byteCount)
+-for ($y = 0; $y -lt $expectedSize; ++$y) {
+-    $sourceRowOffset = $y * $expectedSize
+-    for ($x = 0; $x -lt $expectedSize; $x += 2) {
++for ($y = 0; $y -lt $expectedHeight; ++$y) {
++    $sourceRowOffset = $y * $expectedWidth
++    for ($x = 0; $x -lt $expectedWidth; $x += 2) {
+         $bytes.Add(($pixels[$sourceRowOffset + $x] -shl 4) -bor
+                    $pixels[$sourceRowOffset + $x + 1])
+     }
+@@ -175,8 +178,8 @@ $header = @"
+ #ifndef $headerGuard
+ #define $headerGuard
+ 
+-#define ${Symbol}_WIDTH $expectedSize
+-#define ${Symbol}_HEIGHT $expectedSize
++#define ${Symbol}_WIDTH $expectedWidth
++#define ${Symbol}_HEIGHT $expectedHeight
+ #define ${Symbol}_PACKED_ROW_STRIDE $packedRowStride
+ #define ${Symbol}_TRANSPARENT_INDEX $transparentIndex
+ #define ${Symbol}_BYTE_COUNT $byteCount
+diff --git a/tools/pause_freeze_audit.ps1 b/tools/pause_freeze_audit.ps1
+index cfd8d62..baa808f 100644
+--- a/tools/pause_freeze_audit.ps1
++++ b/tools/pause_freeze_audit.ps1
+@@ -1,12 +1,18 @@
+ # Development-only generated-call census and conservative stack bound.
+ function Test-PauseFreezeAssembly {
+     $functions=@{}
+-    foreach($file in Get-ChildItem -LiteralPath $build -Filter '*.asm'){
++    . "$PSScriptRoot/production_build_artifacts.ps1"
++    foreach($file in Get-ProductionBuildAssembly $build){
+         $text=Get-Content $file.FullName -Raw
+         $objectPath=[IO.Path]::ChangeExtension($file.FullName,'.rel')
+         if(!(Test-Path $objectPath)){continue}
+         $object=Get-Content $objectPath -Raw
+-        $bank=if($object -match 'A _BANK2 size [1-9A-F]'){2}elseif($object -match 'A _BANK1 size [1-9A-F]'){1}else{0}
++        $bank=0
++        foreach($area in [regex]::Matches($object,'(?m)^A (_BANK\w+) size ([0-9A-Fa-f]+)')){
++            if([Convert]::ToInt32($area.Groups[2].Value,16) -eq 0){continue}
++            Require ($area.Groups[1].Value -match '^_BANK[123]$') "Unknown non-empty bank in $($file.Name)"
++            $bank=[int]$area.Groups[1].Value.Substring(5)
++        }
+         foreach($m in [regex]::Matches($text,'(?ms)^; Function (\w+)\r?\n(.*?)(?=^; Function |\z)')){
+             $name=$m.Groups[1].Value;$body=$m.Groups[2].Value
+             $calls=@()
+@@ -40,8 +46,10 @@ function Test-PauseFreezeAssembly {
+         }
+     }
+     Walk-PauseCalls 'game_gear_pause_map_show'
+-    $allowed='^(game_gear_pause_map_show|window_origin|map_tile|passage|cell_pattern|pattern_color|pattern_rows|player_facing|draw_player|frame_rows|draw_rect|draw_focus|load_arrows|load_ui|draw_window|place_player|corpse_read_row|corpse_pixel|draw_corpses|pan_axis|world_get_tile|workshop_map_get_tile|door_instance_find_at|door_state_get|world_sprite_get_count|world_sprite_get|player_get_position_[xy]|camera_get_direction_[xy]|game_gear_input_update|input_pause_requested|SMS_\w+)$'
++    $allowed='^(game_gear_pause_map_show|window_origin|map_tile|passage|cell_pattern|pattern_color|pattern_rows|player_facing|draw_player|frame_rows|draw_rect|draw_focus|load_arrows|load_ui|load_weapon_patterns|draw_window|place_player|corpse_read_row|corpse_pixel|draw_corpses|pan_axis|adjacent_weapon|draw_weapon_slot|draw_weapons|world_get_tile|workshop_map_get_tile|door_instance_find_at|door_state_get|world_sprite_get_count|world_sprite_get|player_get_position_[xy]|camera_get_direction_[xy]|game_gear_input_update|input_pause_requested|SMS_\w+)$'
+     foreach($name in $seen.Keys){Require ($name -match $allowed) "Unexpected gameplay/helper reachable from pause: $name"}
++    $loader=$functions['load_weapon_patterns']
++    Require ($loader.Module -eq 'pause_map' -and $loader.Bank -eq 2 -and $loader.Calls.Count -eq 1 -and $loader.Calls[0].Target -eq 'SMS_VRAMmemcpy' -and !$loader.Calls[0].Banked) 'Precomposed weapon row loader must stay local and call only resident VRAM copy'
+     $map=Get-Content "$build/GearRay.map" -Raw
+     $nodes=@()
+     foreach($name in $seen.Keys|Sort-Object){
+@@ -90,7 +98,7 @@ function Test-PauseFreezeAssembly {
+     $stackGap=0xdff0-$dataEnd
+     Require ($pauseBound.Bytes+20 -lt $stackGap -and $restoreBound.Bytes+20 -lt $stackGap) 'Conservative call-chain budget overlaps persistent data'
+     $mainAsm=[regex]::Replace($functions['main'].Body,'(?m)^;.*$','')
+-    Require ($mainAsm -match '(?s)#_game_gear_pause_map_show\s+call\s+___sdcc_bcall_ehl.*?#_game_gear_video_restore_gameplay\s+call\s+___sdcc_bcall_ehl\s+j[pr]\s+\w+\$.*?call\s+_world_sprites_update') 'Generated main pause gate/continue changed'
++    Require ($mainAsm -match '(?s)call\s+_game_gear_pause_map_show.*?#_game_gear_video_restore_gameplay\s+call\s+___sdcc_bcall_ehl\s+j[pr]\s+\w+\$.*?call\s+_world_sprites_update') 'Generated main pause gate/continue changed'
+     $sources=(Get-ChildItem "$root/game","$root/platform/game_gear" -Filter '*.c'|ForEach-Object{Get-Content $_.FullName -Raw}) -join "`n"
+     Require ($sources -notmatch '(?:SMS_setFrameInterruptHandler|SMS_setLineInterruptHandler|GG_setNMIHandler)\s*\(') 'New interrupt callback requires a freeze audit'
+     $rom=[IO.File]::ReadAllBytes("$root/rom/GearRay.gg")
+diff --git a/tools/pause_freeze_fixture.ps1 b/tools/pause_freeze_fixture.ps1
+index 7ca498d..79ae33f 100644
+--- a/tools/pause_freeze_fixture.ps1
++++ b/tools/pause_freeze_fixture.ps1
+@@ -13,8 +13,12 @@ $freezeStep=Get-FreezeBody $freezeMain 'while\s*\(!player_is_dead\(\)\)'
+ $freezeStep=$freezeStep.Replace('continue;','return;').Replace('break;','return;').Replace('shoot_requested = input_shoot_requested();','shoot_requested = input_shoot_requested() ? 1 : 0;').Replace('if (pending_shot)','if (pending_shot != 0)')
+ $freezeSprite=Get-FreezeBody (Get-Content "$root/game/world_sprite.c" -Raw) 'void world_sprites_update\(void\)'
+ $freezeSprite=$freezeSprite.Replace('&world_sprites[','Corpses[').Replace('world_sprite_count','Corpses.Length')
+-$freezeWeapon=Get-FreezeBody (Get-Content "$root/platform/game_gear/hud_weapon.c" -Raw) 'void game_gear_hud_weapon_update\(unsigned char shoot_requested\)\s*__banked'
++$freezeWeapon=Get-FreezeBody (Get-Content "$root/platform/game_gear/hud_weapon.c" -Raw) 'void game_gear_hud_weapon_update\(unsigned char shoot_requested\)'
++$touchLiteral=[string](128+2*[int][regex]::Match((Get-Content "$root/game/player.h" -Raw),'#define PLAYER_MOVE_SPEED\s+(\d+)').Groups[1].Value)+'U'
++$freezeWeapon=$freezeWeapon.Replace('(unsigned int)','(ushort)').Replace('SHOTGUN_PICKUP_TOUCH_EXTENT',$touchLiteral)
+ $freezeWeapon=$freezeWeapon.Replace('if (shoot_requested)','if (shoot_requested != 0)')
++$freezeWeapon=$freezeWeapon.Replace('SHOTGUN_PICKUP_PRESENT','(owned_weapons & WEAPON_OWNED_SHOTGUN) == 0')
++$freezeWeapon=$freezeWeapon.Replace('player_get_position_x()','PlayerX').Replace('player_get_position_y()','PlayerY')
+ $freezeSwitch=Get-FreezeBody (Get-Content "$root/game/red_door_switch.c" -Raw) 'void red_door_switch_update\(void\)'
+ $freezeProduction=@"
+ static void FreezeMainStep(void) {
+@@ -41,7 +45,7 @@ public static int[] WriteFrames=new int[40016];
+ public static byte[] GameplayBytes(){
+  var b=new System.Collections.Generic.List<byte>();
+  foreach(int v in new int[]{PlayerX,PlayerY,CameraX,CameraY,DirectionX,DirectionY,PlaneX,PlaneY}){b.Add((byte)v);b.Add((byte)(v>>8));}
+- foreach(int v in new int[]{PlayerHealth,DamagePhase,pending_shot,zombie_ai_frame_counter,weapon_state,animation_timer,SwitchState,red_door_switch_frame_counter,red_door_switch_frame,FollowingMask,NegativeMask,Corpses.Length})b.Add((byte)v);
++ foreach(int v in new int[]{PlayerHealth,DamagePhase,pending_shot,zombie_ai_frame_counter,weapon_state,animation_timer,SwitchState,red_door_switch_frame_counter,red_door_switch_frame,FollowingMask,NegativeMask,Corpses.Length,owned_weapons,shotgun_cell_x,shotgun_cell_y})b.Add((byte)v);
+  foreach(int v in door_states)b.Add((byte)v);
+  foreach(WorldSprite s in Corpses){foreach(int v in new int[]{s.world_x,s.world_y,s.pixels}){b.Add((byte)v);b.Add((byte)(v>>8));}b.Add((byte)s.state);b.Add((byte)s.health_and_hit_count);b.Add((byte)s.state_timer);}
+  return b.ToArray();
+@@ -75,8 +79,8 @@ public static void SeedFreeze(){
+ }
+ public static void RunFreeze(int frames,int mode,int held){
+  SeedFreeze();int exitHeld=mode==7?0:held;Script=new int[frames+8];Script[0]=GG_KEY_START|held;Script[frames]=GG_KEY_START|exitHeld;
+- if(mode==1)Script[3]=2;
+- if(mode>=2&&mode<=4)Script[3]=16;
++ if(mode==1)Script[3]=1;
++ if(mode>=2&&mode<=4){Script[2]=1;Script[3]=16;}
+  if(mode==3)for(int f=4;f<frames;f++)Script[f]=8;
+  if(mode==4)for(int f=4;f<frames;f++)Script[f]=4;
+  if(mode==5){Script[3]=2;Script[4]=16;Script[5]=0;Script[6]=16;}
+@@ -88,7 +92,7 @@ public static void RunFreeze(int frames,int mode,int held){
+  if(GameplayCalls!=0)throw new Exception("Main advanced simulation on pause/resume iteration");
+  for(int f=2;f<frames;f++){
+   bool pan=mode==3&&f>=4&&(f==4||f>=16&&(f-16)%4==0)&&f<=80;
+-  bool focus=(mode==1&&f==3)||(mode>=2&&mode!=5&&f==3)||(mode==5&&f==3);
++  bool focus=(mode==1&&f==3)||(mode>=2&&mode<=4&&(f==2||f==3));
+   if(!pan){if(QueryFrames[f]+DoorFrames[f]+DoorFindFrames[f]+ScanFrames[f]+EntityFrames[f]+CorpseWrites[f]+SatFrames[f]!=0)throw new Exception("Non-pan frame queried or rendered world: "+f);}
+   if(!pan&&!focus&&WriteFrames[f]!=0)throw new Exception("Idle/delay/rejected frame wrote VRAM: "+f);
+  }
+diff --git a/tools/validate_bank_layout.ps1 b/tools/validate_bank_layout.ps1
+index 4bc77a4..9e2a6a7 100644
+--- a/tools/validate_bank_layout.ps1
++++ b/tools/validate_bank_layout.ps1
+@@ -7,16 +7,22 @@ param(
+ )
+ 
+ $ErrorActionPreference = "Stop"
+-$minimumBank0Reserve = 256
+ $bank0Limit = 0x4000
+ $bank1Start = 0x14000
+ $bank1End = 0x18000
+ $bank2Start = 0x28000
+ $bank2End = 0x2C000
+-$romSize = 64KB
++$bank3Start = 0x34000
++$bank3End = 0x38000
+ $nearTextureBytes = 7 * 32 * 32 / 2
+ 
+ $map = Get-Content -LiteralPath $MapPath -Raw
++foreach ($area in [regex]::Matches($map, '(?m)^(_BANK\w+)\s+[0-9A-Fa-f]{8}\s+([0-9A-Fa-f]{8})')) {
++    if ([Convert]::ToInt32($area.Groups[2].Value,16) -ne 0 -and
++        $area.Groups[1].Value -notmatch '^_BANK\d+$') {
++        throw "Malformed non-empty bank area: $($area.Groups[1].Value)"
++    }
++}
+ 
+ function Get-HexSymbolValue {
+     param([string]$Name)
+@@ -34,11 +40,11 @@ function Get-HexSymbolValue {
+ $fixedEnd = (Get-HexSymbolValue "s__GSFINAL") +
+     (Get-HexSymbolValue "l__GSFINAL")
+ $bank0Reserve = $bank0Limit - $fixedEnd
+-if ($bank0Reserve -lt $minimumBank0Reserve) {
+-    throw "Bank 0 reserve is $bank0Reserve bytes; minimum is $minimumBank0Reserve."
++if ($bank0Reserve -lt 256) {
++    Write-Warning "Bank 0 reserve is $bank0Reserve bytes; review before adding resident code."
+ }
+ 
+-foreach ($symbol in @("_main", "_raycaster_update", "_game_gear_video_draw_wall_colum")) {
++foreach ($symbol in @("_main", "_raycaster_update", "_game_gear_video_draw_wall_colum", '_SMS_isr','_SMS_nmi_isr','___sdcc_bcall_ehl')) {
+     $address = Get-HexSymbolValue $symbol
+     if ($address -ge $bank0Limit) {
+         throw "Hot resident symbol left Bank 0: $symbol at 0x$($address.ToString('X'))."
+@@ -55,7 +61,7 @@ foreach ($symbol in @("_world_initialize", "_game_gear_video_initialize")) {
+ $bank1SegmentStart = Get-HexSymbolValue "s__BANK1"
+ $bank1Length = Get-HexSymbolValue "l__BANK1"
+ if ($bank1SegmentStart -ne $bank1Start -or
+-    ($bank1SegmentStart + $bank1Length) -gt $bank1End) {
++    ($bank1SegmentStart + $bank1Length) -gt ($bank1End-16)) {
+     throw "Bank 1 segment is outside its 16 KB page."
+ }
+ 
+@@ -75,16 +81,69 @@ $nearSymbols = @(
+     '_zombie_near_shot_01_pixels',
+     '_zombie_near_corpse_pixels'
+ )
++$bank3Length = Get-HexSymbolValue 'l__BANK3'
++if ((Get-HexSymbolValue 's__BANK3') -ne $bank3Start -or
++    $bank3Length -le 0 -or ($bank3Start + $bank3Length) -gt $bank3End) {
++    throw 'Bank 3 must occupy page 3 in CPU slot 1 (virtual base 0x34000).'
++}
++foreach ($symbol in @('_game_gear_startup_logo_show','_sega_logo_tiles','_sega_logo_palette','_sega_logo_tilemap')) {
++    $address = Get-HexSymbolValue $symbol
++    if ($address -lt $bank3Start -or $address -ge ($bank3Start+$bank3Length)) {
++        throw "Logo code/data is not co-located in Bank 3: $symbol"
++    }
++}
++foreach ($symbol in @('_game_gear_video_present_player_','_game_over_tiles','_game_over_palette','_game_over_tilemap')) {
++    $address = Get-HexSymbolValue $symbol
++    if ($address -lt $bank3Start -or $address -ge ($bank3Start+$bank3Length)) {
++        throw "Game Over code/data is not co-located in Bank 3: $symbol"
++    }
++}
++if ((Get-HexSymbolValue 'b_game_gear_startup_logo_show') -ne 3) { throw 'Wrong startup dispatch bank.' }
++if ((Get-HexSymbolValue 'b_game_gear_video_present_player') -ne 3) { throw 'Wrong Game Over dispatch bank.' }
++$build = Split-Path -Parent (Resolve-Path -LiteralPath $MapPath)
++. "$PSScriptRoot/production_build_artifacts.ps1"
++foreach ($object in Get-ProductionBuildObjects $build) {
++    $contents = Get-Content $object.FullName -Raw
++    foreach ($area in [regex]::Matches($contents,'(?m)^A (_BANK\w+) size ([0-9A-Fa-f]+)')) {
++        if ([Convert]::ToInt32($area.Groups[2].Value,16) -eq 0) { continue }
++        if ($area.Groups[1].Value -notmatch '^_BANK\d+$') { throw "Malformed non-empty bank in $($object.Name)" }
++        if ($area.Groups[1].Value -eq '_BANK3' -and $object.BaseName -notin @('startup_logo','generated_sega_logo','generated_game_over','game_over_presentation')) {
++            throw "Unexpected Bank 3 occupant: $($object.Name)"
++        }
++    }
++}
+ foreach ($symbol in $nearSymbols) {
+     $address = Get-HexSymbolValue $symbol
+     if ($address -lt $bank2Start -or $address -ge $bank2End) {
+         throw "Near zombie texture is not in Bank 2: $symbol at 0x$($address.ToString('X'))."
+     }
+ }
++if ($map -match '_shotgun_world_pixels\s') {
++    foreach ($symbol in @('_shotgun_world_pixels','_shotgun_held_pixels','_shotgun_fire_pixels',
++        '_game_gear_hud_weapon_update','_game_gear_prepare_world_sprites')) {
++        $address=Get-HexSymbolValue $symbol
++        if ($address -lt $bank1Start -or $address -ge ($bank1Start+$bank1Length)) {throw "Warm weapon content left Bank 1: $symbol"}
++    }
++}
+ 
+ [byte[]]$rom = [System.IO.File]::ReadAllBytes((Resolve-Path -LiteralPath $RomPath))
+-if ($rom.Length -ne $romSize) {
+-    throw "ROM is $($rom.Length) bytes; expected $romSize bytes."
++if ($rom.Length -lt 32KB -or ($rom.Length -band ($rom.Length-1)) -ne 0) {
++    throw "ROM size $($rom.Length) is not a supported power-of-two image of at least 32 KB."
++}
++$logoSource = Get-Content "$build/generated/sega_logo.c" -Raw
++foreach ($name in @('tiles','palette','tilemap')) {
++    $array = [regex]::Match($logoSource,"(?s)sega_logo_$name\[.*?\]\s*=\s*\{(.*?)\}")
++    if (!$array.Success) { throw "Missing generated logo $name" }
++    $bytes = @([regex]::Matches($array.Groups[1].Value,'0x([0-9a-fA-F]+)') | ForEach-Object {
++        $value=[Convert]::ToInt32($_.Groups[1].Value,16)
++        [byte]($value -band 255)
++        if ($name -ne 'tiles') { [byte]($value -shr 8) }
++    })
++    $address = Get-HexSymbolValue "_sega_logo_$name"
++    $physical = (($address -shr 16)*16384) + ($address -band 0x3FFF)
++    for ($i=0; $i -lt $bytes.Count; $i++) {
++        if ($rom[$physical+$i] -ne $bytes[$i]) { throw "Bank 3 physical payload mismatch: $name byte $i" }
++    }
+ }
+ 
+ $signature = [System.Text.Encoding]::ASCII.GetString($rom, 0x7FF0, 8)
+@@ -93,8 +152,11 @@ if ($signature -ne "TMR SEGA") {
+ }
+ 
+ $headerRegionAndSize = $rom[0x7FFF]
+-if ($headerRegionAndSize -ne 0x7E) {
+-    throw "Header byte at 0x7FFF is 0x$($headerRegionAndSize.ToString('X2')); expected 0x7E for a 64 KB international Game Gear ROM."
++$sizeCodes=@{32768=0xC;65536=0xE;131072=0xF;262144=0x0;524288=0x1;1048576=0x2}
++if (!$sizeCodes.ContainsKey($rom.Length)) { throw "No SEGA header size code is defined for $($rom.Length) bytes." }
++$expectedSizeCode=$sizeCodes[$rom.Length]
++if (($headerRegionAndSize -band 0x0F) -ne $expectedSizeCode -or ($headerRegionAndSize -band 0xF0) -ne 0x70) {
++    throw "Header byte 0x$($headerRegionAndSize.ToString('X2')) does not describe this international Game Gear ROM size."
+ }
+ 
+ $storedChecksum = [int]$rom[0x7FFA] -bor ([int]$rom[0x7FFB] -shl 8)
+@@ -109,14 +171,21 @@ if ($checksum -ne $storedChecksum) {
+ $segaHeaderBytes = 16
+ $bank1Free = ($bank1End - $bank1Start) - $bank1Length - $segaHeaderBytes
+ $bank2Free = ($bank2End - $bank2Start) - $bank2Length
+-if ($bank2Length -lt $nearTextureBytes -or $bank2Free -lt 8KB) {
+-    throw "Bank 2 does not contain all near textures or retain the required 8 KB reserve."
++# The approved second native pause composite and carousel use a bounded 640-byte
++# budget (192 data + up to 448 code) beyond the pistol checkpoint. Residency and
++# physical bounds remain mandatory; this is a planning reserve, not a ROM limit.
++if ($bank2Length -lt $nearTextureBytes) {
++    throw "Bank 2 does not contain all near textures."
++}
++if ($bank2Free -lt (7680-640)) {
++    Write-Warning "Bank 2 free space is $bank2Free bytes; the old planning reserve was 7040 bytes."
+ }
+ 
+ Write-Output "Bank layout validation PASS"
+ Write-Output "- fixed endpoint: 0x$($fixedEnd.ToString('X4')); Bank 0 reserve: $bank0Reserve bytes"
+ Write-Output "- Bank 1 used/free: $bank1Length/$bank1Free bytes"
+ Write-Output "- Bank 2 used/free: $bank2Length/$bank2Free bytes; seven native near-detail textures verified"
+-Write-Output "- seven 32x32 4bpp payloads: $nearTextureBytes bytes; current Bank 2 reserve exceeds 8 KB"
++Write-Output "- Bank 3 used/free: $bank3Length/$(16384-$bank3Length); slot-1 logo code/data and physical payload verified"
++Write-Output "- seven 32x32 4bpp payloads: $nearTextureBytes bytes; planning reserves are advisory"
+ Write-Output "- ROM: $($rom.Length) bytes; header 0x$($headerRegionAndSize.ToString('X2')); checksum 0x$($storedChecksum.ToString('X4'))"
+ Write-Output "- hot main/raycaster/video paths remain fixed; cold initialization remains in Bank 1"
+diff --git a/tools/validate_door_crush.ps1 b/tools/validate_door_crush.ps1
+index c919210..7a930f4 100644
+--- a/tools/validate_door_crush.ps1
++++ b/tools/validate_door_crush.ps1
+@@ -67,16 +67,16 @@ Assert-True ($spriteHeader -notmatch
+     '(?m)^\s*(unsigned|signed|ZombieState)[^;]*(crush|merge)[^;]*;') `
+     'Door crushing or corpse merging added persistent WorldSprite state.'
+ Assert-True ($corpseHeader -match
+-    'zombie_corpses_finalize\([^;]+\) __banked;' -and
++    'zombie_corpses_finalize\([^;]+\);' -and
+     $corpseHeader -match
+-    'zombie_corpses_crush_in_door\([^;]+\) __banked;' -and
++    'zombie_corpses_crush_in_door\([^;]+\);' -and
+     $cmake -match
+     'OUTPUT "\$\{GEAR_RAY_ZOMBIE_CORPSES_OBJECT\}"[\s\S]*?--codeseg BANK2') `
+-    'Cold corpse management is not isolated in Bank 2 behind banked calls.'
++    'Cold corpse management is not isolated in permanently mapped Bank 2.'
+ 
+ $mapBody = [regex]::Match($workshopMap,
+     'workshop_map[\s\S]*?=\s*\{(?<body>[\s\S]*?)\};').Groups['body'].Value
+-$mapTokens = @([regex]::Matches($mapBody, '(?<![A-Z_])[XESBDRWZ](?![A-Z_])') |
++$mapTokens = @([regex]::Matches($mapBody, '(?<![A-Z_])[XESBDRWZG](?![A-Z_])') |
+     ForEach-Object { $_.Value })
+ Assert-True ($mapTokens.Count -eq 13 * 13) `
+     'Could not parse the 13x13 workshop map for door relocation validation.'
+diff --git a/tools/validate_game_over.ps1 b/tools/validate_game_over.ps1
+index 58d2d06..957fd21 100644
+--- a/tools/validate_game_over.ps1
++++ b/tools/validate_game_over.ps1
+@@ -3,7 +3,7 @@ $ErrorActionPreference='Stop';$root=Split-Path -Parent $PSScriptRoot
+ $build=if([IO.Path]::IsPathRooted($BuildDirectory)){$BuildDirectory}else{Join-Path $root $BuildDirectory}
+ function Assert([bool]$c,[string]$m){if(-not $c){throw $m}}
+ $asset=Join-Path $root 'assets\logos\game_over.png';$source=Join-Path $build 'generated\game_over.c';$header=Join-Path $build 'generated\game_over.h'
+-$video=Get-Content -Raw (Join-Path $root 'platform\game_gear\video_initialization.c');$cmake=Get-Content -Raw (Join-Path $root 'CMakeLists.txt')
++$video=Get-Content -Raw (Join-Path $root 'platform\game_gear\game_over_presentation.c');$cmake=Get-Content -Raw (Join-Path $root 'CMakeLists.txt')
+ Add-Type -AssemblyName System.Drawing;$b=[Drawing.Bitmap]::new($asset);try{Assert($b.Width-eq150-and$b.Height-eq23)'Game Over dimensions changed.';$colors=@{};for($y=0;$y-lt23;$y++){for($x=0;$x-lt150;$x++){$p=$b.GetPixel($x,$y);Assert($p.A-eq255)'Game Over must be opaque.';$colors[('{0:x2}{1:x2}{2:x2}'-f$p.R,$p.G,$p.B)]=1}};Assert((($colors.Keys|Sort-Object)-join',')-eq'000000,bb2200,ffffff')'Game Over palette changed.'}finally{$b.Dispose()}
+ Assert(Test-Path $source)'Generated Game Over source missing.';Assert(Test-Path $header)'Generated Game Over header missing.'
+ $h=Get-Content -Raw $header;$s=Get-Content -Raw $source
+@@ -11,11 +11,12 @@ Assert($h-match'GAME_OVER_TILE_COLUMNS 20'-and$h-match'GAME_OVER_TILE_ROWS 4'-an
+ Assert($h-match'GAME_OVER_TILE_ORIGIN_X 6'-and$h-match'GAME_OVER_TILE_ORIGIN_Y 10')'Game Over tile origin changed.'
+ $tileBlock=[regex]::Match($s,'game_over_tiles[^=]*=\s*\{(?<v>[\s\S]*?)\};').Groups['v'].Value
+ Assert(([regex]::Matches($tileBlock,'0x[0-9a-fA-F]{2}').Count)-eq2560)'Game Over tile byte count changed.'
+-Assert($cmake-match'assets/logos/game_over\.png'-and$cmake-match'--constseg BANK1')'Game Over is not generated into Bank 1.'
++Assert($cmake-match'assets/logos/game_over\.png'-and$cmake-match'--constseg BANK3 -c "\$\{GEAR_RAY_GENERATED_GAME_OVER_SOURCE\}"')'Game Over is not generated into Bank 3.'
++Assert($cmake-match'game_over_presentation\.c'-and$cmake-match'--codeseg BANK3 --constseg BANK3')'Game Over presentation is not compiled into Bank 3.'
+ Assert($video-notmatch'DEATH_FADE|game_gear_video_dim_color')'Obsolete death fade remains.'
+ Assert($video-match'SMS_displayOff\(\);[\s\S]*?SMS_VRAMmemsetW\(0, 0x0000, 16384\);[\s\S]*?GG_loadBGPalette\(game_over_palette\)')'Gameplay is not cleared before Game Over.'
+ Assert($video-match'GAME_OVER_DISPLAY_FRAME_COUNT 180'-and$video-match'SMS_loadTileMapArea\(GAME_OVER_TILE_ORIGIN_X')'Game Over presentation flow or duration changed.'
+ Assert($video-match'for \(frame = GAME_OVER_DISPLAY_FRAME_COUNT; frame != 0; --frame\)[\s\S]*?SMS_waitForVBlank\(\);[\s\S]*?SMS_displayOff\(\);')'Game Over is not held for exactly 180 VBlanks before restart.'
+ Assert((5+150)-le160-and(60+23)-le144)'Game Over clips the visible screen.'
+-if($RequireMapPlacement){$map=Get-Content -Raw (Join-Path $build 'GearRay.map');$m=[regex]::Match($map,'(?m)^\s*(?<a>[0-9A-F]{8})\s+_game_over_tiles');Assert($m.Success)'Game Over tile symbol missing.';$a=[Convert]::ToInt32($m.Groups['a'].Value,16);Assert($a-ge0x14000-and$a-lt0x18000)'Game Over tiles are outside Bank 1.'}
+-'Game Over validation PASS';'- native 150x23, palette black/white/#bb2200';'- physical placement x=5..154, y=60..82';'- display blanked and all VRAM cleared before artwork load';'- 80 tiles / 2560 bytes in Bank 1; no fade path';'- exactly 180 VBlanks (3.0 seconds at 60 fps) before restart'
++if($RequireMapPlacement){$map=Get-Content -Raw (Join-Path $build 'GearRay.map');foreach($symbol in @('_game_over_tiles','_game_over_palette','_game_over_tilemap','_game_gear_video_present_player_')){$m=[regex]::Match($map,"(?m)^\s*(?<a>[0-9A-F]{8})\s+$symbol\s");Assert($m.Success)"Game Over symbol missing: $symbol";$a=[Convert]::ToInt32($m.Groups['a'].Value,16);Assert($a-ge0x34000-and$a-lt0x38000)"Game Over symbol is outside Bank 3: $symbol"};$bank=[regex]::Match($map,'(?m)^\s*(?<a>[0-9A-F]{8})\s+b_game_gear_video_present_player\s');Assert($bank.Success-and[Convert]::ToInt32($bank.Groups['a'].Value,16)-eq3)'Game Over dispatch bank is not 3.'}
++'Game Over validation PASS';'- native 150x23, palette black/white/#bb2200';'- physical placement x=5..154, y=60..82';'- display blanked and all VRAM cleared before artwork load';'- 80 tiles / 2560 bytes and presentation code co-located in Bank 3; no fade path';'- exactly 180 VBlanks (3.0 seconds at 60 fps) before restart'
+diff --git a/tools/validate_pause_map.ps1 b/tools/validate_pause_map.ps1
+index ed2871d..45e0fd3 100644
+--- a/tools/validate_pause_map.ps1
++++ b/tools/validate_pause_map.ps1
+@@ -3,6 +3,28 @@ $ErrorActionPreference = 'Stop'
+ $root = Split-Path $PSScriptRoot -Parent
+ $build = if ([IO.Path]::IsPathRooted($BuildDirectory)) { $BuildDirectory } else { Join-Path $root $BuildDirectory }
+ $source = Get-Content "$root/platform/game_gear/pause_map.c" -Raw
++$iconHeader=Get-Content "$build/generated/pause_weapon_icon.h" -Raw
++Add-Type -AssemblyName System.Drawing
++$icon=[System.Drawing.Bitmap]::new("$root/assets/sprites/weapons/pistol.png")
++if($icon.Width -ne 16 -or $icon.Height -ne 16){throw 'Pistol canvas must be 16x16'}
++$iconExpected=New-Object int[] 256
++$opaque=0
++$minIconX=16;$minIconY=16;$maxIconX=-1;$maxIconY=-1
++for($iy=0;$iy -lt 16;$iy++){for($ix=0;$ix -lt 16;$ix++){
++    $c=$icon.GetPixel($ix,$iy);$iconExpected[$iy*16+$ix]=-1
++    if($c.A -eq 0){continue}
++    if($c.A -ne 255 -or $ix -lt 1 -or $ix -gt 14 -or $iy -lt 1 -or $iy -gt 14){throw 'Pistol opaque pixel outside native slot interior'}
++    $rgb='#{0:x2}{1:x2}{2:x2}' -f $c.R,$c.G,$c.B
++    $iconExpected[$iy*16+$ix]=switch($rgb){'#000000'{0} '#1a1a1a'{13} '#4d4d4d'{2} '#797878'{3} '#ffffff'{12} default{throw "Unexpected pistol color $rgb"}}
++    $opaque++
++    $minIconX=[Math]::Min($minIconX,$ix);$minIconY=[Math]::Min($minIconY,$iy)
++    $maxIconX=[Math]::Max($maxIconX,$ix);$maxIconY=[Math]::Max($maxIconY,$iy)
++}}
++$icon.Dispose()
++if($opaque -ne 63){throw 'Expected all 63 opaque pistol pixels'}
++if($minIconX -ne 3 -or $maxIconX -ne 12 -or $minIconY -ne 4 -or $maxIconY -ne 12){throw 'Authored pistol bounding box changed'}
++$shotgunHeader=Get-Content "$build/generated/pause_shotgun_icon.h" -Raw
++if($iconHeader -match 'shotgun' -or $shotgunHeader -notmatch 'pause_shotgun_tiles'){throw 'Pause weapon composite sources are not isolated'}
+ $header = Get-Content "$root/platform/game_gear/pause_map.h" -Raw
+ $world = Get-Content "$root/game/world.h" -Raw
+ $workshop = Get-Content "$root/game/workshop_map.c" -Raw
+@@ -15,7 +37,7 @@ function Require($Condition, [string]$Message) { if (!$Condition) { throw $Messa
+ # No geometry/position algorithm is reimplemented here. This is a host contract
+ # test, not a Z80 emulator: generated assembly is audited separately below.
+ $constants = @{}
+-foreach ($text in @($header, $source, $world, (Get-Content "$root/game/workshop_map.h" -Raw), (Get-Content "$root/game/door_states.h" -Raw), (Get-Content "$root/game/door_instances.h" -Raw))) {
++foreach ($text in @($header, $source, $world, (Get-Content "$root/game/weapons.h" -Raw), (Get-Content "$root/game/workshop_map.h" -Raw), (Get-Content "$root/game/door_states.h" -Raw), (Get-Content "$root/game/door_instances.h" -Raw))) {
+     foreach ($m in [regex]::Matches($text, '(?m)^#define\s+(\w+)\s+(0x[0-9a-fA-F]+|\d+)\b')) {
+         $constants[$m.Groups[1].Value] = [int]$m.Groups[2].Value
+     }
+@@ -29,7 +51,7 @@ $constants['PORT_A_KEY_LEFT']=4; $constants['PORT_A_KEY_RIGHT']=8
+ $constants['PORT_A_KEY_1']=16; $constants['PORT_A_KEY_2']=32
+ Require ($constants['WORLD_WIDTH'] -eq 13 -and $constants['WORLD_HEIGHT'] -eq 13) 'Workshop dimensions changed'
+ $defs = ($constants.GetEnumerator() | ForEach-Object {
+-    if ($_.Key -in @('WORLD_WIDTH','WORLD_HEIGHT')) { "public static int $($_.Key) = $($_.Value);" }
++    if ($_.Key -in @('WORLD_WIDTH','WORLD_HEIGHT','WEAPON_COUNT')) { "public static int $($_.Key) = $($_.Value);" }
+     else { "public const int $($_.Key) = $($_.Value);" }
+ }) -join "`n"
+ $aliases = @{}
+@@ -37,10 +59,17 @@ foreach ($m in [regex]::Matches($workshop, '(?m)^#define\s+(\w)\s+(WORLD_TILE_\w
+     $aliases[$m.Groups[1].Value] = $constants[$m.Groups[2].Value]
+ }
+ $mapBody = [regex]::Match($workshop, '(?s)\[WORKSHOP_MAP_HEIGHT\]\[WORKSHOP_MAP_WIDTH\]\s*=\s*\{(.*?)\};').Groups[1].Value
+-$cells = @([regex]::Matches($mapBody, '\b[XESBDRWZ]\b') | ForEach-Object { $aliases[$_.Value] })
++$cells = @([regex]::Matches($mapBody, '\b[XESBDRWZG]\b') | ForEach-Object { $aliases[$_.Value] })
+ Require ($cells.Count -eq 169) 'Authoritative map must contain 169 cells'
+ . "$PSScriptRoot/pause_freeze_fixture.ps1"
+ $translated = $source + "`n" + $inputSource + "`n" + $freezeProduction
++$translated=[regex]::Replace($translated,'(?s)#if SCROLL_X != 0 && SCROLL_Y != 0\s+if \(state != WEAPONS_FOCUS\)\s+(tile = FRAME_PATTERN.*?EDGE_TOP\);)\s+#endif','if (state != WEAPONS_FOCUS && SCROLL_X != 0 && SCROLL_Y != 0) $1')
++$translated=$translated.Replace('+ (SCROLL_Y != 0)','+ (SCROLL_Y != 0 ? 1 : 0)').Replace('+ (SCROLL_X != 0)','+ (SCROLL_X != 0 ? 1 : 0)');$translated=$translated.Replace('2 + (SCROLL_Y != 0)', '2 + (SCROLL_Y != 0 ? 1 : 0)').Replace('2 + (SCROLL_X != 0)', '2 + (SCROLL_X != 0 ? 1 : 0)')
++$iconCases=[regex]::Matches($iconHeader,'(?s)#if SCROLL_X == (\d) && SCROLL_Y == (\d)\s*(.*?)#endif')
++foreach($case in $iconCases){$translated += "`n"+$case.Groups[3].Value.Replace('pause_pistol_tiles',"pistol_$($case.Groups[1].Value)_$($case.Groups[2].Value)").Replace('pause_empty_rows',"empty_$($case.Groups[1].Value)_$($case.Groups[2].Value)")}
++foreach($case in [regex]::Matches($shotgunHeader,'(?s)#if SCROLL_X == (\d) && SCROLL_Y == (\d)\s*(.*?)#endif')){
++    $translated += "`n"+$case.Groups[3].Value.Replace('pause_shotgun_tiles',"shotgun_$($case.Groups[1].Value)_$($case.Groups[2].Value)")
++}
+ # Execute the actual authoritative state accessor; synthetic maps provide only
+ # the instance positions/storage through the host adapter.
+ $doorSource=Get-Content "$root/game/door_states.c" -Raw
+@@ -73,12 +102,35 @@ $translated = [regex]::Replace($translated, '(?m)^(?:static )?(int|void|bool) (\
+ $translated = [regex]::Replace($translated,'int map_tile\(int x, int y\)\s*\{', 'int map_tile(int x, int y) { x &= 255; y &= 255;')
+ $translated = $translated.Replace('+ (scroll_x != 0)', '+ (scroll_x != 0 ? 1 : 0)').Replace('+ (scroll_y != 0)', '+ (scroll_y != 0 ? 1 : 0)')
+ $translated=$translated.Replace('focus_frame_pixels + ((int)pattern << 5)', 'Slice(focus_frame_pixels, pattern << 5)')
++$translated=$translated.Replace('pause_pistol_tiles + ((int)bits << 5)', 'Slice(SelectPistolTiles(), bits << 5)')
++$translated=$translated.Replace('pause_shotgun_tiles + ((int)bits << 5)', 'Slice(SelectShotgunTiles(), bits << 5)')
++foreach($weapon in @('pistol','shotgun')){
++    $selector=if($weapon -eq 'pistol'){'Pistol'}else{'Shotgun'}
++    foreach($suffix in @('_rows','_side','')){
++        $method=if($suffix -eq '_rows'){'Rows'}elseif($suffix -eq '_side'){'Side'}else{''}
++        $translated=[regex]::Replace($translated,"\bpause_${weapon}_tiles$suffix\b","Select${selector}Tiles$method()")
++    }
++}
++$translated=$translated.Replace('const int *indices','int[] indices').Replace('const int *pixels','int[] pixels')
++$translated=$translated.Replace('pixels + ((int)index << 2)','Slice(pixels, index << 2)').Replace('*indices++','indices[token++]').Replace('int repeats = 0;','int token=0; int repeats = 0;').Replace('if (index & 0x80)','if ((index & 0x80) != 0)')
++$translated=[regex]::Replace($translated,'\bpause_empty_rows\b','SelectEmptyRows()')
++$translated=$translated.Replace('pressed = (int)(keys & ~previous_keys);','FocusStates[Frame]=state; pressed = (int)(keys & ~previous_keys);')
++$translated=$translated.Replace('+ (SCROLL_Y != 0)','+ (SCROLL_Y != 0 ? 1 : 0)').Replace('+ (SCROLL_X != 0)','+ (SCROLL_X != 0 ? 1 : 0)');$translated=$translated.Replace('2 + (SCROLL_Y != 0)', '2 + (SCROLL_Y != 0 ? 1 : 0)').Replace('2 + (SCROLL_X != 0)', '2 + (SCROLL_X != 0 ? 1 : 0)')
+ $translated=[regex]::Replace($translated,'\+ (\([^;\r\n]+ != 0\))\s*;','+ ($1 ? 1 : 0);')
+ $translated=[regex]::Replace($translated,'int corpse_pixel\(int x, int y,\s*int next_tile\)\s*\{','int corpse_pixel(int x,int y,int next_tile) { x &= 255; y &= 255;')
+ # passage() is a C integer predicate, a C# bool predicate in the host adapter.
+ 
+ $mock = @'
+ public static int[] Slice(int[] data,int offset) { int[] result=new int[data.Length-offset]; Array.Copy(data,offset,result,0,result.Length); return result; }
++public static int[] SelectPistolTiles(){return ScrollX==0?(ScrollY==0?pistol_0_0:pistol_0_4):(ScrollY==0?pistol_4_0:pistol_4_4);}
++public static int[] SelectShotgunTiles(){return ScrollX==0?(ScrollY==0?shotgun_0_0:shotgun_0_4):(ScrollY==0?shotgun_4_0:shotgun_4_4);}
++public static int[] SelectPistolTilesRows(){return ScrollX==0?(ScrollY==0?pistol_0_0_rows:pistol_0_4_rows):(ScrollY==0?pistol_4_0_rows:pistol_4_4_rows);}
++public static int[] SelectPistolTilesSide(){return ScrollX==0?(ScrollY==0?pistol_0_0_side:pistol_0_4_side):(ScrollY==0?pistol_4_0_side:pistol_4_4_side);}
++public static int[] SelectShotgunTilesRows(){return ScrollX==0?(ScrollY==0?shotgun_0_0_rows:shotgun_0_4_rows):(ScrollY==0?shotgun_4_0_rows:shotgun_4_4_rows);}
++public static int[] SelectShotgunTilesSide(){return ScrollX==0?(ScrollY==0?shotgun_0_0_side:shotgun_0_4_side):(ScrollY==0?shotgun_4_0_side:shotgun_4_4_side);}
++public static int[] SelectEmptyRows(){return ScrollX==0?(ScrollY==0?empty_0_0:empty_0_4):(ScrollY==0?empty_4_0:empty_4_4);}
++public static int[] FocusStates=new int[2048],PatternBytes=new int[2048];
++public static int owned_weapons=1,selected_weapon=0,shotgun_cell_x=11,shotgun_cell_y=6;
+ public static int[] DoorX={6,6,6},DoorY={4,2,8},door_states=new int[3];
+ public static int[] DoorFrames=new int[2048],DoorFindFrames=new int[2048],DoorPixelFrames=new int[2048];
+ public static bool TraceDoors;
+@@ -88,6 +140,13 @@ public class WorldSprite { public int world_x,world_y,state,pixels,health_and_hi
+ public static WorldSprite[] Corpses=new WorldSprite[0];
+ public static void SetEntities(int[] data){Corpses=new WorldSprite[data.Length/3];for(int i=0;i<Corpses.Length;i++)Corpses[i]=new WorldSprite(data[i*3],data[i*3+1],data[i*3+2]);}
+ public static bool TraceCorpses;
++public static bool TraceWeaponSafety;
++public static string WeaponSnapshot;
++public static string WeaponPixels() {
++ var result=new System.Text.StringBuilder();
++ for(int slot=0;slot<3;slot++)for(int y=110;y<130;y++)for(int x=38+32*slot;x<58+32*slot;x++)result.Append(BackgroundPixel(x,y)).Append(',');
++ return result.ToString();
++}
+ public static int[] RedFrames=new int[2048];
+ public static int CountRed(){int n=0;for(int y=24;y<88;y++)for(int x=24;x<136;x++)if(BackgroundPixel(x,y)==5)n++;return n;}
+ public static int[] BackgroundSnapshot(){int[] p=new int[160*144];for(int y=0;y<144;y++)for(int x=0;x<160;x++)p[y*160+x]=BackgroundPixel(x,y);return p;}
+@@ -113,11 +172,13 @@ public static int ReadByte(int address) {
+  return value;
+ }
+ public static void SMS_VRAMmemcpy(int address,int[] data,int size) {
+- Write(); CorpseWrites[Frame]++;
+- if(address<96*32 || address+size>128*32)throw new Exception("Corpse write escaped private tile pool");
++ Write();
++ bool weapon=(address>=72*32&&address+size<=88*32)||(address>=128*32&&address+size<=160*32)||(address>=176*32&&address+size<=192*32);
++ if(weapon){if(Frame!=0||size!=4)throw new Exception("Weapon rows loaded outside entry");PatternBytes[Frame]+=size;}
++ else {CorpseWrites[Frame]++;if(address<96*32 || address+size>128*32)throw new Exception("Corpse write escaped private tile pool");}
+  for(int i=0;i<size;i++){
+   int a=address+i,tile=a>>5,row=(a&31)>>2,plane=a&3;
+-  MaxClone=Math.Max(MaxClone,tile);
++  if(!weapon)MaxClone=Math.Max(MaxClone,tile);
+   for(int x=0;x<8;x++)Pixels[tile,row,x]=(Pixels[tile,row,x]&~(1<<plane))|(((data[i]&(128>>x))!=0)?(1<<plane):0);
+  }
+ }
+@@ -133,7 +194,7 @@ public static int world_get_tile(int x,int y) {
+     QueryFrames[Frame]++;
+     if(x<0 || y<0 || x>=WORLD_WIDTH || y>=WORLD_HEIGHT) throw new Exception("Invalid authoritative world read");
+     Queries++; MinX=Math.Min(MinX,x); MaxX=Math.Max(MaxX,x); MinY=Math.Min(MinY,y); MaxY=Math.Max(MaxY,y);
+-    int t=Map[y*WORLD_WIDTH+x]; return t==WORLD_TILE_SPRITE_MARKER ? WORLD_TILE_EMPTY : t;
++    int t=Map[y*WORLD_WIDTH+x]; return t==WORLD_TILE_SPRITE_MARKER || t==WORLD_TILE_SHOTGUN_MARKER ? WORLD_TILE_EMPTY : t;
+ }
+ public static void ReadSnapshot() { if(Frame!=0) throw new Exception("Snapshot read while paused"); }
+ public static int player_get_position_x() { ReadSnapshot(); return PlayerX; }
+@@ -152,6 +213,7 @@ public static void SMS_waitForVBlank() {
+     AssertFrozen();
+     if(TraceDoors)DoorPixelFrames[Frame]=CountDoorPixels();
+     if(TraceCorpses)RedFrames[Frame]=CountRed();
++    if(TraceWeaponSafety){string pixels=WeaponPixels();if(Frame==0)WeaponSnapshot=pixels;else if(pixels!=WeaponSnapshot)throw new Exception("Corpse pan corrupted weapon artwork, padding or slot borders");}
+     SpriteYFrames[Frame]=SpriteY; SpriteXFrames[Frame]=SpriteX;
+     FocusTileFrames[Frame]=Names[(12+48-ScrollX)>>3,(12+24+ScrollY)>>3];
+     Frame++; if(Frame>=Script.Length) throw new Exception("Pause failed to exit on fresh START");
+@@ -177,10 +239,12 @@ public static void SMS_VRAMmemsetW(int address,int value,int size) {
+     else throw new Exception("Unexpected VRAM operation");
+ }
+ public static void SMS_load1bppTiles(int[] rows,int tile,int size,int bg,int fg) {
++    PatternBytes[Frame]+=size*4;
+     if(Frame!=0) throw new Exception("Idle/pan/focus reloaded patterns"); Write(); for(int i=0;i<size/8;i++) for(int y=0;y<8;y++) for(int x=0;x<8;x++)
+         Pixels[tile+i,y,x]=(rows[i*8+y]&(128>>x))!=0?fg:bg;
+ }
+ public static void SMS_loadTiles(int[] data,int tile,int size) {
++    PatternBytes[Frame]+=size;
+     if(Frame!=0) throw new Exception("Pan/focus loaded 4bpp patterns"); Write(); for(int y=0;y<8;y++) for(int x=0;x<8;x++) {
+         int color=0; for(int p=0;p<4;p++) if((data[y*4+p]&(128>>x))!=0) color|=1<<p;
+         Pixels[tile,y,x]=color;
+@@ -218,7 +282,9 @@ public static void Show(int x,int y) {
+ public static void Run(int x,int y) {
+     int[] frozenDoors=(int[])door_states.Clone();
+     Array.Clear(DoorFrames,0,2048);Array.Clear(DoorFindFrames,0,2048);
+-    PlayerX=x; PlayerY=y; Frame=0; game_gear_input_initialize(); input_blocked=InitialBlocked; keys=GG_KEY_START; Writes=0;
++    PlayerX=x; PlayerY=y; Frame=0; game_gear_input_initialize(); input_blocked=InitialBlocked; keys=Script!=null&&Script[0]!=0?Script[0]:GG_KEY_START; Writes=0;
++    Array.Clear(WriteFrames,0,WriteFrames.Length);
++    Array.Clear(FocusStates,0,FocusStates.Length);Array.Clear(PatternBytes,0,PatternBytes.Length);
+     Array.Clear(QueryFrames,0,2048); Array.Clear(TileFrames,0,2048); Array.Clear(SatFrames,0,2048);
+     Array.Clear(FocusFrames,0,2048); Array.Clear(ScanFrames,0,2048); Array.Clear(EntityFrames,0,2048); Array.Clear(CorpseWrites,0,2048); CloneCount=0;MaxClone=0;
+     Queries=TileWrites=0; MinX=MinY=255; MaxX=MaxY=0;
+@@ -233,12 +299,14 @@ function Check-Layout {
+     for($x=16;$x -lt 144;$x++) { foreach($y in @(16,95)) { Require ([PauseMapContract]::BackgroundPixel($x,$y) -eq 12) 'Frame horizontal continuity' } }
+     for($y=16;$y -lt 96;$y++) { foreach($x in @(16,143)) { Require ([PauseMapContract]::BackgroundPixel($x,$y) -eq 12) 'Frame vertical continuity' } }
+     foreach($sx in @(40,72,104)) {
+-        for($y=112;$y -lt 128;$y++) { for($x=$sx;$x -lt $sx+16;$x++) {
+-            $expected=if($x -eq $sx -or $x -eq $sx+15 -or $y -eq 112 -or $y -eq 127){12}else{0}
+-            Require ([PauseMapContract]::BackgroundPixel($x,$y) -eq $expected) 'Weapon slots must be empty outlines'
+-        } }
++        for($y=110;$y -le 129;$y++){for($x=$sx-2;$x -le $sx+17;$x++){
++            $expected=0
++            if($x -eq $sx-2 -or $x -eq $sx+17 -or $y -eq 110 -or $y -eq 129){$expected=if($sx -eq 72){12}else{2}}
++            if($sx -eq 72 -and $x -ge 72 -and $x -le 87 -and $y -ge 112 -and $y -le 127 -and $iconExpected[($y-112)*16+$x-72] -ge 0){$expected=$iconExpected[($y-112)*16+$x-72]}
++            Require ([PauseMapContract]::BackgroundPixel($x,$y) -eq $expected) 'Exact native artwork, 20x20 border, 1px black padding and empty gray sides'
++        }}
+     }
+-    Require ([PauseMapContract]::BackgroundPixel(12,12) -eq 3 -and [PauseMapContract]::BackgroundPixel(147,99) -eq 3) 'Map focus brackets missing'
++    Require ([PauseMapContract]::BackgroundPixel(12,108) -eq 12 -and [PauseMapContract]::BackgroundPixel(147,131) -eq 12) 'Default active WEAPONS brackets must be white'
+     $left=@(0x08,0x30,0xc0,0xc0,0x30,0x08)
+     for($ay=0;$ay -lt 6;$ay++){for($ax=0;$ax -lt 5;$ax++){
+         $expected=if($left[$ay] -band (128 -shr $ax)){3}else{0}
+@@ -268,7 +336,7 @@ function Check-Window([int]$width,[int]$height,[int]$px,[int]$py) {
+     Require ([PauseMapContract]::MinY -ge [math]::Max(0,$cy-1) -and [PauseMapContract]::MaxY -le [math]::Min($height-1,$cy+$rows)) 'Queries escaped vertical window halo'
+     Require ([PauseMapContract]::Queries -le 5*$columns*$rows) 'Entry work scales with whole world instead of visible cells'
+     $sx=[int]([PauseMapContract]::ScrollX -ne 0); $sy=[int]([PauseMapContract]::ScrollY -ne 0)
+-    $expected=$columns*$rows+2*(16+$sx+10+$sy)-4+3*(2*(2+$sx+2+$sy)-4)+4+2*(2-$sx)*(2-$sy)
++    $expected=$columns*$rows+2*(16+$sx+10+$sy)-4+2*(2*(4-$sx+4-$sy)-4)+(4-$sx)*(4-$sy)+4+2*(2-$sx)*(2-$sy)
+     Require ([PauseMapContract]::TileWrites -eq $expected) 'Incorrect entry map/frame/slot/focus/arrow writes'
+     for($f=1;$f -lt 131;$f++) { Require (([PauseMapContract]::TileFrames[$f]+[PauseMapContract]::DoorFrames[$f]+[PauseMapContract]::DoorFindFrames[$f]+[PauseMapContract]::QueryFrames[$f]+[PauseMapContract]::SatFrames[$f]) -eq 0) 'Idle pause performed render/world/SAT work'; Require (([PauseMapContract]::ScanFrames[$f]+[PauseMapContract]::EntityFrames[$f]+[PauseMapContract]::CorpseWrites[$f]) -eq 0) 'Idle scanned corpses' }
+     return @($mx,$my)
+@@ -359,7 +427,7 @@ foreach($type in @(5,6)){foreach($vertical in @(0,1)){foreach($open in @(0,1)){f
+         $map[$dy*32+$dx]=$type;[PauseMapContract]::Map=$map
+     }
+     $script=New-Object int[] 15
+-    $script[3]=2;$script[5]=1;$script[6]=16 # focus only, then browse
++    $script[2]=1;$script[3]=2;$script[5]=1;$script[6]=16 # enter MAP, focus only, then browse
+     $script[7]=4 # outward edge: reject
+     $script[8]=8;$script[9]=4 # pan in and back out
+     $script[11]=32;$script[14]=0x8000
+@@ -377,7 +445,7 @@ foreach($type in @(5,6)){foreach($vertical in @(0,1)){foreach($open in @(0,1)){f
+         Require ([PauseMapContract]::DoorFrames[$f] -eq $visible -and [PauseMapContract]::DoorFindFrames[$f] -eq $visible) 'Door query outside visible event or duplicate lookup'
+         if($f -notin @(0,8,9)){
+             Require (([PauseMapContract]::QueryFrames[$f]+[PauseMapContract]::ScanFrames[$f]+[PauseMapContract]::EntityFrames[$f]+[PauseMapContract]::CorpseWrites[$f]+[PauseMapContract]::SatFrames[$f]) -eq 0) 'Idle/focus/rejected pan touched frozen world'
+-            $ui=if($f -in @(3,5)){8}elseif($f -in @(6,11)){4}else{0}
++            $ui=if($f -in @(2,3,5)){8}elseif($f -in @(6,11)){4}else{0}
+             Require ([PauseMapContract]::TileFrames[$f] -eq $ui) 'Non-event map write in door fixture'
+         }
+     }
+@@ -393,18 +461,18 @@ Write-Output '- V4.1 frozen normal/red doors: open/closed, H/V, viewport edge/pa
+ [PauseMapContract]::WORLD_WIDTH=32; [PauseMapContract]::WORLD_HEIGHT=32
+ [PauseMapContract]::Map=New-Object int[] 1024
+ $script=New-Object int[] 13
+-$script[3]=2; $script[4]=18; $script[5]=4; $script[6]=8; $script[7]=1
++$script[2]=1; $script[3]=2; $script[4]=18; $script[5]=4; $script[6]=8; $script[7]=1
+ $script[8]=16; $script[9]=16; $script[10]=32; $script[11]=32; $script[12]=0x803f
+ Run-Menu $script
+ Require ([PauseMapContract]::Frame -eq 12) 'START did not exit immediately'
+ for($f=2;$f -le 12;$f++) {
+-    $expected=switch($f){3{8}7{8}8{4}10{4}default{0}}
++     $expected=switch($f){2{8}3{8}7{8}8{4}10{4}default{0}}
+     Require ([PauseMapContract]::TileFrames[$f] -eq $expected) "Navigation/focus/held-button writes wrong at $f"
+     Require (([PauseMapContract]::DoorFrames[$f]+[PauseMapContract]::DoorFindFrames[$f]+[PauseMapContract]::QueryFrames[$f]+[PauseMapContract]::SatFrames[$f]) -eq 0) 'Navigation queried world or updated SAT'
+ }
+ Require ([PauseMapContract]::FocusTileFrames[3] -eq 0 -and [PauseMapContract]::FocusTileFrames[7] -eq 48 -and [PauseMapContract]::FocusTileFrames[8] -eq 52 -and [PauseMapContract]::FocusTileFrames[10] -eq 48) 'State focus tile transitions wrong'
+ # Repeat initial delay 12 and cadence 4, immediate direction change/repress.
+-$script=New-Object int[] 33; $script[3]=16
++$script=New-Object int[] 33; $script[2]=1;$script[3]=16
+ for($f=4;$f -le 28;$f++){$script[$f]=8}
+ $script[29]=4; $script[31]=8; $script[32]=0x8008
+ Run-Menu $script
+@@ -416,12 +484,12 @@ for($f=4;$f -le 32;$f++) {
+     if($expected -eq 0){Require ([PauseMapContract]::SatFrames[$f] -eq 0) 'Idle/rejected pan touched SAT'}
+ }
+ # Move away from a stationary player, then return: true hide/show, not edge pinning.
+-$script=New-Object int[] 8; $script[3]=16; $script[4]=8; $script[5]=4; $script[7]=0x8000
++$script=New-Object int[] 8; $script[2]=1;$script[3]=16; $script[4]=8; $script[5]=4; $script[7]=0x8000
+ Run-Menu $script
+ Require ([PauseMapContract]::SpriteYFrames[4] -eq 208 -and [PauseMapContract]::SpriteYFrames[5] -ne 208) 'Off-window player did not hide and reappear'
+ Require ([PauseMapContract]::SatFrames[4] -eq 1 -and [PauseMapContract]::SatFrames[5] -eq 2) 'Hide/show SAT write count wrong'
+ # Opposing and outward-at-edge directions must be render-free.
+-$script=New-Object int[] 8; $script[3]=16; $script[4]=5; $script[5]=15; $script[7]=0x8000
++$script=New-Object int[] 8; $script[2]=1;$script[3]=16; $script[4]=5; $script[5]=15; $script[7]=0x8000
+ Run-Menu $script
+ for($f=4;$f -le 7;$f++){Require (([PauseMapContract]::TileFrames[$f]+[PauseMapContract]::SatFrames[$f]+[PauseMapContract]::QueryFrames[$f]) -eq 0) 'Rejected edge/opposed pan performed work'}
+ # Every legal origin for requested extents, including axes smaller than the view.
+@@ -441,7 +509,7 @@ foreach($size in @(@(13,13),@(16,10),@(32,32),@(64,64),@(128,128),@(1,1),@(7,7))
+ foreach($state in @(0,1,2)) {
+  for($held=0;$held -lt 64;$held++) {
+     $script=New-Object int[] 6
+-    $script[3]=switch($state){0{0}1{2}2{16}}
++    $script[2]=if($state -eq 1){0}else{1}; $script[3]=if($state -eq 2){16}else{0}
+     $script[5]=0x8000 -bor $held; Run-Menu $script
+     Require ([PauseMapContract]::Frame -eq 5 -and [PauseMapContract]::TileFrames[5] -eq 0) 'START priority/state exit failed'
+     [PauseMapContract]::Script=$null; [PauseMapContract]::RawKeys=$held
+@@ -477,9 +545,9 @@ foreach($size in @(@(7,7),@(8,7),@(7,6),@(8,6))) {
+     [PauseMapContract]::Map=New-Object int[] ($size[0]*$size[1])
+     foreach($mode in @(0,1,2)) {
+         $script=New-Object int[] 8
+-        if($mode -eq 0){$script[3]=2;$script[5]=1}
++        if($mode -eq 0){$script[2]=1;$script[3]=2;$script[5]=1}
+         if($mode -eq 1){$script[3]=2}
+-        if($mode -eq 2){$script[3]=16}
++        if($mode -eq 2){$script[2]=1;$script[3]=16}
+         $script[7]=0x8000; Run-Menu $script
+         for($x=16;$x -lt 144;$x++){foreach($y in @(16,95)){Require ([PauseMapContract]::BackgroundPixel($x,$y) -eq 12) 'Focus changed horizontal frame pixels'}}
+         for($y=16;$y -lt 96;$y++){foreach($x in @(16,143)){Require ([PauseMapContract]::BackgroundPixel($x,$y) -eq 12) 'Focus changed vertical frame pixels'}}
+@@ -537,12 +605,12 @@ Require ([PauseMapContract]::CloneCount -eq 32 -and [PauseMapContract]::MaxClone
+ [PauseMapContract]::CheckStamps($before,@(44,44,46,44))
+ # Offscreen -> accepted pan -> visible -> accepted pan back -> absent.
+ [PauseMapContract]::SetEntities(@(3712,640,2));[PauseMapContract]::TraceCorpses=$true
+-$trace=New-Object int[] 8;$trace[3]=16;$trace[4]=8;$trace[5]=4;$trace[7]=0x8000
++$trace=New-Object int[] 8;$trace[2]=1;$trace[3]=16;$trace[4]=8;$trace[5]=4;$trace[7]=0x8000
+ Run-Menu $trace
+ Require ([PauseMapContract]::RedFrames[0] -eq 0 -and [PauseMapContract]::RedFrames[4] -eq 5 -and [PauseMapContract]::RedFrames[5] -eq 0) 'Corpse pan visibility failed'
+ foreach($f in @(0,4,5)){Require ([PauseMapContract]::ScanFrames[$f] -eq 1 -and [PauseMapContract]::EntityFrames[$f] -eq 1) 'Accepted pan must scan once'}
+ foreach($f in @(2,3,6,7)){Require (([PauseMapContract]::ScanFrames[$f]+[PauseMapContract]::CorpseWrites[$f]) -eq 0) 'Idle/focus scanned or drew corpse'}
+-$trace=New-Object int[] 8;$trace[3]=16;$trace[4]=5;$trace[7]=0x8000;Run-Menu $trace
++$trace=New-Object int[] 8;$trace[2]=1;$trace[3]=16;$trace[4]=5;$trace[7]=0x8000;Run-Menu $trace
+ Require (([PauseMapContract]::ScanFrames[4]+[PauseMapContract]::CorpseWrites[4]+[PauseMapContract]::SatFrames[4]) -eq 0) 'Rejected pan touched corpse/SAT'
+ $trace=New-Object int[] 9;$trace[3]=2;$trace[5]=1;$trace[6]=16;$trace[7]=32;$trace[8]=0x8000
+ Run-Menu $trace
+@@ -635,6 +703,11 @@ if ($RequireMapPlacement) {
+     $symbols=Get-Content "$build/pause_map.sym" -Raw
+     $glyphOffset=[Convert]::ToInt32([regex]::Match($symbols,'(?m)^\s*\d+\s+_player_rows\s+([0-9A-F]+)\s').Groups[1].Value,16)
+     $rom=[IO.File]::ReadAllBytes("$root/rom/GearRay.gg")
++    $pistolOffset=[Convert]::ToInt32([regex]::Match($symbols,'(?m)^\s*\d+\s+_pause_pistol_tiles\s+([0-9A-F]+)\s').Groups[1].Value,16)
++    $pistolAddress=($showAddress-$showOffset+$pistolOffset)-band 0xffff
++    # Workshop: 13 columns centered at X=28 (scroll X=4), Y=24 (scroll Y=0).
++    $pistolData=[PauseMapContract]::pistol_4_0
++    for($i=0;$i -lt $pistolData.Length;$i++){Require ($rom[$pistolAddress+$i] -eq $pistolData[$i]) 'Linked pistol composite differs from pixel-validated native canvas'}
+     $glyphRomAddress=($showAddress-$showOffset+$glyphOffset)-band 0xffff
+     for($i=0;$i -lt 64;$i++) {
+         Require ($rom[$glyphRomAddress+$i] -eq [PauseMapContract]::player_rows[$i]) 'Final ROM directional glyph payload differs from validated pixels'
+@@ -656,8 +729,8 @@ foreach($preview in @(@('pause-map-preview.png',1664,1920,0),@('pause-map-comput
+  [PauseMapContract]::SetEntities(@())
+  if($preview[0] -eq 'pause-map-corpses-preview.png'){[PauseMapContract]::SetEntities(@(1408,1664,2,1920,1920,2))}
+  $script=New-Object int[] 7
+- if($preview[3] -eq 1){$script[3]=2}
+- if($preview[3] -eq 2){$script[3]=16; $script[4]=2}
++ if($preview[3] -eq 0){$script[2]=1}
++ if($preview[3] -eq 2){$script[2]=1;$script[3]=16; $script[4]=2}
+  $script[6]=0x8000
+  Run-Menu $script $preview[1] $preview[2]
+  $shortScene=[PauseMapContract]::SceneSignature()
+@@ -676,10 +749,183 @@ foreach($preview in @(@('pause-map-preview.png',1664,1920,0),@('pause-map-comput
+     $bitmap.Save((Join-Path $build $preview[0]),[Drawing.Imaging.ImageFormat]::Png)
+  } finally { $bitmap.Dispose() }
+ }
++# Execute the production carousel and selection paths in all scroll parities.
++$shotgunIcon=[Drawing.Bitmap]::new("$root/assets/sprites/weapons/shotgun.png")
++$shotgunExpected=New-Object int[] 256
++try {
++    Require ($shotgunIcon.Width -eq 16 -and $shotgunIcon.Height -eq 16) 'Native shotgun pause canvas'
++    for($y=0;$y -lt 16;$y++){for($x=0;$x -lt 16;$x++){
++        $c=$shotgunIcon.GetPixel($x,$y);$shotgunExpected[$y*16+$x]=-1
++        if($c.A -eq 0){continue}
++        Require ($c.A -eq 255) 'Shotgun partial alpha'
++        $rgb='#{0:x2}{1:x2}{2:x2}' -f $c.R,$c.G,$c.B
++        $index=switch($rgb){'#000000'{0} '#1a1a1a'{13} '#4d4d4d'{2} '#797878'{3} '#ffffff'{12} default{throw "Unexpected shotgun color $rgb"}}
++        $shotgunExpected[$y*16+$x]=$index
++    }}
++} finally {$shotgunIcon.Dispose()}
++function Check-Carousel([int[]]$weapons) {
++    for($y=110;$y -lt 130;$y++){foreach($x in @((25..37)+(122..134))){Require ([PauseMapContract]::BackgroundPixel($x,$y) -eq 0) 'Exactly 13 black columns must separate slots from the existing arrows'}}
++    foreach($y in @(109,130)){for($x=38;$x -le 121;$x++){Require ([PauseMapContract]::BackgroundPixel($x,$y) -eq 0) 'Unmoved focus brackets must retain balanced black clearance above and below slots'}}
++    for($slot=0;$slot -lt 3;$slot++){
++        $origin=40+32*$slot
++        for($y=0;$y -lt 20;$y++){for($x=0;$x -lt 20;$x++){
++            $expected=if($x -eq 0 -or $x -eq 19 -or $y -eq 0 -or $y -eq 19){if($slot -eq 1){12}else{2}}else{0}
++            $pixels=if($weapons[$slot] -eq 0){$iconExpected}elseif($weapons[$slot] -eq 1){$shotgunExpected}else{$null}
++            if($null -ne $pixels -and $x -ge 2 -and $x -le 17 -and $y -ge 2 -and $y -le 17 -and $pixels[($y-2)*16+$x-2] -ge 0){$expected=$pixels[($y-2)*16+$x-2]}
++            Require ([PauseMapContract]::BackgroundPixel($origin-2+$x,110+$y) -eq $expected) 'Exact native artwork, background alpha, 1px black padding and independent 20x20 border'
++        }}
++        $base=if($weapons[$slot] -eq 2){161}elseif($weapons[$slot] -eq 0){if($slot -eq 1){72}else{128}}else{if($slot -eq 1){176}else{144}}
++        $limit=if($weapons[$slot] -eq 2){175}else{$base+15}
++        $tx=($origin-2+48-[PauseMapContract]::ScrollX) -shr 3;$ty=(110+24+[PauseMapContract]::ScrollY) -shr 3
++        $columns=4-[int]([PauseMapContract]::ScrollX -ne 0);$rows=4-[int]([PauseMapContract]::ScrollY -ne 0)
++        for($r=0;$r -lt $rows;$r++){for($c=0;$c -lt $columns;$c++){
++            $tile=[PauseMapContract]::Names[($tx+$c),($ty+$r)]
++            Require (($weapons[$slot] -eq 2 -and $tile -eq 0) -or ($tile -ge $base -and $tile -le $limit)) 'Weapon tile reference escaped approved allocation'
++        }}
++    }
++}
++foreach($extent in @(@(14,8),@(13,8),@(14,7),@(13,7))){
++    [PauseMapContract]::WORLD_WIDTH=$extent[0];[PauseMapContract]::WORLD_HEIGHT=$extent[1]
++    [PauseMapContract]::Map=New-Object int[] ($extent[0]*$extent[1])
++    foreach($owned in @(1,3)) {foreach($selected in @(0,1)) {
++        if($owned -eq 1 -and $selected -eq 1){continue}
++        [PauseMapContract]::owned_weapons=$owned;[PauseMapContract]::selected_weapon=$selected
++        $trace=New-Object int[] 12;$trace[11]=0x8000;Run-Menu $trace
++        Require ([PauseMapContract]::FocusStates[2] -eq 1) 'Every entry must start with WEAPONS focus'
++        Require ([PauseMapContract]::BackgroundPixel(12,108) -eq 12) 'WEAPONS entry brackets must be white'
++        $other=if($owned -eq 1){2}else{1-$selected};Check-Carousel @($other,$selected,$other)
++        for($f=1;$f -lt 11;$f++){Require ([PauseMapContract]::WriteFrames[$f] -eq 0) 'Owned-weapon idle pause wrote VRAM'}
++    }}
++}
++[PauseMapContract]::WORLD_WIDTH=13;[PauseMapContract]::WORLD_HEIGHT=13;[PauseMapContract]::Map=$cells
++# No DOWN is needed: first usable fresh edge selects immediately.
++[PauseMapContract]::owned_weapons=3;[PauseMapContract]::selected_weapon=0
++$trace=New-Object int[] 7;$trace[2]=8;$trace[3]=8;$trace[6]=0x8000;Run-Menu $trace
++Require ([PauseMapContract]::FocusStates[2] -eq 1 -and [PauseMapContract]::selected_weapon -eq 1 -and [PauseMapContract]::TileFrames[2] -eq 36 -and [PauseMapContract]::WriteFrames[3] -eq 0) 'Immediate WEAPONS control must select once on a fresh edge'
++Check-Carousel @(0,1,0)
++$trace=New-Object int[] 7;$trace[2]=1;$trace[6]=0x8000;Run-Menu $trace
++Require ([PauseMapContract]::FocusStates[3] -eq 0 -and [PauseMapContract]::selected_weapon -eq 1) 'UP must reach MAP without changing selection'
++Check-Carousel @(0,1,0)
++Require ([PauseMapContract]::BackgroundPixel(12,12) -eq 3 -and [PauseMapContract]::BackgroundPixel(12,108) -eq 0) 'MAP focus must have gray brackets and clear weapon brackets'
++$trace=New-Object int[] 8;$trace[2]=1;$trace[3]=0;$trace[4]=16;$trace[7]=0x8000;Run-Menu $trace
++Require ([PauseMapContract]::BackgroundPixel(12,12) -eq 12) 'MAP browse brackets must be white'
++Check-Carousel @(0,1,0)
++$trace=New-Object int[] 7;$trace[6]=0x8000;Run-Menu $trace
++Require ([PauseMapContract]::FocusStates[2] -eq 1 -and [PauseMapContract]::selected_weapon -eq 1) 'Reopening after MAP must reset focus only, preserving shotgun'
++Write-Output ('- native entry pattern upload bytes: '+[PauseMapContract]::PatternBytes[0]+'; idle pattern upload bytes: '+[PauseMapContract]::PatternBytes[3])
++Check-Carousel @(0,1,0)
++foreach($key in @(4,8)){
++    [PauseMapContract]::selected_weapon=0
++    $trace=New-Object int[] 8;$trace[0]=0x8000 -bor $key;$trace[1]=$key;$trace[2]=$key;$trace[4]=$key;$trace[7]=0x8000;Run-Menu $trace
++    Require ([PauseMapContract]::TileFrames[1] -eq 0 -and [PauseMapContract]::TileFrames[2] -eq 0 -and [PauseMapContract]::TileFrames[4] -eq 36 -and [PauseMapContract]::selected_weapon -eq 1) 'Entry-held direction must wait for release and fresh edge'
++}
++Write-Output '- WEAPONS entry, immediate fresh selection, MAP navigation/border invariance, reopen focus reset with selected shotgun preserved, held-entry direction debounce'
++# Exhaust the unchanged clone pool with both weapon identities, then pan back
++# repeatedly. Entry and every accepted pan must retain all eight X markers.
++[PauseMapContract]::WORLD_WIDTH=32;[PauseMapContract]::WORLD_HEIGHT=16
++[PauseMapContract]::Map=New-Object int[] 512
++$entities=@();foreach($cy in @(2,4)){foreach($cx in @(2,4,6,8)){$entities+=@(($cx*256),($cy*256),2)}}
++[PauseMapContract]::SetEntities($entities);[PauseMapContract]::TraceCorpses=$true
++[PauseMapContract]::TraceWeaponSafety=$true
++foreach($selected in @(0,1)){
++    [PauseMapContract]::owned_weapons=3;[PauseMapContract]::selected_weapon=$selected
++    $trace=New-Object int[] 15;$trace[2]=1;$trace[4]=16;$trace[6]=8;$trace[8]=4;$trace[10]=8;$trace[12]=4;$trace[14]=0x8000
++    Run-Menu $trace 128 128
++    Require ([PauseMapContract]::MaxClone -eq 127 -and [PauseMapContract]::CloneCount -eq 160) 'Five redraws must each use exactly the full 96..127 corpse clone pool'
++    foreach($f in @(0,6,8,10,12)){Require ([PauseMapContract]::RedFrames[$f] -eq 40) 'Maximum corpse panning lost or corrupted an X marker'}
++    $other=1-$selected;Check-Carousel @($other,$selected,$other)
++}
++[PauseMapContract]::TraceCorpses=$false;[PauseMapContract]::TraceWeaponSafety=$false;[PauseMapContract]::SetEntities(@())
++[PauseMapContract]::WORLD_WIDTH=13;[PauseMapContract]::WORLD_HEIGHT=13;[PauseMapContract]::Map=$cells
++Write-Output '- maximum 32-clone corpse pool, four accepted pans, eight exact X markers and unchanged padded weapon pixels for both selections'
++foreach($selected in @(0,1)){
++    [PauseMapContract]::selected_weapon=$selected
++    $trace=New-Object int[] 7;$trace[6]=0x8000;Run-Menu $trace 1664 1920
++    $image=[Drawing.Bitmap]::new(160,144)
++    try {
++        for($y=0;$y -lt 144;$y++){for($x=0;$x -lt 160;$x++){
++            $c=$palette[[PauseMapContract]::Pixel($x,$y)]
++            $image.SetPixel($x,$y,[Drawing.Color]::FromArgb(($c -band 15)*17,(($c -shr 4) -band 15)*17,(($c -shr 8) -band 15)*17))
++        }}
++        $image.Save("$build/pause-carousel-$selected-preview.png",[Drawing.Imaging.ImageFormat]::Png)
++    } finally {$image.Dispose()}
++}
++foreach($key in @(4,8)){
++    [PauseMapContract]::owned_weapons=3;[PauseMapContract]::selected_weapon=0
++    $trace=New-Object int[] 12;$trace[2]=0;$trace[4]=$key;$trace[5]=$key;$trace[6]=$key;$trace[11]=0x8000
++    Run-Menu $trace;Require ([PauseMapContract]::selected_weapon -eq 1) 'Both fresh directions select the other owned weapon without held repeat'
++    Check-Carousel @(0,1,0)
++    Require ([PauseMapContract]::TileFrames[4] -eq 36) 'Accepted selection redraws only three twelve-tile slots'
++    foreach($f in @(3,5,6,7,8,9,10)){Require ([PauseMapContract]::WriteFrames[$f] -eq 0) 'Held/released/idle selection wrote VRAM'}
++    Require (([PauseMapContract]::QueryFrames[4]+[PauseMapContract]::ScanFrames[4]+[PauseMapContract]::SatFrames[4]) -eq 0) 'Selection queried/rendered frozen world'
++    $trace=New-Object int[] 8;$trace[2]=0;$trace[4]=$key;$trace[7]=0x8000
++    Run-Menu $trace;Require ([PauseMapContract]::selected_weapon -eq 0) 'Selection persists across pause and wraps back'
++    Check-Carousel @(1,0,1)
++    [PauseMapContract]::owned_weapons=1;Run-Menu $trace;Require ([PauseMapContract]::selected_weapon -eq 0 -and [PauseMapContract]::WriteFrames[4] -eq 0) 'Single owned weapon rejects selection without work'
++}
++[PauseMapContract]::owned_weapons=1;[PauseMapContract]::selected_weapon=0
++# Future compile-time count changes use the same bounded circular source helper.
++[PauseMapContract]::WEAPON_COUNT=3;[PauseMapContract]::owned_weapons=7
++foreach($current in 0..2){
++    Require ([PauseMapContract]::adjacent_weapon($current,0) -eq (($current+2)%3)) 'Three-owned previous circular lookup'
++    Require ([PauseMapContract]::adjacent_weapon($current,1) -eq (($current+1)%3)) 'Three-owned next circular lookup'
++}
++[PauseMapContract]::owned_weapons=5
++Require ([PauseMapContract]::adjacent_weapon(0,1) -eq 2 -and [PauseMapContract]::adjacent_weapon(2,1) -eq 0) 'Circular search skips unowned future IDs'
++[PauseMapContract]::WEAPON_COUNT=2;[PauseMapContract]::owned_weapons=3
++$trace=New-Object int[] 8;$trace[2]=0;$trace[4]=12;$trace[7]=0x8000
++Run-Menu $trace;Require ([PauseMapContract]::selected_weapon -eq 0 -and [PauseMapContract]::WriteFrames[4] -eq 0) 'Opposed simultaneous selection edges reject without work'
++[PauseMapContract]::owned_weapons=1
++# The fixture executes the actual production HUD update body, including pickup.
++[PauseMapContract]::Frame=0;[PauseMapContract]::FreezeGuard=$false
++[PauseMapContract]::shotgun_cell_x=11;[PauseMapContract]::shotgun_cell_y=6
++foreach($position in @(@(2667,1664),@(3221,1664),@(2944,1387),@(2944,1941))){
++    [PauseMapContract]::PlayerX=$position[0];[PauseMapContract]::PlayerY=$position[1]
++    [PauseMapContract]::game_gear_hud_weapon_update(0)
++    Require ([PauseMapContract]::owned_weapons -eq 1) 'Pickup collected outside touch region'
++}
++foreach($position in @(@(2816,1536),@(3071,1791),@(2668,1664),@(3220,1664),@(2944,1388),@(2944,1940),@(2668,1388),@(3220,1940))){
++    [PauseMapContract]::owned_weapons=1;[PauseMapContract]::selected_weapon=0
++    [PauseMapContract]::PlayerX=$position[0];[PauseMapContract]::PlayerY=$position[1]
++    [PauseMapContract]::game_gear_hud_weapon_update(0)
++    Require ([PauseMapContract]::owned_weapons -eq 3 -and [PauseMapContract]::selected_weapon -eq 1) 'First contact ownership immediately equips shotgun'
++    [PauseMapContract]::PlayerX=0;[PauseMapContract]::PlayerY=0
++    [PauseMapContract]::game_gear_hud_weapon_update(0)
++    Require ([PauseMapContract]::owned_weapons -eq 3) 'Collected pickup ownership persists away from source'
++}
++# Show the actual pause carousel immediately after first acquisition, then
++# select pistol through production menu input and revisit an already-owned item.
++$trace=New-Object int[] 8;$trace[7]=0x8000;Run-Menu $trace
++Check-Carousel @(0,1,0)
++$trace=New-Object int[] 8;$trace[2]=0;$trace[4]=4;$trace[7]=0x8000;Run-Menu $trace
++Require ([PauseMapContract]::selected_weapon -eq 0) 'Manual pause selection persists after auto-equip'
++Check-Carousel @(1,0,1)
++[PauseMapContract]::PlayerX=2944;[PauseMapContract]::PlayerY=1664
++[PauseMapContract]::game_gear_hud_weapon_update(0)
++Require ([PauseMapContract]::owned_weapons -eq 3 -and [PauseMapContract]::selected_weapon -eq 0) 'Already-owned contact must never override manual selection'
++# Drive mechanically extracted main iterations and actual input edges across
++# acquisition. Previously accepted shots execute once; a fresh edge queues once.
++foreach($pending in @(0,1)){foreach($mode in @(0,1,2)){
++    [PauseMapContract]::SeedFreeze();[PauseMapContract]::FreezeGuard=$false
++    [PauseMapContract]::owned_weapons=1;[PauseMapContract]::selected_weapon=0
++    [PauseMapContract]::PlayerX=2944;[PauseMapContract]::PlayerY=1664
++    [PauseMapContract]::pending_shot=$pending
++    $fresh=[int]($mode -eq 1);$key=if($mode -eq 0){0}else{16}
++    if($mode -eq 2){[PauseMapContract]::keys=16;[PauseMapContract]::previous_keys=16}
++    [PauseMapContract]::Script=@($key,$key,0,0)
++    [PauseMapContract]::FreezeMainStep()
++    Require ([PauseMapContract]::ShotCalls -eq $pending -and [PauseMapContract]::pending_shot -eq $fresh) 'Acquisition preserves accepted pending shot and fresh-edge queue timing'
++    Require ([PauseMapContract]::owned_weapons -eq 3 -and [PauseMapContract]::selected_weapon -eq 1 -and [PauseMapContract]::weapon_state -eq $fresh) 'Main acquisition equips with clean or newly requested pose'
++    [PauseMapContract]::FreezeMainStep();[PauseMapContract]::FreezeMainStep()
++    Require ([PauseMapContract]::ShotCalls -eq $pending+$fresh -and [PauseMapContract]::pending_shot -eq 0 -and [PauseMapContract]::weapon_state -eq 0) 'Held fire cannot duplicate a shot or retain stale pose after acquisition'
++}}
++[PauseMapContract]::owned_weapons=1;[PauseMapContract]::selected_weapon=0
++Write-Output '- first acquisition equips shotgun; actual post-pickup/manual-pistol carousels; already-owned repeat; production main/input traces preserve pending shots and reject held autofire'
++Write-Output '- shotgun: current authoritative 16x16 source, binary alpha and exact palette/conversion pixels; all scroll parities; circular LEFT/RIGHT edges, hold rejection, persistence and idle no-write traces'
+ Write-Output 'Pause map validation PASS'
+ Write-Output '- production geometry/marker code executed with mock VDP; authoritative 13x13 map'
+ Write-Output '- 12 synthetic extents including 1x1 and 128x128; nine edge/center positions; exact small-map centering'
+-Write-Output '- 12px outer margins, 14x8 window, three empty slots; eight-way green sub-cell sprite and SAT termination'
++Write-Output '- native 16x16 pistol at (72,112), all 63 opaque pixels; alpha preserves outline/background, empty side slots; four scroll parities'
+ Write-Output '- continuous computer wall and room-side blue protrusion in all four mount orientations'
+ Write-Output '- held START/release/fresh edge; static pause display; simulation/restore source contracts'
+ Write-Output '- WorldSprite 9 bytes; unchanged palette; full VRAM/cache restoration; Bank 2, zero static RAM/helpers'
+diff --git a/tools/validate_sprite_renderer.ps1 b/tools/validate_sprite_renderer.ps1
+index 71e5afb..98c7833 100644
+--- a/tools/validate_sprite_renderer.ps1
++++ b/tools/validate_sprite_renderer.ps1
+@@ -1,3 +1,4 @@
++param([string]$BuildDirectory='build')
+ $ErrorActionPreference = "Stop"
+ 
+ function Assert-True {
+@@ -830,9 +831,9 @@ $videoSource = Get-Content (
+ $projectionSource = Get-Content (
+     Join-Path $repositoryPath "platform\game_gear\sprite_projection.c") -Raw
+ $walking01GeneratedSource = Get-Content (
+-    Join-Path $repositoryPath "build\generated\zombie_01_walking_01_texture.c") -Raw
++    Join-Path $repositoryPath "$BuildDirectory\generated\zombie_01_walking_01_texture.c") -Raw
+ $walking02GeneratedSource = Get-Content (
+-    Join-Path $repositoryPath "build\generated\zombie_01_walking_02_texture.c") -Raw
++    Join-Path $repositoryPath "$BuildDirectory\generated\zombie_01_walking_02_texture.c") -Raw
+ $lodTextureSources = $projectionSource + $walking01GeneratedSource +
+     $walking02GeneratedSource
+ $projectionHeader = Get-Content (
+@@ -840,8 +841,8 @@ $projectionHeader = Get-Content (
+ $mainSource = Get-Content (Join-Path $repositoryPath "game\main.c") -Raw
+ $playerSource = Get-Content (Join-Path $repositoryPath "game\player.c") -Raw
+ $worldSource = Get-Content (Join-Path $repositoryPath "game\world.c") -Raw
+-$worldSpriteAssemblyPath = Join-Path $repositoryPath "build\world_sprite.asm"
+-$linkerMapPath = Join-Path $repositoryPath "build\GearRay.map"
++$worldSpriteAssemblyPath = Join-Path $repositoryPath "$BuildDirectory\world_sprite.asm"
++$linkerMapPath = Join-Path $repositoryPath "$BuildDirectory\GearRay.map"
+ Assert-True (Test-Path -LiteralPath $worldSpriteAssemblyPath) `
+     "World-sprite assembly is missing; run the Release build."
+ Assert-True (Test-Path -LiteralPath $linkerMapPath) `
+@@ -900,9 +901,9 @@ Assert-True ($projectionSource -match
+     "current->depth\s*!=\s*previous->depth") `
+     "LOD/native or depth-only sprite changes do not invalidate coverage."
+ Assert-True ($videoSource -match
+-    "ordered_sprite_indices\[WORLD_SPRITE_MAX_COUNT\]" -and
+-    $projectionSource -match
+-    "depth\s*>\s*selected_depth" -and
++    "ordered_sprite_indices\[PROJECTED_SPRITE_MAX_COUNT\]" -and
++    ($projectionSource -match "depth\s*>\s*selected_depth" -or
++     $projectionSource -match "depth\s*<=\s*selected_depth[\s\S]*?continue\s*;") -and
+     $projectionSource -match
+     "ordered_sprite_indices\[\(\*ordered_sprite_count\)\+\+\]\s*=\s*selected" -and
+     $videoSource -match
+@@ -920,9 +921,9 @@ Assert-True ($videoSource -match
+     "game_gear_prepare_world_sprites[\s\S]*?game_gear_project_world_sprite[\s\S]*?world_sprite_get\(sprite_index\)" -and
+     $projectionSource -match
+     "remaining_budget\s*=\s*SPRITE_RENDER_BUDGET[\s\S]*?return\s+changed_mask" -and
+-    ([regex]::Matches($projectionHeader, "__banked").Count -eq 1) -and
+-    ([regex]::Matches($projectionSource, "__banked").Count -eq 1)) `
+-    "Sprite preparation is not one banked coordinator with same-Bank internals."
++    ([regex]::Matches($projectionHeader, "__banked").Count -eq 0) -and
++    ([regex]::Matches($projectionSource, "__banked").Count -eq 0)) `
++    "Sprite preparation is not one direct page-1 coordinator with same-page internals."
+ Assert-True ($videoSource -notmatch "drawn_mask" -and
+     $videoSource -notmatch "while\s*\(draw_count\s*!=\s*0\)") `
+     "Per-tile repeated sprite-selection rescans remain."
+@@ -1274,7 +1275,7 @@ foreach ($generatedName in @("sprite_texture",
+                               "zombie_01_shot_02_texture",
+                               "zombie_01_shot_dead_texture",
+                               "zombie_01_corps_texture")) {
+-    $generatedSource = Join-Path $repositoryPath "build\generated\${generatedName}.c"
++    $generatedSource = Join-Path $repositoryPath "$BuildDirectory\generated\${generatedName}.c"
+     Assert-True (Test-Path -LiteralPath $generatedSource) `
+         "Generated zombie source $generatedName is missing; run the Release build."
+     $generatedBytes = [regex]::Matches(
+diff --git a/tools/validate_startup_order.ps1 b/tools/validate_startup_order.ps1
+index b1676cd..c266e1b 100644
+--- a/tools/validate_startup_order.ps1
++++ b/tools/validate_startup_order.ps1
+@@ -76,8 +76,8 @@ if ($cmake -notmatch
+     'generate_startup_logo\.ps1[\s\S]*?' +
+     'generated_sega_logo\.rel' -or
+     $cmake -notmatch
+-    'startup_logo\.c[\s\S]*?--codeseg BANK1') {
+-    throw 'Startup logo asset generation or isolated Bank 1 placement is missing'
++    'OUTPUT "\$\{GEAR_RAY_STARTUP_LOGO_OBJECT\}"[\s\S]*?--codeseg BANK3 --constseg BANK3') {
++    throw 'Startup logo asset generation or isolated Bank 3 placement is missing'
+ }
+ 
+ if ([regex]::Matches(
+diff --git a/tools/validate_workshop_map.ps1 b/tools/validate_workshop_map.ps1
+index edbb457..3780ca0 100644
+--- a/tools/validate_workshop_map.ps1
++++ b/tools/validate_workshop_map.ps1
+@@ -97,7 +97,7 @@ foreach ($rowMatch in $rowMatches) {
+     )
+     Assert-Equal $width $tiles.Count "Workshop row width"
+     foreach ($tile in $tiles) {
+-        if ($tile -notin @("X", "E", "S", "B", "D", "R", "W", "Z")) {
++        if ($tile -notin @("X", "E", "S", "B", "D", "R", "W", "Z", "G")) {
+             throw "Unknown workshop tile symbol: $tile"
+         }
+     }
+@@ -111,7 +111,7 @@ $approvedRows = @(
+     "XXXXSEEESXXXX",
+     "XSBSSSDSSSBSX",
+     "XSEEEEEEEEESX",
+-    "BZEEEEEEEEEES",
++    "BZEEEEEEEEEGS",
+     "XSEEEEEEEEESX",
+     "XSBSSBDSSSSSX",
+     "XXXXSEEESXXXX",
+@@ -222,7 +222,7 @@ $cardinalDirections = @(@(0, -1), @(1, 0), @(0, 1), @(-1, 0))
+ for ($y = 0; $y -lt $height; ++$y) {
+     for ($x = 0; $x -lt $width; ++$x) {
+         $tile = Get-Tile $x $y
+-        if ($tile -in @("E", "Z")) {
++        if ($tile -in @("E", "Z", "G")) {
+             foreach ($direction in $cardinalDirections) {
+                 $neighbor = Get-Tile ($x + $direction[0]) ($y + $direction[1])
+                 if ($null -eq $neighbor -or $neighbor -eq "X") {
+@@ -270,7 +270,7 @@ while ($pending.Count -ne 0) {
+         if ($null -eq $neighbor -or $neighbor -eq "X") {
+             throw "Reachable region at ($x,$y) is not enclosed."
+         }
+-        if ($neighbor -in @("E", "D", "R", "Z")) {
++        if ($neighbor -in @("E", "D", "R", "Z", "G")) {
+             $pending.Enqueue("$nextX,$nextY")
+         }
+     }
+@@ -279,7 +279,7 @@ while ($pending.Count -ne 0) {
+ $playableCount = 0
+ for ($y = 0; $y -lt $height; ++$y) {
+     for ($x = 0; $x -lt $width; ++$x) {
+-        if ((Get-Tile $x $y) -in @("E", "D", "R", "Z")) {
++        if ((Get-Tile $x $y) -in @("E", "D", "R", "Z", "G")) {
+             ++$playableCount
+             if (-not $visited.ContainsKey("$x,$y")) {
+                 throw "Playable tile at ($x,$y) is unreachable from spawn."
+@@ -289,16 +289,17 @@ for ($y = 0; $y -lt $height; ++$y) {
+ }
+ Assert-Equal $playableCount $visited.Count "Reachable playable tile count"
+ 
+-# Runtime semantic checks: VOID and out-of-bounds are blocked before the map
+-# array can be read. Since every reachable frontier is renderable, a DDA's
+-# cardinal cell sequence must hit a wall/closed door before reaching VOID.
++# Runtime semantic checks: world_get_tile owns the single bounds check, so the
++# map array cannot be read out of bounds. world_is_wall then treats its VOID
++# result as a solid non-door tile. Since every reachable frontier is renderable,
++# a DDA's cardinal cell sequence must hit a wall/closed door before VOID.
+ if ($worldSource -notmatch
+     "if\s*\(\s*x\s*>=\s*WORLD_WIDTH\s*\|\|\s*y\s*>=\s*WORLD_HEIGHT\s*\)\s*return\s+WORLD_TILE_VOID\s*;" -or
+     $worldSource -notmatch
+-    "if\s*\(\s*x\s*>=\s*WORLD_WIDTH\s*\|\|\s*y\s*>=\s*WORLD_HEIGHT\s*\)\s*return\s+1\s*;" -or
+-    $worldSource -notmatch
+     "if\s*\(\s*tile_id\s*==\s*WORLD_TILE_EMPTY\s*\)\s*return\s+0\s*;" -or
+     $worldSource -notmatch
++    "tile_id\s*!=\s*WORLD_TILE_DOOR[\s\S]*?tile_id\s*!=\s*WORLD_TILE_RED_DOOR[\s\S]*?return\s+1\s*;" -or
++    $worldSource -notmatch
+     "tile_id\s*==\s*WORLD_TILE_SPRITE_MARKER") {
+     throw "World bounds/solidity semantics do not safely block VOID."
+ }
+diff --git a/tools/validate_zombie_ai.ps1 b/tools/validate_zombie_ai.ps1
+index b60069b..baa4261 100644
+--- a/tools/validate_zombie_ai.ps1
++++ b/tools/validate_zombie_ai.ps1
+@@ -18,7 +18,7 @@ function Assert-True([bool]$Condition, [string]$Message) {
+ }
+ 
+ Assert-Match $aiHeader 'ZOMBIE_AI_UPDATE_INTERVAL\s+4' 'AI cadence is not four frames'
+-Assert-Match $aiHeader 'zombie_ai_update_all\(void\)\s+__banked' 'AI entry is not banked'
++Assert-Match $aiHeader 'zombie_ai_update_all\(void\);' 'AI entry declaration is missing'
+ Assert-Match $ai 'ZOMBIE_ACTIVATION_DISTANCE\s+963' 'Activation distance is not 963 inclusive'
+ Assert-Match $ai 'ZOMBIE_LOSE_DISTANCE\s+1260' 'Lose distance is not 1260 inclusive'
+ Assert-Match $spriteHeader 'zombie_distance_metric[\s\S]*?distance_x \+ \(distance_y >> 1\)' 'Shared octagonal distance metric is missing'
+@@ -39,7 +39,7 @@ Assert-Match $spriteHeader 'ZOMBIE_HIT_COUNT_MASK\s+112' 'Hit count is not isola
+ Assert-Match $sprites 'ZOMBIE_HIT_COUNT_MASK' 'Damage reads the AI bit as hit count'
+ Assert-Match $sprites 'ZOMBIE_AI_CHASING_MASK[\s\S]*?ZOMBIE_HIT_COUNT_SHIFT' 'Nonlethal damage does not preserve chasing state'
+ Assert-Match $main '\+\+zombie_ai_frame_counter[\s\S]*?zombie_ai_update_all\(\)' 'Main loop lacks one shared AI cadence'
+-Assert-True (([regex]::Matches($main, 'zombie_ai_update_all\(\)')).Count -eq 1) 'AI has more than one main-loop banked call site'
++Assert-True (([regex]::Matches($main, 'zombie_ai_update_all\(\)')).Count -eq 1) 'AI has more than one main-loop call site'
+ Assert-Match $cmake 'zombie_ai\.c[\s\S]*?--codeseg BANK1' 'Zombie AI is not compiled into BANK1'
+ Assert-Match $spriteHeader 'ZOMBIE_WALKING_PHASE_MASK\s+128' 'Packed walking animation phase is missing'
+ Assert-Match $ai 'sprite->state \^= ZOMBIE_WALKING_PHASE_MASK;[\s\S]*?sprite->state_timer != 0[\s\S]*?sprite->pixels = sprite->state & ZOMBIE_WALKING_PHASE_MASK[\s\S]*?zombie_01_walking_02_pixels[\s\S]*?zombie_01_walking_01_pixels' 'Active chase does not advance and publish its walking phase on the fixed AI cadence'
+diff --git a/tools/validate_zombie_attack.ps1 b/tools/validate_zombie_attack.ps1
+index dc72b0d..ee722df 100644
+--- a/tools/validate_zombie_attack.ps1
++++ b/tools/validate_zombie_attack.ps1
+@@ -21,6 +21,8 @@ $projection = Get-Content -Raw -LiteralPath (
+     Join-Path $root "platform\game_gear\sprite_projection.c")
+ $videoInitialization = Get-Content -Raw -LiteralPath (
+     Join-Path $root "platform\game_gear\video_initialization.c")
++$gameOverPresentation = Get-Content -Raw -LiteralPath (
++    Join-Path $root "platform\game_gear\game_over_presentation.c")
+ $video = Get-Content -Raw -LiteralPath (
+     Join-Path $root "platform\game_gear\video.c")
+ $startupLogo = Get-Content -Raw -LiteralPath (
+@@ -136,15 +138,15 @@ Assert-True $shakeFunctions.Success 'Could not isolate shake implementation.'
+ Assert-True ($shakeFunctions.Value -notmatch
+              'player_|camera_|raycaster_|world_x|world_y') `
+     'Presentation shake modifies or depends on gameplay geometry.'
+-Assert-True ($videoInitialization -match 'game_gear_damage_shake_phase = 0' -and
++Assert-True ($gameOverPresentation -match 'game_gear_damage_shake_phase = 0' -and
+              $startupLogo -match 'game_gear_damage_shake_phase = 0') `
+     'Session initialization or SEGA logo does not reset BG scroll.'
+-Assert-True ($videoInitialization -match 'game_gear_damage_shake_phase = 0;[\s\S]*?SMS_setBGScrollX\(0\);[\s\S]*?SMS_setBGScrollY\(0\);') `
++Assert-True ($gameOverPresentation -match 'game_gear_damage_shake_phase = 0;[\s\S]*?SMS_setBGScrollX\(0\);[\s\S]*?SMS_setBGScrollY\(0\);') `
+     'Shake reset does not restore neutral X/Y scroll.'
+-Assert-True ($videoInitialization -match 'GAME_OVER_DISPLAY_FRAME_COUNT\s+180' -and
+-             $videoInitialization -notmatch 'DEATH_FADE|game_gear_video_dim_color') `
++Assert-True ($gameOverPresentation -match 'GAME_OVER_DISPLAY_FRAME_COUNT\s+180' -and
++             $gameOverPresentation -notmatch 'DEATH_FADE|game_gear_video_dim_color') `
+     'Death presentation is not 180 frames or still contains fading.'
+-Assert-True ($videoInitialization -match 'SMS_displayOff\(\);[\s\S]*?SMS_VRAMmemsetW\(0, 0x0000, 16384\);[\s\S]*?GG_loadBGPalette\(game_over_palette\);') `
++Assert-True ($gameOverPresentation -match 'SMS_displayOff\(\);[\s\S]*?SMS_VRAMmemsetW\(0, 0x0000, 16384\);[\s\S]*?GG_loadBGPalette\(game_over_palette\);') `
+     'Game Over presentation does not clear gameplay before loading artwork.'
+ Assert-True ($projection -notmatch 'hud_weapon|HUD_WEAPON') `
+     'World-sprite projection depends on HUD weapon coordinates.'

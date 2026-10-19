@@ -7,6 +7,8 @@ $videoPath = Join-Path $PSScriptRoot "..\platform\game_gear\video.c"
 $texturePath = Join-Path $PSScriptRoot "..\$BuildDirectory\generated\wall_texture.c"
 $textureHeaderPath = Join-Path $PSScriptRoot "..\$BuildDirectory\generated\wall_texture.h"
 $video = Get-Content -Raw -LiteralPath $videoPath
+$nativePath=Join-Path $PSScriptRoot "../platform/game_gear/native_wall.c"
+if(Test-Path -LiteralPath $nativePath){$video+="`n"+(Get-Content -LiteralPath $nativePath -Raw)}
 $texture = Get-Content -Raw -LiteralPath $texturePath
 $textureHeader = Get-Content -Raw -LiteralPath $textureHeaderPath
 

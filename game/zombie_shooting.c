@@ -1,5 +1,7 @@
 #include "camera.h"
+#define GEAR_RAY_WORLD_SPRITE_NO_DISTANCE_METRIC
 #include "world_sprite.h"
+#include "weapons.h"
 #include "zombie_shooting.h"
 #include "../engine/render/raycaster.h"
 
@@ -24,9 +26,51 @@
 #define PISTOL_TWO_SHOT_DAMAGE 6
 #define PISTOL_THREE_SHOT_DAMAGE 4
 #define PISTOL_FOUR_SHOT_DAMAGE 3
-#define CENTER_RAY_LEFT 13
-#define CENTER_RAY_RIGHT 14
+#define PISTOL_CENTER_RAY_LEFT 13
+#define PISTOL_CENTER_RAY_RIGHT 14
+#define SHOTGUN_SAMPLE_LEFT_RAY 10
+#define SHOTGUN_SAMPLE_CENTER_RAY 14
+#define SHOTGUN_SAMPLE_RIGHT_RAY 18
 #define NO_ZOMBIE_TARGET WORLD_SPRITE_MAX_COUNT
+#define SHOTGUN_CLOSE_DAMAGE 12
+#define SHOTGUN_MEDIUM_DAMAGE 6
+#define SHOTGUN_FAR_DAMAGE 2
+
+/* Test three screen-space lines at x=40, 56 and 72 against the same
+ * projected body footprint used by the renderer. Multiplying the projection
+ * inequality by depth_cross cancels both projection divisions. */
+static unsigned int shotgun_sample_wall_depth(const RaycasterRay *rays,
+    unsigned long lateral, unsigned long depth_cross,
+    unsigned long determinant_magnitude, unsigned char right)
+{
+    unsigned long scaled_lateral = (lateral << 6) + (lateral << 4);
+    unsigned long side_center = depth_cross << 4;
+    unsigned long body_half_width = determinant_magnitude << 5;
+    unsigned long near_side_distance;
+    unsigned long far_side_distance;
+    unsigned int wall_depth = 0;
+
+    if (scaled_lateral <= body_half_width)
+        wall_depth = rays[SHOTGUN_SAMPLE_CENTER_RAY].wall_distance;
+    near_side_distance = scaled_lateral > side_center
+        ? scaled_lateral - side_center : side_center - scaled_lateral;
+    if (near_side_distance <= body_half_width)
+    {
+        unsigned int side_wall_depth = rays[right
+            ? SHOTGUN_SAMPLE_RIGHT_RAY : SHOTGUN_SAMPLE_LEFT_RAY].wall_distance;
+        if (side_wall_depth > wall_depth)
+            wall_depth = side_wall_depth;
+    }
+    far_side_distance = scaled_lateral + side_center;
+    if (far_side_distance <= body_half_width)
+    {
+        unsigned int side_wall_depth = rays[right
+            ? SHOTGUN_SAMPLE_LEFT_RAY : SHOTGUN_SAMPLE_RIGHT_RAY].wall_distance;
+        if (side_wall_depth > wall_depth)
+            wall_depth = side_wall_depth;
+    }
+    return wall_depth;
+}
 
 static unsigned char zombie_shooting_find_aimed_target(
     unsigned int *target_depth)
@@ -47,10 +91,10 @@ static unsigned char zombie_shooting_find_aimed_target(
         ? (unsigned long)-determinant
         : (unsigned long)determinant;
     const RaycasterRay *rays = raycaster_get_rendered_rays();
-    unsigned int wall_depth = rays[CENTER_RAY_LEFT].wall_distance;
+    unsigned int wall_depth = rays[PISTOL_CENTER_RAY_LEFT].wall_distance;
 
-    if (rays[CENTER_RAY_RIGHT].wall_distance < wall_depth)
-        wall_depth = rays[CENTER_RAY_RIGHT].wall_distance;
+    if (rays[PISTOL_CENTER_RAY_RIGHT].wall_distance < wall_depth)
+        wall_depth = rays[PISTOL_CENTER_RAY_RIGHT].wall_distance;
 
     for (sprite_index = 0;
          sprite_index < world_sprite_get_count();
@@ -61,6 +105,7 @@ static unsigned char zombie_shooting_find_aimed_target(
         signed int relative_y;
         signed long depth_product;
         signed long exact_depth;
+        signed long depth_cross;
         signed long lateral_product;
         unsigned int depth;
         unsigned long lateral;
@@ -80,21 +125,28 @@ static unsigned char zombie_shooting_find_aimed_target(
         lateral = lateral_product < 0
             ? (unsigned long)-lateral_product
             : (unsigned long)lateral_product;
-        if (lateral * ZOMBIE_AIM_LATERAL_SCALE
+        if (selected_weapon != WEAPON_SHOTGUN
+            && lateral * ZOMBIE_AIM_LATERAL_SCALE
             > determinant_magnitude * ZOMBIE_AIM_DETERMINANT_SCALE)
             continue;
 
-        exact_depth =
-            ((signed long)plane_x * relative_y
-             - (signed long)relative_x * plane_y) * FIXED_POINT_SCALE
-            / determinant;
+        depth_cross = (signed long)plane_x * relative_y
+                    - (signed long)relative_x * plane_y;
+        exact_depth = depth_cross * FIXED_POINT_SCALE / determinant;
         if (exact_depth < PISTOL_MIN_TARGET_DEPTH
             || exact_depth > ZOMBIE_MAX_SHOOTING_DISTANCE)
         {
             continue;
         }
         depth = (unsigned int)exact_depth;
-        if (depth >= nearest_depth || depth >= wall_depth)
+        if (depth >= nearest_depth)
+            continue;
+        if (selected_weapon == WEAPON_SHOTGUN)
+            wall_depth = shotgun_sample_wall_depth(rays, lateral,
+                depth_cross < 0 ? (unsigned long)-depth_cross : (unsigned long)depth_cross,
+                determinant_magnitude,
+                (lateral_product < 0) == (determinant < 0));
+        if (depth >= wall_depth)
             continue;
 
         nearest_index = sprite_index;
@@ -105,7 +157,7 @@ static unsigned char zombie_shooting_find_aimed_target(
     return nearest_index;
 }
 
-void zombie_shooting_process(void) __banked
+void zombie_shooting_process(void)
 {
     unsigned int target_depth;
     unsigned char damage;
@@ -117,7 +169,16 @@ void zombie_shooting_process(void) __banked
     if (target_depth > PISTOL_VISIBLE_MAX_DEPTH)
         return;
 
-    if (target_depth <= PISTOL_ONE_SHOT_MAX_DEPTH)
+    if (selected_weapon == WEAPON_SHOTGUN)
+    {
+        if (target_depth <= PISTOL_TWO_SHOT_MAX_DEPTH)
+            damage = SHOTGUN_CLOSE_DAMAGE;
+        else if (target_depth <= PISTOL_THREE_SHOT_MAX_DEPTH)
+            damage = SHOTGUN_MEDIUM_DAMAGE;
+        else
+            damage = SHOTGUN_FAR_DAMAGE;
+    }
+    else if (target_depth <= PISTOL_ONE_SHOT_MAX_DEPTH)
         damage = PISTOL_ONE_SHOT_DAMAGE;
     else if (target_depth <= PISTOL_TWO_SHOT_MAX_DEPTH)
         damage = PISTOL_TWO_SHOT_DAMAGE;

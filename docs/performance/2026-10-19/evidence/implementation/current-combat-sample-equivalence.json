@@ -1,0 +1,11 @@
+{
+  "cases": 5808,
+  "mismatches": 0,
+  "rom_sha256": [
+    "6322efcc0434ad8d4fc3f066ced47e0a1fb4cdb140d6da8654521e3834371136",
+    "78b9b1be46160ea2634178b073016dc55298839af245e36ac4df64efe5f8c131"
+  ],
+  "cost_min": 4520,
+  "cost_max": 58530,
+  "coverage": "242 bases x 8 door masks x pistol/shotgun/repeated-shotgun; stale poisoned render snapshots; fresh partial casts and complete-current-cache reuse; selected indices13/14/10/18"
+}

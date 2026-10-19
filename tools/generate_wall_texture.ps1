@@ -8,7 +8,8 @@ param(
     [Parameter(Mandatory = $true)][string]$SwitchOnFrame1InputPath,
     [Parameter(Mandatory = $true)][string]$SwitchOnFrame2InputPath,
     [Parameter(Mandatory = $true)][string]$OutputSource,
-    [Parameter(Mandatory = $true)][string]$OutputHeader
+    [Parameter(Mandatory = $true)][string]$OutputHeader,
+    [string]$OutputPaletteSource
 )
 
 $ErrorActionPreference = "Stop"
@@ -257,3 +258,12 @@ $utf8WithoutBom = [System.Text.UTF8Encoding]::new($false)
 [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($OutputHeader)) | Out-Null
 [System.IO.File]::WriteAllText($OutputSource, ($sourceLines -join "`n") + "`n", $utf8WithoutBom)
 [System.IO.File]::WriteAllText($OutputHeader, $headerText.Replace("`r`n", "`n"), $utf8WithoutBom)
+if ($OutputPaletteSource) {
+    # The packed source and old sampler tables remain generator/validator
+    # inputs. Only the live hardware palette is linked beside the native wall
+    # tables; no obsolete sampling representation is shipped in the ROM.
+    $paletteSource = '#include "wall_texture.h"' + "`n" +
+        'const unsigned int wall_palette_colors[WALL_PALETTE_COLOR_COUNT] = {' + "`n    " +
+        (($paletteColors | ForEach-Object { '0x{0:x3}' -f $_ }) -join ', ') + "`n};`n"
+    [System.IO.File]::WriteAllText($OutputPaletteSource,$paletteSource,$utf8WithoutBom)
+}

@@ -1,0 +1,5 @@
+{
+    "Scope":  "Consecutive literal .db arrays of at least eight bytes; excludes relocated pointers and .dw arrays.",
+    "DuplicateMembers":  2,
+    "ScannedByteArrays":  68
+}

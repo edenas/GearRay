@@ -1,0 +1,6 @@
+{
+  "compared_original": 224,
+  "total_new_including_pulse": 240,
+  "mismatches": [],
+  "method": "JVM retired-opcode observer; fixed-phase elapsed CPU intervals, camera and completed VRAM"
+}

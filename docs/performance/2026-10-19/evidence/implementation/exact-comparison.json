@@ -1,0 +1,243 @@
+[
+  {
+    "scenario": "A_static",
+    "n": 16,
+    "baseline_mean": 543729.8125,
+    "candidate_mean": 125578.1875,
+    "reduction_percent": 76.90430345862266,
+    "mismatches": []
+  },
+  {
+    "scenario": "B_rotation",
+    "n": 16,
+    "baseline_mean": 4048830,
+    "candidate_mean": 2516776.5,
+    "reduction_percent": 37.83941286742096,
+    "mismatches": []
+  },
+  {
+    "scenario": "C_forward",
+    "n": 16,
+    "baseline_mean": 3284739,
+    "candidate_mean": 1782552.375,
+    "reduction_percent": 45.73229790860096,
+    "mismatches": []
+  },
+  {
+    "scenario": "D_strafe",
+    "n": 16,
+    "baseline_mean": 4350193.0625,
+    "candidate_mean": 2918924.625,
+    "reduction_percent": 32.90126247126762,
+    "mismatches": []
+  },
+  {
+    "scenario": "E_diagonal",
+    "n": 16,
+    "baseline_mean": 5175565.125,
+    "candidate_mean": 3740562.8125,
+    "reduction_percent": 27.72648547244394,
+    "mismatches": []
+  },
+  {
+    "scenario": "F_geometry",
+    "n": 16,
+    "baseline_mean": 4955400.6875,
+    "candidate_mean": 3430795.9375,
+    "reduction_percent": 30.766528201156696,
+    "mismatches": []
+  },
+  {
+    "scenario": "G_zombies",
+    "n": 16,
+    "baseline_mean": 4339625.1875,
+    "candidate_mean": 3360988.9375,
+    "reduction_percent": 22.551169921745696,
+    "mismatches": []
+  },
+  {
+    "scenario": "H_offscreen",
+    "n": 16,
+    "baseline_mean": 1182270.8125,
+    "candidate_mean": 745451.4375,
+    "reduction_percent": 36.947488712532184,
+    "mismatches": []
+  },
+  {
+    "scenario": "I_pistol",
+    "n": 16,
+    "baseline_mean": 3683794.8125,
+    "candidate_mean": 2226359.6875,
+    "reduction_percent": 39.56341759466551,
+    "mismatches": []
+  },
+  {
+    "scenario": "I_shotgun",
+    "n": 16,
+    "baseline_mean": 4002255.3125,
+    "candidate_mean": 1952619.9375,
+    "reduction_percent": 51.21200960364769,
+    "mismatches": []
+  },
+  {
+    "scenario": "J_lod",
+    "n": 16,
+    "baseline_mean": 18325572,
+    "candidate_mean": 13950986.9375,
+    "reduction_percent": 23.871478950288704,
+    "mismatches": []
+  },
+  {
+    "scenario": "K_pause",
+    "n": 16,
+    "baseline_mean": 678135.5625,
+    "candidate_mean": 401857.4375,
+    "reduction_percent": 40.740840073550935,
+    "mismatches": []
+  },
+  {
+    "scenario": "L_mixed",
+    "n": 16,
+    "baseline_mean": 9296801.8125,
+    "candidate_mean": 6988161.75,
+    "reduction_percent": 24.83262641348256,
+    "mismatches": []
+  },
+  {
+    "scenario": "M_authored",
+    "n": 16,
+    "baseline_mean": 778232.125,
+    "candidate_mean": 360080.5,
+    "reduction_percent": 53.73096426724867,
+    "mismatches": []
+  },
+  {
+    "scenario": "P_short_tap",
+    "n": 16,
+    "baseline_mean": 543729.8125,
+    "candidate_mean": 304786.3125,
+    "reduction_percent": 43.94526371496321,
+    "mismatches": [
+      [
+        "1",
+        "camera_hex"
+      ],
+      [
+        "1",
+        "vram_sha256"
+      ],
+      [
+        "2",
+        "camera_hex"
+      ],
+      [
+        "2",
+        "vram_sha256"
+      ],
+      [
+        "3",
+        "camera_hex"
+      ],
+      [
+        "3",
+        "vram_sha256"
+      ],
+      [
+        "4",
+        "camera_hex"
+      ],
+      [
+        "4",
+        "vram_sha256"
+      ],
+      [
+        "5",
+        "camera_hex"
+      ],
+      [
+        "5",
+        "vram_sha256"
+      ],
+      [
+        "6",
+        "camera_hex"
+      ],
+      [
+        "6",
+        "vram_sha256"
+      ],
+      [
+        "7",
+        "camera_hex"
+      ],
+      [
+        "7",
+        "vram_sha256"
+      ],
+      [
+        "8",
+        "camera_hex"
+      ],
+      [
+        "8",
+        "vram_sha256"
+      ],
+      [
+        "9",
+        "camera_hex"
+      ],
+      [
+        "9",
+        "vram_sha256"
+      ],
+      [
+        "10",
+        "camera_hex"
+      ],
+      [
+        "10",
+        "vram_sha256"
+      ],
+      [
+        "11",
+        "camera_hex"
+      ],
+      [
+        "11",
+        "vram_sha256"
+      ],
+      [
+        "12",
+        "camera_hex"
+      ],
+      [
+        "12",
+        "vram_sha256"
+      ],
+      [
+        "13",
+        "camera_hex"
+      ],
+      [
+        "13",
+        "vram_sha256"
+      ],
+      [
+        "14",
+        "camera_hex"
+      ],
+      [
+        "14",
+        "vram_sha256"
+      ],
+      [
+        "15",
+        "camera_hex"
+      ],
+      [
+        "15",
+        "vram_sha256"
+      ]
+    ]
+  }
+]

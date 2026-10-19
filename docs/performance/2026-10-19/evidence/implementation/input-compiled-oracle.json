@@ -1,0 +1,29 @@
+{
+  "rom_sha256": "78b9b1be46160ea2634178b073016dc55298839af245e36ac4df64efe5f8c131",
+  "checks": 21,
+  "cases": [
+    "forward complete tap",
+    "opposing complete taps cancel",
+    "held opposing directions cancel",
+    "both directions do not synthesize tap",
+    "turn complete tap",
+    "opposing turn taps cancel",
+    "strafe entire session",
+    "B2 released before horizontal",
+    "B2 release while horizontal held",
+    "unused B2 session interacts",
+    "two fires remain two ticks",
+    "held fire no autofire",
+    "ordered action types",
+    "high-bit START normalization",
+    "epoch blocks held and clears old actions",
+    "ring 64/full/overflow/empty/index-wrap 0",
+    "ring 64/full/overflow/empty/index-wrap 63",
+    "ring 64/full/overflow/empty/index-wrap 127",
+    "ring 64/full/overflow/empty/index-wrap 250",
+    "cutoff across sequence wrap",
+    "17th ordered action fails admission"
+  ],
+  "mismatches": 0,
+  "method": "Actual compiled capture/pop/drain/tick; IRQ disabled for deterministic direct-call microtests; scheduled IRQ ABI and concurrent service tested separately."
+}

@@ -1,0 +1,1574 @@
+﻿[
+    {
+        "path":  "ACKNOWLEDGEMENTS.md",
+        "expected":  "428db4d89332b5a5ea34e288dea043bdf52b9df4b90ec3cb1c3eddcbf03d2eff",
+        "actual":  "428DB4D89332B5A5EA34E288DEA043BDF52B9DF4B90EC3CB1C3EDDCBF03D2EFF",
+        "match":  true
+    },
+    {
+        "path":  "assets/logos/game_over.png",
+        "expected":  "241c56beb5492cbe987ee113b8023af7004994b9b957bfb2535239e0c5fd5dea",
+        "actual":  "241C56BEB5492CBE987EE113B8023AF7004994B9B957BFB2535239E0C5FD5DEA",
+        "match":  true
+    },
+    {
+        "path":  "assets/logos/sega_logo.png",
+        "expected":  "29c6e78b5901cc3648c2711f05d32ada395bea0eb931f04d84d53e31495d32e0",
+        "actual":  "29C6E78B5901CC3648C2711F05D32ADA395BEA0EB931F04D84D53E31495D32E0",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/Corel Auto-Preserve/gun.png",
+        "expected":  "ce85760111f001290a8f831c9cde74af3d1d5428f3e8b4387cba47b930cb8b1d",
+        "actual":  "CE85760111F001290A8F831C9CDE74AF3D1D5428F3E8B4387CBA47B930CB8B1D",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_corps_16x16.png",
+        "expected":  "a2be906d13831551c29402ff80f676d7f590cb94191647983f3aa0f177c36044",
+        "actual":  "A2BE906D13831551C29402FF80F676D7F590CB94191647983F3AA0F177C36044",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_corps_32x32.png",
+        "expected":  "c73b6679cd299ccf2fad04e98453eea8d3c5aaa145b54b4d7316b172a856587b",
+        "actual":  "C73B6679CD299CCF2FAD04E98453EEA8D3C5AAA145B54B4D7316B172A856587B",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_01_16x16.png",
+        "expected":  "557d4b0fddc0ea3ac3557f220407a9eefbb6b4f558f53b5828aeba33efc376d7",
+        "actual":  "557D4B0FDDC0EA3AC3557F220407A9EEFBB6B4F558F53B5828AEBA33EFC376D7",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_01_32x32.png",
+        "expected":  "fefe8042d2c852e33bf1d69b96e7ae3c3c0011badb0eece957630f992b44d814",
+        "actual":  "FEFE8042D2C852E33BF1D69B96E7AE3C3C0011BADB0EECE957630F992B44D814",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_02.png",
+        "expected":  "f041e403698c9623e49e82b62e0861612543e96101ebf29f978b65d23c54c2ca",
+        "actual":  "F041E403698C9623E49E82B62E0861612543E96101EBF29F978B65D23C54C2CA",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_dead_16x16.png",
+        "expected":  "8b26b1addfaf8ff19ccbf9afbd2754a9d829d0c552ef8ef3683c035a9ead38a1",
+        "actual":  "8B26B1ADDFAF8FF19CCBF9AFBD2754A9D829D0C552EF8EF3683C035A9EAD38A1",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_dead_32x32.png",
+        "expected":  "83a67918bac96953d7e3ad5ed8e97966fe635f2cc6b79716d1922e9af2a60e75",
+        "actual":  "83A67918BAC96953D7E3AD5ED8E97966FE635F2CC6B79716D1922E9AF2A60E75",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_standing_16x16.png",
+        "expected":  "8838eb98a0740a255ff8e6954899da53b92b06ee9d25b2a12c1c126312069018",
+        "actual":  "8838EB98A0740A255FF8E6954899DA53B92B06EE9D25B2A12C1C126312069018",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_walking_01_16x16.png",
+        "expected":  "233ab1f92b6dd4c9ec45a5a3968353591386bed882a6d82b474e3f532260e353",
+        "actual":  "233AB1F92B6DD4C9EC45A5A3968353591386BED882A6D82B474E3F532260E353",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_walking_02_16x16.png",
+        "expected":  "eabf126d4541419da199db309d85d7972b95f236bafe70a2087134190e4a8683",
+        "actual":  "EABF126D4541419DA199DB309D85D7972B95F236BAFE70A2087134190E4A8683",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_attack_01.png",
+        "expected":  "9608ca0c699e46971ceafe394d9439eba36f23553724b15e128d90565b5d1581",
+        "actual":  "9608CA0C699E46971CEAFE394D9439EBA36F23553724B15E128D90565B5D1581",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_standing.png",
+        "expected":  "fb3fc653e5c26b11285ea1440ade42756bdf9bdc7975b35f6a826ad108a20683",
+        "actual":  "FB3FC653E5C26B11285EA1440ADE42756BDF9BDC7975B35F6A826AD108A20683",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_01_attack_01.png",
+        "expected":  "6847e340c772ceb4093096d8119a75c26804fca1eae602fd751f58a6bb538a70",
+        "actual":  "6847E340C772CEB4093096D8119A75C26804FCA1EAE602FD751F58A6BB538A70",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_01_attack_01_32x32.png",
+        "expected":  "3ba499b2539e421ba5b70671e1b6aaa6158796a7fa98b9000498a5fec446ffa1",
+        "actual":  "3BA499B2539E421BA5B70671E1B6AAA6158796A7FA98B9000498A5FEC446FFA1",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_01_attack_02.png",
+        "expected":  "a9df2752d252fcca1bfdc28a77190846ee822698109d70146c4cb98eaf40af2b",
+        "actual":  "A9DF2752D252FCCA1BFDC28A77190846EE822698109D70146C4CB98EAF40AF2B",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_01_attack_02_32x32.png",
+        "expected":  "e436edb085d42bccd0e765a69ec4566037b7434261dc942eee1b243a0ac3ebc4",
+        "actual":  "E436EDB085D42BCCD0E765A69EC4566037B7434261DC942EEE1B243A0AC3EBC4",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_01_corps.png",
+        "expected":  "9291dfbb37af7c9b3476003f81dc222f696cc61a1a007a972a1a31e5ee91e347",
+        "actual":  "9291DFBB37AF7C9B3476003F81DC222F696CC61A1A007A972A1A31E5EE91E347",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_01_corps_16x16.png",
+        "expected":  "177e19ca93299e3b02a1829d6dded86fe660bb976833957dce644897097616d8",
+        "actual":  "177E19CA93299E3B02A1829D6DDED86FE660BB976833957DCE644897097616D8",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_01_corps_32x32.png",
+        "expected":  "b435d1d11068f240439d0c9c770478ec663e874c03452e43530cd4db0182fbb9",
+        "actual":  "B435D1D11068F240439D0C9C770478EC663E874C03452E43530CD4DB0182FBB9",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_01_shot_01.png",
+        "expected":  "441a492568cc469c042b08c779d92673db54b83e7d06b586881e03ff08d60d93",
+        "actual":  "441A492568CC469C042B08C779D92673DB54B83E7D06B586881E03FF08D60D93",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_01_shot_01_16x16.png",
+        "expected":  "d445237b7c6bbe621a84b919f6f57e5b4af297fd54e2d28d3fe63885e259abfa",
+        "actual":  "D445237B7C6BBE621A84B919F6F57E5B4AF297FD54E2D28D3FE63885E259ABFA",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_01_shot_01_32x32.png",
+        "expected":  "f2c1f2828851d511a0ee2d84a6a316bd7990e932c711faf0b7496e9f9eff5e65",
+        "actual":  "F2C1F2828851D511A0EE2D84A6A316BD7990E932C711FAF0B7496E9F9EFF5E65",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_01_shot_02.png",
+        "expected":  "491bc27aad2a9069c169a343783aecd6bfa1bb754a1439a7b2fe47187a816179",
+        "actual":  "491BC27AAD2A9069C169A343783AECD6BFA1BB754A1439A7B2FE47187A816179",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_01_shot_dead.png",
+        "expected":  "67771b12bb41a8d7b5b605212c6b963cc6c4b698f0c88a032dba0172fd02e861",
+        "actual":  "67771B12BB41A8D7B5B605212C6B963CC6C4B698F0C88A032DBA0172FD02E861",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_01_shot_dead_16x16.png",
+        "expected":  "04f50613ee572ec90c082f937f2d8c4ae9db21f4339b2c8c17e49e40595c270b",
+        "actual":  "04F50613EE572EC90C082F937F2D8C4AE9DB21F4339B2C8C17E49E40595C270B",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_01_standing.png",
+        "expected":  "98eae1215dea2cbb790d8871029402447b1e863f9ac95f51e16889d3a9cc6972",
+        "actual":  "98EAE1215DEA2CBB790D8871029402447B1E863F9AC95F51E16889D3A9CC6972",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_01_standing_16x16.png",
+        "expected":  "ab9e88279fe7fef5aa3b32f26f28d706db63e0188a6c155476f435af0b7ccfaa",
+        "actual":  "AB9E88279FE7FEF5AA3B32F26F28D706DB63E0188A6C155476F435AF0B7CCFAA",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_01_standing_32x32.png",
+        "expected":  "ae5d949f7f7bc62464480449695db6346a24de225a163bbc79fc84117d540dda",
+        "actual":  "AE5D949F7F7BC62464480449695DB6346A24DE225A163BBC79FC84117D540DDA",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_01_standing_attack_32x32.png",
+        "expected":  "0a64c29340134c6ee4c49d77c1dddba28174752126c81c09ca76b5e8845783a8",
+        "actual":  "0A64C29340134C6EE4C49D77C1DDDBA28174752126C81C09CA76B5E8845783A8",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_01_walking_01.png",
+        "expected":  "ca21b8dd5646b34a8d0515c0b8d5d9a6d28863fa484e47acf050bb821e5f52a7",
+        "actual":  "CA21B8DD5646B34A8D0515C0B8D5D9A6D28863FA484E47ACF050BB821E5F52A7",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_01_walking_01_16x16.png",
+        "expected":  "65edb44f82de3acab1150465ce1517c0a86faef89bfedaf4f1ceb6ff312708c7",
+        "actual":  "65EDB44F82DE3ACAB1150465CE1517C0A86FAEF89BFEDAF4F1CEB6FF312708C7",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_01_walking_01_32x32.png",
+        "expected":  "f78986131cdd370861a8d8966ab1a92807911234afd14cd8d54be6da7ac42db2",
+        "actual":  "F78986131CDD370861A8D8966AB1A92807911234AFD14CD8D54BE6DA7AC42DB2",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_01_walking_02.png",
+        "expected":  "498e9f766a3a6636d195608148883524f4fe3352f40dde46cef84fc1efe21ebd",
+        "actual":  "498E9F766A3A6636D195608148883524F4FE3352F40DDE46CEF84FC1EFE21EBD",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_01_walking_02_16x16.png",
+        "expected":  "5018c3d478cf432348011c28cb9f67e7cec29c3382904fb5d3f319aa36b3ce33",
+        "actual":  "5018C3D478CF432348011C28CB9F67E7CEC29C3382904FB5D3F319AA36B3CE33",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_01_walking_02_32x32.png",
+        "expected":  "a63e0be3f9179d29e1b98c9922882bc7269d9bc4ce2878e57fc5b78d7b0b9918",
+        "actual":  "A63E0BE3F9179D29E1B98C9922882BC7269D9BC4CE2878E57FC5B78D7B0B9918",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_02_attack_01.png",
+        "expected":  "cc8a2be105dfaa38f321599873d98ca6e3dc063d776ce8c509c6985beda97e04",
+        "actual":  "CC8A2BE105DFAA38F321599873D98CA6E3DC063D776CE8C509C6985BEDA97E04",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_02_corps.png",
+        "expected":  "968e062e6cfd45b6b6b0c3f20c96a1edbd27750039352f429b01d509e0edd017",
+        "actual":  "968E062E6CFD45B6B6B0C3F20C96A1EDBD27750039352F429B01D509E0EDD017",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_02_corps_16x16.png",
+        "expected":  "404e7f6da19afd89c3e9727388532289770c40b336d960d8f237921ea7fab5ab",
+        "actual":  "404E7F6DA19AFD89C3E9727388532289770C40B336D960D8F237921EA7FAB5AB",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_02_shot_01.png",
+        "expected":  "7fd15bff9b6c7c7fd868014acd253be6e6df4a6b1f09f407078c3b81f608991d",
+        "actual":  "7FD15BFF9B6C7C7FD868014ACD253BE6E6DF4A6B1F09F407078C3B81F608991D",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_02_shot_02.png",
+        "expected":  "cdf45cff29a8f9cf453322f4766201dfeac835baa5026b466668a01cbd3e5cfc",
+        "actual":  "CDF45CFF29A8F9CF453322F4766201DFEAC835BAA5026B466668A01CBD3E5CFC",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_02_shot_dead.png",
+        "expected":  "e42ff9dd4e251da4931ed0869c0f57ae4c781cdfdc492fd07cbb172ce1bdc0c0",
+        "actual":  "E42FF9DD4E251DA4931ED0869C0F57AE4C781CDFDC492FD07CBB172CE1BDC0C0",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_02_standing.png",
+        "expected":  "2e2e9dfa2bdeb7127055e5a88c626d53e98ce307c27456c3091b61b840203ed0",
+        "actual":  "2E2E9DFA2BDEB7127055E5A88C626D53E98CE307C27456C3091B61B840203ED0",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_02_walking_01.png",
+        "expected":  "3a09a608138a0b7f135ec10b1231f51618044820d5257f35219c02e002b92468",
+        "actual":  "3A09A608138A0B7F135EC10B1231F51618044820D5257F35219C02E002B92468",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/enemies/zombie/zombie_02_walking_02.png",
+        "expected":  "1c15f16f806531b708757a4f7bf6f8375407d752c9b576d163d0f10f30daf6da",
+        "actual":  "1C15F16F806531B708757A4F7BF6F8375407D752C9B576D163D0F10F30DAF6DA",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/weapons/Corel Auto-Preserve/gun.png",
+        "expected":  "3540c89699e3147003b7a9cf7d372fc2b40da1fc946838f873624e2c51163581",
+        "actual":  "3540C89699E3147003B7A9CF7D372FC2B40DA1FC946838F873624E2C51163581",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/weapons/Corel Auto-Preserve/gun_12x12.png",
+        "expected":  "c57da998706b2aa7c7e53effa4698bb2900336aa8728733d3298f0fddf1faae4",
+        "actual":  "C57DA998706B2AA7C7E53EFFA4698BB2900336AA8728733D3298F0FDDF1FAAE4",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/weapons/Corel Auto-Preserve/gun_12x12_v2.pspimage",
+        "expected":  "3daf2a1bf78edc40c56d6d6bca8339d73bbb3503bf13494e773ef3889a246f2f",
+        "actual":  "3DAF2A1BF78EDC40C56D6D6BCA8339D73BBB3503BF13494E773EF3889A246F2F",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/weapons/Corel Auto-Preserve/gun_2_12x12.png",
+        "expected":  "9981aea777c60a2ff2b9b965ed746fc6f7bb81c6b2e3421823323a409642a478",
+        "actual":  "9981AEA777C60A2FF2B9B965ED746FC6F7BB81C6B2E3421823323A409642A478",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/weapons/Corel Auto-Preserve/gun_3_12x12.png",
+        "expected":  "8de6e8d82391a448f35544a8c089316be780014da546a02a5507364de293ebe1",
+        "actual":  "8DE6E8D82391A448F35544A8C089316BE780014DA546A02A5507364DE293EBE1",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/weapons/Corel Auto-Preserve/pick_up_shotgun.png",
+        "expected":  "b034b8085c73d590aea7377b78a35d330c82d1b53aa6c10f5c37ab6e28916c09",
+        "actual":  "B034B8085C73D590AEA7377B78A35D330C82D1B53AA6C10F5C37AB6E28916C09",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/weapons/Corel Auto-Preserve/shotgun.png",
+        "expected":  "e237dc789d1577959816b654fcbfdf5383c3392f85ed40b348a8a5606387c539",
+        "actual":  "E237DC789D1577959816B654FCBFDF5383C3392F85ED40B348A8A5606387C539",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/weapons/Corel Auto-Preserve/shotgun_16x16.png",
+        "expected":  "131bf12ebe63be8660d8e60dc58f975528511ff87d645d1419b0aae6d21d3536",
+        "actual":  "131BF12EBE63BE8660D8E60DC58F975528511FF87D645D1419B0AAE6D21D3536",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/weapons/Corel Auto-Preserve/shotgun_16x16_shoot.png",
+        "expected":  "3219b0d87f4f6dbe2cc850baa37305ac5ef24186749e05aabe1afbbdfc67e384",
+        "actual":  "3219B0D87F4F6DBE2CC850BAA37305AC5EF24186749E05AABE1AFBBDFC67E384",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/weapons/gun_12x12.png",
+        "expected":  "c57da998706b2aa7c7e53effa4698bb2900336aa8728733d3298f0fddf1faae4",
+        "actual":  "C57DA998706B2AA7C7E53EFFA4698BB2900336AA8728733D3298F0FDDF1FAAE4",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/weapons/gun_shoot_12x12.png",
+        "expected":  "6771c3c91e213ea51ade8ae5eab92fb686e12eb706ce914c59a6388c9f73a8b4",
+        "actual":  "6771C3C91E213EA51ADE8AE5EAB92FB686E12EB706CE914C59A6388C9F73A8B4",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/weapons/pick_up_shotgun.png",
+        "expected":  "1b747722508e39baca417dc2a1edd533eb98f9c5e56ac201665e767d28d952b4",
+        "actual":  "1B747722508E39BACA417DC2A1EDD533EB98F9C5E56AC201665E767D28D952B4",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/weapons/pistol.png",
+        "expected":  "cfec151e56ac979d24897a9b63a27436eab96492fd18dff12b05e91d0baf57c8",
+        "actual":  "CFEC151E56AC979D24897A9B63A27436EAB96492FD18DFF12B05E91D0BAF57C8",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/weapons/shotgun.png",
+        "expected":  "2ae5a0ab9c0e8de5f0440de96231535061e9f1d7bb33a666d56353fa419af5d1",
+        "actual":  "2AE5A0AB9C0E8DE5F0440DE96231535061E9F1D7BB33A666D56353FA419AF5D1",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/weapons/shotgun_held.png",
+        "expected":  "00fe73df9bbbea580a2daa30e9fa247c0059415494455ba7e7ee9f019b34e709",
+        "actual":  "00FE73DF9BBBEA580A2DAA30E9FA247C0059415494455BA7E7EE9F019B34E709",
+        "match":  true
+    },
+    {
+        "path":  "assets/sprites/weapons/shotgun_held_shoot.png",
+        "expected":  "e7d10db920f06fc1a62b11e12a8bd8a8b5786c5843f226ccdfc5ae05e81c890e",
+        "actual":  "E7D10DB920F06FC1A62B11E12A8BD8A8B5786C5843F226CCDFC5AE05E81C890E",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/ceilings/ceiling_industrial.png.png",
+        "expected":  "b480bdb849864bef4782fe591cb05a1cbef7490dd30554a48e410cf07fb42a9f",
+        "actual":  "B480BDB849864BEF4782FE591CB05A1CBEF7490DD30554A48E410CF07FB42A9F",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/floors/floor_industrial.png",
+        "expected":  "02d22a9e1aa31c4854d89d58748fe628e513116b4234998487090ba7a26f41d4",
+        "actual":  "02D22A9E1AA31C4854D89D58748FE628E513116B4234998487090BA7A26F41D4",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/library/ceiling_tiles.png",
+        "expected":  "d23e2aa1635ad286ac1f8971f1842ddb81d675c7df19d6b6f13b2fe7ed2308a7",
+        "actual":  "D23E2AA1635AD286AC1F8971F1842DDB81D675C7DF19D6B6F13B2FE7ED2308A7",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/library/Corel Auto-Preserve/zombie_01_run_01.png",
+        "expected":  "7f6b8b8ed3b664056fc837b6c8ea0dcf1ba5571e27cf7038abddc02a466c41ae",
+        "actual":  "7F6B8B8ED3B664056FC837B6C8EA0DCF1BA5571E27CF7038ABDDC02A466C41AE",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/library/Corel Auto-Preserve/zombie_01_run_02.png",
+        "expected":  "6356cf9b036f09b6243b4a29a9857e25ce83d5341d79416ab6ca129108313303",
+        "actual":  "6356CF9B036F09B6243B4A29A9857E25CE83D5341D79416AB6CA129108313303",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/library/floor_tiles.png",
+        "expected":  "825450538459fbbcf18c00f7e05eb0518dcd041835b13899edcde85104faafc8",
+        "actual":  "825450538459FBBCF18C00F7E05EB0518DCD041835B13899EDCDE85104FAAFC8",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/library/wall_reference.png",
+        "expected":  "f9ebb8e4017c59c26e7a8393a4c019007f5f8211568256b9deb9a820fa21a07f",
+        "actual":  "F9EBB8E4017C59C26E7A8393A4C019007F5F8211568256B9DEB9A820FA21A07F",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/Corel Auto-Preserve/next_level_door.png",
+        "expected":  "59a487106206e9bbc893e750b1c3632dd4fd92afc77adf624769e3139a6530f4",
+        "actual":  "59A487106206E9BBC893E750B1C3632DD4FD92AFC77ADF624769E3139A6530F4",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/Corel Auto-Preserve/red_door_switch_off_1.png",
+        "expected":  "62937018e348986d5ac89f650ecb903c363da936cbf41a95d18f0194739f75ad",
+        "actual":  "62937018E348986D5AC89F650ECB903C363DA936CBF41A95D18F0194739F75AD",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/Corel Auto-Preserve/red_door_switch_off_2.png",
+        "expected":  "111ce8575d316f7dd4aee690dcfb98e02e90c1d4e1d9ca66406a36c30947d6d1",
+        "actual":  "111CE8575D316F7DD4AEE690DCFB98E02E90C1D4E1D9CA66406A36C30947D6D1",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/Corel Auto-Preserve/red_door_switch_on_1.png",
+        "expected":  "7f92496e5a20f73b751fcec8da89780f5ffbe71b4d950d7d36a6a1fc6431adff",
+        "actual":  "7F92496E5A20F73B751FCEC8DA89780F5FFBE71B4D950D7D36A6A1FC6431ADFF",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/Corel Auto-Preserve/red_door_switch_on_2.png",
+        "expected":  "1925a7843b6b9a71eb0578061c6bb50891919799433c7fe0155ad3f479a20fbe",
+        "actual":  "1925A7843B6B9A71EB0578061C6BB50891919799433C7FE0155AD3F479A20FBE",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/Corel Auto-Preserve/switch_off_01.png",
+        "expected":  "b9ecbbb28cb8e7b68146d771e1a782155cee7da71e1ad349ac94fab4a145e8b7",
+        "actual":  "B9ECBBB28CB8E7B68146D771E1A782155CEE7DA71E1AD349AC94FAB4A145E8B7",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/Corel Auto-Preserve/switch_off_02.png",
+        "expected":  "c9938597ce000f760f00dab5bdc79bf30782d5ea31e2480f28649ad045d44577",
+        "actual":  "C9938597CE000F760F00DAB5BDC79BF30782D5EA31E2480F28649AD045D44577",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/Corel Auto-Preserve/switch_on_01.png",
+        "expected":  "1289d9d66937f87e348f988f465070f62620174a16486bd582fc0258cb76eef4",
+        "actual":  "1289D9D66937F87E348F988F465070F62620174A16486BD582FC0258CB76EEF4",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/Corel Auto-Preserve/switch_on_02.png",
+        "expected":  "a9a55c3bb2db36c24c0facff7fb2444c2a4d321ce9f73b2c9a6dea6b1f5849ee",
+        "actual":  "A9A55C3BB2DB36C24C0FACFF7FB2444C2A4D321CE9F73B2C9A6DEA6B1F5849EE",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/Corel Auto-Preserve/wall_door_red.png",
+        "expected":  "a548caf6d602640f5597507615ef99526ec140da44274e44b3eaa930b1aab7d3",
+        "actual":  "A548CAF6D602640F5597507615EF99526EC140DA44274E44B3EAA930B1AAB7D3",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/next_level_door.png",
+        "expected":  "1b336d099a7ba67b10aca616922fc2d986aa28f9c8a293afdaf04f53d3d45f42",
+        "actual":  "1B336D099A7BA67B10ACA616922FC2D986AA28F9C8A293AFDAF04F53D3D45F42",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/next_level_door_v2.png",
+        "expected":  "884001314238acdf714cc7752bdcc4184f35d83fd7b35a80da28ad9c26b3692b",
+        "actual":  "884001314238ACDF714CC7752BDCC4184F35D83FD7B35A80DA28AD9C26B3692B",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/next_level_door_v3.png",
+        "expected":  "fc72d841d642d61d32b3cb88c80da099a24521de195259c7c37a7146f1c96317",
+        "actual":  "FC72D841D642D61D32B3CB88C80DA099A24521DE195259C7C37A7146F1C96317",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/switch_off_01.png",
+        "expected":  "4b8060f6b220c9b3e87f6c43791352b252f870672c51f35ede71d5fdf453b515",
+        "actual":  "4B8060F6B220C9B3E87F6C43791352B252F870672C51F35EDE71D5FDF453B515",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/switch_off_02.png",
+        "expected":  "0086b948fa4ca690b5510344d1fec745a394e67f7375b07e0ecc6f5adbb6ae41",
+        "actual":  "0086B948FA4CA690B5510344D1FEC745A394E67F7375B07E0ECC6F5ADBB6AE41",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/switch_on_01.png",
+        "expected":  "03422cb129c23a820b0c2c13f8f2b7a367bd7d53c84d5e7695c8cdc8b7cee0e7",
+        "actual":  "03422CB129C23A820B0C2C13F8F2B7A367BD7D53C84D5E7695C8CDC8B7CEE0E7",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/switch_on_02.png",
+        "expected":  "4360549c33ff8e4b302eb8775a546f15de41147d48125c576dcb1ac25a7f1004",
+        "actual":  "4360549C33FF8E4B302EB8775A546F15DE41147D48125C576DCB1AC25A7F1004",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/wall_brick_x.png",
+        "expected":  "15058babdfe5524170f17dfd11f309866565dc60cb8f11258cf7afb0567293ef",
+        "actual":  "15058BABDFE5524170F17DFD11F309866565DC60CB8F11258CF7AFB0567293EF",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/wall_brick_y.png",
+        "expected":  "d643c186a43869048d8dcecb1883f2d1aef097d0ad54d076ae597f900b843788",
+        "actual":  "D643C186A43869048D8DCECB1883F2D1AEF097D0AD54D076AE597F900B843788",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/wall_concrete.png",
+        "expected":  "637e129813b65705cada0b013722c0c96b3bf4f05b04ae38c8c48f8de9673960",
+        "actual":  "637E129813B65705CADA0B013722C0C96B3BF4F05B04AE38C8C48F8DE9673960",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/wall_concrete_blood.png",
+        "expected":  "f3a9ea033c96c3fed06abea12e0668b52481e5d6fbdf11a02c1227fde79c94e9",
+        "actual":  "F3A9EA033C96C3FED06ABEA12E0668B52481E5D6FBDF11A02C1227FDE79C94E9",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/wall_door.png",
+        "expected":  "63f78e18a202df8b3c8b9bbd0e71011cbfe7d81341b0590331da7a5416bb95af",
+        "actual":  "63F78E18A202DF8B3C8B9BBD0E71011CBFE7D81341B0590331DA7A5416BB95AF",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/wall_door_red.png",
+        "expected":  "a548caf6d602640f5597507615ef99526ec140da44274e44b3eaa930b1aab7d3",
+        "actual":  "A548CAF6D602640F5597507615EF99526EC140DA44274E44B3EAA930B1AAB7D3",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/wall_metal_x.png",
+        "expected":  "9d664942ce26e916bb7813b5a2a48afa8c9082cb5b5df403125f7a47061b3cc1",
+        "actual":  "9D664942CE26E916BB7813B5A2A48AFA8C9082CB5B5DF403125F7A47061B3CC1",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/wall_metal_y.png",
+        "expected":  "73362bd031a4c3cea916349396a5d1374f2388bc021b0a194811109569de78cf",
+        "actual":  "73362BD031A4C3CEA916349396A5D1374F2388BC021B0A194811109569DE78CF",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/wall_tech_x.png",
+        "expected":  "75ff47b1f45db306ee7176f5cf52c46edfc01c2cdaf94e0565323c0054a4fa28",
+        "actual":  "75FF47B1F45DB306EE7176F5CF52C46EDFC01C2CDAF94E0565323C0054A4FA28",
+        "match":  true
+    },
+    {
+        "path":  "assets/textures/walls/wall_tech_y.png",
+        "expected":  "f976407c4d18dfe8f4bde40309fe3ebf2a3065cd2233e305fe7758c24170dfbe",
+        "actual":  "F976407C4D18DFE8F4BDE40309FE3EBF2A3065CD2233E305FE7758C24170DFBE",
+        "match":  true
+    },
+    {
+        "path":  "assets/ui/health_hud.png",
+        "expected":  "d61d2e9d53dd1b1ff7f8cc287f431fa1c0fc941ec1e6affed7e3e6f203b87c01",
+        "actual":  "D61D2E9D53DD1B1FF7F8CC287F431FA1C0FC941EC1E6AFFED7E3E6F203B87C01",
+        "match":  true
+    },
+    {
+        "path":  "assets/ui/health_hud_1.png",
+        "expected":  "d8a45931ef6d838a5f8939d9661028d6d30c52f412fef7e911f69882c52eacb9",
+        "actual":  "D8A45931EF6D838A5F8939D9661028D6D30C52F412FEF7E911F69882C52EACB9",
+        "match":  true
+    },
+    {
+        "path":  "assets/ui/health_hud_reference.png",
+        "expected":  "7bc5e33ce6a69976e52dcf6c9d2bea483b18f80e62e29a987a147fa352375415",
+        "actual":  "7BC5E33CE6A69976E52DCF6C9D2BEA483B18F80E62E29A987A147FA352375415",
+        "match":  true
+    },
+    {
+        "path":  "build-profile.bat",
+        "expected":  "b4095a0ab98e09b039012a1324e50db95abca3b6d61a3b67a5d40b8efa05080d",
+        "actual":  "B4095A0AB98E09B039012A1324E50DB95ABCA3B6D61A3B67A5D40B8EFA05080D",
+        "match":  true
+    },
+    {
+        "path":  "build.bat",
+        "expected":  "5d90ec9da71d966f449845ed8c042a6ac5fb339b3dad28282a94d45a3fa936c2",
+        "actual":  "5D90EC9DA71D966F449845ED8C042A6AC5FB339B3DAD28282A94D45A3FA936C2",
+        "match":  true
+    },
+    {
+        "path":  "CHANGELOG.md",
+        "expected":  "7cd51e6292fb79664a58f4785685a89f0773c4c84a58949a1ba80173d93b1b07",
+        "actual":  "7CD51E6292FB79664A58F4785685A89F0773C4C84A58949A1BA80173D93B1B07",
+        "match":  true
+    },
+    {
+        "path":  "CMakeLists.txt",
+        "expected":  "0340a8b7f7707546a8c420984345a78ec26927427ca37d7d21c44af3defb0549",
+        "actual":  "0340A8B7F7707546A8C420984345A78EC26927427CA37D7D21C44AF3DEFB0549",
+        "match":  true
+    },
+    {
+        "path":  "CONTRIBUTING.md",
+        "expected":  "4b5447e352c916d0e9ddfad0ae91117bb3e62ceb6de31eb8242fbd535ee75835",
+        "actual":  "4B5447E352C916D0E9DDFAD0AE91117BB3E62CEB6DE31EB8242FBD535EE75835",
+        "match":  true
+    },
+    {
+        "path":  "docs/ASSET_PROVENANCE.md",
+        "expected":  "c869b3c6a663246a790583f2011ff7a7d878c22aec3021f00f351b8d6129c295",
+        "actual":  "C869B3C6A663246A790583F2011FF7A7D878C22AEC3021F00F351B8D6129C295",
+        "match":  true
+    },
+    {
+        "path":  "docs/BUILDING.md",
+        "expected":  "3d371caa2a3c0047aacdbc56d0c7a2201a0a1f00309fc71e88f02e448e7b560b",
+        "actual":  "3D371CAA2A3C0047AACDBC56D0C7A2201A0A1F00309FC71E88F02E448E7B560B",
+        "match":  true
+    },
+    {
+        "path":  "docs/CURRENT_BEHAVIOR.md",
+        "expected":  "bc9160e9079d87cfddf50b1a458448c3b9abdcfc790df62a397cfd822b3c8dbb",
+        "actual":  "BC9160E9079D87CFDDF50B1A458448C3B9ABDCFC790DF62A397CFD822B3C8DBB",
+        "match":  true
+    },
+    {
+        "path":  "docs/ENGINE_ARCHITECTURE.md",
+        "expected":  "12a8156163d1fe4e3e74b5a9c03b90442fb1eb7562cec7fee176646dc2a8726e",
+        "actual":  "12A8156163D1FE4E3E74B5A9C03B90442FB1EB7562CEC7FEE176646DC2A8726E",
+        "match":  true
+    },
+    {
+        "path":  "docs/ENGINE_FOUNDATION_V1.0.0.md",
+        "expected":  "37f479d23208f26507b31feed7f7f7b81f9126ef88491158f5538ebb1d2547e9",
+        "actual":  "37F479D23208F26507B31FEED7F7F7B81F9126EF88491158F5538EBB1D2547E9",
+        "match":  true
+    },
+    {
+        "path":  "docs/full_z80_simplification_audit.md",
+        "expected":  "adb22152993a74af0a827c1f9ba3a8cd3004fbac8f937dfe16e6a38424ab60f3",
+        "actual":  "ADB22152993A74AF0A827C1F9BA3A8CD3004FBAC8F937DFE16E6A38424AB60F3",
+        "match":  true
+    },
+    {
+        "path":  "docs/held_shotgun_20x16.md",
+        "expected":  "37072f13ca78572fa7e1ea1ebac4ea83a65f750cda54c9fa4c49768f7692673d",
+        "actual":  "37072F13CA78572FA7E1EA1EBAC4EA83A65F750CDA54C9FA4C49768F7692673D",
+        "match":  true
+    },
+    {
+        "path":  "docs/pause_freeze_audit.md",
+        "expected":  "15c197d0a2a9b238572eac155362f5e86dae2a1273adc37d928658be748bd5d8",
+        "actual":  "15C197D0A2A9B238572EAC155362F5E86DAE2A1273ADC37D928658BE748BD5D8",
+        "match":  true
+    },
+    {
+        "path":  "docs/pause_map.md",
+        "expected":  "2b43183e7e5e5911f4ccc4d4dcc08d3bb4546bb5371c6171af8d119efa5d607b",
+        "actual":  "2B43183E7E5E5911F4CCC4D4DCC08D3BB4546BB5371C6171AF8D119EFA5D607B",
+        "match":  true
+    },
+    {
+        "path":  "docs/pause_padding_pattern_checkpoint.md",
+        "expected":  "34e70ae6ef5cde40b359c58f39640b8f5517a0fc218f0ad5f4012785820c5518",
+        "actual":  "34E70AE6EF5CDE40B359C58F39640B8F5517A0FC218F0AD5F4012785820C5518",
+        "match":  true
+    },
+    {
+        "path":  "docs/pause_pistol_icon.md",
+        "expected":  "97b8f18a6b5b4a8210096af6c92876c092bd441c3f07d459d2e3b2688fa51765",
+        "actual":  "97B8F18A6B5B4A8210096AF6C92876C092BD441C3F07D459D2E3B2688FA51765",
+        "match":  true
+    },
+    {
+        "path":  "docs/pause_weapon_focus_borders.md",
+        "expected":  "64beb216253973b9d3b1ff3cf9c83cf699cca7fe7f0a622fb5d48cb718623513",
+        "actual":  "64BEB216253973B9D3B1FF3CF9C83CF699CCA7FE7F0A622FB5D48CB718623513",
+        "match":  true
+    },
+    {
+        "path":  "docs/pause_weapon_padding_active_focus.md",
+        "expected":  "c66769b94eae584e818616ed63baad5e33d4bb3c16306658abdc204d4056aad7",
+        "actual":  "C66769B94EAE584E818616ED63BAAD5E33D4BB3C16306658ABDC204D4056AAD7",
+        "match":  true
+    },
+    {
+        "path":  "docs/POST_AUDIT_HARDENING.md",
+        "expected":  "dd4107286301d246fc1d8c9b8125d2a9dafc7be9d9a6f707d48231fc1b0950b3",
+        "actual":  "DD4107286301D246FC1D8C9B8125D2A9DAFC7BE9D9A6F707D48231FC1B0950B3",
+        "match":  true
+    },
+    {
+        "path":  "docs/PROJECT_BIBLE.md",
+        "expected":  "f02c9e9aef80cf18859be8a8bfb2dfb0c54b1338b97b155007c9b621a28a19c5",
+        "actual":  "F02C9E9AEF80CF18859BE8A8BFB2DFB0C54B1338B97B155007C9B621A28A19C5",
+        "match":  true
+    },
+    {
+        "path":  "docs/rom_bank_architecture_checkpoint.md",
+        "expected":  "4c1db29b30134d5acc55286b0cb0a44be6db9a49f7447bbb6c32e590039004da",
+        "actual":  "4C1DB29B30134D5ACC55286B0CB0A44BE6DB9A49F7447BBB6C32E590039004DA",
+        "match":  true
+    },
+    {
+        "path":  "docs/ROM_BANKING.md",
+        "expected":  "b95c7ed280bab25a77b8a43605674d4430b3a20764bb22634bdaf53d87e38f88",
+        "actual":  "B95C7ED280BAB25A77B8A43605674D4430B3A20764BB22634BDAF53D87E38F88",
+        "match":  true
+    },
+    {
+        "path":  "docs/shotgun_aim_samples.md",
+        "expected":  "7c12efccbc2932415fa6d5ae3c616d1bd9ce08ee3572975369390249981ebb9a",
+        "actual":  "7C12EFCCBC2932415FA6D5AE3C616D1BD9CE08EE3572975369390249981EBB9A",
+        "match":  true
+    },
+    {
+        "path":  "docs/shotgun_combat_bank_checkpoint.md",
+        "expected":  "8795e39d3d8cb8f3fda2068d0cb0db2661e7dcb0a52a4ed8a310b4c12d6bbb15",
+        "actual":  "8795E39D3D8CB8F3FDA2068D0CB0DB2661E7DCB0A52A4ED8A310B4C12D6BBB15",
+        "match":  true
+    },
+    {
+        "path":  "docs/shotgun_combat_final.md",
+        "expected":  "210deb89d045d0493c2defcab998ea1a63e28ab6769fbe7e978e9d84047558a5",
+        "actual":  "210DEB89D045D0493C2DEFCAB998EA1A63E28AB6769FBE7E978E9D84047558A5",
+        "match":  true
+    },
+    {
+        "path":  "docs/shotgun_pickup_cap_auto_equip.md",
+        "expected":  "cc91b463b41d68e1650079cbfbbb61977c6fd70b0ae4031621f61a6a68359f11",
+        "actual":  "CC91B463B41D68E1650079CBFBBB61977C6FD70B0AE4031621F61A6A68359F11",
+        "match":  true
+    },
+    {
+        "path":  "docs/shotgun_pickup_perspective.md",
+        "expected":  "972b430280e61d7320e1a2a253007999f17b1c72ea2f2c338d6f055503fda923",
+        "actual":  "972B430280E61D7320E1A2A253007999F17B1C72EA2F2C338D6F055503FDA923",
+        "match":  true
+    },
+    {
+        "path":  "docs/shotgun_pickup_perspective_correction.md",
+        "expected":  "0a319f3643c1265f12855a80b726dbf483bd52744ce471c0b2cdb0860ae7d02b",
+        "actual":  "0A319F3643C1265F12855A80B726DBF483BD52744CE471C0B2CDB0860AE7D02B",
+        "match":  true
+    },
+    {
+        "path":  "docs/shotgun_pickup_scale.md",
+        "expected":  "d4cf2dbad7fd567fcf901790b75cde8e91de9d3d22819050a079ae051a63531a",
+        "actual":  "D4CF2DBAD7FD567FCF901790B75CDE8E91DE9D3D22819050A079AE051A63531A",
+        "match":  true
+    },
+    {
+        "path":  "docs/shotgun_pickup_touch_far.md",
+        "expected":  "8cb7a2dcec85e1e15ad04a66d38df10715eb6c5b30b5ecfae6a2f3e5ba660ad9",
+        "actual":  "8CB7A2DCEC85E1E15AD04A66D38DF10715EB6C5B30B5ECFAE6A2F3E5BA660AD9",
+        "match":  true
+    },
+    {
+        "path":  "docs/SPRINT_11_TASK_107_RENDERER_PROFILE.md",
+        "expected":  "697c01091a05b911dea9b680233adb646f4baf5f0c8f26b4370f2f28bc690f5d",
+        "actual":  "697C01091A05B911DEA9B680233ADB646F4BAF5F0C8F26B4370F2F28BC690F5D",
+        "match":  true
+    },
+    {
+        "path":  "docs/SPRINT_11_TASK_108_OPTIMIZATION_PASS_1.md",
+        "expected":  "d2e3247a8fa0335a98454871363840562a62b2105f95f4e03c748f9e20c2bc84",
+        "actual":  "D2E3247A8FA0335A98454871363840562A62B2105F95F4E03C748F9E20C2BC84",
+        "match":  true
+    },
+    {
+        "path":  "docs/SPRINT_17_DISTANT_WALL_LOD.md",
+        "expected":  "4acb01a862c6c9eb4a43d950fb63aff3310e5293cb1507a2b8fc68ba00bf5f23",
+        "actual":  "4ACB01A862C6C9EB4A43D950FB63AFF3310E5293CB1507A2B8FC68BA00BF5F23",
+        "match":  true
+    },
+    {
+        "path":  "docs/SPRINT_21_ENGINE_PERFORMANCE_AUDIT.md",
+        "expected":  "f6cecad226e1d272a11f25ffc3cfa6b7624aa5cb16e62a3d6279cadb8eaf963c",
+        "actual":  "F6CECAD226E1D272A11F25FFC3CFA6B7624AA5CB16E62A3D6279CADB8EAF963C",
+        "match":  true
+    },
+    {
+        "path":  "docs/SPRINT_22_FINAL_DISTANT_WALL_LOD.md",
+        "expected":  "bee0f65f189af41bf8f197e29aad01e6f26bd8a937d45dcda212edd7525ac66c",
+        "actual":  "BEE0F65F189AF41BF8F197E29AAD01E6F26BD8A937D45DCDA212EDD7525AC66C",
+        "match":  true
+    },
+    {
+        "path":  "docs/SPRINT_23_SENIOR_CODE_CLEANUP_AUDIT.md",
+        "expected":  "e029ef75a07c6509926745fac78822af1783255608d7a5b66f11611d3969a1ab",
+        "actual":  "E029EF75A07C6509926745FAC78822AF1783255608D7A5B66F11611D3969A1AB",
+        "match":  true
+    },
+    {
+        "path":  "docs/SPRINT_24_PLAYER_MOVEMENT_AND_CONTROL_FEEL.md",
+        "expected":  "aab1092d0f4ba954b66a611f3ad084a5b80ae5fb87dd32aa23f6a8bcc3f8585d",
+        "actual":  "AAB1092D0F4BA954B66A611F3AD084A5B80AE5FB87DD32AA23F6A8BCC3F8585D",
+        "match":  true
+    },
+    {
+        "path":  "docs/SPRINT_25_EXPERIMENTAL_8X8_WALL_TEXTURE.md",
+        "expected":  "50b5fcb47f0f9ef394fc02a2252931326bca1f334dee226ffa5bd5db1bba41f0",
+        "actual":  "50B5FCB47F0F9EF394FC02A2252931326BCA1F334DEE226FFA5BD5DB1BBA41F0",
+        "match":  true
+    },
+    {
+        "path":  "docs/SPRINT_26_EXPERIMENTAL_FAR_WALL_DITHER.md",
+        "expected":  "065b1fedbae875261d7e1bdd5cca2de43be13d3b6df2b1d5c4e78c7f27de7c3c",
+        "actual":  "065B1FEDBAE875261D7E1BDD5CCA2DE43BE13D3B6DF2B1D5C4E78C7F27DE7C3C",
+        "match":  true
+    },
+    {
+        "path":  "docs/SPRINT_27_EXPERIMENTAL_BLACK_FOG_LOD.md",
+        "expected":  "9271e61d72134f012b858fc3cb09f4b2af5df155acd8e70bc135389c3f9f8ea2",
+        "actual":  "9271E61D72134F012B858FC3CB09F4B2AF5DF155ACD8E70BC135389C3F9F8EA2",
+        "match":  true
+    },
+    {
+        "path":  "docs/SPRINT_28_EXPERIMENTAL_DISTANCE_ATTENUATION.md",
+        "expected":  "876d7563ce2a6135d1a14380534320d1b64c8507ae5f5a1bc2bb8c05ad3d19a9",
+        "actual":  "876D7563CE2A6135D1A14380534320D1B64C8507AE5F5A1BC2BB8C05AD3D19A9",
+        "match":  true
+    },
+    {
+        "path":  "docs/SPRINT_29_HYBRID_DISTANCE_FOG.md",
+        "expected":  "7fafdd918bc54fc5f2bb5340e5ee8c423aaa8bac023725bea06c1d937f05562a",
+        "actual":  "7FAFDD918BC54FC5F2BB5340E5EE8C423AAA8BAC023725BEA06C1D937F05562A",
+        "match":  true
+    },
+    {
+        "path":  "docs/SPRINT_30_POST_8X8_RENDERER_PERFORMANCE_AUDIT.md",
+        "expected":  "1047bdf5dd92a07b6d5270d45d9d714623d9ee1c0b749884ddaebf4bf6996e05",
+        "actual":  "1047BDF5DD92A07B6D5270D45D9D714623D9EE1C0B749884DDAEBF4BF6996E05",
+        "match":  true
+    },
+    {
+        "path":  "docs/SPRINT_31_FINAL_GAME_GEAR_CONTROLS.md",
+        "expected":  "cbd112acbdb63d00dd3ca7c4d1147dd6c09280569839c7494507808f773ad781",
+        "actual":  "CBD112ACBDB63D00DD3CA7C4D1147DD6C09280569839C7494507808F773AD781",
+        "match":  true
+    },
+    {
+        "path":  "docs/SPRINT_31_SENIOR_ENGINE_ARCHITECTURE_AUDIT.md",
+        "expected":  "5b62833b4bc057cbc2fa7698033e3061cd7e7896d1c7dc5761cdcc0e92994158",
+        "actual":  "5B62833B4BC057CBC2FA7698033E3061CD7E7896D1C7DC5761CDCC0E92994158",
+        "match":  true
+    },
+    {
+        "path":  "docs/two_weapon_bank_pressure.md",
+        "expected":  "b1e7741869fae1588d5778d42016db4bb282fc3056c81fad90c529f7d20a7473",
+        "actual":  "B1E7741869FAE1588D5778D42016DB4BB282FC3056C81FAD90C529F7D20A7473",
+        "match":  true
+    },
+    {
+        "path":  "docs/two_weapon_milestone.md",
+        "expected":  "38489cae4360c0be218486ec3c998fac3fe88d932efb70e866ca05d5ce5534dd",
+        "actual":  "38489CAE4360C0BE218486EC3C998FAC3FE88D932EFB70E866CA05D5CE5534DD",
+        "match":  true
+    },
+    {
+        "path":  "docs/two_weapon_pre_edit.md",
+        "expected":  "03e0f9093ad3155635bb56cb5ac9ef608a4c6e1f55f145068d6345e8a9a384b0",
+        "actual":  "03E0F9093AD3155635BB56CB5AC9EF608A4C6E1F55F145068D6345E8A9A384B0",
+        "match":  true
+    },
+    {
+        "path":  "docs/validator_hygiene.md",
+        "expected":  "05d69b87f0bf5829c0d3b1efd1e2c8cd1bd4c752ac2916f6613afad0c047b4ac",
+        "actual":  "05D69B87F0BF5829C0D3B1EFD1E2C8CD1BD4C752AC2916F6613AFAD0C047B4AC",
+        "match":  true
+    },
+    {
+        "path":  "docs/world_shotgun_pickup_asset.md",
+        "expected":  "17385594454dc723a92679372c0781a2ee2ee7f0697d9f89c8e89b5a594f451f",
+        "actual":  "17385594454DC723A92679372C0781A2EE2EE7F0697D9F89C8E89B5A594F451F",
+        "match":  true
+    },
+    {
+        "path":  "docs/ZOMBIE_PRESENTATION_PIPELINE.md",
+        "expected":  "646881b872a01b0e3212ea987df4885660cf8013ce1bbe0f6d5a3658d6329449",
+        "actual":  "646881B872A01B0E3212EA987DF4885660CF8013CE1BBE0F6D5A3658D6329449",
+        "match":  true
+    },
+    {
+        "path":  "docs/ZOMBIE_SYSTEM_ARCHITECTURE_AUDIT.md",
+        "expected":  "60a60e03f596628ccb9819dd438d2e6828f5e19d8dba219c9a640d2137bf29b9",
+        "actual":  "60A60E03F596628CCB9819DD438D2E6828F5E19D8DBA219C9A640D2137BF29B9",
+        "match":  true
+    },
+    {
+        "path":  "engine/render/raycaster.c",
+        "expected":  "c40c750cd98ac3cbc5124fbc93587c6174c8de08e469aa78d3639ff4c8726be7",
+        "actual":  "C40C750CD98AC3CBC5124FBC93587C6174C8DE08E469AA78D3639FF4C8726BE7",
+        "match":  true
+    },
+    {
+        "path":  "engine/render/raycaster.h",
+        "expected":  "0ba2360134087045bd1f5655737e3db2c7cdd052cd1f2024fb1c9b4673394a8b",
+        "actual":  "0BA2360134087045BD1F5655737E3DB2C7CDD052CD1F2024FB1C9B4673394A8B",
+        "match":  true
+    },
+    {
+        "path":  "engine/render/wall_side.h",
+        "expected":  "6723372eb367c66ad3d029da87db3886e11040f3efe193c643befefd0db82acb",
+        "actual":  "6723372EB367C66AD3D029DA87DB3886E11040F3EFE193C643BEFEFD0DB82ACB",
+        "match":  true
+    },
+    {
+        "path":  "game/camera.c",
+        "expected":  "f0e04aee50a495789d989b70f2b4d3254382be6abac5a80b56d304185d09b3f5",
+        "actual":  "F0E04AEE50A495789D989B70F2B4D3254382BE6ABAC5A80B56D304185D09B3F5",
+        "match":  true
+    },
+    {
+        "path":  "game/camera.h",
+        "expected":  "17e93e6f6d63d508ce3b0968462ac0a69e9bd1d6481e3a347c4d8e41ff662a7d",
+        "actual":  "17E93E6F6D63D508CE3B0968462AC0A69E9BD1D6481E3A347C4D8E41FF662A7D",
+        "match":  true
+    },
+    {
+        "path":  "game/door_instances.c",
+        "expected":  "9ba9968cc04451c5e34f4782b9a83a6fc1b87a1f7a1f0e410387594db9ed2efe",
+        "actual":  "9BA9968CC04451C5E34F4782B9A83A6FC1B87A1F7A1F0E410387594DB9ED2EFE",
+        "match":  true
+    },
+    {
+        "path":  "game/door_instances.h",
+        "expected":  "79ee03edbd33f2c2d1ec9c2a4c711816823695b38107684b86d238849d848c2d",
+        "actual":  "79EE03EDBD33F2C2D1EC9C2A4C711816823695B38107684B86D238849D848C2D",
+        "match":  true
+    },
+    {
+        "path":  "game/door_states.c",
+        "expected":  "e8f58da17c48f62ce226f4bfd0f3a019f06c28158bf90a009336424a16504a84",
+        "actual":  "E8F58DA17C48F62CE226F4BFD0F3A019F06C28158BF90A009336424A16504A84",
+        "match":  true
+    },
+    {
+        "path":  "game/door_states.h",
+        "expected":  "c08896c762b201c5448bfa6994fa528aa4301bddc29b918e0071eae602e98ddd",
+        "actual":  "C08896C762B201C5448BFA6994FA528AA4301BDDC29B918E0071EAE602E98DDD",
+        "match":  true
+    },
+    {
+        "path":  "game/enemy_collision.c",
+        "expected":  "4c6bf7f31d09a13a7d618467ffec897b2cd8c20a5dbed433561724e10696f36f",
+        "actual":  "4C6BF7F31D09A13A7D618467FFEC897B2CD8C20A5DBED433561724E10696F36F",
+        "match":  true
+    },
+    {
+        "path":  "game/enemy_collision.h",
+        "expected":  "bce0b73bf1fed1487cfbaa8da718485cee42245fd0a0da9e23013c517cc3cad6",
+        "actual":  "BCE0B73BF1FED1487CFBAA8DA718485CEE42245FD0A0DA9E23013C517CC3CAD6",
+        "match":  true
+    },
+    {
+        "path":  "game/interaction_ray.c",
+        "expected":  "54a8592158fe69abd34e68a61d497686a7f97746404729f4212f84ae47bcd16e",
+        "actual":  "54A8592158FE69ABD34E68A61D497686A7F97746404729F4212F84AE47BCD16E",
+        "match":  true
+    },
+    {
+        "path":  "game/interaction_ray.h",
+        "expected":  "20a44aa37d2a0806c25ede0e144917c18432f08d2ad8f28f02f7afa7a2b48e2f",
+        "actual":  "20A44AA37D2A0806C25EDE0E144917C18432F08D2AD8F28F02F7AFA7A2B48E2F",
+        "match":  true
+    },
+    {
+        "path":  "game/interaction_target.h",
+        "expected":  "994f92ae34de26b922e61a7697147156b3e81a97f40dee67d94a7e2453a50a6e",
+        "actual":  "994F92AE34DE26B922E61A7697147156B3E81A97F40DEE67D94A7E2453A50A6E",
+        "match":  true
+    },
+    {
+        "path":  "game/main.c",
+        "expected":  "3b94bc8c5450d51f907417133d7d611895ac5f28b2780c86ed36d083c28755a8",
+        "actual":  "3B94BC8C5450D51F907417133D7D611895AC5F28B2780C86ED36D083C28755A8",
+        "match":  true
+    },
+    {
+        "path":  "game/player.c",
+        "expected":  "7ec2e3bf18579cf92d520ec681df598953b6da53558afd6324e6e76cabb38070",
+        "actual":  "7EC2E3BF18579CF92D520EC681DF598953B6DA53558AFD6324E6E76CABB38070",
+        "match":  true
+    },
+    {
+        "path":  "game/player.h",
+        "expected":  "9d1e233ab6ba4755ffdb951c5406362d67c1b7a8c775a07e3178dccaaba4ac7c",
+        "actual":  "9D1E233AB6BA4755FFDB951C5406362D67C1B7A8C775A07E3178DCCAABA4AC7C",
+        "match":  true
+    },
+    {
+        "path":  "game/red_door_switch.c",
+        "expected":  "0413c0876c8ecfa8c1a73a5e331c492170158f0211ad85c1971e2fbea7d512b5",
+        "actual":  "0413C0876C8ECFA8C1A73A5E331C492170158F0211AD85C1971E2FBEA7D512B5",
+        "match":  true
+    },
+    {
+        "path":  "game/red_door_switch.h",
+        "expected":  "cfba333473e31effd3c569d2efa27791ae40a7d49b9a130e3b63cb85a4b003a7",
+        "actual":  "CFBA333473E31EFFD3C569D2EFA27791AE40A7D49B9A130E3B63CB85A4B003A7",
+        "match":  true
+    },
+    {
+        "path":  "game/weapons.h",
+        "expected":  "0e98f658e0921bc2b07bdab833015e3ecae7d978c8e446830acf5203c209a351",
+        "actual":  "0E98F658E0921BC2B07BDAB833015E3ECAE7D978C8E446830ACF5203C209A351",
+        "match":  true
+    },
+    {
+        "path":  "game/workshop_map.c",
+        "expected":  "e27b184b126788d093792dbc59878977a8e81a69c6954886eef8075c63f5fd31",
+        "actual":  "E27B184B126788D093792DBC59878977A8E81A69C6954886EEF8075C63F5FD31",
+        "match":  true
+    },
+    {
+        "path":  "game/workshop_map.h",
+        "expected":  "61574fc008e68d9d7d30e1917b11507f9671e988df33bf4596502fcee8ee4cd0",
+        "actual":  "61574FC008E68D9D7D30E1917B11507F9671E988DF33BF4596502FCEE8EE4CD0",
+        "match":  true
+    },
+    {
+        "path":  "game/world.c",
+        "expected":  "376efef39b95583eeb87c57cf659ee31a4e9c41b38f9d58ffa1f6f0a27eb712a",
+        "actual":  "376EFEF39B95583EEB87C57CF659EE31A4E9C41B38F9D58FFA1F6F0A27EB712A",
+        "match":  true
+    },
+    {
+        "path":  "game/world.h",
+        "expected":  "2b2dc0e87a866d1ac31e23954e2b757480791b2c8ead94c73a7c648225a7a2a8",
+        "actual":  "2B2DC0E87A866D1AC31E23954E2B757480791B2C8EAD94C73A7C648225A7A2A8",
+        "match":  true
+    },
+    {
+        "path":  "game/world_initialization.c",
+        "expected":  "2a596ade7540fe602f2055dbcc9155da375bca9e8f6aa475b486ed46fe8408e9",
+        "actual":  "2A596ADE7540FE602F2055DBCC9155DA375BCA9E8F6AA475B486ED46FE8408E9",
+        "match":  true
+    },
+    {
+        "path":  "game/world_interactions.c",
+        "expected":  "bd328520f9a663849efe8cbdf805fce6d7c660a9f89acc5d71fa2120556f3ff9",
+        "actual":  "BD328520F9A663849EFE8CBDF805FCE6D7C660A9F89ACC5D71FA2120556F3FF9",
+        "match":  true
+    },
+    {
+        "path":  "game/world_interactions.h",
+        "expected":  "52ad5d9920cfbefe93073af19ddefb81e6cb4dbc3da4c180eece22aebe51b6c5",
+        "actual":  "52AD5D9920CFBEFE93073AF19DDEFB81E6CB4DBC3DA4C180EECE22AEBE51B6C5",
+        "match":  true
+    },
+    {
+        "path":  "game/world_object.h",
+        "expected":  "c38aa759e5c5a6b746377a3c05451874578ff67fb11280019c877d1e02bfba3f",
+        "actual":  "C38AA759E5C5A6B746377A3C05451874578FF67FB11280019C877D1E02BFBA3F",
+        "match":  true
+    },
+    {
+        "path":  "game/world_objects.c",
+        "expected":  "eb2679c83fbc158867b9173135134ca3dba9d0ffa994749071c4d97441f4ec32",
+        "actual":  "EB2679C83FBC158867B9173135134CA3DBA9D0FFA994749071C4D97441F4EC32",
+        "match":  true
+    },
+    {
+        "path":  "game/world_objects.h",
+        "expected":  "6a34afd3e0902337459b29599b72ea42dda38f8df0fc22dff1edf77e41721f61",
+        "actual":  "6A34AFD3E0902337459B29599B72EA42DDA38F8DF0FC22DFF1EDF77E41721F61",
+        "match":  true
+    },
+    {
+        "path":  "game/world_sprite.c",
+        "expected":  "5654aa276150f5fc9f7522cb733c454718ae5041c430c2405c6b07b6a090ad7d",
+        "actual":  "5654AA276150F5FC9F7522CB733C454718AE5041C430C2405C6B07B6A090AD7D",
+        "match":  true
+    },
+    {
+        "path":  "game/world_sprite.h",
+        "expected":  "4bd075f5d890230a22e7bc0b0fb7d2c61707d0a267a20e1d3aaf8c954243695e",
+        "actual":  "4BD075F5D890230A22E7BC0B0FB7D2C61707D0A267A20E1D3AAF8C954243695E",
+        "match":  true
+    },
+    {
+        "path":  "game/zombie_ai.c",
+        "expected":  "eabce21221a019c6667c51439e403499b2c59f8ff06885ddae2e44981eb9faf7",
+        "actual":  "EABCE21221A019C6667C51439E403499B2C59F8FF06885DDAE2E44981EB9FAF7",
+        "match":  true
+    },
+    {
+        "path":  "game/zombie_ai.h",
+        "expected":  "43a7eaf979497ff234d0de9983ef15a168d669d118d1f0091b3ea000b7a71be2",
+        "actual":  "43A7EAF979497FF234D0DE9983EF15A168D669D118D1F0091B3EA000B7A71BE2",
+        "match":  true
+    },
+    {
+        "path":  "game/zombie_corpses.c",
+        "expected":  "40252032f521d534c80141bd338f5d08cce0c860755110d04b091a309dfdb380",
+        "actual":  "40252032F521D534C80141BD338F5D08CCE0C860755110D04B091A309DFDB380",
+        "match":  true
+    },
+    {
+        "path":  "game/zombie_corpses.h",
+        "expected":  "687831e2f51d28d08a3c9c4bb53f3e208dc248ac95879b2971780cb0e8e5c1fe",
+        "actual":  "687831E2F51D28D08A3C9C4BB53F3E208DC248AC95879B2971780CB0E8E5C1FE",
+        "match":  true
+    },
+    {
+        "path":  "game/zombie_shooting.c",
+        "expected":  "b2610e1cdfbba670e48f0abf19d8994f5b8025af22bf1705068a3afc32574bd8",
+        "actual":  "B2610E1CDFBBA670E48F0ABF19D8994F5B8025AF22BF1705068A3AFC32574BD8",
+        "match":  true
+    },
+    {
+        "path":  "game/zombie_shooting.h",
+        "expected":  "78c5b00f5a0ec584629ffefcb9c083cca049d73032eddff40011daccca950d0f",
+        "actual":  "78C5B00F5A0EC584629FFEFCB9C083CCA049D73032EDDFF40011DACCCA950D0F",
+        "match":  true
+    },
+    {
+        "path":  "GearRay_Developer_Bible.md",
+        "expected":  "95d956ec08cfdcf25ea04b5638e2a1075d95f6df67624dd9e8c9528c0067c4d6",
+        "actual":  "95D956EC08CFDCF25EA04B5638E2A1075D95F6DF67624DD9E8C9528C0067C4D6",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/game_over_presentation.c",
+        "expected":  "9717f02049173796b89cddfef86d500b47dc54d0dea60d852f7cbbcfb838d705",
+        "actual":  "9717F02049173796B89CDDFEF86D500B47DC54D0DEA60D852F7CBBCFB838D705",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/hud_weapon.c",
+        "expected":  "158276ed49d7186e04c7a1446788738447e499bc2af2b540cdbbf3ae0a828a0b",
+        "actual":  "158276ED49D7186E04C7A1446788738447E499BC2AF2B540CDBBF3AE0A828A0B",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/hud_weapon.h",
+        "expected":  "060e4dc28505a28397116e8e4ae67a6b51e6680ed0bbfb47284f80bf1b37146c",
+        "actual":  "060E4DC28505A28397116E8E4AE67A6B51E6680ED0BBFB47284F80BF1B37146C",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/input.c",
+        "expected":  "bf7434f7bdf2280a64d585381e78ae2ab151665955853bef3489d98e15548e45",
+        "actual":  "BF7434F7BDF2280A64D585381E78AE2AB151665955853BEF3489D98E15548E45",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/input.h",
+        "expected":  "8b6f7b237a05ffc05e4443f13e1053e026fd2fde6e213fe2ce57d4872845bc5d",
+        "actual":  "8B6F7B237A05FFC05E4443F13E1053E026FD2FDE6E213FE2CE57D4872845BC5D",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/input_internal.h",
+        "expected":  "cbee181e58967f5c5ae7cd7aac74a40c1873e4fbf48d0503afabcac1c07e47fd",
+        "actual":  "CBEE181E58967F5C5AE7CD7AAC74A40C1873E4FBF48D0503AFABCAC1C07E47FD",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/near_zombie_textures.c",
+        "expected":  "f7f187f318f97e34f119573080091e357ffe571c0d6ee164556c02bb11ccd278",
+        "actual":  "F7F187F318F97E34F119573080091E357FFE571C0D6EE164556C02BB11CCD278",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/near_zombie_textures.h",
+        "expected":  "b868f07a4379638590798d6fca1e0d5fbd7015e02dbb02d363bea39deb6c0ba1",
+        "actual":  "B868F07A4379638590798D6FCA1E0D5FBD7015E02DBB02D363BEA39DEB6C0BA1",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/pause_map.c",
+        "expected":  "e2294cf1fd9cecb252f873012575bac8a78d6be7db4a20b84fa7de6b4721df8c",
+        "actual":  "E2294CF1FD9CECB252F873012575BAC8A78D6BE7DB4A20B84FA7DE6B4721DF8C",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/pause_map.h",
+        "expected":  "e42180fe7852d1b2f30e0dcfff663b8c12eb617be40737ce662465146762d042",
+        "actual":  "E42180FE7852D1B2F30E0DCFFF663B8C12EB617BE40737CE662465146762D042",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/render_textures.c",
+        "expected":  "c04a58e6770e29f79e58a1c5b9f66ff079a8aab8109407f75fff18edac4b93a7",
+        "actual":  "C04A58E6770E29F79E58A1C5B9F66FF079A8AAB8109407F75FFF18EDAC4B93A7",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/render_textures.h",
+        "expected":  "969790777b50bee7d7f67ae286588c9c60c692ae795a23a3cb05686811756bd8",
+        "actual":  "969790777B50BEE7D7F67AE286588C9C60C692AE795A23A3CB05686811756BD8",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/renderer_profile.c",
+        "expected":  "0eda8dc91629e6e369dac235cfc0a20c83da46682abfa4618563cd27985d6a77",
+        "actual":  "0EDA8DC91629E6E369DAC235CFC0A20C83DA46682ABFA4618563CD27985D6A77",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/renderer_profile.h",
+        "expected":  "00fe0f422548b23455729ecaff63cd0e208cfec3bb09d7336d98c3b5e897df8c",
+        "actual":  "00FE0F422548B23455729ECAFF63CD0E208CFEC3BB09D7336D98C3B5E897DF8C",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/sprite_projection.c",
+        "expected":  "cd2fbcd7e79adc5271533b7907864440e5a3357010723bcf8980801dfe66e181",
+        "actual":  "CD2FBCD7E79ADC5271533B7907864440E5A3357010723BCF8980801DFE66E181",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/sprite_projection.h",
+        "expected":  "76eeccc7603bd5bf5ef2a128aa94e1675d697b357944e1edced8fbb7370d279b",
+        "actual":  "76EECCC7603BD5BF5EF2A128AA94E1675D697B357944E1EDCED8FBB7370D279B",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/startup_logo.c",
+        "expected":  "15b86ccc04c253e39a8747fa9a5588f0acc9df89424f1143c9cb32de8791a2bd",
+        "actual":  "15B86CCC04C253E39A8747FA9A5588F0ACC9DF89424F1143C9CB32DE8791A2BD",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/startup_logo.h",
+        "expected":  "fc92b2bd0f029aca1c4115265655fcd41fdc7505d86107d934488f7566e201d8",
+        "actual":  "FC92B2BD0F029ACA1C4115265655FCD41FDC7505D86107D934488F7566E201D8",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/video.c",
+        "expected":  "f593744de96335999f901bf11781e491d7169f997644d2ff0bfcd8b539bf35a0",
+        "actual":  "F593744DE96335999F901BF11781E491D7169F997644D2FF0BFCD8B539BF35A0",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/video.h",
+        "expected":  "20cecd1909b02d1880bee17c7bd88d1c6da45ae2dba4610344854886b1cae11d",
+        "actual":  "20CECD1909B02D1880BEE17C7BD88D1C6DA45AE2DBA4610344854886B1CAE11D",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/video_initialization.c",
+        "expected":  "ebbec98515a46f0f85cc59b310944d823d9f03dfd1a8fda3203e0236b3406aa7",
+        "actual":  "EBBEC98515A46F0F85CC59B310944D823D9F03DFD1A8FDA3203E0236B3406AA7",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/video_internal.h",
+        "expected":  "198d1e394e2830aff8cf84716e23dd9447349146c728e0b3b3027fdf394af2de",
+        "actual":  "198D1E394E2830AFF8CF84716E23DD9447349146C728E0B3B3027FDF394AF2DE",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/vram_layout.h",
+        "expected":  "f16b1d7ac31e1a9163b554d2e4420acdb811b94688355d359f3ad1a2adce1fea",
+        "actual":  "F16B1D7AC31E1A9163B554D2E4420ACDB811B94688355D359F3AD1A2ADCE1FEA",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/wall_textures.c",
+        "expected":  "f98855fbcf1cb58c712d872cba38c99e06bdce4f2ff23a8097502af005107bdd",
+        "actual":  "F98855FBCF1CB58C712D872CBA38C99E06BDCE4F2FF23A8097502AF005107BDD",
+        "match":  true
+    },
+    {
+        "path":  "platform/game_gear/wall_textures.h",
+        "expected":  "3c9fa9af813e18b8651190d2acb7130982f3d7b26361b9ae6a23a2c66bdae6f6",
+        "actual":  "3C9FA9AF813E18B8651190D2ACB7130982F3D7B26361B9AE6A23A2C66BDAE6F6",
+        "match":  true
+    },
+    {
+        "path":  "README.md",
+        "expected":  "be67d46fcb02219964d307990656b2ca02b8d8ee9acf935002f8678a293b8eb6",
+        "actual":  "BE67D46FCB02219964D307990656B2CA02B8D8EE9ACF935002F8678A293B8EB6",
+        "match":  true
+    },
+    {
+        "path":  "SECURITY.md",
+        "expected":  "6fb833d26da7384e5ae2b9eac3568710df609cda33249bae1fc85c4dc1052fb0",
+        "actual":  "6FB833D26DA7384E5AE2B9EAC3568710DF609CDA33249BAE1FC85C4DC1052FB0",
+        "match":  true
+    },
+    {
+        "path":  "source/main.c",
+        "expected":  "e3a459f4068bd76d1315dfe810186927f678a9831f0f3aeb38ef98e06882bed9",
+        "actual":  "E3A459F4068BD76D1315DFE810186927F678A9831F0F3AEB38EF98E06882BED9",
+        "match":  true
+    },
+    {
+        "path":  "THIRD_PARTY_NOTICES.md",
+        "expected":  "6850a1fc93d22eb1489e1cd9c024df315dc2b3c5d60607e8194299bd4dabc591",
+        "actual":  "6850A1FC93D22EB1489E1CD9C024DF315DC2B3C5D60607E8194299BD4DABC591",
+        "match":  true
+    },
+    {
+        "path":  "tools/analyze_zombie_melee_spacing.ps1",
+        "expected":  "12e56e7343f8bc67e495a12e4ea067a2ea472ee895cc66f534b8d80ac4026ed9",
+        "actual":  "12E56E7343F8BC67E495A12E4EA067A2EA472EE895CC66F534B8D80AC4026ED9",
+        "match":  true
+    },
+    {
+        "path":  "tools/full_z80_audit.ps1",
+        "expected":  "fefeeb2ae91685dfeeb2250414897855a47b5a9b8dd69315996dc2a72224387e",
+        "actual":  "FEFEEB2AE91685DFEEB2250414897855A47B5A9B8DD69315996DC2A72224387E",
+        "match":  true
+    },
+    {
+        "path":  "tools/full_z80_equivalence.ps1",
+        "expected":  "d70a94ad1b6636b11a524f1d55ec1b9a4f667c644b2b6f45010fad057621cc28",
+        "actual":  "D70A94AD1B6636B11A524F1D55EC1B9A4F667C644B2B6F45010FAD057621CC28",
+        "match":  true
+    },
+    {
+        "path":  "tools/full_z80_experiments.ps1",
+        "expected":  "ef7386c25332e9ca4aa44bdc17249c7580acc8771c478946285b417181f14924",
+        "actual":  "EF7386C25332E9CA4AA44BDC17249C7580ACC8771C478946285B417181F14924",
+        "match":  true
+    },
+    {
+        "path":  "tools/generate_game_over.ps1",
+        "expected":  "b5bc78b2b78734f594ca61c89abb1e27139c3d44d7cf99dda9f9d660961a7572",
+        "actual":  "B5BC78B2B78734F594CA61C89ABB1E27139C3D44D7CF99DDA9F9D660961A7572",
+        "match":  true
+    },
+    {
+        "path":  "tools/generate_health_hud.ps1",
+        "expected":  "e5cfa9cc761db85e447530e21ce8ed290d5d4dd4dca7c6f8069ebe8825f6de64",
+        "actual":  "E5CFA9CC761DB85E447530E21CE8ED290D5D4DD4DCA7C6F8069EBE8825F6DE64",
+        "match":  true
+    },
+    {
+        "path":  "tools/generate_pause_weapon_icon.ps1",
+        "expected":  "e97a6b96e7916605ec0feaaaece293ee647ced40998312e9cc8a347f8e13e8ee",
+        "actual":  "E97A6B96E7916605EC0FEAAAECE293EE647CED40998312E9CC8A347F8E13E8EE",
+        "match":  true
+    },
+    {
+        "path":  "tools/generate_shotgun_lod.ps1",
+        "expected":  "abde0024d6d42e52c6323ae3067ba83ae46cc4af02ba2c738a2b58bcbf2973a2",
+        "actual":  "ABDE0024D6D42E52C6323AE3067BA83AE46CC4AF02BA2C738A2B58BCBF2973A2",
+        "match":  true
+    },
+    {
+        "path":  "tools/generate_sprite_texture.ps1",
+        "expected":  "2f5de2146f3459286c5b3f0c0dab6385796ada30062717d66b59e8c3149c349a",
+        "actual":  "2F5DE2146F3459286C5B3F0C0DAB6385796ADA30062717D66B59E8C3149C349A",
+        "match":  true
+    },
+    {
+        "path":  "tools/generate_startup_logo.ps1",
+        "expected":  "2001f2b088b477557f77947c3c01c19b4b0bcdfe55db2f3f9c8c7d397b350426",
+        "actual":  "2001F2B088B477557F77947C3C01C19B4B0BCDFE55DB2F3F9C8C7D397B350426",
+        "match":  true
+    },
+    {
+        "path":  "tools/generate_wall_texture.ps1",
+        "expected":  "97cfe37f4aaff8f2d987a0df40be9331c611e3b2bae8dbdcf53f8654c4f60770",
+        "actual":  "97CFE37F4AAFF8F2D987A0DF40BE9331C611E3B2BAE8DBDCF53F8654C4F60770",
+        "match":  true
+    },
+    {
+        "path":  "tools/measure_b1_row_base.ps1",
+        "expected":  "7fd57d0516c94f74ef1f6df63086be320639c6011eb268282b568f13786f9663",
+        "actual":  "7FD57D0516C94F74EF1F6DF63086BE320639C6011EB268282B568F13786F9663",
+        "match":  true
+    },
+    {
+        "path":  "tools/measure_b2_projection.ps1",
+        "expected":  "a4f3f71658cbc80904ea7f0d6dd1b819c713ae5c61574c9a808104266e809932",
+        "actual":  "A4F3F71658CBC80904EA7F0D6DD1B819C713AE5C61574C9A808104266E809932",
+        "match":  true
+    },
+    {
+        "path":  "tools/pause_freeze_audit.ps1",
+        "expected":  "8ee4158268c3328354bf1beb08a5562af85bdefbde61c828f448786db828cdcd",
+        "actual":  "8EE4158268C3328354BF1BEB08A5562AF85BDEFBDE61C828F448786DB828CDCD",
+        "match":  true
+    },
+    {
+        "path":  "tools/pause_freeze_fixture.ps1",
+        "expected":  "832d8becc533122da9fe38377799eba01222e75e1fa385f3d3bfa5580fe25a37",
+        "actual":  "832D8BECC533122DA9FE38377799EBA01222E75E1FA385F3D3BFA5580FE25A37",
+        "match":  true
+    },
+    {
+        "path":  "tools/pause_weapon_asset_data.ps1",
+        "expected":  "3a217c7ae54dad687e338a73893bc7bdd8f765e3b01a5a5483132148427c1bd2",
+        "actual":  "3A217C7AE54DAD687E338A73893BC7BDD8F765E3B01A5A5483132148427C1BD2",
+        "match":  true
+    },
+    {
+        "path":  "tools/production_build_artifacts.ps1",
+        "expected":  "7765c8bad8e9079077bdaa850c571504831e4da79c0f9cc956fedb47952e0729",
+        "actual":  "7765C8BAD8E9079077BDAA850C571504831E4DA79C0F9CC956FEDB47952E0729",
+        "match":  true
+    },
+    {
+        "path":  "tools/test_production_dispatch_scan.ps1",
+        "expected":  "f03075a42c0efc330be5ec18d5bcade233078886398ad2b5976cee756417073a",
+        "actual":  "F03075A42C0EFC330BE5EC18D5BCADE233078886398AD2B5976CEE756417073A",
+        "match":  true
+    },
+    {
+        "path":  "tools/validate_bank_call_topology.ps1",
+        "expected":  "e24c778457ab3e4f99297edbd14b93c3d431dcaa7ba1ca828ec78073e1508963",
+        "actual":  "E24C778457AB3E4F99297EDBD14B93C3D431DCAA7BA1CA828EC78073E1508963",
+        "match":  true
+    },
+    {
+        "path":  "tools/validate_bank_layout.ps1",
+        "expected":  "3ac57c9c43b2029f4a47a39039cac3e38ae473057246970e17f2d707d79cdb46",
+        "actual":  "3AC57C9C43B2029F4A47A39039CAC3E38AE473057246970E17F2D707D79CDB46",
+        "match":  true
+    },
+    {
+        "path":  "tools/validate_corpse_persistence.ps1",
+        "expected":  "55841ec0f40390370497b7adde36c555275702ae055d924f8900742c3527ad9a",
+        "actual":  "55841EC0F40390370497B7ADDE36C555275702AE055D924F8900742C3527AD9A",
+        "match":  true
+    },
+    {
+        "path":  "tools/validate_door_crush.ps1",
+        "expected":  "80b15d4918f306001941aea5ae626d439111ba5dc785db2ca57e76015543d8db",
+        "actual":  "80B15D4918F306001941AEA5AE626D439111BA5DC785DB2CA57E76015543D8DB",
+        "match":  true
+    },
+    {
+        "path":  "tools/validate_final_controls.ps1",
+        "expected":  "55080194afccf360e9799cb1d28d6863e3e627a64330f286a31b7b7e58351d2b",
+        "actual":  "55080194AFCCF360E9799CB1D28D6863E3E627A64330F286A31B7B7E58351D2B",
+        "match":  true
+    },
+    {
+        "path":  "tools/validate_game_over.ps1",
+        "expected":  "755b170be84e363724eb5430d27d5d40c854b0c8e6664e5c98626c5bda49f930",
+        "actual":  "755B170BE84E363724EB5430D27D5D40C854B0C8E6664E5C98626C5BDA49F930",
+        "match":  true
+    },
+    {
+        "path":  "tools/validate_health_hud.ps1",
+        "expected":  "f46d07f3976773906a7ee80f60a646c1bccd60f0002f26ffb4f58241953c7c5a",
+        "actual":  "F46D07F3976773906A7EE80F60A646C1BCCD60F0002F26FFB4F58241953C7C5A",
+        "match":  true
+    },
+    {
+        "path":  "tools/validate_middle_zombie.ps1",
+        "expected":  "7ee0298bcf88f4c0ed38bf91c04dd3f79d4b1e94c8f05f9538bd53593344e426",
+        "actual":  "7EE0298BCF88F4C0ED38BF91C04DD3F79D4B1E94C8F05F9538BD53593344E426",
+        "match":  true
+    },
+    {
+        "path":  "tools/validate_near_zombie.ps1",
+        "expected":  "23b72041f2003d693ce1e08b2e64be1b5b3e8cf110f0365a08b5e9bf33ac6584",
+        "actual":  "23B72041F2003D693CE1E08B2E64BE1B5B3E8CF110F0365A08B5E9BF33AC6584",
+        "match":  true
+    },
+    {
+        "path":  "tools/validate_palette_usage.ps1",
+        "expected":  "6e1fe6c35507064b8e13216ab3b94c0d0cac73e35388a6c45024e041edf5b9a4",
+        "actual":  "6E1FE6C35507064B8E13216AB3B94C0D0CAC73E35388A6C45024E041EDF5B9A4",
+        "match":  true
+    },
+    {
+        "path":  "tools/validate_pause_map.ps1",
+        "expected":  "4e526dd694485ba6aecee2aea7b95d6d48056c034d67ce3d87274adb9372f2d5",
+        "actual":  "4E526DD694485BA6AECEE2AEA7B95D6D48056C034D67CE3D87274ADB9372F2D5",
+        "match":  true
+    },
+    {
+        "path":  "tools/validate_ray_direction_rebuild.ps1",
+        "expected":  "f2220c910584484b706e2bac057a0b07d58bbc8a221700a4ad34223703ee8204",
+        "actual":  "F2220C910584484B706E2BAC057A0B07D58BBC8A221700A4AD34223703EE8204",
+        "match":  true
+    },
+    {
+        "path":  "tools/validate_renderer_equivalence.ps1",
+        "expected":  "a39d341c3e78d5795d3ab26560fc4febb8511d1722a2997a364142a71406ce72",
+        "actual":  "A39D341C3E78D5795D3AB26560FC4FEBB8511D1722A2997A364142A71406CE72",
+        "match":  true
+    },
+    {
+        "path":  "tools/validate_shotgun_combat.ps1",
+        "expected":  "e24fd80c64ee2c1da57c80b03b7be28eeec0142ec6d44383a57918d0208411dc",
+        "actual":  "E24FD80C64EE2C1DA57C80B03B7BE28EEEC0142EC6D44383A57918D0208411DC",
+        "match":  true
+    },
+    {
+        "path":  "tools/validate_sprite_renderer.ps1",
+        "expected":  "edb8a8a5611fa8d49cf4f97646c7d972a6d2deb74ebe7b7a3ef0549d901946fc",
+        "actual":  "EDB8A8A5611FA8D49CF4F97646C7D972A6D2DEB74EBE7B7A3EF0549D901946FC",
+        "match":  true
+    },
+    {
+        "path":  "tools/validate_startup_order.ps1",
+        "expected":  "7448402f6a96a4f297e5c1305ec1b872237c497774b4d03cbf46d8803262542f",
+        "actual":  "7448402F6A96A4F297E5C1305EC1B872237C497774B4D03CBF46D8803262542F",
+        "match":  true
+    },
+    {
+        "path":  "tools/validate_weapon_assets.ps1",
+        "expected":  "0a37bec2d7a02e54ce5e0507b6eafb4a120be3460fa770a0e8cfaf3712465070",
+        "actual":  "0A37BEC2D7A02E54CE5E0507B6EAFB4A120BE3460FA770A0E8CFAF3712465070",
+        "match":  true
+    },
+    {
+        "path":  "tools/validate_weapon_runtime.ps1",
+        "expected":  "77da789b885d223e5a3a1b4df32ec84993c46a90b056ef99b83e97079e14f37c",
+        "actual":  "77DA789B885D223E5A3A1B4DF32EC84993C46A90B056EF99B83E97079E14F37C",
+        "match":  true
+    },
+    {
+        "path":  "tools/validate_workshop_map.ps1",
+        "expected":  "3b66850c8fd94b2ef1271a98c775849c304ce1247405bae4f4de6d2ac67dcbdc",
+        "actual":  "3B66850C8FD94B2EF1271A98C775849C304CE1247405BAE4F4DE6D2AC67DCBDC",
+        "match":  true
+    },
+    {
+        "path":  "tools/validate_z80_hardening.ps1",
+        "expected":  "db4e3c7d484af961471aceed5c6074eecbd5afd9ba3590f9f96277a8760d0acf",
+        "actual":  "DB4E3C7D484AF961471ACEED5C6074EECBD5AFD9BA3590F9F96277A8760D0ACF",
+        "match":  true
+    },
+    {
+        "path":  "tools/validate_zombie_ai.ps1",
+        "expected":  "39f6a465a547fefeaf768e7ba2160b039340120105737c0eef9bd1d23316a539",
+        "actual":  "39F6A465A547FEFEAF768E7BA2160B039340120105737C0EEF9BD1D23316A539",
+        "match":  true
+    },
+    {
+        "path":  "tools/validate_zombie_attack.ps1",
+        "expected":  "2c2cd16b46536fa1f7106dc50a961a892d60e15695f99e07d660848a6272e37d",
+        "actual":  "2C2CD16B46536FA1F7106DC50A961A892D60E15695F99E07D660848A6272E37D",
+        "match":  true
+    },
+    {
+        "path":  "tools/validate_zombie_shooting.ps1",
+        "expected":  "139f3b2e9b3821141dd0f3035633ac42c815bc7f6a4c4c8bca3afa19c09188b3",
+        "actual":  "139F3B2E9B3821141DD0F3035633AC42C815BC7F6A4C4C8BCA3AFA19C09188B3",
+        "match":  true
+    }
+]

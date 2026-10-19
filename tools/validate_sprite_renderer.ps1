@@ -1,3 +1,4 @@
+param([string]$BuildDirectory='build')
 $ErrorActionPreference = "Stop"
 
 function Assert-True {
@@ -830,9 +831,9 @@ $videoSource = Get-Content (
 $projectionSource = Get-Content (
     Join-Path $repositoryPath "platform\game_gear\sprite_projection.c") -Raw
 $walking01GeneratedSource = Get-Content (
-    Join-Path $repositoryPath "build\generated\zombie_01_walking_01_texture.c") -Raw
+    Join-Path $repositoryPath "$BuildDirectory\generated\zombie_01_walking_01_texture.c") -Raw
 $walking02GeneratedSource = Get-Content (
-    Join-Path $repositoryPath "build\generated\zombie_01_walking_02_texture.c") -Raw
+    Join-Path $repositoryPath "$BuildDirectory\generated\zombie_01_walking_02_texture.c") -Raw
 $lodTextureSources = $projectionSource + $walking01GeneratedSource +
     $walking02GeneratedSource
 $projectionHeader = Get-Content (
@@ -840,8 +841,8 @@ $projectionHeader = Get-Content (
 $mainSource = Get-Content (Join-Path $repositoryPath "game\main.c") -Raw
 $playerSource = Get-Content (Join-Path $repositoryPath "game\player.c") -Raw
 $worldSource = Get-Content (Join-Path $repositoryPath "game\world.c") -Raw
-$worldSpriteAssemblyPath = Join-Path $repositoryPath "build\world_sprite.asm"
-$linkerMapPath = Join-Path $repositoryPath "build\GearRay.map"
+$worldSpriteAssemblyPath = Join-Path $repositoryPath "$BuildDirectory\world_sprite.asm"
+$linkerMapPath = Join-Path $repositoryPath "$BuildDirectory\GearRay.map"
 Assert-True (Test-Path -LiteralPath $worldSpriteAssemblyPath) `
     "World-sprite assembly is missing; run the Release build."
 Assert-True (Test-Path -LiteralPath $linkerMapPath) `
@@ -900,16 +901,16 @@ Assert-True ($projectionSource -match
     "current->depth\s*!=\s*previous->depth") `
     "LOD/native or depth-only sprite changes do not invalidate coverage."
 Assert-True ($videoSource -match
-    "ordered_sprite_indices\[WORLD_SPRITE_MAX_COUNT\]" -and
-    $projectionSource -match
-    "depth\s*>\s*selected_depth" -and
+    "ordered_sprite_indices\[PROJECTED_SPRITE_MAX_COUNT\]" -and
+    ($projectionSource -match "depth\s*>\s*selected_depth" -or
+     $projectionSource -match "depth\s*<=\s*selected_depth[\s\S]*?continue\s*;") -and
     $projectionSource -match
     "ordered_sprite_indices\[\(\*ordered_sprite_count\)\+\+\]\s*=\s*selected" -and
     $videoSource -match
     "for\s*\(ordered_sprite_index\s*=\s*0;[\s\S]*?ordered_sprite_index\s*<\s*ordered_sprite_count") `
     "Production renderer does not precompute and reuse far-to-near sprite order."
 Assert-True ($videoSource -match
-    "sprite_changed_mask\s*=\s*game_gear_prepare_world_sprites\s*\(" -and
+    "sprite_changed_mask\s*=\s*game_gear_prepare_(?:cached_)?world_sprites\s*\(" -and
     $videoSource -notmatch "game_gear_project_world_sprite\s*\(" -and
     $videoSource -notmatch "game_gear_apply_sprite_render_budget\s*\(" -and
     $projectionSource -match
@@ -920,9 +921,9 @@ Assert-True ($videoSource -match
     "game_gear_prepare_world_sprites[\s\S]*?game_gear_project_world_sprite[\s\S]*?world_sprite_get\(sprite_index\)" -and
     $projectionSource -match
     "remaining_budget\s*=\s*SPRITE_RENDER_BUDGET[\s\S]*?return\s+changed_mask" -and
-    ([regex]::Matches($projectionHeader, "__banked").Count -eq 1) -and
-    ([regex]::Matches($projectionSource, "__banked").Count -eq 1)) `
-    "Sprite preparation is not one banked coordinator with same-Bank internals."
+    ([regex]::Matches($projectionHeader, "__banked").Count -eq 0) -and
+    ([regex]::Matches($projectionSource, "__banked").Count -eq 0)) `
+    "Sprite preparation is not one direct page-1 coordinator with same-page internals."
 Assert-True ($videoSource -notmatch "drawn_mask" -and
     $videoSource -notmatch "while\s*\(draw_count\s*!=\s*0\)") `
     "Per-tile repeated sprite-selection rescans remain."
@@ -1132,7 +1133,7 @@ Assert-True ($projectionSource -match
     $projectionSource -match
     "projected_sprites\[sprite_index\]\.visible\s*=\s*0\s*;" -and
     $videoSource -match
-    "game_gear_prepare_world_sprites\s*\(") `
+    "game_gear_prepare_(?:cached_)?world_sprites\s*\(") `
     "Production sprite render budget is not deterministic or enforced."
 function Get-PackedLodIndices([string]$Name) {
     $initializer = [regex]::Match($lodTextureSources,
@@ -1274,7 +1275,7 @@ foreach ($generatedName in @("sprite_texture",
                               "zombie_01_shot_02_texture",
                               "zombie_01_shot_dead_texture",
                               "zombie_01_corps_texture")) {
-    $generatedSource = Join-Path $repositoryPath "build\generated\${generatedName}.c"
+    $generatedSource = Join-Path $repositoryPath "$BuildDirectory\generated\${generatedName}.c"
     Assert-True (Test-Path -LiteralPath $generatedSource) `
         "Generated zombie source $generatedName is missing; run the Release build."
     $generatedBytes = [regex]::Matches(

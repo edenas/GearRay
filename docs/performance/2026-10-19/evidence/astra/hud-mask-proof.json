@@ -1,0 +1,19 @@
+{
+  "classification": "host exact mask algebra, not compiled-cycle evidence",
+  "checks": 237568,
+  "table_bytes": 1160,
+  "pistol_canvas": [
+    24,
+    24
+  ],
+  "pistol_sampled_source": [
+    12,
+    12
+  ],
+  "pistol_stride": 8,
+  "shotgun_canvas": [
+    40,
+    32
+  ],
+  "source_sha256": "fdffab8e130d7bf549dc60af3c240b5dbe57cb4020f7bab308c3a604dff5a483"
+}

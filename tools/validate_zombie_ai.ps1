@@ -18,7 +18,7 @@ function Assert-True([bool]$Condition, [string]$Message) {
 }
 
 Assert-Match $aiHeader 'ZOMBIE_AI_UPDATE_INTERVAL\s+4' 'AI cadence is not four frames'
-Assert-Match $aiHeader 'zombie_ai_update_all\(void\)\s+__banked' 'AI entry is not banked'
+Assert-Match $aiHeader 'zombie_ai_update_all\(void\);' 'AI entry declaration is missing'
 Assert-Match $ai 'ZOMBIE_ACTIVATION_DISTANCE\s+963' 'Activation distance is not 963 inclusive'
 Assert-Match $ai 'ZOMBIE_LOSE_DISTANCE\s+1260' 'Lose distance is not 1260 inclusive'
 Assert-Match $spriteHeader 'zombie_distance_metric[\s\S]*?distance_x \+ \(distance_y >> 1\)' 'Shared octagonal distance metric is missing'
@@ -39,7 +39,7 @@ Assert-Match $spriteHeader 'ZOMBIE_HIT_COUNT_MASK\s+112' 'Hit count is not isola
 Assert-Match $sprites 'ZOMBIE_HIT_COUNT_MASK' 'Damage reads the AI bit as hit count'
 Assert-Match $sprites 'ZOMBIE_AI_CHASING_MASK[\s\S]*?ZOMBIE_HIT_COUNT_SHIFT' 'Nonlethal damage does not preserve chasing state'
 Assert-Match $main '\+\+zombie_ai_frame_counter[\s\S]*?zombie_ai_update_all\(\)' 'Main loop lacks one shared AI cadence'
-Assert-True (([regex]::Matches($main, 'zombie_ai_update_all\(\)')).Count -eq 1) 'AI has more than one main-loop banked call site'
+Assert-True (([regex]::Matches($main, 'zombie_ai_update_all\(\)')).Count -eq 1) 'AI has more than one main-loop call site'
 Assert-Match $cmake 'zombie_ai\.c[\s\S]*?--codeseg BANK1' 'Zombie AI is not compiled into BANK1'
 Assert-Match $spriteHeader 'ZOMBIE_WALKING_PHASE_MASK\s+128' 'Packed walking animation phase is missing'
 Assert-Match $ai 'sprite->state \^= ZOMBIE_WALKING_PHASE_MASK;[\s\S]*?sprite->state_timer != 0[\s\S]*?sprite->pixels = sprite->state & ZOMBIE_WALKING_PHASE_MASK[\s\S]*?zombie_01_walking_02_pixels[\s\S]*?zombie_01_walking_01_pixels' 'Active chase does not advance and publish its walking phase on the fixed AI cadence'

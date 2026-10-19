@@ -1,0 +1,105 @@
+ M CMakeLists.txt
+ M GearRay_Developer_Bible.md
+ M README.md
+ M assets/sprites/enemies/zombie/zombie_01_shot_02.png
+ D assets/sprites/weapons/shotgun_16x16.png
+ D assets/sprites/weapons/shotgun_16x16_shoot.png
+ M engine/render/raycaster.c
+ M game/main.c
+ M game/player.c
+ M game/workshop_map.c
+ M game/world.c
+ M game/world.h
+ M game/world_initialization.c
+ M game/world_sprite.c
+ M game/zombie_ai.c
+ M game/zombie_ai.h
+ M game/zombie_corpses.c
+ M game/zombie_corpses.h
+ M game/zombie_shooting.c
+ M game/zombie_shooting.h
+ M platform/game_gear/hud_weapon.c
+ M platform/game_gear/hud_weapon.h
+ M platform/game_gear/pause_map.c
+ M platform/game_gear/pause_map.h
+ M platform/game_gear/sprite_projection.c
+ M platform/game_gear/sprite_projection.h
+ M platform/game_gear/video.c
+ M platform/game_gear/video_initialization.c
+ M tools/generate_sprite_texture.ps1
+ M tools/pause_freeze_audit.ps1
+ M tools/pause_freeze_fixture.ps1
+ M tools/validate_bank_layout.ps1
+ M tools/validate_door_crush.ps1
+ M tools/validate_game_over.ps1
+ M tools/validate_pause_map.ps1
+ M tools/validate_sprite_renderer.ps1
+ M tools/validate_startup_order.ps1
+ M tools/validate_workshop_map.ps1
+ M tools/validate_zombie_ai.ps1
+ M tools/validate_zombie_attack.ps1
+?? assets/sprites/enemies/zombie/zombie_02_attack_01.png
+?? assets/sprites/enemies/zombie/zombie_02_corps.png
+?? assets/sprites/enemies/zombie/zombie_02_corps_16x16.png
+?? assets/sprites/enemies/zombie/zombie_02_shot_01.png
+?? assets/sprites/enemies/zombie/zombie_02_shot_02.png
+?? assets/sprites/enemies/zombie/zombie_02_shot_dead.png
+?? assets/sprites/enemies/zombie/zombie_02_standing.png
+?? assets/sprites/enemies/zombie/zombie_02_walking_01.png
+?? assets/sprites/enemies/zombie/zombie_02_walking_02.png
+?? assets/sprites/weapons/pick_up_shotgun.png
+?? assets/sprites/weapons/pistol.png
+?? assets/sprites/weapons/shotgun.png
+?? assets/sprites/weapons/shotgun_held.png
+?? assets/sprites/weapons/shotgun_held_shoot.png
+?? assets/textures/walls/next_level_door.png
+?? assets/textures/walls/next_level_door_v2.png
+?? assets/textures/walls/next_level_door_v3.png
+?? build-artwork-release/
+?? build-astra-review-20261019/
+?? build-final/
+?? build-freeze-baseline/
+?? build-freeze-final/
+?? build-perf-20261019/
+?? build-perf-profile-20261019/
+?? docs/CURRENT_BEHAVIOR.md
+?? docs/POST_AUDIT_HARDENING.md
+?? docs/full_z80_simplification_audit.md
+?? docs/held_shotgun_20x16.md
+?? docs/pause_padding_pattern_checkpoint.md
+?? docs/pause_pistol_icon.md
+?? docs/pause_weapon_focus_borders.md
+?? docs/pause_weapon_padding_active_focus.md
+?? docs/performance/
+?? docs/rom_bank_architecture_checkpoint.md
+?? docs/shotgun_aim_samples.md
+?? docs/shotgun_combat_bank_checkpoint.md
+?? docs/shotgun_combat_final.md
+?? docs/shotgun_pickup_cap_auto_equip.md
+?? docs/shotgun_pickup_perspective.md
+?? docs/shotgun_pickup_perspective_correction.md
+?? docs/shotgun_pickup_scale.md
+?? docs/shotgun_pickup_touch_far.md
+?? docs/two_weapon_bank_pressure.md
+?? docs/two_weapon_milestone.md
+?? docs/two_weapon_pre_edit.md
+?? docs/validator_hygiene.md
+?? docs/world_shotgun_pickup_asset.md
+?? game/weapons.h
+?? platform/game_gear/game_over_presentation.c
+?? rom/
+?? tools/full_z80_audit.ps1
+?? tools/full_z80_equivalence.ps1
+?? tools/full_z80_experiments.ps1
+?? tools/generate_pause_weapon_icon.ps1
+?? tools/generate_shotgun_lod.ps1
+?? tools/measure_b1_row_base.ps1
+?? tools/measure_b2_projection.ps1
+?? tools/pause_weapon_asset_data.ps1
+?? tools/production_build_artifacts.ps1
+?? tools/test_production_dispatch_scan.ps1
+?? tools/validate_bank_call_topology.ps1
+?? tools/validate_shotgun_combat.ps1
+?? tools/validate_weapon_assets.ps1
+?? tools/validate_weapon_runtime.ps1
+?? tools/validate_z80_hardening.ps1

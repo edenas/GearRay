@@ -1,0 +1,82 @@
+[
+  {
+    "scenario": "A_static",
+    "update": "0",
+    "differences": {}
+  },
+  {
+    "scenario": "A_static",
+    "update": "1",
+    "differences": {}
+  },
+  {
+    "scenario": "A_static",
+    "update": "2",
+    "differences": {}
+  },
+  {
+    "scenario": "A_static",
+    "update": "3",
+    "differences": {}
+  },
+  {
+    "scenario": "B_rotation",
+    "update": "0",
+    "differences": {}
+  },
+  {
+    "scenario": "B_rotation",
+    "update": "1",
+    "differences": {}
+  },
+  {
+    "scenario": "B_rotation",
+    "update": "2",
+    "differences": {}
+  },
+  {
+    "scenario": "B_rotation",
+    "update": "3",
+    "differences": {}
+  },
+  {
+    "scenario": "M_authored",
+    "update": "0",
+    "differences": {}
+  },
+  {
+    "scenario": "M_authored",
+    "update": "1",
+    "differences": {}
+  },
+  {
+    "scenario": "M_authored",
+    "update": "2",
+    "differences": {}
+  },
+  {
+    "scenario": "M_authored",
+    "update": "3",
+    "differences": {}
+  },
+  {
+    "scenario": "P_short_tap",
+    "update": "0",
+    "differences": {}
+  },
+  {
+    "scenario": "P_short_tap",
+    "update": "1",
+    "differences": {}
+  },
+  {
+    "scenario": "P_short_tap",
+    "update": "2",
+    "differences": {}
+  },
+  {
+    "scenario": "P_short_tap",
+    "update": "3",
+    "differences": {}
+  }
+]

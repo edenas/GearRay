@@ -1,0 +1,1057 @@
+[
+  {
+    "path": "ACKNOWLEDGEMENTS.md",
+    "classification": "Current project documentation",
+    "bytes": 754,
+    "headings": [
+      "Acknowledgements"
+    ],
+    "review_note": "Project overview/build/contribution/security/legal/history reference; executable source takes precedence."
+  },
+  {
+    "path": "CHANGELOG.md",
+    "classification": "Historical implementation record",
+    "bytes": 3171,
+    "headings": [
+      "Changelog",
+      "[Unreleased]",
+      "Added",
+      "Changed",
+      "[Engine Foundation 1.0.0] - 2026-07-23",
+      "Added",
+      "Changed"
+    ],
+    "review_note": "Chronology cross-checked against Git; dirty working-tree changes are not represented by HEAD alone."
+  },
+  {
+    "path": "CONTRIBUTING.md",
+    "classification": "Current project documentation",
+    "bytes": 2973,
+    "headings": [
+      "Contributing to GearRay",
+      "Development Principles",
+      "Before Starting",
+      "Making a Change",
+      "Validation",
+      "Pull Requests"
+    ],
+    "review_note": "Project overview/build/contribution/security/legal/history reference; executable source takes precedence."
+  },
+  {
+    "path": "docs/ASSET_PROVENANCE.md",
+    "classification": "Current asset documentation",
+    "bytes": 9060,
+    "headings": [
+      "GearRay Asset Provenance",
+      "Purpose",
+      "Runtime Texture Sources",
+      "Floor and Ceiling Textures",
+      "Texture Library and References",
+      "Corel Auto-Preserve Files",
+      "Renderer Captures",
+      "Maps and Code-Embedded Visual Data",
+      "Audio, Fonts, Sprites, and Additional Media",
+      "Maintainer Confirmation Checklist"
+    ],
+    "review_note": "Asset sources/roles and generated derivation; ownership metadata is outside this performance investigation."
+  },
+  {
+    "path": "docs/BUILDING.md",
+    "classification": "Current build documentation; validator specification",
+    "bytes": 8747,
+    "headings": [
+      "Building GearRay",
+      "Supported and Tested Toolchain",
+      "Required devkitSMS Components",
+      "Installing Dependencies",
+      "Clean Clone Workflow",
+      "Custom devkitSMS Location",
+      "Build Pipeline",
+      "CMake Targets",
+      "Validation",
+      "Clean Rebuilds",
+      "Troubleshooting",
+      "CMake cannot find Ninja",
+      "CMake cannot find SDCC",
+      "CMake cannot find devkitSMS",
+      "The renderer validator cannot find generated tables",
+      "An existing CMake cache selects the wrong configuration"
+    ],
+    "review_note": "Windows CMake/SDCC workflow and profile isolation; toolchain versions are only partially pinned, script list is older than current23 validators."
+  },
+  {
+    "path": "docs/CURRENT_BEHAVIOR.md",
+    "classification": "Current authoritative documentation",
+    "bytes": 3285,
+    "headings": [
+      "GearRay current behavior and architecture",
+      "Gameplay contracts",
+      "Z80 and banking contracts",
+      "Production hot-path decisions",
+      "Authoritative weapon artwork",
+      "Current Release baseline"
+    ],
+    "review_note": "Maintained precedence, direct Bank1/Bank2 invariants, first-pickup equip, exact-width math. Historical hash differs from this rebuilt working-tree identity."
+  },
+  {
+    "path": "docs/ENGINE_ARCHITECTURE.md",
+    "classification": "Current architectural reference with superseded sections",
+    "bytes": 51467,
+    "headings": [
+      "GearRay Engine Architecture",
+      "Project overview",
+      "Engine architecture",
+      "Game loop",
+      "Input",
+      "Player",
+      "Camera",
+      "World and map",
+      "Raycaster",
+      "Renderer and video",
+      "Interaction ray and world interactions",
+      "Renderer profiling",
+      "Frame data flow",
+      "Frame pipeline",
+      "Rendering pipeline",
+      "Ray generation",
+      "DDA traversal",
+      "Projection",
+      "Texture lookup and sampling",
+      "Native wall-column generation",
+      "Dirty-column upload",
+      "Current optimized renderer configuration",
+      "Movement system",
+      "Collision system",
+      "Fixed-point math",
+      "Performance optimizations",
+      "Centred viewport and ray reduction",
+      "Removed diagnostic centre ray",
+      "Reciprocal lookup for DDA",
+      "Cached camera basis during ray generation",
+      "Dirty tile-column signatures",
+      "Multi-zombie billboard composition",
+      "Zombie combat and state",
+      "Zombie awareness and pursuit",
+      "First-person HUD weapon composition",
+      "Active vertical row generation",
+      "Contiguous pattern uploads",
+      "Cached tilemap states",
+      "Ceiling and floor backgrounds",
+      "Incremental texture sampler",
+      "Packed texture storage",
+      "Lookup-table native bitplane packing",
+      "Stable BG palette and directional mapping",
+      "Compile-time profiling removal",
+      "Bounded diagonal movement",
+      "Fixed-point camera rotation step",
+      "Design decisions",
+      "Engine history",
+      "Hardware foundation and first working raycaster",
+      "First-person movement and collision",
+      "From wall geometry to a native textured renderer",
+      "Stable native renderer and measured optimization",
+      "Viewport optimization and ray-count reduction",
+      "Renderer cleanup and removal of redundant work",
+      "Composed movement normalization",
+      "Earlier hardware control tuning and Sprint 24",
+      "Current project status",
+      "Future work",
+      "Developer notes",
+      "Final summary"
+    ],
+    "review_note": "Ownership and wall representation remain useful; pause/START, profile reporting, interactions, frames-as-60Hz and corpse details require source reconciliation."
+  },
+  {
+    "path": "docs/ENGINE_FOUNDATION_V1.0.0.md",
+    "classification": "Historical implementation record",
+    "bytes": 4137,
+    "headings": [
+      "GearRay Engine Foundation v1.0.0",
+      "Purpose",
+      "Stable contracts",
+      "Validation",
+      "Final measurements and identifiers"
+    ],
+    "review_note": "Approved viewport/art foundations;44-speed/6-degree controls,32KB ROM and zero gameplay features are historical."
+  },
+  {
+    "path": "docs/full_z80_simplification_audit.md",
+    "classification": "Historical audit; superseded technical plan",
+    "bytes": 43354,
+    "headings": [
+      "Full Z80 simplification and residency audit",
+      "A. Fresh baseline",
+      "B. Bank residency map",
+      "C. Runtime frequency and hot-path map",
+      "D. Arithmetic helper map",
+      "E. Bank transition map",
+      "F. Persistent RAM map",
+      "G. Stack audit",
+      "H. Redundant/dead work and subsystem findings",
+      "I. Ranked candidates, measured alternatives, and risks",
+      "J. Do not optimize / rejected temptations",
+      "K. Recommended implementation order (approval gate)",
+      "L. Expected benefit and limits"
+    ],
+    "review_note": "Pre-hardening 16096-byte fixed bank, 50 helper sites and19 trampolines are superseded by current15629/48/8. No emulator cycle evidence there."
+  },
+  {
+    "path": "docs/held_shotgun_20x16.md",
+    "classification": "Current asset contract; historical benchmark",
+    "bytes": 11117,
+    "headings": [
+      "Held shotgun: authored 20\u00d716 canvas",
+      "A\u2013B. Asset inspection and dimensions",
+      "C\u2013E. Generator, renderer and anchoring",
+      "F\u2013H. Linked ROM, residency and stack",
+      "I\u2013J. VRAM and generated Z80",
+      "K\u2013L. Validation and regressions",
+      "M. Manual Emulicious checklist",
+      "N. Final change scope"
+    ],
+    "review_note": "Exact20x16 held canvas/2x/stride10; widened union footprint and Bank1 code costs. Direct-call status updated by hardening."
+  },
+  {
+    "path": "docs/pause_freeze_audit.md",
+    "classification": "Historical implementation record; validator specification",
+    "bytes": 28012,
+    "headings": [
+      "Final pause freeze / Z80 audit \u2014 2026-09-16",
+      "A. Executive verdict",
+      "B. True freeze verdict and proof boundaries",
+      "C. Exact idle execution",
+      "D. Idle cost and interrupt audit",
+      "E. Event and VRAM frequency costs",
+      "F. Banking and pointer lifetime",
+      "G. RAM and real call-chain stack audit",
+      "H. Generated-code findings",
+      "I. Gameplay timers and no catch-up",
+      "J. Input edges",
+      "K. Dead/redundant code",
+      "L. Optimization decisions",
+      "M. Fresh before/after metrics",
+      "N. Validation and build",
+      "O. Final manual Emulicious verification",
+      "P. Production recommendation",
+      "Q. Finalization build identities and commit scope"
+    ],
+    "review_note": "No simulation closure, busy VBlank wait, host freeze boundaries and separate milestone/working-tree identities. Old trampoline/stack counts superseded."
+  },
+  {
+    "path": "docs/pause_map.md",
+    "classification": "Historical implementation record; validator specification",
+    "bytes": 21180,
+    "headings": [
+      "GearRay final pause map and gameplay freeze",
+      "A. Executive verdict",
+      "B. Historical V4.1 simplification audit",
+      "C. Snapshot architecture verdict",
+      "D. Authoritative door state",
+      "E. Exactly five green pixels",
+      "F. Corpse architecture retained",
+      "G. Exact generated idle path",
+      "H. Entry, accepted pan and resume work",
+      "I. Banking (historical V4/V4.1 measurements)",
+      "J. Memory (historical V4/V4.1 comparison)",
+      "K. Generated Z80 and bank audit",
+      "L. Validation results",
+      "M. Historical V4.1 clean build and diff",
+      "N. Final manual verification and ROM policy"
+    ],
+    "review_note": "Blocking freeze, BG corpse clone pool versus rejected hardware corpses, door/pan/player glyph tests; early weapon UI descriptions superseded."
+  },
+  {
+    "path": "docs/pause_padding_pattern_checkpoint.md",
+    "classification": "Architectural decision; unresolved issue resolved later",
+    "bytes": 6356,
+    "headings": [
+      "Pause 20x20 padding: required pattern-allocation checkpoint",
+      "Verified production geometry and colors",
+      "Exact tile footprint",
+      "Smallest proposed local allocation",
+      "STOP and remaining validation"
+    ],
+    "review_note": "20x20 expansion collides with old pattern bases; reviewed relocations subsequently implemented, not a current stop condition."
+  },
+  {
+    "path": "docs/pause_pistol_icon.md",
+    "classification": "Historical implementation record",
+    "bytes": 7680,
+    "headings": [
+      "Static pause pistol icon",
+      "Source and placement",
+      "Conversion and VRAM",
+      "ROM, RAM and generated Z80",
+      "Automated verification",
+      "Manual Emulicious verification still required"
+    ],
+    "review_note": "Native static pistol,192 pattern bytes and alpha preserving outline; later carousel/padding supersedes single-slot allocation."
+  },
+  {
+    "path": "docs/pause_weapon_focus_borders.md",
+    "classification": "Historical implementation record; rejected packing",
+    "bytes": 10932,
+    "headings": [
+      "Pause defaults to WEAPONS; white center and gray side borders",
+      "Investigation and behavior",
+      "Composition and pattern placement",
+      "Static data choice and event cost",
+      "Generated Release code and memory",
+      "Automated coverage and manual approval",
+      "Completed validation and evidence"
+    ],
+    "review_note": "DefaultWEAPONS, white center/gray sides; raw variants exceed old reserve, row dictionary retained.16x16 border geometry superseded."
+  },
+  {
+    "path": "docs/pause_weapon_padding_active_focus.md",
+    "classification": "Current UI contract; historical benchmark",
+    "bytes": 7361,
+    "headings": [
+      "Pause weapon padding and active focus",
+      "Linked measurements",
+      "Pattern and VRAM measurements",
+      "Validation and evidence"
+    ],
+    "review_note": "Accepted20x20 border/padding, relocated pools and entry-only row decoder; zero idle redraw, max32 corpse clones."
+  },
+  {
+    "path": "docs/POST_AUDIT_HARDENING.md",
+    "classification": "Historical implementation record; performance benchmark",
+    "bytes": 2138,
+    "headings": [
+      "Post-audit Z80 hardening record"
+    ],
+    "review_note": "Accepted A/B arithmetic, row-base and scalar-invariant changes; direct hot calls already implemented. Do not count those savings again."
+  },
+  {
+    "path": "docs/PROJECT_BIBLE.md",
+    "classification": "Documentation navigation",
+    "bytes": 389,
+    "headings": [
+      "GearRay Project Bible"
+    ],
+    "review_note": "Redirect to maintained root Developer Bible; not a separate runtime contract."
+  },
+  {
+    "path": "docs/rom_bank_architecture_checkpoint.md",
+    "classification": "Architectural decision; performance benchmark",
+    "bytes": 23285,
+    "headings": [
+      "GearRay ROM bank architecture checkpoint",
+      "A. Executive summary",
+      "B. Current real mapper architecture",
+      "C. CPU-visible ROM window map",
+      "D. Current Bank 0/1/2 roles and occupancy",
+      "E. What Bank 3 means and existing support",
+      "F. Exact requirements for adopting Bank 3",
+      "G. Practical ROM expansion support",
+      "H. Generated-Z80 bank-switch cost",
+      "I. Startup-logo relocation safety",
+      "J. Option A: startup Bank 1 to Bank 2",
+      "K. Option B: cold content in Bank 3",
+      "L. Option C",
+      "M. Exact occupancy/runtime comparison",
+      "N. RAM, stack and VRAM consequences",
+      "O. Validators and build-system impact",
+      "P. Long-term HOT/WARM/COLD recommendation",
+      "Q. Recommendation for the pending shotgun milestone",
+      "R. Exact next step after approval",
+      "S. Probe evidence, risks and unresolved questions"
+    ],
+    "review_note": "Physical/virtual bank distinction, rejected logo-to-Bank2 option, expansion probes through1MB,267T trampoline model and limited checksum convention."
+  },
+  {
+    "path": "docs/ROM_BANKING.md",
+    "classification": "Architectural decision; superseded placement details",
+    "bytes": 16158,
+    "headings": [
+      "GearRay ROM Banking Architecture",
+      "Purpose",
+      "Why banking is required",
+      "Sega mapper and CPU address space",
+      "Current ROM layout",
+      "First migrated module",
+      "Build-system contract",
+      "Resident Bank 0 policy",
+      "Banked-code placement policy",
+      "Call and switching rules",
+      "Proposed future responsibilities",
+      "Expansion capacity",
+      "Data and asset banking",
+      "Validation requirements",
+      "Current limitations and risks",
+      "Recommendations for the next migration"
+    ],
+    "review_note": "Correct slot1/slot2 conceptual distinction; old occupants, startup placement, blanket __banked policy and reserves are not current."
+  },
+  {
+    "path": "docs/shotgun_aim_samples.md",
+    "classification": "Current combat contract; historical benchmark",
+    "bytes": 5891,
+    "headings": [
+      "Shotgun aim sample correction",
+      "Result",
+      "Geometry and occlusion",
+      "Generated Z80 and memory audit",
+      "Automated validation",
+      "Manual Emulicious 60 FPS checklist"
+    ],
+    "review_note": "Deterministic ray10/14/18 screen lines, one target and no extra world casts. Subsequent nearest rejection already implemented."
+  },
+  {
+    "path": "docs/shotgun_combat_bank_checkpoint.md",
+    "classification": "Historical checkpoint; rejected experiments",
+    "bytes": 13015,
+    "headings": [
+      "Shotgun combat checkpoint and completed pickup expansion",
+      "Current-source inspection before editing",
+      "Completed pickup change",
+      "Combat policy proposed, not enabled",
+      "Measured bank limitation",
+      "Smallest viable bank options requiring approval",
+      "Actual final pickup-only Release measurements",
+      "Manual checks now and after combat integration"
+    ],
+    "review_note": "1941-byte prototype overflowed Bank1 by178; local1951 variant worse; cold GameOver relocation selected later."
+  },
+  {
+    "path": "docs/shotgun_combat_final.md",
+    "classification": "Historical implementation record; superseded aiming policy",
+    "bytes": 6343,
+    "headings": [
+      "Shotgun combat identity and Bank 3 Game Over relocation",
+      "Result",
+      "Combat contract",
+      "Linked measurements",
+      "Validation",
+      "Manual Emulicious checklist (60 FPS)"
+    ],
+    "review_note": "Bank3 GameOver and12/6/2 damage retained; continuous-width/off-axis bracket targeting superseded by three sample lines."
+  },
+  {
+    "path": "docs/shotgun_pickup_cap_auto_equip.md",
+    "classification": "Historical implementation record",
+    "bytes": 11842,
+    "headings": [
+      "Shotgun close-range cap and first-time auto-equip",
+      "Cap evaluation and production formula",
+      "Measured geometry and continuity",
+      "First-time acquisition, cache and firing",
+      "Generated Z80 and final measurements",
+      "Validation and preserved contracts",
+      "User-owned Emulicious checks"
+    ],
+    "review_note": "48-pixel cap and first-time auto-equip; later corrected full-size64 canvas supersedes cap formula, equip rule remains."
+  },
+  {
+    "path": "docs/shotgun_pickup_perspective.md",
+    "classification": "Superseded technical plan; performance benchmark",
+    "bytes": 10058,
+    "headings": [
+      "Shotgun world pickup perspective / source LOD correction",
+      "Changes and cause",
+      "Measured production geometry",
+      "FAR artwork and development previews",
+      "Generated Z80 and banking audit",
+      "Build, regressions and final measurements",
+      "User-owned Emulicious checklist at 60 FPS"
+    ],
+    "review_note": "Quarter-scale pickup/source-resolution separation; small presentation rejected, no-auto-equip superseded."
+  },
+  {
+    "path": "docs/shotgun_pickup_perspective_correction.md",
+    "classification": "Architectural decision; rejected experiment",
+    "bytes": 6718,
+    "headings": [
+      "World shotgun perspective correction",
+      "Cause and correction",
+      "Production projection model",
+      "Straight-approach sizes",
+      "Generated Z80 and memory",
+      "Gameplay and validation",
+      "Manual Emulicious 60 FPS checklist"
+    ],
+    "review_note": "Fixed48 CLOSE pop and fixed-y floor rejected; current continuous64 cap/floor padding retained. Current equipment/source rules verified in C."
+  },
+  {
+    "path": "docs/shotgun_pickup_scale.md",
+    "classification": "Historical experiment; superseded geometry",
+    "bytes": 9493,
+    "headings": [
+      "Shotgun pickup scale correction",
+      "Comparison and choice",
+      "Exact production formula",
+      "Source detail and measured geometry",
+      "Regression and build evidence",
+      "Generated Z80 and final linked measurements",
+      "User-owned visual checks"
+    ],
+    "review_note": "Quarter/half/three-quarter comparison and compiler byte-bound lesson; later full-size floor-perspective correction supersedes canvas."
+  },
+  {
+    "path": "docs/shotgun_pickup_touch_far.md",
+    "classification": "Historical implementation record",
+    "bytes": 10143,
+    "headings": [
+      "Shotgun pickup touch region and dark FAR silhouette",
+      "Contact investigation and choice",
+      "FAR artwork",
+      "Generated Release Z80 and memory",
+      "Validation and manual checks",
+      "Completed checks and evidence"
+    ],
+    "review_note": "202 extent and dark FAR; later276 extent retained. Cheap unsigned biased comparisons remain."
+  },
+  {
+    "path": "docs/SPRINT_11_TASK_107_RENDERER_PROFILE.md",
+    "classification": "Performance benchmark; superseded profiler specification",
+    "bytes": 5658,
+    "headings": [
+      "Sprint 11 Task 107: renderer profiling report",
+      "Build and counter semantics",
+      "Generated assembly audit (profiling OFF)",
+      "Ranked findings",
+      "#1 Texture sampling and native tile packing",
+      "#2 Dirty-column background traversal and tile addressing",
+      "#3 VRAM upload",
+      "#4 Raycaster DDA",
+      "Validation record"
+    ],
+    "review_note": "Original event counters and static bottleneck reasoning; explicitly no emulator cycles, old center cast and printed report no longer current."
+  },
+  {
+    "path": "docs/SPRINT_11_TASK_108_OPTIMIZATION_PASS_1.md",
+    "classification": "Performance benchmark; architectural decision",
+    "bytes": 3935,
+    "headings": [
+      "Sprint 11 Task 108: optimization pass 1",
+      "Scope",
+      "Assembly evidence",
+      "Profiling counters",
+      "Exact-output validation",
+      "Resource usage",
+      "Build and validation status",
+      "Emulator reference image"
+    ],
+    "review_note": "Accepted native row bitplane tables, exact1024-byte output proof and ROM trade. Already production."
+  },
+  {
+    "path": "docs/SPRINT_17_DISTANT_WALL_LOD.md",
+    "classification": "Historical implementation record",
+    "bytes": 1373,
+    "headings": [
+      "Sprint 17: distant-wall LOD"
+    ],
+    "review_note": "Initial near/far split and cold interaction migration; later three-level prepacked fog supersedes flat colors."
+  },
+  {
+    "path": "docs/SPRINT_21_ENGINE_PERFORMANCE_AUDIT.md",
+    "classification": "Performance benchmark; architectural decision",
+    "bytes": 9818,
+    "headings": [
+      "Sprint 21: Engine Performance Audit",
+      "Scope and baseline",
+      "Methodology",
+      "Ranked candidates",
+      "Retained implementation and emitted evidence",
+      "Cached ray directions",
+      "Sequential ray-result traversal",
+      "World solidity fast path",
+      "Sampler initialization",
+      "ROM, RAM, stack, and banks",
+      "Profiling and deterministic work reduction",
+      "VRAM and presentation",
+      "Equivalence validation",
+      "Remaining bottlenecks and recommendation"
+    ],
+    "review_note": "Direction caching, sequential result reads, fast solidity and sampler tables accepted. Direct result rewrite/32-bit DDA deferred for oracle."
+  },
+  {
+    "path": "docs/SPRINT_22_FINAL_DISTANT_WALL_LOD.md",
+    "classification": "Historical implementation record",
+    "bytes": 5598,
+    "headings": [
+      "Sprint 22: final distant-wall LOD",
+      "Retained three-level system",
+      "Palette audit and fog choice",
+      "Hot-path cost",
+      "Dirty cache and VRAM correctness",
+      "Validation evidence",
+      "Original-hardware checklist"
+    ],
+    "review_note": "Three height bands and retained exact boundaries; color-only/dither rejection predates approved prepacked hybrid fog."
+  },
+  {
+    "path": "docs/SPRINT_23_SENIOR_CODE_CLEANUP_AUDIT.md",
+    "classification": "Performance benchmark; architectural decision",
+    "bytes": 6112,
+    "headings": [
+      "Sprint 23: senior code cleanup and architecture audit",
+      "Scope and baseline",
+      "Accepted findings",
+      "HIGH: remove linked legacy renderer modules",
+      "HIGH: consolidate held directional input",
+      "HIGH: snapshot ray origin once per frame",
+      "HIGH: remove private cast-ray output round trips",
+      "MEDIUM: direct world tile mappings",
+      "MEDIUM: sequential renderer cache traversal",
+      "MEDIUM: skip stationary camera synchronization",
+      "LOW: simplify door toggle and includes",
+      "Rejected findings",
+      "Final validation"
+    ],
+    "review_note": "Removed linked dead modules/getters/round trips; corner dedup, out-pointer solidity and DDA narrowing lacked favorable evidence."
+  },
+  {
+    "path": "docs/SPRINT_24_PLAYER_MOVEMENT_AND_CONTROL_FEEL.md",
+    "classification": "Architectural decision; historical implementation",
+    "bytes": 5398,
+    "headings": [
+      "Sprint 24: player movement and control feel",
+      "Read-only diagnosis",
+      "Classic FPS comparison",
+      "Retained implementation",
+      "Assembly and memory",
+      "Rejected changes",
+      "Validation checklist"
+    ],
+    "review_note": "Removed explicit176/256 turning movement penalty; angle before thrust and opposing cancellation. Old44 speed/6-degree values superseded."
+  },
+  {
+    "path": "docs/SPRINT_25_EXPERIMENTAL_8X8_WALL_TEXTURE.md",
+    "classification": "Historical experiment; performance benchmark",
+    "bytes": 6641,
+    "headings": [
+      "Sprint 25 \u2014 Experimental Native 8\u00d78 Wall Texture",
+      "Purpose and status",
+      "Native packed format",
+      "Horizontal mapping and addressing",
+      "Vertical mapping",
+      "LOD, palette, and renderer interaction",
+      "Measurements",
+      "Deterministic validation",
+      "Visual comparison checklist",
+      "Recommendation"
+    ],
+    "review_note": "Native8x8 instead of16x16,98 bytes saved, no measured FPS; later approved source format retained."
+  },
+  {
+    "path": "docs/SPRINT_26_EXPERIMENTAL_FAR_WALL_DITHER.md",
+    "classification": "Historical experiment; architectural decision",
+    "bytes": 7279,
+    "headings": [
+      "Sprint 26 \u2014 Experimental Far-Wall Ordered Dither",
+      "Purpose and retained experiment",
+      "Palette audit",
+      "Patterns, phases, and native representation",
+      "Compared variants",
+      "Emitted-code and runtime audit",
+      "Dirty-cache and output proof",
+      "Validation",
+      "Manual visual A/B checklist",
+      "Recommendation"
+    ],
+    "review_note": "Prepacked patterns avoid per-pixel procedural work; architecture cost368 bytes, not a CPU improvement claim."
+  },
+  {
+    "path": "docs/SPRINT_27_EXPERIMENTAL_BLACK_FOG_LOD.md",
+    "classification": "Rejected experiment",
+    "bytes": 6709,
+    "headings": [
+      "Sprint 27 \u2014 Experimental Black Fog LOD",
+      "Purpose and status",
+      "Read-only architecture findings",
+      "Compared variants",
+      "Native bitplanes",
+      "Assembly and runtime comparison",
+      "Memory and output measurements",
+      "Silhouette and transition risk",
+      "Deterministic validation",
+      "Required visual captures",
+      "Recommendation"
+    ],
+    "review_note": "75/87.5% black silhouettes risk fragmentation and LCD noise; same CPU work. Superseded by28/29."
+  },
+  {
+    "path": "docs/SPRINT_28_EXPERIMENTAL_DISTANCE_ATTENUATION.md",
+    "classification": "Historical implementation record",
+    "bytes": 5572,
+    "headings": [
+      "Sprint 28 \u2014 Experimental Distance Attenuation",
+      "Purpose and retained candidate",
+      "Palette audit",
+      "Attenuation model",
+      "Native bitplane changes",
+      "Executable and runtime comparison",
+      "Measurements",
+      "Deterministic validation",
+      "Visual evaluation still required",
+      "Recommendation"
+    ],
+    "review_note": "Opaque palette-only attenuation; unchanged executable timing. Near/LOD1 retained in29."
+  },
+  {
+    "path": "docs/SPRINT_29_HYBRID_DISTANCE_FOG.md",
+    "classification": "Architectural decision; historical experiment",
+    "bytes": 5908,
+    "headings": [
+      "Sprint 29 \u2014 Hybrid Distance Fog",
+      "Purpose and retained experiment",
+      "Architectural comparison",
+      "Candidate exploration",
+      "Palette and native table layout",
+      "Executable and runtime identity",
+      "Measurements",
+      "Validation report",
+      "Visual recommendation"
+    ],
+    "review_note": "CandidateC12.5% black contribution and fixed phases retained; rejected denser/irregular variants have no CPU benefit."
+  },
+  {
+    "path": "docs/SPRINT_30_POST_8X8_RENDERER_PERFORMANCE_AUDIT.md",
+    "classification": "Performance benchmark; rejected experiments",
+    "bytes": 12883,
+    "headings": [
+      "Sprint 30 \u2014 Post-8\u00d78 Renderer Performance Audit",
+      "Starting baseline and visual freeze",
+      "Read-only path trace and frequency inventory",
+      "Audit ranking recorded before implementation edits",
+      "HIGH",
+      "MEDIUM",
+      "LOW",
+      "REJECTED BEFORE EDITING",
+      "Results",
+      "Accepted HIGH optimization: byte flat bounds",
+      "Reverted bottom-bound trials",
+      "Accepted MEDIUM cleanup: remove dead variant scaffolding",
+      "Persistent RAM inventory",
+      "Bank inventory",
+      "Hot-path call inventory",
+      "Dirty cache conclusion",
+      "VRAM behavior",
+      "Sampler conclusion",
+      "Deterministic host oracle",
+      "Final validation",
+      "Remaining bottleneck and recommendation"
+    ],
+    "review_note": "Accepted byte flat-bound reuse; rejected signed/bottom locals due ROM/stack trade. Signature weakening previously unmeasured, now revisited."
+  },
+  {
+    "path": "docs/SPRINT_31_FINAL_GAME_GEAR_CONTROLS.md",
+    "classification": "Superseded control plan; validator specification",
+    "bytes": 8309,
+    "headings": [
+      "Sprint 31: final Game Gear controls",
+      "Result",
+      "Read-only baseline audit",
+      "Final control contract",
+      "Button 1 state machine",
+      "Reserved actions",
+      "Movement-speed audit",
+      "Size, RAM, stack, and emitted code",
+      "Host and ROM validation",
+      "Manual test checklist",
+      "Future work and baseline decision"
+    ],
+    "review_note": "Button1/2 roles and reserved START are superseded. Opposing cancellation, one-step symmetry and no explicit turn penalty remain relevant."
+  },
+  {
+    "path": "docs/SPRINT_31_SENIOR_ENGINE_ARCHITECTURE_AUDIT.md",
+    "classification": "Historical architectural decision",
+    "bytes": 21256,
+    "headings": [
+      "Sprint 31: senior engine architecture audit",
+      "Executive decision",
+      "Starting state and protected contract",
+      "Dependency and ownership map",
+      "Frame and repeated-work audit",
+      "Input, movement, camera, world, and interaction conclusions",
+      "Raycaster and protected renderer audit",
+      "ROM and banking inventory",
+      "Persistent RAM inventory",
+      "Stack inventory",
+      "Profiling and build audit",
+      "Validation coverage",
+      "Future gameplay readiness",
+      "Ranked findings and decisions",
+      "HIGH",
+      "MEDIUM",
+      "LOW",
+      "REJECTED",
+      "Changes, measurements, and validation",
+      "Remaining bottlenecks and final freeze"
+    ],
+    "review_note": "Freeze recommendation applied to prior foundation; current measured multi-period deficit justifies reopening engine research. Old sizes/actors/material fields differ."
+  },
+  {
+    "path": "docs/two_weapon_bank_pressure.md",
+    "classification": "Historical checkpoint; rejected allocation",
+    "bytes": 6669,
+    "headings": [
+      "Two-weapon milestone: bank-placement approval checkpoint",
+      "Current exact occupancy",
+      "Exact measured addition and what does not fit",
+      "Proposed minimal allocation change",
+      "Bank transitions and expected runtime consequences",
+      "Completed checks and pending work"
+    ],
+    "review_note": "Measured590-byte addition over452 slack; provisional logo-to-Bank2 superseded by correct Bank3 option."
+  },
+  {
+    "path": "docs/two_weapon_milestone.md",
+    "classification": "Historical implementation record; architectural decision",
+    "bytes": 17054,
+    "headings": [
+      "Two-weapon milestone \u2014 final production report",
+      "A. Executive verdict",
+      "B. Bank 3 production implementation and policy",
+      "C. Final physical/virtual bank map",
+      "D. Startup-logo relocation verification",
+      "E. Actual ROM/bank occupancy",
+      "F. RAM, stack and VRAM impact",
+      "G. Independent shotgun pickup architecture",
+      "H. Authored G marker",
+      "I. World FAR/NEAR presentation",
+      "J. Ownership state",
+      "K. Pause carousel",
+      "L. Held pistol/shotgun presentation",
+      "M. Combat semantics",
+      "N. Generated-Z80 audit",
+      "O. Pause-freeze regression",
+      "P. Validation results and evidence",
+      "Q. Manual Emulicious checklist \u2014 user test at 60 FPS",
+      "R. Remaining risks/future considerations"
+    ],
+    "review_note": "Accepted Bank3 logo, independent pickup/ninth projection, carousel,21 extra RAM bytes. Original no-auto-equip/perspective rules superseded."
+  },
+  {
+    "path": "docs/two_weapon_pre_edit.md",
+    "classification": "Superseded technical plan; unresolved issue resolved later",
+    "bytes": 7188,
+    "headings": [
+      "Two-weapon milestone: pre-edit findings",
+      "Existing architecture",
+      "Linked baseline and constraints",
+      "Asset inspection",
+      "Resolved contracts and remaining coordinate",
+      "Original questions (historical)"
+    ],
+    "review_note": "Distinct pickup versus zombie semantics, icon alpha/edge inspection and unresolvedG coordinate; all integration questions subsequently resolved."
+  },
+  {
+    "path": "docs/validator_hygiene.md",
+    "classification": "Validator specification; historical repair",
+    "bytes": 4792,
+    "headings": [
+      "Normal build validator hygiene",
+      "Cause and correction",
+      "Verification",
+      "Unchanged measurements"
+    ],
+    "review_note": "Linker membership replaces assembly glob; five-case mutation test now passes. Old Bank3 allowlists and selection behavior superseded."
+  },
+  {
+    "path": "docs/world_shotgun_pickup_asset.md",
+    "classification": "Historical implementation record",
+    "bytes": 4559,
+    "headings": [
+      "Dedicated world shotgun pickup artwork",
+      "Source inspection",
+      "Generation",
+      "Scope and measurements",
+      "Generated-code and validation results",
+      "Manual Emulicious checklist at 60 FPS"
+    ],
+    "review_note": "Dedicated world source replaces pause source; current generator/validators establish authoritative payload, old hashes are historical."
+  },
+  {
+    "path": "docs/ZOMBIE_PRESENTATION_PIPELINE.md",
+    "classification": "Historical presentation audit; superseded details",
+    "bytes": 6927,
+    "headings": [
+      "Zombie Presentation and Renderer Audit",
+      "Production model",
+      "Living presentation",
+      "Death and corpse presentation",
+      "Projection, budget, and composition",
+      "August 2026 performance audit",
+      "Memory facts",
+      "Deliberate non-changes",
+      "Validator philosophy"
+    ],
+    "review_note": "Authored tiers/budget/visibility separation; old19-byte records, fixed capacity8 presentation list and corpse tiers differ from current17-byte/ninth pickup/simple corpse path."
+  },
+  {
+    "path": "docs/ZOMBIE_SYSTEM_ARCHITECTURE_AUDIT.md",
+    "classification": "Architectural decision; performance analysis",
+    "bytes": 10452,
+    "headings": [
+      "Zombie System Architecture and Melee-Spacing Audit",
+      "Status and verdict",
+      "Audited production model",
+      "Awareness, LOS, and camera independence",
+      "Distance approximation",
+      "Focused melee-spacing oracle",
+      "Projection and authored-pose perception",
+      "Shooting and render separation",
+      "Player-collision comparison",
+      "Historical comparison",
+      "Validators, modules, and rejected changes"
+    ],
+    "review_note": "Octagonal distance, dominant-axis movement, camera-independent simulation and player/zombie collision asymmetry.15Hz claim depends on assumed60 updates."
+  },
+  {
+    "path": "GearRay_Developer_Bible.md",
+    "classification": "Consolidated architecture/history; superseded sections",
+    "bytes": 78357,
+    "headings": [
+      "GearRay Developer Bible",
+      "1. Purpose and reading guide",
+      "2. Project story, authorship, and responsibility",
+      "3. Vision, goals, and permanent engineering philosophy",
+      "3.1 Goals",
+      "3.2 Permanent principles",
+      "3.3 Change threshold for the stable engine",
+      "4. Current system at a glance",
+      "4.1 Accepted zombie combat milestone",
+      "4.2 Accepted zombie pursuit milestone",
+      "4.3 Layering",
+      "5. Startup, boot, and frame lifecycle",
+      "5.1 ROM startup",
+      "5.2 Frame order",
+      "5.3 Sequence diagram",
+      "6. Input and final controls",
+      "7. Player movement and collision",
+      "7.1 Authoritative state",
+      "7.2 Movement construction",
+      "7.3 Collision",
+      "8. Camera and fixed-point mathematics",
+      "9. World, map, objects, and doors",
+      "9.1 World fa\u00e7ade",
+      "9.2 Workshop map",
+      "9.3 Object model",
+      "9.4 Doors",
+      "10. Interaction flow",
+      "11. Raycaster",
+      "11.1 Ray generation",
+      "11.2 DDA",
+      "11.3 Hit data and projection",
+      "12. Renderer and native Game Gear video",
+      "12.1 Viewport contract",
+      "12.2 Initialization",
+      "12.3 Texture sampling",
+      "12.4 Distance treatment",
+      "12.5 Native packing",
+      "12.6 Dirty rendering",
+      "12.7 VBlank and ownership",
+      "13. Palette, textures, and asset pipeline",
+      "13.1 Palette philosophy",
+      "13.2 Generation flow",
+      "13.3 Provenance",
+      "14. ROM banking, memory, and hardware resources",
+      "14.1 CPU map and mapper",
+      "14.2 Current placement",
+      "14.3 Runtime/static ownership",
+      "14.4 VRAM allocation",
+      "14.5 Banking rules",
+      "15. Profiling and performance engineering",
+      "16. Build system and configuration",
+      "16.1 Supported host toolchain",
+      "16.2 User-facing configuration",
+      "16.3 Compiler/linker contract",
+      "16.4 Normal commands",
+      "17. Validation, debugging, and troubleshooting",
+      "17.1 Required automated checks",
+      "17.2 Manual/hardware checks",
+      "17.3 Known warnings",
+      "17.4 Debugging by subsystem",
+      "18. Historical evolution and decisions",
+      "18.1 Foundation",
+      "18.2 Geometry to native textures",
+      "18.3 Stable native renderer",
+      "18.4 Distance experiments",
+      "18.5 Controls",
+      "18.6 Banking",
+      "18.7 Operation Solid Ground",
+      "19. Design contracts and forbidden dependencies",
+      "20. Adding and extending features",
+      "20.1 Placement rules",
+      "20.2 Feature checklist",
+      "20.3 Examples",
+      "21. Repository and file index",
+      "21.1 Root and governance",
+      "21.2 Active source",
+      "21.3 Tools",
+      "21.4 Maintained and historical documentation",
+      "21.5 Assets and artifacts",
+      "21.6 Generated/local directories",
+      "22. Licensing, third-party software, and releases",
+      "22.1 Versioning and Git workflow",
+      "22.2 Release checklist",
+      "23. Limitations, risks, and roadmap",
+      "23.1 Current limitations",
+      "23.2 Roadmap",
+      "24. Lessons learned",
+      "25. Glossary",
+      "Appendix A. Public API reference",
+      "Camera",
+      "Player",
+      "Input",
+      "World and content",
+      "Interaction",
+      "Raycasting",
+      "Game Gear rendering",
+      "Profiling",
+      "Appendix B. Critical compile-time constants",
+      "Appendix C. Authority order"
+    ],
+    "review_note": "Useful broad chronology, but60Hz-derived AI speed, corpse records, pause/menu omissions and earlier flags require source reconciliation."
+  },
+  {
+    "path": "README.md",
+    "classification": "Current project documentation",
+    "bytes": 6868,
+    "headings": [
+      "GearRay",
+      "Screenshot",
+      "Current Status",
+      "Features",
+      "Controls",
+      "Supported Toolchain",
+      "Quick Build",
+      "Documentation",
+      "Roadmap",
+      "Known Limitations",
+      "Acknowledgements",
+      "License",
+      "Third-Party Software"
+    ],
+    "review_note": "Project overview/build/contribution/security/legal/history reference; executable source takes precedence."
+  },
+  {
+    "path": "SECURITY.md",
+    "classification": "Current project documentation",
+    "bytes": 1314,
+    "headings": [
+      "Security Policy",
+      "Supported Versions",
+      "Reporting a Vulnerability or Serious Issue"
+    ],
+    "review_note": "Project overview/build/contribution/security/legal/history reference; executable source takes precedence."
+  },
+  {
+    "path": "THIRD_PARTY_NOTICES.md",
+    "classification": "Current project documentation",
+    "bytes": 4278,
+    "headings": [
+      "Third-Party Notices",
+      "SDCC",
+      "devkitSMS",
+      "SMSlib",
+      "devkitSMS CRT (`crt0_sms`)",
+      "`makesms`",
+      "Release Checklist"
+    ],
+    "review_note": "Project overview/build/contribution/security/legal/history reference; executable source takes precedence."
+  }
+]
