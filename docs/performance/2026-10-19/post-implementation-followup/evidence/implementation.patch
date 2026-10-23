@@ -1,0 +1,864 @@
+diff --git a/GearRay_Developer_Bible.md b/GearRay_Developer_Bible.md
+index 5dfae58..1a94a44 100644
+--- a/GearRay_Developer_Bible.md
++++ b/GearRay_Developer_Bible.md
+@@ -2,7 +2,7 @@
+ 
+ > Current executable behavior and banking rules are maintained in [docs/CURRENT_BEHAVIOR.md](docs/CURRENT_BEHAVIOR.md). Historical sections below explain how the project arrived there and can describe superseded limits.
+ 
+-> The [2026-10-19 implementation report](docs/performance/2026-10-19/IMPLEMENTATION_REPORT.md) records the exact performance changes. Production retains its per-completed-loop timebase. Historical 60-FPS-derived movement and AI rates below are hypothetical. These changes have emulator validation; physical hardware validation remains pending.
++> The [follow-up report](docs/performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_REPORT.md) identifies the selected ROM, sprite-row reuse, guarded wall caching and corrected profiler measurements. The [earlier report](docs/performance/2026-10-19/IMPLEMENTATION_REPORT.md) preserves the original implementation. Production retains its per-completed-loop timebase. Historical 60-FPS-derived movement and AI rates below are hypothetical. These changes have emulator validation; physical hardware validation remains pending.
+ 
+ > **Status:** Official technical, architectural, historical, and engineering reference
+ > **Project:** GearRay
+@@ -698,15 +698,14 @@ SDCC banked calls use CRT `get_bank`/`set_bank` hooks and a resident trampoline.
+ 
+ ### 14.2 Current placement
+ 
+-Bank 0 contains reset/interrupt support, the main loop, input, player, camera,
+-world queries, door state, raycaster, texture sampling, renderer, SMSlib, and
+-trampolines. Bank 1 contains `interaction_ray.c`, `world_interactions.c`,
+-`zombie_shooting.c`, `zombie_ai.c`, `enemy_collision.c`, multi-sprite
+-projection/budget selection, the startup-logo routine and assets, the HUD
+-weapon compositor, LOD tables, 8x8/16x16 zombie and weapon textures, and
+-optional profiling reporting. Bank 2 contains seven native 32x32 zombie
+-payloads and their lookup table. The accepted graph introduces no nested
+-banked call.
++Bank 0 contains reset/interrupt support, the main loop, input, player, camera
++entry points, world queries, door state, raycaster, renderer, SMSlib and
++trampolines. Bank 1 contains interaction, shooting, AI, enemy collision,
++multi-sprite projection/budget selection, HUD work, LOD and 8x8/16x16 art.
++Hot Bank 1 entries are direct under slot 1 = page 1. Bank 2 contains the camera
++graph, pause/corpse management and native 32x32 zombie payloads. Bank 3 contains
++cold startup/Game Over work in slot 1 and the disjoint native wall tail in
++slot 2. The wall scope restores page 2 before sprite work or a public return.
+ 
+ The `_BANK1` segment links at virtual `0x14000`. Banked objects are placed after resident objects/libraries. The Sega header is at file/CPU address `0x7FF0` and declares the current 64 KiB package with region/size code `0x7E`; the obsolete 16 KiB header position must not return.
+ 
+@@ -714,22 +713,25 @@ Current audited release measurements:
+ 
+ | Resource | Release |
+ |---|---:|
+-| Logical linked content | 34,730 bytes |
+-| Bank 0 free | 385 bytes |
+-| Bank 1 used/free | 15,117 / 1,251 bytes |
+-| Bank 2 used/free | 3,598 / 12,786 bytes |
++| Linked bank extents including gaps | 51,575 bytes |
++| Bank 0 used/free | 12,865 / 3,519 bytes |
++| Bank 1 used/free before header | 14,217 / 2,151 bytes |
++| Bank 2 used/free | 11,737 / 4,647 bytes |
++| Bank 3 physical extent/free | 12,756 / 3,628 bytes |
++| Static RAM | 1,538 bytes |
+ | ROM file | 65,536 bytes |
+-| ROM checksum | `0xD092` |
++| ROM checksum | `0xFA13` |
+ 
+-Release fixed segments end exclusively at `0x3E7F`. The remaining 385 bytes
++Release fixed segments end exclusively at `0x3241`. The remaining 3,519 bytes
+ are an engineering capacity constraint, not a runtime failure. Future resident
+ growth should first consider moving cohesive cold work instead of relocating
+ hot renderer code.
+ 
+-All persistent BANK1 texture pointers are safe in the current two-bank image
+-because their data and consumers share BANK1. This assumption must be reviewed
+-before BANK2 is introduced; no BANK1 pointer may survive an incompatible bank
+-mapping or nested cross-bank call.
++The selected four-page image normally maps page 1 in slot 1 and page 2 in slot 2.
++Pointers must be consumed under their documented mapping. No pointer into the
++native wall tail survives its temporary slot-2 page-3 scope. Cold slot-1 banked
++dispatch restores its caller mapping. Validate both scopes after placement or
++calling-convention changes.
+ 
+ These are milestone measurements, not eternal constants; current release work must remeasure.
+ 
+@@ -1254,9 +1256,10 @@ remain the accepted collision model.
+ 
+ Measure moving-zombie renderer load before broadening AI. Re-audit if practical
+ frames repeatedly approach 10–12 dirty columns, 80–96 regenerated tiles, or
+-approximately 2.5–3 KiB of pattern traffic. Profile Bank 0 currently has only
+-385 bytes free in the audited release, so new work must preserve cohesive Bank
+-1 placement and avoid multiple normal-frame bank transitions per zombie.
++approximately 2.5–3 KiB of pattern traffic. The selected Release has 3,519 Bank
++0 bytes free. Measure profile builds separately; diagnostic code has a different
++footprint. New work must preserve cohesive placement and avoid multiple
++normal-frame bank transitions per zombie.
+ 
+ Future systems must grow around, not through, the stable renderer and movement contracts.
+ 
+diff --git a/README.md b/README.md
+index bb88f55..3a6ebfd 100644
+--- a/README.md
++++ b/README.md
+@@ -17,7 +17,7 @@ Historical renderer captures are available in [`artifacts/`](artifacts/).
+ 
+ ## Measured performance implementation
+ 
+-The [2026-10-19 implementation report](docs/performance/2026-10-19/IMPLEMENTATION_REPORT.md) records exact renderer/camera/cache improvements, 2,880 matching replay records, and cooperative scheduling/presentation experiments. Production retains its per-completed-loop timing; display refresh is not gameplay FPS. Physical hardware validation of these changes remains pending.
++The [follow-up implementation report](docs/performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_REPORT.md) records sprite-row reuse, guarded wall caching, corrected profiler spans and 2,880 matching current-art replay records. The selected ROM is `rom/GearRay-pir-selected-20261022.gg`, SHA-256 `3632006ED68FCBCBACF9AA693C92560520DF496E1E4AC23CF2CB6E1DF88D3340`. The [earlier report](docs/performance/2026-10-19/IMPLEMENTATION_REPORT.md) preserves the original implementation and scheduling experiments. Production retains its per-completed-loop timing; display refresh is not gameplay FPS. Physical hardware validation remains pending.
+ 
+ ## Current Status
+ 
+diff --git a/docs/BUILDING.md b/docs/BUILDING.md
+index 2415fe3..038b0ab 100644
+--- a/docs/BUILDING.md
++++ b/docs/BUILDING.md
+@@ -311,14 +311,14 @@ The checked-in launchers explicitly set the profiling option and ROM filename.
+ For custom configurations, inspect the cache or configure a fresh build
+ directory rather than reusing an incompatible one.
+ 
+-## Verified performance build (2026-10-19)
++## Selected follow-up performance build (2026-10-23)
+ 
+ ```powershell
+-cmake -S . -B build-implementation-production -G Ninja '-DCMAKE_BUILD_TYPE=Release' '-DGEARRAY_PROFILE_RENDERER=OFF' '-DGEAR_RAY_ROM_FILENAME=GearRay-implementation-production.gg'
+-cmake --build build-implementation-production
+-powershell -NoProfile -ExecutionPolicy Bypass -File tools/full_z80_audit.ps1 -BuildDirectory build-implementation-production -RunValidators
++cmake -S . -B build-pir-selected-20261022 -G Ninja '-DCMAKE_BUILD_TYPE=Release' '-DGEARRAY_PROFILE_RENDERER=OFF' '-DGEAR_RAY_ROM_FILENAME=GearRay-pir-selected-20261022.gg'
++cmake --build build-pir-selected-20261022
++powershell -NoProfile -ExecutionPolicy Bypass -File tools/full_z80_audit.ps1 -BuildDirectory build-pir-selected-20261022 -RomPath rom/GearRay-pir-selected-20261022.gg -RunValidators
+ ```
+ 
+ The audit resolves the selected build's configured ROM and validates every mapped IHX payload byte, excluding the checksum patched by makesms. It must not substitute a different `rom/GearRay.gg`. There are now 24 validators, including native wall generation/placement. Keep profile builds separate. PowerShell child processes may require the standard Windows PowerShell Modules directory in `PSModulePath` for `Get-FileHash`.
+ 
+-Generated masks, graph and wall schedules depend on current source artwork/metadata; do not hand-edit generated tables. Scalar wall code is preserved under performance evidence and is excluded from production. See the [implementation report](performance/2026-10-19/IMPLEMENTATION_REPORT.md) for emulator/driver identities, commands, limitations and experimental source bundles.
++Generated masks, graph and wall schedules depend on current source artwork/metadata; do not hand-edit generated tables. Preserve current PNGs and use identical assets in both comparison builds. Scalar wall code is preserved under historical performance evidence and is excluded from production. See the [follow-up report](performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_REPORT.md) for selected identity and validation, and [tools/performance](../tools/performance/README.md) for reproducible full routes, exact ABI cleanup metadata and profiler self-tests. Do not rewrite historical CSVs when correcting the observer.
+diff --git a/docs/CURRENT_BEHAVIOR.md b/docs/CURRENT_BEHAVIOR.md
+index 942f3d1..a0a40bd 100644
+--- a/docs/CURRENT_BEHAVIOR.md
++++ b/docs/CURRENT_BEHAVIOR.md
+@@ -36,7 +36,8 @@ The fixed-divisor and frozen/back-buffer implementations remain isolated experim
+ - Camera turns use the exact generated 242-state/484-edge legacy transition graph, not uniform angles.
+ - Complete wall rays are reused only for identical six-value pose and three-door geometry. Resolved switch material changes update terminal materials without DDA. Initialization invalidates the cache.
+ - Native walls use generated exact source-row schedules and palette columns; the old scalar sampler is test evidence only.
+-- The sprite compositor prepares horizontal source/depth visibility once per tile and merges four planes by row.
++- The sprite compositor prepares horizontal source/depth visibility once per tile. Within each call it reuses decoded foreground masks for repeated clamped source rows, while merging every output row into its own destination. The automatic cache resets on every call.
++- Wall signatures compare only the upper three hit-offset bits in columns with no current projected sprite. Columns with a sprite retain exact offsets; dirty/removal, HUD, validity, height, material and side gates remain intact. Stored signatures and actual rays retain all bits.
+ - Completed sprite preparation is reused only when pose, every live actor byte/count, pickup state/cells and all wall depths match. Initialization invalidates it; AI still runs for all actors.
+ - Invisible projected sprites are compared and ordered without reading irrelevant fields.
+ 
+@@ -49,7 +50,9 @@ The fixed-divisor and frozen/back-buffer implementations remain isolated experim
+ 
+ ## Current measured Release
+ 
+-The 2026-10-19 optimized Release is `rom/GearRay-implementation-production.gg`, 65,536 bytes, SHA-256 `E0FCFDD6FAE28794FED9B56CD256D27FCD029248A9A8DA846C12BB05DBF05566`. Linked bank extents are 12,961 / 14,217 / 11,737 / 12,756 bytes; Bank 3 includes a 3-byte alignment gap. Static RAM is 1,538 bytes, with a 1,024-byte stack reserve. Production VRAM allocation is unchanged. All 24 validators pass. Physical Game Gear validation of these changes remains pending.
++The selected follow-up Release is `rom/GearRay-pir-selected-20261022.gg`, 65,536 bytes, SHA-256 `3632006ED68FCBCBACF9AA693C92560520DF496E1E4AC23CF2CB6E1DF88D3340`, rebuilt and validated on 2026-10-23. Linked bank extents are 12,865 / 14,217 / 11,737 / 12,756 bytes; Bank 3 includes a 3-byte alignment gap. Bank 0 has 3,519 free bytes. Static RAM is 1,538 bytes, with a 1,024-byte stack reserve. Production VRAM allocation is unchanged. All 24 validators and 2,880 matched current-art replay records pass. See the [follow-up report](performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_REPORT.md) for separate sprite and guarded-wall measurements, corrected profiler spans and remaining acceptance limits. Physical Game Gear validation remains pending.
++
++The prior optimized Release and fresh current-art control both hash to `E0FCFDD6FAE28794FED9B56CD256D27FCD029248A9A8DA846C12BB05DBF05566`. Current zombie PNGs are authoritative and preserved byte-for-byte; the linked artwork change affects only RGB beneath transparent pixels, so generated visible pixels are unchanged. The local ignored `rom/GearRay.gg` still contains the historical baseline; use the selected path above explicitly.
+ 
+ The preserved pre-implementation baseline is SHA-256 `6322EFCC0434AD8D4FC3F066CED47E0A1FB4CDB140D6DA8654521E3834371136`, 65,536 bytes, bank extents 15,629 / 13,516 / 9,317 / 4,605 and static RAM 1,239 bytes. Historical checkpoint hashes describe their own snapshots.
+ 
+diff --git a/docs/ENGINE_ARCHITECTURE.md b/docs/ENGINE_ARCHITECTURE.md
+index 405bc50..9e439da 100644
+--- a/docs/ENGINE_ARCHITECTURE.md
++++ b/docs/ENGINE_ARCHITECTURE.md
+@@ -18,7 +18,7 @@ is intentional.
+ 
+ ### Verified performance implementation (2026-10-19)
+ 
+-[Current behavior](CURRENT_BEHAVIOR.md) and the [measured implementation report](performance/2026-10-19/IMPLEMENTATION_REPORT.md) define the current bank/resource/timing contract. Exact HUD masks, the legacy camera graph, full ray/material invalidation, native wall schedules, sprite spans and complete preparation reuse are enabled. Fixed scheduling and double buffering remain measured experiments outside production linkage. The production renderer owns a completed preparation cache and still updates live VRAM.
++[Current behavior](CURRENT_BEHAVIOR.md) and the [follow-up report](performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_REPORT.md) define the selected ROM and current bank/resource/timing contract. Exact HUD masks, the legacy camera graph, full ray/material invalidation, native wall schedules, sprite spans and complete preparation reuse are enabled. The sprite compositor also reuses foreground keep/plane masks for repeated clamped source Y within one call; every destination row still merges independently. Wall offset comparison uses upper three bits only in columns without a current projected sprite; exact offsets, dirty/removal gates and actual rays are retained. Fixed scheduling and double buffering remain measured experiments outside production linkage. The production renderer owns a completed preparation cache and still updates live VRAM.
+ 
+ ### Game loop
+ 
+@@ -910,7 +910,7 @@ optional diagnostic configuration rather than a shipping feature.
+ 
+ Moving-zombie measurements should trigger another renderer review if practical
+ frames repeatedly approach 10–12 dirty columns, 80–96 regenerated tiles, or
+-about 2.5–3 KiB of pattern traffic. The current audited Release build has 385
++about 2.5–3 KiB of pattern traffic. The selected follow-up Release has 3,519
+ Bank 0 bytes free; future resident work must continue to audit that margin.
+ 
+ - **Doors:** add animation, timing, obstruction rules, and audiovisual feedback
+diff --git a/docs/ROM_BANKING.md b/docs/ROM_BANKING.md
+index 8bc9b3d..5813721 100644
+--- a/docs/ROM_BANKING.md
++++ b/docs/ROM_BANKING.md
+@@ -74,12 +74,12 @@ field with region/size code `0x7E`, declaring the current 64 KiB Game Gear ROM.
+ The header remains at `0x7FF0`; the former 16 KiB position at `0x3FF0` must not
+ be restored.
+ 
+-The 2026-10-19 measured Release has the following linked extents:
++The selected follow-up Release (rebuilt 2026-10-23) has the following linked extents:
+ 
+ | Resource | Release |
+ | --- | ---: |
+ | Packaged ROM/header | 65,536 bytes / `0x7E` |
+-| Bank 0 extent/free | 12,961 / 3,423 bytes |
++| Bank 0 extent/free | 12,865 / 3,519 bytes |
+ | Bank 1 extent/free before header | 14,217 / 2,151 bytes |
+ | Bank 2 extent/free | 11,737 / 4,647 bytes |
+ | Bank 3 physical extent/free | 12,756 / 3,628 bytes |
+@@ -87,7 +87,7 @@ The 2026-10-19 measured Release has the following linked extents:
+ 
+ Bank 2 also contains the exact camera graph, pause UI and corpse management. Bank 3 contains cold logo/Game Over code in slot 1 and the native wall worker/tables in a disjoint physical tail: `_BANK3WALL=0x39200`, CPU slot-2 address `0x9200`, physical offset `0x1200`. Cold Bank 3 length is `0x11FD`; the wall tail length is `0x1FD4`. Map Bank 3 only while executing this worker, then restore slot 2 to page 2. No pointer into that mapped tail survives the mapper scope. Do not route its calls through the slot-1 SDCC trampoline. Validators reject unexpected tail occupants, overlap, overflow, and map/ROM payload disagreement.
+ 
+-These values supersede the original migration's headroom figures. [Current behavior](CURRENT_BEHAVIOR.md) identifies the exact ROM; [the report](performance/2026-10-19/IMPLEMENTATION_REPORT.md) distinguishes measured experiments from production.
++These values supersede the original migration's headroom figures. [Current behavior](CURRENT_BEHAVIOR.md) identifies the selected ROM path/hash; the [follow-up report](performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_REPORT.md) records the 96-byte net Bank 0 reduction and validation. Historical measurements remain in their dated reports.
+ 
+ The single-bank baseline had 35 free Bank 0 bytes. This first migration pays a
+ one-time resident cost for SDCC's bank-call support: the 43-byte resident
+@@ -298,23 +298,23 @@ switch-controlled red door.
+ 
+ ## Current limitations and risks
+ 
+-- This environment can build and statically verify the ROM but does not contain
+-  Emulicious or an original-hardware runner. Runtime compatibility therefore
+-  still requires external validation.
+-- The current low-frequency interaction ray and interaction dispatcher cross
+-  the bank boundary. More complex nested and cross-bank call graphs have not
+-  yet been validated in GearRay.
+-- Release Bank 0 has 385 free bytes. New resident features require deliberate
+-  space management; clearly cold
+-  startup/debug code should be evaluated for Bank 1 before hot renderer code.
+-- Bank switching has nonzero latency and changes mapper state. It must not be
+-  introduced into renderer inner loops.
++- Pinned Emulicious is installed and has executed compiled equivalence tests,
++  full state/ray/VRAM replay and GUI startup checks. Complete interactive A/B
++  and physical Game Gear acceptance are separate gates; see the follow-up report.
++- Hot Bank 1 calls, including interaction work, are direct under slot 1 = page 1.
++  Eight cold dispatch sites remain. The current validated topology is enforced
++  by the production dispatch scan; new call graphs require their own audit.
++- Release Bank 0 has 3,519 free bytes. New resident features still require
++  measured space and stack accounting.
++- Bank switching changes mapper state. The accepted bounded native wall scope
++  maps page 3 in slot 2 and restores page 2 before sprite work or public return.
++  Additional scopes need explicit ownership, restoration and timing evidence.
+ - The current ROM package is 64 KiB, not 512 KiB. The architecture can grow toward
+   512 KiB, but future banks must be explicitly built, linked, and validated.
+ 
+ ## Recommendations for the next migration
+ 
+-1. Validate this ROM in Emulicious with mapper inspection enabled.
++1. Preserve the executed mapper/equivalence checks when changing bank placement.
+ 2. Test both standard-door interactions and red-door switch activation on
+    original Game Gear hardware using a full-Sega-mapper-compatible cartridge
+    or flash device.
+@@ -325,6 +325,6 @@ switch-controlled red door.
+ 6. Introduce slot-2 asset banking separately from code banking so ownership and
+    restoration rules remain clear.
+ 
+-This completes the banked-ROM foundation and exactly one architectural
+-migration. Further movement of code or assets belongs to later, independently
+-validated sprints.
++The original single-module migration is historical. Current placement includes
++the later camera, sprite and native wall work described above; further movement
++of code or assets requires independent validation.
+diff --git a/platform/game_gear/video.c b/platform/game_gear/video.c
+index 561bede..1572e67 100644
+--- a/platform/game_gear/video.c
++++ b/platform/game_gear/video.c
+@@ -85,7 +85,7 @@ static unsigned char game_gear_sprite_covers_tile(
+         && sprite->top < tile_top + 8;
+ }
+ 
+-/* Exact per-tile horizontal span and native row-plane merging experiment. */
++/* Exact per-tile horizontal span and native foreground row-plane reuse. */
+ static void game_gear_overlay_sprite_tile(
+     unsigned char *destination,unsigned char tile_column,unsigned char tile_row,
+     const GameGearProjectedSprite *projected,const RaycasterRay *rays)
+@@ -98,6 +98,7 @@ static void game_gear_overlay_sprite_tile(
+     signed int tile_left=tile_column*8,tile_top=tile_row*8,screen_x,screen_y;
+     unsigned int texture_x,texture_y;
+     unsigned char source_x[8],pixel_x,pixel_y,palette_index,mask,keep,b0,b1,b2,b3;
++    unsigned char last_source_y=255;
+     const unsigned char *source_row;
+     for(pixel_x=0;pixel_x<8;++pixel_x) {
+         screen_x=tile_left+pixel_x;source_x[pixel_x]=255;
+@@ -112,16 +113,22 @@ static void game_gear_overlay_sprite_tile(
+         if(screen_y<projected->top || screen_y>=projected->bottom) continue;
+         texture_y=((unsigned int)(screen_y-projected->top)*projected->texture_step)>>8;
+         if(texture_y>=source_size) texture_y=source_size-1;
+-        source_row=pixels+texture_y*packed_row_stride;
+-        keep=255;b0=b1=b2=b3=0;
+-        for(pixel_x=0;pixel_x<8;++pixel_x) {
+-            texture_x=source_x[pixel_x];if(texture_x==255) continue;
+-            palette_index=source_row[texture_x>>1];
+-            if(texture_x&1) palette_index&=15;else palette_index>>=4;
+-            if(palette_index==SPRITE_TRANSPARENT_INDEX) continue;
+-            mask=128U>>pixel_x;keep&=(unsigned char)~mask;
+-            if(palette_index&1) b0|=mask;if(palette_index&2) b1|=mask;
+-            if(palette_index&4) b2|=mask;if(palette_index&8) b3|=mask;
++        /* Valid source rows are 0..31, so the first visible row decodes.
++         * Only foreground masks survive a repeat; every destination row
++         * below retains its own background and already composited layers. */
++        if(texture_y!=last_source_y) {
++            last_source_y=(unsigned char)texture_y;
++            source_row=pixels+texture_y*packed_row_stride;
++            keep=255;b0=b1=b2=b3=0;
++            for(pixel_x=0;pixel_x<8;++pixel_x) {
++                texture_x=source_x[pixel_x];if(texture_x==255) continue;
++                palette_index=source_row[texture_x>>1];
++                if(texture_x&1) palette_index&=15;else palette_index>>=4;
++                if(palette_index==SPRITE_TRANSPARENT_INDEX) continue;
++                mask=128U>>pixel_x;keep&=(unsigned char)~mask;
++                if(palette_index&1) b0|=mask;if(palette_index&2) b1|=mask;
++                if(palette_index&4) b2|=mask;if(palette_index&8) b3|=mask;
++            }
+         }
+         destination[pixel_y*4]=(destination[pixel_y*4]&keep)|b0;
+         destination[pixel_y*4+1]=(destination[pixel_y*4+1]&keep)|b1;
+@@ -139,7 +146,8 @@ static unsigned char game_gear_wall_column_is_unchanged(
+     unsigned char left_texture_id,
+     unsigned char right_texture_id,
+     WallSide left_wall_side,
+-    WallSide right_wall_side)
++    WallSide right_wall_side,
++    unsigned char offset_mask)
+ {
+     unsigned char side_flags = 0;
+ 
+@@ -154,8 +162,8 @@ static unsigned char game_gear_wall_column_is_unchanged(
+ 
+     return previous->left_wall_height == left_wall_height
+         && previous->right_wall_height == right_wall_height
+-        && previous->left_hit_offset == left_hit_offset
+-        && previous->right_hit_offset == right_hit_offset
++        && (previous->left_hit_offset & offset_mask) == (left_hit_offset & offset_mask)
++        && (previous->right_hit_offset & offset_mask) == (right_hit_offset & offset_mask)
+         && previous->left_texture_id == left_texture_id
+         && previous->right_texture_id == right_texture_id
+         && (previous->side_and_valid_flags
+@@ -379,6 +387,10 @@ void game_gear_video_draw_wall_columns(void)
+         if (sprite_dirty_column)
+             GEAR_RAY_PROFILE_INCREMENT(sprite_driven_dirty_columns);
+ 
++        /* Wall sampling consumes only the upper three offset bits. A current
++         * sprite still requires exact offsets: a depth crossing can change
++         * occlusion even when wall height and sampled column stay unchanged.
++         * Previous-sprite removal and HUD invalidation remain independent. */
+         if (game_gear_wall_column_is_unchanged(previous_wall_column,
+                                                left_wall_height,
+                                                right_wall_height,
+@@ -387,7 +399,8 @@ void game_gear_video_draw_wall_columns(void)
+                                                left_ray->texture_id,
+                                                right_ray->texture_id,
+                                                left_wall_side,
+-                                               right_wall_side)
++                                               right_wall_side,
++                                               current_sprite_column ? 255 : 224)
+             && !sprite_dirty_column
+             && !(hud_weapon_changed
+                  && tile_column >= HUD_WEAPON_FIRST_TILE_COLUMN
+diff --git a/tools/validate_weapon_runtime.ps1 b/tools/validate_weapon_runtime.ps1
+index 348b72c..6ff6bd8 100644
+--- a/tools/validate_weapon_runtime.ps1
++++ b/tools/validate_weapon_runtime.ps1
+@@ -125,7 +125,10 @@ Require ($overlay.Length -gt 0) 'Production compositor missing'
+ $overlay=$overlay.Replace('const GameGearProjectedSprite *projected','GameGearProjectedSprite projected').Replace('const RaycasterRay *rays','RaycasterRay[] rays')
+ $overlay=$overlay.Replace('unsigned char *destination','int[] destination').Replace('const unsigned char *pixels','int[] pixels').Replace('projected->','projected.')
+ $overlay=$overlay.Replace('const unsigned char *source_row;','int source_row;').Replace('source_row = pixels + texture_y * packed_row_stride;','source_row = texture_y * packed_row_stride;').Replace('source_row[texture_x >> 1]','pixels[source_row + (texture_x >> 1)]')
+-$overlay=$overlay.Replace('unsigned char source_x[8],pixel_x,pixel_y,palette_index,mask,keep,b0,b1,b2,b3;','unsigned char[] source_x=new unsigned char[8]; unsigned char pixel_x,pixel_y,palette_index,mask,keep,b0,b1,b2,b3;')
++# C# definite assignment cannot infer that valid source Y (0..31) differs
++# from sentinel 255 on the first visible row. Initialize translated host
++# locals only; keep the extracted C logic and every pixel assertion intact.
++$overlay=$overlay.Replace('unsigned char source_x[8],pixel_x,pixel_y,palette_index,mask,keep,b0,b1,b2,b3;','unsigned char[] source_x=new unsigned char[8]; unsigned char pixel_x,pixel_y,palette_index,mask,keep=255,b0=0,b1=0,b2=0,b3=0;')
+ $overlay=[regex]::Replace($overlay,'source_row\s*=\s*pixels\s*\+\s*texture_y\s*\*\s*packed_row_stride;','source_row = texture_y * packed_row_stride;')
+ $overlay=[regex]::Replace($overlay,'source_row\[texture_x\s*>>\s*1\]','pixels[source_row + (texture_x >> 1)]')
+ $overlay=[regex]::Replace($overlay,'if\s*\(texture_x\s*&\s*1\)','if ((texture_x & 1) != 0)')
+--- /dev/null
++++ b/tools/performance/abi_cleanup.json
+@@ -0,0 +1,35 @@
++{
++  "format": 1,
++  "meaning": "Callee-popped stacked argument bytes, excluding the two-byte return address. Verified against SDCC 4.6.0 #16555 emitted epilogues and direct-call fixtures; register arguments contribute zero.",
++  "symbols": {
++    "game_gear_input_update": 0,
++    "world_sprites_update": 0,
++    "camera_rotate_left": 0,
++    "camera_rotate_right": 0,
++    "player_move_combined": 0,
++    "game_gear_hud_weapon_update": 0,
++    "zombie_ai_update_all": 0,
++    "player_process_interaction": 0,
++    "red_door_switch_update": 0,
++    "raycaster_update": 0,
++    "zombie_shooting_process": 0,
++    "SMS_waitForVBlank": 0,
++    "game_gear_damage_shake_update": 0,
++    "game_gear_video_draw_wall_columns": 0,
++    "game_gear_prepare_world_sprites": 8,
++    "game_gear_prepare_cached_world_sprites": 8,
++    "game_gear_pause_map_show": 0,
++    "game_gear_video_restore_gameplay": 0,
++    "game_gear_project_world_sprite": 16,
++    "wall_plan_prepare": 1,
++    "wall_plan_rows": 4,
++    "game_gear_build_native_wall_tile": 1,
++    "game_gear_overlay_sprite_tile": 6,
++    "game_gear_overlay_hud_weapon_tile": 2,
++    "game_gear_video_present_player_death": 0,
++    "game_gear_startup_logo_show": 0,
++    "game_gear_video_initialize": 0,
++    "world_initialize": 0,
++    "SMS_VRAMmemcpy": 2
++  }
++}
+--- /dev/null
++++ b/tools/performance/benchmark.py
+@@ -0,0 +1,190 @@
++"""Execute the uninstrumented Release ROM in the installed Emulicious core.
++
++Python 3.12 + JPype1 1.5.2. No emulator source is modified. executeOnce(0)
++executes one instruction and returns the negative elapsed T states. Scenarios
++restore a cloned boot state, then seed explicitly documented RAM fixtures.
++"""
++import pathlib, sys, re, csv, json, hashlib, time, collections, math, argparse
++ROOT=pathlib.Path(__file__).resolve().parents[2]; OUT=pathlib.Path(__file__).parent
++BUILD=ROOT/'build-perf-20261019'
++sys.path.insert(0,str(BUILD/'python-tools'))
++import jpype
++
++from emulation_symbols import symbols
++
++def main():
++    global BUILD,OUT
++    ap=argparse.ArgumentParser();ap.add_argument('samples',type=int,nargs='?',default=24)
++    ap.add_argument('--build',type=pathlib.Path,required=True)
++    ap.add_argument('--rom',type=pathlib.Path)
++    ap.add_argument('--java-tools',type=pathlib.Path,required=True)
++    ap.add_argument('--driver',choices=['abi','legacy'],default='abi')
++    ap.add_argument('--output',type=pathlib.Path,required=True)
++    ap.add_argument('--only',default='');ap.add_argument('--route-length',type=int,default=16);ap.add_argument('--legacy-route',action='store_true');ap.add_argument('--warmup',type=int,default=0);ap.add_argument('--logical-input',action='store_true')
++    args=ap.parse_args();n=args.samples;BUILD=args.build.resolve();OUT=args.output.resolve();OUT.mkdir(exist_ok=True,parents=True)
++    if args.rom is None:
++        cache=(BUILD/'CMakeCache.txt').read_text()
++        configured=re.search(r'^GEAR_RAY_ROM_FILENAME:STRING=(.+)$',cache,re.M)[1]
++        home=pathlib.Path(re.search(r'^CMAKE_HOME_DIRECTORY:INTERNAL=(.+)$',cache,re.M)[1])
++        args.rom=home/'rom'/configured
++    jpype.startJVM('D:/Emulicious-with-Java64/java/bin/server/jvm.dll',classpath=['D:/Emulicious-with-Java64/Emulicious.jar',str(args.java_tools.resolve())])
++    J=jpype.JClass
++    display=J('platform.DisplayWindow')();window=J('output.SMSDisplayWindow')(display,0,False)
++    sound=J('output.SMSSoundOutput')(None,44100,100,2);sound.setSoundEnabled(False)
++    g=J('system.GameGear')(window,sound,0)
++    held=set();physical={'t':0,'pulse':False}
++    driver='PerfRunner' if args.driver=='abi' else 'EmulationRunner'
++    runner=J(driver);provider=J(driver+'$Pad')()
++    buttons=J('components.input.SMSButtons')(provider);g.setButtons(buttons)
++    g.plugInInputDevice(0,J('components.input.SMSJoypad')(0,provider))
++    rom=args.rom.read_bytes()
++    g.insertCartridge(J('components.cartridge.SMSCartridge')(jpype.JArray(jpype.JInt)(list(rom))))
++    g.reset()
++    # Emulicious deliberately randomizes VDP reset timer from host milliseconds.
++    # Pin only that power-on phase, leaving all CPU/VDP execution unmodified.
++    vf=J('system.MasterSystem').class_.getDeclaredField('vdp');vf.setAccessible(True)
++    tf=J('components.video.TMS9918A').class_.getDeclaredField('timer');tf.setAccessible(True)
++    tf.setInt(vf.get(g),228)
++    s=symbols(BUILD);pub=lambda name:s['global','_'+name]
++    addr=lambda mod,name:s[mod,'_'+name]&65535
++    mem=g.getRAM()
++    def read(a):return int(mem[a&8191])
++    def word(a):return read(a)|(read(a+1)<<8)
++    def write(a,v):mem[a&8191]=v&255
++    def writeword(a,v):write(a,v);write(a+1,v>>8)
++    t=0;instructions=0
++    input_pc=pub('game_gear_input_update')
++    t=runner.until(g,input_pc,100_000_000)
++    snapshot=g.createMutableState()
++    print('BOOT',t,instructions,'cycles/frame',g.getCyclesPerFrame(),flush=True)
++    tracked=['game_gear_input_update','world_sprites_update','camera_rotate_left','camera_rotate_right','player_move_combined','game_gear_hud_weapon_update','zombie_ai_update_all','player_process_interaction','red_door_switch_update','raycaster_update','zombie_shooting_process','SMS_waitForVBlank','game_gear_damage_shake_update','game_gear_video_draw_wall_columns','game_gear_prepare_world_sprites','game_gear_pause_map_show','game_gear_video_restore_gameplay']
++    tracked += [name for name in ['game_gear_prepare_cached_world_sprites','wall_plan_prepare','wall_plan_rows'] if ('global','_'+name) in s]
++    tracked += ['game_gear_video_present_player_death','game_gear_startup_logo_show','game_gear_video_initialize','world_initialize','SMS_VRAMmemcpy','game_gear_overlay_hud_weapon_tile']
++    roots={pub(name):name for name in tracked}
++    roots[s['video','_game_gear_overlay_sprite_tile']]='game_gear_overlay_sprite_tile'
++    roots[s['video','_game_gear_build_native_wall_tile']]='game_gear_build_native_wall_tile'
++    counters={addr('video','game_gear_store_wall_column_signature'):'dirty_columns',addr('video','game_gear_build_native_wall_tile'):'tiles',addr('video','game_gear_overlay_sprite_tile'):'sprite_tiles',addr('raycaster','cast_ray'):'rays',pub('world_is_wall'):'world_queries',pub('SMS_isr'):'interrupts',pub('world_initialize'):'world_initializations'}
++    roots[s['sprite_projection','_game_gear_project_world_sprite']]='game_gear_project_world_sprite'
++    if ('render_textures','_game_gear_wall_texture_palette_sample_next') in s:counters[s['render_textures','_game_gear_wall_texture_palette_sample_next']]='sampler_calls'
++    for fn in ['wall_plan_prepare','wall_plan_rows']:
++        if ('global','_'+fn) in s:counters[pub(fn)]=fn+'_calls'
++    cleanup=json.loads((pathlib.Path(__file__).parent/'abi_cleanup.json').read_text())['symbols']
++    missing=set(roots.values())-cleanup.keys()
++    if missing:raise ValueError('Missing explicit callee cleanup metadata: '+str(missing))
++    abi={name:cleanup[name] for name in roots.values()}
++    (OUT/'abi-metadata.json').write_text(json.dumps(abi,indent=2))
++    wall_begin=s['global','s__BANK3WALL']&65535;wall_end=wall_begin+s['global','l__BANK3WALL']
++    # PC observations are qualified by the actual mapped physical page.
++    rayaddr=addr('raycaster','rendered_rays');camaddr=addr('camera','position_x')
++    zombieaddr=addr('world_sprite','world_sprites');zcount=addr('world_sprite','world_sprite_count')
++    playerx=addr('player','player_position_x');playery=addr('player','player_position_y')
++    pix=word(zombieaddr+4)
++    pixel_names={}
++    for (module,name),address in sorted(s.items()):
++        if module=='global' and name.endswith('_pixels'):pixel_names.setdefault(address&65535,name)
++    state_fields=[('camera',k,2) for k in ['position_x','position_y','direction_x','direction_y','plane_x','plane_y']]
++    state_fields += [('player','player_position_x',2),('player','player_position_y',2),('player','player_health',1),('door_states','door_states',3)]
++    state_fields += [('red_door_switch',k,1) for k in ['red_door_switch_state','red_door_switch_frame','red_door_switch_frame_counter']]
++    state_fields += [('main','pending_shot',1),('main','zombie_ai_frame_counter',1),('hud_weapon','weapon_state',1),('hud_weapon','animation_timer',1),('input','button_2_strafe_used',1)]
++    state_fields += [('global',k,b) for k,b in [('owned_weapons',1),('selected_weapon',1),('shotgun_cell_x',1),('shotgun_cell_y',1),('zombie_ai_wall_following_mask',1),('zombie_ai_wall_negative_mask',1),('game_gear_damage_shake_phase',1),('keys',2),('previous_keys',2),('input_blocked',1)]]
++    def authoritative_state():
++        state={module+'.'+name:bytes(read(addr(module,name)+k) for k in range(size)).hex() for module,name,size in state_fields}
++        actors=[]
++        for i in range(read(zcount)):
++            data=bytes(read(zombieaddr+i*9+k) for k in range(9));pointer=int.from_bytes(data[4:6],'little')
++            assert pointer in pixel_names,('unknown actor asset',hex(pointer))
++            actors.append([data[:4].hex(),pixel_names[pointer],data[6:].hex()])
++        state['actors']=actors
++        return json.dumps(state,sort_keys=True,separators=(',',':'))
++    scenarios={
++      'A_static':lambda i:[], 'B_rotation':lambda i:[11],
++      'C_forward':lambda i:[8] if i<(n//2 if args.legacy_route else args.route_length//2) else [9],
++      'D_strafe':lambda i:[13,11] if i<(n//2 if args.legacy_route else args.route_length//2) else [13,10],
++      'E_diagonal':lambda i:[8,13,11] if i<(n//2 if args.legacy_route else args.route_length//2) else [9,13,10],
++      'F_geometry':lambda i:[10], 'G_zombies':lambda i:[],
++      'H_offscreen':lambda i:[], 'I_pistol':lambda i:[12] if i%4==0 else [],
++      'I_shotgun':lambda i:[12] if i%4==0 else [],
++      'J_lod':lambda i:[8] if i<(n//2 if args.legacy_route else args.route_length//2) else [9],
++      'K_pause':lambda i:[28] if i in [2,10] else ([8] if i==5 else []),
++      'L_mixed':lambda i:[8,11]+([12] if i%4==0 else []),
++      'M_authored':lambda i:[], 'P_short_tap':lambda i:[]}
++    rows=[];fixture=[];totals={};stage_rows=[]
++    def savecsv(path,data):
++        fields=list(dict.fromkeys(k for r in data for k in r))
++        with (OUT/path).open('w',encoding='utf-8',newline='') as f:
++            w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(data)
++    for name,script in scenarios.items():
++        if args.only and name not in args.only.split(','):continue
++        g.setState(snapshot,True,True);held.clear();provider.held=0;provider.time=0;provider.pulse=name=='P_short_tap';t=0;frame=0;active=[];current=None
++        physical['t']=0;physical['pulse']=name=='P_short_tap'
++        if name!='M_authored':write(zcount,0);write(pub('owned_weapons'),3)
++        def pose(x,y,dx,dy,px,py):
++            writeword(playerx,x);writeword(playery,y)
++            for k,v in [('position_x',x),('position_y',y),('direction_x',dx),('direction_y',dy),('plane_x',px),('plane_y',py)]:writeword(addr('camera',k),v)
++        if name=='C_forward':pose(640,1664,256,0,0,169)
++        if name=='E_diagonal':pose(1664,1920,0,-256,169,0)
++        if name=='F_geometry':
++            pose(1664,1408,0,-256,169,0)
++            for j in range(3):write(addr('door_states','door_states')+j,1)
++        if name in ['G_zombies','H_offscreen','I_pistol','I_shotgun','J_lod','L_mixed']:
++            positions=[(1408,1408),(1664,1408),(1920,1408),(1280,1536),(2048,1536),(1152,1664),(2176,1664),(1536,1280)]
++            if name=='H_offscreen':pose(1664,1920,0,256,-169,0)
++            if name=='J_lod':positions=[(1664,1280)]
++            if name.startswith('I_'):positions=[(1664,1408)]
++            for j,(x,y) in enumerate(positions):
++                a=zombieaddr+j*9;writeword(a,x);writeword(a+2,y);writeword(a+4,pix)
++                write(a+6,0);write(a+7,12);write(a+8,0)
++            write(zcount,len(positions))
++        if ('camera','_camera_graph_state') in s:
++            graph=json.loads((ROOT/'docs/performance/2026-10-19/evidence/camera-transition-graph.json').read_text())
++            basis=[word(addr('camera',k)) for k in ['direction_x','direction_y']]
++            basis=[v if v<32768 else v-65536 for v in basis]
++            if basis in graph['states']:
++                write(addr('camera','camera_graph_state'),graph['states'].index(basis))
++            else:
++                # Historical C/H inject exact cardinal vectors outside the
++                # legacy closure but never request a turn. Do not invent a
++                # graph orientation or claim arbitrary-basis rotation support.
++                assert name in ['C_forward','H_offscreen'],('unreachable rotating fixture',name,basis)
++        if name=='I_shotgun':write(pub('selected_weapon'),1)
++        fixture.append({'scenario':name,'ram_hex':bytes(mem).hex(),'input_by_update':[script(i) for i in range(n)],'note':'RAM seeded once after identical cloned boot state; no production source changes'})
++        last_rays=None
++        for frame in range(n+args.warmup):
++            idx=frame if args.legacy_route else frame%args.route_length
++            provider.held=sum(1<<button for button in script(idx))
++            if args.logical_input:
++                mask=sum(1<<(button-8) for button in script(idx) if 8<=button<=13)
++                if 28 in script(idx):mask|=0x8000
++                writeword(pub('KeysStatus'),mask)
++            start=t
++            line=int(g.getScanline())
++            call_args=[g,provider,input_pc,0,pub('keys'),jpype.JArray(jpype.JInt)([pc&65535 for pc in roots]),jpype.JArray(jpype.JInt)([pc>>16 for pc in roots])]
++            if args.driver=='abi':call_args.append(jpype.JArray(jpype.JInt)([cleanup[name] for name in roots.values()]))
++            call_args.extend([jpype.JArray(jpype.JInt)([pc&65535 for pc in counters]),jpype.JArray(jpype.JInt)([pc>>16 for pc in counters])])
++            if args.driver=='abi':call_args.extend([wall_begin,wall_end])
++            call_args.append(20_000_000_000)
++            result=runner.frame(*call_args)
++            t+=int(result.cycles)
++            rays=bytes(read(rayaddr+k) for k in range(168))
++            current={'scenario':name,'update':frame-args.warmup,'warmup':frame<args.warmup,'start_cycle':start,'start_scanline':line,'interval_cycles':int(result.cycles),'display_periods':int(result.cycles)/59736,'stack_bytes':0xDFF0-int(result.minSP),'camera_hex':bytes(read(camaddr+k) for k in range(12)).hex(),'vram_sha256':hashlib.sha256(bytes(g.getVRAM())).hexdigest(),'ray_hex':rays.hex(),'polled_key_mask':int(result.keys),'retired_event_observer':True}
++            current['cold_slot1_instruction_cycles']=int(getattr(result,'coldCycles',0));current['native_wall_instruction_cycles']=int(getattr(result,'wallCycles',0));current['unclosed_spans']=int(getattr(result,'unclosedSpans',-1));current['slot1']=int(g.readByte(0xfffe,0));current['slot2']=int(g.readByte(0xffff,0))
++            current['state_json']=authoritative_state();current['state_sha256']=hashlib.sha256(current['state_json'].encode()).hexdigest()
++            current['changed_rays']=sum(rays[k:k+6]!=last_rays[k:k+6] for k in range(0,168,6)) if last_rays else 28
++            last_rays=rays
++            for pc,count in zip(counters,result.counts):current[counters[pc]]=int(count)
++            for pc,cost in zip(roots,result.stages):
++                current[roots[pc]+'_cycles']=int(cost)
++                if cost:stage_rows.append({'scenario':name,'update':frame-args.warmup,'function':roots[pc],'cycles':int(cost),'scope':'inclusive aggregate per update; do not add nested spans'})
++            rows.append(current)
++        print(name,len([r for r in rows if r['scenario']==name]),'last cycles',t,flush=True)
++        savecsv('frame-samples.csv',rows);savecsv('stage-samples.csv',stage_rows)
++    def savecsv(path,data):
++        fields=list(dict.fromkeys(k for r in data for k in r))
++        with (OUT/path).open('w',encoding='utf-8',newline='') as f:
++            w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(data)
++    savecsv('frame-samples.csv',rows);savecsv('stage-samples.csv',stage_rows)
++    (OUT/'scenario-fixtures.json').write_text(json.dumps(fixture,indent=2))
++    metadata={'driver_mode':args.driver,'ABI_cleanup_applied':args.driver=='abi','ABI_cleanup':abi,'route_scope':'G/J/L are seeded episodes that can die and restart into authored state; retain all cold rows and report active tails separately.','rom_sha256':hashlib.sha256(rom).hexdigest(),'emulicious_sha256':hashlib.sha256(pathlib.Path('D:/Emulicious-with-Java64/Emulicious.jar').read_bytes()).hexdigest(),'cycles_per_frame':int(g.getCyclesPerFrame()),'cycles_per_second':int(g.getCyclesPerSecond()),'samples_per_scenario':n,'warmup':args.warmup,'route_length':args.route_length,'route_mode':'legacy sample-dependent reversal' if args.legacy_route else 'frozen repeating route independent of sample count','driver':'PerfRunner.java exact per-symbol cleanup/SP/physical return page; legacy observer available for timing invariance; pinned emulator unmodified','pinned_reset_timer':228,'method':'Unmodified installed Emulicious CPU and VDP. executeOnce(0), elapsed=-return. RAM-seeded scenarios after cloned boot; physical input via SMSJoypad provider. No wall-clock timing.'}
++    (OUT/'emulator-metadata.json').write_text(json.dumps(metadata,indent=2))
++    jpype.shutdownJVM()
++if __name__=='__main__':main()
+--- /dev/null
++++ b/tools/performance/build_driver.py
+@@ -0,0 +1,12 @@
++"""Compile the pinned measurement drivers, without modifying game artifacts."""
++from pathlib import Path
++import subprocess,argparse,hashlib,json
++ROOT=Path(__file__).resolve().parents[2]
++ap=argparse.ArgumentParser();ap.add_argument('--java-tools',type=Path,required=True);args=ap.parse_args();dest=args.java_tools.resolve();dest.mkdir(parents=True,exist_ok=True)
++java=Path('D:/Emulicious-with-Java64/java/bin/java.exe');jar=Path('D:/Emulicious-with-Java64/Emulicious.jar');compiler=ROOT/'build-implementation-baseline/ecj-3.26.0.jar';boot=Path('D:/Emulicious-with-Java64/java/lib/rt.jar')
++old=ROOT/'docs/performance/2026-10-19/evidence/implementation'
++sources=[Path(__file__).with_name('PerfRunner.java'),old/'EmulationRunner.java',old/'WallOracle.java',ROOT/'docs/performance/2026-10-19/post-implementation-review/evidence/WallWrapperOracle.java']
++subprocess.run([str(java),'-jar',str(compiler),'-1.8','-bootclasspath',str(boot),'-classpath',str(jar),'-d',str(dest)]+[str(p) for p in sources],check=True)
++paths=sources+[jar,compiler,boot,Path(__file__).with_name('abi_cleanup.json')]
++metadata={'method':'Measurement-only classes. Pinned Java8 / ECJ3.26.0 / installed emulator. No compiler or emulator upgrade.','sha256':{str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}}
++(dest/'driver-build.json').write_text(json.dumps(metadata,indent=2));print('Compiled drivers:',dest)
+--- /dev/null
++++ b/tools/performance/emulation_symbols.py
+@@ -0,0 +1,27 @@
++"""Linked object-order symbol resolution, including unanchored paged constants."""
++import pathlib,re
++def symbols(build):
++    public={m[1]:int(m[2],16) for m in re.finditer(r'^DEF (\S+) 0x([\da-fA-F]+)',(build/'GearRay.noi').read_text(),re.M)}
++    result={('global',k):v for k,v in public.items()}
++    # Local DATA areas concatenate in actual linker object order, ahead of libraries.
++    ram=public['s__DATA']
++    paged={name[2:]:value for name,value in public.items() if name.startswith('s__BANK')}
++    for line in (build/'GearRay.lk').read_text().splitlines():
++        p=pathlib.Path(line)
++        if p.suffix!='.rel' or p.parent!=build: continue
++        rel=p.read_text(); areas=[]; bases={}; current=None
++        for l in rel.splitlines():
++            a=re.match(r'A (\S+) size ([\dA-F]+)',l)
++            if a:
++                current=a[1];areas.append(current)
++                if current=='_DATA':bases[current]=ram;ram+=int(a[2],16)
++                elif current in paged:bases[current]=paged[current];paged[current]+=int(a[2],16)
++            s=re.match(r'S (\S+) Def([\dA-F]+)',l)
++            if s and current and s[1] in public:bases[current]=public[s[1]]-int(s[2],16)
++        sym=p.with_suffix('.sym').read_text()
++        for s in re.finditer(r'^\s*(\d+)\s+(_\w+)\s+([\dA-F]{8})\s+[GR]+\s*$',sym,re.M):
++            area=areas[int(s[1])]
++            if area in bases:result[(p.stem,s[2])]=bases[area]+int(s[3],16)
++    for (mod,n),v in result.items():
++        if mod!='global' and n in public:assert public[n]==v,(mod,n,v,public[n])
++    return result
+--- /dev/null
++++ b/tools/performance/PerfRunner.java
+@@ -0,0 +1,117 @@
++import system.GameGear;
++import components.input.ButtonInputProvider;
++import java.util.ArrayList;
++
++/** Measurement driver only. Executes the installed, unmodified emulator core.
++ * Events are recorded only when the observed opcode actually executes; IRQ
++ * acceptance at the same PC must not duplicate a call/upload/mapper event.
++ */
++public final class PerfRunner {
++    public static final class Pad implements ButtonInputProvider {
++        public int held;
++        public long time;
++        public boolean pulse;
++        public long[] eventTimes=new long[0];
++        public int[] eventMasks=new int[0];
++        public int eventIndex;
++        public void setRequireWindowFocus(boolean focus) { }
++        public void addButtonListener(ButtonInputProvider.ButtonListener listener) { }
++        public void removeButtonListener(ButtonInputProvider.ButtonListener listener) { }
++        public void setButtonMap(int[][] map) { }
++        public int[] getButtonMap(int button) { return new int[0]; }
++        public boolean isButtonDown(int button) {
++            while(eventIndex<eventTimes.length && time>=eventTimes[eventIndex]) {
++                held=eventMasks[eventIndex++];
++            }
++            return (held & (1 << button)) != 0
++                || (pulse && button == 8 && time >= 100000 && time < 200000);
++        }
++    }
++    public static final class Span {
++        public int root, ret, sp, returnPage;
++        public long start;
++        Span(int r, int a, int s, long t) { this(r,a,s,t,-1); }
++        Span(int r,int a,int s,long t,int p) {root=r;ret=a;sp=s;start=t;returnPage=p;}
++    }
++    public static final class Result {
++        public long cycles,coldCycles,wallCycles;
++        public int minSP=65535, keys, duplicateInterruptEntries, unclosedSpans, firstInterruptPC=-1;
++        public long[] stages;
++        public int[] counts;
++        Result(int roots, int counters) { stages=new long[roots]; counts=new int[counters]; }
++    }
++    public static long until(GameGear g, int pc, long limit) {
++        long t=0;
++        while (g.getPC() != pc) {
++            t -= g.executeOnce(0);
++            if (t > limit) throw new IllegalStateException("CPU boundary timeout");
++        }
++        return t;
++    }
++    public static long[] call(GameGear g,int pc,int hl,int de,int[] args,int probe) {
++        int[] ram=g.getRAM();ram[0x1f00]=0;ram[0x1f01]=0xc5;
++        for(int i=0;i<args.length;i++)ram[0x1f02+i]=args[i]&255;
++        g.setRegValue(6,0xdf00);g.setRegValue(2,hl);g.setRegValue(1,de);g.setRegValue(7,pc);
++        long cycles=0,count=0;int low=0xdf00;
++        while(g.getPC()!=0xc500) {
++            int before=g.getPC(),sp=g.getSP();low=Math.min(low,sp);
++            int elapsed=-g.executeOnce(0);cycles+=elapsed;
++            boolean irq=elapsed==13 && g.getPC()==0x38 && g.getSP()==((sp-2)&65535);
++            if(!irq && before==probe)count++;
++            if(cycles>100000000)throw new IllegalStateException("Compiled call timeout");
++        }
++        return new long[]{cycles,count,g.getSP(),low};
++    }
++    /** cleanupBytes is verified callee cleanup, excluding the 2-byte return.
++     * Match exact SP and physical return page; no bounded-SP heuristic. */
++    public static Result frame(GameGear g, Pad pad, int inputPC, int inputReturn,
++            int keys, int[] roots, int[] rootPages, int[] cleanupBytes,
++            int[] counters,int[] counterPages,int wallBegin,int wallEnd,long limit) {
++        if(roots.length!=cleanupBytes.length || roots.length!=rootPages.length)
++            throw new IllegalArgumentException("Missing per-symbol ABI metadata");
++        Result out=new Result(roots.length,counters.length);
++        ArrayList<Span> spans=new ArrayList<Span>();int[] ram=g.getRAM();boolean entered=false;
++        do {
++            int pc=g.getPC(),sp=g.getSP();long start=out.cycles;
++            int page1=g.readByte(0xfffe,0),page2=g.readByte(0xffff,0);
++            close(g,spans,out,roots,inputPC,keys,start);
++            int ret=ram[sp&8191]|(ram[(sp+1)&8191]<<8);
++            int returnPage=ret<0x4000?0:ret<0x8000?page1:ret<0xc000?page2:-1;
++            out.minSP=Math.min(out.minSP,sp);
++            int elapsed=-g.executeOnce(0);out.cycles+=elapsed;pad.time+=elapsed;
++            boolean irq=elapsed==13 && g.getPC()==0x38 && g.getSP()==((sp-2)&65535);
++            boolean nmi=elapsed==11 && g.getPC()==0x66 && g.getSP()==((sp-2)&65535);
++            if(irq || nmi) {if(out.firstInterruptPC<0)out.firstInterruptPC=pc;out.duplicateInterruptEntries++;continue;}
++            if(pc>=0x4000 && pc<0x8000 && page1==3)out.coldCycles+=elapsed;
++            if(pc>=wallBegin && pc<wallEnd && page2==3)out.wallCycles+=elapsed;
++            if(pc==inputPC)entered=true;
++            for(int i=0;i<counters.length;i++)
++                if(pc==counters[i] && pageAt(pc,counterPages[i],page1,page2))out.counts[i]++;
++            for(int i=0;i<roots.length;i++)
++                if(pc==roots[i] && pageAt(pc,rootPages[i],page1,page2))
++                    spans.add(new Span(i,ret,(sp+2+cleanupBytes[i])&65535,start,returnPage));
++            if(out.cycles>limit)throw new IllegalStateException("Frame timeout at "+Integer.toHexString(pc));
++        } while(!entered || g.getPC()!=inputPC);
++        close(g,spans,out,roots,inputPC,keys,out.cycles);out.unclosedSpans=spans.size();
++        return out;
++    }
++    private static void close(GameGear g,ArrayList<Span> spans,Result out,
++            int[] roots,int inputPC,int keys,long clock) {
++        int pc=g.getPC(),sp=g.getSP();int[] ram=g.getRAM();
++        for(int i=spans.size()-1;i>=0;i--) {
++            Span a=spans.get(i);
++            if(pc==a.ret && sp==a.sp && (a.returnPage<0 || page(g,pc,a.returnPage))) {
++                out.stages[a.root]+=clock-a.start;
++                if(roots[a.root]==inputPC)out.keys=ram[keys&8191]|(ram[(keys+1)&8191]<<8);
++                spans.remove(i);
++            }
++        }
++    }
++    private static boolean pageAt(int pc,int expected,int slot1,int slot2) {
++        return pc<0x4000?expected==0:pc<0x8000?slot1==expected:pc<0xc000?slot2==expected:true;
++    }
++    static boolean page(GameGear g,int pc,int expected) {
++        return pc<0x4000?expected==0:pc<0x8000?g.readByte(0xfffe,0)==expected:
++            pc<0xc000?g.readByte(0xffff,0)==expected:true;
++    }
++}
+--- /dev/null
++++ b/tools/performance/README.md
+@@ -0,0 +1,58 @@
++# Z80 performance measurement
++
++Run from the repository root with the pinned Python3.12/JPype1.5.2 bridge and
++installed Java8/Emulicious. Game ROMs are uninstrumented Release builds. These
++tools never upgrade the emulator, rewrite historical CSVs, or modify game code.
++
++```powershell
++py -3.12 tools/performance/build_driver.py --java-tools build-pir-base-20261022/java-tools
++py -3.12 tools/performance/test_profiler.py --java-tools build-pir-base-20261022/java-tools --output profiler-test.json
++py -3.12 tools/performance/benchmark.py 256 --warmup 32 --logical-input --build build-pir-selected-20261022 --rom rom/GearRay-pir-selected-20261022.gg --java-tools build-pir-base-20261022/java-tools --only A_static,B_rotation,C_forward,F_geometry,G_zombies,I_pistol,I_shotgun,J_lod,L_mixed,M_authored --output replay-new
++```
++
++Use a new output directory. If `--rom` is omitted, the selected build's CMake
++configuration determines the path. Record the emitted hash; do not assume the
++local ignored `rom/GearRay.gg` contains current source. The old bridge is loaded
++from `build-perf-20261019/python-tools`; build/tool hashes are retained.
++
++`PerfRunner` closes spans at the exact return PC, return SP and physical return
++page, using explicit per-symbol callee cleanup in `abi_cleanup.json`. The two
++return-address bytes are separate from cleanup. Register arguments add zero.
++Stack arguments include wall preparation1, wall rows4, sprite overlay6, HUD2,
++preparation8 and scalar projection16 bytes. Recheck metadata against emitted
++SDCC assembly when a prototype or compiler changes; unknown roots fail rather
++than silently receiving a guessed cleanup range. No bounded-SP heuristic is
++used. The selected game still uses its original calling convention.
++
++Return recognition precedes interrupt acceptance at an already reached caller
++site. Function/counter entry requires retiring the opcode, so IRQ/NMI acceptance
++does not count as another call. Physical-page checks use pre-opcode mapper
++state. World-initialization counter addresses keep their bank bits. Inclusive
++child spans overlap their parents and must not be added. Native-wall and cold
++region columns separately count retired instruction T states in linked physical
++regions; these exclude interrupt acceptance and IRQ instructions outside them.
++
++`test_profiler.py` runs a small synthetic Z80 program in the real core. Hand
++counted cases cover three recursive returns, callee cleanup, a same-PC return
++under the wrong bank, an IRQ at a tracked RET-only leaf, and deliberately wrong
++metadata. Incorrect cleanup remains unclosed, rather than matching a nearby SP.
++The synthetic fixture explicitly initializes mapper registers as CRT would.
++This tests the observer; it is not a game/hardware compatibility test.
++
++The normal benchmark requires one complete main-input interval. It reports
++unclosed spans so interval-crossing calls are visible; spans are not silently
++carried across a new `frame()` call. Blocking pause UI reuses the input function
++and can cross that boundary; use a dedicated mode/return trace for such spans.
++The ten frozen comparison routes complete all tracked spans. `--driver legacy`
++uses the preserved original SP-only observer to establish unchanged whole-loop
++times and output with the corrected observer. It intentionally misses some
++argument-taking children and is not the profiling default.
++
++Routes repeat over16 logical updates independently of sample count. Retain32
++warm-up plus256 measured records per route, including cold rows. G/J/L are
++seeded gameplay episodes that can die and restart into the authored world;
++their averages are not sustained maximum-eight-actor stress. Classify active
++and cold rows explicitly, using the now bank-qualified initialization counter
++and executed cold code. Logical key seeding proves state/work equivalence;
++absolute physical pulses and physical button-to-photon latency are separate
++questions. Display refresh is not gameplay FPS.
+--- /dev/null
++++ b/tools/performance/test_profiler.py
+@@ -0,0 +1,47 @@
++"""Profiler regressions: recursive returns, cleanup, IRQ entry and bank aliases."""
++from pathlib import Path
++import sys,json,argparse
++ROOT=Path(__file__).resolve().parents[2]
++sys.path.insert(0,str(ROOT/'build-perf-20261019/python-tools'))
++import jpype
++ap=argparse.ArgumentParser();ap.add_argument('--java-tools',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);args=ap.parse_args()
++jpype.startJVM('D:/Emulicious-with-Java64/java/bin/server/jvm.dll',classpath=['D:/Emulicious-with-Java64/Emulicious.jar',str(args.java_tools.resolve())])
++J=jpype.JClass;R=J('PerfRunner');results=[]
++for interrupt in [False,True]:
++ rom=bytearray(65536)
++ rom[0x7ff0:0x7ff8]=b'TMR SEGA';rom[0x7fff]=0x7e
++ def code(a,b):rom[a:a+len(b)]=bytes(b)
++ # Three recursive calls, a two-byte callee cleanup, then a banked caller.
++ code(0x80,[0xcd,0,1,0xc3,0x80,0])
++ code(0x100,[0x06,3,0xcd,0,2,0xf5,0xcd,0,3,0xcd,0,0x41,0xc9])
++ code(0x200,[0x05,0x28,3,0xcd,0,2,0xc9])
++ code(0x300,[0xe1,0xf1,0xe9])
++ code(0x4100,[0xcd,0,5,0xc9])
++ # Return to CPU4103 under the wrong physical page, then repair it.
++ code(0x500,[0x3e,2,0x32,0xfe,0xff,0xc9])
++ code(0x8103,[0xc3,0,6])
++ code(0x600,[0x3e,1,0x32,0xfe,0xff,0xc3,3,0x41])
++ code(0x38,[0xf5,0xdb,0xbf,0xf1,0xfb,0xed,0x4d])
++ d=J('platform.DisplayWindow')();w=J('output.SMSDisplayWindow')(d,0,False);snd=J('output.SMSSoundOutput')(None,44100,100,2);snd.setSoundEnabled(False)
++ g=J('system.GameGear')(w,snd,0);pad=J('PerfRunner$Pad')();g.setButtons(J('components.input.SMSButtons')(pad));g.insertCartridge(J('components.cartridge.SMSCartridge')(jpype.JArray(jpype.JInt)(list(rom))));g.reset();g.writeByte(0xfffd,0,0);g.writeByte(0xfffe,1,0);g.writeByte(0xffff,2,0);g.setInterruptsEnabled(False);g.setRegValue(6,0xdff0);g.setRegValue(7,0x80)
++ vf=J('system.MasterSystem').class_.getDeclaredField('vdp');vf.setAccessible(True);vdp=vf.get(g)
++ timer=J('components.video.TMS9918A').class_.getDeclaredField('timer');timer.setAccessible(True);timer.setInt(vdp,228)
++ R.until(g,0x100,10000)
++ if interrupt:
++  g.writePort(0xbf,0x20,0);g.writePort(0xbf,0x81,0)
++  line=J('components.video.TMS9918A').class_.getDeclaredField('line');line.setAccessible(True);line.setInt(vdp,191);timer.setInt(vdp,1);g.setInterruptsEnabled(True)
++ arr=lambda x:jpype.JArray(jpype.JInt)(x)
++ result=R.frame(g,pad,0x100,0,0xc000,arr([0x100,0x200,0x300,0x4100,0x500,0x505,0x38]),arr([0,0,0,1,0,0,0]),arr([0,0,2,0,0,0,0]),arr([0x100,0x200,0x4100,0x4100,0x505,0x38]),arr([0,0,1,2,0,0]),0x9200,0xb1d4,100000)
++ stages=list(map(int,result.stages));counts=list(map(int,result.counts))
++ print('fixture',interrupt,'stages',stages,'counts',counts,'IRQpc',int(result.firstInterruptPC),flush=True)
++ assert stages==([365,192,24,160,133,10,50] if interrupt else [302,192,24,97,70,10,0]),(interrupt,stages)
++ assert counts==[1,3,1,0,1,int(interrupt)],(interrupt,counts)
++ assert int(result.unclosedSpans)==0
++ if interrupt:assert int(result.duplicateInterruptEntries)==1 and stages[6]==50 and int(result.firstInterruptPC)==0x505,(stages,int(result.duplicateInterruptEntries))
++ assert g.readByte(0xfffe,0)==1 and g.readByte(0xffff,0)==2
++ results.append({'IRQ_at_function_entry':interrupt,'stages':stages,'counts':counts,'unclosed':int(result.unclosedSpans),'IRQ_PC':int(result.firstInterruptPC),'ignored_interrupt_acceptance':int(result.duplicateInterruptEntries),'cycles':int(result.cycles)})
++# An intentionally incorrect cleanup must not pass a loose SP-range match.
++wrong=R.frame(g,pad,0x100,0,0xc000,arr([0x300]),arr([0]),arr([0]),arr([]),arr([]),0x9200,0xb1d4,100000)
++assert int(wrong.unclosedSpans)==1 and int(wrong.stages[0])==0
++results.append({'wrong_cleanup_rejected':True,'unclosed':int(wrong.unclosedSpans)})
++args.output.write_text(json.dumps({'checks':'Recursive exact-SP ownership; two-byte callee cleanup; wrong-physical-return alias excluded until mapping restored; IRQ accepted at tracked RET-only leaf505 counted only after its real opcode; all spans close.','results':results},indent=2));print('Profiler tests PASS',results);jpype.shutdownJVM()

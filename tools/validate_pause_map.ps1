@@ -1,4 +1,4 @@
-param([string]$BuildDirectory = 'build', [switch]$RequireMapPlacement)
+param([string]$BuildDirectory = 'build/release', [switch]$RequireMapPlacement)
 $ErrorActionPreference = 'Stop'
 . "$PSScriptRoot/production_build_artifacts.ps1"
 $root = Split-Path $PSScriptRoot -Parent

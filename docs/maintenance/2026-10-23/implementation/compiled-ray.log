@@ -1,0 +1,9 @@
+states 0 cases 48
+states 32 cases 1584
+states 64 cases 3120
+states 96 cases 4656
+states 128 cases 6192
+states 160 cases 7728
+states 192 cases 9264
+states 224 cases 10800
+11616 compiled results match; cache hits 11616

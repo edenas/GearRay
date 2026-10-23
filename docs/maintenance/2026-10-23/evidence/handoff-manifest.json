@@ -1,0 +1,162 @@
+{
+  "Scope": "Only newly created planning deliverables; no cleanup of existing GearRay files",
+  "Files": 31,
+  "LogicalBytes": 6138326.0,
+  "Entries": [
+    {
+      "Path": "ARTWORK_PRESERVATION_MANIFEST.md",
+      "Bytes": 21068,
+      "SHA256": "22919ebac52bc73c7832c5b61c7d8de0b5b3714024b4446403fe9e2c1ca57803"
+    },
+    {
+      "Path": "BUILD_AND_EXPERIMENT_CLEANUP_PLAN.md",
+      "Bytes": 13869,
+      "SHA256": "96dcfdbea55a14b2a9f27bd12cbb2f7938a0bbb13bf9aeeea75ebfa9f01d8b12"
+    },
+    {
+      "Path": "CLEANUP_RISKS_AND_VALIDATION.md",
+      "Bytes": 6277,
+      "SHA256": "f7652fd68b81be0f9537a6e53dbc7f5f276746bf164a5c86af289533d24127db"
+    },
+    {
+      "Path": "DOCUMENTATION_RECONSTRUCTION_PLAN.md",
+      "Bytes": 9375,
+      "SHA256": "340519023a6db25ed494cd7db56c75a57284e097d9bca0e85b8df4a7ea5403c5"
+    },
+    {
+      "Path": "GIT_AND_GITHUB_CLEANUP_PLAN.md",
+      "Bytes": 5830,
+      "SHA256": "ab2738f8e20e7df56ebe9fd4cad07b59c64eec31ec78420df800b34f159d2205"
+    },
+    {
+      "Path": "HISTORICAL_EVIDENCE_RETENTION.md",
+      "Bytes": 11084,
+      "SHA256": "4006ccaadd09953a158acbfd2fc9547220427628dc215db9f2a5936ffec4a3a4"
+    },
+    {
+      "Path": "README.md",
+      "Bytes": 3520,
+      "SHA256": "af63c801c11ad660e6b07578d6686b1e7b73b7aa84717e44d219852648f91a01"
+    },
+    {
+      "Path": "REPOSITORY_INVENTORY.md",
+      "Bytes": 7054,
+      "SHA256": "f22bf9720ea1a4003f0b39f642eb68264e7d4e8d216f51ce591c8d78cf3a7011"
+    },
+    {
+      "Path": "ROM_ARTIFACT_RETENTION_PLAN.md",
+      "Bytes": 6393,
+      "SHA256": "1a7122a604e4fe9230170c5add260e989ee53f9edf26e4eac7c075076d0d70f6"
+    },
+    {
+      "Path": "SOLO_REPOSITORY_CLEANUP_MASTER_PROMPT.md",
+      "Bytes": 32117,
+      "SHA256": "23fe474d5b002fc8d78c9237bcb6717d4d6105f1adcc092f235e51b687b514e3"
+    },
+    {
+      "Path": "evidence/analysis.log",
+      "Bytes": 3163,
+      "SHA256": "b2b1958fcb5012c17a2b3742ac1b73b7d97a384476ad5bd1668a909b6e7858a2"
+    },
+    {
+      "Path": "evidence/analyze_inventory.py",
+      "Bytes": 5807,
+      "SHA256": "ca0b6efc16a5230ba21c8816e055edbf01dc73c0882b3fa1050fcaac697cccac"
+    },
+    {
+      "Path": "evidence/archive-secret-scan.json",
+      "Bytes": 175,
+      "SHA256": "4cf75fcd0a28a18bf98ad9ff6bd9dcad259333ad74f3714725429fb8c448c1cf"
+    },
+    {
+      "Path": "evidence/archives.json",
+      "Bytes": 7187,
+      "SHA256": "c445f9d5f2b822cf5a920d0faad97185c1eb2de2de3fe997f05aaec1f5c17f7a"
+    },
+    {
+      "Path": "evidence/classification.log",
+      "Bytes": 157,
+      "SHA256": "394ee45fba47fbf2bfdd14cf17a0e03d07a088a9f9e9e33b19ca7b95d9cd1d55"
+    },
+    {
+      "Path": "evidence/classify.py",
+      "Bytes": 4137,
+      "SHA256": "7561bd2acaca906649a82967df48bf12c74cf134d4a0548d6f12434fbbe75a6f"
+    },
+    {
+      "Path": "evidence/completion.json",
+      "Bytes": 891,
+      "SHA256": "484b95c3839b3c6c1b67c58aade42b540e68ec6e1297e811597890453fa36470"
+    },
+    {
+      "Path": "evidence/final-git-status.txt",
+      "Bytes": 705,
+      "SHA256": "d26ddcf03cd903c7e62284952817e241b90de39783ecd85c729906a28be3b553"
+    },
+    {
+      "Path": "evidence/finalize_package.py",
+      "Bytes": 5355,
+      "SHA256": "6d81dcaf32d87e2994069f7c06f8b9bd920c06a80b73290ab23658d0c5b5af85"
+    },
+    {
+      "Path": "evidence/inventory-data.zip",
+      "Bytes": 5883658,
+      "SHA256": "eb57d1c5928e676dc9f6881b04cb5860b3ae12d3ecb9add46438f8252d76f975"
+    },
+    {
+      "Path": "evidence/inventory-summary.json",
+      "Bytes": 1611,
+      "SHA256": "bbdb7c7b0abfdae13b66f429f03ad3b637c0872ac6b038cdb09e812172de687a"
+    },
+    {
+      "Path": "evidence/inventory.log",
+      "Bytes": 2526,
+      "SHA256": "be14d69caddb367b93ccdbf9f1e1f8f6e3dd885b3ba9e923f6cf3c2d57ac19a5"
+    },
+    {
+      "Path": "evidence/inventory.py",
+      "Bytes": 4841,
+      "SHA256": "8a3c0fa6a8e5bfd4edcd2e5c1f4a1723756b8ccefe5d21804b3dc7c9f64a6b4c"
+    },
+    {
+      "Path": "evidence/package-manifest.json",
+      "Bytes": 3702,
+      "SHA256": "67856855fd59edeb66e4c31d6ce258fc87e9c2dacf9dfa053b6a4960f29fc619"
+    },
+    {
+      "Path": "evidence/production-baseline.json",
+      "Bytes": 4792,
+      "SHA256": "ed7bf93a954a04a961d2e5ed7cc017a13020830219eca1bb386ba17ce5c13a34"
+    },
+    {
+      "Path": "evidence/protected-artwork.csv",
+      "Bytes": 17233,
+      "SHA256": "a4410f4d53df7fcd4619ef9ff499b41097528081bc31daac515f027e93a7443a"
+    },
+    {
+      "Path": "evidence/README.md",
+      "Bytes": 5155,
+      "SHA256": "670622742f9cf35c40e7fff8f70650d4e16c53eb739c7ac40865193e4c2c3b53"
+    },
+    {
+      "Path": "evidence/rom-retention.json",
+      "Bytes": 17810,
+      "SHA256": "df8017e0967b7788f6204126465413322723fac49fec4f3820dbbf54cd137ec4"
+    },
+    {
+      "Path": "evidence/secret-scan.json",
+      "Bytes": 190,
+      "SHA256": "1b658c3d9b1d5f4c1a33a9134199de70dfb6e25f9d8e72acfaa2d5fa0796d742"
+    },
+    {
+      "Path": "evidence/write_handoff.py",
+      "Bytes": 27945,
+      "SHA256": "4734983ff5814c33646ceecbf37da101876846e70520e397c5620fa7e5cf1f31"
+    },
+    {
+      "Path": "evidence/write_plans.py",
+      "Bytes": 24699,
+      "SHA256": "055ab6872212673e5d6e227f331645af8a5dac5236bda20b67e18cfadf22342b"
+    }
+  ]
+}

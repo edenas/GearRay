@@ -1,4 +1,4 @@
-param([string]$BuildDirectory='build')
+param([string]$BuildDirectory='build/release')
 $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent
 $build=if([IO.Path]::IsPathRooted($BuildDirectory)){$BuildDirectory}else{Join-Path $root $BuildDirectory}
@@ -125,7 +125,10 @@ Require ($overlay.Length -gt 0) 'Production compositor missing'
 $overlay=$overlay.Replace('const GameGearProjectedSprite *projected','GameGearProjectedSprite projected').Replace('const RaycasterRay *rays','RaycasterRay[] rays')
 $overlay=$overlay.Replace('unsigned char *destination','int[] destination').Replace('const unsigned char *pixels','int[] pixels').Replace('projected->','projected.')
 $overlay=$overlay.Replace('const unsigned char *source_row;','int source_row;').Replace('source_row = pixels + texture_y * packed_row_stride;','source_row = texture_y * packed_row_stride;').Replace('source_row[texture_x >> 1]','pixels[source_row + (texture_x >> 1)]')
-$overlay=$overlay.Replace('unsigned char source_x[8],pixel_x,pixel_y,palette_index,mask,keep,b0,b1,b2,b3;','unsigned char[] source_x=new unsigned char[8]; unsigned char pixel_x,pixel_y,palette_index,mask,keep,b0,b1,b2,b3;')
+# C# definite assignment cannot infer that valid source Y (0..31) differs
+# from sentinel 255 on the first visible row. Initialize translated host
+# locals only; keep the extracted C logic and every pixel assertion intact.
+$overlay=$overlay.Replace('unsigned char source_x[8],pixel_x,pixel_y,palette_index,mask,keep,b0,b1,b2,b3;','unsigned char[] source_x=new unsigned char[8]; unsigned char pixel_x,pixel_y,palette_index,mask,keep=255,b0=0,b1=0,b2=0,b3=0;')
 $overlay=[regex]::Replace($overlay,'source_row\s*=\s*pixels\s*\+\s*texture_y\s*\*\s*packed_row_stride;','source_row = texture_y * packed_row_stride;')
 $overlay=[regex]::Replace($overlay,'source_row\[texture_x\s*>>\s*1\]','pixels[source_row + (texture_x >> 1)]')
 $overlay=[regex]::Replace($overlay,'if\s*\(texture_x\s*&\s*1\)','if ((texture_x & 1) != 0)')

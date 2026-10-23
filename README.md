@@ -1,169 +1,35 @@
 # GearRay
 
-GearRay is an open-source, fixed-point raycasting engine built for the Sega
-Game Gear. It is written in C for SDCC and uses devkitSMS/SMSlib for hardware
-access, ROM startup, and packaging.
+GearRay is a fixed-point raycasting game for the Sega Game Gear, written in C for SDCC and devkitSMS. Its centred 112 x 64 view uses 28 rays, native four-plane wall tiles and composited zombie/weapon artwork. Edenas Pocius and GearRay contributors maintain the project.
 
-The project favors readable code, deterministic behaviour, simple module
-boundaries, and measured improvements that are validated on the target
-hardware.
+The current engine has pistol and shotgun combat, an independent shotgun pickup, eight zombie slots, health/damage, persistent corpses, doors, a red-door switch and a pause map with weapon selection. The unused zombie_02 artwork is preserved as art only.
 
-## Screenshot
-
-_A current Engine Foundation screenshot will be added for the first public
-release._
-
-Historical renderer captures are available in [`artifacts/`](artifacts/).
-
-## Measured performance implementation
-
-The [2026-10-19 implementation report](docs/performance/2026-10-19/IMPLEMENTATION_REPORT.md) records exact renderer/camera/cache improvements, 2,880 matching replay records, and cooperative scheduling/presentation experiments. Production retains its per-completed-loop timing; display refresh is not gameplay FPS. Physical hardware validation of these changes remains pending.
-
-## Current Status
-
-The hardware-tested **Engine Foundation v1.0.0** now includes the accepted
-multi-zombie combat, authored multi-resolution presentation, melee attack,
-player-health, HUD, and Game Over milestones. It preserves the established
-renderer, movement, interaction, and ROM-banking contracts.
-
-GearRay is an engine foundation and workshop ROM, not yet a complete game.
-
-## Features
-
-- An isolated SEGA startup presentation on black using its own palette and a
-  180-frame hold before gameplay initialization begins.
-- Centred 112×64 first-person viewport with 28 rays.
-- Deterministic fixed-point movement, rotation, collision, and raycasting.
-- Native Game Gear tile rendering with indexed-colour wall textures.
-- Directional wall shading, distance-based wall detail, and uniform light-gray
-  ceiling/dark-gray floor backgrounds.
-- Up to eight floor-anchored zombies with shared walking phase across 8x8,
-  authored 16x16, and authored 32x32 presentation, exact wall-depth occlusion,
-  deterministic render budgeting, temporary hit reactions, lethal
-  presentation, and stateless distance-derived corpses.
-- One authored 12×12 first-person HUD weapon, drawn as the final screen-space
-  compositor at exactly 24×24 with shift-based 2× nearest-neighbor scaling and
-  transparent pixels, with idle and firing frames.
-- Press-edge pistol shooting with renderer-aligned target depth, cumulative
-  12-point packed zombie health, projected-footprint aiming, and cumulative
-  one- through four-shot damage across the exact 36/28/17/13 height bands.
-- Deterministic zombie awareness and pursuit: clear-LOS activation within 963
-  world units, loss beyond 1260 or behind blocking geometry, and integer-only
-  dominant-axis movement of56 Q8.8 units per AI pass, once per four gameplay updates; wall-clock speed varies with workload.
-- Door-aware enemy collision with player and living-zombie separation; hit
-  reactions pause pursuit, while death and corpses remain stationary.
-- Inclusive 280-unit melee attacks with alternating authored attack poses,
-  independent per-zombie cooldowns, 20-point strikes, a 100-point player
-  health model, minimal health HUD, damage shake, and a three-second Game Over
-  presentation before the shared restart path.
-- One shared 16-entry BG master palette for the complete software-composited
-  scene; the hardware-sprite palette remains unused.
-- Complete first-frame preparation before the direct-to-game display becomes
-  visible.
-- Two toggleable yellow doors, a switch-activated red door, interaction
-  targeting, and a permanent 13×13 workshop map.
-- Banked 64 KiB packaged ROM with hot Bank 0 code, Bank 1 gameplay and
-  presentation code/data, and explicitly mapped Bank 2 near-zombie textures.
-- Compile-time renderer profiling with no release-build counter overhead.
-- Host-side workshop-map, exhaustive control, ray-direction, renderer,
-  multi-sprite, combat, complete-palette, weapon-decoding, and startup-order
-  validators.
-
-## Controls
-
-| Input | Action |
+| Game Gear control | Action |
 | --- | --- |
-| D-pad Up / Down | Move forward / backward |
-| D-pad Left / Right | Turn left / right |
-| Tap Button 1 | Fire pistol; holding does not autofire |
-| Hold Button 2 + Left / Right | Strafe left / right; rotation is suppressed |
-| Release Button 2 without strafing during that hold | Interact once |
-| Start | Reserved for menu |
+| Up / Down | Move forward / backward |
+| Left / Right | Turn |
+| Button 1 | Fire on a fresh press |
+| Button 2 + Left / Right | Strafe |
+| Button 2 released without strafing | Interact |
+| START | Enter or leave pause |
 
-The pistol has no ammo, automatic fire, recoil, switching, or additional
-weapon system. Start remains reserved.
+In pause, Left/Right select an owned weapon in the weapon focus. Up selects map focus; Button 1 enters map browsing, directions pan, and Button 2 leaves browsing. Simulation remains frozen. See [current behavior](docs/CURRENT_BEHAVIOR.md) for precise rules.
 
-## Supported Toolchain
+## Build and verify
 
-The current Windows build uses:
+Use the pinned Windows toolchain described in [BUILDING](docs/BUILDING.md):
 
-- CMake 3.20 or newer;
-- Ninja;
-- SDCC 4.6.0 (tested);
-- devkitSMS and SMSlib;
-- Windows PowerShell 5.1;
-- `makesms` from devkitSMS.
-
-The exact setup and currently unpinned dependencies are documented in
-[`docs/BUILDING.md`](docs/BUILDING.md).
-
-## Quick Build
-
-From a Windows Command Prompt or PowerShell session:
-
-```bat
-build.bat
+```powershell
+.\build.bat
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/full_z80_audit.ps1 -BuildDirectory build/release -RomPath rom/GearRay.gg -RunValidators
 ```
 
-This generates the release ROM at `rom\GearRay.gg`. To build the isolated
-renderer-profiling ROM:
+Only the Release launcher writes the ignored canonical `rom/GearRay.gg`. Diagnostic profiling uses `build-profile.bat` and its own output beneath `build/profile/`. The accepted Release is 65,536 bytes, SHA-256 `3632006ED68FCBCBACF9AA693C92560520DF496E1E4AC23CF2CB6E1DF88D3340`. A frozen accepted copy is in [artifacts/releases/2026-10-23](artifacts/releases/2026-10-23/manifest.json).
 
-```bat
-build-profile.bat
-```
+Production uses a synchronous completed-loop timebase. Display refresh is not the simulation update rate. The accepted optimization verdict is **B - APPROVED WITH MINOR NOTES**, with compiled/emulator evidence; complete interactive A/B and physical Game Gear qualification remain pending. Earlier hardware-tested milestones do not qualify these later changes. See [performance baseline](docs/PERFORMANCE_BASELINE.md) and the [maintenance implementation report](docs/maintenance/2026-10-23/implementation/IMPLEMENTATION_REPORT.md).
 
-The default devkitSMS location is `D:\Tools\devkitSMS`; it can be overridden
-when configuring CMake. See the full [build guide](docs/BUILDING.md).
+## Documentation and history
 
-## Documentation
+Start at the [documentation hub](docs/README.md). Each technical topic has one current owner. [History](docs/HISTORY.md) indexes dated studies, rejected experiments, raw evidence retrieval and the prior full Developer Bible. Original artwork, including unused and layered sources, is preserved exactly; generators write derived output inside build directories.
 
-- [Current behavior and architecture](docs/CURRENT_BEHAVIOR.md)
-- [Building GearRay](docs/BUILDING.md)
-- [Engine architecture](docs/ENGINE_ARCHITECTURE.md)
-- [Engine Foundation v1.0.0](docs/ENGINE_FOUNDATION_V1.0.0.md)
-- [ROM banking architecture](docs/ROM_BANKING.md)
-- [Zombie system architecture and melee-spacing audit](docs/ZOMBIE_SYSTEM_ARCHITECTURE_AUDIT.md)
-- [Zombie presentation and renderer audit](docs/ZOMBIE_PRESENTATION_PIPELINE.md)
-- [Asset provenance](docs/ASSET_PROVENANCE.md)
-- [Contributing](CONTRIBUTING.md)
-- [Changelog](CHANGELOG.md)
-
-The sprint documents under [`docs/`](docs/) are historical engineering records.
-They preserve measurements, experiments, rejected alternatives, and validation
-evidence; they are not all descriptions of the current implementation.
-
-## Roadmap
-
-Near-term work focuses on public-release documentation, provenance, and
-reproducible builds. The maintained current reference is
-[Current behavior and architecture](docs/CURRENT_BEHAVIOR.md). The broader
-[GearRay Developer Bible](GearRay_Developer_Bible.md) includes historical background. Later work may add
-gameplay systems, content, audio, and user-interface features while preserving
-the Engine Foundation contracts.
-
-## Known Limitations
-
-- The supported build workflow is currently Windows-only.
-- SDCC and devkitSMS must be installed separately.
-- The devkitSMS revision is not yet pinned.
-- The ROM is a technical workshop rather than a finished game.
-- Audio, save data, menu gameplay, and complete progression are not yet
-  implemented.
-- Some asset ownership and release status still requires confirmation; see the
-  [asset provenance record](docs/ASSET_PROVENANCE.md).
-
-## Acknowledgements
-
-GearRay was created by Edenas Pocius through a collaborative Vibe Coding
-workflow using OpenAI ChatGPT as an AI-assisted development tool. Project
-authorship, decisions, integration, and release responsibility remain with the
-human maintainer and contributors. See [ACKNOWLEDGEMENTS.md](ACKNOWLEDGEMENTS.md).
-
-## License
-
-GearRay is released under the [MIT License](LICENSE).
-
-## Third-Party Software
-
-GearRay builds with SDCC and devkitSMS components that retain their own
-licensing terms. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Read [CONTRIBUTING](CONTRIBUTING.md), [LICENSE](LICENSE), [ACKNOWLEDGEMENTS](ACKNOWLEDGEMENTS.md) and [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES.md). Existing ownership and notices remain unchanged.

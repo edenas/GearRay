@@ -1,0 +1,6 @@
+wall height index 0 cases 1280
+wall height index 32 cases 42240
+wall height index 64 cases 83200
+wall height index 96 cases 124160
+wall height index 128 cases 165120
+{'cases': 168960, 'mismatches': 0, 'oldTotal': 5122298288, 'newTotal': 2371958880, 'oldMax': 39848, 'newMax': 22346, 'digest': '6e71ed19f8c4bc8e29120836b816f5b4ed4ccdfdfac6598959a86a3616a96648', 'rom_sha256': ['6038f7a8d0f644254122cd567c48fac4fc3b8b6b36d8ac1842f3a2691580c0ed', '3632006ed68fcbcbacf9aa693c92560520df496e1e4ac23cf2cb6e1df88d3340'], 'coverage': 'All 128 near heights plus 1/8/9/16, ten materials, both sides, eight exact offset bit classes, all eight tile rows, both spatial phases, mixed near/far halves, negative clipped tops, 32-byte outputs and guard/stack checks. Low-five offset bits are unused by both compiled addressing paths; host algebra covers all 256 offset bytes.'}

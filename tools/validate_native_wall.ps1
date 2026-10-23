@@ -1,4 +1,4 @@
-param([string]$BuildDirectory='build',[switch]$RequireMapPlacement,[switch]$RequireAssembly)
+param([string]$BuildDirectory='build/release',[switch]$RequireMapPlacement,[switch]$RequireAssembly)
 $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent
 $build=if([IO.Path]::IsPathRooted($BuildDirectory)){$BuildDirectory}else{Join-Path $root $BuildDirectory}

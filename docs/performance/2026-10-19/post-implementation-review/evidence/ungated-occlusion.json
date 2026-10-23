@@ -1,0 +1,50 @@
+{
+  "fixture": "Synthetic valid renderer inputs: fixed visible actor depth520, ray13 depth519->521, height31 unchanged, offset0->1. Other rays remain open so projected sprite stays visible. Not claimed reachable on current immutable map.",
+  "results": [
+    {
+      "variant": "production",
+      "sha256": "e0fcfdd6fae28794fed9b56cd256d27fcd029248a9a8da846c12bb05dbf05566",
+      "cached_vs_forced_vram_byte_differences": 0,
+      "addresses": []
+    },
+    {
+      "variant": "ungated",
+      "sha256": "ea0d6473d70df9e7051f34bf426687e34a04af3133a7d4f9a6492d4a20bf7150",
+      "cached_vs_forced_vram_byte_differences": 80,
+      "addresses": [
+        4864,
+        4865,
+        4866,
+        4868,
+        4869,
+        4870,
+        4872,
+        4873,
+        4874,
+        4876,
+        4877,
+        4878,
+        4880,
+        4881,
+        4882,
+        4883,
+        4884,
+        4885,
+        4886,
+        4887,
+        4888,
+        4889,
+        4890,
+        4892,
+        4893,
+        4894,
+        4896,
+        4897,
+        4898,
+        4900,
+        4901,
+        4902
+      ]
+    }
+  ]
+}

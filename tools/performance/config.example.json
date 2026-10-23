@@ -1,0 +1,6 @@
+{
+  "python_tools": "tools/.cache/performance/python-tools",
+  "ecj": "tools/.cache/performance/ecj-3.26.0.jar",
+  "java_home": "D:/Emulicious-with-Java64/java",
+  "emulator_jar": "D:/Emulicious-with-Java64/Emulicious.jar"
+}

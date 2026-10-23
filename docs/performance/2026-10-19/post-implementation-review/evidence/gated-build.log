@@ -1,0 +1,13 @@
+[1/5] Generating packed static HUD weapon
+[2/5] Generating generated/hud_masks.h
+Generated 1160 native HUD mask bytes from current sprite payloads.
+[3/5] Compiling banked static HUD weapon overlay
+[4/5] Compiling platform/game_gear/video.c
+D:/mano_projektai/GearRay/build-post-review-canonical-source/platform/game_gear/video.c:379: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+D:/mano_projektai/GearRay/build-post-review-canonical-source/platform/game_gear/video.c:474: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+D:/mano_projektai/GearRay/build-post-review-canonical-source/platform/game_gear/video.c:478: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+D:/mano_projektai/GearRay/build-post-review-canonical-source/platform/game_gear/video.c:473: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+D:/mano_projektai/GearRay/build-post-review-canonical-source/platform/game_gear/video.c:477: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+D:/mano_projektai/GearRay/build-post-review-canonical-source/platform/game_gear/video.c:433: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+D:/Tools/devkitSMS/SMSlib/src/SMSlib.h:96: warning 336: incomplete array type has length 1 due to implicit initializer
+[5/5] Linking GearRay for Game Gear

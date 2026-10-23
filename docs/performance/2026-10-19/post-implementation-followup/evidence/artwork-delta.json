@@ -1,0 +1,37 @@
+[
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_01_walking_01_16x16.png",
+    "sha256": "73aa581c082c35edc04a3ac6f547050f40f3abf89307dfc37de0f2a027c7a6b0",
+    "tracked_at_HEAD": true,
+    "size": [
+      16,
+      16
+    ],
+    "changed_RGBA_pixels": 2
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_corps_16x16.png",
+    "sha256": "3bb701694e8b4d2b4c4450cd70d75e82ced8386e1ca453b486b5ce91009f2577",
+    "tracked_at_HEAD": true,
+    "size": [
+      16,
+      16
+    ],
+    "changed_RGBA_pixels": 4
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_standing_16x16.png",
+    "sha256": "27a5f188c93265880e2794c059c04596e386bbf7b9c935add70b3b08efa1f9eb",
+    "tracked_at_HEAD": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_walking_01_16x16.png",
+    "sha256": "142342ce0a0445c5e76da2c23b0ca76102e817f171b90f3299d76e0cde389047",
+    "tracked_at_HEAD": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_walking_02_16x16.png",
+    "sha256": "e4c672cf2cfd0501f433b7d99a094686b2e4af903b0558228b11db8917159b2a",
+    "tracked_at_HEAD": false
+  }
+]

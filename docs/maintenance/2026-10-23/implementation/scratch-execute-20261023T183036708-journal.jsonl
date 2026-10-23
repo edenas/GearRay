@@ -1,0 +1,9 @@
+{"manifest_sha256":"19137054013540f725e5b392b1758c84a4ebef7db005ab455edc96828dbc3f96","catalog_sha256":"9da63d94a2ee5bbec8428364da091551ae7e097eea5574c108a3cd53fba2688c","files":1,"mode":"Execute","state":"begin","group":"Scratch"}
+{"size":71,"sha256":"21F71ADBDB47C0289CFB32F2453846755FD413F6CE0103DF68A58B38B952F23B","path":"build/history-restore/journal-check/docs/maintenance/2026-10-23/implementation/build-dry-run.log","state":"verified","index":0}
+{"size":71,"state":"removed","index":0}
+{"state":"empty-directory-removed","path":"build/history-restore/journal-check/docs/maintenance/2026-10-23/implementation"}
+{"state":"empty-directory-removed","path":"build/history-restore/journal-check/docs/maintenance/2026-10-23"}
+{"state":"empty-directory-removed","path":"build/history-restore/journal-check/docs/maintenance"}
+{"state":"empty-directory-removed","path":"build/history-restore/journal-check/docs"}
+{"state":"empty-directory-removed","path":"build/history-restore/journal-check"}
+{"refused":0,"removed":1,"verified":1,"state":"complete","logical_removed":71}

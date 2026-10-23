@@ -1,21 +1,34 @@
-# Local build output
-/build/*
-!/build/.gitkeep
-/build-profile/*
+# Canonical generated build trees and safety net for legacy experiments
+/build/
 /build-*/
+/tools/.cache/
+/artifacts/local-history/
+/tools/performance/local.json
+# Post-push local receipts cannot be part of the commit they identify.
+/docs/maintenance/2026-10-23/implementation/publication.json
+/docs/maintenance/2026-10-23/implementation/PUBLICATION_RESULT.md
+/docs/maintenance/2026-10-23/implementation/post-publication-metrics.json
+/docs/maintenance/2026-10-23/implementation/post-publication-census.zip
 
-# Local Python caches
+# Python, editor and OS caches
 __pycache__/
 *.py[cod]
+.vs/
+.vscode/
+**/Corel Auto-Preserve/*
+*.lnk
+*.suo
+*.user
+*.swp
+Thumbs.db
+Desktop.ini
 
-# CMake generated files
+# CMake and compiler output
 CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake
 Makefile
 *.cmake.user
-
-# Compiled objects and binaries
 *.obj
 *.o
 *.lib
@@ -23,8 +36,6 @@ Makefile
 *.exe
 *.dll
 *.pdb
-
-# Game Gear / Master System generated ROM artifacts
 *.gg
 *.sms
 *.ihx
@@ -35,28 +46,148 @@ Makefile
 *.rel
 *.sym
 
-# Keep the selected release ROM; other packaged builds stay local.
+# Generated canonical ROM; one frozen accepted artifact is intentional
 /rom/*
-!/rom/GearRay-verified-20261019.gg
-
-# Frozen performance evidence is deliberately versioned.
+!/rom/README.md
+!/artifacts/releases/2026-10-23/GearRay.gg
 !/docs/performance/2026-10-19/evidence/**/*.gg
 !/docs/performance/2026-10-19/evidence/**/*.lk
 !/docs/performance/2026-10-19/evidence/**/*.map
 !/docs/performance/2026-10-19/evidence/**/*.noi
 
-# Editor and OS files
-.vs/
-.vscode/
-Corel Auto-Preserve/
-.artifact-quarantine/
+# Historical captures are retained through the history catalog
 /artifacts/game-over-playtest/
 /artifacts/manual-playtest/
 /artifacts/near-detail-playtest/
-/rom/GearRay-profile
-*.lnk
-*.suo
-*.user
-*.swp
-Thumbs.db
-Desktop.ini
+
+# Keep the current authored-art snapshot, including ignored parent directories
+/.artifact-quarantine/*
+!/.artifact-quarantine/validator-hygiene-normal-clean.log
+!/.artifact-quarantine/**/
+!/assets/**/Corel Auto-Preserve/
+!/assets/**/Corel Auto-Preserve/**/
+!/.artifact-quarantine/assets__textures__library__red_door_switch_on_2.png
+!/.artifact-quarantine/assets__textures__library__red_key.png
+!/.artifact-quarantine/assets__textures__walls__red_door_switch_off.png
+!/.artifact-quarantine/assets__textures__library__Corel Auto-Preserve/red_door_switch.png
+!/.artifact-quarantine/assets__textures__library__Corel Auto-Preserve/red_door_switch_on_1.png
+!/.artifact-quarantine/assets__textures__library__Corel Auto-Preserve/red_door_switch_on_2.png
+!/.artifact-quarantine/assets__textures__library__Corel Auto-Preserve/red_key.png
+!/.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_off.png
+!/.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_off_1.png
+!/.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_off_2.png
+!/.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_on_1.png
+!/.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_on_2.png
+!/.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_concrete.png
+!/.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_concrete_blood.png
+!/.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_concrete_x.png
+!/.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_concrete_y.png.png
+!/.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_door.png
+!/.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_door_red.png
+!/assets/logos/game_over.png
+!/assets/logos/sega_logo.png
+!/assets/sprites/Corel Auto-Preserve/gun.png
+!/assets/sprites/enemies/zombie/zombie_01_attack_01.png
+!/assets/sprites/enemies/zombie/zombie_01_attack_01_32x32.png
+!/assets/sprites/enemies/zombie/zombie_01_attack_02.png
+!/assets/sprites/enemies/zombie/zombie_01_attack_02_32x32.png
+!/assets/sprites/enemies/zombie/zombie_01_corps.png
+!/assets/sprites/enemies/zombie/zombie_01_corps_16x16.png
+!/assets/sprites/enemies/zombie/zombie_01_corps_32x32.png
+!/assets/sprites/enemies/zombie/zombie_01_shot_01.png
+!/assets/sprites/enemies/zombie/zombie_01_shot_01_16x16.png
+!/assets/sprites/enemies/zombie/zombie_01_shot_01_32x32.png
+!/assets/sprites/enemies/zombie/zombie_01_shot_02.png
+!/assets/sprites/enemies/zombie/zombie_01_shot_dead.png
+!/assets/sprites/enemies/zombie/zombie_01_shot_dead_16x16.png
+!/assets/sprites/enemies/zombie/zombie_01_standing.png
+!/assets/sprites/enemies/zombie/zombie_01_standing_16x16.png
+!/assets/sprites/enemies/zombie/zombie_01_standing_32x32.png
+!/assets/sprites/enemies/zombie/zombie_01_standing_attack_32x32.png
+!/assets/sprites/enemies/zombie/zombie_01_walking_01.png
+!/assets/sprites/enemies/zombie/zombie_01_walking_01_16x16.png
+!/assets/sprites/enemies/zombie/zombie_01_walking_01_32x32.png
+!/assets/sprites/enemies/zombie/zombie_01_walking_02.png
+!/assets/sprites/enemies/zombie/zombie_01_walking_02_16x16.png
+!/assets/sprites/enemies/zombie/zombie_01_walking_02_32x32.png
+!/assets/sprites/enemies/zombie/zombie_02_attack_01.png
+!/assets/sprites/enemies/zombie/zombie_02_corps.png
+!/assets/sprites/enemies/zombie/zombie_02_corps_16x16.png
+!/assets/sprites/enemies/zombie/zombie_02_shot_01.png
+!/assets/sprites/enemies/zombie/zombie_02_shot_02.png
+!/assets/sprites/enemies/zombie/zombie_02_shot_dead.png
+!/assets/sprites/enemies/zombie/zombie_02_standing.png
+!/assets/sprites/enemies/zombie/zombie_02_standing_16x16.png
+!/assets/sprites/enemies/zombie/zombie_02_walking_01.png
+!/assets/sprites/enemies/zombie/zombie_02_walking_01_16x16.png
+!/assets/sprites/enemies/zombie/zombie_02_walking_02.png
+!/assets/sprites/enemies/zombie/zombie_02_walking_02_16x16.png
+!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_corps_16x16.png
+!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_corps_32x32.png
+!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_01_16x16.png
+!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_01_32x32.png
+!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_02.png
+!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_dead_16x16.png
+!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_dead_32x32.png
+!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_standing_16x16.png
+!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_walking_01_16x16.png
+!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_walking_02_16x16.png
+!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_attack_01.png
+!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_corps_16x16.png
+!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_standing.png
+!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_standing_16x16.png
+!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_walking_01_16x16.png
+!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_walking_02_16x16.png
+!/assets/sprites/weapons/gun_12x12.png
+!/assets/sprites/weapons/gun_shoot_12x12.png
+!/assets/sprites/weapons/pick_up_shotgun.png
+!/assets/sprites/weapons/pistol.png
+!/assets/sprites/weapons/shotgun.png
+!/assets/sprites/weapons/shotgun_held.png
+!/assets/sprites/weapons/shotgun_held_shoot.png
+!/assets/sprites/weapons/Corel Auto-Preserve/gun.png
+!/assets/sprites/weapons/Corel Auto-Preserve/gun_12x12.png
+!/assets/sprites/weapons/Corel Auto-Preserve/gun_12x12_v2.pspimage
+!/assets/sprites/weapons/Corel Auto-Preserve/gun_2_12x12.png
+!/assets/sprites/weapons/Corel Auto-Preserve/gun_3_12x12.png
+!/assets/sprites/weapons/Corel Auto-Preserve/pick_up_shotgun.png
+!/assets/sprites/weapons/Corel Auto-Preserve/shotgun.png
+!/assets/sprites/weapons/Corel Auto-Preserve/shotgun_16x16.png
+!/assets/sprites/weapons/Corel Auto-Preserve/shotgun_16x16_shoot.png
+!/assets/textures/ceilings/ceiling_industrial.png.png
+!/assets/textures/floors/floor_industrial.png
+!/assets/textures/library/ceiling_tiles.png
+!/assets/textures/library/floor_tiles.png
+!/assets/textures/library/wall_reference.png
+!/assets/textures/library/Corel Auto-Preserve/zombie_01_run_01.png
+!/assets/textures/library/Corel Auto-Preserve/zombie_01_run_02.png
+!/assets/textures/walls/next_level_door.png
+!/assets/textures/walls/next_level_door_v2.png
+!/assets/textures/walls/next_level_door_v3.png
+!/assets/textures/walls/switch_off_01.png
+!/assets/textures/walls/switch_off_02.png
+!/assets/textures/walls/switch_on_01.png
+!/assets/textures/walls/switch_on_02.png
+!/assets/textures/walls/wall_brick_x.png
+!/assets/textures/walls/wall_brick_y.png
+!/assets/textures/walls/wall_concrete.png
+!/assets/textures/walls/wall_concrete_blood.png
+!/assets/textures/walls/wall_door.png
+!/assets/textures/walls/wall_door_red.png
+!/assets/textures/walls/wall_metal_x.png
+!/assets/textures/walls/wall_metal_y.png
+!/assets/textures/walls/wall_tech_x.png
+!/assets/textures/walls/wall_tech_y.png
+!/assets/textures/walls/Corel Auto-Preserve/next_level_door.png
+!/assets/textures/walls/Corel Auto-Preserve/red_door_switch_off_1.png
+!/assets/textures/walls/Corel Auto-Preserve/red_door_switch_off_2.png
+!/assets/textures/walls/Corel Auto-Preserve/red_door_switch_on_1.png
+!/assets/textures/walls/Corel Auto-Preserve/red_door_switch_on_2.png
+!/assets/textures/walls/Corel Auto-Preserve/switch_off_01.png
+!/assets/textures/walls/Corel Auto-Preserve/switch_off_02.png
+!/assets/textures/walls/Corel Auto-Preserve/switch_on_01.png
+!/assets/textures/walls/Corel Auto-Preserve/switch_on_02.png
+!/assets/textures/walls/Corel Auto-Preserve/wall_door_red.png
+!/assets/ui/health_hud.png
+!/assets/ui/health_hud_1.png
+!/assets/ui/health_hud_reference.png

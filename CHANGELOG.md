@@ -9,6 +9,15 @@ are retained as historical milestones.
 
 ## [Unreleased]
 
+### Maintenance and accepted implementation (2026-10-23)
+
+- Added pause map/owned-weapon selection, shotgun acquisition and auto-equip documentation for already implemented gameplay.
+- Integrated the previously accepted foreground sprite-row reuse and sprite-guarded wall caching, preserving the synchronous timebase and current artwork.
+- Established canonical build/release output and isolated profile/dev/experiment ROMs.
+- Preserved original art and compact exact historical evidence, migrated profiling dependencies, and reconstructed topic-owned documentation.
+- Recorded fresh cleanup validation separately from historical performance measurements; interactive A/B and physical hardware qualification remain pending.
+
+
 ### Added
 
 - A centred SEGA startup logo with an isolated palette and 180-frame hold.

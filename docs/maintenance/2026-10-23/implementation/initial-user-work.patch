@@ -1,0 +1,389 @@
+diff --git a/GearRay_Developer_Bible.md b/GearRay_Developer_Bible.md
+index 5dfae58..1a94a44 100644
+--- a/GearRay_Developer_Bible.md
++++ b/GearRay_Developer_Bible.md
+@@ -2,7 +2,7 @@
+ 
+ > Current executable behavior and banking rules are maintained in [docs/CURRENT_BEHAVIOR.md](docs/CURRENT_BEHAVIOR.md). Historical sections below explain how the project arrived there and can describe superseded limits.
+ 
+-> The [2026-10-19 implementation report](docs/performance/2026-10-19/IMPLEMENTATION_REPORT.md) records the exact performance changes. Production retains its per-completed-loop timebase. Historical 60-FPS-derived movement and AI rates below are hypothetical. These changes have emulator validation; physical hardware validation remains pending.
++> The [follow-up report](docs/performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_REPORT.md) identifies the selected ROM, sprite-row reuse, guarded wall caching and corrected profiler measurements. The [earlier report](docs/performance/2026-10-19/IMPLEMENTATION_REPORT.md) preserves the original implementation. Production retains its per-completed-loop timebase. Historical 60-FPS-derived movement and AI rates below are hypothetical. These changes have emulator validation; physical hardware validation remains pending.
+ 
+ > **Status:** Official technical, architectural, historical, and engineering reference
+ > **Project:** GearRay
+@@ -698,15 +698,14 @@ SDCC banked calls use CRT `get_bank`/`set_bank` hooks and a resident trampoline.
+ 
+ ### 14.2 Current placement
+ 
+-Bank 0 contains reset/interrupt support, the main loop, input, player, camera,
+-world queries, door state, raycaster, texture sampling, renderer, SMSlib, and
+-trampolines. Bank 1 contains `interaction_ray.c`, `world_interactions.c`,
+-`zombie_shooting.c`, `zombie_ai.c`, `enemy_collision.c`, multi-sprite
+-projection/budget selection, the startup-logo routine and assets, the HUD
+-weapon compositor, LOD tables, 8x8/16x16 zombie and weapon textures, and
+-optional profiling reporting. Bank 2 contains seven native 32x32 zombie
+-payloads and their lookup table. The accepted graph introduces no nested
+-banked call.
++Bank 0 contains reset/interrupt support, the main loop, input, player, camera
++entry points, world queries, door state, raycaster, renderer, SMSlib and
++trampolines. Bank 1 contains interaction, shooting, AI, enemy collision,
++multi-sprite projection/budget selection, HUD work, LOD and 8x8/16x16 art.
++Hot Bank 1 entries are direct under slot 1 = page 1. Bank 2 contains the camera
++graph, pause/corpse management and native 32x32 zombie payloads. Bank 3 contains
++cold startup/Game Over work in slot 1 and the disjoint native wall tail in
++slot 2. The wall scope restores page 2 before sprite work or a public return.
+ 
+ The `_BANK1` segment links at virtual `0x14000`. Banked objects are placed after resident objects/libraries. The Sega header is at file/CPU address `0x7FF0` and declares the current 64 KiB package with region/size code `0x7E`; the obsolete 16 KiB header position must not return.
+ 
+@@ -714,22 +713,25 @@ Current audited release measurements:
+ 
+ | Resource | Release |
+ |---|---:|
+-| Logical linked content | 34,730 bytes |
+-| Bank 0 free | 385 bytes |
+-| Bank 1 used/free | 15,117 / 1,251 bytes |
+-| Bank 2 used/free | 3,598 / 12,786 bytes |
++| Linked bank extents including gaps | 51,575 bytes |
++| Bank 0 used/free | 12,865 / 3,519 bytes |
++| Bank 1 used/free before header | 14,217 / 2,151 bytes |
++| Bank 2 used/free | 11,737 / 4,647 bytes |
++| Bank 3 physical extent/free | 12,756 / 3,628 bytes |
++| Static RAM | 1,538 bytes |
+ | ROM file | 65,536 bytes |
+-| ROM checksum | `0xD092` |
++| ROM checksum | `0xFA13` |
+ 
+-Release fixed segments end exclusively at `0x3E7F`. The remaining 385 bytes
++Release fixed segments end exclusively at `0x3241`. The remaining 3,519 bytes
+ are an engineering capacity constraint, not a runtime failure. Future resident
+ growth should first consider moving cohesive cold work instead of relocating
+ hot renderer code.
+ 
+-All persistent BANK1 texture pointers are safe in the current two-bank image
+-because their data and consumers share BANK1. This assumption must be reviewed
+-before BANK2 is introduced; no BANK1 pointer may survive an incompatible bank
+-mapping or nested cross-bank call.
++The selected four-page image normally maps page 1 in slot 1 and page 2 in slot 2.
++Pointers must be consumed under their documented mapping. No pointer into the
++native wall tail survives its temporary slot-2 page-3 scope. Cold slot-1 banked
++dispatch restores its caller mapping. Validate both scopes after placement or
++calling-convention changes.
+ 
+ These are milestone measurements, not eternal constants; current release work must remeasure.
+ 
+@@ -1254,9 +1256,10 @@ remain the accepted collision model.
+ 
+ Measure moving-zombie renderer load before broadening AI. Re-audit if practical
+ frames repeatedly approach 10–12 dirty columns, 80–96 regenerated tiles, or
+-approximately 2.5–3 KiB of pattern traffic. Profile Bank 0 currently has only
+-385 bytes free in the audited release, so new work must preserve cohesive Bank
+-1 placement and avoid multiple normal-frame bank transitions per zombie.
++approximately 2.5–3 KiB of pattern traffic. The selected Release has 3,519 Bank
++0 bytes free. Measure profile builds separately; diagnostic code has a different
++footprint. New work must preserve cohesive placement and avoid multiple
++normal-frame bank transitions per zombie.
+ 
+ Future systems must grow around, not through, the stable renderer and movement contracts.
+ 
+diff --git a/README.md b/README.md
+index bb88f55..3a6ebfd 100644
+--- a/README.md
++++ b/README.md
+@@ -17,7 +17,7 @@ Historical renderer captures are available in [`artifacts/`](artifacts/).
+ 
+ ## Measured performance implementation
+ 
+-The [2026-10-19 implementation report](docs/performance/2026-10-19/IMPLEMENTATION_REPORT.md) records exact renderer/camera/cache improvements, 2,880 matching replay records, and cooperative scheduling/presentation experiments. Production retains its per-completed-loop timing; display refresh is not gameplay FPS. Physical hardware validation of these changes remains pending.
++The [follow-up implementation report](docs/performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_REPORT.md) records sprite-row reuse, guarded wall caching, corrected profiler spans and 2,880 matching current-art replay records. The selected ROM is `rom/GearRay-pir-selected-20261022.gg`, SHA-256 `3632006ED68FCBCBACF9AA693C92560520DF496E1E4AC23CF2CB6E1DF88D3340`. The [earlier report](docs/performance/2026-10-19/IMPLEMENTATION_REPORT.md) preserves the original implementation and scheduling experiments. Production retains its per-completed-loop timing; display refresh is not gameplay FPS. Physical hardware validation remains pending.
+ 
+ ## Current Status
+ 
+diff --git a/assets/sprites/enemies/zombie/zombie_01_walking_01_16x16.png b/assets/sprites/enemies/zombie/zombie_01_walking_01_16x16.png
+index 49dba1326edf2191825c8bc7958392d860f8da13..30f3cb742bbd31f0793a8eca7eba7ef7405e2e7c 100644
+GIT binary patch
+delta 219
+zcmV<103`qR7WNjfc?t;%78C*$cM3oClY$B`e^R*-!!Qiv94b?0ofK)afP0tPAk(DE
+zaI&B?coZ$0mhNyq^8q1<l5-Z1dI~YhceSJD|3k|9mh$>MLy|)PjW}rLcZvYhQ%Z_y
+z0+K*F)J%JTsq}$HQjIL%7C$9`TrKv^_^$*6uhz+KQ)|+C05I;AwpUUqroa<$x>u_N
+zMU-yIJVr*tWF@eU+f9tNQVHm;mrvY!#$S>{LqyWu>1^vlg7BVu&M(oPyJ6Ht%?2mL
+Ve`LpOVk7_n002ovPDHLkV1gA(WIF%=
+
+delta 219
+zcmV<103`qR7WNjfc?t;#6%7b9%?XpnlY$B`f0D5ggfI*QRfoe5X@`LH8zBGC9Z(Gs
+z#rgk$)7V11Ff%vISl0S<w&a|}>h~4Ot2cYS=ItfrGf5fWLkPJnpb;OM`R@YY^pujS
+z8$bxG!%cSvIF&gtNV<`EIo9XJ2f(gww#~9PsyJF>`=mD+KwP&@_ghjc2UUx;c)E3~
+zMF3i_VOCzy2w4Gj;`K|6UZny+^z2iQu5nFrX^0@rOn0v?1cY;*HI8X&4}$u$=L?W8
+Vemw~rb6fxb002ovPDHLkV1ifyVp;$I
+
+diff --git a/assets/sprites/enemies/zombie/zombie_02_corps_16x16.png b/assets/sprites/enemies/zombie/zombie_02_corps_16x16.png
+index c7a2b8333cd20f35f937170755dca11ec1a0584b..826a744a8ffd49814c80024b898523f0502609d7 100644
+GIT binary patch
+delta 192
+zcmV;x06+iD7StB7dI|^@6b>pH-fdEof(j^ql}SWFRCwC$kTDLzFc1X&4wsaCCj~9f
+zNa;^e@i@aInrKDh&{A;H%GTZO_|B#L;|HR(_Eqobk6QYCD}7fxGkHEQs~L#-9e}31
+z+lZ0COicIdF@VM_3M3Cq4FMEut=-@b#PMBa2tWxCA_$1UAwVNdo~g_M-T;h+eDPB&
+ungy8O0QpIy6^?R?*OBs*@-MQka;+DnJSAfHHJL&H0000<MNUMnLSTZ-J60_K
+
+delta 185
+zcmV;q07n1R7R?s0dI|^-3@QWwzAP`3f(j^qj!8s8RCwC$kh=|lFbqU9M@mZ8p`c|9
+z%Iw8(fkS%HDIaJluynHJ&x@T9e*1u>lwNgNMosN$2!Bi=?`z1*HaCzGsL5j*H7L_C
+zz6;=m8mPRVFa)R=W6YRhL0F$th5*R{KmZ8>a0p;fO?a2*1TFxrCGlb{h5?W-0RN;U
+n(FwiWJ<Ce|N&XjJM}F1`1!N=Of8tQy00000NkvXXu0mjfq~S}%
+
+diff --git a/docs/BUILDING.md b/docs/BUILDING.md
+index 2415fe3..038b0ab 100644
+--- a/docs/BUILDING.md
++++ b/docs/BUILDING.md
+@@ -311,14 +311,14 @@ The checked-in launchers explicitly set the profiling option and ROM filename.
+ For custom configurations, inspect the cache or configure a fresh build
+ directory rather than reusing an incompatible one.
+ 
+-## Verified performance build (2026-10-19)
++## Selected follow-up performance build (2026-10-23)
+ 
+ ```powershell
+-cmake -S . -B build-implementation-production -G Ninja '-DCMAKE_BUILD_TYPE=Release' '-DGEARRAY_PROFILE_RENDERER=OFF' '-DGEAR_RAY_ROM_FILENAME=GearRay-implementation-production.gg'
+-cmake --build build-implementation-production
+-powershell -NoProfile -ExecutionPolicy Bypass -File tools/full_z80_audit.ps1 -BuildDirectory build-implementation-production -RunValidators
++cmake -S . -B build-pir-selected-20261022 -G Ninja '-DCMAKE_BUILD_TYPE=Release' '-DGEARRAY_PROFILE_RENDERER=OFF' '-DGEAR_RAY_ROM_FILENAME=GearRay-pir-selected-20261022.gg'
++cmake --build build-pir-selected-20261022
++powershell -NoProfile -ExecutionPolicy Bypass -File tools/full_z80_audit.ps1 -BuildDirectory build-pir-selected-20261022 -RomPath rom/GearRay-pir-selected-20261022.gg -RunValidators
+ ```
+ 
+ The audit resolves the selected build's configured ROM and validates every mapped IHX payload byte, excluding the checksum patched by makesms. It must not substitute a different `rom/GearRay.gg`. There are now 24 validators, including native wall generation/placement. Keep profile builds separate. PowerShell child processes may require the standard Windows PowerShell Modules directory in `PSModulePath` for `Get-FileHash`.
+ 
+-Generated masks, graph and wall schedules depend on current source artwork/metadata; do not hand-edit generated tables. Scalar wall code is preserved under performance evidence and is excluded from production. See the [implementation report](performance/2026-10-19/IMPLEMENTATION_REPORT.md) for emulator/driver identities, commands, limitations and experimental source bundles.
++Generated masks, graph and wall schedules depend on current source artwork/metadata; do not hand-edit generated tables. Preserve current PNGs and use identical assets in both comparison builds. Scalar wall code is preserved under historical performance evidence and is excluded from production. See the [follow-up report](performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_REPORT.md) for selected identity and validation, and [tools/performance](../tools/performance/README.md) for reproducible full routes, exact ABI cleanup metadata and profiler self-tests. Do not rewrite historical CSVs when correcting the observer.
+diff --git a/docs/CURRENT_BEHAVIOR.md b/docs/CURRENT_BEHAVIOR.md
+index 942f3d1..a0a40bd 100644
+--- a/docs/CURRENT_BEHAVIOR.md
++++ b/docs/CURRENT_BEHAVIOR.md
+@@ -36,7 +36,8 @@ The fixed-divisor and frozen/back-buffer implementations remain isolated experim
+ - Camera turns use the exact generated 242-state/484-edge legacy transition graph, not uniform angles.
+ - Complete wall rays are reused only for identical six-value pose and three-door geometry. Resolved switch material changes update terminal materials without DDA. Initialization invalidates the cache.
+ - Native walls use generated exact source-row schedules and palette columns; the old scalar sampler is test evidence only.
+-- The sprite compositor prepares horizontal source/depth visibility once per tile and merges four planes by row.
++- The sprite compositor prepares horizontal source/depth visibility once per tile. Within each call it reuses decoded foreground masks for repeated clamped source rows, while merging every output row into its own destination. The automatic cache resets on every call.
++- Wall signatures compare only the upper three hit-offset bits in columns with no current projected sprite. Columns with a sprite retain exact offsets; dirty/removal, HUD, validity, height, material and side gates remain intact. Stored signatures and actual rays retain all bits.
+ - Completed sprite preparation is reused only when pose, every live actor byte/count, pickup state/cells and all wall depths match. Initialization invalidates it; AI still runs for all actors.
+ - Invisible projected sprites are compared and ordered without reading irrelevant fields.
+ 
+@@ -49,7 +50,9 @@ The fixed-divisor and frozen/back-buffer implementations remain isolated experim
+ 
+ ## Current measured Release
+ 
+-The 2026-10-19 optimized Release is `rom/GearRay-implementation-production.gg`, 65,536 bytes, SHA-256 `E0FCFDD6FAE28794FED9B56CD256D27FCD029248A9A8DA846C12BB05DBF05566`. Linked bank extents are 12,961 / 14,217 / 11,737 / 12,756 bytes; Bank 3 includes a 3-byte alignment gap. Static RAM is 1,538 bytes, with a 1,024-byte stack reserve. Production VRAM allocation is unchanged. All 24 validators pass. Physical Game Gear validation of these changes remains pending.
++The selected follow-up Release is `rom/GearRay-pir-selected-20261022.gg`, 65,536 bytes, SHA-256 `3632006ED68FCBCBACF9AA693C92560520DF496E1E4AC23CF2CB6E1DF88D3340`, rebuilt and validated on 2026-10-23. Linked bank extents are 12,865 / 14,217 / 11,737 / 12,756 bytes; Bank 3 includes a 3-byte alignment gap. Bank 0 has 3,519 free bytes. Static RAM is 1,538 bytes, with a 1,024-byte stack reserve. Production VRAM allocation is unchanged. All 24 validators and 2,880 matched current-art replay records pass. See the [follow-up report](performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_REPORT.md) for separate sprite and guarded-wall measurements, corrected profiler spans and remaining acceptance limits. Physical Game Gear validation remains pending.
++
++The prior optimized Release and fresh current-art control both hash to `E0FCFDD6FAE28794FED9B56CD256D27FCD029248A9A8DA846C12BB05DBF05566`. Current zombie PNGs are authoritative and preserved byte-for-byte; the linked artwork change affects only RGB beneath transparent pixels, so generated visible pixels are unchanged. The local ignored `rom/GearRay.gg` still contains the historical baseline; use the selected path above explicitly.
+ 
+ The preserved pre-implementation baseline is SHA-256 `6322EFCC0434AD8D4FC3F066CED47E0A1FB4CDB140D6DA8654521E3834371136`, 65,536 bytes, bank extents 15,629 / 13,516 / 9,317 / 4,605 and static RAM 1,239 bytes. Historical checkpoint hashes describe their own snapshots.
+ 
+diff --git a/docs/ENGINE_ARCHITECTURE.md b/docs/ENGINE_ARCHITECTURE.md
+index 405bc50..9e439da 100644
+--- a/docs/ENGINE_ARCHITECTURE.md
++++ b/docs/ENGINE_ARCHITECTURE.md
+@@ -18,7 +18,7 @@ is intentional.
+ 
+ ### Verified performance implementation (2026-10-19)
+ 
+-[Current behavior](CURRENT_BEHAVIOR.md) and the [measured implementation report](performance/2026-10-19/IMPLEMENTATION_REPORT.md) define the current bank/resource/timing contract. Exact HUD masks, the legacy camera graph, full ray/material invalidation, native wall schedules, sprite spans and complete preparation reuse are enabled. Fixed scheduling and double buffering remain measured experiments outside production linkage. The production renderer owns a completed preparation cache and still updates live VRAM.
++[Current behavior](CURRENT_BEHAVIOR.md) and the [follow-up report](performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_REPORT.md) define the selected ROM and current bank/resource/timing contract. Exact HUD masks, the legacy camera graph, full ray/material invalidation, native wall schedules, sprite spans and complete preparation reuse are enabled. The sprite compositor also reuses foreground keep/plane masks for repeated clamped source Y within one call; every destination row still merges independently. Wall offset comparison uses upper three bits only in columns without a current projected sprite; exact offsets, dirty/removal gates and actual rays are retained. Fixed scheduling and double buffering remain measured experiments outside production linkage. The production renderer owns a completed preparation cache and still updates live VRAM.
+ 
+ ### Game loop
+ 
+@@ -910,7 +910,7 @@ optional diagnostic configuration rather than a shipping feature.
+ 
+ Moving-zombie measurements should trigger another renderer review if practical
+ frames repeatedly approach 10–12 dirty columns, 80–96 regenerated tiles, or
+-about 2.5–3 KiB of pattern traffic. The current audited Release build has 385
++about 2.5–3 KiB of pattern traffic. The selected follow-up Release has 3,519
+ Bank 0 bytes free; future resident work must continue to audit that margin.
+ 
+ - **Doors:** add animation, timing, obstruction rules, and audiovisual feedback
+diff --git a/docs/ROM_BANKING.md b/docs/ROM_BANKING.md
+index 8bc9b3d..5813721 100644
+--- a/docs/ROM_BANKING.md
++++ b/docs/ROM_BANKING.md
+@@ -74,12 +74,12 @@ field with region/size code `0x7E`, declaring the current 64 KiB Game Gear ROM.
+ The header remains at `0x7FF0`; the former 16 KiB position at `0x3FF0` must not
+ be restored.
+ 
+-The 2026-10-19 measured Release has the following linked extents:
++The selected follow-up Release (rebuilt 2026-10-23) has the following linked extents:
+ 
+ | Resource | Release |
+ | --- | ---: |
+ | Packaged ROM/header | 65,536 bytes / `0x7E` |
+-| Bank 0 extent/free | 12,961 / 3,423 bytes |
++| Bank 0 extent/free | 12,865 / 3,519 bytes |
+ | Bank 1 extent/free before header | 14,217 / 2,151 bytes |
+ | Bank 2 extent/free | 11,737 / 4,647 bytes |
+ | Bank 3 physical extent/free | 12,756 / 3,628 bytes |
+@@ -87,7 +87,7 @@ The 2026-10-19 measured Release has the following linked extents:
+ 
+ Bank 2 also contains the exact camera graph, pause UI and corpse management. Bank 3 contains cold logo/Game Over code in slot 1 and the native wall worker/tables in a disjoint physical tail: `_BANK3WALL=0x39200`, CPU slot-2 address `0x9200`, physical offset `0x1200`. Cold Bank 3 length is `0x11FD`; the wall tail length is `0x1FD4`. Map Bank 3 only while executing this worker, then restore slot 2 to page 2. No pointer into that mapped tail survives the mapper scope. Do not route its calls through the slot-1 SDCC trampoline. Validators reject unexpected tail occupants, overlap, overflow, and map/ROM payload disagreement.
+ 
+-These values supersede the original migration's headroom figures. [Current behavior](CURRENT_BEHAVIOR.md) identifies the exact ROM; [the report](performance/2026-10-19/IMPLEMENTATION_REPORT.md) distinguishes measured experiments from production.
++These values supersede the original migration's headroom figures. [Current behavior](CURRENT_BEHAVIOR.md) identifies the selected ROM path/hash; the [follow-up report](performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_REPORT.md) records the 96-byte net Bank 0 reduction and validation. Historical measurements remain in their dated reports.
+ 
+ The single-bank baseline had 35 free Bank 0 bytes. This first migration pays a
+ one-time resident cost for SDCC's bank-call support: the 43-byte resident
+@@ -298,23 +298,23 @@ switch-controlled red door.
+ 
+ ## Current limitations and risks
+ 
+-- This environment can build and statically verify the ROM but does not contain
+-  Emulicious or an original-hardware runner. Runtime compatibility therefore
+-  still requires external validation.
+-- The current low-frequency interaction ray and interaction dispatcher cross
+-  the bank boundary. More complex nested and cross-bank call graphs have not
+-  yet been validated in GearRay.
+-- Release Bank 0 has 385 free bytes. New resident features require deliberate
+-  space management; clearly cold
+-  startup/debug code should be evaluated for Bank 1 before hot renderer code.
+-- Bank switching has nonzero latency and changes mapper state. It must not be
+-  introduced into renderer inner loops.
++- Pinned Emulicious is installed and has executed compiled equivalence tests,
++  full state/ray/VRAM replay and GUI startup checks. Complete interactive A/B
++  and physical Game Gear acceptance are separate gates; see the follow-up report.
++- Hot Bank 1 calls, including interaction work, are direct under slot 1 = page 1.
++  Eight cold dispatch sites remain. The current validated topology is enforced
++  by the production dispatch scan; new call graphs require their own audit.
++- Release Bank 0 has 3,519 free bytes. New resident features still require
++  measured space and stack accounting.
++- Bank switching changes mapper state. The accepted bounded native wall scope
++  maps page 3 in slot 2 and restores page 2 before sprite work or public return.
++  Additional scopes need explicit ownership, restoration and timing evidence.
+ - The current ROM package is 64 KiB, not 512 KiB. The architecture can grow toward
+   512 KiB, but future banks must be explicitly built, linked, and validated.
+ 
+ ## Recommendations for the next migration
+ 
+-1. Validate this ROM in Emulicious with mapper inspection enabled.
++1. Preserve the executed mapper/equivalence checks when changing bank placement.
+ 2. Test both standard-door interactions and red-door switch activation on
+    original Game Gear hardware using a full-Sega-mapper-compatible cartridge
+    or flash device.
+@@ -325,6 +325,6 @@ switch-controlled red door.
+ 6. Introduce slot-2 asset banking separately from code banking so ownership and
+    restoration rules remain clear.
+ 
+-This completes the banked-ROM foundation and exactly one architectural
+-migration. Further movement of code or assets belongs to later, independently
+-validated sprints.
++The original single-module migration is historical. Current placement includes
++the later camera, sprite and native wall work described above; further movement
++of code or assets requires independent validation.
+diff --git a/platform/game_gear/video.c b/platform/game_gear/video.c
+index 561bede..1572e67 100644
+--- a/platform/game_gear/video.c
++++ b/platform/game_gear/video.c
+@@ -85,7 +85,7 @@ static unsigned char game_gear_sprite_covers_tile(
+         && sprite->top < tile_top + 8;
+ }
+ 
+-/* Exact per-tile horizontal span and native row-plane merging experiment. */
++/* Exact per-tile horizontal span and native foreground row-plane reuse. */
+ static void game_gear_overlay_sprite_tile(
+     unsigned char *destination,unsigned char tile_column,unsigned char tile_row,
+     const GameGearProjectedSprite *projected,const RaycasterRay *rays)
+@@ -98,6 +98,7 @@ static void game_gear_overlay_sprite_tile(
+     signed int tile_left=tile_column*8,tile_top=tile_row*8,screen_x,screen_y;
+     unsigned int texture_x,texture_y;
+     unsigned char source_x[8],pixel_x,pixel_y,palette_index,mask,keep,b0,b1,b2,b3;
++    unsigned char last_source_y=255;
+     const unsigned char *source_row;
+     for(pixel_x=0;pixel_x<8;++pixel_x) {
+         screen_x=tile_left+pixel_x;source_x[pixel_x]=255;
+@@ -112,16 +113,22 @@ static void game_gear_overlay_sprite_tile(
+         if(screen_y<projected->top || screen_y>=projected->bottom) continue;
+         texture_y=((unsigned int)(screen_y-projected->top)*projected->texture_step)>>8;
+         if(texture_y>=source_size) texture_y=source_size-1;
+-        source_row=pixels+texture_y*packed_row_stride;
+-        keep=255;b0=b1=b2=b3=0;
+-        for(pixel_x=0;pixel_x<8;++pixel_x) {
+-            texture_x=source_x[pixel_x];if(texture_x==255) continue;
+-            palette_index=source_row[texture_x>>1];
+-            if(texture_x&1) palette_index&=15;else palette_index>>=4;
+-            if(palette_index==SPRITE_TRANSPARENT_INDEX) continue;
+-            mask=128U>>pixel_x;keep&=(unsigned char)~mask;
+-            if(palette_index&1) b0|=mask;if(palette_index&2) b1|=mask;
+-            if(palette_index&4) b2|=mask;if(palette_index&8) b3|=mask;
++        /* Valid source rows are 0..31, so the first visible row decodes.
++         * Only foreground masks survive a repeat; every destination row
++         * below retains its own background and already composited layers. */
++        if(texture_y!=last_source_y) {
++            last_source_y=(unsigned char)texture_y;
++            source_row=pixels+texture_y*packed_row_stride;
++            keep=255;b0=b1=b2=b3=0;
++            for(pixel_x=0;pixel_x<8;++pixel_x) {
++                texture_x=source_x[pixel_x];if(texture_x==255) continue;
++                palette_index=source_row[texture_x>>1];
++                if(texture_x&1) palette_index&=15;else palette_index>>=4;
++                if(palette_index==SPRITE_TRANSPARENT_INDEX) continue;
++                mask=128U>>pixel_x;keep&=(unsigned char)~mask;
++                if(palette_index&1) b0|=mask;if(palette_index&2) b1|=mask;
++                if(palette_index&4) b2|=mask;if(palette_index&8) b3|=mask;
++            }
+         }
+         destination[pixel_y*4]=(destination[pixel_y*4]&keep)|b0;
+         destination[pixel_y*4+1]=(destination[pixel_y*4+1]&keep)|b1;
+@@ -139,7 +146,8 @@ static unsigned char game_gear_wall_column_is_unchanged(
+     unsigned char left_texture_id,
+     unsigned char right_texture_id,
+     WallSide left_wall_side,
+-    WallSide right_wall_side)
++    WallSide right_wall_side,
++    unsigned char offset_mask)
+ {
+     unsigned char side_flags = 0;
+ 
+@@ -154,8 +162,8 @@ static unsigned char game_gear_wall_column_is_unchanged(
+ 
+     return previous->left_wall_height == left_wall_height
+         && previous->right_wall_height == right_wall_height
+-        && previous->left_hit_offset == left_hit_offset
+-        && previous->right_hit_offset == right_hit_offset
++        && (previous->left_hit_offset & offset_mask) == (left_hit_offset & offset_mask)
++        && (previous->right_hit_offset & offset_mask) == (right_hit_offset & offset_mask)
+         && previous->left_texture_id == left_texture_id
+         && previous->right_texture_id == right_texture_id
+         && (previous->side_and_valid_flags
+@@ -379,6 +387,10 @@ void game_gear_video_draw_wall_columns(void)
+         if (sprite_dirty_column)
+             GEAR_RAY_PROFILE_INCREMENT(sprite_driven_dirty_columns);
+ 
++        /* Wall sampling consumes only the upper three offset bits. A current
++         * sprite still requires exact offsets: a depth crossing can change
++         * occlusion even when wall height and sampled column stay unchanged.
++         * Previous-sprite removal and HUD invalidation remain independent. */
+         if (game_gear_wall_column_is_unchanged(previous_wall_column,
+                                                left_wall_height,
+                                                right_wall_height,
+@@ -387,7 +399,8 @@ void game_gear_video_draw_wall_columns(void)
+                                                left_ray->texture_id,
+                                                right_ray->texture_id,
+                                                left_wall_side,
+-                                               right_wall_side)
++                                               right_wall_side,
++                                               current_sprite_column ? 255 : 224)
+             && !sprite_dirty_column
+             && !(hud_weapon_changed
+                  && tile_column >= HUD_WEAPON_FIRST_TILE_COLUMN
+diff --git a/tools/validate_weapon_runtime.ps1 b/tools/validate_weapon_runtime.ps1
+index 348b72c..6ff6bd8 100644
+--- a/tools/validate_weapon_runtime.ps1
++++ b/tools/validate_weapon_runtime.ps1
+@@ -125,7 +125,10 @@ Require ($overlay.Length -gt 0) 'Production compositor missing'
+ $overlay=$overlay.Replace('const GameGearProjectedSprite *projected','GameGearProjectedSprite projected').Replace('const RaycasterRay *rays','RaycasterRay[] rays')
+ $overlay=$overlay.Replace('unsigned char *destination','int[] destination').Replace('const unsigned char *pixels','int[] pixels').Replace('projected->','projected.')
+ $overlay=$overlay.Replace('const unsigned char *source_row;','int source_row;').Replace('source_row = pixels + texture_y * packed_row_stride;','source_row = texture_y * packed_row_stride;').Replace('source_row[texture_x >> 1]','pixels[source_row + (texture_x >> 1)]')
+-$overlay=$overlay.Replace('unsigned char source_x[8],pixel_x,pixel_y,palette_index,mask,keep,b0,b1,b2,b3;','unsigned char[] source_x=new unsigned char[8]; unsigned char pixel_x,pixel_y,palette_index,mask,keep,b0,b1,b2,b3;')
++# C# definite assignment cannot infer that valid source Y (0..31) differs
++# from sentinel 255 on the first visible row. Initialize translated host
++# locals only; keep the extracted C logic and every pixel assertion intact.
++$overlay=$overlay.Replace('unsigned char source_x[8],pixel_x,pixel_y,palette_index,mask,keep,b0,b1,b2,b3;','unsigned char[] source_x=new unsigned char[8]; unsigned char pixel_x,pixel_y,palette_index,mask,keep=255,b0=0,b1=0,b2=0,b3=0;')
+ $overlay=[regex]::Replace($overlay,'source_row\s*=\s*pixels\s*\+\s*texture_y\s*\*\s*packed_row_stride;','source_row = texture_y * packed_row_stride;')
+ $overlay=[regex]::Replace($overlay,'source_row\[texture_x\s*>>\s*1\]','pixels[source_row + (texture_x >> 1)]')
+ $overlay=[regex]::Replace($overlay,'if\s*\(texture_x\s*&\s*1\)','if ((texture_x & 1) != 0)')

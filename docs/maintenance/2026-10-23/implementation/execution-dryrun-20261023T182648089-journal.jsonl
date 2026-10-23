@@ -1,0 +1,17 @@
+{"files":15,"mode":"DryRun","state":"begin","manifest_sha256":"a75d6e181a2a3fe2a4b6e2883ea5d054937e235a9bd31a99579d7442fdbd1528","group":"Execution","catalog_sha256":"9da63d94a2ee5bbec8428364da091551ae7e097eea5574c108a3cd53fba2688c"}
+{"index":0,"state":"verified","sha256":"D97F7FFF90F47CDAF4E58F2E9303AACF8F01E5DF0DE5679C4F8913AF7A5CB3F3","size":2789101,"path":"docs/maintenance/2026-10-23/implementation/build-dryrun-20261023T173737044-journal.jsonl"}
+{"index":1,"state":"verified","sha256":"7D922C40A7592777F1D81790BBC52D268872F4BB2C024A34818EE42742A28178","size":6015532,"path":"docs/maintenance/2026-10-23/implementation/build-dryrun-20261023T173848595-journal.jsonl"}
+{"index":2,"state":"verified","sha256":"997DEABF9405ECAC2EC413502A76EF7F9CB251F6C6B928969E0FA23B16B24B46","size":1989409,"path":"docs/maintenance/2026-10-23/implementation/build-dryrun-journal.jsonl"}
+{"index":3,"state":"verified","sha256":"D6C53BB65D880C6131E98A29552DFAD36AA2FA737B4B1DC438B4E3F1B88BBDA3","size":7518565,"path":"docs/maintenance/2026-10-23/implementation/build-execute-20261023T174126647-journal.jsonl"}
+{"index":4,"state":"verified","sha256":"521F519F4801161101ED48A161BCDD63F4FB4DCD712260396540FA41213E9142","size":14073,"path":"docs/maintenance/2026-10-23/implementation/raw-dryrun-20261023T175831137-journal.jsonl"}
+{"index":5,"state":"verified","sha256":"67145C0836FECBE832E01421B05FC440765195A1DD6022B33FB43DF02FB008C9","size":17002,"path":"docs/maintenance/2026-10-23/implementation/raw-execute-20261023T175833778-journal.jsonl"}
+{"index":6,"state":"verified","sha256":"6CEA0F3550601278AA8AA2E8CF41EE77EE3D2CF0D259D31F03C4F857D30D421B","size":4484,"path":"docs/maintenance/2026-10-23/implementation/rom-dryrun-20261023T174608536-journal.jsonl"}
+{"index":7,"state":"verified","sha256":"1E227E5DCB0B2B8638C6706249C3FDEBB7CC6823A6771376953DE822D5C8F412","size":5692,"path":"docs/maintenance/2026-10-23/implementation/rom-execute-20261023T174610656-journal.jsonl"}
+{"index":8,"state":"verified","sha256":"A842E8B99461D37B6F1EBA6C95427369817A5F23437C910F1AED680AEB38AFA0","size":1339223,"path":"docs/maintenance/2026-10-23/implementation/scratch-dryrun-20261023T182244490-journal.jsonl"}
+{"index":9,"state":"verified","sha256":"05D12F97099A0DE3D260A4E99315002C0B782CA1ABD41A413EA4CFBFF7F3F3EF","size":1602690,"path":"docs/maintenance/2026-10-23/implementation/scratch-execute-20261023T182314185-journal.jsonl"}
+{"index":10,"state":"verified","sha256":"C6F8925A999742CEAF8BB28C0A22897FD5641AB8AA2B94ABD092734D95FF9D37","size":454,"path":"docs/maintenance/2026-10-23/implementation/stub-dryrun-20261023T174612658-journal.jsonl"}
+{"index":11,"state":"verified","sha256":"B7E60E82907BB850B1195045C5FD0C655ECF2BF97533197BA990809C85A0A2A7","size":556,"path":"docs/maintenance/2026-10-23/implementation/stub-execute-20261023T174614461-journal.jsonl"}
+{"index":12,"state":"verified","sha256":"6A32C94AD0AA591CF67187C030379ACAF8790A179ACF3EE380E7CEE0B8F68143","size":19511139,"path":"docs/maintenance/2026-10-23/implementation/executed-removal-manifest.json"}
+{"index":13,"state":"verified","sha256":"6FBE6462BE55FCBC015D8502C73FEB00137333ABC9537A82BA550DC798F77D10","size":13368649,"path":"docs/maintenance/2026-10-23/implementation/catalog-before-runtime-reclassification.json"}
+{"index":14,"state":"verified","sha256":"21F71ADBDB47C0289CFB32F2453846755FD413F6CE0103DF68A58B38B952F23B","size":71,"path":"docs/maintenance/2026-10-23/implementation/build-dry-run.log"}
+{"refused":0,"state":"complete","logical_removed":0,"verified":15,"removed":0}

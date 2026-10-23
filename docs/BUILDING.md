@@ -1,324 +1,47 @@
 # Building GearRay
 
-GearRay uses CMake to drive SDCC and devkitSMS explicitly and package a banked
-Game Gear ROM with `makesms`. The supported workflow is currently Windows.
+## Observed toolchain
 
-## Supported and Tested Toolchain
+The accepted Windows build uses SDCC 4.6.0 #16555, CMake 4.4.0-rc2, Ninja 1.13.2, Windows PowerShell and the existing devkitSMS installation. Python 3.12.10, Java 8u201, Emulicious and ECJ 3.26.0 support optional compiled regression/profiling work. Exact observed binary hashes are in the [initial tool identity](maintenance/2026-10-23/implementation/initial-identity.json) and [profiling dependency lock](../tools/performance/dependencies.lock.json). These installation identities do not establish an upstream devkitSMS revision. Do not upgrade tools while reproducing accepted bytes.
 
-| Component | Supported/tested version | Purpose |
+CMake finds SDCC and PowerShell on PATH. `GEAR_RAY_DEVKITSMS_ROOT` defaults to `D:/Tools/devkitSMS` and is configurable; `GEAR_RAY_MAKESMS_EXECUTABLE` can also be overridden. devkitSMS supplies SMSlib, crt0 and makesms. Keep its existing notices and licenses.
+
+## Canonical Release
+
+`build.bat` anchors itself to the repository, configures Release with profiling OFF and builds `build/release`. It works when invoked from another working directory. The generated image is `rom/GearRay.gg`.
+
+```powershell
+.\build.bat
+# Equivalent explicit configuration:
+cmake -S . -B build/release -G Ninja -DCMAKE_BUILD_TYPE=Release -DGEARRAY_PROFILE_RENDERER=OFF -DGEAR_RAY_ROM_FILENAME=GearRay.gg -DGEAR_RAY_ROM_DIR=D:/mano_projektai/GearRay/rom
+cmake --build build/release
+Get-FileHash -LiteralPath rom/GearRay.gg -Algorithm SHA256
+```
+
+The accepted image is exactly 65,536 bytes and SHA-256 `3632006ED68FCBCBACF9AA693C92560520DF496E1E4AC23CF2CB6E1DF88D3340`. An unexplained change requires comparing inputs, tools, flags, generated files and link order. A filename/path change does not justify different ROM bytes.
+
+## Separate configurations
+
+| Purpose | Build directory | ROM directory / filename |
 | --- | --- | --- |
-| Windows | Windows 10 or newer | Supported host environment |
-| CMake | 3.20 or newer | Build configuration and orchestration |
-| Ninja | A current supported release; version not yet pinned | Generator used by the checked-in launchers |
-| SDCC | 4.6.0 tested | Z80 compiler and linker |
-| Windows PowerShell | 5.1 tested | Texture generation and host validators |
-| devkitSMS | Revision not yet pinned | Game Gear libraries, CRT, and packaging tools |
+| Release launcher | build/release | rom/GearRay.gg |
+| Diagnostic profile launcher | build/profile | build/profile/rom/GearRay-profile.gg |
+| Development | build/dev | build/dev/rom/GearRay-dev.gg |
+| Optional experiment | build/experiments/name | build/experiments/name/rom/explicit-name.gg |
 
-The Engine Foundation v1.0.0 build records identify SDCC 4.6.0. The exact
-devkitSMS revision and Ninja version still require maintainer confirmation
-before the toolchain can be described as fully reproducible.
+`build-profile.bat` enables `GEARRAY_PROFILE_RENDERER`; its ROM and resources are diagnostic and must not be substituted for Release acceptance. Configure dev/experiments with their own `GEAR_RAY_ROM_DIR` and `GEAR_RAY_ROM_FILENAME`. ROM_DIR is a CACHE PATH defaulting to source `rom/`. CMake rejects that canonical output directory unless the build directory is `build/release`, the configuration is Release and profiling is OFF. Preserve compiler flags, link membership, bank addresses and header policy when adjusting output plumbing.
 
-## Required devkitSMS Components
+Use a new configuration directory to establish a genuinely clean build. A normal rebuild regenerates dependencies whose input changed; it is not proof of a clean build. Do not clean all of build/: history restore cases, profile and experiments have separate lifetimes. To retire a chosen generated subtree, inventory its exact files, verify the resolved inside-project target and remove only the intended outputs. Never use git clean or a build-* sweep.
 
-The build expects:
+## Assets, validation and optional profiling
 
-- `SMSlib/src/SMSlib.h`
-- `SMSlib/src/peep-rules.txt`
-- `SMSlib/SMSlib_GG.lib`
-- `crt0/crt0_sms.rel`
-- `makesms/Windows/makesms.exe`
-
-The default toolkit root is:
-
-```text
-D:\Tools\devkitSMS
-```
-
-This is a default, not a mandatory installation location.
-
-## Installing Dependencies
-
-1. Install [CMake](https://cmake.org/download/) and make `cmake.exe`
-   available on `PATH`.
-2. Install [Ninja](https://ninja-build.org/) and make `ninja.exe` available on
-   `PATH`.
-3. Install [SDCC](https://sdcc.sourceforge.net/) and make `sdcc.exe` available
-   on `PATH`.
-4. Obtain [devkitSMS](https://github.com/sverx/devkitSMS) from upstream.
-5. Build or install the required devkitSMS components according to its
-   upstream instructions.
-6. Place devkitSMS at the default location or configure
-   `GEAR_RAY_DEVKITSMS_ROOT` explicitly.
-
-GearRay does not currently download or vendor the toolchain. Review
-[`THIRD_PARTY_NOTICES.md`](../THIRD_PARTY_NOTICES.md) before redistributing
-toolchain components or generated ROMs.
-
-Confirm the host tools:
+Generators consume current PNGs and write C/H/tables under the selected build's generated directory. Do not edit generated files or replace source art with old experimental copies. See [ASSET_PIPELINE](ASSET_PIPELINE.md).
 
 ```powershell
-cmake --version
-ninja --version
-sdcc --version
-powershell -NoProfile -Command "$PSVersionTable.PSVersion"
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/full_z80_audit.ps1 -BuildDirectory build/release -RomPath rom/GearRay.gg -RunValidators
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/test_production_dispatch_scan.ps1 -BuildDirectory build/release
 ```
 
-## Clean Clone Workflow
+Check all 24 validator records, not just the wrapper exit code. [TESTING](TESTING.md) covers regression commands and temporary-directory containment. Child Windows PowerShell may need `C:\Windows\System32\WindowsPowerShell\v1.0\Modules` in PSModulePath for Get-FileHash. Do not replace system environment variables to work around this; prefix that module directory only for the build/test process.
 
-From a new working directory:
-
-```powershell
-git clone https://github.com/edenas/GearRay.git
-Set-Location GearRay
-git status --short
-```
-
-The status output should be empty before the first build.
-
-With devkitSMS at the default path:
-
-```bat
-build.bat
-```
-
-This configures Ninja in `build`, explicitly disables renderer profiling, and
-generates:
-
-```text
-rom\GearRay.gg
-```
-
-Build the independent profiling configuration with:
-
-```bat
-build-profile.bat
-```
-
-This configures `build-profile`, enables `GEARRAY_PROFILE_RENDERER`, and
-generates:
-
-```text
-rom\GearRay-profile.gg
-```
-
-The profiling build does not overwrite the release ROM.
-
-## Custom devkitSMS Location
-
-To use another installation directory, configure CMake directly:
-
-```powershell
-cmake -S . -B build -G Ninja `
-  -DGEARRAY_PROFILE_RENDERER=OFF `
-  -DGEAR_RAY_ROM_FILENAME=GearRay.gg `
-  -DGEAR_RAY_DEVKITSMS_ROOT=C:/path/to/devkitSMS
-cmake --build build
-```
-
-Use forward slashes or a properly quoted Windows path. CMake derives the
-SMSlib, CRT, and default `makesms` paths from `GEAR_RAY_DEVKITSMS_ROOT`.
-
-If `makesms.exe` is stored elsewhere, also pass:
-
-```powershell
--DGEAR_RAY_MAKESMS_EXECUTABLE=C:/path/to/makesms.exe
-```
-
-## Build Pipeline
-
-The release pipeline is:
-
-```text
-wall and door PNG inputs
-    -> tools/generate_wall_texture.ps1
-    -> generated packed wall_texture.c/.h (generator/reference input)
-    -> wall_palette.c (linked palette only)
-    -> generate_native_wall_tables.ps1 -> wall_schedules.h
-weapon PNG -> generated packed artwork -> generate_hud_masks.ps1 -> hud_masks.h
-legacy camera constants -> generate_camera_graph.ps1 -> camera_graph.c/.h
-    -> SDCC Z80 object compilation
-    -> link with crt0_sms.rel and SMSlib_GG.lib
-    -> GearRay.ihx
-    -> makesms
-    -> rom/GearRay.gg
-```
-
-Generated files belong in `build/`, `build-profile/`, and `rom/`. They are
-ignored by Git and should not be committed as ordinary source changes.
-
-## CMake Targets
-
-`gear_ray_game`
-
-Builds and packages the Game Gear ROM. It depends on the engine target.
-
-`gear_ray_engine`
-
-Preserves the reusable-engine target boundary. SDCC compilation is expressed
-through the explicit custom commands used by the game build.
-
-`gear_ray_info`
-
-Builds the ROM and prints its output path.
-
-## Validation
-
-Run the deterministic host checks after building:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass `
-  -File tools/validate_workshop_map.ps1
-
-powershell -NoProfile -ExecutionPolicy Bypass `
-  -File tools/validate_final_controls.ps1
-
-powershell -NoProfile -ExecutionPolicy Bypass `
-  -File tools/validate_ray_direction_rebuild.ps1
-
-powershell -NoProfile -ExecutionPolicy Bypass `
-  -File tools/validate_renderer_equivalence.ps1
-
-powershell -NoProfile -ExecutionPolicy Bypass `
-  -File tools/validate_sprite_renderer.ps1
-
-powershell -NoProfile -ExecutionPolicy Bypass `
-  -File tools/validate_palette_usage.ps1
-
-powershell -NoProfile -ExecutionPolicy Bypass `
-  -File tools/validate_startup_order.ps1
-
-powershell -NoProfile -ExecutionPolicy Bypass `
-  -File tools/validate_zombie_shooting.ps1
-
-powershell -NoProfile -ExecutionPolicy Bypass `
-  -File tools/validate_zombie_ai.ps1
-
-powershell -NoProfile -ExecutionPolicy Bypass `
-  -File tools/validate_zombie_attack.ps1 `
-  -BuildDirectory build -RequireMapPlacement
-
-powershell -NoProfile -ExecutionPolicy Bypass `
-  -File tools/validate_middle_zombie.ps1 `
-  -BuildDirectory build -RequireMapPlacement
-
-powershell -NoProfile -ExecutionPolicy Bypass `
-  -File tools/validate_near_zombie.ps1 `
-  -BuildDirectory build -RequireMapPlacement
-
-powershell -NoProfile -ExecutionPolicy Bypass `
-  -File tools/validate_health_hud.ps1 `
-  -BuildDirectory build -RequireMapPlacement
-
-powershell -NoProfile -ExecutionPolicy Bypass `
-  -File tools/validate_game_over.ps1 `
-  -BuildDirectory build -RequireMapPlacement
-
-powershell -NoProfile -ExecutionPolicy Bypass `
-  -File tools/validate_bank_layout.ps1 `
-  -MapPath build/GearRay.map -RomPath rom/GearRay.gg
-
-git diff --check
-```
-
-The renderer validator reads generated texture tables from `build` by default.
-To validate another build directory:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass `
-  -File tools/validate_renderer_equivalence.ps1 `
-  -BuildDirectory build-profile
-```
-
-For a release candidate:
-
-1. Start from a clean Git working tree.
-2. Build release and profiling configurations.
-3. Run the workshop-map, exhaustive 65,536-state controls, ray-direction,
-   renderer-equivalence, sprite-renderer, palette, startup-order, zombie AI,
-   attack/health, shooting/death, middle/near presentation, HUD, Game Over,
-   and bank-layout validators.
-4. Review SDCC warnings against the documented Engine Foundation baseline.
-5. Confirm the release ROM is 64 KiB, contains a valid `TMR SEGA` header, and
-   satisfies the Bank 0/1/2 placement and reserve contracts.
-6. Test the release ROM in a Game Gear emulator.
-7. Test on original hardware when renderer, timing, input, banking, or VRAM
-   behaviour changes.
-8. Run `git diff --check`.
-9. Record tool versions and SHA-256 hashes for distributed ROMs.
-
-Known Engine Foundation build warnings are documented in
-[`ENGINE_FOUNDATION_V1.0.0.md`](ENGINE_FOUNDATION_V1.0.0.md). New warnings
-should not be accepted without investigation.
-
-## Clean Rebuilds
-
-For release verification, use CMake's clean-first option:
-
-```powershell
-cmake --build build --clean-first
-cmake --build build-profile --clean-first
-```
-
-If a build directory was configured with a different generator or incompatible
-cache values, use a new build directory. Do not delete a directory unless its
-resolved path has been checked carefully.
-
-## Troubleshooting
-
-### CMake cannot find Ninja
-
-Confirm that a new terminal can run:
-
-```powershell
-ninja --version
-```
-
-The checked-in batch launchers explicitly use `-G Ninja`.
-
-### CMake cannot find SDCC
-
-Confirm:
-
-```powershell
-sdcc --version
-```
-
-GearRay's tested baseline is SDCC 4.6.0. A different compiler version may
-change warnings, generated Z80 code, ROM size, stack use, or performance.
-
-### CMake cannot find devkitSMS
-
-Confirm the required paths beneath your configured root, for example:
-
-```text
-D:\Tools\devkitSMS\SMSlib\src\SMSlib.h
-D:\Tools\devkitSMS\SMSlib\SMSlib_GG.lib
-D:\Tools\devkitSMS\crt0\crt0_sms.rel
-D:\Tools\devkitSMS\makesms\Windows\makesms.exe
-```
-
-Then pass the correct `GEAR_RAY_DEVKITSMS_ROOT` if the installation is not at
-the default path.
-
-### The renderer validator cannot find generated tables
-
-Build the requested configuration first, then pass its directory through
-`-BuildDirectory`.
-
-### An existing CMake cache selects the wrong configuration
-
-The checked-in launchers explicitly set the profiling option and ROM filename.
-For custom configurations, inspect the cache or configure a fresh build
-directory rather than reusing an incompatible one.
-
-## Verified performance build (2026-10-19)
-
-```powershell
-cmake -S . -B build-implementation-production -G Ninja '-DCMAKE_BUILD_TYPE=Release' '-DGEARRAY_PROFILE_RENDERER=OFF' '-DGEAR_RAY_ROM_FILENAME=GearRay-implementation-production.gg'
-cmake --build build-implementation-production
-powershell -NoProfile -ExecutionPolicy Bypass -File tools/full_z80_audit.ps1 -BuildDirectory build-implementation-production -RunValidators
-```
-
-The audit resolves the selected build's configured ROM and validates every mapped IHX payload byte, excluding the checksum patched by makesms. It must not substitute a different `rom/GearRay.gg`. There are now 24 validators, including native wall generation/placement. Keep profile builds separate. PowerShell child processes may require the standard Windows PowerShell Modules directory in `PSModulePath` for `Get-FileHash`.
-
-Generated masks, graph and wall schedules depend on current source artwork/metadata; do not hand-edit generated tables. Scalar wall code is preserved under performance evidence and is excluded from production. See the [implementation report](performance/2026-10-19/IMPLEMENTATION_REPORT.md) for emulator/driver identities, commands, limitations and experimental source bundles.
+Optional compiled regressions use [tools/performance](../tools/performance/README.md). Live Python/ECJ dependencies now reside in ignored tools/.cache/performance; Java/Emulicious remain external with configuration overrides. A normal game build and its source/host validators do not depend on old root build-* trees. Restore a historical case using [HISTORY](HISTORY.md), not by running an old setup/finalization script against current source.

@@ -1,0 +1,139 @@
+# Protected artwork preservation manifest
+
+The current assets/ tree contains **107 files: 106 PNGs and one .pspimage**, totaling **2,012,404 bytes**. Git tracks 66, ignores 38 and sees three as new untracked files. Protect every file byte and path, including all Corel Auto-Preserve content. Another **18 PNGs in .artifact-quarantine** are protected here; do not trust that directory's name as a deletion label. The machine-readable protected-artwork.csv contains all **125** protected paths.
+
+The layered `gun_12x12_v2.pspimage` is authored source material, not a generated preview. New zombie_02 standing/walking art and all unused/partial variants remain protected and must not be linked into gameplay. Existing changed zombie_01/zombie_02 PNGs are legitimate user work; never restore historical art over them.
+
+Build-tree copies are separate preservation candidates: a copied asset may be removed only with a verified exact retained original/archive mapping. Unique images found in experiments must be archived with provenance first. Historical screenshots under artifacts/ are retained separately as evidence; no image-content deduplication changes authored asset names or pixels.
+
+Solo must re-inventory at start, compare all paths/hashes before any cleanup and after all validation, and retain newly appeared artwork as protected. Do not delete or rename these 125 paths, optimize PNG encoding, normalize metadata, or regenerate source images. If an external editor changes a file mid-run, stop dependent cleanup and refresh the protected manifest without reverting that change.
+
+For Git, explicitly retain current ignored authored sources: add precise unignore rules for the current protected artwork (including the layered source) and stage them deliberately. Do not rely on a broad Corel Auto-Preserve exclusion. The unrelated local .lnk in quarantine is not artwork, must not be dereferenced, and stays local. Old provenance-document cleanup suggestions never override this user's preservation instruction.
+
+| Path | Bytes | SHA-256 | Current Git state |
+| --- | ---: | --- | --- |
+| `.artifact-quarantine/assets__textures__library__red_door_switch_on_2.png` | 237 | `18f5bd868f8946e5830b1def042b361ae4eb38dec80dc8895d30331ac0d07c4e` | ignored |
+| `.artifact-quarantine/assets__textures__library__red_key.png` | 226 | `0e433c22c87d41062dd95d5243c5a8acffc1ae010ad41862a8fb7305ab83d45a` | ignored |
+| `.artifact-quarantine/assets__textures__walls__red_door_switch_off.png` | 250 | `a5989be205cf495a17be18c12b2606be76e37799784a0e6865abb1b430a685fb` | ignored |
+| `.artifact-quarantine/assets__textures__library__Corel Auto-Preserve/red_door_switch.png` | 242 | `4cd51ebf28e2a6047fc731da9bc48cd77fc86b56e414469f03b11f882dbc954e` | ignored |
+| `.artifact-quarantine/assets__textures__library__Corel Auto-Preserve/red_door_switch_on_1.png` | 242 | `462b7e0b8768b59adcb2820ec378ccbf4164c2fec72371b9fa6a30cee55c58e4` | ignored |
+| `.artifact-quarantine/assets__textures__library__Corel Auto-Preserve/red_door_switch_on_2.png` | 242 | `664f3f5cfc18ce187ae849dd2311cd7b15d6fefddf316f883582006744572af7` | ignored |
+| `.artifact-quarantine/assets__textures__library__Corel Auto-Preserve/red_key.png` | 226 | `0e433c22c87d41062dd95d5243c5a8acffc1ae010ad41862a8fb7305ab83d45a` | ignored |
+| `.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_off.png` | 242 | `df800be596762fe136f4f94644d1341acf503c856d36edad9322b8d5e592f710` | ignored |
+| `.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_off_1.png` | 242 | `110d3e5ec2c72417025225422bc4886466d0298b83209a1ada00a15496629c8c` | ignored |
+| `.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_off_2.png` | 242 | `d59bda8a98704154b53fa79af7c2ea25f297a377926b504d215ba371dc8ad701` | ignored |
+| `.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_on_1.png` | 242 | `0f07d670cbe768746d1af84c693c30d0cd5fa757d50f0d2b6f107cdf709f6489` | ignored |
+| `.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_on_2.png` | 237 | `568dd084d758e8ab2f83148330e4f5276ee8292893fa44212ec0e73815fe7ae7` | ignored |
+| `.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_concrete.png` | 9188 | `deb3a4d5ba57337fc7dca64d847d54a01f10678f89b564264a5b81b99144e042` | ignored |
+| `.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_concrete_blood.png` | 236 | `efd99d0cf4268038122286e065a81ff31471cba02798099b380562340652de1d` | ignored |
+| `.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_concrete_x.png` | 6267 | `3fab45c12f800b1b5223e269fc011e96184118923555cd711f7996b01058b2d2` | ignored |
+| `.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_concrete_y.png.png` | 333 | `d297f103fecd8fada739b3be8556d929cbfab1782e1c0a1a2a2407fb9e67d950` | ignored |
+| `.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_door.png` | 227 | `f00df5c910da64850c9d557115853dad1dec0ed1296df146c52740ef83a01783` | ignored |
+| `.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_door_red.png` | 218 | `543950e03670b1c7d5ec494b41b5a9902c5d2d6e51d3c892368abe28bd32fc9f` | ignored |
+| `assets/logos/game_over.png` | 1756752 | `241c56beb5492cbe987ee113b8023af7004994b9b957bfb2535239e0c5fd5dea` | tracked |
+| `assets/logos/sega_logo.png` | 768 | `29c6e78b5901cc3648c2711f05d32ada395bea0eb931f04d84d53e31495d32e0` | tracked |
+| `assets/sprites/Corel Auto-Preserve/gun.png` | 249 | `ce85760111f001290a8f831c9cde74af3d1d5428f3e8b4387cba47b930cb8b1d` | ignored |
+| `assets/sprites/enemies/zombie/zombie_01_attack_01.png` | 258 | `6847e340c772ceb4093096d8119a75c26804fca1eae602fd751f58a6bb538a70` | tracked |
+| `assets/sprites/enemies/zombie/zombie_01_attack_01_32x32.png` | 2988 | `3ba499b2539e421ba5b70671e1b6aaa6158796a7fa98b9000498a5fec446ffa1` | tracked |
+| `assets/sprites/enemies/zombie/zombie_01_attack_02.png` | 248 | `a9df2752d252fcca1bfdc28a77190846ee822698109d70146c4cb98eaf40af2b` | tracked |
+| `assets/sprites/enemies/zombie/zombie_01_attack_02_32x32.png` | 2914 | `e436edb085d42bccd0e765a69ec4566037b7434261dc942eee1b243a0ac3ebc4` | tracked |
+| `assets/sprites/enemies/zombie/zombie_01_corps.png` | 262 | `9291dfbb37af7c9b3476003f81dc222f696cc61a1a007a972a1a31e5ee91e347` | tracked |
+| `assets/sprites/enemies/zombie/zombie_01_corps_16x16.png` | 2914 | `177e19ca93299e3b02a1829d6dded86fe660bb976833957dce644897097616d8` | tracked |
+| `assets/sprites/enemies/zombie/zombie_01_corps_32x32.png` | 2862 | `b435d1d11068f240439d0c9c770478ec663e874c03452e43530cd4db0182fbb9` | tracked |
+| `assets/sprites/enemies/zombie/zombie_01_shot_01.png` | 261 | `441a492568cc469c042b08c779d92673db54b83e7d06b586881e03ff08d60d93` | tracked |
+| `assets/sprites/enemies/zombie/zombie_01_shot_01_16x16.png` | 2950 | `d445237b7c6bbe621a84b919f6f57e5b4af297fd54e2d28d3fe63885e259abfa` | tracked |
+| `assets/sprites/enemies/zombie/zombie_01_shot_01_32x32.png` | 3000 | `f2c1f2828851d511a0ee2d84a6a316bd7990e932c711faf0b7496e9f9eff5e65` | tracked |
+| `assets/sprites/enemies/zombie/zombie_01_shot_02.png` | 256 | `491bc27aad2a9069c169a343783aecd6bfa1bb754a1439a7b2fe47187a816179` | tracked |
+| `assets/sprites/enemies/zombie/zombie_01_shot_dead.png` | 262 | `67771b12bb41a8d7b5b605212c6b963cc6c4b698f0c88a032dba0172fd02e861` | tracked |
+| `assets/sprites/enemies/zombie/zombie_01_shot_dead_16x16.png` | 2947 | `04f50613ee572ec90c082f937f2d8c4ae9db21f4339b2c8c17e49e40595c270b` | tracked |
+| `assets/sprites/enemies/zombie/zombie_01_standing.png` | 236 | `98eae1215dea2cbb790d8871029402447b1e863f9ac95f51e16889d3a9cc6972` | tracked |
+| `assets/sprites/enemies/zombie/zombie_01_standing_16x16.png` | 2938 | `ab9e88279fe7fef5aa3b32f26f28d706db63e0188a6c155476f435af0b7ccfaa` | tracked |
+| `assets/sprites/enemies/zombie/zombie_01_standing_32x32.png` | 2915 | `ae5d949f7f7bc62464480449695db6346a24de225a163bbc79fc84117d540dda` | tracked |
+| `assets/sprites/enemies/zombie/zombie_01_standing_attack_32x32.png` | 2937 | `0a64c29340134c6ee4c49d77c1dddba28174752126c81c09ca76b5e8845783a8` | tracked |
+| `assets/sprites/enemies/zombie/zombie_01_walking_01.png` | 252 | `ca21b8dd5646b34a8d0515c0b8d5d9a6d28863fa484e47acf050bb821e5f52a7` | tracked |
+| `assets/sprites/enemies/zombie/zombie_01_walking_01_16x16.png` | 2934 | `73aa581c082c35edc04a3ac6f547050f40f3abf89307dfc37de0f2a027c7a6b0` | tracked |
+| `assets/sprites/enemies/zombie/zombie_01_walking_01_32x32.png` | 2901 | `f78986131cdd370861a8d8966ab1a92807911234afd14cd8d54be6da7ac42db2` | tracked |
+| `assets/sprites/enemies/zombie/zombie_01_walking_02.png` | 252 | `498e9f766a3a6636d195608148883524f4fe3352f40dde46cef84fc1efe21ebd` | tracked |
+| `assets/sprites/enemies/zombie/zombie_01_walking_02_16x16.png` | 2929 | `5018c3d478cf432348011c28cb9f67e7cec29c3382904fb5d3f319aa36b3ce33` | tracked |
+| `assets/sprites/enemies/zombie/zombie_01_walking_02_32x32.png` | 2951 | `a63e0be3f9179d29e1b98c9922882bc7269d9bc4ce2878e57fc5b78d7b0b9918` | tracked |
+| `assets/sprites/enemies/zombie/zombie_02_attack_01.png` | 234 | `cc8a2be105dfaa38f321599873d98ca6e3dc063d776ce8c509c6985beda97e04` | tracked |
+| `assets/sprites/enemies/zombie/zombie_02_corps.png` | 232 | `968e062e6cfd45b6b6b0c3f20c96a1edbd27750039352f429b01d509e0edd017` | tracked |
+| `assets/sprites/enemies/zombie/zombie_02_corps_16x16.png` | 2900 | `3bb701694e8b4d2b4c4450cd70d75e82ced8386e1ca453b486b5ce91009f2577` | tracked |
+| `assets/sprites/enemies/zombie/zombie_02_shot_01.png` | 244 | `7fd15bff9b6c7c7fd868014acd253be6e6df4a6b1f09f407078c3b81f608991d` | tracked |
+| `assets/sprites/enemies/zombie/zombie_02_shot_02.png` | 247 | `cdf45cff29a8f9cf453322f4766201dfeac835baa5026b466668a01cbd3e5cfc` | tracked |
+| `assets/sprites/enemies/zombie/zombie_02_shot_dead.png` | 247 | `e42ff9dd4e251da4931ed0869c0f57ae4c781cdfdc492fd07cbb172ce1bdc0c0` | tracked |
+| `assets/sprites/enemies/zombie/zombie_02_standing.png` | 233 | `2e2e9dfa2bdeb7127055e5a88c626d53e98ce307c27456c3091b61b840203ed0` | tracked |
+| `assets/sprites/enemies/zombie/zombie_02_standing_16x16.png` | 2928 | `27a5f188c93265880e2794c059c04596e386bbf7b9c935add70b3b08efa1f9eb` | untracked |
+| `assets/sprites/enemies/zombie/zombie_02_walking_01.png` | 235 | `3a09a608138a0b7f135ec10b1231f51618044820d5257f35219c02e002b92468` | tracked |
+| `assets/sprites/enemies/zombie/zombie_02_walking_01_16x16.png` | 2934 | `142342ce0a0445c5e76da2c23b0ca76102e817f171b90f3299d76e0cde389047` | untracked |
+| `assets/sprites/enemies/zombie/zombie_02_walking_02.png` | 238 | `1c15f16f806531b708757a4f7bf6f8375407d752c9b576d163d0f10f30daf6da` | tracked |
+| `assets/sprites/enemies/zombie/zombie_02_walking_02_16x16.png` | 2926 | `e4c672cf2cfd0501f433b7d99a094686b2e4af903b0558228b11db8917159b2a` | untracked |
+| `assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_corps_16x16.png` | 2913 | `a2be906d13831551c29402ff80f676d7f590cb94191647983f3aa0f177c36044` | ignored |
+| `assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_corps_32x32.png` | 2919 | `c73b6679cd299ccf2fad04e98453eea8d3c5aaa145b54b4d7316b172a856587b` | ignored |
+| `assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_01_16x16.png` | 2947 | `557d4b0fddc0ea3ac3557f220407a9eefbb6b4f558f53b5828aeba33efc376d7` | ignored |
+| `assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_01_32x32.png` | 3022 | `fefe8042d2c852e33bf1d69b96e7ae3c3c0011badb0eece957630f992b44d814` | ignored |
+| `assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_02.png` | 261 | `f041e403698c9623e49e82b62e0861612543e96101ebf29f978b65d23c54c2ca` | ignored |
+| `assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_dead_16x16.png` | 2970 | `8b26b1addfaf8ff19ccbf9afbd2754a9d829d0c552ef8ef3683c035a9ead38a1` | ignored |
+| `assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_dead_32x32.png` | 3014 | `83a67918bac96953d7e3ad5ed8e97966fe635f2cc6b79716d1922e9af2a60e75` | ignored |
+| `assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_standing_16x16.png` | 2934 | `8838eb98a0740a255ff8e6954899da53b92b06ee9d25b2a12c1c126312069018` | ignored |
+| `assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_walking_01_16x16.png` | 2945 | `233ab1f92b6dd4c9ec45a5a3968353591386bed882a6d82b474e3f532260e353` | ignored |
+| `assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_walking_02_16x16.png` | 2939 | `eabf126d4541419da199db309d85d7972b95f236bafe70a2087134190e4a8683` | ignored |
+| `assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_attack_01.png` | 249 | `9608ca0c699e46971ceafe394d9439eba36f23553724b15e128d90565b5d1581` | ignored |
+| `assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_corps_16x16.png` | 2893 | `404e7f6da19afd89c3e9727388532289770c40b336d960d8f237921ea7fab5ab` | ignored |
+| `assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_standing.png` | 247 | `fb3fc653e5c26b11285ea1440ade42756bdf9bdc7975b35f6a826ad108a20683` | ignored |
+| `assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_standing_16x16.png` | 2938 | `638f63fb9862fa44175aeef06814ed3f036b77351bf8b191378cfe87f6fd1b2e` | ignored |
+| `assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_walking_01_16x16.png` | 2929 | `951afbcdeefa91361715557bb4d46fc6610ce8d2e04cf839bc5495a6c2755e74` | ignored |
+| `assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_walking_02_16x16.png` | 2923 | `f9af315d083016200371865c9cebcb22e86181dddac7d719fae9db3c20a03661` | ignored |
+| `assets/sprites/weapons/gun_12x12.png` | 281 | `c57da998706b2aa7c7e53effa4698bb2900336aa8728733d3298f0fddf1faae4` | tracked |
+| `assets/sprites/weapons/gun_shoot_12x12.png` | 291 | `6771c3c91e213ea51ade8ae5eab92fb686e12eb706ce914c59a6388c9f73a8b4` | tracked |
+| `assets/sprites/weapons/pick_up_shotgun.png` | 261 | `1b747722508e39baca417dc2a1edd533eb98f9c5e56ac201665e767d28d952b4` | tracked |
+| `assets/sprites/weapons/pistol.png` | 268 | `cfec151e56ac979d24897a9b63a27436eab96492fd18dff12b05e91d0baf57c8` | tracked |
+| `assets/sprites/weapons/shotgun.png` | 275 | `2ae5a0ab9c0e8de5f0440de96231535061e9f1d7bb33a666d56353fa419af5d1` | tracked |
+| `assets/sprites/weapons/shotgun_held.png` | 327 | `00fe73df9bbbea580a2daa30e9fa247c0059415494455ba7e7ee9f019b34e709` | tracked |
+| `assets/sprites/weapons/shotgun_held_shoot.png` | 370 | `e7d10db920f06fc1a62b11e12a8bd8a8b5786c5843f226ccdfc5ae05e81c890e` | tracked |
+| `assets/sprites/weapons/Corel Auto-Preserve/gun.png` | 253 | `3540c89699e3147003b7a9cf7d372fc2b40da1fc946838f873624e2c51163581` | ignored |
+| `assets/sprites/weapons/Corel Auto-Preserve/gun_12x12.png` | 281 | `c57da998706b2aa7c7e53effa4698bb2900336aa8728733d3298f0fddf1faae4` | ignored |
+| `assets/sprites/weapons/Corel Auto-Preserve/gun_12x12_v2.pspimage` | 138987 | `3daf2a1bf78edc40c56d6d6bca8339d73bbb3503bf13494e773ef3889a246f2f` | ignored |
+| `assets/sprites/weapons/Corel Auto-Preserve/gun_2_12x12.png` | 295 | `9981aea777c60a2ff2b9b965ed746fc6f7bb81c6b2e3421823323a409642a478` | ignored |
+| `assets/sprites/weapons/Corel Auto-Preserve/gun_3_12x12.png` | 281 | `8de6e8d82391a448f35544a8c089316be780014da546a02a5507364de293ebe1` | ignored |
+| `assets/sprites/weapons/Corel Auto-Preserve/pick_up_shotgun.png` | 282 | `b034b8085c73d590aea7377b78a35d330c82d1b53aa6c10f5c37ab6e28916c09` | ignored |
+| `assets/sprites/weapons/Corel Auto-Preserve/shotgun.png` | 269 | `e237dc789d1577959816b654fcbfdf5383c3392f85ed40b348a8a5606387c539` | ignored |
+| `assets/sprites/weapons/Corel Auto-Preserve/shotgun_16x16.png` | 2888 | `131bf12ebe63be8660d8e60dc58f975528511ff87d645d1419b0aae6d21d3536` | ignored |
+| `assets/sprites/weapons/Corel Auto-Preserve/shotgun_16x16_shoot.png` | 2913 | `3219b0d87f4f6dbe2cc850baa37305ac5ef24186749e05aabe1afbbdfc67e384` | ignored |
+| `assets/textures/ceilings/ceiling_industrial.png.png` | 337 | `b480bdb849864bef4782fe591cb05a1cbef7490dd30554a48e410cf07fb42a9f` | tracked |
+| `assets/textures/floors/floor_industrial.png` | 371 | `02d22a9e1aa31c4854d89d58748fe628e513116b4234998487090ba7a26f41d4` | tracked |
+| `assets/textures/library/ceiling_tiles.png` | 376 | `d23e2aa1635ad286ac1f8971f1842ddb81d675c7df19d6b6f13b2fe7ed2308a7` | tracked |
+| `assets/textures/library/floor_tiles.png` | 365 | `825450538459fbbcf18c00f7e05eb0518dcd041835b13899edcde85104faafc8` | tracked |
+| `assets/textures/library/wall_reference.png` | 328 | `f9ebb8e4017c59c26e7a8393a4c019007f5f8211568256b9deb9a820fa21a07f` | tracked |
+| `assets/textures/library/Corel Auto-Preserve/zombie_01_run_01.png` | 232 | `7f6b8b8ed3b664056fc837b6c8ea0dcf1ba5571e27cf7038abddc02a466c41ae` | ignored |
+| `assets/textures/library/Corel Auto-Preserve/zombie_01_run_02.png` | 232 | `6356cf9b036f09b6243b4a29a9857e25ce83d5341d79416ab6ca129108313303` | ignored |
+| `assets/textures/walls/next_level_door.png` | 233 | `1b336d099a7ba67b10aca616922fc2d986aa28f9c8a293afdaf04f53d3d45f42` | tracked |
+| `assets/textures/walls/next_level_door_v2.png` | 224 | `884001314238acdf714cc7752bdcc4184f35d83fd7b35a80da28ad9c26b3692b` | tracked |
+| `assets/textures/walls/next_level_door_v3.png` | 204 | `fc72d841d642d61d32b3cb88c80da099a24521de195259c7c37a7146f1c96317` | tracked |
+| `assets/textures/walls/switch_off_01.png` | 270 | `4b8060f6b220c9b3e87f6c43791352b252f870672c51f35ede71d5fdf453b515` | tracked |
+| `assets/textures/walls/switch_off_02.png` | 275 | `0086b948fa4ca690b5510344d1fec745a394e67f7375b07e0ecc6f5adbb6ae41` | tracked |
+| `assets/textures/walls/switch_on_01.png` | 267 | `03422cb129c23a820b0c2c13f8f2b7a367bd7d53c84d5e7695c8cdc8b7cee0e7` | tracked |
+| `assets/textures/walls/switch_on_02.png` | 267 | `4360549c33ff8e4b302eb8775a546f15de41147d48125c576dcb1ac25a7f1004` | tracked |
+| `assets/textures/walls/wall_brick_x.png` | 367 | `15058babdfe5524170f17dfd11f309866565dc60cb8f11258cf7afb0567293ef` | tracked |
+| `assets/textures/walls/wall_brick_y.png` | 375 | `d643c186a43869048d8dcecb1883f2d1aef097d0ad54d076ae597f900b843788` | tracked |
+| `assets/textures/walls/wall_concrete.png` | 225 | `637e129813b65705cada0b013722c0c96b3bf4f05b04ae38c8c48f8de9673960` | tracked |
+| `assets/textures/walls/wall_concrete_blood.png` | 235 | `f3a9ea033c96c3fed06abea12e0668b52481e5d6fbdf11a02c1227fde79c94e9` | tracked |
+| `assets/textures/walls/wall_door.png` | 217 | `63f78e18a202df8b3c8b9bbd0e71011cbfe7d81341b0590331da7a5416bb95af` | tracked |
+| `assets/textures/walls/wall_door_red.png` | 218 | `a548caf6d602640f5597507615ef99526ec140da44274e44b3eaa930b1aab7d3` | tracked |
+| `assets/textures/walls/wall_metal_x.png` | 365 | `9d664942ce26e916bb7813b5a2a48afa8c9082cb5b5df403125f7a47061b3cc1` | tracked |
+| `assets/textures/walls/wall_metal_y.png` | 356 | `73362bd031a4c3cea916349396a5d1374f2388bc021b0a194811109569de78cf` | tracked |
+| `assets/textures/walls/wall_tech_x.png` | 371 | `75ff47b1f45db306ee7176f5cf52c46edfc01c2cdaf94e0565323c0054a4fa28` | tracked |
+| `assets/textures/walls/wall_tech_y.png` | 368 | `f976407c4d18dfe8f4bde40309fe3ebf2a3065cd2233e305fe7758c24170dfbe` | tracked |
+| `assets/textures/walls/Corel Auto-Preserve/next_level_door.png` | 233 | `59a487106206e9bbc893e750b1c3632dd4fd92afc77adf624769e3139a6530f4` | ignored |
+| `assets/textures/walls/Corel Auto-Preserve/red_door_switch_off_1.png` | 250 | `62937018e348986d5ac89f650ecb903c363da936cbf41a95d18f0194739f75ad` | ignored |
+| `assets/textures/walls/Corel Auto-Preserve/red_door_switch_off_2.png` | 247 | `111ce8575d316f7dd4aee690dcfb98e02e90c1d4e1d9ca66406a36c30947d6d1` | ignored |
+| `assets/textures/walls/Corel Auto-Preserve/red_door_switch_on_1.png` | 250 | `7f92496e5a20f73b751fcec8da89780f5ffbe71b4d950d7d36a6a1fc6431adff` | ignored |
+| `assets/textures/walls/Corel Auto-Preserve/red_door_switch_on_2.png` | 247 | `1925a7843b6b9a71eb0578061c6bb50891919799433c7fe0155ad3f479a20fbe` | ignored |
+| `assets/textures/walls/Corel Auto-Preserve/switch_off_01.png` | 260 | `b9ecbbb28cb8e7b68146d771e1a782155cee7da71e1ad349ac94fab4a145e8b7` | ignored |
+| `assets/textures/walls/Corel Auto-Preserve/switch_off_02.png` | 259 | `c9938597ce000f760f00dab5bdc79bf30782d5ea31e2480f28649ad045d44577` | ignored |
+| `assets/textures/walls/Corel Auto-Preserve/switch_on_01.png` | 260 | `1289d9d66937f87e348f988f465070f62620174a16486bd582fc0258cb76eef4` | ignored |
+| `assets/textures/walls/Corel Auto-Preserve/switch_on_02.png` | 259 | `a9a55c3bb2db36c24c0facff7fb2444c2a4d321ce9f73b2c9a6dea6b1f5849ee` | ignored |
+| `assets/textures/walls/Corel Auto-Preserve/wall_door_red.png` | 218 | `a548caf6d602640f5597507615ef99526ec140da44274e44b3eaa930b1aab7d3` | ignored |
+| `assets/ui/health_hud.png` | 154 | `d61d2e9d53dd1b1ff7f8cc287f431fa1c0fc941ec1e6affed7e3e6f203b87c01` | tracked |
+| `assets/ui/health_hud_1.png` | 127 | `d8a45931ef6d838a5f8939d9661028d6d30c52f412fef7e911f69882c52eacb9` | tracked |
+| `assets/ui/health_hud_reference.png` | 263 | `7bc5e33ce6a69976e52dcf6c9d2bea483b18f80e62e29a987a147fa352375415` | tracked |

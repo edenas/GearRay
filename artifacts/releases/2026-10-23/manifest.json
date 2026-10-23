@@ -1,0 +1,224 @@
+{
+  "sha256": "3632006ed68fcbcbacf9aa693c92560520df496e1e4ac23cf2cb6e1df88d3340",
+  "bytes": 65536,
+  "canonical": "rom/GearRay.gg",
+  "source_commit_reference": "The Git commit introducing this manifest and artifact; resolve with git log -1 -- artifacts/releases/2026-10-23. Exact resulting commit and remote verification are in the local post-push publication receipt.",
+  "working_tree_parent_commit": "bf89ea9c6f340a919e68e8059c0c005dff237f78",
+  "includes_preexisting_accepted_renderer_work": true,
+  "runtime_source_sha256": {
+    "game/camera.c": "fb30c7908fde578abd5f3707d279744c85a720d756af94974cd5255c0e3fe40e",
+    "game/camera.h": "17e93e6f6d63d508ce3b0968462ac0a69e9bd1d6481e3a347c4d8e41ff662a7d",
+    "game/door_instances.c": "9ba9968cc04451c5e34f4782b9a83a6fc1b87a1f7a1f0e410387594db9ed2efe",
+    "game/door_instances.h": "79ee03edbd33f2c2d1ec9c2a4c711816823695b38107684b86d238849d848c2d",
+    "game/door_states.c": "e8f58da17c48f62ce226f4bfd0f3a019f06c28158bf90a009336424a16504a84",
+    "game/door_states.h": "c08896c762b201c5448bfa6994fa528aa4301bddc29b918e0071eae602e98ddd",
+    "game/enemy_collision.c": "4c6bf7f31d09a13a7d618467ffec897b2cd8c20a5dbed433561724e10696f36f",
+    "game/enemy_collision.h": "bce0b73bf1fed1487cfbaa8da718485cee42245fd0a0da9e23013c517cc3cad6",
+    "game/interaction_ray.c": "54a8592158fe69abd34e68a61d497686a7f97746404729f4212f84ae47bcd16e",
+    "game/interaction_ray.h": "20a44aa37d2a0806c25ede0e144917c18432f08d2ad8f28f02f7afa7a2b48e2f",
+    "game/interaction_target.h": "994f92ae34de26b922e61a7697147156b3e81a97f40dee67d94a7e2453a50a6e",
+    "game/main.c": "3b94bc8c5450d51f907417133d7d611895ac5f28b2780c86ed36d083c28755a8",
+    "game/player.c": "7ec2e3bf18579cf92d520ec681df598953b6da53558afd6324e6e76cabb38070",
+    "game/player.h": "9d1e233ab6ba4755ffdb951c5406362d67c1b7a8c775a07e3178dccaaba4ac7c",
+    "game/red_door_switch.c": "0413c0876c8ecfa8c1a73a5e331c492170158f0211ad85c1971e2fbea7d512b5",
+    "game/red_door_switch.h": "cfba333473e31effd3c569d2efa27791ae40a7d49b9a130e3b63cb85a4b003a7",
+    "game/weapons.h": "0e98f658e0921bc2b07bdab833015e3ecae7d978c8e446830acf5203c209a351",
+    "game/workshop_map.c": "e27b184b126788d093792dbc59878977a8e81a69c6954886eef8075c63f5fd31",
+    "game/workshop_map.h": "61574fc008e68d9d7d30e1917b11507f9671e988df33bf4596502fcee8ee4cd0",
+    "game/world.c": "376efef39b95583eeb87c57cf659ee31a4e9c41b38f9d58ffa1f6f0a27eb712a",
+    "game/world.h": "2b2dc0e87a866d1ac31e23954e2b757480791b2c8ead94c73a7c648225a7a2a8",
+    "game/world_initialization.c": "2a596ade7540fe602f2055dbcc9155da375bca9e8f6aa475b486ed46fe8408e9",
+    "game/world_interactions.c": "bd328520f9a663849efe8cbdf805fce6d7c660a9f89acc5d71fa2120556f3ff9",
+    "game/world_interactions.h": "52ad5d9920cfbefe93073af19ddefb81e6cb4dbc3da4c180eece22aebe51b6c5",
+    "game/world_object.h": "c38aa759e5c5a6b746377a3c05451874578ff67fb11280019c877d1e02bfba3f",
+    "game/world_objects.c": "eb2679c83fbc158867b9173135134ca3dba9d0ffa994749071c4d97441f4ec32",
+    "game/world_objects.h": "6a34afd3e0902337459b29599b72ea42dda38f8df0fc22dff1edf77e41721f61",
+    "game/world_sprite.c": "5654aa276150f5fc9f7522cb733c454718ae5041c430c2405c6b07b6a090ad7d",
+    "game/world_sprite.h": "4bd075f5d890230a22e7bc0b0fb7d2c61707d0a267a20e1d3aaf8c954243695e",
+    "game/zombie_ai.c": "eabce21221a019c6667c51439e403499b2c59f8ff06885ddae2e44981eb9faf7",
+    "game/zombie_ai.h": "43a7eaf979497ff234d0de9983ef15a168d669d118d1f0091b3ea000b7a71be2",
+    "game/zombie_corpses.c": "40252032f521d534c80141bd338f5d08cce0c860755110d04b091a309dfdb380",
+    "game/zombie_corpses.h": "687831e2f51d28d08a3c9c4bb53f3e208dc248ac95879b2971780cb0e8e5c1fe",
+    "game/zombie_shooting.c": "b2610e1cdfbba670e48f0abf19d8994f5b8025af22bf1705068a3afc32574bd8",
+    "game/zombie_shooting.h": "78c5b00f5a0ec584629ffefcb9c083cca049d73032eddff40011daccca950d0f",
+    "engine/render/raycaster.c": "20ec309c14086354a7f23f01cad94baf5b54ff7fe2900fd6a8864fcc19ef822c",
+    "engine/render/raycaster.h": "0ba2360134087045bd1f5655737e3db2c7cdd052cd1f2024fb1c9b4673394a8b",
+    "engine/render/wall_side.h": "6723372eb367c66ad3d029da87db3886e11040f3efe193c643befefd0db82acb",
+    "platform/game_gear/game_over_presentation.c": "9717f02049173796b89cddfef86d500b47dc54d0dea60d852f7cbbcfb838d705",
+    "platform/game_gear/hud_weapon.c": "13184fcaee9ca5bb7feeb1741056f50c1b7b72e9310b7c0e92eb3932fc1e8410",
+    "platform/game_gear/hud_weapon.h": "060e4dc28505a28397116e8e4ae67a6b51e6680ed0bbfb47284f80bf1b37146c",
+    "platform/game_gear/input.c": "bf7434f7bdf2280a64d585381e78ae2ab151665955853bef3489d98e15548e45",
+    "platform/game_gear/input.h": "8b6f7b237a05ffc05e4443f13e1053e026fd2fde6e213fe2ce57d4872845bc5d",
+    "platform/game_gear/input_internal.h": "cbee181e58967f5c5ae7cd7aac74a40c1873e4fbf48d0503afabcac1c07e47fd",
+    "platform/game_gear/native_wall.c": "b34d7c270344c1593f370e93a7d97ad2367a78c47e749dc58d000621910cf4c3",
+    "platform/game_gear/native_wall.h": "a96fa856ffcc4a9fee7ab0698fbe00629f0880cd5925c4627b1e2f80df54ffe8",
+    "platform/game_gear/near_zombie_textures.c": "f7f187f318f97e34f119573080091e357ffe571c0d6ee164556c02bb11ccd278",
+    "platform/game_gear/near_zombie_textures.h": "b868f07a4379638590798d6fca1e0d5fbd7015e02dbb02d363bea39deb6c0ba1",
+    "platform/game_gear/pause_map.c": "e2294cf1fd9cecb252f873012575bac8a78d6be7db4a20b84fa7de6b4721df8c",
+    "platform/game_gear/pause_map.h": "e42180fe7852d1b2f30e0dcfff663b8c12eb617be40737ce662465146762d042",
+    "platform/game_gear/renderer_profile.c": "0eda8dc91629e6e369dac235cfc0a20c83da46682abfa4618563cd27985d6a77",
+    "platform/game_gear/renderer_profile.h": "00fe0f422548b23455729ecaff63cd0e208cfec3bb09d7336d98c3b5e897df8c",
+    "platform/game_gear/sprite_projection.c": "24bdcece99f03d49644297c61a8eae69943e19da98887b54fbf74d01f1540885",
+    "platform/game_gear/sprite_projection.h": "77e37bee673bc97c0b27a0dde2b36b41181a219aec3a75018de01f107ef96b32",
+    "platform/game_gear/startup_logo.c": "15b86ccc04c253e39a8747fa9a5588f0acc9df89424f1143c9cb32de8791a2bd",
+    "platform/game_gear/startup_logo.h": "fc92b2bd0f029aca1c4115265655fcd41fdc7505d86107d934488f7566e201d8",
+    "platform/game_gear/video.c": "d7f3cde1d92daa3c5534d6664477fe1cd0980b7c6d54bb47d3a84b59bd09eeb8",
+    "platform/game_gear/video.h": "20cecd1909b02d1880bee17c7bd88d1c6da45ae2dba4610344854886b1cae11d",
+    "platform/game_gear/video_initialization.c": "f7ec6bdbc3fc74725f10b17e55e859ea62744f98badab206a3f99decd788cde2",
+    "platform/game_gear/video_internal.h": "198d1e394e2830aff8cf84716e23dd9447349146c728e0b3b3027fdf394af2de",
+    "platform/game_gear/vram_layout.h": "f16b1d7ac31e1a9163b554d2e4420acdb811b94688355d359f3ad1a2adce1fea",
+    "platform/game_gear/wall_textures.c": "f98855fbcf1cb58c712d872cba38c99e06bdce4f2ff23a8097502af005107bdd",
+    "platform/game_gear/wall_textures.h": "3c9fa9af813e18b8651190d2acb7130982f3d7b26361b9ae6a23a2c66bdae6f6"
+  },
+  "original_artwork_manifest": "docs/maintenance/2026-10-23/implementation/initial-identity.json",
+  "configuration": {
+    "build_type": "Release",
+    "profile": false,
+    "build_dir": "build/release",
+    "rom_dir": "rom",
+    "filename": "GearRay.gg"
+  },
+  "tool_hashes": {
+    "D:\\Emulicious-with-Java64\\Emulicious.jar": "db185a1ed0af3bdab5ebdeb254612d02d3848bac155dbc89333d1b04e21c371d",
+    "D:\\Tools\\devkitSMS\\SMSlib\\SMSlib_GG.lib": "e08252918ae80e8ee737e3d68d2237268ae6a27eda3fc4b79d29a2111f0d3f43",
+    "D:\\Tools\\devkitSMS\\crt0\\crt0_sms.rel": "3bc7bbedf2e6f150d2c13d2e10857813d1ece9d348b814de2a1119f34c473b24",
+    "D:\\Tools\\devkitSMS\\makesms\\Windows\\makesms.exe": "0b884a5c38d6b88aa1cd29537adff4d04d1e95becbb1f0b9f12f3bfa6105a59b",
+    "C:\\Program Files\\SDCC\\bin\\sdcc.EXE": "843272575aeae50e0cde8b3ac64bca1386755252d5b12cbb37cfa33f513ffeae",
+    "C:\\Program Files\\CMake\\bin\\cmake.EXE": "e7698092d9e01ef38a2e41e564033824f808c33a92dbc002736e8224187a780f",
+    "C:\\Users\\edena\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Ninja-build.Ninja_Microsoft.Winget.Source_8wekyb3d8bbwe\\ninja.EXE": "e52a7ad9538d9618c67a0bd777964e2eec8a30f68b810a2f6adce1f2daf847b8"
+  },
+  "resources": {
+    "Banks": [
+      {
+        "Bank": 0,
+        "Used": 12865,
+        "Free": 3519
+      },
+      {
+        "Bank": 1,
+        "Used": 14217,
+        "Free": 2151
+      },
+      {
+        "Bank": 2,
+        "Used": 11737,
+        "Free": 4647
+      },
+      {
+        "Bank": 3,
+        "Used": 12756,
+        "Free": 3628
+      }
+    ],
+    "LinkedExtentSum": 51575,
+    "PersistentRAM": 1538,
+    "DataEnd": 50690,
+    "ROMBytes": 65536,
+    "SHA256": "3632006ED68FCBCBACF9AA693C92560520DF496E1E4AC23CF2CB6E1DF88D3340",
+    "ModuleCount": 54,
+    "HelperSites": 37,
+    "BankCallSites": 8,
+    "EmittedIHXBytes": 51427
+  },
+  "validators_passed": 24,
+  "compiled_regressions": {
+    "sprite": {
+      "case_field": "cases",
+      "count": 48384,
+      "mismatches": 0,
+      "result": "docs/maintenance/2026-10-23/implementation/compiled-regressions/sprite/selected-final-sprite-compiled-oracle.json",
+      "sha256": "0484c5cfef0fdde8b99a5401b12cd34e0f63100e0ead8fe2b3d88cc63308cbf4",
+      "digest": "022e2f6b53711579f4e5633cc0db516aa8d059a24c32125f1840c94c14c9ee77"
+    },
+    "occlusion": {
+      "case_field": "cases",
+      "count": 72,
+      "mismatches": 0,
+      "result": "docs/maintenance/2026-10-23/implementation/compiled-regressions/occlusion/occlusion-guard-matrix.json",
+      "sha256": "ff487a6737a9dd2cb069003610aa34e85f925c70df1279956f55dcdb227b332a"
+    },
+    "wrapper": {
+      "case_field": "cases",
+      "count": 20480,
+      "mismatches": 0,
+      "result": "docs/maintenance/2026-10-23/implementation/compiled-regressions/wrapper/selected-wall-wrapper-oracle.json",
+      "sha256": "db9c2da4a4218194fcd6682e70b785911f410825e3b127e1e973b4509d6138f1",
+      "digest": "a4d2b3f6ac36e4b81e4c8ac6dae0827fe8e148b63bbc04db9d05b101c70eb6c0"
+    },
+    "hud": {
+      "case_field": "cases",
+      "count": 1792,
+      "mismatches": 0,
+      "result": "docs/maintenance/2026-10-23/implementation/compiled-regressions/hud/selected-final-hud-compiled-oracle.json",
+      "sha256": "6e0eded21460dba0ea2f60336454351d9dcdef26ba5d17d8477b0e5b958a99b4"
+    },
+    "playthrough": {
+      "case_field": "paired_checkpoints",
+      "count": 10,
+      "mismatches": 0,
+      "result": "docs/maintenance/2026-10-23/implementation/compiled-regressions/playthrough/functional-playthrough.json",
+      "sha256": "1be09043a6a9dd928f03ed73762e8450c2c55aee458535a2d6b901d0d944c600"
+    },
+    "wall": {
+      "case_field": "cases",
+      "count": 168960,
+      "mismatches": 0,
+      "result": "docs/maintenance/2026-10-23/implementation/compiled-regressions/wall/selected-final-wall-bank3-compiled-oracle.json",
+      "sha256": "da89fd7e09f6d843ddb2bb8f7419dec85c84b0098d57b5229062f2d5b07c9948",
+      "digest": "6e71ed19f8c4bc8e29120836b816f5b4ed4ccdfdfac6598959a86a3616a96648"
+    },
+    "ray": {
+      "case_field": "cases",
+      "count": 11616,
+      "mismatches": 0,
+      "result": "docs/maintenance/2026-10-23/implementation/compiled-regressions/ray/selected-final-ray-equivalence.json",
+      "sha256": "3c790a7bd1c6b94dc5e5a99f81cf6481975c4913270e0d3b394eb401301af7ac",
+      "output_digest": "703e71f47b6dc5cacac43a1b4d298c9bcaff16e5dc47b5121a0e27da10274181"
+    },
+    "material": {
+      "case_field": "cases",
+      "count": 242,
+      "mismatches": 0,
+      "result": "docs/maintenance/2026-10-23/implementation/compiled-regressions/material/selected-final-material-ray-equivalence.json",
+      "sha256": "87827888bd54f9cd79313074d449a1d239b9585908041d87c02dfdd1e37564d2",
+      "output_digest": "da65003d41fe97990b5c4ec47f807243dd56544e180e806727f8109a05cd9688"
+    },
+    "camera": {
+      "case_field": "cases",
+      "count": 484,
+      "mismatches": 0,
+      "result": "docs/maintenance/2026-10-23/implementation/compiled-regressions/camera/selected-camera-edge-replay.json",
+      "sha256": "e547b544e1de469a3e146cb7ba517ab27b1be47c4cbebc9170bb0c19fdc96484"
+    },
+    "prep": {
+      "case_field": "cases",
+      "count": 226,
+      "mismatches": 0,
+      "result": "docs/maintenance/2026-10-23/implementation/compiled-regressions/prep/selected-projection-cache-oracle.json",
+      "sha256": "0cad5c7f4c89b7c3048d3a2fc75ceb624616278f63b7130f6c3f960ccbcbf19c"
+    },
+    "transitions": {
+      "case_field": "paired_scenarios",
+      "count": 24,
+      "mismatches": 0,
+      "result": "docs/maintenance/2026-10-23/implementation/compiled-regressions/transitions/renderer-transitions.json",
+      "sha256": "8f9e26cfb0ec8d7a84622e6968923ceb80f4c8b5621f2b1bff766a74abd0e35b"
+    }
+  },
+  "replay_records": 2880,
+  "interactive_ab": "pending",
+  "physical_hardware": "pending",
+  "no_tag_or_github_release": true,
+  "build_configuration_sha256": "5dec31bbebc8e9b77465ffec5a794899c3f618a86aa78cbf56ab4435973ba983",
+  "additional_runtime_tool_identity": {
+    "scope": "Freshly observed supporting runtime binaries before publication; initial seven baseline tool hashes and version outputs remain separately recorded.",
+    "sha256": {
+      "C:\\Users\\edena\\AppData\\Local\\Programs\\Python\\Python312\\python.exe": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+      "D:\\Emulicious-with-Java64\\java\\bin\\java.exe": "271f0bcfe6db1b8c86cd4d63bd7685d9178f8e6cd215e37e1dfb9938fc686b4f",
+      "D:\\Emulicious-with-Java64\\java\\bin\\server\\jvm.dll": "44cf8c3d55eb3319c93e37ba0b9209fb19043353384f543b567d01de720ba4ec",
+      "D:\\Emulicious-with-Java64\\java\\lib\\rt.jar": "4cb8c181271324b176663eec241b809d4e59f56092138927a59e68e34d5adcf0",
+      "D:\\mano_projektai\\GearRay\\tools\\.cache\\performance\\ecj-3.26.0.jar": "ac0ba5876eaf7ebb47749a0d1be179c51f194b9dd0b875d1c09e1b530f5a2db5"
+    }
+  },
+  "output_isolation": "Canonical rom/ accepts only anchored build/release, Release, profiling OFF; dev/profile defaults rejected before output."
+}

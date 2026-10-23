@@ -1,0 +1,191 @@
+[
+  {
+    "path": "docs/performance/2026-10-19/evidence/baseline-build.zip",
+    "size": 682290,
+    "sha256": "f5dc46193879c8b13e9aa7e75bfde06d70a4552be097f080b29959f56d25f99a",
+    "members": 295,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/evidence/baseline-inputs.zip",
+    "size": 567754,
+    "sha256": "3877d63c4413ddd3ab0b908fe940baf917d929f76f3f0648e09867874c11bedf",
+    "members": 262,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/evidence/experiments.zip",
+    "size": 1364221,
+    "sha256": "00eeae3a641d5e4acd0c7ab602caf57ea96eec7da113faed2f670f9c77bab2e1",
+    "members": 960,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/evidence/astra/hud-mask-experiment.zip",
+    "size": 1029287,
+    "sha256": "bb85bbe70aebc66054a4cf80849fb9f3a769cd43cf15b644a22f3a372b4ebe68",
+    "members": 506,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/evidence/implementation/architecture-0cf805602b30b1866c5d101f5a0c5dd3f84151333cedbfe9504ead1547b6bcf4.zip",
+    "size": 336005,
+    "sha256": "dfd423983468b67aafb771d7ea673f7df243c02fcdf86225eb7e93886cc49527",
+    "members": 199,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/evidence/implementation/architecture-3668f6a15af369d7b6f5e17b0e24148a38995921df6ed372a2099a5d1819cecd.zip",
+    "size": 337635,
+    "sha256": "48ceee0ee92ae9e39a2af57a71881352bac5a24236385bd38d67b2c0e81ba6f2",
+    "members": 195,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/evidence/implementation/architecture-4ae2b783e53bca5f6cea5a084f71046b847c7b31e2926955bfb7ba1db43239b8.zip",
+    "size": 335944,
+    "sha256": "7a4335b40fe591bb7b4f26c6894c0f90a5d893a96286c5b421630e014027fc4e",
+    "members": 199,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/evidence/implementation/architecture-539af655291b12b84cd35218743c2dcff84086a9e780edac7b6d236bbf13ab5f.zip",
+    "size": 335946,
+    "sha256": "87825ed101c16fc174659cb42ea477a37d91c6d9efc9fbe0610d638e0fe67578",
+    "members": 199,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/evidence/implementation/architecture-78b9b1be46160ea2634178b073016dc55298839af245e36ac4df64efe5f8c131.zip",
+    "size": 336005,
+    "sha256": "82268b05468450a4093cb29d088665d6e75d8ef1d9043effcd3b1561cf27bf81",
+    "members": 199,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/evidence/implementation/architecture-97fef3fd765c23f0245a757d394c2f52dda069f1ede3b72759dea78eed229776.zip",
+    "size": 336001,
+    "sha256": "fb5c1d1ff570c23730897a91877f67b5b94eab5c7109846b6bd878d9fe53d168",
+    "members": 199,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/evidence/implementation/architecture-bda433f29ee7bc5b837c15998fec388c5be4a74fd2816f2651f37d047758f104.zip",
+    "size": 338488,
+    "sha256": "deeb0f7d4a57271465ec596647d07145313bf648a1df9190d86f41ddca750cc0",
+    "members": 195,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/evidence/implementation/architecture-before-64k.zip",
+    "size": 231330,
+    "sha256": "08ea158c7d9505bfecfcdc9047680fb4da8010887d94a1636ec08bf6fd894030",
+    "members": 120,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/evidence/implementation/architecture-before-buffer-cache.zip",
+    "size": 227359,
+    "sha256": "232ac2133a8cb3fcec8519c41bc2f04541a8fcddb2055ba106fd383e2dab7e32",
+    "members": 119,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/evidence/implementation/architecture-trace-evidence.zip",
+    "size": 5378895,
+    "sha256": "51d5be859155442886cdd8464fd37fd15e84bc418d796bc8f46605b4b705c38f",
+    "members": 3290,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/evidence/implementation/authorized-inputs.zip",
+    "size": 567754,
+    "sha256": "3877d63c4413ddd3ab0b908fe940baf917d929f76f3f0648e09867874c11bedf",
+    "members": 262,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/evidence/implementation/exact-source.zip",
+    "size": 218634,
+    "sha256": "782156b74f0767771434958909acdc5a09d95fd18a5aa6aaeb2be472e8a0b2fd",
+    "members": 107,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/evidence/implementation/production-final-source.zip",
+    "size": 932286,
+    "sha256": "2adf98ba94730f638705712fbf3b1bc13d6c3d88f5712dfcd89652e0ac9c6e2b",
+    "members": 432,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/evidence/implementation/production-replay-evidence.zip",
+    "size": 1685760,
+    "sha256": "d575ef1ee6b457c284345837d1f22b25cec04c30e3b7210b7dcf58ea2cd96693",
+    "members": 24,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/fresh-source-and-build.zip",
+    "size": 2011699,
+    "sha256": "4698a3502d13c1a7f4f063f9f6aef0443c16d7c3a96110a8ebf4510706788aef",
+    "members": 842,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/current-inputs-before.zip",
+    "size": 322115,
+    "sha256": "46d8165f0405f1d190a425890eb2904fe6e8b79092a89fdd488ddf15f87dae3f",
+    "members": 216,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/row-source-and-build.zip",
+    "size": 684021,
+    "sha256": "2ffaa4c49e5fc254b34135108964648a3fb47ecdb5a686f078928f19d2146505",
+    "members": 454,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/selected-source-and-build.zip",
+    "size": 3686544,
+    "sha256": "72e0658e8bd5d77eddb46b49bf511a8dcacc482860b9bb42ca9fdeb4aef3e695",
+    "members": 1557,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/post-implementation-review/evidence/canonical-experiment.zip",
+    "size": 1098339,
+    "sha256": "1e075ae3de59ebd6ceb6d82deb26bccbdaac5aa5f214e2b6ade378de008fb045",
+    "members": 497,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/post-implementation-review/evidence/gated-experiment.zip",
+    "size": 1386352,
+    "sha256": "da411af4f0e63f0580036612a487169765b0ce4e80b4cff9caa208800cbdfda6",
+    "members": 547,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/post-implementation-review/evidence/review-build-evidence.zip",
+    "size": 877588,
+    "sha256": "645a8bbcadf2b833a9b9f4bfdd0099db5a60b8afc15c12da91fac16bbf4a1495",
+    "members": 402,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/post-implementation-review/evidence/reviewed-source.zip",
+    "size": 364898,
+    "sha256": "33e5594e57ef04eaadf53e5273e4f606e6befe0cf32b0c6af090740b6ffae332",
+    "members": 181,
+    "crc": "PASS"
+  },
+  {
+    "path": "docs/performance/2026-10-19/post-implementation-review/evidence/rowcache-experiment.zip",
+    "size": 1384015,
+    "sha256": "1351e58edd00127c4a6efe0ea31bde8c83d792d347111aac45b7d50a151b483b",
+    "members": 547,
+    "crc": "PASS"
+  }
+]

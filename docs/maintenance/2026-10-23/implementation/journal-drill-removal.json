@@ -1,0 +1,13 @@
+[
+  {
+    "path": "build/history-restore/journal-check/docs/maintenance/2026-10-23/implementation/build-dry-run.log",
+    "size": 71,
+    "sha256": "21f71adbdb47c0289cfb32f2453846755fd413f6ce0103df68a58b38b952f23b",
+    "classification": "DUPLICATE - VERIFIED",
+    "reason": "Executed archive round-trip drill; retain exact keeper",
+    "keeper": "docs/maintenance/2026-10-23/implementation/execution-journals.zip",
+    "keeper_sha256": "2f41e45520398dab42e3c5877d38b675ce687240cc65de46360f461c77000da6",
+    "member": "docs/maintenance/2026-10-23/implementation/build-dry-run.log",
+    "dependency_group": "journal-restore-drill"
+  }
+]

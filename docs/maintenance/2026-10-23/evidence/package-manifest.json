@@ -1,0 +1,118 @@
+{
+  "archive": "inventory-data.zip",
+  "bytes": 5883658,
+  "sha256": "eb57d1c5928e676dc9f6881b04cb5860b3ae12d3ecb9add46438f8252d76f975",
+  "raw_dataset_bytes": 32157889,
+  "entries": [
+    {
+      "name": "absolute-paths.json",
+      "bytes": 16883,
+      "sha256": "d446c436ffaefb469068c4d0e602911f8f0aa2dac8e086259539c832e4286c88"
+    },
+    {
+      "name": "archive-members.csv",
+      "bytes": 2857689,
+      "sha256": "7923acfe862c4771dafbc6682efcd965ad15ce0b4a7beda6ddc6e4027205310b"
+    },
+    {
+      "name": "archive-secret-scan.json",
+      "bytes": 175,
+      "sha256": "4cf75fcd0a28a18bf98ad9ff6bd9dcad259333ad74f3714725429fb8c448c1cf"
+    },
+    {
+      "name": "archives.json",
+      "bytes": 7187,
+      "sha256": "c445f9d5f2b822cf5a920d0faad97185c1eb2de2de3fe997f05aaec1f5c17f7a"
+    },
+    {
+      "name": "assets.json",
+      "bytes": 32731,
+      "sha256": "859a614dc0ac15eac00103766307fa7cda8937cebfe27ce96b67c513264df7a0"
+    },
+    {
+      "name": "build-analysis.json",
+      "bytes": 1687024,
+      "sha256": "3a25c1d44dd71052691baf5698e96bc98719f3b4fa3aec565f013cc2dd15a8af"
+    },
+    {
+      "name": "cleanup-candidates.csv",
+      "bytes": 11172836,
+      "sha256": "460379fe7a9d4df07627fbb25d08e10083615a5fa3188e36f671badb9b85cfb2"
+    },
+    {
+      "name": "directories.json",
+      "bytes": 55871,
+      "sha256": "c5f25f4f2bb0e13ac3f4e130249083aea28d13b37a828a26e2adb6ef56946b13"
+    },
+    {
+      "name": "documentation-catalog.json",
+      "bytes": 78625,
+      "sha256": "3cd24d3fab34fb37d032e8ef8bc060dd13c208dd9dae2edde0f028bcf678aa37"
+    },
+    {
+      "name": "documents.json",
+      "bytes": 30184,
+      "sha256": "e2366571b69a14f9021516b60461604ce38662a6ded867ebf541a985c44aa819"
+    },
+    {
+      "name": "duplicates.json",
+      "bytes": 2205232,
+      "sha256": "68bc1acc46b0f836fb3df5d47d5ad9c1660baa9d01a029d581d9ae40cc0aacb6"
+    },
+    {
+      "name": "files.csv",
+      "bytes": 7048772,
+      "sha256": "89fed724556524f017a3b0583b48200fd2c518a696244fe095a27fe84967c4d7"
+    },
+    {
+      "name": "inventory-summary.json",
+      "bytes": 1611,
+      "sha256": "bbdb7c7b0abfdae13b66f429f03ad3b637c0872ac6b038cdb09e812172de687a"
+    },
+    {
+      "name": "production-baseline.json",
+      "bytes": 4792,
+      "sha256": "ed7bf93a954a04a961d2e5ed7cc017a13020830219eca1bb386ba17ce5c13a34"
+    },
+    {
+      "name": "protected-artwork.csv",
+      "bytes": 17233,
+      "sha256": "a4410f4d53df7fcd4619ef9ff499b41097528081bc31daac515f027e93a7443a"
+    },
+    {
+      "name": "references.json",
+      "bytes": 798864,
+      "sha256": "97fba99091f2ec30bdcaefc4a8de80b1975100723884d0b9d2c8d41a53d013ad"
+    },
+    {
+      "name": "retention-proof.csv",
+      "bytes": 6076047,
+      "sha256": "998fd2eee13573165c4255f2d47440c314712c1301293d458a5ebb51e4dfe3ca"
+    },
+    {
+      "name": "rom-retention.json",
+      "bytes": 17810,
+      "sha256": "df8017e0967b7788f6204126465413322723fac49fec4f3820dbbf54cd137ec4"
+    },
+    {
+      "name": "roms.json",
+      "bytes": 7144,
+      "sha256": "34e5321a1ce04583edeac15f1a302a78fdce491cfa0d9d16b1a898e61f711c82"
+    },
+    {
+      "name": "root-directories.json",
+      "bytes": 31836,
+      "sha256": "0c700bb7ab39ecaf83797a6e27450695838dfdae1705761c90148b6f32ea58b7"
+    },
+    {
+      "name": "secret-scan.json",
+      "bytes": 190,
+      "sha256": "1b658c3d9b1d5f4c1a33a9134199de70dfb6e25f9d8e72acfaa2d5fa0796d742"
+    },
+    {
+      "name": "subdirectory-summary.json",
+      "bytes": 9153,
+      "sha256": "fea314156c4d332fd414274b53ffb0961ccba0f92c8c3f4cd8090c38e5b08eda"
+    }
+  ]
+}

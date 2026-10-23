@@ -1,4 +1,4 @@
-param([string]$BuildDirectory='build')
+param([string]$BuildDirectory='build/release')
 $ErrorActionPreference='Stop'
 . "$PSScriptRoot/production_build_artifacts.ps1"
 Add-Type -AssemblyName System.Drawing

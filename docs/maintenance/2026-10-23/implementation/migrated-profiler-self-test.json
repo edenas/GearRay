@@ -1,0 +1,57 @@
+{
+  "checks": "Recursive exact-SP ownership; two-byte callee cleanup; wrong-physical-return alias excluded until mapping restored; IRQ accepted at tracked RET-only leaf505 counted only after its real opcode; all spans close.",
+  "results": [
+    {
+      "IRQ_at_function_entry": false,
+      "stages": [
+        302,
+        192,
+        24,
+        97,
+        70,
+        10,
+        0
+      ],
+      "counts": [
+        1,
+        3,
+        1,
+        0,
+        1,
+        0
+      ],
+      "unclosed": 0,
+      "IRQ_PC": -1,
+      "ignored_interrupt_acceptance": 0,
+      "cycles": 329
+    },
+    {
+      "IRQ_at_function_entry": true,
+      "stages": [
+        365,
+        192,
+        24,
+        160,
+        133,
+        10,
+        50
+      ],
+      "counts": [
+        1,
+        3,
+        1,
+        0,
+        1,
+        1
+      ],
+      "unclosed": 0,
+      "IRQ_PC": 1285,
+      "ignored_interrupt_acceptance": 1,
+      "cycles": 392
+    },
+    {
+      "wrong_cleanup_rejected": true,
+      "unclosed": 1
+    }
+  ]
+}

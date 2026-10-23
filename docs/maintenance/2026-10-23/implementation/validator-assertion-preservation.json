@@ -1,0 +1,33 @@
+{
+  "validators_compared": 24,
+  "all_assertions_and_algorithms_unchanged": true,
+  "only_allowed_difference": "BuildDirectory default build -> build/release plus text line endings",
+  "profiler_java_and_abi_metadata_unchanged": true,
+  "pinned_tool_hashes_unchanged": true,
+  "files": [
+    "tools/validate_bank_call_topology.ps1",
+    "tools/validate_bank_layout.ps1",
+    "tools/validate_corpse_persistence.ps1",
+    "tools/validate_door_crush.ps1",
+    "tools/validate_final_controls.ps1",
+    "tools/validate_game_over.ps1",
+    "tools/validate_health_hud.ps1",
+    "tools/validate_middle_zombie.ps1",
+    "tools/validate_native_wall.ps1",
+    "tools/validate_near_zombie.ps1",
+    "tools/validate_palette_usage.ps1",
+    "tools/validate_pause_map.ps1",
+    "tools/validate_ray_direction_rebuild.ps1",
+    "tools/validate_renderer_equivalence.ps1",
+    "tools/validate_shotgun_combat.ps1",
+    "tools/validate_sprite_renderer.ps1",
+    "tools/validate_startup_order.ps1",
+    "tools/validate_weapon_assets.ps1",
+    "tools/validate_weapon_runtime.ps1",
+    "tools/validate_workshop_map.ps1",
+    "tools/validate_z80_hardening.ps1",
+    "tools/validate_zombie_ai.ps1",
+    "tools/validate_zombie_attack.ps1",
+    "tools/validate_zombie_shooting.ps1"
+  ]
+}

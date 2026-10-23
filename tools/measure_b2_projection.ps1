@@ -1,6 +1,7 @@
+# Historical optional compile experiment; excluded from Release/validation.
 $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent
-$out=Join-Path $root 'build/full-z80-audit/projection-options'
+$out=Join-Path $root 'build/experiments/projection-options'
 New-Item -ItemType Directory -Force $out|Out-Null
 $sdcc='C:/Program Files/SDCC/bin/sdcc.exe'
 $source=Get-Content "$root/platform/game_gear/sprite_projection.c" -Raw
@@ -8,7 +9,7 @@ function Compile([string]$name,[string]$text){
   $dir="$root/platform/game_gear"
   $text=[regex]::Replace($text,'(?m)^#include "([^"]+)"',{param($m);$p=[IO.Path]::GetFullPath((Join-Path $dir $m.Groups[1].Value));if(Test-Path $p){'#include "'+$p.Replace('\','/')+'"'}else{$m.Value}})
   $path=Join-Path $out "$name.c";[IO.File]::WriteAllText($path,$text)
-  & $sdcc -mz80 -DTARGET_GG "-I$root/game" "-I$root/engine/render" "-I$root/platform/game_gear" "-I$root/build/generated" '-ID:/Tools/devkitSMS/SMSlib/src' --peep-file 'D:/Tools/devkitSMS/SMSlib/src/peep-rules.txt' --codeseg BANK1 -c $path -o (Join-Path $out "$name.rel")
+  & $sdcc -mz80 -DTARGET_GG "-I$root/game" "-I$root/engine/render" "-I$root/platform/game_gear" "-I$root/build/release/generated" '-ID:/Tools/devkitSMS/SMSlib/src' --peep-file 'D:/Tools/devkitSMS/SMSlib/src/peep-rules.txt' --codeseg BANK1 -c $path -o (Join-Path $out "$name.rel")
   if($LASTEXITCODE){throw "B2 compile failed: $name"}
 }
 Compile 'scalar_arguments' $source

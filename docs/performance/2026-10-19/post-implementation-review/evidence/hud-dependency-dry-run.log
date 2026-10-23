@@ -1,0 +1,5 @@
+ninja: Entering directory `build-post-review-canonical'
+[1/4] Generating packed static HUD weapon
+[2/4] Generating generated/hud_masks.h
+[3/4] Compiling banked static HUD weapon overlay
+[4/4] Linking GearRay for Game Gear

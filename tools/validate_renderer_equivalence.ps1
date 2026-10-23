@@ -1,5 +1,5 @@
 param(
-    [string]$BuildDirectory = "build"
+    [string]$BuildDirectory = "build/release"
 )
 
 $ErrorActionPreference = "Stop"

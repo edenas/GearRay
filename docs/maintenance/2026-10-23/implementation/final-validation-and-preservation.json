@@ -1,0 +1,211 @@
+{
+  "status": "PASS",
+  "runtime_files_unchanged": 63,
+  "protected_art_paths_unchanged": 125,
+  "asset_files_unchanged": 107,
+  "original_zip_hashes_unchanged": 27,
+  "cataloged_original_removals": 30928,
+  "reviewed_preimage_preserved_changes": [
+    ".gitattributes",
+    ".gitignore",
+    "build-profile.bat",
+    "build.bat",
+    "CHANGELOG.md",
+    "CMakeLists.txt",
+    "CONTRIBUTING.md",
+    "GearRay_Developer_Bible.md",
+    "README.md",
+    "docs/ASSET_PROVENANCE.md",
+    "docs/BUILDING.md",
+    "docs/CURRENT_BEHAVIOR.md",
+    "docs/ENGINE_ARCHITECTURE.md",
+    "docs/PROJECT_BIBLE.md",
+    "docs/ROM_BANKING.md",
+    "rom/GearRay.gg",
+    "tools/full_z80_audit.ps1",
+    "tools/full_z80_equivalence.ps1",
+    "tools/full_z80_experiments.ps1",
+    "tools/measure_b1_row_base.ps1",
+    "tools/measure_b2_projection.ps1",
+    "tools/production_build_artifacts.ps1",
+    "tools/test_production_dispatch_scan.ps1",
+    "tools/validate_bank_call_topology.ps1",
+    "tools/validate_game_over.ps1",
+    "tools/validate_health_hud.ps1",
+    "tools/validate_middle_zombie.ps1",
+    "tools/validate_native_wall.ps1",
+    "tools/validate_near_zombie.ps1",
+    "tools/validate_palette_usage.ps1",
+    "tools/validate_pause_map.ps1",
+    "tools/validate_renderer_equivalence.ps1",
+    "tools/validate_shotgun_combat.ps1",
+    "tools/validate_sprite_renderer.ps1",
+    "tools/validate_weapon_assets.ps1",
+    "tools/validate_weapon_runtime.ps1",
+    "tools/validate_z80_hardening.ps1",
+    "tools/validate_zombie_attack.ps1",
+    "tools/performance/benchmark.py",
+    "tools/performance/build_driver.py",
+    "tools/performance/emulation_symbols.py",
+    "tools/performance/README.md",
+    "tools/performance/test_profiler.py",
+    "tools/performance/__pycache__/emulation_symbols.cpython-312.pyc"
+  ],
+  "release_sha256": "3632006ed68fcbcbacf9aa693c92560520df496e1e4ac23cf2cb6e1df88d3340",
+  "release_resources": {
+    "Banks": [
+      {
+        "Bank": 0,
+        "Used": 12865,
+        "Free": 3519
+      },
+      {
+        "Bank": 1,
+        "Used": 14217,
+        "Free": 2151
+      },
+      {
+        "Bank": 2,
+        "Used": 11737,
+        "Free": 4647
+      },
+      {
+        "Bank": 3,
+        "Used": 12756,
+        "Free": 3628
+      }
+    ],
+    "LinkedExtentSum": 51575,
+    "PersistentRAM": 1538,
+    "DataEnd": 50690,
+    "ROMBytes": 65536,
+    "SHA256": "3632006ED68FCBCBACF9AA693C92560520DF496E1E4AC23CF2CB6E1DF88D3340",
+    "ModuleCount": 54,
+    "HelperSites": 37,
+    "BankCallSites": 8,
+    "EmittedIHXBytes": 51427
+  },
+  "profile_resources": {
+    "Banks": [
+      {
+        "Bank": 0,
+        "Used": 12969,
+        "Free": 3415
+      },
+      {
+        "Bank": 1,
+        "Used": 14234,
+        "Free": 2134
+      },
+      {
+        "Bank": 2,
+        "Used": 11737,
+        "Free": 4647
+      },
+      {
+        "Bank": 3,
+        "Used": 12756,
+        "Free": 3628
+      }
+    ],
+    "LinkedExtentSum": 51696,
+    "PersistentRAM": 1568,
+    "DataEnd": 50720,
+    "ROMBytes": 65536,
+    "SHA256": "93DA30382E2763BEE5FE5CD07D6ED14C04B084A155285419992978E067C12CD2",
+    "ModuleCount": 55,
+    "HelperSites": 37,
+    "BankCallSites": 9,
+    "EmittedIHXBytes": 51548
+  },
+  "compiled_results": {
+    "sprite": {
+      "case_field": "cases",
+      "count": 48384,
+      "mismatches": 0,
+      "result": "docs/maintenance/2026-10-23/implementation/compiled-regressions/sprite/selected-final-sprite-compiled-oracle.json",
+      "sha256": "0484c5cfef0fdde8b99a5401b12cd34e0f63100e0ead8fe2b3d88cc63308cbf4",
+      "digest": "022e2f6b53711579f4e5633cc0db516aa8d059a24c32125f1840c94c14c9ee77"
+    },
+    "occlusion": {
+      "case_field": "cases",
+      "count": 72,
+      "mismatches": 0,
+      "result": "docs/maintenance/2026-10-23/implementation/compiled-regressions/occlusion/occlusion-guard-matrix.json",
+      "sha256": "ff487a6737a9dd2cb069003610aa34e85f925c70df1279956f55dcdb227b332a"
+    },
+    "wrapper": {
+      "case_field": "cases",
+      "count": 20480,
+      "mismatches": 0,
+      "result": "docs/maintenance/2026-10-23/implementation/compiled-regressions/wrapper/selected-wall-wrapper-oracle.json",
+      "sha256": "db9c2da4a4218194fcd6682e70b785911f410825e3b127e1e973b4509d6138f1",
+      "digest": "a4d2b3f6ac36e4b81e4c8ac6dae0827fe8e148b63bbc04db9d05b101c70eb6c0"
+    },
+    "hud": {
+      "case_field": "cases",
+      "count": 1792,
+      "mismatches": 0,
+      "result": "docs/maintenance/2026-10-23/implementation/compiled-regressions/hud/selected-final-hud-compiled-oracle.json",
+      "sha256": "6e0eded21460dba0ea2f60336454351d9dcdef26ba5d17d8477b0e5b958a99b4"
+    },
+    "playthrough": {
+      "case_field": "paired_checkpoints",
+      "count": 10,
+      "mismatches": 0,
+      "result": "docs/maintenance/2026-10-23/implementation/compiled-regressions/playthrough/functional-playthrough.json",
+      "sha256": "1be09043a6a9dd928f03ed73762e8450c2c55aee458535a2d6b901d0d944c600"
+    },
+    "wall": {
+      "case_field": "cases",
+      "count": 168960,
+      "mismatches": 0,
+      "result": "docs/maintenance/2026-10-23/implementation/compiled-regressions/wall/selected-final-wall-bank3-compiled-oracle.json",
+      "sha256": "da89fd7e09f6d843ddb2bb8f7419dec85c84b0098d57b5229062f2d5b07c9948",
+      "digest": "6e71ed19f8c4bc8e29120836b816f5b4ed4ccdfdfac6598959a86a3616a96648"
+    },
+    "ray": {
+      "case_field": "cases",
+      "count": 11616,
+      "mismatches": 0,
+      "result": "docs/maintenance/2026-10-23/implementation/compiled-regressions/ray/selected-final-ray-equivalence.json",
+      "sha256": "3c790a7bd1c6b94dc5e5a99f81cf6481975c4913270e0d3b394eb401301af7ac",
+      "output_digest": "703e71f47b6dc5cacac43a1b4d298c9bcaff16e5dc47b5121a0e27da10274181"
+    },
+    "material": {
+      "case_field": "cases",
+      "count": 242,
+      "mismatches": 0,
+      "result": "docs/maintenance/2026-10-23/implementation/compiled-regressions/material/selected-final-material-ray-equivalence.json",
+      "sha256": "87827888bd54f9cd79313074d449a1d239b9585908041d87c02dfdd1e37564d2",
+      "output_digest": "da65003d41fe97990b5c4ec47f807243dd56544e180e806727f8109a05cd9688"
+    },
+    "camera": {
+      "case_field": "cases",
+      "count": 484,
+      "mismatches": 0,
+      "result": "docs/maintenance/2026-10-23/implementation/compiled-regressions/camera/selected-camera-edge-replay.json",
+      "sha256": "e547b544e1de469a3e146cb7ba517ab27b1be47c4cbebc9170bb0c19fdc96484"
+    },
+    "prep": {
+      "case_field": "cases",
+      "count": 226,
+      "mismatches": 0,
+      "result": "docs/maintenance/2026-10-23/implementation/compiled-regressions/prep/selected-projection-cache-oracle.json",
+      "sha256": "0cad5c7f4c89b7c3048d3a2fc75ceb624616278f63b7130f6c3f960ccbcbf19c"
+    },
+    "transitions": {
+      "case_field": "paired_scenarios",
+      "count": 24,
+      "mismatches": 0,
+      "result": "docs/maintenance/2026-10-23/implementation/compiled-regressions/transitions/renderer-transitions.json",
+      "sha256": "8f9e26cfb0ec8d7a84622e6968923ceb80f4c8b5621f2b1bff766a74abd0e35b"
+    }
+  },
+  "all_24_validator_records_passed": true,
+  "replay_records_all_fields_and_T_identical": 2880,
+  "conservative_stack_main": 590,
+  "irq_allowance": 32,
+  "stack_reserve": 1024,
+  "observed_route_stack": 383
+}

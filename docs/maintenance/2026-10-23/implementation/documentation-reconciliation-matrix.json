@@ -1,0 +1,72 @@
+[
+  {
+    "document": "README.md",
+    "source_test_evidence": "input.c, main.c, weapons.h, accepted Release identity",
+    "result": "Reconstructed current owner; original bytes retained"
+  },
+  {
+    "document": "docs/CURRENT_BEHAVIOR.md",
+    "source_test_evidence": "player/input/hud_weapon/pause_map/zombie_ai/shooting/world interactions/corpse/main and their validators",
+    "result": "Reconstructed current owner; original bytes retained"
+  },
+  {
+    "document": "docs/ENGINE_ARCHITECTURE.md",
+    "source_test_evidence": "main.c, camera.c, raycaster.c, native_wall.c, video.c, sprite_projection.c, compiled cache/renderer gates",
+    "result": "Reconstructed current owner; original bytes retained"
+  },
+  {
+    "document": "docs/ROM_BANKING.md",
+    "source_test_evidence": "CMake link flags, emitted map/NOI/IHX, layout/topology validators and fresh audit",
+    "result": "Reconstructed current owner; original bytes retained"
+  },
+  {
+    "document": "docs/BUILDING.md",
+    "source_test_evidence": "anchored launchers, CMake cache ROM_DIR, pinned tool identities, fresh builds",
+    "result": "Reconstructed current owner; original bytes retained"
+  },
+  {
+    "document": "docs/ASSET_PIPELINE.md",
+    "source_test_evidence": "CMake explicit inputs, source art, generators and asset/palette validators",
+    "result": "Reconstructed current owner; original bytes retained"
+  },
+  {
+    "document": "docs/ASSET_PROVENANCE.md",
+    "source_test_evidence": "125 protected path manifest and preserved license/notices",
+    "result": "Reconstructed current owner; original bytes retained"
+  },
+  {
+    "document": "docs/TESTING.md",
+    "source_test_evidence": "24-validator runner, dispatch mutations, maintained profiler, preserved compiled oracles",
+    "result": "Reconstructed current owner; original bytes retained"
+  },
+  {
+    "document": "docs/PERFORMANCE_BASELINE.md",
+    "source_test_evidence": "historical paired 2880-record accepted analysis; fresh cleanup replay equivalence recorded separately",
+    "result": "Reconstructed current owner; original bytes retained"
+  },
+  {
+    "document": "docs/HISTORY.md",
+    "source_test_evidence": "original100-document catalog, keeper closure and tested restore drills",
+    "result": "Reconstructed current owner; original bytes retained"
+  },
+  {
+    "document": "GearRay_Developer_Bible.md",
+    "source_test_evidence": "exact frozen full Bible plus topic-owner navigation",
+    "result": "Reconstructed current owner; original bytes retained"
+  },
+  {
+    "document": "docs/PROJECT_BIBLE.md",
+    "source_test_evidence": "compatibility entry path and docs hub",
+    "result": "Reconstructed current owner; original bytes retained"
+  },
+  {
+    "document": "CHANGELOG.md",
+    "source_test_evidence": "existing implemented pause/shotgun/performance and cleanup scope",
+    "result": "Reconstructed current owner; original bytes retained"
+  },
+  {
+    "document": "CONTRIBUTING.md",
+    "source_test_evidence": "canonical build/test/experiment/ownership contracts",
+    "result": "Reconstructed current owner; original bytes retained"
+  }
+]

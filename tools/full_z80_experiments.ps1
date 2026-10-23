@@ -1,7 +1,8 @@
+# Historical optional compile experiment; excluded from Release/validation.
 # Compile-only audit experiments. Never links or modifies production sources.
 $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent
-$out=Join-Path $root 'build/full-z80-audit/experiments'
+$out=Join-Path $root 'build/experiments/full-z80'
 New-Item -ItemType Directory -Force $out | Out-Null
 $sdcc='C:/Program Files/SDCC/bin/sdcc.exe'
 function Compile($name,$sourcePath,$text,$flags) {
@@ -14,7 +15,7 @@ function Compile($name,$sourcePath,$text,$flags) {
     })
     [IO.File]::WriteAllText("$out/$name.c",$text)
     $ErrorActionPreference='Continue'
-    & $sdcc -mz80 -DTARGET_GG "-I$root/game" "-I$root/engine/render" "-I$root/platform/game_gear" "-I$root/build/generated" '-ID:/Tools/devkitSMS/SMSlib/src' @flags -c "$out/$name.c" -o "$out/$name.rel" *> "$out/$name.log"
+    & $sdcc -mz80 -DTARGET_GG "-I$root/game" "-I$root/engine/render" "-I$root/platform/game_gear" "-I$root/build/release/generated" '-ID:/Tools/devkitSMS/SMSlib/src' @flags -c "$out/$name.c" -o "$out/$name.rel" *> "$out/$name.log"
     $code=$LASTEXITCODE
     $ErrorActionPreference='Stop'
     if($code){throw "Compile failed: $name"}

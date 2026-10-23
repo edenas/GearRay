@@ -1,0 +1,3381 @@
+{
+  "branch": "main",
+  "parent": "bf89ea9c6f340a919e68e8059c0c005dff237f78",
+  "paths": [
+    {
+      "path": ".artifact-quarantine/assets__textures__library__Corel Auto-Preserve/red_door_switch.png",
+      "action": "add/update",
+      "working_sha256": "4cd51ebf28e2a6047fc731da9bc48cd77fc86b56e414469f03b11f882dbc954e"
+    },
+    {
+      "path": ".artifact-quarantine/assets__textures__library__Corel Auto-Preserve/red_door_switch_on_1.png",
+      "action": "add/update",
+      "working_sha256": "462b7e0b8768b59adcb2820ec378ccbf4164c2fec72371b9fa6a30cee55c58e4"
+    },
+    {
+      "path": ".artifact-quarantine/assets__textures__library__Corel Auto-Preserve/red_door_switch_on_2.png",
+      "action": "add/update",
+      "working_sha256": "664f3f5cfc18ce187ae849dd2311cd7b15d6fefddf316f883582006744572af7"
+    },
+    {
+      "path": ".artifact-quarantine/assets__textures__library__Corel Auto-Preserve/red_key.png",
+      "action": "add/update",
+      "working_sha256": "0e433c22c87d41062dd95d5243c5a8acffc1ae010ad41862a8fb7305ab83d45a"
+    },
+    {
+      "path": ".artifact-quarantine/assets__textures__library__red_door_switch_on_2.png",
+      "action": "add/update",
+      "working_sha256": "18f5bd868f8946e5830b1def042b361ae4eb38dec80dc8895d30331ac0d07c4e"
+    },
+    {
+      "path": ".artifact-quarantine/assets__textures__library__red_key.png",
+      "action": "add/update",
+      "working_sha256": "0e433c22c87d41062dd95d5243c5a8acffc1ae010ad41862a8fb7305ab83d45a"
+    },
+    {
+      "path": ".artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_off.png",
+      "action": "add/update",
+      "working_sha256": "df800be596762fe136f4f94644d1341acf503c856d36edad9322b8d5e592f710"
+    },
+    {
+      "path": ".artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_off_1.png",
+      "action": "add/update",
+      "working_sha256": "110d3e5ec2c72417025225422bc4886466d0298b83209a1ada00a15496629c8c"
+    },
+    {
+      "path": ".artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_off_2.png",
+      "action": "add/update",
+      "working_sha256": "d59bda8a98704154b53fa79af7c2ea25f297a377926b504d215ba371dc8ad701"
+    },
+    {
+      "path": ".artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_on_1.png",
+      "action": "add/update",
+      "working_sha256": "0f07d670cbe768746d1af84c693c30d0cd5fa757d50f0d2b6f107cdf709f6489"
+    },
+    {
+      "path": ".artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_on_2.png",
+      "action": "add/update",
+      "working_sha256": "568dd084d758e8ab2f83148330e4f5276ee8292893fa44212ec0e73815fe7ae7"
+    },
+    {
+      "path": ".artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_concrete.png",
+      "action": "add/update",
+      "working_sha256": "deb3a4d5ba57337fc7dca64d847d54a01f10678f89b564264a5b81b99144e042"
+    },
+    {
+      "path": ".artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_concrete_blood.png",
+      "action": "add/update",
+      "working_sha256": "efd99d0cf4268038122286e065a81ff31471cba02798099b380562340652de1d"
+    },
+    {
+      "path": ".artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_concrete_x.png",
+      "action": "add/update",
+      "working_sha256": "3fab45c12f800b1b5223e269fc011e96184118923555cd711f7996b01058b2d2"
+    },
+    {
+      "path": ".artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_concrete_y.png.png",
+      "action": "add/update",
+      "working_sha256": "d297f103fecd8fada739b3be8556d929cbfab1782e1c0a1a2a2407fb9e67d950"
+    },
+    {
+      "path": ".artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_door.png",
+      "action": "add/update",
+      "working_sha256": "f00df5c910da64850c9d557115853dad1dec0ed1296df146c52740ef83a01783"
+    },
+    {
+      "path": ".artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_door_red.png",
+      "action": "add/update",
+      "working_sha256": "543950e03670b1c7d5ec494b41b5a9902c5d2d6e51d3c892368abe28bd32fc9f"
+    },
+    {
+      "path": ".artifact-quarantine/assets__textures__walls__red_door_switch_off.png",
+      "action": "add/update",
+      "working_sha256": "a5989be205cf495a17be18c12b2606be76e37799784a0e6865abb1b430a685fb"
+    },
+    {
+      "path": ".artifact-quarantine/validator-hygiene-normal-clean.log",
+      "action": "add/update",
+      "working_sha256": "3d1dec44d318df4ae4ed4c5cfa62d47600938383237d8e7953ced56737aa03b1"
+    },
+    {
+      "path": ".gitattributes",
+      "action": "add/update",
+      "working_sha256": "d1a776b414ee414e0893d39264ae450917c1d44acd25d96218c786e7c0a5a8b0"
+    },
+    {
+      "path": ".gitignore",
+      "action": "add/update",
+      "working_sha256": "3a93738b387ae8f80a9dccb30439c6ae69097879b5783d5139210a975ba9c241"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "action": "add/update",
+      "working_sha256": "b3bf3aa10a372e1698f5348a483932e3d3567c7c71f7f23809eaa7a6b5ed478a"
+    },
+    {
+      "path": "CMakeLists.txt",
+      "action": "add/update",
+      "working_sha256": "5dec31bbebc8e9b77465ffec5a794899c3f618a86aa78cbf56ab4435973ba983"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "action": "add/update",
+      "working_sha256": "b271f7855a2c5cbc8eff4b46f54bb7d55656b14d249b7f87f56554d01804d2a7"
+    },
+    {
+      "path": "GearRay_Developer_Bible.md",
+      "action": "add/update",
+      "working_sha256": "deeef0b6f2039abf7abef81cfefb882035a312f44f4e4046fb06590712e28b3f"
+    },
+    {
+      "path": "README.md",
+      "action": "add/update",
+      "working_sha256": "9dfe6fd121d6c94630ad9b8a159a0e6e2cf9e8653f926b8ffd5def7afded554f"
+    },
+    {
+      "path": "artifacts/README.md",
+      "action": "add/update",
+      "working_sha256": "1b79b1b815c200cc7d0641935a283ddb39f40c2867483008af7dd32b0d8c61cc"
+    },
+    {
+      "path": "artifacts/releases/2026-10-23/GearRay.gg",
+      "action": "add/update",
+      "working_sha256": "3632006ed68fcbcbacf9aa693c92560520df496e1e4ac23cf2cb6e1df88d3340"
+    },
+    {
+      "path": "artifacts/releases/2026-10-23/manifest.json",
+      "action": "add/update",
+      "working_sha256": "c708c5b04c4488f5fa5b6e66be9cc9a8fd876f292a689233bc18552571aeabfa"
+    },
+    {
+      "path": "assets/sprites/Corel Auto-Preserve/gun.png",
+      "action": "add/update",
+      "working_sha256": "ce85760111f001290a8f831c9cde74af3d1d5428f3e8b4387cba47b930cb8b1d"
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_corps_16x16.png",
+      "action": "add/update",
+      "working_sha256": "a2be906d13831551c29402ff80f676d7f590cb94191647983f3aa0f177c36044"
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_corps_32x32.png",
+      "action": "add/update",
+      "working_sha256": "c73b6679cd299ccf2fad04e98453eea8d3c5aaa145b54b4d7316b172a856587b"
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_01_16x16.png",
+      "action": "add/update",
+      "working_sha256": "557d4b0fddc0ea3ac3557f220407a9eefbb6b4f558f53b5828aeba33efc376d7"
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_01_32x32.png",
+      "action": "add/update",
+      "working_sha256": "fefe8042d2c852e33bf1d69b96e7ae3c3c0011badb0eece957630f992b44d814"
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_02.png",
+      "action": "add/update",
+      "working_sha256": "f041e403698c9623e49e82b62e0861612543e96101ebf29f978b65d23c54c2ca"
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_dead_16x16.png",
+      "action": "add/update",
+      "working_sha256": "8b26b1addfaf8ff19ccbf9afbd2754a9d829d0c552ef8ef3683c035a9ead38a1"
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_dead_32x32.png",
+      "action": "add/update",
+      "working_sha256": "83a67918bac96953d7e3ad5ed8e97966fe635f2cc6b79716d1922e9af2a60e75"
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_standing_16x16.png",
+      "action": "add/update",
+      "working_sha256": "8838eb98a0740a255ff8e6954899da53b92b06ee9d25b2a12c1c126312069018"
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_walking_01_16x16.png",
+      "action": "add/update",
+      "working_sha256": "233ab1f92b6dd4c9ec45a5a3968353591386bed882a6d82b474e3f532260e353"
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_walking_02_16x16.png",
+      "action": "add/update",
+      "working_sha256": "eabf126d4541419da199db309d85d7972b95f236bafe70a2087134190e4a8683"
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_attack_01.png",
+      "action": "add/update",
+      "working_sha256": "9608ca0c699e46971ceafe394d9439eba36f23553724b15e128d90565b5d1581"
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_corps_16x16.png",
+      "action": "add/update",
+      "working_sha256": "404e7f6da19afd89c3e9727388532289770c40b336d960d8f237921ea7fab5ab"
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_standing.png",
+      "action": "add/update",
+      "working_sha256": "fb3fc653e5c26b11285ea1440ade42756bdf9bdc7975b35f6a826ad108a20683"
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_standing_16x16.png",
+      "action": "add/update",
+      "working_sha256": "638f63fb9862fa44175aeef06814ed3f036b77351bf8b191378cfe87f6fd1b2e"
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_walking_01_16x16.png",
+      "action": "add/update",
+      "working_sha256": "951afbcdeefa91361715557bb4d46fc6610ce8d2e04cf839bc5495a6c2755e74"
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_walking_02_16x16.png",
+      "action": "add/update",
+      "working_sha256": "f9af315d083016200371865c9cebcb22e86181dddac7d719fae9db3c20a03661"
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/zombie_01_walking_01_16x16.png",
+      "action": "add/update",
+      "working_sha256": "73aa581c082c35edc04a3ac6f547050f40f3abf89307dfc37de0f2a027c7a6b0"
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/zombie_02_corps_16x16.png",
+      "action": "add/update",
+      "working_sha256": "3bb701694e8b4d2b4c4450cd70d75e82ced8386e1ca453b486b5ce91009f2577"
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/zombie_02_standing_16x16.png",
+      "action": "add/update",
+      "working_sha256": "27a5f188c93265880e2794c059c04596e386bbf7b9c935add70b3b08efa1f9eb"
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/zombie_02_walking_01_16x16.png",
+      "action": "add/update",
+      "working_sha256": "142342ce0a0445c5e76da2c23b0ca76102e817f171b90f3299d76e0cde389047"
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/zombie_02_walking_02_16x16.png",
+      "action": "add/update",
+      "working_sha256": "e4c672cf2cfd0501f433b7d99a094686b2e4af903b0558228b11db8917159b2a"
+    },
+    {
+      "path": "assets/sprites/weapons/Corel Auto-Preserve/gun.png",
+      "action": "add/update",
+      "working_sha256": "3540c89699e3147003b7a9cf7d372fc2b40da1fc946838f873624e2c51163581"
+    },
+    {
+      "path": "assets/sprites/weapons/Corel Auto-Preserve/gun_12x12.png",
+      "action": "add/update",
+      "working_sha256": "c57da998706b2aa7c7e53effa4698bb2900336aa8728733d3298f0fddf1faae4"
+    },
+    {
+      "path": "assets/sprites/weapons/Corel Auto-Preserve/gun_12x12_v2.pspimage",
+      "action": "add/update",
+      "working_sha256": "3daf2a1bf78edc40c56d6d6bca8339d73bbb3503bf13494e773ef3889a246f2f"
+    },
+    {
+      "path": "assets/sprites/weapons/Corel Auto-Preserve/gun_2_12x12.png",
+      "action": "add/update",
+      "working_sha256": "9981aea777c60a2ff2b9b965ed746fc6f7bb81c6b2e3421823323a409642a478"
+    },
+    {
+      "path": "assets/sprites/weapons/Corel Auto-Preserve/gun_3_12x12.png",
+      "action": "add/update",
+      "working_sha256": "8de6e8d82391a448f35544a8c089316be780014da546a02a5507364de293ebe1"
+    },
+    {
+      "path": "assets/sprites/weapons/Corel Auto-Preserve/pick_up_shotgun.png",
+      "action": "add/update",
+      "working_sha256": "b034b8085c73d590aea7377b78a35d330c82d1b53aa6c10f5c37ab6e28916c09"
+    },
+    {
+      "path": "assets/sprites/weapons/Corel Auto-Preserve/shotgun.png",
+      "action": "add/update",
+      "working_sha256": "e237dc789d1577959816b654fcbfdf5383c3392f85ed40b348a8a5606387c539"
+    },
+    {
+      "path": "assets/sprites/weapons/Corel Auto-Preserve/shotgun_16x16.png",
+      "action": "add/update",
+      "working_sha256": "131bf12ebe63be8660d8e60dc58f975528511ff87d645d1419b0aae6d21d3536"
+    },
+    {
+      "path": "assets/sprites/weapons/Corel Auto-Preserve/shotgun_16x16_shoot.png",
+      "action": "add/update",
+      "working_sha256": "3219b0d87f4f6dbe2cc850baa37305ac5ef24186749e05aabe1afbbdfc67e384"
+    },
+    {
+      "path": "assets/textures/library/Corel Auto-Preserve/zombie_01_run_01.png",
+      "action": "add/update",
+      "working_sha256": "7f6b8b8ed3b664056fc837b6c8ea0dcf1ba5571e27cf7038abddc02a466c41ae"
+    },
+    {
+      "path": "assets/textures/library/Corel Auto-Preserve/zombie_01_run_02.png",
+      "action": "add/update",
+      "working_sha256": "6356cf9b036f09b6243b4a29a9857e25ce83d5341d79416ab6ca129108313303"
+    },
+    {
+      "path": "assets/textures/walls/Corel Auto-Preserve/next_level_door.png",
+      "action": "add/update",
+      "working_sha256": "59a487106206e9bbc893e750b1c3632dd4fd92afc77adf624769e3139a6530f4"
+    },
+    {
+      "path": "assets/textures/walls/Corel Auto-Preserve/red_door_switch_off_1.png",
+      "action": "add/update",
+      "working_sha256": "62937018e348986d5ac89f650ecb903c363da936cbf41a95d18f0194739f75ad"
+    },
+    {
+      "path": "assets/textures/walls/Corel Auto-Preserve/red_door_switch_off_2.png",
+      "action": "add/update",
+      "working_sha256": "111ce8575d316f7dd4aee690dcfb98e02e90c1d4e1d9ca66406a36c30947d6d1"
+    },
+    {
+      "path": "assets/textures/walls/Corel Auto-Preserve/red_door_switch_on_1.png",
+      "action": "add/update",
+      "working_sha256": "7f92496e5a20f73b751fcec8da89780f5ffbe71b4d950d7d36a6a1fc6431adff"
+    },
+    {
+      "path": "assets/textures/walls/Corel Auto-Preserve/red_door_switch_on_2.png",
+      "action": "add/update",
+      "working_sha256": "1925a7843b6b9a71eb0578061c6bb50891919799433c7fe0155ad3f479a20fbe"
+    },
+    {
+      "path": "assets/textures/walls/Corel Auto-Preserve/switch_off_01.png",
+      "action": "add/update",
+      "working_sha256": "b9ecbbb28cb8e7b68146d771e1a782155cee7da71e1ad349ac94fab4a145e8b7"
+    },
+    {
+      "path": "assets/textures/walls/Corel Auto-Preserve/switch_off_02.png",
+      "action": "add/update",
+      "working_sha256": "c9938597ce000f760f00dab5bdc79bf30782d5ea31e2480f28649ad045d44577"
+    },
+    {
+      "path": "assets/textures/walls/Corel Auto-Preserve/switch_on_01.png",
+      "action": "add/update",
+      "working_sha256": "1289d9d66937f87e348f988f465070f62620174a16486bd582fc0258cb76eef4"
+    },
+    {
+      "path": "assets/textures/walls/Corel Auto-Preserve/switch_on_02.png",
+      "action": "add/update",
+      "working_sha256": "a9a55c3bb2db36c24c0facff7fb2444c2a4d321ce9f73b2c9a6dea6b1f5849ee"
+    },
+    {
+      "path": "assets/textures/walls/Corel Auto-Preserve/wall_door_red.png",
+      "action": "add/update",
+      "working_sha256": "a548caf6d602640f5597507615ef99526ec140da44274e44b3eaa930b1aab7d3"
+    },
+    {
+      "path": "build-profile.bat",
+      "action": "add/update",
+      "working_sha256": "2d69b9f1a1459e880ca0868bb7a62c31fb1e5e21a2d6c9617971e8db77ffdef1"
+    },
+    {
+      "path": "build.bat",
+      "action": "add/update",
+      "working_sha256": "394ab9f7168676c1efd97a292347e8c5a28e78e4b4c0221eaa9315e2240e56b1"
+    },
+    {
+      "path": "docs/ASSET_PIPELINE.md",
+      "action": "add/update",
+      "working_sha256": "40dd066e280b5eed3970e8bbec0a3317908dfd1a8096da7f55ad72c0ef96d43f"
+    },
+    {
+      "path": "docs/ASSET_PROVENANCE.md",
+      "action": "add/update",
+      "working_sha256": "2ca298382aa3fd33efaf38c15e4b44e37c6f75f59148e69a21fc52cc3a4dc961"
+    },
+    {
+      "path": "docs/BUILDING.md",
+      "action": "add/update",
+      "working_sha256": "a3b13fdb8a162dfc05805fdec80fc088d8f220f96312547d2179fbfe3d9afcc2"
+    },
+    {
+      "path": "docs/CURRENT_BEHAVIOR.md",
+      "action": "add/update",
+      "working_sha256": "d905d7665b9620c44f19e2c58d94285df3083239acb66821db71dc67b42d4439"
+    },
+    {
+      "path": "docs/DEVELOPMENT_GUIDE.md",
+      "action": "add/update",
+      "working_sha256": "b9e23fbd2e065212639b2b57603ad8e49f537e65c84a6b8efd49bac5d799afe9"
+    },
+    {
+      "path": "docs/ENGINE_ARCHITECTURE.md",
+      "action": "add/update",
+      "working_sha256": "15c4c45f5e104bc18398768158eba49660974bfe4ce5cd8901f7a2afdce8c98c"
+    },
+    {
+      "path": "docs/HISTORY.md",
+      "action": "add/update",
+      "working_sha256": "e5a688233beb9907e7507adeac2fa38c76081cf1bdb84ce55244367f4ca2de7b"
+    },
+    {
+      "path": "docs/PERFORMANCE_BASELINE.md",
+      "action": "add/update",
+      "working_sha256": "f6ddf9100a75f3ee8d3671c80d5ac4c3267de1ea09cb7bea5a058603dde26f2f"
+    },
+    {
+      "path": "docs/PROJECT_BIBLE.md",
+      "action": "add/update",
+      "working_sha256": "c34094df7cb581cf7e3430a36ff3a2b84b46545fd9a9c23f9131e44bb2e6ee95"
+    },
+    {
+      "path": "docs/README.md",
+      "action": "add/update",
+      "working_sha256": "e06930d8c78ca697296dc56c19645988d64c234238a93739e7f5b785ae635283"
+    },
+    {
+      "path": "docs/ROM_BANKING.md",
+      "action": "add/update",
+      "working_sha256": "ea7010637cac31db2af1ef37c408bc15b722b24483b88e860f03b91a3ad13eb8"
+    },
+    {
+      "path": "docs/TESTING.md",
+      "action": "add/update",
+      "working_sha256": "3f96dd8b850412d37f5abf2dc05179640639dbf2571cfdd57907c306c5c44687"
+    },
+    {
+      "path": "docs/history/2026-10-23/README.md",
+      "action": "add/update",
+      "working_sha256": "3d0354543918b1e99bff689fd5b9603c47ad594d1334c575b3ebddfadc46ed0b"
+    },
+    {
+      "path": "docs/history/2026-10-23/catalog.json",
+      "action": "add/update",
+      "working_sha256": "9da63d94a2ee5bbec8428364da091551ae7e097eea5574c108a3cd53fba2688c"
+    },
+    {
+      "path": "docs/history/2026-10-23/objects.zip",
+      "action": "add/update",
+      "working_sha256": "b9ab73884c93ba150464964ebc81b4c6f59509ec09082a623dbdc540d461867e"
+    },
+    {
+      "path": "docs/history/2026-10-23/pre-cleanup/GearRay_Developer_Bible.md",
+      "action": "add/update",
+      "working_sha256": "dcfb9cd0892ae498e566c8f5d2a3b9551aca5273955e10645db069c00b267869"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/ARTWORK_PRESERVATION_MANIFEST.md",
+      "action": "add/update",
+      "working_sha256": "22919ebac52bc73c7832c5b61c7d8de0b5b3714024b4446403fe9e2c1ca57803"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/BUILD_AND_EXPERIMENT_CLEANUP_PLAN.md",
+      "action": "add/update",
+      "working_sha256": "96dcfdbea55a14b2a9f27bd12cbb2f7938a0bbb13bf9aeeea75ebfa9f01d8b12"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/CLEANUP_RISKS_AND_VALIDATION.md",
+      "action": "add/update",
+      "working_sha256": "f7652fd68b81be0f9537a6e53dbc7f5f276746bf164a5c86af289533d24127db"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/DOCUMENTATION_RECONSTRUCTION_PLAN.md",
+      "action": "add/update",
+      "working_sha256": "340519023a6db25ed494cd7db56c75a57284e097d9bca0e85b8df4a7ea5403c5"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/GIT_AND_GITHUB_CLEANUP_PLAN.md",
+      "action": "add/update",
+      "working_sha256": "ab2738f8e20e7df56ebe9fd4cad07b59c64eec31ec78420df800b34f159d2205"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/HISTORICAL_EVIDENCE_RETENTION.md",
+      "action": "add/update",
+      "working_sha256": "4006ccaadd09953a158acbfd2fc9547220427628dc215db9f2a5936ffec4a3a4"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/README.md",
+      "action": "add/update",
+      "working_sha256": "af63c801c11ad660e6b07578d6686b1e7b73b7aa84717e44d219852648f91a01"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/REPOSITORY_INVENTORY.md",
+      "action": "add/update",
+      "working_sha256": "f22bf9720ea1a4003f0b39f642eb68264e7d4e8d216f51ce591c8d78cf3a7011"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/ROM_ARTIFACT_RETENTION_PLAN.md",
+      "action": "add/update",
+      "working_sha256": "1a7122a604e4fe9230170c5add260e989ee53f9edf26e4eac7c075076d0d70f6"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/SOLO_REPOSITORY_CLEANUP_MASTER_PROMPT.md",
+      "action": "add/update",
+      "working_sha256": "23fe474d5b002fc8d78c9237bcb6717d4d6105f1adcc092f235e51b687b514e3"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/evidence/README.md",
+      "action": "add/update",
+      "working_sha256": "670622742f9cf35c40e7fff8f70650d4e16c53eb739c7ac40865193e4c2c3b53"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/evidence/analysis.log",
+      "action": "add/update",
+      "working_sha256": "b2b1958fcb5012c17a2b3742ac1b73b7d97a384476ad5bd1668a909b6e7858a2"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/evidence/analyze_inventory.py",
+      "action": "add/update",
+      "working_sha256": "ca0b6efc16a5230ba21c8816e055edbf01dc73c0882b3fa1050fcaac697cccac"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/evidence/archive-secret-scan.json",
+      "action": "add/update",
+      "working_sha256": "4cf75fcd0a28a18bf98ad9ff6bd9dcad259333ad74f3714725429fb8c448c1cf"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/evidence/archives.json",
+      "action": "add/update",
+      "working_sha256": "c445f9d5f2b822cf5a920d0faad97185c1eb2de2de3fe997f05aaec1f5c17f7a"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/evidence/classification.log",
+      "action": "add/update",
+      "working_sha256": "394ee45fba47fbf2bfdd14cf17a0e03d07a088a9f9e9e33b19ca7b95d9cd1d55"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/evidence/classify.py",
+      "action": "add/update",
+      "working_sha256": "7561bd2acaca906649a82967df48bf12c74cf134d4a0548d6f12434fbbe75a6f"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/evidence/completion.json",
+      "action": "add/update",
+      "working_sha256": "484b95c3839b3c6c1b67c58aade42b540e68ec6e1297e811597890453fa36470"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/evidence/final-git-status.txt",
+      "action": "add/update",
+      "working_sha256": "d26ddcf03cd903c7e62284952817e241b90de39783ecd85c729906a28be3b553"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/evidence/finalize_package.py",
+      "action": "add/update",
+      "working_sha256": "6d81dcaf32d87e2994069f7c06f8b9bd920c06a80b73290ab23658d0c5b5af85"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/evidence/handoff-manifest.json",
+      "action": "add/update",
+      "working_sha256": "e4e0ef932549f3a2b2e834a1355da3e7319be0b1ae58ecb2da861a779d22bd83"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/evidence/inventory-data.zip",
+      "action": "add/update",
+      "working_sha256": "eb57d1c5928e676dc9f6881b04cb5860b3ae12d3ecb9add46438f8252d76f975"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/evidence/inventory-summary.json",
+      "action": "add/update",
+      "working_sha256": "bbdb7c7b0abfdae13b66f429f03ad3b637c0872ac6b038cdb09e812172de687a"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/evidence/inventory.log",
+      "action": "add/update",
+      "working_sha256": "be14d69caddb367b93ccdbf9f1e1f8f6e3dd885b3ba9e923f6cf3c2d57ac19a5"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/evidence/inventory.py",
+      "action": "add/update",
+      "working_sha256": "8a3c0fa6a8e5bfd4edcd2e5c1f4a1723756b8ccefe5d21804b3dc7c9f64a6b4c"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/evidence/package-manifest.json",
+      "action": "add/update",
+      "working_sha256": "67856855fd59edeb66e4c31d6ce258fc87e9c2dacf9dfa053b6a4960f29fc619"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/evidence/production-baseline.json",
+      "action": "add/update",
+      "working_sha256": "ed7bf93a954a04a961d2e5ed7cc017a13020830219eca1bb386ba17ce5c13a34"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/evidence/protected-artwork.csv",
+      "action": "add/update",
+      "working_sha256": "a4410f4d53df7fcd4619ef9ff499b41097528081bc31daac515f027e93a7443a"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/evidence/rom-retention.json",
+      "action": "add/update",
+      "working_sha256": "df8017e0967b7788f6204126465413322723fac49fec4f3820dbbf54cd137ec4"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/evidence/secret-scan.json",
+      "action": "add/update",
+      "working_sha256": "1b658c3d9b1d5f4c1a33a9134199de70dfb6e25f9d8e72acfaa2d5fa0796d742"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/evidence/write_handoff.py",
+      "action": "add/update",
+      "working_sha256": "4734983ff5814c33646ceecbf37da101876846e70520e397c5620fa7e5cf1f31"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/evidence/write_plans.py",
+      "action": "add/update",
+      "working_sha256": "055ab6872212673e5d6e227f331645af8a5dac5236bda20b67e18cfadf22342b"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/ARCHIVED_EXECUTION_DATA.md",
+      "action": "add/update",
+      "working_sha256": "130b640cccf7d5fd76950ab259296e8b21c2a82227594f65cca494df1e941463"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/IMPLEMENTATION_REPORT.md",
+      "action": "add/update",
+      "working_sha256": "2ee7533f24292d3300026ca11a2625c15ce24d09a741d56ef33cc51908f712d9"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/additional-runtime-tool-identity.json",
+      "action": "add/update",
+      "working_sha256": "994dd57c17e83f147e6627013f6c4cdb2773fae5a3cbed1c13df0e932fc8b82f"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/artwork-ignore-audit.txt",
+      "action": "add/update",
+      "working_sha256": "82a75c2b8c024d4df994f6231ec8cbec5b0b4dde17563260d8386e03b1cdb2c0"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/before-census.zip",
+      "action": "add/update",
+      "working_sha256": "16da37c19bd8d0e208558a1e56b26b5d89d06db9335d46919ed44fbb8d44b13b"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/before-metrics.json",
+      "action": "add/update",
+      "working_sha256": "6a296d9890d727ec7300c9d84521fbe55a7fe49486ee9e51a4e2645a78c102a3"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/build-dry-run-corrected.log",
+      "action": "add/update",
+      "working_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/build-dry-run-final.log",
+      "action": "add/update",
+      "working_sha256": "d4e1a035ceb9efb9259e67b47aff6a62386e7e95b897c40e2953cc51513fd51e"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/build-removal.log",
+      "action": "add/update",
+      "working_sha256": "5d1e6ad9ef63da7f1b727381718d089c7e4ea70ee0933ef5357512c82a6594a1"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/commit-message.txt",
+      "action": "add/update",
+      "working_sha256": "e7523092c5a38b288834e5a3195f6bb7cd02a903ad4844d472d1b8c7793a744e"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-camera.log",
+      "action": "add/update",
+      "working_sha256": "27a28c27c67ccaa94c770116e3d20d09a1a2f75e16645ac0f09f82a52b3754ac"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-hud.log",
+      "action": "add/update",
+      "working_sha256": "e06796726a316d5f3acd3caf63a3bd6b6ec3629bf39b56092a800e4f40a2d974"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-material.log",
+      "action": "add/update",
+      "working_sha256": "471a4fea86ef28c787c2b493d8b62a0fe0844d4937369c07586386ccbea47aa9"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-occlusion.log",
+      "action": "add/update",
+      "working_sha256": "b369be44948865bcf1cb55f63cda3e6f79f34df5a2f1320f76c26ac11f9c8888"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-playthrough.log",
+      "action": "add/update",
+      "working_sha256": "dc0469f9f98d088338625418f599f19f38c4baff8541a2329cad7f30c0a28200"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-prep.log",
+      "action": "add/update",
+      "working_sha256": "b700fefb71c6b2af2020d835254d6798dbaa25cccf18cd778ed4038804dfdc69"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-ray.log",
+      "action": "add/update",
+      "working_sha256": "71d6f2e08b0ace7b7a54512941a52aea8d348ba4a346569b75beb1c97667aa58"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/camera/camera-adapter.py",
+      "action": "add/update",
+      "working_sha256": "44c83ad601cf68fc94b93cd9993b02a055afeb4a8856bcb9aaee6ceb99bb8492"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/camera/selected-camera-edge-replay.json",
+      "action": "add/update",
+      "working_sha256": "e547b544e1de469a3e146cb7ba517ab27b1be47c4cbebc9170bb0c19fdc96484"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/camera/selected-camera-executed.py",
+      "action": "add/update",
+      "working_sha256": "956b3d7d8489e08da87794761c29feff3c9ef8bac2890fa27f2e94a406040caf"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/hud/hud-adapter.py",
+      "action": "add/update",
+      "working_sha256": "0eaf583b17347cfb29dfa4e1101afe62f87899c1ffea05b6325105a46c625031"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/hud/selected-final-hud-compiled-oracle.json",
+      "action": "add/update",
+      "working_sha256": "6e0eded21460dba0ea2f60336454351d9dcdef26ba5d17d8477b0e5b958a99b4"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/hud/selected-hud-executed.py",
+      "action": "add/update",
+      "working_sha256": "3b3f95686335f9c97f42423f4a490fdf09181d4fe3fd4c1cf66af8cd176ea5f5"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/material/material-adapter.py",
+      "action": "add/update",
+      "working_sha256": "9d2c6d40841bb802e0dade665efae9aa947110767c829a2c553dfe06338c1e42"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/material/selected-final-material-ray-equivalence.json",
+      "action": "add/update",
+      "working_sha256": "87827888bd54f9cd79313074d449a1d239b9585908041d87c02dfdd1e37564d2"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/material/selected-material-executed.py",
+      "action": "add/update",
+      "working_sha256": "e9daba46996bdee14dde6069e83ccf328058649199f5da6159cb7c03cb78d33a"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/occlusion/occlusion-executed.py",
+      "action": "add/update",
+      "working_sha256": "e6737229e5213393e87f41e41fc502166b438a919e8b0c8fa11530eb2b2d450b"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/occlusion/occlusion-guard-matrix.json",
+      "action": "add/update",
+      "working_sha256": "ff487a6737a9dd2cb069003610aa34e85f925c70df1279956f55dcdb227b332a"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/playthrough/functional-playthrough.json",
+      "action": "add/update",
+      "working_sha256": "1be09043a6a9dd928f03ed73762e8450c2c55aee458535a2d6b901d0d944c600"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/playthrough/playthrough-executed.py",
+      "action": "add/update",
+      "working_sha256": "7b1706d1d1206a647832cf99630629a516447bb33c761abddf8f610db9099aee"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/prep/prep-adapter.py",
+      "action": "add/update",
+      "working_sha256": "ffb8b84d8a792670f9ae7436c7deb280224b5f59c181e71cdea2a00662dc4aad"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/prep/selected-prep-executed.py",
+      "action": "add/update",
+      "working_sha256": "2a8e4dac7292c2a7059a19f0873877ff1b9be0faae0b0993075b2a1212e25ffa"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/prep/selected-projection-cache-oracle.json",
+      "action": "add/update",
+      "working_sha256": "0cad5c7f4c89b7c3048d3a2fc75ceb624616278f63b7130f6c3f960ccbcbf19c"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/ray/ray-adapter.py",
+      "action": "add/update",
+      "working_sha256": "024aa5404d47b5750dcdb284067a4f71d022779ee681b82b103c2ced19ebf2f9"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/ray/selected-final-ray-equivalence.json",
+      "action": "add/update",
+      "working_sha256": "3c790a7bd1c6b94dc5e5a99f81cf6481975c4913270e0d3b394eb401301af7ac"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/ray/selected-ray-executed.py",
+      "action": "add/update",
+      "working_sha256": "7b11ef763ce3d9ffa6c0e9f18a5467979fca3565ef93c8dbd99050f649c08838"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/sprite/selected-final-sprite-compiled-oracle.json",
+      "action": "add/update",
+      "working_sha256": "0484c5cfef0fdde8b99a5401b12cd34e0f63100e0ead8fe2b3d88cc63308cbf4"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/sprite/selected-sprite-executed.py",
+      "action": "add/update",
+      "working_sha256": "978c709caac65a02ca1202d94a6150779df1d351cae51bc1c72b560480663dc5"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/sprite/sprite-adapter.py",
+      "action": "add/update",
+      "working_sha256": "454ebea09b2168d549602f2cd08d940649fda1ecae75cf40e015c0621475d589"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/transitions/renderer-transitions.json",
+      "action": "add/update",
+      "working_sha256": "8f9e26cfb0ec8d7a84622e6968923ceb80f4c8b5621f2b1bff766a74abd0e35b"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/transitions/transitions-executed.py",
+      "action": "add/update",
+      "working_sha256": "3460665051c58013e5c448fe0a242cdbc8b3e9c492d3cda56f83e5e3c730eeaa"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/wall/selected-final-wall-bank3-compiled-oracle.json",
+      "action": "add/update",
+      "working_sha256": "da89fd7e09f6d843ddb2bb8f7419dec85c84b0098d57b5229062f2d5b07c9948"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/wall/selected-wall-executed.py",
+      "action": "add/update",
+      "working_sha256": "803533af5fbcc245115fbbadea5710e08fc33593f1c4f7001979a4f5ad0184f0"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/wall/wall-adapter.py",
+      "action": "add/update",
+      "working_sha256": "55c91d7021236227a276229ad49a10e1fd1c4721cf6d9e8899cf44ca9699deef"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/wrapper/selected-wall-wrapper-oracle.json",
+      "action": "add/update",
+      "working_sha256": "db9c2da4a4218194fcd6682e70b785911f410825e3b127e1e973b4509d6138f1"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/wrapper/selected-wrapper-executed.py",
+      "action": "add/update",
+      "working_sha256": "9dbbebe869d1a09176aafb9306ae235800ab5684eff9de6773c5cbcbd5bd112c"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-regressions/wrapper/wrapper-adapter.py",
+      "action": "add/update",
+      "working_sha256": "5a0ea4ba58c933bc9e927b0569a1faa6a2b33f6fecc1a6b8d0ac76e93ce972d2"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-sprite.log",
+      "action": "add/update",
+      "working_sha256": "b8c4f8e1ee3ee4e1363f7f665b25d3e417f659a29b60090bcf1bc469f2a9421d"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-transitions.log",
+      "action": "add/update",
+      "working_sha256": "91d42074a50a469024b5a77dc9ca742ace7c4cdffd01d83386ca41fd68bfccf1"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-wall.log",
+      "action": "add/update",
+      "working_sha256": "c6c2bc6e759e07b82aff579496f5626d5d34cf9ffd0ce928ecad5278f2bea903"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/compiled-wrapper.log",
+      "action": "add/update",
+      "working_sha256": "b179dcc6d0f072eeb53ea098e68cefd55e74c80b35721d427dc1c666b60475bf"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/cooperative-restore-drill.log",
+      "action": "add/update",
+      "working_sha256": "d3619e6da8f37ef3718a974b12d2ee3777111550b8a520f03a191bf371dab652"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/cooperative-restore-drill/analysis-executed.py",
+      "action": "add/update",
+      "working_sha256": "a3f078094adbc31f3cf2a5ad3fe3961ff80a20c5cf0615cdd96207416f3ab1e9"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/cooperative-restore-drill/architecture-analysis.json",
+      "action": "add/update",
+      "working_sha256": "e4ab1ee55715e02ea92292bc65fa528ffdfc6d82b9a42061d7608be6686b5738"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/cooperative-restore-drill/presentation-raster-comparison.png",
+      "action": "add/update",
+      "working_sha256": "63d5994ec058ec8b9157847e5557007dddc58e20b0f73ee6535f3661be649581"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/cooperative-restore-drill/restore-result.json",
+      "action": "add/update",
+      "working_sha256": "1fa0051a085562096f66794126759edaaac5326748bbeddbab76eb590c6b80aa"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/dependency-migration.json",
+      "action": "add/update",
+      "working_sha256": "5dadbdf2507982d1f17612dca36bae9b319bf84a5d31587cd3c5759d9547a64f"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/documentation-link-audit.json",
+      "action": "add/update",
+      "working_sha256": "377791811c251ae61f2402f045a4f6cc94e791e81e97ed02949e8aadf91460cc"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/documentation-reconciliation-matrix.json",
+      "action": "add/update",
+      "working_sha256": "eafe798c2c0ba3398306b3af53d25509474fb5f707fd366c670a2e003dbee700"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/empty-directories-removed.json",
+      "action": "add/update",
+      "working_sha256": "256bbf964a23e4e5ccfe1b9c37bcb0bca965f89a76c6e7a0e9f743ad595334cf"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/empty-directory-candidates.json",
+      "action": "add/update",
+      "working_sha256": "c8cd18720971edfd4e9a5afad1989f889f924991d3cd1ddba450ac7769f4088c"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/execution-dryrun-20261023T182648089-journal.jsonl",
+      "action": "add/update",
+      "working_sha256": "863ed7e2157d3beb20fdc21532ead61698d1e7617804dc798f32e42bbdf61ebc"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/execution-execute-20261023T182648686-journal.jsonl",
+      "action": "add/update",
+      "working_sha256": "3ee1fdce8e83f39c44cda9ee2616bdcacbf4326aad86a22cea65bea72170ec6e"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/execution-journal-catalog.json",
+      "action": "add/update",
+      "working_sha256": "decfb93c4922ecefdaf2eda530f8529fd276fbf715cfdf55dd9ad9b8a3dae420"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/execution-journals.zip",
+      "action": "add/update",
+      "working_sha256": "2f41e45520398dab42e3c5877d38b675ce687240cc65de46360f461c77000da6"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/final-keeper-closure.log",
+      "action": "add/update",
+      "working_sha256": "e8f4da8cb3ff287de7db6ece7b25145f23db34a73086d95928756a88830de718"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/final-precommit-review.json",
+      "action": "add/update",
+      "working_sha256": "e7af439072d73010caa5c5759ca30929a7579240c55d86edb38683f2be4d0e2d"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/final-validation-and-preservation.json",
+      "action": "add/update",
+      "working_sha256": "867fe380b1aa4f734819587c00f7eeabc928c5a15f36f0619aaa785d3167e301"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/git-index-export-build.json",
+      "action": "add/update",
+      "working_sha256": "2ad0c6944d2468067d93e12bda80f63f66fa2294abee65ba56d58fc2a9bb6364"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/git-index-export-build.log",
+      "action": "add/update",
+      "working_sha256": "8c668490d55be11e1264092e113f309551489b72fd4eac246379d78c280434f2"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/guard-dev-default.log",
+      "action": "add/update",
+      "working_sha256": "ba396b617ac4fe5f9b6711397408a36e4b1a63d237e77f224bd58f868b039624"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/guard-profile-default.log",
+      "action": "add/update",
+      "working_sha256": "ba396b617ac4fe5f9b6711397408a36e4b1a63d237e77f224bd58f868b039624"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/helper-path-changes.json",
+      "action": "add/update",
+      "working_sha256": "aa0803c176e4c8c48d7925175d83599c8bf4c6e79567a27fd5e17415a7b3e7c4"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/ignore-policy-result.json",
+      "action": "add/update",
+      "working_sha256": "2e5bce9fa0ebd4dfc8ce9f26fe55db115a21e59336d3fde66b6b5283fc23fbfb"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/initial-identity.json",
+      "action": "add/update",
+      "working_sha256": "9a97fe9aecf4c0bdd618c273b6f91ada57bf71497463706abb1cb210b1abe1da"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/initial-user-work.patch",
+      "action": "add/update",
+      "working_sha256": "85575dae7f649fe132be2fb09b00b7513ada13ee06552a6dfe5451162524dc71"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/journal-compaction-dry-run.log",
+      "action": "add/update",
+      "working_sha256": "faaa07d5ccc74d8a0211bbb38366602fbce92fec4a14a6351df595fa16fa71ed"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/journal-compaction-gate.json",
+      "action": "add/update",
+      "working_sha256": "dce98239308ac803ebb31b43b4dd67a1a2af045b4709c13185583ff68c621f44"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/journal-compaction-manifest.json",
+      "action": "add/update",
+      "working_sha256": "a75d6e181a2a3fe2a4b6e2883ea5d054937e235a9bd31a99579d7442fdbd1528"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/journal-compaction.log",
+      "action": "add/update",
+      "working_sha256": "cae00f8c571b1d3fb478f5f873e936bb1f47a6cb9dad608eef574dd0dc3fd64f"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/journal-drill-gate.json",
+      "action": "add/update",
+      "working_sha256": "171e83655436506df8022841d9de8f7ff98923d72ec372271ae69eae7e5a4454"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/journal-drill-removal.json",
+      "action": "add/update",
+      "working_sha256": "19137054013540f725e5b392b1758c84a4ebef7db005ab455edc96828dbc3f96"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/journal-drill-removal.log",
+      "action": "add/update",
+      "working_sha256": "283c8bc66d207a7f63042cf74fed3644ce9cc45cbceab7452c3353f324b35cca"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/migrated-driver-build.log",
+      "action": "add/update",
+      "working_sha256": "5c32034120ca27c7ad6b9eeef4d1975bd79977b1701ce383e24c2428d87f0032"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/migrated-profiler-self-test.json",
+      "action": "add/update",
+      "working_sha256": "5b9204d566651bf5510cb23416af40162ad84706d34b6fce3ea66202c1767efb"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/migrated-profiler-self-test.log",
+      "action": "add/update",
+      "working_sha256": "bf04b14bb8a2818b26f95e4811d6f707ef6a19fb2cdb504afb6eacae7044640a"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/migrated-replay-comparison.json",
+      "action": "add/update",
+      "working_sha256": "0c1502ffdc2478d85d657cf26155aa1aa748c8e331ed7b19adcdf419f033446e"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/migrated-replay.log",
+      "action": "add/update",
+      "working_sha256": "0351cacf3ceed5041072b80bad83a247023818728cbfb21270e9e80692fac61e"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/output-isolation-gate.json",
+      "action": "add/update",
+      "working_sha256": "b855746c49e4d80f60feb7fd086cd00f5a3ee86c7f337bc400ded93d0915570c"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/phase-1.json",
+      "action": "add/update",
+      "working_sha256": "b3e6206745eff0e0a08249655a3d0c2da62a78185848dcd9cd65194fa99c714e"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/phase-11-census.log",
+      "action": "add/update",
+      "working_sha256": "a4ad88c2b1337d64de99cc3cc88ff4228574fd50f856e79da28ab6fa31fbc01f"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/phase-11-census.zip",
+      "action": "add/update",
+      "working_sha256": "18eeb25a3cedb2ce640b187e15afeccfc038b09ed717cb79e4614a51cd874967"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/phase-11-metrics.json",
+      "action": "add/update",
+      "working_sha256": "2c1aeaaa8f1bc5ea82c5a39d239ee230c7370ebb15e5b547ab502ecb936896c8"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/phase-2-3-retention.json",
+      "action": "add/update",
+      "working_sha256": "c00279c0c435507181776b431234c5899afb3e666a0080d46c729e2069afbfab"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/phase-3-final-closure.log",
+      "action": "add/update",
+      "working_sha256": "f87a0accc684d1945d73ffd65455272538787b0d709bd85ae7ac4e3cd1ed9d1a"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/phase-3-gate-before-tool-aliases.json",
+      "action": "add/update",
+      "working_sha256": "09a9211dcbd5bf93e823716027666444204b49585e443455bf87a33838eb46de"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/phase-3-gate.json",
+      "action": "add/update",
+      "working_sha256": "e8f4da8cb3ff287de7db6ece7b25145f23db34a73086d95928756a88830de718"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/phase-3-gate.log",
+      "action": "add/update",
+      "working_sha256": "09a9211dcbd5bf93e823716027666444204b49585e443455bf87a33838eb46de"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/phase-7-documentation.json",
+      "action": "add/update",
+      "working_sha256": "dd38f9b58f0c469c3778f69b8b7567b650c8a64dd693b9df47affb89e69f848a"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/phase-8-build-gate.json",
+      "action": "add/update",
+      "working_sha256": "7e7548022d1e379c891316d22dade70003fdea28deb832c93a2fe3566ba125e7"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/phase-9-regression-gate.json",
+      "action": "add/update",
+      "working_sha256": "974982c2fba3b955daf532ec7b42800fdba908c0b000474a2a4641ad10e74638"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/profile-build.log",
+      "action": "add/update",
+      "working_sha256": "8dd420e8877624960be43cee1bdbd007fd53bcdce99120d7b76a13c85d9c04b1"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/profile-output-guard-recheck.log",
+      "action": "add/update",
+      "working_sha256": "4e5eee9b1acaff167497af99b5cd5284eed9fe9cf7c8ced78e9cc225991cf736"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/profile-structural-audit.log",
+      "action": "add/update",
+      "working_sha256": "e022853785008dbb5f3c8d7e270e19e9cb07e0af3cb1ebf5de0aacc7507be331"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/raw-evidence-compaction.log",
+      "action": "add/update",
+      "working_sha256": "8df0ba65c1ed0fad6dabb6613f2aac7ec83cda65a00ed6e3449aa31ff1e955f3"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/raw-evidence-dry-run.log",
+      "action": "add/update",
+      "working_sha256": "707bbc2ca600d6207549db044ca8f8c5a22d83d1cb775e8c89859628bb03e22f"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/release-clean-build.log",
+      "action": "add/update",
+      "working_sha256": "bcff3e0627b516db3f057b5e63e62cbaccfaa309872b4e4027aa2c8290747e2e"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/release-dispatch-mutations.log",
+      "action": "add/update",
+      "working_sha256": "803aff26a51f9dde6a5bbd4c6b34c783bcd37de52f193a508550f0d07c1feffe"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/release-driver-build.log",
+      "action": "add/update",
+      "working_sha256": "03289147e48d5430b1f2d054e10ebb9ce850900403a40084b5ba263381fbbe9d"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/release-full-audit.log",
+      "action": "add/update",
+      "working_sha256": "7ac16da87222874e666b89ccaae2b71d218c20b32a49e09cf97e4e278988479d"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/release-launcher-other-cwd.log",
+      "action": "add/update",
+      "working_sha256": "7f0929188c2e6c76020e6e55e5fcd84d4338e5024367dc7d9cfdefde217ff787"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/release-output-guard-recheck.log",
+      "action": "add/update",
+      "working_sha256": "f79193b57f1b02448c0680db53fbc10b8bee37c2bedb138c19c08321416dc265"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/release-profiler-self-test.json",
+      "action": "add/update",
+      "working_sha256": "5b9204d566651bf5510cb23416af40162ad84706d34b6fce3ea66202c1767efb"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/release-profiler-self-test.log",
+      "action": "add/update",
+      "working_sha256": "bf04b14bb8a2818b26f95e4811d6f707ef6a19fb2cdb504afb6eacae7044640a"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/release-replay-comparison.json",
+      "action": "add/update",
+      "working_sha256": "0c1502ffdc2478d85d657cf26155aa1aa748c8e331ed7b19adcdf419f033446e"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/release-replay-comparison.log",
+      "action": "add/update",
+      "working_sha256": "9ab166060a4d9ac7e9275ed897e255f92424dcd2e0f46660b672e69f7cd9b628"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/release-replay.log",
+      "action": "add/update",
+      "working_sha256": "0351cacf3ceed5041072b80bad83a247023818728cbfb21270e9e80692fac61e"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/removal-manifest.json",
+      "action": "add/update",
+      "working_sha256": "944470dd81d7f511423d38b17f93aae68341ab983595ecef61185bb9e39b2fdf"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/restore-accepted-replay.log",
+      "action": "add/update",
+      "working_sha256": "6b5772bf6a97a8a06345dc37824c3edb899937dc5f877387fbb36e579e7f6aca"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/restore-drill-graphics.log",
+      "action": "add/update",
+      "working_sha256": "b8c4f8e1ee3ee4e1363f7f665b25d3e417f659a29b60090bcf1bc469f2a9421d"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/restore-drill-graphics/selected-final-sprite-compiled-oracle.json",
+      "action": "add/update",
+      "working_sha256": "0484c5cfef0fdde8b99a5401b12cd34e0f63100e0ead8fe2b3d88cc63308cbf4"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/restore-drill-graphics/selected-sprite-executed.py",
+      "action": "add/update",
+      "working_sha256": "20de500dc438c55769d4c20ba773a8314630ecdab75f7505f27b2f2439ca74fc"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/restore-drill-graphics/sprite-adapter.py",
+      "action": "add/update",
+      "working_sha256": "7b3974884e545a96e25162b7880b9534104b1c3f2e38f2bec9e7dd7d30176a53"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/restore-drill-scalar.log",
+      "action": "add/update",
+      "working_sha256": "b179dcc6d0f072eeb53ea098e68cefd55e74c80b35721d427dc1c666b60475bf"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/restore-drill-scalar/selected-wall-wrapper-oracle.json",
+      "action": "add/update",
+      "working_sha256": "db9c2da4a4218194fcd6682e70b785911f410825e3b127e1e973b4509d6138f1"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/restore-drill-scalar/selected-wrapper-executed.py",
+      "action": "add/update",
+      "working_sha256": "c4c8318b0b414fb6a4edcc12fd44e2478663a5a13dec6b2a0bb8651d2eb0674c"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/restore-drill-scalar/wrapper-adapter.py",
+      "action": "add/update",
+      "working_sha256": "cecd6fefa1be895718c10048c5f22d3802f21f86f5eb60b5f98498f35a828c32"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/restore-safety-tests.json",
+      "action": "add/update",
+      "working_sha256": "41953f5022f0547492b65e72f6bf121385f8dcd4a9c60703f426ec14841a1237"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/rom-dry-run.log",
+      "action": "add/update",
+      "working_sha256": "b548c9afd7768cf9d78271746abff5efe530b3a8df9a795b2a7b2768a4a246c9"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/rom-removal.log",
+      "action": "add/update",
+      "working_sha256": "ae7fe431a55faa3580363c5e515d444a1aaf7588ee59621fe91a38c119a67179"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/runtime-retention-reclassification.json",
+      "action": "add/update",
+      "working_sha256": "ad68ed8a7a772afa447e5c90c9a0811bff28c10fe1e155765aaaa69f272b4da4"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/scratch-dry-run.log",
+      "action": "add/update",
+      "working_sha256": "35e2b9f52d56db673ebef775fdaa428b22ab0131aeffe3727c37c6e59723287e"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/scratch-exclusions.json",
+      "action": "add/update",
+      "working_sha256": "7cc293948d63702d67e1475053a3745ab08d3b66595b5088629f88454e10e9a6"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/scratch-execute-20261023T183036708-journal.jsonl",
+      "action": "add/update",
+      "working_sha256": "5714f6b1afb5b4c74d1d204fa6ed102e2570d11ea50996c68e9104587d46ed31"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/scratch-removal-gate.json",
+      "action": "add/update",
+      "working_sha256": "eb9818a45ebf934119c380b7b829c1028f40887ddd7c8d92b33bdedf4b7af35f"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/scratch-removal-manifest.json",
+      "action": "add/update",
+      "working_sha256": "1639053c018e9134f8b6d247ccfd653dd6892aeeec5b10000de218b139f77b6a"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/scratch-removal.log",
+      "action": "add/update",
+      "working_sha256": "144542c46f8383ffd85b20bd01eecaae8cfc27d8aa3439a8a8b042e87b823b5a"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/stage-review-command.log",
+      "action": "add/update",
+      "working_sha256": "aa1e25c649407961541a327ec048fae347afa4acd037d48474c1b220cd4db026"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/stub-dry-run.log",
+      "action": "add/update",
+      "working_sha256": "30ee92599ef741442921aeab5a0ab4b640567209945e7ad49adf47a9d3d9e6ba"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/stub-removal.log",
+      "action": "add/update",
+      "working_sha256": "951b50753f6d9153286fc38f7d70fe3249f8aa33352e04ae6d55bd9463cf0249"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/validator-assertion-preservation.json",
+      "action": "add/update",
+      "working_sha256": "10b36602295049d2116964564e13bb5c773c6d1c01c17314a5a32c6bac546d55"
+    },
+    {
+      "path": "docs/performance/2026-10-19/evidence/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "eddc278bc825fae78ae2bba37a9a9dffe87459827f1255eb3d35d6551e47ed66"
+    },
+    {
+      "path": "docs/performance/2026-10-19/evidence/astra/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "6c1e85312d95ed6f27b9cd2c4fd746e76dfd3f2f5812362d7eafc946320b74f9"
+    },
+    {
+      "path": "docs/performance/2026-10-19/evidence/astra/hud-compiled-oracle.json",
+      "action": "delete",
+      "working_sha256": null
+    },
+    {
+      "path": "docs/performance/2026-10-19/evidence/astra/hud-mask-replay/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "92b97ff0a5b14a2caeaebcef66757539a6356748d1c0caf1dac82b8375ba85f3"
+    },
+    {
+      "path": "docs/performance/2026-10-19/evidence/astra/hud-mask-replay/scenario-fixtures.json",
+      "action": "delete",
+      "working_sha256": null
+    },
+    {
+      "path": "docs/performance/2026-10-19/evidence/astra/replay/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "f526fcb7c1511cac941b8bc961e002c25c80f8fe28374faa1f9f1441a886d9d1"
+    },
+    {
+      "path": "docs/performance/2026-10-19/evidence/astra/replay/scenario-fixtures.json",
+      "action": "delete",
+      "working_sha256": null
+    },
+    {
+      "path": "docs/performance/2026-10-19/evidence/baseline/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "cf4c623154e729363c9e5674f52c938f571da72b870316259ece8a45b1e38102"
+    },
+    {
+      "path": "docs/performance/2026-10-19/evidence/baseline/scenario-fixtures.json",
+      "action": "delete",
+      "working_sha256": null
+    },
+    {
+      "path": "docs/performance/2026-10-19/evidence/changed-files.csv",
+      "action": "delete",
+      "working_sha256": null
+    },
+    {
+      "path": "docs/performance/2026-10-19/evidence/implementation/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "fe9f325cc41ec594baa8a49899736540b5cd16805a95cc4a6a083699297f448d"
+    },
+    {
+      "path": "docs/performance/2026-10-19/evidence/implementation/final-hud-compiled-oracle.json",
+      "action": "delete",
+      "working_sha256": null
+    },
+    {
+      "path": "docs/performance/2026-10-19/evidence/implementation/hud-compiled-oracle.json",
+      "action": "delete",
+      "working_sha256": null
+    },
+    {
+      "path": "docs/performance/2026-10-19/evidence/repository-inventory.csv",
+      "action": "delete",
+      "working_sha256": null
+    },
+    {
+      "path": "docs/performance/2026-10-19/evidence/scenario-fixtures.json",
+      "action": "delete",
+      "working_sha256": null
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_RECORD.md",
+      "action": "add/update",
+      "working_sha256": "a5856e16d08d495466aa3a2a4457badb3cd717952119e1865d6ba74f43c2995e"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_REPORT.md",
+      "action": "add/update",
+      "working_sha256": "9aec81e6cbdb1e83b543e1e464e67cef865145a68315386094330bb3cdb953b7"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/FINAL_ACCEPTANCE_REVIEW.md",
+      "action": "add/update",
+      "working_sha256": "25ebd98a1eeaad0018d948df5be97bea4870a5b2f135e7c3e03ec2fb0da4e74e"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/INDEPENDENT_VALIDATION_RESULTS.md",
+      "action": "add/update",
+      "working_sha256": "1f0460e38454c96465d562595202b9d87eadd89eb4795115545c6987e3eab3c8"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/PERFORMANCE_AND_RESOURCE_COMPARISON.md",
+      "action": "add/update",
+      "working_sha256": "2ae28fd59ee35f609e891c30df1c88b340404e6268b1a2ac9f0bcfe6861af21e"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/README.md",
+      "action": "add/update",
+      "working_sha256": "b68ea31c1b88b0ddb81d52b708d68c2f6da4e7e3689bbffcc87fafc76efc40ec"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/REMAINING_RISKS_AND_OPPORTUNITIES.md",
+      "action": "add/update",
+      "working_sha256": "ea8e7631e76c6375a8ae766363c2ccb5b9962ee4032397ce3c3ce79ba7ffbcb0"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/SECOND_ZOMBIE_READINESS_NOTES.md",
+      "action": "add/update",
+      "working_sha256": "37d5b7452dcc0f80f368fe824f85f8ccdee809aceccd9bb59859405f19e5fe3d"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "a16a50d69110bc089e636aef9ac2246d87ff5a87a82cfd905988733cfd4b5381"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/analysis.log",
+      "action": "add/update",
+      "working_sha256": "b239ad7ee2c66799eb5d4cbaae04a04cbfa8f6ef543937384a13e38b02e58e0d"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/analyze_acceptance.py",
+      "action": "add/update",
+      "working_sha256": "56026e0a1c33146da26d575fc2750bcd71a30908874f940c421b217a62b0f607"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/base-replay.log",
+      "action": "add/update",
+      "working_sha256": "0ebcb898250f89f174696f06f98bd9fe914d0e8aa9916ac924e9b73ba0cff659"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/base-replay/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "e8c5ceeffddf9c84dd2b3e3b63ad0814b35aa0b44eba911babd14e7dee5b3cba"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/base-replay/abi-metadata.json",
+      "action": "add/update",
+      "working_sha256": "160bb42b8b766d4ce16808b2ebfce2f77e340f7ed6703049bd26221760d08ee6"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/base-replay/emulator-metadata.json",
+      "action": "add/update",
+      "working_sha256": "f4521096f1a8a0051cbbbc884946c1fd1d17c47c440046ceef3652a955e6964b"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/camera.log",
+      "action": "add/update",
+      "working_sha256": "27a28c27c67ccaa94c770116e3d20d09a1a2f75e16645ac0f09f82a52b3754ac"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/completion.json",
+      "action": "add/update",
+      "working_sha256": "9c93ee0be01107e2e43557b3c7ac83cd3cec3c33be5129e0bb5efabaac385f16"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/control-audit.log",
+      "action": "add/update",
+      "working_sha256": "dac8b3a88427efbb23d0a37c08ec003fdf284288e9434e7e0a2812d846d59f50"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/control-build.log",
+      "action": "add/update",
+      "working_sha256": "ac53c87e4b544afe01911cf4d5572f3f7fbc17ea8e38058762cb1f8c9b4798cb"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/control-configure.log",
+      "action": "add/update",
+      "working_sha256": "632608ddbeb49572b312aa6b0ffaf0a428eb20fc7fa6f7930fef34cf4b20b517"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/control-video.c",
+      "action": "add/update",
+      "working_sha256": "b81d6201b67732f00bba44152fac8c0d8f40b45dd81103341c1823a2099071c1"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/dispatch-mutations.log",
+      "action": "add/update",
+      "working_sha256": "80d0140e8457ea0f2496166feb7527e6b9f962f3e88df62846a43b7c90d184a2"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/dispatch-mutations/legitimate-production-main.log",
+      "action": "add/update",
+      "working_sha256": "b78f4a799cc58488a3fe0d3eca0f9e70b55266cbb89211b6941554b03b7fb5d3"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/dispatch-mutations/results.json",
+      "action": "add/update",
+      "working_sha256": "d175096fbf262a78b3fb7fcda624c8a98498651cfa1f297867c43a6c7ec0116d"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/dispatch-mutations/unchanged-production-restored.log",
+      "action": "add/update",
+      "working_sha256": "b78f4a799cc58488a3fe0d3eca0f9e70b55266cbb89211b6941554b03b7fb5d3"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/dispatch-mutations/unexpected-gameplay.log",
+      "action": "add/update",
+      "working_sha256": "bcd782cd0df6cb7ff13599eb13dc791e262afda5ffbacb51dabe5b6abde50fe1"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/dispatch-mutations/unexpected-pause.log",
+      "action": "add/update",
+      "working_sha256": "1704ff8cec12840f359cbc07c9f7cea32c1829ec259dc7944d6f7901312be3d0"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/dispatch-mutations/unlinked-main-snapshot.log",
+      "action": "add/update",
+      "working_sha256": "b78f4a799cc58488a3fe0d3eca0f9e70b55266cbb89211b6941554b03b7fb5d3"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/evidence-manifest.json",
+      "action": "add/update",
+      "working_sha256": "542c3909bbc016498cb67526a2be68e309884040e78c514c546c545f84c6b62a"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/final-git-status.txt",
+      "action": "add/update",
+      "working_sha256": "8147bfc018a1bdb16da4f6c5e068178607bdf93c6049a09284b3ad41838b6525"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/finalize_review.py",
+      "action": "add/update",
+      "working_sha256": "0f6561124cb8086c57e4c535a65e99d37ac41a1f7ac9d7aa89e97d976f319500"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/fresh-source-and-build.zip",
+      "action": "add/update",
+      "working_sha256": "4698a3502d13c1a7f4f063f9f6aef0443c16d7c3a96110a8ebf4510706788aef"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/functional-playthrough.json",
+      "action": "add/update",
+      "working_sha256": "1be09043a6a9dd928f03ed73762e8450c2c55aee458535a2d6b901d0d944c600"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/functional_playthrough.py",
+      "action": "add/update",
+      "working_sha256": "1cf818a8d7adfc669d1fdf1842dcec5866dd209ca6796cee86d8e4a6f7ad6796"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/historical-evidence-integrity.json",
+      "action": "add/update",
+      "working_sha256": "24bba9738bbe8294a3075ad432e09eb2393e657a76b5cad7acb5034091a8d361"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/hud.log",
+      "action": "add/update",
+      "working_sha256": "e06796726a316d5f3acd3caf63a3bd6b6ec3629bf39b56092a800e4f40a2d974"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/independent-performance.json",
+      "action": "add/update",
+      "working_sha256": "3ad1eeeef5eb0d633a9e17117dc4feef9aa4088895a95cd2cb63fc3715bc2a2d"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/independent-resources.json",
+      "action": "add/update",
+      "working_sha256": "ebc168f686dd84e8ee4bf2734209c9d92f435906abb70e746b26d7e9cf00d10a"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/initial-identity.json",
+      "action": "add/update",
+      "working_sha256": "ee5e09907d540dd392b620682f042fb7b6bba36644d1cd2ab915155da38f6d6a"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/material.log",
+      "action": "add/update",
+      "working_sha256": "471a4fea86ef28c787c2b493d8b62a0fe0844d4937369c07586386ccbea47aa9"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/occlusion-guard-matrix.json",
+      "action": "add/update",
+      "working_sha256": "ff487a6737a9dd2cb069003610aa34e85f925c70df1279956f55dcdb227b332a"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/occlusion.log",
+      "action": "add/update",
+      "working_sha256": "b369be44948865bcf1cb55f63cda3e6f79f34df5a2f1320f76c26ac11f9c8888"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/occlusion_guard_matrix.py",
+      "action": "add/update",
+      "working_sha256": "340cff057ed796e267d5340b367e5b1cc4e2a0464bbe55f06dfcad0f6df79588"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/playthrough.log",
+      "action": "add/update",
+      "working_sha256": "dc0469f9f98d088338625418f599f19f38c4baff8541a2329cad7f30c0a28200"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/prep.log",
+      "action": "add/update",
+      "working_sha256": "b700fefb71c6b2af2020d835254d6798dbaa25cccf18cd778ed4038804dfdc69"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/prepare_checks.py",
+      "action": "add/update",
+      "working_sha256": "f8b72e40e277797f00d39eea9325545f8fb00492b6d691a99e0d98b664cdc6ff"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/prepare_transition_test.py",
+      "action": "add/update",
+      "working_sha256": "f531e6533d46dcd2d5b8e5da2f92bd48ee9a7c83958a1dd09b9aaee1687a1678"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/profiler-self-test.json",
+      "action": "add/update",
+      "working_sha256": "5b9204d566651bf5510cb23416af40162ad84706d34b6fce3ea66202c1767efb"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/profiler-self-test.log",
+      "action": "add/update",
+      "working_sha256": "bf04b14bb8a2818b26f95e4811d6f707ef6a19fb2cdb504afb6eacae7044640a"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/ray.log",
+      "action": "add/update",
+      "working_sha256": "71d6f2e08b0ace7b7a54512941a52aea8d348ba4a346569b75beb1c97667aa58"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/renderer-transitions-first-fixture.log",
+      "action": "add/update",
+      "working_sha256": "0748b3d157bbbc9d5555241fe9e63c8675d8e4338597ad7189b220e28c986632"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/renderer-transitions.json",
+      "action": "add/update",
+      "working_sha256": "8f9e26cfb0ec8d7a84622e6968923ceb80f4c8b5621f2b1bff766a74abd0e35b"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/renderer-transitions.log",
+      "action": "add/update",
+      "working_sha256": "91d42074a50a469024b5a77dc9ca742ace7c4cdffd01d83386ca41fd68bfccf1"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/renderer_transitions.py",
+      "action": "add/update",
+      "working_sha256": "39c490be1b08ea66b074fb1cae8e4fb2b5b1452af5fbf44eafd0686c3fe3eefb"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/run_oracle.py",
+      "action": "add/update",
+      "working_sha256": "5a0bd777454b95dc47de220f6efde3dc52ed0459cd279810bbc7dfc477a5dfd8"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/selected-audit.log",
+      "action": "add/update",
+      "working_sha256": "7ac16da87222874e666b89ccaae2b71d218c20b32a49e09cf97e4e278988479d"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/selected-build.log",
+      "action": "add/update",
+      "working_sha256": "ada0a1fff27bf8b4f9964da359000086c27da4ebbee17961f442afb676640081"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/selected-camera-edge-replay.json",
+      "action": "add/update",
+      "working_sha256": "e547b544e1de469a3e146cb7ba517ab27b1be47c4cbebc9170bb0c19fdc96484"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/selected-camera-executed.py",
+      "action": "add/update",
+      "working_sha256": "90b92c5762ca0cd976a72c7b146ff4dfb29479f1a8f3160520255acd3b417561"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/selected-configure.log",
+      "action": "add/update",
+      "working_sha256": "79e50bbf4ac312d4983412944cb96787fc358ad566830b93027c9e942b7a6e67"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/selected-final-material-ray-equivalence.json",
+      "action": "add/update",
+      "working_sha256": "96ba153b75871815267c0ed18ecab4a71d709712fd174be96424c64e562eefca"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/selected-final-ray-equivalence.json",
+      "action": "add/update",
+      "working_sha256": "613ad50e46c545c7fd5a1ef373e74113d9970c6e554bf092f27f3744d3f4eae9"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/selected-final-sprite-compiled-oracle.json",
+      "action": "add/update",
+      "working_sha256": "0484c5cfef0fdde8b99a5401b12cd34e0f63100e0ead8fe2b3d88cc63308cbf4"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/selected-final-wall-bank3-compiled-oracle.json",
+      "action": "add/update",
+      "working_sha256": "da89fd7e09f6d843ddb2bb8f7419dec85c84b0098d57b5229062f2d5b07c9948"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/selected-hud-executed.py",
+      "action": "add/update",
+      "working_sha256": "a2d0f61fc450249a7e09b827c3ee5e0c07e4b71d2c86a71e4f457e8dc67198af"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/selected-material-executed.py",
+      "action": "add/update",
+      "working_sha256": "c9039717f6c41ae7b360fd0c0055c5782ad9aa39a91ef7f0fbf40728ed85071e"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/selected-prep-executed.py",
+      "action": "add/update",
+      "working_sha256": "b5411d029d82dfe5add8132dd90427560f9e6ec5960b6e34f2f1f32bf8da7d46"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/selected-projection-cache-oracle.json",
+      "action": "add/update",
+      "working_sha256": "0cad5c7f4c89b7c3048d3a2fc75ceb624616278f63b7130f6c3f960ccbcbf19c"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/selected-ray-executed.py",
+      "action": "add/update",
+      "working_sha256": "a501992d9e2fbf2ac93cbc92bb598a9b0e09ee3c28f6e7de150e4707f1c0babe"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/selected-replay.log",
+      "action": "add/update",
+      "working_sha256": "0351cacf3ceed5041072b80bad83a247023818728cbfb21270e9e80692fac61e"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/selected-replay/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "da6eda835fa7c992c10b813cc3daad33fbb410729c4cd0fda6a5255767fb71c0"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/selected-replay/abi-metadata.json",
+      "action": "add/update",
+      "working_sha256": "160bb42b8b766d4ce16808b2ebfce2f77e340f7ed6703049bd26221760d08ee6"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/selected-replay/emulator-metadata.json",
+      "action": "add/update",
+      "working_sha256": "a1d7bb783a866663c075bf511cf0573f76cc491b5c3069fc3a0bd2265814f5ed"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/selected-sprite-executed.py",
+      "action": "add/update",
+      "working_sha256": "030a8970b331aae36d52f906094db426fa1f876967b39ced3ad02b4c0e0953e0"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/selected-video.c",
+      "action": "add/update",
+      "working_sha256": "d7f3cde1d92daa3c5534d6664477fe1cd0980b7c6d54bb47d3a84b59bd09eeb8"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/selected-wall-executed.py",
+      "action": "add/update",
+      "working_sha256": "346f944e10074c4048e7b4bc1930a3d4c003b52defa2ea5acac21dadb9bd48f7"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/selected-wall-wrapper-oracle.json",
+      "action": "add/update",
+      "working_sha256": "db9c2da4a4218194fcd6682e70b785911f410825e3b127e1e973b4509d6138f1"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/selected-wrapper-executed.py",
+      "action": "add/update",
+      "working_sha256": "5365ef2cb9c82a6d0eab092e8d55148d7dc603df281e4c68f53155c93297ff55"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/setup_review.py",
+      "action": "add/update",
+      "working_sha256": "9c4dcdb45bc8b5ec02482fe2e806e29012a740b992633bb5dca62fe6adc91ac1"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/sprite.log",
+      "action": "add/update",
+      "working_sha256": "b8c4f8e1ee3ee4e1363f7f665b25d3e417f659a29b60090bcf1bc469f2a9421d"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/wall.log",
+      "action": "add/update",
+      "working_sha256": "c6c2bc6e759e07b82aff579496f5626d5d34cf9ffd0ce928ecad5278f2bea903"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/wrapper.log",
+      "action": "add/update",
+      "working_sha256": "b179dcc6d0f072eeb53ea098e68cefd55e74c80b35721d427dc1c666b60475bf"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/write_review.py",
+      "action": "add/update",
+      "working_sha256": "18c8db6e26fe6352f7945dc3a75a5cb49d436889685e27acb94a103c29e3b5df"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "2aeddcb3714dc1beee7f402bd26bcfacd5dd68943333f1ad9557e255062760a8"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/abi-base-replay.log",
+      "action": "add/update",
+      "working_sha256": "fda235e86b078e2484f92b2222e58a3b45295bfd27ee0fe1597fe0d212db2486"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/abi-base-replay/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "8916dd5cad62a4d15a1c35a272941768745faf0088cbb0a4487509ce759830c8"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/abi-base-replay/abi-metadata.json",
+      "action": "add/update",
+      "working_sha256": "160bb42b8b766d4ce16808b2ebfce2f77e340f7ed6703049bd26221760d08ee6"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/abi-base-replay/emulator-metadata.json",
+      "action": "add/update",
+      "working_sha256": "74538f47ffe4be8845b27a6e0cefd5a0910ecdefb3d98d2b2eef45f176d0e653"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/abi-selected-replay.log",
+      "action": "add/update",
+      "working_sha256": "6c95ec1788e05211bf94b8016d495632cf6441c6ac195392bb1478c58685cb18"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/abi-selected-replay/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "83797ed73a133d5feab8ae0356488076f127b31d87d7b9407d7513bb2939fdd2"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/abi-selected-replay/abi-metadata.json",
+      "action": "add/update",
+      "working_sha256": "160bb42b8b766d4ce16808b2ebfce2f77e340f7ed6703049bd26221760d08ee6"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/abi-selected-replay/emulator-metadata.json",
+      "action": "add/update",
+      "working_sha256": "a1d7bb783a866663c075bf511cf0573f76cc491b5c3069fc3a0bd2265814f5ed"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/abi-smoke.log",
+      "action": "add/update",
+      "working_sha256": "89fc614d53826414999bf74213afd09d3e2d49b1b440c9146849f81c9bf880f2"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/abi-smoke/abi-metadata.json",
+      "action": "add/update",
+      "working_sha256": "160bb42b8b766d4ce16808b2ebfce2f77e340f7ed6703049bd26221760d08ee6"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/abi-smoke/emulator-metadata.json",
+      "action": "add/update",
+      "working_sha256": "9d3f90a15e4a0f9ae6a340537ae04f263447f0c10017b602449c072a60d01fea"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/abi-smoke/frame-samples.csv",
+      "action": "add/update",
+      "working_sha256": "cb0046181c53530ded0066d489f969f4f5e603712e478179397d4f20889df757"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/abi-smoke/scenario-fixtures.json",
+      "action": "add/update",
+      "working_sha256": "3d5174e0319e91c00ed8c8af0209657c0379fa9a72198129b287565ce3a3c893"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/abi-smoke/stage-samples.csv",
+      "action": "add/update",
+      "working_sha256": "8fb83a597c84852e793881e209ce9f4767d6f6348fb72e915ff445990fb294d0"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/analyze_pair.py",
+      "action": "add/update",
+      "working_sha256": "d50ea667a5cd04971f328e2dc357241975607d4783a763c8fd7b97aa069d8a9f"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/artwork-delta.json",
+      "action": "add/update",
+      "working_sha256": "1766c80b2bccb308fdfb01535a34e6f9c4379ff7a4c971e7f6a6c6ca2ed7414b"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/base-audit.log",
+      "action": "add/update",
+      "working_sha256": "5cc50831a86c89ba33b3641f477deb989fb57786a28d4f9311f48b1fccc647c3"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/base-bench-executed.py",
+      "action": "add/update",
+      "working_sha256": "dc8088f5a094da36eb977d91fa3fd91a90d1ed60e071631c9c72dea015861e8d"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/base-build.log",
+      "action": "add/update",
+      "working_sha256": "85748cd29d45cb87d33961ce77417829ee8b90425262d6d8e008d3128cbdd073"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/base-configure.log",
+      "action": "add/update",
+      "working_sha256": "9b332a3975fe881478bc3f5c3cf6dc92ba35a95dde1f0341cfed8af2c9f61ef5"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/base-replay.log",
+      "action": "add/update",
+      "working_sha256": "fda235e86b078e2484f92b2222e58a3b45295bfd27ee0fe1597fe0d212db2486"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/base-replay/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "43365e137122a9cc1439f5c8e94472cac9c899fac18992503fed65979e415a22"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/base-replay/emulator-metadata.json",
+      "action": "add/update",
+      "working_sha256": "c2530e35f7cb99fe96df8f17c997c7f8e842ede8f53f668229c3f5222b3956ae"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/base-vs-combined.json",
+      "action": "add/update",
+      "working_sha256": "3f985f378722aed714728060a8c865a055c85c03a2e142899ae3d577c4e18538"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/base-vs-combined.log",
+      "action": "add/update",
+      "working_sha256": "f56fc607d282bab281b5fef791a28ec0218faad63c2c28cc84c02ea6c63065cd"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/base-vs-row.json",
+      "action": "add/update",
+      "working_sha256": "495592863f27d21cc32ae14ac7693edd6a3f2093ad3eb45d9c0a121b865f44f1"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/base-vs-row.log",
+      "action": "add/update",
+      "working_sha256": "f2357015210cc1d2f74e8f41d39ac1d14914083df52dc7ac3453ff023ab011ed"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-audit.log",
+      "action": "add/update",
+      "working_sha256": "d41452e5d12fdc257b5b96548d499481a17366389ba6871604188765669ab399"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-bench-executed.py",
+      "action": "add/update",
+      "working_sha256": "dc8088f5a094da36eb977d91fa3fd91a90d1ed60e071631c9c72dea015861e8d"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-build.log",
+      "action": "add/update",
+      "working_sha256": "91e05a41428e5a93f6a71dd4da04892798205e7fd4f5600df8d735f87bc6fa10"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-camera-edge-replay.json",
+      "action": "add/update",
+      "working_sha256": "e547b544e1de469a3e146cb7ba517ab27b1be47c4cbebc9170bb0c19fdc96484"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-camera-executed.py",
+      "action": "add/update",
+      "working_sha256": "f990058af04683c263534982af153e57544ea160579af06a5ba951d44673d8f5"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-camera.log",
+      "action": "add/update",
+      "working_sha256": "7b9ccc579f972170a4925df5aa1e121bb3efdf82f5a41121b7f8b2dd228e9689"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-configure.log",
+      "action": "add/update",
+      "working_sha256": "fbf3c537526be13660181d9cf08452cf05377d7d8b244d0ca2986c78859fe2ef"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-final-material-ray-equivalence.json",
+      "action": "add/update",
+      "working_sha256": "0bc4db94823aa6dd600887bccea1c11af6bb16cf4fa516ab85097d0d3e2e25a4"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-final-ray-equivalence.json",
+      "action": "add/update",
+      "working_sha256": "b129d4e8d8cbe3626537f66ec6f4a675ca6be060a9dbc8198cc7f109e10b158b"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-final-sprite-compiled-oracle.json",
+      "action": "add/update",
+      "working_sha256": "0484c5cfef0fdde8b99a5401b12cd34e0f63100e0ead8fe2b3d88cc63308cbf4"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-final-wall-bank3-compiled-oracle.json",
+      "action": "add/update",
+      "working_sha256": "da89fd7e09f6d843ddb2bb8f7419dec85c84b0098d57b5229062f2d5b07c9948"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-hud-executed.py",
+      "action": "add/update",
+      "working_sha256": "02251bf188d8ba45b8f6e6e6abcd239e90a4794b1cfae7debdcb8ddf409d9ee1"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-hud.log",
+      "action": "add/update",
+      "working_sha256": "f7edc83fbc631b8483248bdb579e9c4d12dcf4239d57e0734712e0074298b394"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-material-executed.py",
+      "action": "add/update",
+      "working_sha256": "63b2d66dc92702e8a832d93ca839228243e156403d54bcd3046812b144f9e9c2"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-material.log",
+      "action": "add/update",
+      "working_sha256": "1f71b2c566e5ff0da53c7b03392130b35e975b4a4f883476f2941805d7acf69a"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-prep-executed.py",
+      "action": "add/update",
+      "working_sha256": "bdfc5301130a487a5ddd07cc0acedf9c9afc2a30d6303f319965a7eb62c42e97"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-prep.log",
+      "action": "add/update",
+      "working_sha256": "afce99d5f4cb2eeb9d0f3fbd01d1ed0e54eb6f21ad257b5e0c8a3f059c3d05df"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-projection-cache-oracle.json",
+      "action": "add/update",
+      "working_sha256": "0cad5c7f4c89b7c3048d3a2fc75ceb624616278f63b7130f6c3f960ccbcbf19c"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-ray-executed.py",
+      "action": "add/update",
+      "working_sha256": "3735135254c673aab91c3ae14facc7a4fd04a3005811ef8986b18a3a05d3ac1a"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-ray.log",
+      "action": "add/update",
+      "working_sha256": "479c491a711bdbccc1689bc6e8ec776e1e5c783518a19e4bd1d2a915f24d05b5"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-replay.log",
+      "action": "add/update",
+      "working_sha256": "6c95ec1788e05211bf94b8016d495632cf6441c6ac195392bb1478c58685cb18"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-replay/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "8cec8a9cf4ca0c8d3366920ffaa25ca6791edcdf15c71a7059216b7262423a64"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-replay/emulator-metadata.json",
+      "action": "add/update",
+      "working_sha256": "c6f2897924e6de09398052f4e515f62b86faff65fd28a0a69cf6075b8d830271"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-sprite-executed.py",
+      "action": "add/update",
+      "working_sha256": "36cab51e8818ebf62d5c9dec38372342c9cd5726a45a7b2c572d83fb99f15884"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-sprite.log",
+      "action": "add/update",
+      "working_sha256": "644cb7c6906d713fd2f9ebf74fc265125bd41f18daf823af4b0beded4a340e9b"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-wall-executed.py",
+      "action": "add/update",
+      "working_sha256": "908bac21e21b8420136c196032a0aec25b0ef183521b38847e390e18f7f536fd"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-wall-wrapper-oracle.json",
+      "action": "add/update",
+      "working_sha256": "db9c2da4a4218194fcd6682e70b785911f410825e3b127e1e973b4509d6138f1"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-wall.log",
+      "action": "add/update",
+      "working_sha256": "9e268cd0db5402396e6c965dc6b8de29d51cecce83d915f535a7d17bbcc29202"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-wrapper-executed.py",
+      "action": "add/update",
+      "working_sha256": "b506f824447eddecc4c00e02848138da48d765594226983b82ef1e5ae35011a2"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/combined-wrapper.log",
+      "action": "add/update",
+      "working_sha256": "b4a65ffb2132534f3d1d0b88477cce9614d6de5c252a2dd919f662c3d50c3708"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/corrected-profiler-comparison.json",
+      "action": "add/update",
+      "working_sha256": "b7b2c97106c570bf084d5afef348ddf4a69414a2c35c278157ae74ac1001d9b6"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/corrected-profiler-comparison.log",
+      "action": "add/update",
+      "working_sha256": "497d033196897b7cf0bf5d42245a4aa14cd69331406ab6af1501296dd5803a7e"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/current-inputs-before.zip",
+      "action": "add/update",
+      "working_sha256": "46d8165f0405f1d190a425890eb2904fe6e8b79092a89fdd488ddf15f87dae3f"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/dispatch-mutations/legitimate-production-main.log",
+      "action": "add/update",
+      "working_sha256": "b78f4a799cc58488a3fe0d3eca0f9e70b55266cbb89211b6941554b03b7fb5d3"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/dispatch-mutations/results.json",
+      "action": "add/update",
+      "working_sha256": "d175096fbf262a78b3fb7fcda624c8a98498651cfa1f297867c43a6c7ec0116d"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/dispatch-mutations/unchanged-production-restored.log",
+      "action": "add/update",
+      "working_sha256": "b78f4a799cc58488a3fe0d3eca0f9e70b55266cbb89211b6941554b03b7fb5d3"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/dispatch-mutations/unexpected-gameplay.log",
+      "action": "add/update",
+      "working_sha256": "bcd782cd0df6cb7ff13599eb13dc791e262afda5ffbacb51dabe5b6abde50fe1"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/dispatch-mutations/unexpected-pause.log",
+      "action": "add/update",
+      "working_sha256": "1704ff8cec12840f359cbc07c9f7cea32c1829ec259dc7944d6f7901312be3d0"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/dispatch-mutations/unlinked-main-snapshot.log",
+      "action": "add/update",
+      "working_sha256": "b78f4a799cc58488a3fe0d3eca0f9e70b55266cbb89211b6941554b03b7fb5d3"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/final-git-status.txt",
+      "action": "add/update",
+      "working_sha256": "8147bfc018a1bdb16da4f6c5e068178607bdf93c6049a09284b3ad41838b6525"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/final-identity.json",
+      "action": "add/update",
+      "working_sha256": "f24ece6318ef2c57f61b9601194843146f15f076922f3c2c482a9d1afe7794e0"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/finalization.log",
+      "action": "add/update",
+      "working_sha256": "46d5bbdd4fcee0d7fc84650535c54c9a47aabfc595da74def0afd1a7727bf958"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/finalize.py",
+      "action": "add/update",
+      "working_sha256": "6c0d5828a9e75d91fa081d81fddc38125bf1cd97e6aca85a2d26bb802ba9f5ea"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/finish_analysis.py",
+      "action": "add/update",
+      "working_sha256": "52a5f39400c6f135ab1a6111bd5f09710245f3711d7717e385be6b0be2ad7154"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/functional-playthrough.json",
+      "action": "add/update",
+      "working_sha256": "1be09043a6a9dd928f03ed73762e8450c2c55aee458535a2d6b901d0d944c600"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/functional-playthrough.log",
+      "action": "add/update",
+      "working_sha256": "917e19e069cd01f5415bb4c959e52ed0ae240288467e3f9c67418ffeb649d014"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/functional_playthrough.py",
+      "action": "add/update",
+      "working_sha256": "80d79aef6993fe0ce46d0e95241bf38cd23a1d1f244269c2b30c8d712ae05710"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/implementation.patch",
+      "action": "add/update",
+      "working_sha256": "d6132fbb097b508365cad1e744fdf8dd440c645a026a8d4eb27e4cb151894890"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/initial-identity.json",
+      "action": "add/update",
+      "working_sha256": "bb7f0bcc376a5f6cc2d869c687f76ea4a1f7f5889be0f72fef7f69f3d87e1342"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/java-build.log",
+      "action": "add/update",
+      "working_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/legacy-base-replay.log",
+      "action": "add/update",
+      "working_sha256": "8706c862044fff41fe44af4f2b95630b40feaf550b2a4cc5bb3f5003266482fa"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/legacy-base-replay/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "e0aa0701d6075d94477fb3d894336decc4ab6b1a57a47e701ca70e6e0b61f72b"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/legacy-base-replay/abi-metadata.json",
+      "action": "add/update",
+      "working_sha256": "160bb42b8b766d4ce16808b2ebfce2f77e340f7ed6703049bd26221760d08ee6"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/legacy-base-replay/emulator-metadata.json",
+      "action": "add/update",
+      "working_sha256": "2924aa13fb82d19c92cc1e7ede8a12ac33ae2ef99137652674e8c17ef32f4366"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/maintained-driver-build.log",
+      "action": "add/update",
+      "working_sha256": "7d589d0a11c2bc774f300915204b09af5869e91548bd9c990fc358ff7ef52624"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/occlusion-guard-matrix.json",
+      "action": "add/update",
+      "working_sha256": "f3585e1695de040f62ed7ceaa261ad5b50c357abff70f9b6f8ce71a8f05ed746"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/occlusion-guard-matrix.log",
+      "action": "add/update",
+      "working_sha256": "7061f5ec79404bb711cbb0ab24fa2a0cd86177d4d3e4da0c93bda11cc9764f37"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/occlusion_guard_matrix.py",
+      "action": "add/update",
+      "working_sha256": "dd140ff5f551fbf5784fb63688f7e4cb0ad3c67731e60539ce9e8905bb497ee8"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/perf-driver-build.log",
+      "action": "add/update",
+      "working_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/profile-audit.log",
+      "action": "add/update",
+      "working_sha256": "6753e6d2a5c82136dafd35eb258a93bce9bcef5d13d4f1780e1ed192b909aa85"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/profile-build.log",
+      "action": "add/update",
+      "working_sha256": "39beb8a44e2bed3e181b18ff48c1d7d6ffc6c0f9b907f23f94725a63f472e053"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/profile-configure.log",
+      "action": "add/update",
+      "working_sha256": "db881291fd5504e4e1749f74497d316537695c2f9bb9b37618166c0cf8eed7df"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/profiler-self-test-first-fixture.log",
+      "action": "add/update",
+      "working_sha256": "fc4eb15e2c5ade782489188c86b627a7e45783b77328b807f8f341dc4213ba92"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/profiler-self-test.json",
+      "action": "add/update",
+      "working_sha256": "5b9204d566651bf5510cb23416af40162ad84706d34b6fce3ea66202c1767efb"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/profiler-self-test.log",
+      "action": "add/update",
+      "working_sha256": "7add05ba52ac9d7c8ea5ecc82484578a431e9dee40d105da8ee273e3bd167ab3"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/resource-comparison.json",
+      "action": "add/update",
+      "working_sha256": "88f33a5877a15578622fba1bfb3a65b2bcb638c7f2b1e04b580bbd3fc8aa817a"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/resource-comparison.log",
+      "action": "add/update",
+      "working_sha256": "7ec0e5727947c58873138f1e058c513eba9e425eb93b62062828ff578b2b039e"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/resource_analysis.py",
+      "action": "add/update",
+      "working_sha256": "bff125a5e94615094153353ee6838de32f928ef0f4ed2525d6a391fd5c66d969"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/row-audit.log",
+      "action": "add/update",
+      "working_sha256": "e1de84a05bbf94fa6362392a0646f43abc1fe910e8cfc46758b6480cfdc4b5b0"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/row-bench-executed.py",
+      "action": "add/update",
+      "working_sha256": "dc8088f5a094da36eb977d91fa3fd91a90d1ed60e071631c9c72dea015861e8d"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/row-build.log",
+      "action": "add/update",
+      "working_sha256": "e6cad8f30086aa4ba48176f5baf02fc3754653792cd2976389e92960f9eb711c"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/row-configure.log",
+      "action": "add/update",
+      "working_sha256": "a4863f5cd107d7cbea1387bc8e046ba2a968603e192ba150a04e94f1a753e428"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/row-final-sprite-compiled-oracle.json",
+      "action": "add/update",
+      "working_sha256": "deb2b98a6586e7a5ee81b034c3353153d38906822c592f77bf8d84209c08002e"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/row-host-after-fix.log",
+      "action": "add/update",
+      "working_sha256": "b78f4a799cc58488a3fe0d3eca0f9e70b55266cbb89211b6941554b03b7fb5d3"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/row-host-before-fix.log",
+      "action": "add/update",
+      "working_sha256": "6c0ac56e139dfc75b6725d5115c4e20f085606ee3159652bed551ed73485fc53"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/row-replay.log",
+      "action": "add/update",
+      "working_sha256": "b520b8d16c767f9e5fa9f57f427b036a262b4ef9c0fe23958f58f7f25adb4c76"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/row-replay/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "097e88218f760b1be2d0d5c187225a1951424c06ad7f6abaa7c7a4f916427f64"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/row-replay/emulator-metadata.json",
+      "action": "add/update",
+      "working_sha256": "dd5d0fdc628903f2879aa9bd77d0787b4fb29ff90cec30e6bf397caa7f810d96"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/row-source-and-build.zip",
+      "action": "add/update",
+      "working_sha256": "2ffaa4c49e5fc254b34135108964648a3fb47ecdb5a686f078928f19d2146505"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/row-sprite-executed.py",
+      "action": "add/update",
+      "working_sha256": "6617534d8f4b1f15f9388915c2ef357c77d7a72e82a260455dc522aa76ed7b31"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/row-sprite.log",
+      "action": "add/update",
+      "working_sha256": "644cb7c6906d713fd2f9ebf74fc265125bd41f18daf823af4b0beded4a340e9b"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/row-video.c",
+      "action": "add/update",
+      "working_sha256": "71e7d844638ebc0a4442b15d7aba624f32bf04ff8aabeac16eedc773378ddcd0"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/row-vs-combined.json",
+      "action": "add/update",
+      "working_sha256": "6aacb9bc59b5c742839f974bd84139bc4604d9057e9c4a5bf8e3bbd6b5532a7c"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/row-vs-combined.log",
+      "action": "add/update",
+      "working_sha256": "8b01388d6324e02e7ec8319bec952496b20fbe9018ce55a6cf50f9d259aca0ca"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/run_followup.py",
+      "action": "add/update",
+      "working_sha256": "4c966526ab2c8065867d36a6a729943757609f2e9298bac7a94b7b8dcec8585a"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/selected-audit.log",
+      "action": "add/update",
+      "working_sha256": "d41452e5d12fdc257b5b96548d499481a17366389ba6871604188765669ab399"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/selected-build.log",
+      "action": "add/update",
+      "working_sha256": "8d17cf2dc98cc7ba43c4719de5c895b1df437c8d1610a59758d2a456aed73143"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/selected-configure.log",
+      "action": "add/update",
+      "working_sha256": "a13820ea9f7d96839466a27c2f00a4b40ca03e478134bff45cfa88c30d5cf998"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/selected-dispatch-mutations.log",
+      "action": "add/update",
+      "working_sha256": "850ee65638c6160c5ecfed03feee8c9fc105a5542f3b076d14b8a471c354ea8a"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/selected-source-and-build.zip",
+      "action": "add/update",
+      "working_sha256": "72e0658e8bd5d77eddb46b49bf511a8dcacc482860b9bb42ca9fdeb4aef3e695"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/write_report.py",
+      "action": "add/update",
+      "working_sha256": "87c57123044c560d79cbd87f2449d468507a5c913c2550c073431ebb9e2792ca"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/ARCHITECTURAL_ALTERNATIVES.md",
+      "action": "add/update",
+      "working_sha256": "47ba18959e086ac6d1679fcd31a8fdf4d24e9e403d34e0b107b16b1759af32b2"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/ENGINE_CORRECTNESS_REVIEW.md",
+      "action": "add/update",
+      "working_sha256": "637b5715e459b6ecbb1fe2584b2da8c7d1a6ee5ac85bedc431c96635b2877474"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/FINAL_FINDINGS_AND_RECOMMENDATIONS.md",
+      "action": "add/update",
+      "working_sha256": "c1b068f06346acedb0fa5993fb739b1552a249249e7042ac976044872797d343"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/IMPLEMENTATION_VERIFICATION.md",
+      "action": "add/update",
+      "working_sha256": "29e4b0070a345a15f74ff20aeaf8788aaded9079a9feebdb2f24cabc607a7ae9"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/PERFORMANCE_REBENCHMARK.md",
+      "action": "add/update",
+      "working_sha256": "62b57b49eba755c3ee771459dff50b18a3fb25c1b36166743cc87bdb920bca67"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/README.md",
+      "action": "add/update",
+      "working_sha256": "c990cd5c423cf178ff6788004dbde3a03e1df514a298ccb8849a0b06448392ce"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/REMAINING_BOTTLENECKS.md",
+      "action": "add/update",
+      "working_sha256": "82a5d101548a06c0e48c39a013663eae23d3eaefc36e6318f49b523d217f4b7e"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/SOLO_FOLLOWUP_IMPLEMENTATION_PROMPT.md",
+      "action": "add/update",
+      "working_sha256": "92eadd949a7246159193d270dc6c520708fec5de41b446c8ac38bdf081de8dce"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/VALIDATION_GAPS.md",
+      "action": "add/update",
+      "working_sha256": "2eccb20374af482350e159512a38166bb935e23f74c143f7d3861af114c852f3"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/Z80_BANKING_AND_MEMORY_REVIEW.md",
+      "action": "add/update",
+      "working_sha256": "1da343d1208e7e203c550498c82a0d9ea0b92fdd500942494dfbd8e66fd49a91"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "09df5c67e3ce96872dc1aea52e645cfc7932e584eaa87d3b88f37cded13bc881"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/ReviewRunner.java",
+      "action": "add/update",
+      "working_sha256": "44146a1988a09ebddd433ef327d92c12d5064100ef538f9a18da7a5708b4b48a"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/WallWrapperOracle.java",
+      "action": "add/update",
+      "working_sha256": "3595aa681fda4ca567948b1e6fc10f6ba8fd1f86e67c2a4d34761c0aaabc610b"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/analysis.log",
+      "action": "add/update",
+      "working_sha256": "47ed2b973abf264efbda39128d35f222881e00cda3cf198d33d05ea9cfeaab0f"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/analyze_candidate.py",
+      "action": "add/update",
+      "working_sha256": "4f1b11c97edcb6e265fe5c184f9618f737a632a899c4acc36de9fe8c9d858fe4"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/analyze_review.py",
+      "action": "add/update",
+      "working_sha256": "da23d6d46278ed9c6e179dde22487823836a14293a49de29ed35bca96ecd7598"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/architecture-archive-check.json",
+      "action": "add/update",
+      "working_sha256": "2a827e137f549269385a89641b4607551210350713cb400909bcc930533a4b88"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/architecture-reanalysis.json",
+      "action": "add/update",
+      "working_sha256": "e4ab1ee55715e02ea92292bc65fa528ffdfc6d82b9a42061d7608be6686b5738"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/architecture-reanalysis.log",
+      "action": "add/update",
+      "working_sha256": "f1f4f83cd7eb776755500f583a51e793179b89f56d4f256d737f6545983f2e5b"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/baseline-pulse.log",
+      "action": "add/update",
+      "working_sha256": "280cbbce42d832266ef7f816ef1b958e02c5a456045bcaac6663d834be81d626"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/baseline-pulse/emulator-metadata.json",
+      "action": "add/update",
+      "working_sha256": "becfe1bcb301075cb2497bbf0ff38b80c981f7a74964c03c487d10218c67fb70"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/baseline-pulse/frame-samples.csv",
+      "action": "add/update",
+      "working_sha256": "ae144347472244708472b36f0968cae3710c157eed39dde30fe7fc65ca887a61"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/baseline-pulse/scenario-fixtures.json",
+      "action": "add/update",
+      "working_sha256": "34e492b107921b45f5d78fcc1341103feffe11f0b3146de5a8de052cef17425f"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/baseline-pulse/stage-samples.csv",
+      "action": "add/update",
+      "working_sha256": "c06881d86c2754f4acb2d53fbd3e5c42b2c4cef5659f1ce8a841637c67bf7502"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/baseline-replay.log",
+      "action": "add/update",
+      "working_sha256": "f0e9f95c65e1ef2789a3e1ff5f446dcf6834105f65a818b821c1e42b6ac1054d"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/baseline-replay/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "661d055ea9800e118b1b0e2e90e67c928deabaef87abd54824eda7e108f4c555"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/baseline-replay/emulator-metadata.json",
+      "action": "add/update",
+      "working_sha256": "e1b174cfaf379e2efcc57667751a14d635b2386d86e12d85147292abb91a6ba3"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/bench-executed.py",
+      "action": "add/update",
+      "working_sha256": "ee9e6d00ba18e4c11a28acae941b27aac684aaff513a882283fad3da275cbe6f"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/build.log",
+      "action": "add/update",
+      "working_sha256": "ac7b6573cfb9e15e74b98e873aeeb97bc183b24b0b1eba57605fdf52d4e0491b"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/camera-edge-replay.json",
+      "action": "add/update",
+      "working_sha256": "e547b544e1de469a3e146cb7ba517ab27b1be47c4cbebc9170bb0c19fdc96484"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/camera-executed.py",
+      "action": "add/update",
+      "working_sha256": "ad7b54007e89071f9a49cbd69a2d1b6276add3d6c345169c33d81aa03208a248"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/camera.log",
+      "action": "add/update",
+      "working_sha256": "27a28c27c67ccaa94c770116e3d20d09a1a2f75e16645ac0f09f82a52b3754ac"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/canonical-build.log",
+      "action": "add/update",
+      "working_sha256": "fc3039b36f44420eec6739c87828be8b5f1d8ee7fe3cbf21fb7c684112587ca5"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/canonical-comparison.json",
+      "action": "add/update",
+      "working_sha256": "eef274599084885a50974390b29bf29a4545cf0ea02dc652904bafb25ed1f093"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/canonical-configure.log",
+      "action": "add/update",
+      "working_sha256": "794217353177fe34a5c7be2b0046ec3e32a081a941fe53a9893412aea9a6b610"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/canonical-experiment.zip",
+      "action": "add/update",
+      "working_sha256": "1e075ae3de59ebd6ceb6d82deb26bccbdaac5aa5f214e2b6ade378de008fb045"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/canonical-replay.log",
+      "action": "add/update",
+      "working_sha256": "642d2674339def99f28274c3163efe53644474be3a25fe926a28575759303377"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/canonical-replay/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "c2de5129f08482caf100746d187c707297302fc16e322fe80fa78ff5d9695e2b"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/canonical-replay/emulator-metadata.json",
+      "action": "add/update",
+      "working_sha256": "5d820be88c4c8aed831a45ddb7e7b6646f0e4f49231327b0ccdafcd3b2973643"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/coherent64-12-raster-validation.json",
+      "action": "add/update",
+      "working_sha256": "ab350ad98e7a0bf5826e07cab7a947aa041d1487709d890119061184ba09c596"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/cold-j-trace.log",
+      "action": "add/update",
+      "working_sha256": "53f49e40ba43387221c79864e891719bef7a9b16a00e537a9e31918b9e02f447"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/cold-j-trace/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "6e9291a1b25e3d66baf89ab8f9dc29af62dc77b386770ecae096a9dbe1d0e7af"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/cold-j-trace/emulator-metadata.json",
+      "action": "add/update",
+      "working_sha256": "ad0a2e37b3eb8958813d9faea7bcb4bf5de75fee8be1c33f693a3613fccd4b75"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/cold-j-trace/scenario-fixtures.json",
+      "action": "add/update",
+      "working_sha256": "550185174aabcf92011c2802f2803442ba36e06b77c10951e888d2c5a574a128"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/completion.json",
+      "action": "add/update",
+      "working_sha256": "726ae2c61fb740e0d14e025eb95f455256278924861e08c6f678d53798bb8578"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/configure.log",
+      "action": "add/update",
+      "working_sha256": "89962e1252ce5a43d5ecf0ec21c5811de56a84ff2558b3ff8cfb77657fd68720"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/corrected-trace.log",
+      "action": "add/update",
+      "working_sha256": "14d2d4d56bb7cdf4114b52cc03cd71f7c61e0bfc9028a51545ec34c39e209298"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/corrected-trace/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "c068889c75e741ba8add37c1a5f4c159ed8b3612a010a341e40b3dabd08557df"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/corrected-trace/emulator-metadata.json",
+      "action": "add/update",
+      "working_sha256": "ad0a2e37b3eb8958813d9faea7bcb4bf5de75fee8be1c33f693a3613fccd4b75"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/detailed-profile.json",
+      "action": "add/update",
+      "working_sha256": "4250376dd965b1ca76a87f22550b30e64eb2aba11ed651c20cb02fba5343d1a7"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/detailed-trace.log",
+      "action": "add/update",
+      "working_sha256": "341914372a472cc528f32d4bfa81ff55475aa65f808b4c717a0f9873a10cea98"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/detailed-trace/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "723b4554d385e476c1a5b7962aa6c46ef0d85c74a4665e819c2ef4f2ae856786"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/detailed-trace/emulator-metadata.json",
+      "action": "add/update",
+      "working_sha256": "ad0a2e37b3eb8958813d9faea7bcb4bf5de75fee8be1c33f693a3613fccd4b75"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/dispatch-mutations.log",
+      "action": "add/update",
+      "working_sha256": "7085c92ca576b249cf2dbdab5c8bf14bb5d4dc2c6e9180bedd60f8eb668602f1"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/evidence-manifest.json",
+      "action": "add/update",
+      "working_sha256": "ca060fcb63c1b1a6f2337df26ed18b8ef89193542b52e1725d6efbab338ddab4"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/final-material-ray-equivalence.json",
+      "action": "add/update",
+      "working_sha256": "47f8c212d0197f9c9b1c1fc26a85dc898648dc508965c0f9662ffae2e8a81047"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/final-preservation.json",
+      "action": "add/update",
+      "working_sha256": "b22047d1dfbc5138722ee0f0c50af566327a32cada39e88853df4300f0126cbe"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/final-ray-equivalence.json",
+      "action": "add/update",
+      "working_sha256": "0b490910297907e772979aa7ded5b165e80426b36119e8ab87157cc52f270284"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/final-sprite-compiled-oracle.json",
+      "action": "add/update",
+      "working_sha256": "1e563b7f164e1420d25f63ec8695e38ae47b1ff4567205fee8c4d3d7e8a43c96"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/final-status.txt",
+      "action": "add/update",
+      "working_sha256": "d7bf489ea8b32af83850f54315079905c9fce0219bca60f139ebfbd9a6c29efc"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/final-wall-bank3-compiled-oracle.json",
+      "action": "add/update",
+      "working_sha256": "818774fa7741c63cdc57eecb3d9433c05c805386392e7d38987e61bce722299d"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/finalize.log",
+      "action": "add/update",
+      "working_sha256": "1ce439380d93a18425582380e8554e407204f8c1652501abf7450671410fc274"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/finalize_review.py",
+      "action": "add/update",
+      "working_sha256": "10da29a091148e04eaca529b2be1364614b7c80e98296e7a8de2d487b65b3733"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/gated-build.log",
+      "action": "add/update",
+      "working_sha256": "16ba30da9ccbfacd971144a8704bf6af545dd56f7b2ba4c2d12a0b9ecbfcc087"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/gated-comparison.json",
+      "action": "add/update",
+      "working_sha256": "b0916cfa6ebf2316e977be00b0074af336d660938fde0cda803b828edac2f01c"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/gated-comparison.log",
+      "action": "add/update",
+      "working_sha256": "dfea70327e93b873fc7dab7d8058a791e48bd08b35d6cb6b7705af6ed71cced4"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/gated-experiment.zip",
+      "action": "add/update",
+      "working_sha256": "da411af4f0e63f0580036612a487169765b0ce4e80b4cff9caa208800cbdfda6"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/gated-occlusion.json",
+      "action": "add/update",
+      "working_sha256": "27111fffb2da99df972d5ca081e4d6ee3e0c23c514178a7795229bad83ab789b"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/gated-replay.log",
+      "action": "add/update",
+      "working_sha256": "c02fe550c6519dd5f8136403d8ea696ab8570b9995fba81dd63914c7e1fdfdce"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/gated-replay/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "13f19d2c284c8e642bd1087cfdb242db1cdcf0baee7b76b1a6b81fec2deb3ee4"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/gated-replay/emulator-metadata.json",
+      "action": "add/update",
+      "working_sha256": "7fdf526ca1b8b62ee4f5d274c283fd9b4f5d9c661ffca5cf7ebcb38cf549a472"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/gated-source-validators.log",
+      "action": "add/update",
+      "working_sha256": "024b17bf6d8376b2b1401903c9d0da4c4522d3fdb36e5b1a18c9644f6555c0ad"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/gated-validators.log",
+      "action": "add/update",
+      "working_sha256": "40eb7d5931a62ca544449ac2183ec1407fd9b59445694f9aa8d35f7dbd0da0ae"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/hud-dependency-dry-run.log",
+      "action": "add/update",
+      "working_sha256": "52519ccb5add0c85e3d5da8282321af85ee260b30d4edf26e594c0e85c63106b"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/hud-executed.py",
+      "action": "add/update",
+      "working_sha256": "2f1506ff3b436925b568b04264e5f3360e7ba808e2832870422e44c8cd3db8a9"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/hud.log",
+      "action": "add/update",
+      "working_sha256": "e06796726a316d5f3acd3caf63a3bd6b6ec3629bf39b56092a800e4f40a2d974"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/initial-identity.json",
+      "action": "add/update",
+      "working_sha256": "370d86e7f066aa35914b19f2966edb02773a705decb3b1c7789e67f126a60546"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/initial-status.txt",
+      "action": "add/update",
+      "working_sha256": "d19432355d2078ae6b14493e9da5588f0b9e2a0e1f56736120a17c2d009eae67"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/java-build.log",
+      "action": "add/update",
+      "working_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/live64-12-raster-validation.json",
+      "action": "add/update",
+      "working_sha256": "b2292f666f06c6b80f00d57d030304bd1c040afd082f5eed8a9ee9e57d750e7b"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/material-executed.py",
+      "action": "add/update",
+      "working_sha256": "ffe6525adad0c50e4d397b465648cbeefd8ba1b46f85060b7f40a27c303b39db"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/material.log",
+      "action": "add/update",
+      "working_sha256": "471a4fea86ef28c787c2b493d8b62a0fe0844d4937369c07586386ccbea47aa9"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/occlusion_guard_test.py",
+      "action": "add/update",
+      "working_sha256": "2bb4573a2d8acbeea54bf33d2a80e2566c0644d3a95dff58245eb9c515840162"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/prep-executed.py",
+      "action": "add/update",
+      "working_sha256": "76632f6334d2ae4283ee98564e581697b326f58fdb56f0f99d39b3d6cfed57b4"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/prep.log",
+      "action": "add/update",
+      "working_sha256": "b700fefb71c6b2af2020d835254d6798dbaa25cccf18cd778ed4038804dfdc69"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/prepare_trace_driver.py",
+      "action": "add/update",
+      "working_sha256": "f785b181a7f7a80dd32fe4b7844c497d1ea2e0a2526c0cc12066962a0c972699"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/prepare_wrapper_test.py",
+      "action": "add/update",
+      "working_sha256": "411ee03c551b0829004190b0658222e2980b3b4f034abe25741cac23e6e480c7"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/production-pulse.log",
+      "action": "add/update",
+      "working_sha256": "8d788b81eb9b45c3c6b4a0d7f76d8f48b3ce4fc5147492ed42231022e52b98e1"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/production-pulse/emulator-metadata.json",
+      "action": "add/update",
+      "working_sha256": "2b0d439539dceac6d8b3adf1ce33cd6648c6d9359edfe3cab6c5ff315b94768a"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/production-pulse/frame-samples.csv",
+      "action": "add/update",
+      "working_sha256": "c7825e539d92af694920de990c0483d2836c61145cda557fec7cca0d34561bfe"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/production-pulse/scenario-fixtures.json",
+      "action": "add/update",
+      "working_sha256": "06c9a86d6a0f384a9cbae9ff4308023f68e5c46bafad780adbe708ac4da61e54"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/production-pulse/stage-samples.csv",
+      "action": "add/update",
+      "working_sha256": "98c22d05a6317e63e47fc07f4b83c9e927aaee5d555c3b10b4c9854d6510dc9c"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/production-replay.log",
+      "action": "add/update",
+      "working_sha256": "0ebcb898250f89f174696f06f98bd9fe914d0e8aa9916ac924e9b73ba0cff659"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/production-replay/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "e9ba76f877af6b1e6bb7dd683e274ad25973aabaf592f3702de0511c21712e97"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/production-replay/emulator-metadata.json",
+      "action": "add/update",
+      "working_sha256": "ad0a2e37b3eb8958813d9faea7bcb4bf5de75fee8be1c33f693a3613fccd4b75"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/projection-cache-oracle.json",
+      "action": "add/update",
+      "working_sha256": "e921a5f1e3d24d27c6a46f456ab449ba0a8a2b457f430ca157d3677f8caebf28"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/ray-executed.py",
+      "action": "add/update",
+      "working_sha256": "6664539fcd295b596414f0e18bfaec5ea159a445d5133a89117b19503c7ef71f"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/ray.log",
+      "action": "add/update",
+      "working_sha256": "71d6f2e08b0ace7b7a54512941a52aea8d348ba4a346569b75beb1c97667aa58"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/recheck_architecture.py",
+      "action": "add/update",
+      "working_sha256": "fb1fe028401e065f17937684f4b343ea1c346856cdb385232eacd5d230745e8c"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/refine_reports.py",
+      "action": "add/update",
+      "working_sha256": "d071bcff34ee9052a78a99d951cc60a398d921b9a3790446e6ff3b3df0799278"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/resources.json",
+      "action": "add/update",
+      "working_sha256": "92659b56c968e6a43ddb711e0ca055ba0aeff46bd57c2d23fba2773f9e7f4154"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/resources.py",
+      "action": "add/update",
+      "working_sha256": "9261c1ba29291c7cd57d188177fd21b57af89bd2edbe3cb55d4191f7949892a6"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/review-build-evidence.zip",
+      "action": "add/update",
+      "working_sha256": "645a8bbcadf2b833a9b9f4bfdd0099db5a60b8afc15c12da91fac16bbf4a1495"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/reviewed-source.zip",
+      "action": "add/update",
+      "working_sha256": "33e5594e57ef04eaadf53e5273e4f606e6befe0cf32b0c6af090740b6ffae332"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/rowcache-build.log",
+      "action": "add/update",
+      "working_sha256": "2e863da52e2ef2f0803bb94f9be87bda8ce46ddfcd487a21e7c754ba91c99087"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/rowcache-comparison.json",
+      "action": "add/update",
+      "working_sha256": "00539fd2d86e62ab76d61d66454d7a6700e39b1631710ade23f65cc250cb74d9"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/rowcache-comparison.log",
+      "action": "add/update",
+      "working_sha256": "19078ba7559b80f2e08c0e593b65a7299a698db3d7455b3c30307d1cd7ec83dd"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/rowcache-configure.log",
+      "action": "add/update",
+      "working_sha256": "f5c78ade75e68e9ca6703a097db83454b45c9da67f299c3bf7a679690123c58f"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/rowcache-experiment.zip",
+      "action": "add/update",
+      "working_sha256": "1351e58edd00127c4a6efe0ea31bde8c83d792d347111aac45b7d50a151b483b"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/rowcache-replay.log",
+      "action": "add/update",
+      "working_sha256": "55469c18612e789f76a519d119a426e9ce6ca67edf48bfbd71eebf2a4577831f"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/rowcache-replay/ARCHIVED_DATA.md",
+      "action": "add/update",
+      "working_sha256": "a6d356bdf28c05915e386be667f9f8e82fd9e7ac0410953e1307c1f01ddd843f"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/rowcache-replay/emulator-metadata.json",
+      "action": "add/update",
+      "working_sha256": "2c0dd3caddd6c4c4099886c78f204f24bcd065010dee7297c93f526cb0951ee8"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/rowcache-source-validators.log",
+      "action": "add/update",
+      "working_sha256": "8a04b8139528c10730782c022a4c9c839ce8fc6867a491cad147b3a5d8942292"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/rowcache-sprite-compiled-oracle.json",
+      "action": "add/update",
+      "working_sha256": "4173f7b2b4dd4f090cba8f3c1b5ca15f63fbe812938de20af3a1ac5594c6ae29"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/rowcache-sprite.log",
+      "action": "add/update",
+      "working_sha256": "b8c4f8e1ee3ee4e1363f7f665b25d3e417f659a29b60090bcf1bc469f2a9421d"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/rowcache-weapon-validator-adapted.log",
+      "action": "add/update",
+      "working_sha256": "e8db3d578dfb24822bf163a2617a81496ff94775d21992480660d73234757e3f"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/rowcache_sprite-executed.py",
+      "action": "add/update",
+      "working_sha256": "a32b38aad76ef8393696106a7465a75faed87f261584468365afd1627780d3f2"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/run_review.py",
+      "action": "add/update",
+      "working_sha256": "3f23931f431fcb529f14cb224251e7e67512a0221642853035b3658a757a2c14"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/sprite-executed.py",
+      "action": "add/update",
+      "working_sha256": "a74a608e8a17db04289d2ffbb17736fd8b2205b3c848d7fd4d5fdf3f1a3e5dd8"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/sprite.log",
+      "action": "add/update",
+      "working_sha256": "b8c4f8e1ee3ee4e1363f7f665b25d3e417f659a29b60090bcf1bc469f2a9421d"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/stage-profile.json",
+      "action": "add/update",
+      "working_sha256": "24cf6e4edd9948432203e5f9fba4d645d1d00ed086a2716723657daf7fb750e3"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/statistics.json",
+      "action": "add/update",
+      "working_sha256": "efc62d223b17ca9fdc05a75a5859d7ee144c68a268b1bef58fc5b984d14c39ac"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/trace-driver-build.log",
+      "action": "add/update",
+      "working_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/trace-executed.py",
+      "action": "add/update",
+      "working_sha256": "137c72eff48af5469630cba76ceb896307c18de7977f404f49c2148e607da286"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/ungated-occlusion.json",
+      "action": "add/update",
+      "working_sha256": "8d899da0b013bf2c79a57426ecea6efaea992e029c01b4821219821736f95758"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/validators.log",
+      "action": "add/update",
+      "working_sha256": "ef4f1fc760176f1baf517fc8e1c3e19cef214d7f6e34ae3896eb90e93ef68c5a"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/wall-executed.py",
+      "action": "add/update",
+      "working_sha256": "3d7d9793c4990f51b023d83ecccfaf3e130ac73dc51c66777590a35877de0701"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/wall-wrapper-executed.py",
+      "action": "add/update",
+      "working_sha256": "76c8e7f0a14a75adcbbba5c0be3f1e765eca7f61daf97f6e5f6365f13a1a806d"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/wall-wrapper-oracle.json",
+      "action": "add/update",
+      "working_sha256": "6720ce34e60cd49551857d63859a6e2566f92ff49f5cb4485b7ac6b26ace382b"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/wall.log",
+      "action": "add/update",
+      "working_sha256": "74f623c8bff46b940cca07da72bb99e5c00117ba01d9a38c65694407cc135b0b"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/wrapper-build.log",
+      "action": "add/update",
+      "working_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/wrapper-test.log",
+      "action": "add/update",
+      "working_sha256": "92772e56d56b4b5ee389a23ccc9b4dda49ee468b58d4953b6d0163e5da3f9548"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/write_reports.py",
+      "action": "add/update",
+      "working_sha256": "ad284d12f3987eea6a1a590140b542468251a3495abb63d598206c1fabfae37e"
+    },
+    {
+      "path": "platform/game_gear/video.c",
+      "action": "add/update",
+      "working_sha256": "d7f3cde1d92daa3c5534d6664477fe1cd0980b7c6d54bb47d3a84b59bd09eeb8"
+    },
+    {
+      "path": "rom/GearRay-verified-20261019.gg",
+      "action": "delete",
+      "working_sha256": null
+    },
+    {
+      "path": "rom/README.md",
+      "action": "add/update",
+      "working_sha256": "ec656669099b1f9c91de4e1881c7dd7ee5a781eb023bd6a2e23db84fda9d830e"
+    },
+    {
+      "path": "source/main.c",
+      "action": "delete",
+      "working_sha256": null
+    },
+    {
+      "path": "tools/full_z80_audit.ps1",
+      "action": "add/update",
+      "working_sha256": "68f438557c798ea5795654756603601d317b9a9e722fbae686532b9ea1178c15"
+    },
+    {
+      "path": "tools/full_z80_equivalence.ps1",
+      "action": "add/update",
+      "working_sha256": "e5934996e54f2f5f6761c5585f25d9f295bf200aa8092c4ea6db9423ecd582e3"
+    },
+    {
+      "path": "tools/full_z80_experiments.ps1",
+      "action": "add/update",
+      "working_sha256": "fbad27d2baf54afd94e6a673993dadce04cd841f1a3e76c7f887f6781425fadc"
+    },
+    {
+      "path": "tools/maintenance/README.md",
+      "action": "add/update",
+      "working_sha256": "574062921fbc51658e1410f6b32acd4fe5bdcbf67cb76914d93bae59c3957215"
+    },
+    {
+      "path": "tools/maintenance/census.py",
+      "action": "add/update",
+      "working_sha256": "f4e1ca40f41d9e92f49f9c13b7946a9a244a67d978b4a859d1914dd103634609"
+    },
+    {
+      "path": "tools/maintenance/compact_journals.py",
+      "action": "add/update",
+      "working_sha256": "1c77490b39c5ce42a1c92279564f849d180487ede6e8a4689bd072722f234400"
+    },
+    {
+      "path": "tools/maintenance/compare_replay.py",
+      "action": "add/update",
+      "working_sha256": "d439d7b88f64d5ad589a14dc5c9131cfb2a35134beade2396913322f5de618f0"
+    },
+    {
+      "path": "tools/maintenance/cooperative_restore_drill.py",
+      "action": "add/update",
+      "working_sha256": "af464ba43892a99e2735e880a08027dbcbf3d322d54fcdb785bbc9e363d29fd1"
+    },
+    {
+      "path": "tools/maintenance/index_export_build.py",
+      "action": "add/update",
+      "working_sha256": "e5f29498f366f3dde7b74384455680c423141fa0ee2bbaff4d38671095e0c1d0"
+    },
+    {
+      "path": "tools/maintenance/migrate_dependencies.py",
+      "action": "add/update",
+      "working_sha256": "aa415902d5c12c00a56e0e9c999586592e71dcfac2cd22368fc28c819f57f777"
+    },
+    {
+      "path": "tools/maintenance/prepare.py",
+      "action": "add/update",
+      "working_sha256": "1298f29ff46781b56a7c8bf6b0d811a3cd7c6608f9e9ed29bdd7f48486d82578"
+    },
+    {
+      "path": "tools/maintenance/prepare_scratch_cleanup.py",
+      "action": "add/update",
+      "working_sha256": "b0643653bdfa9a3f63735c0aa7b3f3bbf4296aae282540439f95860567f21143"
+    },
+    {
+      "path": "tools/maintenance/prune_empty.ps1",
+      "action": "add/update",
+      "working_sha256": "b677b1904e9cf8812f73a923b8c2ae4705e02827f57154ca980eaa531c7260e5"
+    },
+    {
+      "path": "tools/maintenance/reconstruct_docs.py",
+      "action": "add/update",
+      "working_sha256": "68414a940e4664be122fc3bc7f1221aaf7425e4cdd92efd0de8a5d5328ec4af3"
+    },
+    {
+      "path": "tools/maintenance/remove_verified.ps1",
+      "action": "add/update",
+      "working_sha256": "e80d754a0a4581057204bbabff58cb3f7d22794a3b715f37548957e6117ce6e6"
+    },
+    {
+      "path": "tools/maintenance/restore_history.py",
+      "action": "add/update",
+      "working_sha256": "5983a034d07795663d72dfa4ba4ee8c042d16829db5e561bd636e007a39de772"
+    },
+    {
+      "path": "tools/maintenance/restore_oracle_inputs.py",
+      "action": "add/update",
+      "working_sha256": "4207bfd3c46860a6ebac18fdbfccd526c586bb4bc15b1b969373ab25239619f1"
+    },
+    {
+      "path": "tools/maintenance/retain.py",
+      "action": "add/update",
+      "working_sha256": "b7772aa4412676e0635f31ebccffa87d959d99410a1b78bd7ee3b0b5ff9268ec"
+    },
+    {
+      "path": "tools/maintenance/run_regression.py",
+      "action": "add/update",
+      "working_sha256": "632f377100d7933e59081b160c9934e89b533d0dcdbda1dd42f718f37fee179f"
+    },
+    {
+      "path": "tools/maintenance/run_validation.ps1",
+      "action": "add/update",
+      "working_sha256": "6994fe3a9fbbbd9f60b3d31b9c5cc7d0624efb0791eeb5fe6dc456f8eca40642"
+    },
+    {
+      "path": "tools/maintenance/separate_local_runtime.py",
+      "action": "add/update",
+      "working_sha256": "a64d95e4fcb6fd0b2dff4facf9dcb4cc41493e5f3bc952706e2219627e21814f"
+    },
+    {
+      "path": "tools/maintenance/stage_review.py",
+      "action": "add/update",
+      "working_sha256": "f4867106c59a952bb5943e67b6ef4d9e5e9ab9c6167cc908c53e3c3969c40d9d"
+    },
+    {
+      "path": "tools/maintenance/test_restore.py",
+      "action": "add/update",
+      "working_sha256": "893c0846277632b348985a60d9b3348abe52403f22745d523650865a3fe4af91"
+    },
+    {
+      "path": "tools/maintenance/verify_final.py",
+      "action": "add/update",
+      "working_sha256": "6d7dd9b3d35dc529439d6e8d59e1a290fc4f566edbed600c52d0ff67cc370890"
+    },
+    {
+      "path": "tools/maintenance/verify_links.py",
+      "action": "add/update",
+      "working_sha256": "86ca6e29fe07906c53cc12d7b89fe6ac687c6ea2555f0355c3bce4f4cae2a489"
+    },
+    {
+      "path": "tools/maintenance/verify_retention.py",
+      "action": "add/update",
+      "working_sha256": "1a007ad8d6c50c2b8c6129bad4612ca10f52efc6465e847612931da177e39300"
+    },
+    {
+      "path": "tools/maintenance/verify_validator_bodies.py",
+      "action": "add/update",
+      "working_sha256": "7a2dafd8e1b1b518a00331e307c635104675a017a92aa9dbd4a8f63ec4087c06"
+    },
+    {
+      "path": "tools/maintenance/write_report.py",
+      "action": "add/update",
+      "working_sha256": "eaf5ca76b0b16ee6122f3c65ca4d3c077d8041b13a07e6779ca1d399fe6a2716"
+    },
+    {
+      "path": "tools/measure_b1_row_base.ps1",
+      "action": "add/update",
+      "working_sha256": "9566f8d543283f59f9321f37f8a668e05cfadbf0d0582dabdc33d9953db0bd5f"
+    },
+    {
+      "path": "tools/measure_b2_projection.ps1",
+      "action": "add/update",
+      "working_sha256": "dc3a8c90178aed613b43237bb1e61f16ce955ecd0d778d3f143ec8b9dee74999"
+    },
+    {
+      "path": "tools/performance/PerfRunner.java",
+      "action": "add/update",
+      "working_sha256": "6852689a0758746c12dbeffc4f5110abefde501318c0d9cf707800f9a42f8487"
+    },
+    {
+      "path": "tools/performance/README.md",
+      "action": "add/update",
+      "working_sha256": "9144ca818d99e483c1a580627014b9271a5c91aa91718dc4b0dda2615655f289"
+    },
+    {
+      "path": "tools/performance/abi_cleanup.json",
+      "action": "add/update",
+      "working_sha256": "b4cadffa39665954568a15659965aba3bc268378b03717aae7b80cab64b8f4aa"
+    },
+    {
+      "path": "tools/performance/benchmark.py",
+      "action": "add/update",
+      "working_sha256": "b9f15c47a3bdae6ca5ef5d4c2ee4184f0a5299d4dd77b8a2eb4ed93fcc0f528b"
+    },
+    {
+      "path": "tools/performance/build_driver.py",
+      "action": "add/update",
+      "working_sha256": "cac9c64ff14af062fb55a5fcee173c40699bb38fa1471bcd3d4482a398608247"
+    },
+    {
+      "path": "tools/performance/config.example.json",
+      "action": "add/update",
+      "working_sha256": "9a4d58c84829239d295b593ba5f4b01984930e305771cf57f1a9584da777d08e"
+    },
+    {
+      "path": "tools/performance/config.py",
+      "action": "add/update",
+      "working_sha256": "4309187537dad77858203035ad917d7ee9d3708c37db0703ec757740228d6a7b"
+    },
+    {
+      "path": "tools/performance/dependencies.lock.json",
+      "action": "add/update",
+      "working_sha256": "50a5f89205f2d5e349f99b64754db5d2262319edd1f023003102847ece4757cf"
+    },
+    {
+      "path": "tools/performance/emulation_symbols.py",
+      "action": "add/update",
+      "working_sha256": "761254b0b5489bc0d6d654b82d1c031385f73a9706adcf555831446402dffb3c"
+    },
+    {
+      "path": "tools/performance/test_profiler.py",
+      "action": "add/update",
+      "working_sha256": "25775599e379511097f51da50a22f84d16784e35b12d7b87e85dca0d0766a7f3"
+    },
+    {
+      "path": "tools/production_build_artifacts.ps1",
+      "action": "add/update",
+      "working_sha256": "fa9d9025b395512edc7b4b244196fadc3f3ef1dcf14014ef39cf0fd0b8f21b1a"
+    },
+    {
+      "path": "tools/test_production_dispatch_scan.ps1",
+      "action": "add/update",
+      "working_sha256": "0d85191738e14659af1ee43e523c03e52180726145072f37dd1f82f8f3b2cf33"
+    },
+    {
+      "path": "tools/validate_bank_call_topology.ps1",
+      "action": "add/update",
+      "working_sha256": "11ce8c3d4615d30706d956e72fdbbce75819aa5f86e52bef25c9a2c6efec8640"
+    },
+    {
+      "path": "tools/validate_game_over.ps1",
+      "action": "add/update",
+      "working_sha256": "f965f78f4a88fa73037dc1cc3563a825ade61119944cda30ca9aeec2dc32de97"
+    },
+    {
+      "path": "tools/validate_health_hud.ps1",
+      "action": "add/update",
+      "working_sha256": "2e7b9ffdffb58c88991554e10219f42a7fe91f39ef3a6a3953e6d3bccbcfc5a0"
+    },
+    {
+      "path": "tools/validate_middle_zombie.ps1",
+      "action": "add/update",
+      "working_sha256": "59b3313e866b8c892b35563f72d6123c77e7acc1e889dc48ddfacfe8cc28b957"
+    },
+    {
+      "path": "tools/validate_native_wall.ps1",
+      "action": "add/update",
+      "working_sha256": "02ce7d7543cf3b9059a52e9858512a2e150d65aa8eb203062371cc68839f4524"
+    },
+    {
+      "path": "tools/validate_near_zombie.ps1",
+      "action": "add/update",
+      "working_sha256": "c4e2bf1f72c3ebb5992d24317394c14f50f7b1900d0faa66e88270006f0447c2"
+    },
+    {
+      "path": "tools/validate_palette_usage.ps1",
+      "action": "add/update",
+      "working_sha256": "ec41d88705a6de45ee2ca6f4b2b3914819d9f5229b1e7e98e74dbc8faa7e9781"
+    },
+    {
+      "path": "tools/validate_pause_map.ps1",
+      "action": "add/update",
+      "working_sha256": "981011ce1dadb0e454e703dd80c5371ee8a1771bce82e1d7ffe100ef87e5637c"
+    },
+    {
+      "path": "tools/validate_renderer_equivalence.ps1",
+      "action": "add/update",
+      "working_sha256": "adf23a0971e65e0681f86dd7a9f7c8a70e38b5f321709cb75d265f0682e7fa76"
+    },
+    {
+      "path": "tools/validate_shotgun_combat.ps1",
+      "action": "add/update",
+      "working_sha256": "f1ff0c940e45ad8780db046563495255844c7681fc79c0ab76d94e8d27dc6282"
+    },
+    {
+      "path": "tools/validate_sprite_renderer.ps1",
+      "action": "add/update",
+      "working_sha256": "97f3d1b04f071160130b9981851223e54839317a60d362f5adc65751a8e109ce"
+    },
+    {
+      "path": "tools/validate_weapon_assets.ps1",
+      "action": "add/update",
+      "working_sha256": "55d36a47093a3f8c1422ac63d88d1aae6958882e104cc1e82c2de183ad5033ca"
+    },
+    {
+      "path": "tools/validate_weapon_runtime.ps1",
+      "action": "add/update",
+      "working_sha256": "ffbab2075c35451923a3be61a3c07606ca128fc9d144f049c0118758ac7a48da"
+    },
+    {
+      "path": "tools/validate_z80_hardening.ps1",
+      "action": "add/update",
+      "working_sha256": "ce98825282a906462bfca9de62de9d03f7f9b0214cdf1e4e2d515648aea635ce"
+    },
+    {
+      "path": "tools/validate_zombie_attack.ps1",
+      "action": "add/update",
+      "working_sha256": "8202d2e853b94235d648e969ea5979da0f0ff4da2b296582bfb066ad521414fa"
+    }
+  ],
+  "self_records": [
+    "docs/maintenance/2026-10-23/implementation/intended-change-manifest.json",
+    "docs/maintenance/2026-10-23/implementation/staged-review.json"
+  ],
+  "note": "Exact reviewed paths. Audit self-records are added explicitly after serialization; their own hash is represented by Git, avoiding circular self-hashes."
+}

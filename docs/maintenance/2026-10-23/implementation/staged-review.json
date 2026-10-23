@@ -1,0 +1,72 @@
+{
+  "status": "PASS",
+  "staged_paths_before_audit_self_record": 676,
+  "protected_art_index_hashes_verified": 125,
+  "original_zip_index_hashes_verified": 27,
+  "frozen_rom_index_hash_verified": true,
+  "new_archive_members_scanned": 8277,
+  "secret_findings": [],
+  "scope": "High-confidence signature scan of exact staged bytes and staged ZIP members, not a guarantee about all Git history. No secret values emitted.",
+  "archives": [
+    {
+      "path": "docs/history/2026-10-23/objects.zip",
+      "sha256": "b9ab73884c93ba150464964ebc81b4c6f59509ec09082a623dbdc540d461867e"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/evidence/inventory-data.zip",
+      "sha256": "eb57d1c5928e676dc9f6881b04cb5860b3ae12d3ecb9add46438f8252d76f975"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/before-census.zip",
+      "sha256": "16da37c19bd8d0e208558a1e56b26b5d89d06db9335d46919ed44fbb8d44b13b"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/execution-journals.zip",
+      "sha256": "2f41e45520398dab42e3c5877d38b675ce687240cc65de46360f461c77000da6"
+    },
+    {
+      "path": "docs/maintenance/2026-10-23/implementation/phase-11-census.zip",
+      "sha256": "18eeb25a3cedb2ce640b187e15afeccfc038b09ed717cb79e4614a51cd874967"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/fresh-source-and-build.zip",
+      "sha256": "4698a3502d13c1a7f4f063f9f6aef0443c16d7c3a96110a8ebf4510706788aef"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/current-inputs-before.zip",
+      "sha256": "46d8165f0405f1d190a425890eb2904fe6e8b79092a89fdd488ddf15f87dae3f"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/row-source-and-build.zip",
+      "sha256": "2ffaa4c49e5fc254b34135108964648a3fb47ecdb5a686f078928f19d2146505"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-followup/evidence/selected-source-and-build.zip",
+      "sha256": "72e0658e8bd5d77eddb46b49bf511a8dcacc482860b9bb42ca9fdeb4aef3e695"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/canonical-experiment.zip",
+      "sha256": "1e075ae3de59ebd6ceb6d82deb26bccbdaac5aa5f214e2b6ade378de008fb045"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/gated-experiment.zip",
+      "sha256": "da411af4f0e63f0580036612a487169765b0ce4e80b4cff9caa208800cbdfda6"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/review-build-evidence.zip",
+      "sha256": "645a8bbcadf2b833a9b9f4bfdd0099db5a60b8afc15c12da91fac16bbf4a1495"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/reviewed-source.zip",
+      "sha256": "33e5594e57ef04eaadf53e5273e4f606e6befe0cf32b0c6af090740b6ffae332"
+    },
+    {
+      "path": "docs/performance/2026-10-19/post-implementation-review/evidence/rowcache-experiment.zip",
+      "sha256": "1351e58edd00127c4a6efe0ea31bde8c83d792d347111aac45b7d50a151b483b"
+    }
+  ],
+  "runtime_maintenance_changes": 0,
+  "normal_push_only": true,
+  "excluded_local_runtime_cache_and_shortcuts": true,
+  "git_index_tracked_count": 1232
+}

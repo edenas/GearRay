@@ -1,0 +1,7 @@
+{
+  "restored_historical_files_verified": 3711,
+  "rejected_source_preserved": true,
+  "analysis_source_sha256": "852a94520ee9be6bcd56e578aad92998663e97a746e293eb1dae634699cbb040",
+  "trace_analysis": "Passed original assertions on restored rejected cooperative source/ROM/trace bytes. No new experiment executed.",
+  "result": "docs\\maintenance\\2026-10-23\\implementation\\cooperative-restore-drill\\architecture-analysis.json"
+}

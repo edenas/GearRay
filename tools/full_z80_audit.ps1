@@ -1,4 +1,4 @@
-param([string]$BuildDirectory='build', [switch]$RunValidators, [string]$RomPath='')
+param([string]$BuildDirectory='build/release', [switch]$RunValidators, [string]$RomPath='')
 $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent
 $build=Join-Path $root $BuildDirectory

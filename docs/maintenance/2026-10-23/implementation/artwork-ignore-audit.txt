@@ -1,0 +1,125 @@
+.gitignore:64:!/.artifact-quarantine/assets__textures__library__red_door_switch_on_2.png	.artifact-quarantine/assets__textures__library__red_door_switch_on_2.png
+.gitignore:65:!/.artifact-quarantine/assets__textures__library__red_key.png	.artifact-quarantine/assets__textures__library__red_key.png
+.gitignore:66:!/.artifact-quarantine/assets__textures__walls__red_door_switch_off.png	.artifact-quarantine/assets__textures__walls__red_door_switch_off.png
+.gitignore:67:!/.artifact-quarantine/assets__textures__library__Corel Auto-Preserve/red_door_switch.png	.artifact-quarantine/assets__textures__library__Corel Auto-Preserve/red_door_switch.png
+.gitignore:68:!/.artifact-quarantine/assets__textures__library__Corel Auto-Preserve/red_door_switch_on_1.png	.artifact-quarantine/assets__textures__library__Corel Auto-Preserve/red_door_switch_on_1.png
+.gitignore:69:!/.artifact-quarantine/assets__textures__library__Corel Auto-Preserve/red_door_switch_on_2.png	.artifact-quarantine/assets__textures__library__Corel Auto-Preserve/red_door_switch_on_2.png
+.gitignore:70:!/.artifact-quarantine/assets__textures__library__Corel Auto-Preserve/red_key.png	.artifact-quarantine/assets__textures__library__Corel Auto-Preserve/red_key.png
+.gitignore:71:!/.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_off.png	.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_off.png
+.gitignore:72:!/.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_off_1.png	.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_off_1.png
+.gitignore:73:!/.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_off_2.png	.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_off_2.png
+.gitignore:74:!/.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_on_1.png	.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_on_1.png
+.gitignore:75:!/.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_on_2.png	.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/red_door_switch_on_2.png
+.gitignore:76:!/.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_concrete.png	.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_concrete.png
+.gitignore:77:!/.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_concrete_blood.png	.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_concrete_blood.png
+.gitignore:78:!/.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_concrete_x.png	.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_concrete_x.png
+.gitignore:79:!/.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_concrete_y.png.png	.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_concrete_y.png.png
+.gitignore:80:!/.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_door.png	.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_door.png
+.gitignore:81:!/.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_door_red.png	.artifact-quarantine/assets__textures__walls__Corel Auto-Preserve/wall_door_red.png
+.gitignore:82:!/assets/logos/game_over.png	assets/logos/game_over.png
+.gitignore:83:!/assets/logos/sega_logo.png	assets/logos/sega_logo.png
+.gitignore:84:!/assets/sprites/Corel Auto-Preserve/gun.png	assets/sprites/Corel Auto-Preserve/gun.png
+.gitignore:85:!/assets/sprites/enemies/zombie/zombie_01_attack_01.png	assets/sprites/enemies/zombie/zombie_01_attack_01.png
+.gitignore:86:!/assets/sprites/enemies/zombie/zombie_01_attack_01_32x32.png	assets/sprites/enemies/zombie/zombie_01_attack_01_32x32.png
+.gitignore:87:!/assets/sprites/enemies/zombie/zombie_01_attack_02.png	assets/sprites/enemies/zombie/zombie_01_attack_02.png
+.gitignore:88:!/assets/sprites/enemies/zombie/zombie_01_attack_02_32x32.png	assets/sprites/enemies/zombie/zombie_01_attack_02_32x32.png
+.gitignore:89:!/assets/sprites/enemies/zombie/zombie_01_corps.png	assets/sprites/enemies/zombie/zombie_01_corps.png
+.gitignore:90:!/assets/sprites/enemies/zombie/zombie_01_corps_16x16.png	assets/sprites/enemies/zombie/zombie_01_corps_16x16.png
+.gitignore:91:!/assets/sprites/enemies/zombie/zombie_01_corps_32x32.png	assets/sprites/enemies/zombie/zombie_01_corps_32x32.png
+.gitignore:92:!/assets/sprites/enemies/zombie/zombie_01_shot_01.png	assets/sprites/enemies/zombie/zombie_01_shot_01.png
+.gitignore:93:!/assets/sprites/enemies/zombie/zombie_01_shot_01_16x16.png	assets/sprites/enemies/zombie/zombie_01_shot_01_16x16.png
+.gitignore:94:!/assets/sprites/enemies/zombie/zombie_01_shot_01_32x32.png	assets/sprites/enemies/zombie/zombie_01_shot_01_32x32.png
+.gitignore:95:!/assets/sprites/enemies/zombie/zombie_01_shot_02.png	assets/sprites/enemies/zombie/zombie_01_shot_02.png
+.gitignore:96:!/assets/sprites/enemies/zombie/zombie_01_shot_dead.png	assets/sprites/enemies/zombie/zombie_01_shot_dead.png
+.gitignore:97:!/assets/sprites/enemies/zombie/zombie_01_shot_dead_16x16.png	assets/sprites/enemies/zombie/zombie_01_shot_dead_16x16.png
+.gitignore:98:!/assets/sprites/enemies/zombie/zombie_01_standing.png	assets/sprites/enemies/zombie/zombie_01_standing.png
+.gitignore:99:!/assets/sprites/enemies/zombie/zombie_01_standing_16x16.png	assets/sprites/enemies/zombie/zombie_01_standing_16x16.png
+.gitignore:100:!/assets/sprites/enemies/zombie/zombie_01_standing_32x32.png	assets/sprites/enemies/zombie/zombie_01_standing_32x32.png
+.gitignore:101:!/assets/sprites/enemies/zombie/zombie_01_standing_attack_32x32.png	assets/sprites/enemies/zombie/zombie_01_standing_attack_32x32.png
+.gitignore:102:!/assets/sprites/enemies/zombie/zombie_01_walking_01.png	assets/sprites/enemies/zombie/zombie_01_walking_01.png
+.gitignore:103:!/assets/sprites/enemies/zombie/zombie_01_walking_01_16x16.png	assets/sprites/enemies/zombie/zombie_01_walking_01_16x16.png
+.gitignore:104:!/assets/sprites/enemies/zombie/zombie_01_walking_01_32x32.png	assets/sprites/enemies/zombie/zombie_01_walking_01_32x32.png
+.gitignore:105:!/assets/sprites/enemies/zombie/zombie_01_walking_02.png	assets/sprites/enemies/zombie/zombie_01_walking_02.png
+.gitignore:106:!/assets/sprites/enemies/zombie/zombie_01_walking_02_16x16.png	assets/sprites/enemies/zombie/zombie_01_walking_02_16x16.png
+.gitignore:107:!/assets/sprites/enemies/zombie/zombie_01_walking_02_32x32.png	assets/sprites/enemies/zombie/zombie_01_walking_02_32x32.png
+.gitignore:108:!/assets/sprites/enemies/zombie/zombie_02_attack_01.png	assets/sprites/enemies/zombie/zombie_02_attack_01.png
+.gitignore:109:!/assets/sprites/enemies/zombie/zombie_02_corps.png	assets/sprites/enemies/zombie/zombie_02_corps.png
+.gitignore:110:!/assets/sprites/enemies/zombie/zombie_02_corps_16x16.png	assets/sprites/enemies/zombie/zombie_02_corps_16x16.png
+.gitignore:111:!/assets/sprites/enemies/zombie/zombie_02_shot_01.png	assets/sprites/enemies/zombie/zombie_02_shot_01.png
+.gitignore:112:!/assets/sprites/enemies/zombie/zombie_02_shot_02.png	assets/sprites/enemies/zombie/zombie_02_shot_02.png
+.gitignore:113:!/assets/sprites/enemies/zombie/zombie_02_shot_dead.png	assets/sprites/enemies/zombie/zombie_02_shot_dead.png
+.gitignore:114:!/assets/sprites/enemies/zombie/zombie_02_standing.png	assets/sprites/enemies/zombie/zombie_02_standing.png
+.gitignore:115:!/assets/sprites/enemies/zombie/zombie_02_standing_16x16.png	assets/sprites/enemies/zombie/zombie_02_standing_16x16.png
+.gitignore:116:!/assets/sprites/enemies/zombie/zombie_02_walking_01.png	assets/sprites/enemies/zombie/zombie_02_walking_01.png
+.gitignore:117:!/assets/sprites/enemies/zombie/zombie_02_walking_01_16x16.png	assets/sprites/enemies/zombie/zombie_02_walking_01_16x16.png
+.gitignore:118:!/assets/sprites/enemies/zombie/zombie_02_walking_02.png	assets/sprites/enemies/zombie/zombie_02_walking_02.png
+.gitignore:119:!/assets/sprites/enemies/zombie/zombie_02_walking_02_16x16.png	assets/sprites/enemies/zombie/zombie_02_walking_02_16x16.png
+.gitignore:120:!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_corps_16x16.png	assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_corps_16x16.png
+.gitignore:121:!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_corps_32x32.png	assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_corps_32x32.png
+.gitignore:122:!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_01_16x16.png	assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_01_16x16.png
+.gitignore:123:!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_01_32x32.png	assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_01_32x32.png
+.gitignore:124:!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_02.png	assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_02.png
+.gitignore:125:!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_dead_16x16.png	assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_dead_16x16.png
+.gitignore:126:!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_dead_32x32.png	assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_dead_32x32.png
+.gitignore:127:!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_standing_16x16.png	assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_standing_16x16.png
+.gitignore:128:!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_walking_01_16x16.png	assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_walking_01_16x16.png
+.gitignore:129:!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_walking_02_16x16.png	assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_walking_02_16x16.png
+.gitignore:130:!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_attack_01.png	assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_attack_01.png
+.gitignore:131:!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_corps_16x16.png	assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_corps_16x16.png
+.gitignore:132:!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_standing.png	assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_standing.png
+.gitignore:133:!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_standing_16x16.png	assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_standing_16x16.png
+.gitignore:134:!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_walking_01_16x16.png	assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_walking_01_16x16.png
+.gitignore:135:!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_walking_02_16x16.png	assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_walking_02_16x16.png
+.gitignore:136:!/assets/sprites/weapons/gun_12x12.png	assets/sprites/weapons/gun_12x12.png
+.gitignore:137:!/assets/sprites/weapons/gun_shoot_12x12.png	assets/sprites/weapons/gun_shoot_12x12.png
+.gitignore:138:!/assets/sprites/weapons/pick_up_shotgun.png	assets/sprites/weapons/pick_up_shotgun.png
+.gitignore:139:!/assets/sprites/weapons/pistol.png	assets/sprites/weapons/pistol.png
+.gitignore:140:!/assets/sprites/weapons/shotgun.png	assets/sprites/weapons/shotgun.png
+.gitignore:141:!/assets/sprites/weapons/shotgun_held.png	assets/sprites/weapons/shotgun_held.png
+.gitignore:142:!/assets/sprites/weapons/shotgun_held_shoot.png	assets/sprites/weapons/shotgun_held_shoot.png
+.gitignore:143:!/assets/sprites/weapons/Corel Auto-Preserve/gun.png	assets/sprites/weapons/Corel Auto-Preserve/gun.png
+.gitignore:144:!/assets/sprites/weapons/Corel Auto-Preserve/gun_12x12.png	assets/sprites/weapons/Corel Auto-Preserve/gun_12x12.png
+.gitignore:145:!/assets/sprites/weapons/Corel Auto-Preserve/gun_12x12_v2.pspimage	assets/sprites/weapons/Corel Auto-Preserve/gun_12x12_v2.pspimage
+.gitignore:146:!/assets/sprites/weapons/Corel Auto-Preserve/gun_2_12x12.png	assets/sprites/weapons/Corel Auto-Preserve/gun_2_12x12.png
+.gitignore:147:!/assets/sprites/weapons/Corel Auto-Preserve/gun_3_12x12.png	assets/sprites/weapons/Corel Auto-Preserve/gun_3_12x12.png
+.gitignore:148:!/assets/sprites/weapons/Corel Auto-Preserve/pick_up_shotgun.png	assets/sprites/weapons/Corel Auto-Preserve/pick_up_shotgun.png
+.gitignore:149:!/assets/sprites/weapons/Corel Auto-Preserve/shotgun.png	assets/sprites/weapons/Corel Auto-Preserve/shotgun.png
+.gitignore:150:!/assets/sprites/weapons/Corel Auto-Preserve/shotgun_16x16.png	assets/sprites/weapons/Corel Auto-Preserve/shotgun_16x16.png
+.gitignore:151:!/assets/sprites/weapons/Corel Auto-Preserve/shotgun_16x16_shoot.png	assets/sprites/weapons/Corel Auto-Preserve/shotgun_16x16_shoot.png
+.gitignore:152:!/assets/textures/ceilings/ceiling_industrial.png.png	assets/textures/ceilings/ceiling_industrial.png.png
+.gitignore:153:!/assets/textures/floors/floor_industrial.png	assets/textures/floors/floor_industrial.png
+.gitignore:154:!/assets/textures/library/ceiling_tiles.png	assets/textures/library/ceiling_tiles.png
+.gitignore:155:!/assets/textures/library/floor_tiles.png	assets/textures/library/floor_tiles.png
+.gitignore:156:!/assets/textures/library/wall_reference.png	assets/textures/library/wall_reference.png
+.gitignore:157:!/assets/textures/library/Corel Auto-Preserve/zombie_01_run_01.png	assets/textures/library/Corel Auto-Preserve/zombie_01_run_01.png
+.gitignore:158:!/assets/textures/library/Corel Auto-Preserve/zombie_01_run_02.png	assets/textures/library/Corel Auto-Preserve/zombie_01_run_02.png
+.gitignore:159:!/assets/textures/walls/next_level_door.png	assets/textures/walls/next_level_door.png
+.gitignore:160:!/assets/textures/walls/next_level_door_v2.png	assets/textures/walls/next_level_door_v2.png
+.gitignore:161:!/assets/textures/walls/next_level_door_v3.png	assets/textures/walls/next_level_door_v3.png
+.gitignore:162:!/assets/textures/walls/switch_off_01.png	assets/textures/walls/switch_off_01.png
+.gitignore:163:!/assets/textures/walls/switch_off_02.png	assets/textures/walls/switch_off_02.png
+.gitignore:164:!/assets/textures/walls/switch_on_01.png	assets/textures/walls/switch_on_01.png
+.gitignore:165:!/assets/textures/walls/switch_on_02.png	assets/textures/walls/switch_on_02.png
+.gitignore:166:!/assets/textures/walls/wall_brick_x.png	assets/textures/walls/wall_brick_x.png
+.gitignore:167:!/assets/textures/walls/wall_brick_y.png	assets/textures/walls/wall_brick_y.png
+.gitignore:168:!/assets/textures/walls/wall_concrete.png	assets/textures/walls/wall_concrete.png
+.gitignore:169:!/assets/textures/walls/wall_concrete_blood.png	assets/textures/walls/wall_concrete_blood.png
+.gitignore:170:!/assets/textures/walls/wall_door.png	assets/textures/walls/wall_door.png
+.gitignore:171:!/assets/textures/walls/wall_door_red.png	assets/textures/walls/wall_door_red.png
+.gitignore:172:!/assets/textures/walls/wall_metal_x.png	assets/textures/walls/wall_metal_x.png
+.gitignore:173:!/assets/textures/walls/wall_metal_y.png	assets/textures/walls/wall_metal_y.png
+.gitignore:174:!/assets/textures/walls/wall_tech_x.png	assets/textures/walls/wall_tech_x.png
+.gitignore:175:!/assets/textures/walls/wall_tech_y.png	assets/textures/walls/wall_tech_y.png
+.gitignore:176:!/assets/textures/walls/Corel Auto-Preserve/next_level_door.png	assets/textures/walls/Corel Auto-Preserve/next_level_door.png
+.gitignore:177:!/assets/textures/walls/Corel Auto-Preserve/red_door_switch_off_1.png	assets/textures/walls/Corel Auto-Preserve/red_door_switch_off_1.png
+.gitignore:178:!/assets/textures/walls/Corel Auto-Preserve/red_door_switch_off_2.png	assets/textures/walls/Corel Auto-Preserve/red_door_switch_off_2.png
+.gitignore:179:!/assets/textures/walls/Corel Auto-Preserve/red_door_switch_on_1.png	assets/textures/walls/Corel Auto-Preserve/red_door_switch_on_1.png
+.gitignore:180:!/assets/textures/walls/Corel Auto-Preserve/red_door_switch_on_2.png	assets/textures/walls/Corel Auto-Preserve/red_door_switch_on_2.png
+.gitignore:181:!/assets/textures/walls/Corel Auto-Preserve/switch_off_01.png	assets/textures/walls/Corel Auto-Preserve/switch_off_01.png
+.gitignore:182:!/assets/textures/walls/Corel Auto-Preserve/switch_off_02.png	assets/textures/walls/Corel Auto-Preserve/switch_off_02.png
+.gitignore:183:!/assets/textures/walls/Corel Auto-Preserve/switch_on_01.png	assets/textures/walls/Corel Auto-Preserve/switch_on_01.png
+.gitignore:184:!/assets/textures/walls/Corel Auto-Preserve/switch_on_02.png	assets/textures/walls/Corel Auto-Preserve/switch_on_02.png
+.gitignore:185:!/assets/textures/walls/Corel Auto-Preserve/wall_door_red.png	assets/textures/walls/Corel Auto-Preserve/wall_door_red.png
+.gitignore:186:!/assets/ui/health_hud.png	assets/ui/health_hud.png
+.gitignore:187:!/assets/ui/health_hud_1.png	assets/ui/health_hud_1.png
+.gitignore:188:!/assets/ui/health_hud_reference.png	assets/ui/health_hud_reference.png

@@ -1,2 +1,9 @@
-# Frozen research evidence must retain its original bytes and line endings.
-docs/performance/2026-10-19/evidence/** -text
+# Raw historical evidence and original artwork retain exact bytes in Git.
+docs/performance/** -text -whitespace
+docs/maintenance/2026-10-23/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+docs/maintenance/2026-10-23/**/*.patch -whitespace
+docs/history/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+assets/** -text
+.artifact-quarantine/** -text
+artifacts/releases/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# Frozen historical reports/patches preserve their original whitespace too.

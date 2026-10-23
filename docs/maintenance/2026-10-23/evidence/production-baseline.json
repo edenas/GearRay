@@ -1,0 +1,95 @@
+{
+  "source_and_tool_files_matching_accepted_review": 185,
+  "selected_sha256": "3632006ed68fcbcbacf9aa693c92560520df496e1e4ac23cf2cb6e1df88d3340",
+  "remote_main": "bf89ea9c6f340a919e68e8059c0c005dff237f78\trefs/heads/main",
+  "accepted_review": {
+    "verdict": "B \u2014 APPROVED WITH MINOR NOTES",
+    "head": "bf89ea9c6f340a919e68e8059c0c005dff237f78",
+    "production_changes_by_review": 0,
+    "existing_files_unchanged": 909,
+    "assets_unchanged": 107,
+    "existing_roms_unchanged": 21,
+    "documents": 6,
+    "broken_links": [],
+    "compiled_results": {
+      "selected-camera-edge-replay.json": {
+        "cases": 484,
+        "mismatches": []
+      },
+      "selected-final-hud-compiled-oracle.json": {
+        "cases": 1792,
+        "mismatches": []
+      },
+      "selected-final-material-ray-equivalence.json": {
+        "cases": 242,
+        "mismatches": 0,
+        "cache_hits_checked": 242,
+        "output_digest": "da65003d41fe97990b5c4ec47f807243dd56544e180e806727f8109a05cd9688"
+      },
+      "selected-final-ray-equivalence.json": {
+        "cases": 11616,
+        "mismatches": 0,
+        "cache_hits_checked": 11616,
+        "output_digest": "703e71f47b6dc5cacac43a1b4d298c9bcaff16e5dc47b5121a0e27da10274181"
+      },
+      "selected-final-sprite-compiled-oracle.json": {
+        "cases": 48384,
+        "mismatches": 0,
+        "changed_cases": 3335,
+        "digest": "022e2f6b53711579f4e5633cc0db516aa8d059a24c32125f1840c94c14c9ee77"
+      },
+      "selected-final-wall-bank3-compiled-oracle.json": {
+        "cases": 168960,
+        "mismatches": 0,
+        "digest": "6e71ed19f8c4bc8e29120836b816f5b4ed4ccdfdfac6598959a86a3616a96648"
+      },
+      "selected-projection-cache-oracle.json": {
+        "cases": 226,
+        "mismatches": 0
+      },
+      "selected-wall-wrapper-oracle.json": {
+        "cases": 20480,
+        "mismatches": 0,
+        "digest": "a4d2b3f6ac36e4b81e4c8ac6dae0827fe8e148b63bbc04db9d05b101c70eb6c0"
+      },
+      "occlusion-guard-matrix.json": {
+        "cases": 72,
+        "paired_scenarios": 36,
+        "mismatches": 0,
+        "coverage": "Both wall halves; 519/520/521 around entity depth520; upper texture column boundary; actor and independent pickup appearance/removal; forced invalidation oracle; actual rays preserved; byte guards in complementary tile corpus; pages and callee cleanup checked. Synthetic valid renderer inputs, not claimed reachable map states."
+      },
+      "renderer-transitions.json": {
+        "paired_scenarios": 24,
+        "compiled_comparisons": 48,
+        "mismatches": 0,
+        "scope": "Seeded renderer timeline, not map reachability or AI simulation. Incremental versus forced redraw plus control/selected output comparison."
+      },
+      "functional-playthrough.json": {
+        "checkpoints": 20,
+        "paired_checkpoints": 10,
+        "mismatches": 0,
+        "method": "Actual compiled ROMs with pinned VDP phase. Held movement/fire use emulator pad. Pickup/death are explicitly seeded fixtures. First START/re-entry KeysStatus is seeded at a known poll; UI itself runs compiled with actual VBlank input. Not interactive human or hardware acceptance."
+      }
+    },
+    "paired_route_records": 2880,
+    "production_validator_passes": 24,
+    "no_commit_or_push": true,
+    "interactive_ab": "not performed; pending",
+    "physical_hardware": "not tested; pending",
+    "archive": {
+      "file": "fresh-source-and-build.zip",
+      "entries": 842,
+      "sha256": "4698a3502d13c1a7f4f063f9f6aef0443c16d7c3a96110a8ebf4510706788aef"
+    },
+    "tool_hashes": {
+      "D:\\Emulicious-with-Java64\\Emulicious.jar": "db185a1ed0af3bdab5ebdeb254612d02d3848bac155dbc89333d1b04e21c371d",
+      "D:\\Tools\\devkitSMS\\SMSlib\\SMSlib_GG.lib": "e08252918ae80e8ee737e3d68d2237268ae6a27eda3fc4b79d29a2111f0d3f43",
+      "D:\\Tools\\devkitSMS\\crt0\\crt0_sms.rel": "3bc7bbedf2e6f150d2c13d2e10857813d1ece9d348b814de2a1119f34c473b24",
+      "D:\\Tools\\devkitSMS\\makesms\\Windows\\makesms.exe": "0b884a5c38d6b88aa1cd29537adff4d04d1e95becbb1f0b9f12f3bfa6105a59b",
+      "C:\\Program Files\\SDCC\\bin\\sdcc.EXE": "843272575aeae50e0cde8b3ac64bca1386755252d5b12cbb37cfa33f513ffeae",
+      "C:\\Program Files\\CMake\\bin\\cmake.EXE": "e7698092d9e01ef38a2e41e564033824f808c33a92dbc002736e8224187a780f",
+      "C:\\Users\\edena\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Ninja-build.Ninja_Microsoft.Winget.Source_8wekyb3d8bbwe\\ninja.EXE": "e52a7ad9538d9618c67a0bd777964e2eec8a30f68b810a2f6adce1f2daf847b8"
+    }
+  },
+  "validation_scope": "No new build/benchmark during this planning review. Inputs/tools match the immediately preceding independent fresh build; Solo must rebuild after cleanup."
+}

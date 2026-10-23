@@ -1,0 +1,9 @@
+states 0 cases 1
+states 32 cases 33
+states 64 cases 65
+states 96 cases 97
+states 128 cases 129
+states 160 cases 161
+states 192 cases 193
+states 224 cases 225
+242 compiled results match; cache hits 242

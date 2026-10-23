@@ -1,0 +1,170 @@
+[
+  {
+    "path": "build/history-restore/safety-differing-existing/fixture.txt",
+    "size": 18,
+    "sha256": "9784ad6da0b014d283d556ae48188ba7dd7d109700205a3fa83e5f1332f657cc",
+    "classification": "UNCERTAIN - DO NOT DELETE",
+    "reason": "Fresh receipt/rejection fixture or runtime proxy; no independent identical keeper. Retained locally."
+  },
+  {
+    "path": "build/maintenance/java-tools/driver-build.json",
+    "size": 1375,
+    "sha256": "02a0136b0ff2a7f8cb5ad521e339a1dcb651dd2bfe76def733cc4dce503a2a08",
+    "classification": "UNCERTAIN - DO NOT DELETE",
+    "reason": "Fresh receipt/rejection fixture or runtime proxy; no independent identical keeper. Retained locally."
+  },
+  {
+    "path": "build/maintenance/migrated-replay/abi-metadata.json",
+    "size": 1005,
+    "sha256": "160bb42b8b766d4ce16808b2ebfce2f77e340f7ed6703049bd26221760d08ee6",
+    "classification": "UNCERTAIN - DO NOT DELETE",
+    "reason": "Fresh receipt/rejection fixture or runtime proxy; no independent identical keeper. Retained locally."
+  },
+  {
+    "path": "build/maintenance/migrated-replay/emulator-metadata.json",
+    "size": 2061,
+    "sha256": "a1d7bb783a866663c075bf511cf0573f76cc491b5c3069fc3a0bd2265814f5ed",
+    "classification": "UNCERTAIN - DO NOT DELETE",
+    "reason": "Fresh receipt/rejection fixture or runtime proxy; no independent identical keeper. Retained locally."
+  },
+  {
+    "path": "build/maintenance/restore-safety/conflicting-members.json",
+    "size": 380,
+    "sha256": "94af536ca928eb8c73884d575fd72b6a7ebc03ad50fccf0f5e5a06544dd2a7db",
+    "classification": "UNCERTAIN - DO NOT DELETE",
+    "reason": "Fresh receipt/rejection fixture or runtime proxy; no independent identical keeper. Retained locally."
+  },
+  {
+    "path": "build/maintenance/restore-safety/conflicting-members.zip",
+    "size": 231,
+    "sha256": "2694816b3c1dc41e90b9d2a6b7ee9036004c18b260245d17e197820ca4f2c1bb",
+    "classification": "UNCERTAIN - DO NOT DELETE",
+    "reason": "Fresh receipt/rejection fixture or runtime proxy; no independent identical keeper. Retained locally."
+  },
+  {
+    "path": "build/maintenance/restore-safety/differing-existing.json",
+    "size": 379,
+    "sha256": "5ae6c295371109a75792ce8fe658bb36cf301cb52a56f474f64b77d0de8ac1ef",
+    "classification": "UNCERTAIN - DO NOT DELETE",
+    "reason": "Fresh receipt/rejection fixture or runtime proxy; no independent identical keeper. Retained locally."
+  },
+  {
+    "path": "build/maintenance/restore-safety/differing-existing.zip",
+    "size": 135,
+    "sha256": "976bab77deaf10dd784171a6cba8fd2e950844f84b1466e2e94ac131310008da",
+    "classification": "UNCERTAIN - DO NOT DELETE",
+    "reason": "Fresh receipt/rejection fixture or runtime proxy; no independent identical keeper. Retained locally."
+  },
+  {
+    "path": "build/maintenance/restore-safety/outside-destination.json",
+    "size": 380,
+    "sha256": "e4df3b9d46a46167b299c9bd305fcebbd436fa1448bd083cb65f820c56796d3c",
+    "classification": "UNCERTAIN - DO NOT DELETE",
+    "reason": "Fresh receipt/rejection fixture or runtime proxy; no independent identical keeper. Retained locally."
+  },
+  {
+    "path": "build/maintenance/restore-safety/outside-destination.zip",
+    "size": 135,
+    "sha256": "976bab77deaf10dd784171a6cba8fd2e950844f84b1466e2e94ac131310008da",
+    "classification": "UNCERTAIN - DO NOT DELETE",
+    "reason": "Fresh receipt/rejection fixture or runtime proxy; no independent identical keeper. Retained locally."
+  },
+  {
+    "path": "build/maintenance/restore-safety/symlink-member.json",
+    "size": 375,
+    "sha256": "64452f51531387f15330818ffb538b8eb0bdc67485705060303b62a7adb630d4",
+    "classification": "UNCERTAIN - DO NOT DELETE",
+    "reason": "Fresh receipt/rejection fixture or runtime proxy; no independent identical keeper. Retained locally."
+  },
+  {
+    "path": "build/maintenance/restore-safety/symlink-member.zip",
+    "size": 135,
+    "sha256": "a8010de1c11bdb3badfb9b5484a704681624a8e80ee171cadd78d12dc14ae166",
+    "classification": "UNCERTAIN - DO NOT DELETE",
+    "reason": "Fresh receipt/rejection fixture or runtime proxy; no independent identical keeper. Retained locally."
+  },
+  {
+    "path": "build/maintenance/restore-safety/traversal-member.json",
+    "size": 377,
+    "sha256": "4ecd87305b14de5f3c4aef66e66464a355736694d62cdefe3efe507c94e787b9",
+    "classification": "UNCERTAIN - DO NOT DELETE",
+    "reason": "Fresh receipt/rejection fixture or runtime proxy; no independent identical keeper. Retained locally."
+  },
+  {
+    "path": "build/maintenance/restore-safety/traversal-member.zip",
+    "size": 149,
+    "sha256": "e3bacb22b3728a49b0f3dde672d80c256d408d3bfee3052f426ab2129c154b6d",
+    "classification": "UNCERTAIN - DO NOT DELETE",
+    "reason": "Fresh receipt/rejection fixture or runtime proxy; no independent identical keeper. Retained locally."
+  },
+  {
+    "path": "build/maintenance/tmp/gearray-dispatch-test-d3b84616950a4ff89282bdb55524a57f/GearRay.lk",
+    "size": 7400,
+    "sha256": "67c8071f7d02104d945356332c9b5c6b72cd041937f554fe61274ca20af4e9b9",
+    "classification": "UNCERTAIN - DO NOT DELETE",
+    "reason": "Fresh receipt/rejection fixture or runtime proxy; no independent identical keeper. Retained locally."
+  },
+  {
+    "path": "build/maintenance/tmp/gearray-dispatch-test-d3b84616950a4ff89282bdb55524a57f/results.json",
+    "size": 599,
+    "sha256": "d175096fbf262a78b3fb7fcda624c8a98498651cfa1f297867c43a6c7ec0116d",
+    "classification": "UNCERTAIN - DO NOT DELETE",
+    "reason": "Fresh receipt/rejection fixture or runtime proxy; no independent identical keeper. Retained locally."
+  },
+  {
+    "path": "build/maintenance/tmp/gearray-dispatch-test-d3b84616950a4ff89282bdb55524a57f/unexpected-gameplay.log",
+    "size": 2676,
+    "sha256": "bcd782cd0df6cb7ff13599eb13dc791e262afda5ffbacb51dabe5b6abde50fe1",
+    "classification": "UNCERTAIN - DO NOT DELETE",
+    "reason": "Fresh receipt/rejection fixture or runtime proxy; no independent identical keeper. Retained locally."
+  },
+  {
+    "path": "build/maintenance/tmp/gearray-dispatch-test-d3b84616950a4ff89282bdb55524a57f/unexpected-pause.log",
+    "size": 2692,
+    "sha256": "1704ff8cec12840f359cbc07c9f7cea32c1829ec259dc7944d6f7901312be3d0",
+    "classification": "UNCERTAIN - DO NOT DELETE",
+    "reason": "Fresh receipt/rejection fixture or runtime proxy; no independent identical keeper. Retained locally."
+  },
+  {
+    "path": "build/maintenance/tmp/remoteIpMoProxy_MicrosoftPowerShellUtility_3.1.0.0_localhost_a00fb113-e12b-4b1f-9eaa-5748cec45254/Microsoft.PowerShell.Utility.psd1",
+    "size": 642,
+    "sha256": "78f79f4941c3fea71582269b5a282489f078a07ce34223e5a39d98339d239ae1",
+    "classification": "UNCERTAIN - DO NOT DELETE",
+    "reason": "Fresh receipt/rejection fixture or runtime proxy; no independent identical keeper. Retained locally."
+  },
+  {
+    "path": "build/maintenance/tmp/remoteIpMoProxy_MicrosoftPowerShellUtility_3.1.0.0_localhost_a00fb113-e12b-4b1f-9eaa-5748cec45254/remoteIpMoProxy_MicrosoftPowerShellUtility_3.1.0.0_localhost_a00fb113-e12b-4b1f-9eaa-5748cec45254.format.ps1xml",
+    "size": 172959,
+    "sha256": "d4c9fb12eff2e1aeea22a71ce82160cbccf34830a65b58428322f4922f4c713c",
+    "classification": "UNCERTAIN - DO NOT DELETE",
+    "reason": "Fresh receipt/rejection fixture or runtime proxy; no independent identical keeper. Retained locally."
+  },
+  {
+    "path": "build/maintenance/tmp/remoteIpMoProxy_MicrosoftPowerShellUtility_3.1.0.0_localhost_a00fb113-e12b-4b1f-9eaa-5748cec45254/remoteIpMoProxy_MicrosoftPowerShellUtility_3.1.0.0_localhost_a00fb113-e12b-4b1f-9eaa-5748cec45254.psm1",
+    "size": 14768,
+    "sha256": "260f456db832963e9d65127b95c75f2c8887426820862f687717389e49edc062",
+    "classification": "UNCERTAIN - DO NOT DELETE",
+    "reason": "Fresh receipt/rejection fixture or runtime proxy; no independent identical keeper. Retained locally."
+  },
+  {
+    "path": "build/maintenance/tmp/remoteIpMoProxy_MicrosoftPowerShellUtility_3.1.0.0_localhost_fb9f633b-aeff-4867-9734-8e5139677455/Microsoft.PowerShell.Utility.psd1",
+    "size": 642,
+    "sha256": "c7f2f0f3f8f86712fec86fb9b73593f74ba0928e945e6b753fa7849d6daaf896",
+    "classification": "UNCERTAIN - DO NOT DELETE",
+    "reason": "Fresh receipt/rejection fixture or runtime proxy; no independent identical keeper. Retained locally."
+  },
+  {
+    "path": "build/maintenance/tmp/remoteIpMoProxy_MicrosoftPowerShellUtility_3.1.0.0_localhost_fb9f633b-aeff-4867-9734-8e5139677455/remoteIpMoProxy_MicrosoftPowerShellUtility_3.1.0.0_localhost_fb9f633b-aeff-4867-9734-8e5139677455.format.ps1xml",
+    "size": 172959,
+    "sha256": "d4c9fb12eff2e1aeea22a71ce82160cbccf34830a65b58428322f4922f4c713c",
+    "classification": "UNCERTAIN - DO NOT DELETE",
+    "reason": "Fresh receipt/rejection fixture or runtime proxy; no independent identical keeper. Retained locally."
+  },
+  {
+    "path": "build/maintenance/tmp/remoteIpMoProxy_MicrosoftPowerShellUtility_3.1.0.0_localhost_fb9f633b-aeff-4867-9734-8e5139677455/remoteIpMoProxy_MicrosoftPowerShellUtility_3.1.0.0_localhost_fb9f633b-aeff-4867-9734-8e5139677455.psm1",
+    "size": 14768,
+    "sha256": "9c5570d7028a0ba5913b16a9f900a8bdb0ff200c31afe220a22218296f3ec2c1",
+    "classification": "UNCERTAIN - DO NOT DELETE",
+    "reason": "Fresh receipt/rejection fixture or runtime proxy; no independent identical keeper. Retained locally."
+  }
+]

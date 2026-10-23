@@ -1,0 +1,683 @@
+{
+  "records": 2880,
+  "output_mismatches": 0,
+  "unclosed_spans": 0,
+  "mapper_pages": [
+    1,
+    2
+  ],
+  "historical_exact_reproductions": [
+    {
+      "path": "D:\\mano_projektai\\GearRay\\docs\\performance\\2026-10-19\\post-implementation-followup\\evidence\\abi-base-replay\\frame-samples.csv",
+      "exact_records": 2880,
+      "fields": [
+        "state_json",
+        "state_sha256",
+        "camera_hex",
+        "ray_hex",
+        "vram_sha256",
+        "polled_key_mask",
+        "interval_cycles",
+        "stack_bytes",
+        "world_initializations"
+      ]
+    },
+    {
+      "path": "D:\\mano_projektai\\GearRay\\docs\\performance\\2026-10-19\\post-implementation-followup\\evidence\\abi-selected-replay\\frame-samples.csv",
+      "exact_records": 2880,
+      "fields": [
+        "state_json",
+        "state_sha256",
+        "camera_hex",
+        "ray_hex",
+        "vram_sha256",
+        "polled_key_mask",
+        "interval_cycles",
+        "stack_bytes",
+        "world_initializations"
+      ]
+    }
+  ],
+  "routes": {
+    "A_static": {
+      "control": {
+        "n": 256,
+        "mean": 59736.04296875,
+        "median": 59738.0,
+        "p95": 59761,
+        "p99": 59761,
+        "max": 59767,
+        "stdev": 11.970100665262738
+      },
+      "selected": {
+        "n": 256,
+        "mean": 59735.96484375,
+        "median": 59741.0,
+        "p95": 59755,
+        "p99": 59758,
+        "max": 59758,
+        "stdev": 14.729949772082929
+      },
+      "reduction_percent": 0.00013078368790164774,
+      "active_control": {
+        "n": 256,
+        "mean": 59736.04296875,
+        "median": 59738.0,
+        "p95": 59761,
+        "p99": 59761,
+        "max": 59767,
+        "stdev": 11.970100665262738
+      },
+      "active_selected": {
+        "n": 256,
+        "mean": 59735.96484375,
+        "median": 59741.0,
+        "p95": 59755,
+        "p99": 59758,
+        "max": 59758,
+        "stdev": 14.729949772082929
+      },
+      "cold": []
+    },
+    "B_rotation": {
+      "control": {
+        "n": 256,
+        "mean": 1885579.5703125,
+        "median": 1836121.5,
+        "p95": 2150488,
+        "p99": 2150603,
+        "max": 2150626,
+        "stdev": 182256.61274292986
+      },
+      "selected": {
+        "n": 256,
+        "mean": 1887679.4765625,
+        "median": 1836120.5,
+        "p95": 2150485,
+        "p99": 2150645,
+        "max": 2150668,
+        "stdev": 179426.45396974133
+      },
+      "reduction_percent": -0.11136662080253323,
+      "active_control": {
+        "n": 256,
+        "mean": 1885579.5703125,
+        "median": 1836121.5,
+        "p95": 2150488,
+        "p99": 2150603,
+        "max": 2150626,
+        "stdev": 182256.61274292986
+      },
+      "active_selected": {
+        "n": 256,
+        "mean": 1887679.4765625,
+        "median": 1836120.5,
+        "p95": 2150485,
+        "p99": 2150645,
+        "max": 2150668,
+        "stdev": 179426.45396974133
+      },
+      "cold": []
+    },
+    "C_forward": {
+      "control": {
+        "n": 256,
+        "mean": 1803280.51171875,
+        "median": 1792578.0,
+        "p95": 1852356,
+        "p99": 1852390,
+        "max": 1852393,
+        "stdev": 23542.282469026344
+      },
+      "selected": {
+        "n": 256,
+        "mean": 1665141.01171875,
+        "median": 1670747.5,
+        "p95": 1867824,
+        "p99": 1867858,
+        "max": 1867858,
+        "stdev": 107956.03858828668
+      },
+      "reduction_percent": 7.660455436760416,
+      "active_control": {
+        "n": 256,
+        "mean": 1803280.51171875,
+        "median": 1792578.0,
+        "p95": 1852356,
+        "p99": 1852390,
+        "max": 1852393,
+        "stdev": 23542.282469026344
+      },
+      "active_selected": {
+        "n": 256,
+        "mean": 1665141.01171875,
+        "median": 1670747.5,
+        "p95": 1867824,
+        "p99": 1867858,
+        "max": 1867858,
+        "stdev": 107956.03858828668
+      },
+      "cold": []
+    },
+    "F_geometry": {
+      "control": {
+        "n": 256,
+        "mean": 1881898.09375,
+        "median": 1862700.0,
+        "p95": 2082132,
+        "p99": 2126725,
+        "max": 2126742,
+        "stdev": 139382.9560685706
+      },
+      "selected": {
+        "n": 256,
+        "mean": 1881897.98046875,
+        "median": 1862756.0,
+        "p95": 2082128,
+        "p99": 2126729,
+        "max": 2126738,
+        "stdev": 139386.85856654638
+      },
+      "reduction_percent": 6.019520948363777e-06,
+      "active_control": {
+        "n": 256,
+        "mean": 1881898.09375,
+        "median": 1862700.0,
+        "p95": 2082132,
+        "p99": 2126725,
+        "max": 2126742,
+        "stdev": 139382.9560685706
+      },
+      "active_selected": {
+        "n": 256,
+        "mean": 1881897.98046875,
+        "median": 1862756.0,
+        "p95": 2082128,
+        "p99": 2126729,
+        "max": 2126738,
+        "stdev": 139386.85856654638
+      },
+      "cold": []
+    },
+    "G_zombies": {
+      "control": {
+        "n": 256,
+        "mean": 284360.17578125,
+        "median": 179214.0,
+        "p95": 179228,
+        "p99": 657049,
+        "max": 25678282,
+        "stdev": 1591024.8345086281
+      },
+      "selected": {
+        "n": 256,
+        "mean": 284383.99609375,
+        "median": 179205.0,
+        "p95": 179239,
+        "p99": 657023,
+        "max": 25675626,
+        "stdev": 1590863.8437736
+      },
+      "reduction_percent": -0.008376810302124227,
+      "active_control": {
+        "n": 255,
+        "mean": 184776.16862745097,
+        "median": 179214,
+        "p95": 179228,
+        "p99": 625249,
+        "max": 657083,
+        "stdev": 50412.88517214035
+      },
+      "active_selected": {
+        "n": 255,
+        "mean": 184810.4980392157,
+        "median": 179205,
+        "p95": 179239,
+        "p99": 631377,
+        "max": 657091,
+        "stdev": 50626.02933831293
+      },
+      "cold": [
+        {
+          "update": 3,
+          "control": 25678282,
+          "selected": 25675626
+        }
+      ]
+    },
+    "I_pistol": {
+      "control": {
+        "n": 256,
+        "mean": 537623.95703125,
+        "median": 537624.0,
+        "p95": 941774,
+        "p99": 941774,
+        "max": 941774,
+        "stdev": 404098.63119061297
+      },
+      "selected": {
+        "n": 256,
+        "mean": 477887.94921875,
+        "median": 477891.5,
+        "p95": 861288,
+        "p99": 861288,
+        "max": 861288,
+        "stdev": 383340.9361351052
+      },
+      "reduction_percent": 11.111113452302456,
+      "active_control": {
+        "n": 256,
+        "mean": 537623.95703125,
+        "median": 537624.0,
+        "p95": 941774,
+        "p99": 941774,
+        "max": 941774,
+        "stdev": 404098.63119061297
+      },
+      "active_selected": {
+        "n": 256,
+        "mean": 477887.94921875,
+        "median": 477891.5,
+        "p95": 861288,
+        "p99": 861288,
+        "max": 861288,
+        "stdev": 383340.9361351052
+      },
+      "cold": []
+    },
+    "I_shotgun": {
+      "control": {
+        "n": 256,
+        "mean": 567491.91796875,
+        "median": 567489.5,
+        "p95": 1041963,
+        "p99": 1041963,
+        "max": 1041963,
+        "stdev": 474380.6437240171
+      },
+      "selected": {
+        "n": 256,
+        "mean": 537623.98828125,
+        "median": 537629.5,
+        "p95": 961753,
+        "p99": 961753,
+        "max": 961753,
+        "stdev": 424028.4805328205
+      },
+      "reduction_percent": 5.263146265484742,
+      "active_control": {
+        "n": 256,
+        "mean": 567491.91796875,
+        "median": 567489.5,
+        "p95": 1041963,
+        "p99": 1041963,
+        "max": 1041963,
+        "stdev": 474380.6437240171
+      },
+      "active_selected": {
+        "n": 256,
+        "mean": 537623.98828125,
+        "median": 537629.5,
+        "p95": 961753,
+        "p99": 961753,
+        "max": 961753,
+        "stdev": 424028.4805328205
+      },
+      "cold": []
+    },
+    "J_lod": {
+      "control": {
+        "n": 256,
+        "mean": 2267511.30078125,
+        "median": 2076983.0,
+        "p95": 2325504,
+        "p99": 10672001,
+        "max": 25684122,
+        "stdev": 1790115.3288843418
+      },
+      "selected": {
+        "n": 256,
+        "mean": 2222853.61328125,
+        "median": 2076990.0,
+        "p95": 2328889,
+        "p99": 7138869,
+        "max": 25691534,
+        "stdev": 1621575.8013458636
+      },
+      "reduction_percent": 1.9694582110622139,
+      "active_control": {
+        "n": 255,
+        "mean": 2175681.4549019607,
+        "median": 2076983,
+        "p95": 2325504,
+        "p99": 9471984,
+        "max": 10982103,
+        "stdev": 1028738.6139376541
+      },
+      "active_selected": {
+        "n": 255,
+        "mean": 2130819.5725490195,
+        "median": 2076990,
+        "p95": 2328889,
+        "p99": 6989462,
+        "max": 7214982,
+        "stdev": 686609.1498110441
+      },
+      "cold": [
+        {
+          "update": 11,
+          "control": 25684122,
+          "selected": 25691534
+        }
+      ]
+    },
+    "L_mixed": {
+      "control": {
+        "n": 256,
+        "mean": 2565736.1328125,
+        "median": 2389902.5,
+        "p95": 3448683,
+        "p99": 6930452,
+        "max": 25705812,
+        "stdev": 1629329.430954056
+      },
+      "selected": {
+        "n": 256,
+        "mean": 2520467.76953125,
+        "median": 2389453.5,
+        "p95": 3246787,
+        "p99": 5784509,
+        "max": 25704142,
+        "stdev": 1541049.9092624008
+      },
+      "reduction_percent": 1.764342120077167,
+      "active_control": {
+        "n": 255,
+        "mean": 2474990.737254902,
+        "median": 2389897,
+        "p95": 3298871,
+        "p99": 6777625,
+        "max": 9865997,
+        "stdev": 746347.7571762411
+      },
+      "active_selected": {
+        "n": 255,
+        "mean": 2429551.4,
+        "median": 2389162,
+        "p95": 3095980,
+        "p99": 5315477,
+        "max": 6895842,
+        "stdev": 517790.1320961172
+      },
+      "cold": [
+        {
+          "update": 19,
+          "control": 25705812,
+          "selected": 25704142
+        }
+      ]
+    },
+    "M_authored": {
+      "control": {
+        "n": 256,
+        "mean": 179208.05859375,
+        "median": 179214.0,
+        "p95": 179225,
+        "p99": 179235,
+        "max": 179235,
+        "stdev": 14.53042619892689
+      },
+      "selected": {
+        "n": 256,
+        "mean": 179207.98046875,
+        "median": 179205.0,
+        "p95": 179228,
+        "p99": 179239,
+        "max": 179239,
+        "stdev": 13.389434725942445
+      },
+      "reduction_percent": 4.35945797350179e-05,
+      "active_control": {
+        "n": 256,
+        "mean": 179208.05859375,
+        "median": 179214.0,
+        "p95": 179225,
+        "p99": 179235,
+        "max": 179235,
+        "stdev": 14.53042619892689
+      },
+      "active_selected": {
+        "n": 256,
+        "mean": 179207.98046875,
+        "median": 179205.0,
+        "p95": 179228,
+        "p99": 179239,
+        "max": 179239,
+        "stdev": 13.389434725942445
+      },
+      "cold": []
+    }
+  },
+  "severe_active": [
+    {
+      "scenario": "J_lod",
+      "update": 4,
+      "control": {
+        "interval_cycles": 10982103,
+        "cold_slot1_instruction_cycles": 0,
+        "native_wall_instruction_cycles": 1148840,
+        "game_gear_input_update_cycles": 244,
+        "world_sprites_update_cycles": 551,
+        "camera_rotate_left_cycles": 0,
+        "camera_rotate_right_cycles": 0,
+        "player_move_combined_cycles": 7431,
+        "game_gear_hud_weapon_update_cycles": 85,
+        "zombie_ai_update_all_cycles": 0,
+        "player_process_interaction_cycles": 210,
+        "red_door_switch_update_cycles": 52,
+        "raycaster_update_cycles": 453469,
+        "zombie_shooting_process_cycles": 0,
+        "SMS_waitForVBlank_cycles": 42322,
+        "game_gear_damage_shake_update_cycles": 156,
+        "game_gear_video_draw_wall_columns_cycles": 10476350,
+        "game_gear_prepare_world_sprites_cycles": 69746,
+        "game_gear_pause_map_show_cycles": 0,
+        "game_gear_video_restore_gameplay_cycles": 0,
+        "game_gear_prepare_cached_world_sprites_cycles": 81273,
+        "wall_plan_prepare_cycles": 55776,
+        "wall_plan_rows_cycles": 1097480,
+        "game_gear_video_present_player_death_cycles": 0,
+        "game_gear_startup_logo_show_cycles": 0,
+        "game_gear_video_initialize_cycles": 0,
+        "world_initialize_cycles": 0,
+        "SMS_VRAMmemcpy_cycles": 103294,
+        "game_gear_overlay_hud_weapon_tile_cycles": 90416,
+        "game_gear_overlay_sprite_tile_cycles": 8582874,
+        "game_gear_build_native_wall_tile_cycles": 1122568,
+        "game_gear_project_world_sprite_cycles": 58133
+      },
+      "selected": {
+        "interval_cycles": 7214982,
+        "cold_slot1_instruction_cycles": 0,
+        "native_wall_instruction_cycles": 1148840,
+        "game_gear_input_update_cycles": 244,
+        "world_sprites_update_cycles": 551,
+        "camera_rotate_left_cycles": 0,
+        "camera_rotate_right_cycles": 0,
+        "player_move_combined_cycles": 7431,
+        "game_gear_hud_weapon_update_cycles": 85,
+        "zombie_ai_update_all_cycles": 0,
+        "player_process_interaction_cycles": 210,
+        "red_door_switch_update_cycles": 52,
+        "raycaster_update_cycles": 453193,
+        "zombie_shooting_process_cycles": 0,
+        "SMS_waitForVBlank_cycles": 5738,
+        "game_gear_damage_shake_update_cycles": 156,
+        "game_gear_video_draw_wall_columns_cycles": 6746089,
+        "game_gear_prepare_world_sprites_cycles": 69746,
+        "game_gear_pause_map_show_cycles": 0,
+        "game_gear_video_restore_gameplay_cycles": 0,
+        "game_gear_prepare_cached_world_sprites_cycles": 81273,
+        "wall_plan_prepare_cycles": 55776,
+        "wall_plan_rows_cycles": 1096376,
+        "game_gear_video_present_player_death_cycles": 0,
+        "game_gear_startup_logo_show_cycles": 0,
+        "game_gear_video_initialize_cycles": 0,
+        "world_initialize_cycles": 0,
+        "SMS_VRAMmemcpy_cycles": 102466,
+        "game_gear_overlay_hud_weapon_tile_cycles": 90692,
+        "game_gear_overlay_sprite_tile_cycles": 4853159,
+        "game_gear_build_native_wall_tile_cycles": 1121464,
+        "game_gear_project_world_sprite_cycles": 58133
+      }
+    },
+    {
+      "scenario": "J_lod",
+      "update": 10,
+      "control": {
+        "interval_cycles": 10672001,
+        "cold_slot1_instruction_cycles": 0,
+        "native_wall_instruction_cycles": 1148840,
+        "game_gear_input_update_cycles": 244,
+        "world_sprites_update_cycles": 524,
+        "camera_rotate_left_cycles": 0,
+        "camera_rotate_right_cycles": 0,
+        "player_move_combined_cycles": 7594,
+        "game_gear_hud_weapon_update_cycles": 85,
+        "zombie_ai_update_all_cycles": 0,
+        "player_process_interaction_cycles": 210,
+        "red_door_switch_update_cycles": 52,
+        "raycaster_update_cycles": 453458,
+        "zombie_shooting_process_cycles": 0,
+        "SMS_waitForVBlank_cycles": 51026,
+        "game_gear_damage_shake_update_cycles": 28,
+        "game_gear_video_draw_wall_columns_cycles": 10157541,
+        "game_gear_prepare_world_sprites_cycles": 69410,
+        "game_gear_pause_map_show_cycles": 0,
+        "game_gear_video_restore_gameplay_cycles": 0,
+        "game_gear_prepare_cached_world_sprites_cycles": 80937,
+        "wall_plan_prepare_cycles": 55776,
+        "wall_plan_rows_cycles": 1096928,
+        "game_gear_video_present_player_death_cycles": 0,
+        "game_gear_startup_logo_show_cycles": 0,
+        "game_gear_video_initialize_cycles": 0,
+        "world_initialize_cycles": 0,
+        "SMS_VRAMmemcpy_cycles": 103294,
+        "game_gear_overlay_hud_weapon_tile_cycles": 90416,
+        "game_gear_overlay_sprite_tile_cycles": 8268349,
+        "game_gear_build_native_wall_tile_cycles": 1122016,
+        "game_gear_project_world_sprite_cycles": 57924
+      },
+      "selected": {
+        "interval_cycles": 7138869,
+        "cold_slot1_instruction_cycles": 0,
+        "native_wall_instruction_cycles": 1148840,
+        "game_gear_input_update_cycles": 244,
+        "world_sprites_update_cycles": 524,
+        "camera_rotate_left_cycles": 0,
+        "camera_rotate_right_cycles": 0,
+        "player_move_combined_cycles": 7594,
+        "game_gear_hud_weapon_update_cycles": 85,
+        "zombie_ai_update_all_cycles": 0,
+        "player_process_interaction_cycles": 210,
+        "red_door_switch_update_cycles": 52,
+        "raycaster_update_cycles": 453458,
+        "zombie_shooting_process_cycles": 0,
+        "SMS_waitForVBlank_cycles": 49734,
+        "game_gear_damage_shake_update_cycles": 28,
+        "game_gear_video_draw_wall_columns_cycles": 6625701,
+        "game_gear_prepare_world_sprites_cycles": 69410,
+        "game_gear_pause_map_show_cycles": 0,
+        "game_gear_video_restore_gameplay_cycles": 0,
+        "game_gear_prepare_cached_world_sprites_cycles": 80937,
+        "wall_plan_prepare_cycles": 56052,
+        "wall_plan_rows_cycles": 1095824,
+        "game_gear_video_present_player_death_cycles": 0,
+        "game_gear_startup_logo_show_cycles": 0,
+        "game_gear_video_initialize_cycles": 0,
+        "world_initialize_cycles": 0,
+        "SMS_VRAMmemcpy_cycles": 102466,
+        "game_gear_overlay_hud_weapon_tile_cycles": 90692,
+        "game_gear_overlay_sprite_tile_cycles": 4739263,
+        "game_gear_build_native_wall_tile_cycles": 1120912,
+        "game_gear_project_world_sprite_cycles": 57924
+      }
+    },
+    {
+      "scenario": "L_mixed",
+      "update": 11,
+      "control": {
+        "interval_cycles": 9865997,
+        "cold_slot1_instruction_cycles": 0,
+        "native_wall_instruction_cycles": 1148840,
+        "game_gear_input_update_cycles": 244,
+        "world_sprites_update_cycles": 3156,
+        "camera_rotate_left_cycles": 0,
+        "camera_rotate_right_cycles": 485,
+        "player_move_combined_cycles": 7769,
+        "game_gear_hud_weapon_update_cycles": 85,
+        "zombie_ai_update_all_cycles": 58525,
+        "player_process_interaction_cycles": 210,
+        "red_door_switch_update_cycles": 52,
+        "raycaster_update_cycles": 530816,
+        "zombie_shooting_process_cycles": 0,
+        "SMS_waitForVBlank_cycles": 1964,
+        "game_gear_damage_shake_update_cycles": 156,
+        "game_gear_video_draw_wall_columns_cycles": 9261255,
+        "game_gear_prepare_world_sprites_cycles": 266781,
+        "game_gear_pause_map_show_cycles": 0,
+        "game_gear_video_restore_gameplay_cycles": 0,
+        "game_gear_prepare_cached_world_sprites_cycles": 283189,
+        "wall_plan_prepare_cycles": 56052,
+        "wall_plan_rows_cycles": 1098032,
+        "game_gear_video_present_player_death_cycles": 0,
+        "game_gear_startup_logo_show_cycles": 0,
+        "game_gear_video_initialize_cycles": 0,
+        "world_initialize_cycles": 0,
+        "SMS_VRAMmemcpy_cycles": 103018,
+        "game_gear_overlay_hud_weapon_tile_cycles": 90140,
+        "game_gear_overlay_sprite_tile_cycles": 7010078,
+        "game_gear_build_native_wall_tile_cycles": 1123120,
+        "game_gear_project_world_sprite_cycles": 226620
+      },
+      "selected": {
+        "interval_cycles": 6895842,
+        "cold_slot1_instruction_cycles": 0,
+        "native_wall_instruction_cycles": 1148840,
+        "game_gear_input_update_cycles": 244,
+        "world_sprites_update_cycles": 3156,
+        "camera_rotate_left_cycles": 0,
+        "camera_rotate_right_cycles": 485,
+        "player_move_combined_cycles": 7493,
+        "game_gear_hud_weapon_update_cycles": 85,
+        "zombie_ai_update_all_cycles": 58525,
+        "player_process_interaction_cycles": 210,
+        "red_door_switch_update_cycles": 52,
+        "raycaster_update_cycles": 531092,
+        "zombie_shooting_process_cycles": 0,
+        "SMS_waitForVBlank_cycles": 26308,
+        "game_gear_damage_shake_update_cycles": 156,
+        "game_gear_video_draw_wall_columns_cycles": 6266756,
+        "game_gear_prepare_world_sprites_cycles": 266781,
+        "game_gear_pause_map_show_cycles": 0,
+        "game_gear_video_restore_gameplay_cycles": 0,
+        "game_gear_prepare_cached_world_sprites_cycles": 283189,
+        "wall_plan_prepare_cycles": 56052,
+        "wall_plan_rows_cycles": 1098308,
+        "game_gear_video_present_player_death_cycles": 0,
+        "game_gear_startup_logo_show_cycles": 0,
+        "game_gear_video_initialize_cycles": 0,
+        "world_initialize_cycles": 0,
+        "SMS_VRAMmemcpy_cycles": 102742,
+        "game_gear_overlay_hud_weapon_tile_cycles": 90968,
+        "game_gear_overlay_sprite_tile_cycles": 4013379,
+        "game_gear_build_native_wall_tile_cycles": 1123396,
+        "game_gear_project_world_sprite_cycles": 226620
+      }
+    }
+  ],
+  "max_stack": {
+    "control": 383,
+    "selected": 383
+  }
+}

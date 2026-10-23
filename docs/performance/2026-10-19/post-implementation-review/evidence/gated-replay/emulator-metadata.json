@@ -1,0 +1,13 @@
+{
+  "rom_sha256": "bf7374e5631d87a48373ccdb574ca58205575a5824e1ad381bdeb6eff2437eb0",
+  "emulicious_sha256": "db185a1ed0af3bdab5ebdeb254612d02d3848bac155dbc89333d1b04e21c371d",
+  "cycles_per_frame": 59736,
+  "cycles_per_second": 3579545,
+  "samples_per_scenario": 256,
+  "warmup": 32,
+  "route_length": 16,
+  "route_mode": "frozen repeating route independent of sample count",
+  "driver": "EmulationRunner.java, ECJ 3.26.0, actual retired opcode events; emulator unmodified",
+  "pinned_reset_timer": 228,
+  "method": "Unmodified installed Emulicious CPU and VDP. executeOnce(0), elapsed=-return. RAM-seeded scenarios after cloned boot; physical input via SMSJoypad provider. No wall-clock timing."
+}

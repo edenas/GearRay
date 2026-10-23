@@ -1,0 +1,23 @@
+{
+  "cases": 48384,
+  "mismatches": 0,
+  "changed_cases": 3335,
+  "digest": "022e2f6b53711579f4e5633cc0db516aa8d059a24c32125f1840c94c14c9ee77",
+  "roms": {
+    "exact": "6038f7a8d0f644254122cd567c48fac4fc3b8b6b36d8ac1842f3a2691580c0ed",
+    "span": "e0fcfdd6fae28794fed9b56cd256d27fcd029248a9a8da846c12bb05dbf05566"
+  },
+  "costs": {
+    "exact": {
+      "min": 4707,
+      "max": 221359,
+      "sum": 1798769088
+    },
+    "span": {
+      "min": 9637,
+      "max": 83867,
+      "sum": 1223189428
+    }
+  },
+  "coverage": "8/16/32 sources; actual near-ID indirection; all 16 synthetic palette values including alpha15; negative/edge/offscreen/large bounds; mixed 4-pixel rays; wall depth below/equal/above; four backgrounds; every viewport tile; guard bytes and callee stack cleanup"
+}

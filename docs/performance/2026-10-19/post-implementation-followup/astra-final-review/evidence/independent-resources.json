@@ -1,0 +1,293 @@
+{
+  "variants": {
+    "control": {
+      "rom": "D:\\mano_projektai\\GearRay\\build-astra-final-control-source\\rom\\GearRay-astra-final-control.gg",
+      "sha256": "e0fcfdd6fae28794fed9b56cd256d27fcd029248a9a8da846c12bb05dbf05566",
+      "mapped_ihx_bytes": 51523,
+      "payload_matches": true,
+      "no_physical_aliases": true,
+      "summary": {
+        "Banks": [
+          {
+            "Bank": 0,
+            "Used": 12961,
+            "Free": 3423
+          },
+          {
+            "Bank": 1,
+            "Used": 14217,
+            "Free": 2151
+          },
+          {
+            "Bank": 2,
+            "Used": 11737,
+            "Free": 4647
+          },
+          {
+            "Bank": 3,
+            "Used": 12756,
+            "Free": 3628
+          }
+        ],
+        "LinkedExtentSum": 51671,
+        "PersistentRAM": 1538,
+        "DataEnd": 50690,
+        "ROMBytes": 65536,
+        "SHA256": "E0FCFDD6FAE28794FED9B56CD256D27FCD029248A9A8DA846C12BB05DBF05566",
+        "ModuleCount": 54,
+        "HelperSites": 37,
+        "BankCallSites": 8,
+        "EmittedIHXBytes": 51523
+      },
+      "stack": [
+        {
+          "Root": "main",
+          "Path": "main::main -> video_initialization::game_gear_video_restore_gameplay -> video::game_gear_video_draw_wall_columns -> sprite_projection::game_gear_prepare_cached_world_sprites -> sprite_projection::game_gear_prepare_world_sprites -> sprite_projection::game_gear_project_world_sprite -> mulsint2slong",
+          "Bytes": 588
+        },
+        {
+          "Root": "raycaster_update",
+          "Path": "raycaster::raycaster_update -> raycaster::cast_ray -> raycaster::dda_get_side_distance -> mullong",
+          "Bytes": 226
+        },
+        {
+          "Root": "game_gear_video_draw_wall_columns",
+          "Path": "video::game_gear_video_draw_wall_columns -> sprite_projection::game_gear_prepare_cached_world_sprites -> sprite_projection::game_gear_prepare_world_sprites -> sprite_projection::game_gear_project_world_sprite -> mulsint2slong",
+          "Bytes": 570
+        },
+        {
+          "Root": "zombie_shooting_process",
+          "Path": "zombie_shooting::zombie_shooting_process -> zombie_shooting::zombie_shooting_find_aimed_target -> mulsint2slong",
+          "Bytes": 164
+        },
+        {
+          "Root": "zombie_ai_update_all",
+          "Path": "zombie_ai::zombie_ai_update_all -> zombie_ai::zombie_ai_move -> zombie_ai::zombie_ai_position_is_clear -> enemy_collision::enemy_position_is_walkable -> world::world_is_wall -> door_instances::door_instance_find_at -> ",
+          "Bytes": 166
+        },
+        {
+          "Root": "game_gear_pause_map_show",
+          "Path": "pause_map::game_gear_pause_map_show -> pause_map::load_ui -> pause_map::load_arrows -> SMS_load1bppTiles",
+          "Bytes": 222
+        },
+        {
+          "Root": "game_gear_video_restore_gameplay",
+          "Path": "video_initialization::game_gear_video_restore_gameplay -> video::game_gear_video_draw_wall_columns -> sprite_projection::game_gear_prepare_cached_world_sprites -> sprite_projection::game_gear_prepare_world_sprites -> sprite_projection::game_gear_project_world_sprite -> mulsint2slong",
+          "Bytes": 574
+        },
+        {
+          "Root": "player_process_interaction",
+          "Path": "player::player_process_interaction -> world_interactions::world_interact -> world_sprite::world_sprites_crush_in_door -> zombie_corpses::zombie_corpses_crush_in_door -> zombie_corpses::zombie_corpses_merge -> world_sprite::world_sprite_remove -> memcpy",
+          "Bytes": 184
+        }
+      ],
+      "kernel": {
+        "Module": "video",
+        "Function": "game_gear_overlay_sprite_tile",
+        "Area": "_CODE",
+        "Frequency": "A/B: frame/column/tile/pixel presentation; dirty gate controls composition",
+        "ExplicitFrame": "38",
+        "SmallFrame": "0",
+        "Instructions": "463",
+        "OwnPushBound": "42"
+      },
+      "generated_count": 71,
+      "ports": [],
+      "mapper": []
+    },
+    "selected": {
+      "rom": "D:\\mano_projektai\\GearRay\\rom\\GearRay-astra-final-selected.gg",
+      "sha256": "3632006ed68fcbcbacf9aa693c92560520df496e1e4ac23cf2cb6e1df88d3340",
+      "mapped_ihx_bytes": 51427,
+      "payload_matches": true,
+      "no_physical_aliases": true,
+      "summary": {
+        "Banks": [
+          {
+            "Bank": 0,
+            "Used": 12865,
+            "Free": 3519
+          },
+          {
+            "Bank": 1,
+            "Used": 14217,
+            "Free": 2151
+          },
+          {
+            "Bank": 2,
+            "Used": 11737,
+            "Free": 4647
+          },
+          {
+            "Bank": 3,
+            "Used": 12756,
+            "Free": 3628
+          }
+        ],
+        "LinkedExtentSum": 51575,
+        "PersistentRAM": 1538,
+        "DataEnd": 50690,
+        "ROMBytes": 65536,
+        "SHA256": "3632006ED68FCBCBACF9AA693C92560520DF496E1E4AC23CF2CB6E1DF88D3340",
+        "ModuleCount": 54,
+        "HelperSites": 37,
+        "BankCallSites": 8,
+        "EmittedIHXBytes": 51427
+      },
+      "stack": [
+        {
+          "Root": "main",
+          "Path": "main::main -> video_initialization::game_gear_video_restore_gameplay -> video::game_gear_video_draw_wall_columns -> sprite_projection::game_gear_prepare_cached_world_sprites -> sprite_projection::game_gear_prepare_world_sprites -> sprite_projection::game_gear_project_world_sprite -> mulsint2slong",
+          "Bytes": 590
+        },
+        {
+          "Root": "raycaster_update",
+          "Path": "raycaster::raycaster_update -> raycaster::cast_ray -> raycaster::dda_get_side_distance -> mullong",
+          "Bytes": 226
+        },
+        {
+          "Root": "game_gear_video_draw_wall_columns",
+          "Path": "video::game_gear_video_draw_wall_columns -> sprite_projection::game_gear_prepare_cached_world_sprites -> sprite_projection::game_gear_prepare_world_sprites -> sprite_projection::game_gear_project_world_sprite -> mulsint2slong",
+          "Bytes": 572
+        },
+        {
+          "Root": "zombie_shooting_process",
+          "Path": "zombie_shooting::zombie_shooting_process -> zombie_shooting::zombie_shooting_find_aimed_target -> mulsint2slong",
+          "Bytes": 164
+        },
+        {
+          "Root": "zombie_ai_update_all",
+          "Path": "zombie_ai::zombie_ai_update_all -> zombie_ai::zombie_ai_move -> zombie_ai::zombie_ai_position_is_clear -> enemy_collision::enemy_position_is_walkable -> world::world_is_wall -> door_instances::door_instance_find_at -> ",
+          "Bytes": 166
+        },
+        {
+          "Root": "game_gear_pause_map_show",
+          "Path": "pause_map::game_gear_pause_map_show -> pause_map::load_ui -> pause_map::load_arrows -> SMS_load1bppTiles",
+          "Bytes": 222
+        },
+        {
+          "Root": "game_gear_video_restore_gameplay",
+          "Path": "video_initialization::game_gear_video_restore_gameplay -> video::game_gear_video_draw_wall_columns -> sprite_projection::game_gear_prepare_cached_world_sprites -> sprite_projection::game_gear_prepare_world_sprites -> sprite_projection::game_gear_project_world_sprite -> mulsint2slong",
+          "Bytes": 576
+        },
+        {
+          "Root": "player_process_interaction",
+          "Path": "player::player_process_interaction -> world_interactions::world_interact -> world_sprite::world_sprites_crush_in_door -> zombie_corpses::zombie_corpses_crush_in_door -> zombie_corpses::zombie_corpses_merge -> world_sprite::world_sprite_remove -> memcpy",
+          "Bytes": 184
+        }
+      ],
+      "kernel": {
+        "Module": "video",
+        "Function": "game_gear_overlay_sprite_tile",
+        "Area": "_CODE",
+        "Frequency": "A/B: frame/column/tile/pixel presentation; dirty gate controls composition",
+        "ExplicitFrame": "38",
+        "SmallFrame": "0",
+        "Instructions": "424",
+        "OwnPushBound": "42"
+      },
+      "generated_count": 71,
+      "ports": [],
+      "mapper": []
+    }
+  },
+  "generated_payloads_identical": true,
+  "validators": [
+    {
+      "Validator": "validate_bank_call_topology",
+      "ExitCode": 0
+    },
+    {
+      "Validator": "validate_bank_layout",
+      "ExitCode": 0
+    },
+    {
+      "Validator": "validate_corpse_persistence",
+      "ExitCode": 0
+    },
+    {
+      "Validator": "validate_door_crush",
+      "ExitCode": 0
+    },
+    {
+      "Validator": "validate_final_controls",
+      "ExitCode": 0
+    },
+    {
+      "Validator": "validate_game_over",
+      "ExitCode": 0
+    },
+    {
+      "Validator": "validate_health_hud",
+      "ExitCode": 0
+    },
+    {
+      "Validator": "validate_middle_zombie",
+      "ExitCode": 0
+    },
+    {
+      "Validator": "validate_native_wall",
+      "ExitCode": 0
+    },
+    {
+      "Validator": "validate_near_zombie",
+      "ExitCode": 0
+    },
+    {
+      "Validator": "validate_palette_usage",
+      "ExitCode": 0
+    },
+    {
+      "Validator": "validate_pause_map",
+      "ExitCode": 0
+    },
+    {
+      "Validator": "validate_ray_direction_rebuild",
+      "ExitCode": 0
+    },
+    {
+      "Validator": "validate_renderer_equivalence",
+      "ExitCode": 0
+    },
+    {
+      "Validator": "validate_shotgun_combat",
+      "ExitCode": 0
+    },
+    {
+      "Validator": "validate_sprite_renderer",
+      "ExitCode": 0
+    },
+    {
+      "Validator": "validate_startup_order",
+      "ExitCode": 0
+    },
+    {
+      "Validator": "validate_weapon_assets",
+      "ExitCode": 0
+    },
+    {
+      "Validator": "validate_weapon_runtime",
+      "ExitCode": 0
+    },
+    {
+      "Validator": "validate_workshop_map",
+      "ExitCode": 0
+    },
+    {
+      "Validator": "validate_z80_hardening",
+      "ExitCode": 0
+    },
+    {
+      "Validator": "validate_zombie_ai",
+      "ExitCode": 0
+    },
+    {
+      "Validator": "validate_zombie_attack",
+      "ExitCode": 0
+    },
+    {
+      "Validator": "validate_zombie_shooting",
+      "ExitCode": 0
+    }
+  ]
+}

@@ -1,58 +1,37 @@
-# GearRay current behavior and architecture
+# Current gameplay behavior
 
-This is the source of truth for the current working game. Dated sprint and checkpoint documents are historical evidence and may describe superseded code.
+This page owns gameplay contracts. [Architecture](ENGINE_ARCHITECTURE.md), [banking](ROM_BANKING.md) and [measurements](PERFORMANCE_BASELINE.md) own implementation/resource details.
 
-## Gameplay contracts
+## Input and movement
 
-- The player starts with the pistol.
-- The first shotgun pickup grants ownership and immediately equips the shotgun.
-- Touching an already-owned pickup preserves the current weapon selection.
-- Firing is press-edge driven; held input does not auto-fire.
-- The renderer supports eight zombie slots plus the independent shotgun pickup.
-- Out-of-bounds map coordinates behave as solid VOID. Doors keep their registered open/closed collision behavior.
+Up/Down move forward/backward; Left/Right rotate. Button 2 with Left/Right strafes. A non-strafe Button 2 press/release requests interaction on release. Button 1 fires on a fresh edge; held input does not auto-fire. START requests pause on a fresh edge. `input_blocked` retains UI-held gameplay buttons until release, preventing UI holds from becoming gameplay actions.
 
-## Z80 and banking contracts
+Movement uses signed fixed-point coordinates with scale 256, speed 74 per completed movement update and radius 32. Forward/backward and strafe use the current direction/plane; combined diagonal movement uses the existing 177/256 normalization. Collision tests the four radius corners against walls and closed doors, moving X then Y to permit sliding. Out-of-bounds world access is solid VOID. Rotation follows the exact legacy camera graph; there is no new uniform-angle approximation.
 
-- Bank 0 contains resident main-loop, raycaster, and renderer code.
-- CPU slot 1 normally maps page 1. Hot Bank 1 entries use direct calls under that invariant. True page switches, including startup logo and game-over presentation in Bank 3, retain SDCC banked dispatch.
-- CPU slot 2 normally maps page 2. Pause, corpse management, camera graph and near-sprite data use that page. Native wall composition maps page 3 in slot 2, consumes its plans/tables there, then restores page 2 before sprites or a public return. Cold Bank 3 logo/Game Over code still uses slot 1; the two physical regions are disjoint.
-- The current ROM is 64 KiB. Supported ROM size is derived from the image and SEGA header; 64 KiB and four populated banks are current measurements rather than permanent ceilings.
-- Bank capacity and placement are hard failures. Free-space targets are planning warnings.
+## Weapons and pickup
 
-## Timing and presentation
+The player starts with the pistol. Two weapon IDs and an owned mask represent pistol/shotgun. The independent shotgun world pickup does not consume a zombie slot. First pickup acquisition grants ownership, immediately equips shotgun and clears the old pose before accepting a fresh fire edge from that update. Already-owned pickup state does not switch selection.
 
-Production retains one gameplay update per completed main loop and one all-actor AI update every four gameplay updates. HUD/actor timers and movement constants retain their per-update meanings. Workload determines wall-clock speed; the display refresh counter is not gameplay FPS. Live pattern uploads can expose intermediate frames. Physical pulses can still fall between main-loop polls.
+The held HUD uses a two-update firing pose. Combat resolves the previous update's pending shot against the current camera/world/rays, then latches the current fire request. Pause does not advance this pending work. The pistol acquires the nearest qualifying projected target, respects wall occlusion and uses the preserved 12/6/4/3 damage bands. Shotgun tests three screen-space lines against the same projected body footprint, applies its 12/6/2 bands and preserves strict wall-depth ties. These are bounded gameplay rules, not a general physics or ammunition system. Ammo, audio and progression are not implemented by this cleanup.
 
-The fixed-divisor and frozen/back-buffer implementations remain isolated experiments. Divisor 12 passes the measured combat scheduler workload but has substantial visual age; divisors 4 and 6 miss deadlines. No fixed cadence, directional-tap synthesis or minimum-visible-pose policy is enabled in production. See the [implementation report](performance/2026-10-19/IMPLEMENTATION_REPORT.md).
+## Zombies, health and corpses
 
-## Production hot-path decisions
+`WorldSprite` is **9 bytes** under the accepted toolchain. Capacity is **8** records (72 storage bytes), plus a separate renderer entry for the pickup. The world contains only the existing zombie implementation; zombie_02 is **art only**.
 
-- Ray hit offsets use exact 16-bit modular arithmetic.
-- Player movement uses bounded signed 16-bit intermediates.
-- `world_is_wall` relies on the bounds-safe tile accessor rather than repeating its guard.
-- Shooting rejects candidates farther than the current nearest target before wall sampling.
-- Sprite projection snapshots camera invariants once per frame and passes them as scalars to the per-entity projector.
-- HUD native masks are generated from current packed artwork and asserted layout metadata; alpha remains no-overwrite.
-- Camera turns use the exact generated 242-state/484-edge legacy transition graph, not uniform angles.
-- Complete wall rays are reused only for identical six-value pose and three-door geometry. Resolved switch material changes update terminal materials without DDA. Initialization invalidates the cache.
-- Native walls use generated exact source-row schedules and palette columns; the old scalar sampler is test evidence only.
-- The sprite compositor prepares horizontal source/depth visibility once per tile and merges four planes by row.
-- Completed sprite preparation is reused only when pose, every live actor byte/count, pickup state/cells and all wall depths match. Initialization invalidates it; AI still runs for all actors.
-- Invisible projected sprites are compared and ordered without reading irrelevant fields.
+Sprite timers update each completed gameplay update. All live actors remain eligible for AI, including offscreen actors; the all-actor AI pass occurs every fourth completed update. Awareness uses distance hysteresis (activation 963, loss 1260) and line of sight. Chase state, hit counts, attack cooldown and walking/attack phases use the existing packed fields/masks. Door-aware movement separates the player and living zombies.
 
-## Authoritative weapon artwork
+Player health starts at 100. Melee includes distance 280, applies 20 damage, updates health HUD and damage shake, and retains the existing two-AI-tick cooldown/presentation rules. A lethal pass exits before interaction/raycast/drawing continues. Zombies have cumulative health 12, temporary hit/death presentations and persistent corpse state. Nearby corpse merging and door crushing keep bounded storage; hidden/distant corpse LOD does not delete the underlying gameplay state. No offscreen-AI deletion is enabled.
 
-- `assets/sprites/weapons/shotgun.png` is the authoritative 16x16 pause icon.
-- `shotgun_held.png` and `shotgun_held_shoot.png` are the authoritative 20x16 held idle/fire sources. They are presented at 2x without changing HUD anchoring or timing.
-- `pick_up_shotgun.png` remains the independent world-pickup source. Pause, held, and world-pickup artwork are not interchangeable.
-- Transparent source pixels are no-overwrite pixels. Validators compare generated payloads and composites to the current sources instead of freezing historical opaque masks.
+## Doors, switch, death and restart
 
-## Current measured Release
+Standard registered doors toggle via the interaction ray. Closing is prevented when the player's collision extent occupies the target doorway; zombie/corpse crushing retains its current relocation/merge rules. The red door is controlled by its switch, not direct door interaction. Switch animation changes terminal materials and preserves geometry unless door state changes.
 
-The 2026-10-19 optimized Release is `rom/GearRay-implementation-production.gg`, 65,536 bytes, SHA-256 `E0FCFDD6FAE28794FED9B56CD256D27FCD029248A9A8DA846C12BB05DBF05566`. Linked bank extents are 12,961 / 14,217 / 11,737 / 12,756 bytes; Bank 3 includes a 3-byte alignment gap. Static RAM is 1,538 bytes, with a 1,024-byte stack reserve. Production VRAM allocation is unchanged. All 24 validators pass. Physical Game Gear validation of these changes remains pending.
+At death the pending shot is cleared, the timed Game Over presentation runs, and the outer initialization loop shows the startup logo and recreates the authored world/player/camera/input/weapon state. Health returns to 100 and the selected weapon to pistol. Restart clears processed keys, previous_keys and input_blocked to zero. The first gameplay poll reads the current hardware state, so a still-held Button 1 can become a fresh processed fire edge. No gameplay action queue survives restart. Game-over timing and the compiled restart playthrough are tested separately.
 
-The preserved pre-implementation baseline is SHA-256 `6322EFCC0434AD8D4FC3F066CED47E0A1FB4CDB140D6DA8654521E3834371136`, 65,536 bytes, bank extents 15,629 / 13,516 / 9,317 / 4,605 and static RAM 1,239 bytes. Historical checkpoint hashes describe their own snapshots.
+## Pause map and weapon selection
 
-`WorldSprite` remains 9 bytes, zombie capacity remains 8, and the renderer's ninth projected entry is reserved for the independent pickup.
+START enters the blocking pause UI; a fresh START edge leaves it. Holding START does not repeatedly enter/exit. The UI starts in weapon focus. Left/Right select an owned weapon circularly. Up selects map focus; Down returns weapon focus. Button 1 on map focus enters map browsing; directions pan with existing repeat delay and Button 2 leaves browsing. The map displays the current player orientation and corpse markers.
 
-Run `build.bat`, `tools/validate_z80_hardening.ps1`, and `tools/validate_bank_call_topology.ps1` after changing these contracts.
+Gameplay timers, AI divider, positions, pending shot, health and simulation state freeze during UI polls. Weapon selection is intentional UI state. On exit, held gameplay buttons are blocked until release; processed key history cannot turn a Button 2 release into interaction. Restore blanks/rebuilds display and renderer caches using frozen rays, restores health/HUD/shake and returns to the normal loop without a gameplay tick or session reinitialization.
+
+Production timing is one update per completed synchronous loop. Rendering cost changes real-time speed; display 60 FPS is not gameplay 60 updates/s. Complete interactive A/B and physical Game Gear qualification remain pending. See [TESTING](TESTING.md) for the distinction between host, compiled, GUI and hardware evidence.

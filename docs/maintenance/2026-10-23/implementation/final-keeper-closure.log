@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "catalog_sha256": "9da63d94a2ee5bbec8428364da091551ae7e097eea5574c108a3cd53fba2688c",
+  "removal_manifest_sha256": "944470dd81d7f511423d38b17f93aae68341ab983595ecef61185bb9e39b2fdf",
+  "keepers_verified": 7165,
+  "aliases": 32760,
+  "all_candidates_have_stable_keeper": true,
+  "migration_replay_records": 2880,
+  "restored_graphics_cases": 48384,
+  "scalar_wrapper_cases": 20480,
+  "cooperative_hashes": 3711,
+  "unique_source_restores": [
+    "span video.c",
+    "wall native_wall.c/video.c/validator",
+    "mixed build pause-baseline-main.asm"
+  ],
+  "protected_source_and_art_unchanged": true,
+  "restore_safety_cases": 12
+}

@@ -1,0 +1,27 @@
+[
+    {
+        "Verified":  true,
+        "Case":  "legitimate-production-main",
+        "ExpectedPass":  true
+    },
+    {
+        "Verified":  true,
+        "Case":  "unlinked-main-snapshot",
+        "ExpectedPass":  true
+    },
+    {
+        "Verified":  true,
+        "Case":  "unexpected-gameplay",
+        "ExpectedPass":  false
+    },
+    {
+        "Verified":  true,
+        "Case":  "unexpected-pause",
+        "ExpectedPass":  false
+    },
+    {
+        "Verified":  true,
+        "Case":  "unchanged-production-restored",
+        "ExpectedPass":  true
+    }
+]

@@ -1,4 +1,4 @@
-param([string]$BuildDirectory = "build")
+param([string]$BuildDirectory = "build/release")
 
 $ErrorActionPreference = "Stop"
 Add-Type -AssemblyName System.Drawing

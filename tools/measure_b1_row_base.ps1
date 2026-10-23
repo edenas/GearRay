@@ -1,5 +1,8 @@
-param([string]$OutputPath='build/post-audit-b1-measurement.json')
+# Historical optional compile experiment; excluded from Release/validation.
+param([string]$OutputPath='build/experiments/row-base/measurement.json')
 $ErrorActionPreference='Stop'
+$root=Split-Path $PSScriptRoot -Parent
+if(![IO.Path]::IsPathRooted($OutputPath)) {$OutputPath=Join-Path $root $OutputPath}
 function Measure-Case([string]$Name,[int]$Left,[int]$Right,[int]$Top,[int]$Bottom,[int]$Column,[int]$Row,[int[]]$VisibleRay,[int]$Instances=1,[bool]$Dirty=$true) {
     $old=0;$new=0
     if($Dirty) {

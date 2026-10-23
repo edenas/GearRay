@@ -1,0 +1,76 @@
+{
+  "head": "bf89ea9c6f340a919e68e8059c0c005dff237f78",
+  "rom_sha256": "e0fcfdd6fae28794fed9b56cd256d27fcd029248a9a8da846c12bb05dbf05566",
+  "sections": {
+    "BANK1": {
+      "start": 81920,
+      "length": 14217
+    },
+    "BANK2": {
+      "start": 163840,
+      "length": 11737
+    },
+    "BANK3": {
+      "start": 212992,
+      "length": 4605
+    },
+    "BANK3WALL": {
+      "start": 233984,
+      "length": 8148
+    },
+    "DATA": {
+      "start": 49152,
+      "length": 1533
+    },
+    "INITIALIZED": {
+      "start": 50685,
+      "length": 5
+    }
+  },
+  "bank0_extent": 12961,
+  "bank3_physical_range": [
+    [
+      49152,
+      53757
+    ],
+    [
+      53760,
+      61908
+    ]
+  ],
+  "bank3_gap": 3,
+  "bank3_extent": 12756,
+  "static_ram": 1538,
+  "stack_reserve": 1024,
+  "stack_reserve_floor": 56304,
+  "persistent_end": 50690,
+  "payload_bytes_compared": 51507,
+  "physical_aliases": [],
+  "payload_mismatches": [],
+  "header_hex": "544d522053454741ffffbc4e0000007e",
+  "hashes": {
+    "D:\\mano_projektai\\GearRay\\rom\\GearRay.gg": "6322efcc0434ad8d4fc3f066ced47e0a1fb4cdb140d6da8654521e3834371136",
+    "D:\\mano_projektai\\GearRay\\rom\\GearRay-verified-20261019.gg": "e0fcfdd6fae28794fed9b56cd256d27fcd029248a9a8da846c12bb05dbf05566",
+    "D:\\Emulicious-with-Java64\\Emulicious.jar": "db185a1ed0af3bdab5ebdeb254612d02d3848bac155dbc89333d1b04e21c371d",
+    "D:\\Tools\\devkitSMS\\SMSlib\\SMSlib_GG.lib": "e08252918ae80e8ee737e3d68d2237268ae6a27eda3fc4b79d29a2111f0d3f43",
+    "D:\\Tools\\devkitSMS\\crt0\\crt0_sms.rel": "3bc7bbedf2e6f150d2c13d2e10857813d1ece9d348b814de2a1119f34c473b24",
+    "D:\\mano_projektai\\GearRay\\build-implementation-baseline\\ecj-3.26.0.jar": "ac0ba5876eaf7ebb47749a0d1be179c51f194b9dd0b875d1c09e1b530f5a2db5"
+  },
+  "archives": {
+    "production-final-source.zip": {
+      "entries": 432,
+      "crc_ok": true,
+      "sha256": "2adf98ba94730f638705712fbf3b1bc13d6c3d88f5712dfcd89652e0ac9c6e2b"
+    },
+    "architecture-trace-evidence.zip": {
+      "entries": 3290,
+      "crc_ok": true,
+      "sha256": "51d5be859155442886cdd8464fd37fd15e84bc418d796bc8f46605b4b705c38f"
+    },
+    "production-replay-evidence.zip": {
+      "entries": 24,
+      "crc_ok": true,
+      "sha256": "d575ef1ee6b457c284345837d1f22b25cec04c30e3b7210b7dcf58ea2cd96693"
+    }
+  }
+}

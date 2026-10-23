@@ -1,0 +1,10 @@
+{
+  "scope": "Freshly observed supporting runtime binaries before publication; initial seven baseline tool hashes and version outputs remain separately recorded.",
+  "sha256": {
+    "C:\\Users\\edena\\AppData\\Local\\Programs\\Python\\Python312\\python.exe": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+    "D:\\Emulicious-with-Java64\\java\\bin\\java.exe": "271f0bcfe6db1b8c86cd4d63bd7685d9178f8e6cd215e37e1dfb9938fc686b4f",
+    "D:\\Emulicious-with-Java64\\java\\bin\\server\\jvm.dll": "44cf8c3d55eb3319c93e37ba0b9209fb19043353384f543b567d01de720ba4ec",
+    "D:\\Emulicious-with-Java64\\java\\lib\\rt.jar": "4cb8c181271324b176663eec241b809d4e59f56092138927a59e68e34d5adcf0",
+    "D:\\mano_projektai\\GearRay\\tools\\.cache\\performance\\ecj-3.26.0.jar": "ac0ba5876eaf7ebb47749a0d1be179c51f194b9dd0b875d1c09e1b530f5a2db5"
+  }
+}

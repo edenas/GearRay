@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "D:\mano_projektai\GearRay\docs\performance\2026-10-19\post-implementation-followup\astra-final-review\evidence\renderer_transitions.py", line 81, in <module>
+    assert all(r['changed_bytes']>0 for r in all_records if r['case'] in ['appear','move-left','move-right','near-overlap','pickup-only','remove-all'])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

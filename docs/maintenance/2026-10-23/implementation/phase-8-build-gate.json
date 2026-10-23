@@ -1,0 +1,8 @@
+{
+  "validators": 24,
+  "fresh_release": true,
+  "profile_did_not_clobber_release": true,
+  "canonical_sha256": "3632006ED68FCBCBACF9AA693C92560520DF496E1E4AC23CF2CB6E1DF88D3340",
+  "status": "PASS",
+  "launcher_other_cwd": "D:\\mano_projektai\\GearRay\\build\\maintenance\\launcher-cwd"
+}

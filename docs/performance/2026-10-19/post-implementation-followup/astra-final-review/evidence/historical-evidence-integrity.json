@@ -1,0 +1,21 @@
+{
+  "files_verified": 132,
+  "source_entries_verified": 236,
+  "archives": [
+    {
+      "file": "current-inputs-before.zip",
+      "entries": 216,
+      "sha256": "46d8165f0405f1d190a425890eb2904fe6e8b79092a89fdd488ddf15f87dae3f"
+    },
+    {
+      "file": "row-source-and-build.zip",
+      "entries": 454,
+      "sha256": "2ffaa4c49e5fc254b34135108964648a3fb47ecdb5a686f078928f19d2146505"
+    },
+    {
+      "file": "selected-source-and-build.zip",
+      "entries": 1557,
+      "sha256": "72e0658e8bd5d77eddb46b49bf511a8dcacc482860b9bb42ca9fdeb4aef3e695"
+    }
+  ]
+}

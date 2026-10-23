@@ -85,7 +85,7 @@ static unsigned char game_gear_sprite_covers_tile(
         && sprite->top < tile_top + 8;
 }
 
-/* Exact per-tile horizontal span and native row-plane merging experiment. */
+/* Exact per-tile horizontal span and native foreground row-plane reuse. */
 static void game_gear_overlay_sprite_tile(
     unsigned char *destination,unsigned char tile_column,unsigned char tile_row,
     const GameGearProjectedSprite *projected,const RaycasterRay *rays)
@@ -98,6 +98,7 @@ static void game_gear_overlay_sprite_tile(
     signed int tile_left=tile_column*8,tile_top=tile_row*8,screen_x,screen_y;
     unsigned int texture_x,texture_y;
     unsigned char source_x[8],pixel_x,pixel_y,palette_index,mask,keep,b0,b1,b2,b3;
+    unsigned char last_source_y=255;
     const unsigned char *source_row;
     for(pixel_x=0;pixel_x<8;++pixel_x) {
         screen_x=tile_left+pixel_x;source_x[pixel_x]=255;
@@ -112,16 +113,22 @@ static void game_gear_overlay_sprite_tile(
         if(screen_y<projected->top || screen_y>=projected->bottom) continue;
         texture_y=((unsigned int)(screen_y-projected->top)*projected->texture_step)>>8;
         if(texture_y>=source_size) texture_y=source_size-1;
-        source_row=pixels+texture_y*packed_row_stride;
-        keep=255;b0=b1=b2=b3=0;
-        for(pixel_x=0;pixel_x<8;++pixel_x) {
-            texture_x=source_x[pixel_x];if(texture_x==255) continue;
-            palette_index=source_row[texture_x>>1];
-            if(texture_x&1) palette_index&=15;else palette_index>>=4;
-            if(palette_index==SPRITE_TRANSPARENT_INDEX) continue;
-            mask=128U>>pixel_x;keep&=(unsigned char)~mask;
-            if(palette_index&1) b0|=mask;if(palette_index&2) b1|=mask;
-            if(palette_index&4) b2|=mask;if(palette_index&8) b3|=mask;
+        /* Valid source rows are 0..31, so the first visible row decodes.
+         * Only foreground masks survive a repeat; every destination row
+         * below retains its own background and already composited layers. */
+        if(texture_y!=last_source_y) {
+            last_source_y=(unsigned char)texture_y;
+            source_row=pixels+texture_y*packed_row_stride;
+            keep=255;b0=b1=b2=b3=0;
+            for(pixel_x=0;pixel_x<8;++pixel_x) {
+                texture_x=source_x[pixel_x];if(texture_x==255) continue;
+                palette_index=source_row[texture_x>>1];
+                if(texture_x&1) palette_index&=15;else palette_index>>=4;
+                if(palette_index==SPRITE_TRANSPARENT_INDEX) continue;
+                mask=128U>>pixel_x;keep&=(unsigned char)~mask;
+                if(palette_index&1) b0|=mask;if(palette_index&2) b1|=mask;
+                if(palette_index&4) b2|=mask;if(palette_index&8) b3|=mask;
+            }
         }
         destination[pixel_y*4]=(destination[pixel_y*4]&keep)|b0;
         destination[pixel_y*4+1]=(destination[pixel_y*4+1]&keep)|b1;
@@ -139,7 +146,8 @@ static unsigned char game_gear_wall_column_is_unchanged(
     unsigned char left_texture_id,
     unsigned char right_texture_id,
     WallSide left_wall_side,
-    WallSide right_wall_side)
+    WallSide right_wall_side,
+    unsigned char offset_mask)
 {
     unsigned char side_flags = 0;
 
@@ -154,8 +162,8 @@ static unsigned char game_gear_wall_column_is_unchanged(
 
     return previous->left_wall_height == left_wall_height
         && previous->right_wall_height == right_wall_height
-        && previous->left_hit_offset == left_hit_offset
-        && previous->right_hit_offset == right_hit_offset
+        && (previous->left_hit_offset & offset_mask) == (left_hit_offset & offset_mask)
+        && (previous->right_hit_offset & offset_mask) == (right_hit_offset & offset_mask)
         && previous->left_texture_id == left_texture_id
         && previous->right_texture_id == right_texture_id
         && (previous->side_and_valid_flags
@@ -379,6 +387,10 @@ void game_gear_video_draw_wall_columns(void)
         if (sprite_dirty_column)
             GEAR_RAY_PROFILE_INCREMENT(sprite_driven_dirty_columns);
 
+        /* Wall sampling consumes only the upper three offset bits. A current
+         * sprite still requires exact offsets: a depth crossing can change
+         * occlusion even when wall height and sampled column stay unchanged.
+         * Previous-sprite removal and HUD invalidation remain independent. */
         if (game_gear_wall_column_is_unchanged(previous_wall_column,
                                                left_wall_height,
                                                right_wall_height,
@@ -387,7 +399,8 @@ void game_gear_video_draw_wall_columns(void)
                                                left_ray->texture_id,
                                                right_ray->texture_id,
                                                left_wall_side,
-                                               right_wall_side)
+                                               right_wall_side,
+                                               current_sprite_column ? 255 : 224)
             && !sprite_dirty_column
             && !(hud_weapon_changed
                  && tile_column >= HUD_WEAPON_FIRST_TILE_COLUMN

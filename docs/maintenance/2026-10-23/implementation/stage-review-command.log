@@ -1,0 +1,26 @@
+warning: in the working copy of 'CHANGELOG.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'build-profile.bat', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'build.bat', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tools/full_z80_audit.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tools/full_z80_equivalence.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tools/full_z80_experiments.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tools/measure_b1_row_base.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tools/measure_b2_projection.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tools/production_build_artifacts.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tools/test_production_dispatch_scan.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tools/validate_bank_call_topology.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tools/validate_game_over.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tools/validate_health_hud.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tools/validate_middle_zombie.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tools/validate_native_wall.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tools/validate_near_zombie.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tools/validate_palette_usage.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tools/validate_pause_map.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tools/validate_shotgun_combat.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tools/validate_z80_hardening.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tools/validate_zombie_attack.ps1', LF will be replaced by CRLF the next time Git touches it
+Traceback (most recent call last):
+  File "D:\mano_projektai\GearRay\tools\maintenance\stage_review.py", line 30, in <module>
+    assert not p.startswith(('build/','build-','tools/.cache/','artifacts/local-history/')) and not p.endswith(('.lnk','.pyd','.dll','.exe')),p
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: build-profile.bat

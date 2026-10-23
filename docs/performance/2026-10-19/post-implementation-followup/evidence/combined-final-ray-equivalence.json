@@ -1,0 +1,1468 @@
+{
+  "cases": 11616,
+  "full_result_bytes": 168,
+  "mismatches": 0,
+  "cache_hits_checked": 11616,
+  "coverage": "242 bases x 6 fractional pairs x 8 door masks; all 4 switch textures distributed across cases; actor-only reuse after each case",
+  "roms": [
+    "6322efcc0434ad8d4fc3f066ced47e0a1fb4cdb140d6da8654521e3834371136",
+    "3632006ed68fcbcbacf9aa693c92560520df496e1e4ac23cf2cb6e1df88d3340"
+  ],
+  "output_digest": "703e71f47b6dc5cacac43a1b4d298c9bcaff16e5dc47b5121a0e27da10274181",
+  "cost_samples": [
+    {
+      "state": 0,
+      "baseline": 482823,
+      "candidate": 495715,
+      "reuse": 2212
+    },
+    {
+      "state": 1,
+      "baseline": 486260,
+      "candidate": 499141,
+      "reuse": 2201
+    },
+    {
+      "state": 2,
+      "baseline": 482870,
+      "candidate": 495757,
+      "reuse": 2207
+    },
+    {
+      "state": 3,
+      "baseline": 493719,
+      "candidate": 506601,
+      "reuse": 2202
+    },
+    {
+      "state": 4,
+      "baseline": 487221,
+      "candidate": 500113,
+      "reuse": 2212
+    },
+    {
+      "state": 5,
+      "baseline": 506077,
+      "candidate": 518958,
+      "reuse": 2201
+    },
+    {
+      "state": 6,
+      "baseline": 495139,
+      "candidate": 508026,
+      "reuse": 2207
+    },
+    {
+      "state": 7,
+      "baseline": 521642,
+      "candidate": 534524,
+      "reuse": 2202
+    },
+    {
+      "state": 8,
+      "baseline": 510044,
+      "candidate": 522936,
+      "reuse": 2212
+    },
+    {
+      "state": 9,
+      "baseline": 539140,
+      "candidate": 552021,
+      "reuse": 2201
+    },
+    {
+      "state": 10,
+      "baseline": 528498,
+      "candidate": 541385,
+      "reuse": 2207
+    },
+    {
+      "state": 11,
+      "baseline": 553510,
+      "candidate": 566392,
+      "reuse": 2202
+    },
+    {
+      "state": 12,
+      "baseline": 521588,
+      "candidate": 534480,
+      "reuse": 2212
+    },
+    {
+      "state": 13,
+      "baseline": 510044,
+      "candidate": 522925,
+      "reuse": 2201
+    },
+    {
+      "state": 14,
+      "baseline": 544625,
+      "candidate": 557512,
+      "reuse": 2207
+    },
+    {
+      "state": 15,
+      "baseline": 569035,
+      "candidate": 581917,
+      "reuse": 2202
+    },
+    {
+      "state": 16,
+      "baseline": 539152,
+      "candidate": 552044,
+      "reuse": 2212
+    },
+    {
+      "state": 17,
+      "baseline": 506065,
+      "candidate": 518946,
+      "reuse": 2201
+    },
+    {
+      "state": 18,
+      "baseline": 494857,
+      "candidate": 507744,
+      "reuse": 2207
+    },
+    {
+      "state": 19,
+      "baseline": 528390,
+      "candidate": 541272,
+      "reuse": 2202
+    },
+    {
+      "state": 20,
+      "baseline": 561677,
+      "candidate": 574569,
+      "reuse": 2212
+    },
+    {
+      "state": 21,
+      "baseline": 572850,
+      "candidate": 585731,
+      "reuse": 2201
+    },
+    {
+      "state": 22,
+      "baseline": 554549,
+      "candidate": 567436,
+      "reuse": 2207
+    },
+    {
+      "state": 23,
+      "baseline": 521678,
+      "candidate": 534560,
+      "reuse": 2202
+    },
+    {
+      "state": 24,
+      "baseline": 493857,
+      "candidate": 506749,
+      "reuse": 2212
+    },
+    {
+      "state": 25,
+      "baseline": 487185,
+      "candidate": 500066,
+      "reuse": 2201
+    },
+    {
+      "state": 26,
+      "baseline": 508911,
+      "candidate": 521798,
+      "reuse": 2207
+    },
+    {
+      "state": 27,
+      "baseline": 545716,
+      "candidate": 558598,
+      "reuse": 2202
+    },
+    {
+      "state": 28,
+      "baseline": 566678,
+      "candidate": 579570,
+      "reuse": 2212
+    },
+    {
+      "state": 29,
+      "baseline": 569410,
+      "candidate": 582291,
+      "reuse": 2201
+    },
+    {
+      "state": 30,
+      "baseline": 569089,
+      "candidate": 581976,
+      "reuse": 2207
+    },
+    {
+      "state": 31,
+      "baseline": 539164,
+      "candidate": 552046,
+      "reuse": 2202
+    },
+    {
+      "state": 32,
+      "baseline": 539182,
+      "candidate": 552074,
+      "reuse": 2212
+    },
+    {
+      "state": 33,
+      "baseline": 486176,
+      "candidate": 499057,
+      "reuse": 2201
+    },
+    {
+      "state": 34,
+      "baseline": 482918,
+      "candidate": 495805,
+      "reuse": 2207
+    },
+    {
+      "state": 35,
+      "baseline": 528432,
+      "candidate": 541314,
+      "reuse": 2202
+    },
+    {
+      "state": 36,
+      "baseline": 528432,
+      "candidate": 541324,
+      "reuse": 2212
+    },
+    {
+      "state": 37,
+      "baseline": 561713,
+      "candidate": 574594,
+      "reuse": 2201
+    },
+    {
+      "state": 38,
+      "baseline": 568333,
+      "candidate": 581220,
+      "reuse": 2207
+    },
+    {
+      "state": 39,
+      "baseline": 564226,
+      "candidate": 577108,
+      "reuse": 2202
+    },
+    {
+      "state": 40,
+      "baseline": 522835,
+      "candidate": 535727,
+      "reuse": 2212
+    },
+    {
+      "state": 41,
+      "baseline": 553516,
+      "candidate": 566397,
+      "reuse": 2201
+    },
+    {
+      "state": 42,
+      "baseline": 482889,
+      "candidate": 495776,
+      "reuse": 2207
+    },
+    {
+      "state": 43,
+      "baseline": 482907,
+      "candidate": 495789,
+      "reuse": 2202
+    },
+    {
+      "state": 44,
+      "baseline": 544270,
+      "candidate": 557162,
+      "reuse": 2212
+    },
+    {
+      "state": 45,
+      "baseline": 510080,
+      "candidate": 522961,
+      "reuse": 2201
+    },
+    {
+      "state": 46,
+      "baseline": 560618,
+      "candidate": 573505,
+      "reuse": 2207
+    },
+    {
+      "state": 47,
+      "baseline": 542223,
+      "candidate": 555105,
+      "reuse": 2202
+    },
+    {
+      "state": 48,
+      "baseline": 506660,
+      "candidate": 519552,
+      "reuse": 2212
+    },
+    {
+      "state": 49,
+      "baseline": 569053,
+      "candidate": 581934,
+      "reuse": 2201
+    },
+    {
+      "state": 50,
+      "baseline": 482972,
+      "candidate": 495859,
+      "reuse": 2207
+    },
+    {
+      "state": 51,
+      "baseline": 486762,
+      "candidate": 499644,
+      "reuse": 2202
+    },
+    {
+      "state": 52,
+      "baseline": 561683,
+      "candidate": 574575,
+      "reuse": 2212
+    },
+    {
+      "state": 53,
+      "baseline": 495848,
+      "candidate": 508729,
+      "reuse": 2201
+    },
+    {
+      "state": 54,
+      "baseline": 540336,
+      "candidate": 553223,
+      "reuse": 2207
+    },
+    {
+      "state": 55,
+      "baseline": 518403,
+      "candidate": 531285,
+      "reuse": 2202
+    },
+    {
+      "state": 56,
+      "baseline": 521696,
+      "candidate": 534588,
+      "reuse": 2212
+    },
+    {
+      "state": 57,
+      "baseline": 494950,
+      "candidate": 507831,
+      "reuse": 2201
+    },
+    {
+      "state": 58,
+      "baseline": 575218,
+      "candidate": 588105,
+      "reuse": 2207
+    },
+    {
+      "state": 59,
+      "baseline": 487101,
+      "candidate": 499983,
+      "reuse": 2202
+    },
+    {
+      "state": 60,
+      "baseline": 489566,
+      "candidate": 502458,
+      "reuse": 2212
+    },
+    {
+      "state": 61,
+      "baseline": 568596,
+      "candidate": 581477,
+      "reuse": 2201
+    },
+    {
+      "state": 62,
+      "baseline": 487456,
+      "candidate": 500343,
+      "reuse": 2207
+    },
+    {
+      "state": 63,
+      "baseline": 510092,
+      "candidate": 522974,
+      "reuse": 2202
+    },
+    {
+      "state": 64,
+      "baseline": 513182,
+      "candidate": 526074,
+      "reuse": 2212
+    },
+    {
+      "state": 65,
+      "baseline": 492553,
+      "candidate": 505434,
+      "reuse": 2201
+    },
+    {
+      "state": 66,
+      "baseline": 539104,
+      "candidate": 551991,
+      "reuse": 2207
+    },
+    {
+      "state": 67,
+      "baseline": 506486,
+      "candidate": 519368,
+      "reuse": 2202
+    },
+    {
+      "state": 68,
+      "baseline": 506540,
+      "candidate": 519432,
+      "reuse": 2212
+    },
+    {
+      "state": 69,
+      "baseline": 486684,
+      "candidate": 499565,
+      "reuse": 2201
+    },
+    {
+      "state": 70,
+      "baseline": 573001,
+      "candidate": 585888,
+      "reuse": 2207
+    },
+    {
+      "state": 71,
+      "baseline": 494887,
+      "candidate": 507769,
+      "reuse": 2202
+    },
+    {
+      "state": 72,
+      "baseline": 567912,
+      "candidate": 580804,
+      "reuse": 2212
+    },
+    {
+      "state": 73,
+      "baseline": 483396,
+      "candidate": 496277,
+      "reuse": 2201
+    },
+    {
+      "state": 74,
+      "baseline": 495806,
+      "candidate": 508693,
+      "reuse": 2207
+    },
+    {
+      "state": 75,
+      "baseline": 528492,
+      "candidate": 541374,
+      "reuse": 2202
+    },
+    {
+      "state": 76,
+      "baseline": 485362,
+      "candidate": 498254,
+      "reuse": 2212
+    },
+    {
+      "state": 77,
+      "baseline": 467138,
+      "candidate": 480019,
+      "reuse": 2201
+    },
+    {
+      "state": 78,
+      "baseline": 554585,
+      "candidate": 567472,
+      "reuse": 2207
+    },
+    {
+      "state": 79,
+      "baseline": 521606,
+      "candidate": 534488,
+      "reuse": 2202
+    },
+    {
+      "state": 80,
+      "baseline": 522799,
+      "candidate": 535691,
+      "reuse": 2212
+    },
+    {
+      "state": 81,
+      "baseline": 482889,
+      "candidate": 495770,
+      "reuse": 2201
+    },
+    {
+      "state": 82,
+      "baseline": 564218,
+      "candidate": 577105,
+      "reuse": 2207
+    },
+    {
+      "state": 83,
+      "baseline": 510008,
+      "candidate": 522890,
+      "reuse": 2202
+    },
+    {
+      "state": 84,
+      "baseline": 561132,
+      "candidate": 574024,
+      "reuse": 2212
+    },
+    {
+      "state": 85,
+      "baseline": 482925,
+      "candidate": 495806,
+      "reuse": 2201
+    },
+    {
+      "state": 86,
+      "baseline": 511237,
+      "candidate": 524124,
+      "reuse": 2207
+    },
+    {
+      "state": 87,
+      "baseline": 545722,
+      "candidate": 558604,
+      "reuse": 2202
+    },
+    {
+      "state": 88,
+      "baseline": 459197,
+      "candidate": 472089,
+      "reuse": 2212
+    },
+    {
+      "state": 89,
+      "baseline": 450017,
+      "candidate": 462898,
+      "reuse": 2201
+    },
+    {
+      "state": 90,
+      "baseline": 569125,
+      "candidate": 582012,
+      "reuse": 2207
+    },
+    {
+      "state": 91,
+      "baseline": 539140,
+      "candidate": 552022,
+      "reuse": 2202
+    },
+    {
+      "state": 92,
+      "baseline": 483008,
+      "candidate": 495900,
+      "reuse": 2212
+    },
+    {
+      "state": 93,
+      "baseline": 542259,
+      "candidate": 555140,
+      "reuse": 2201
+    },
+    {
+      "state": 94,
+      "baseline": 540432,
+      "candidate": 553319,
+      "reuse": 2207
+    },
+    {
+      "state": 95,
+      "baseline": 486206,
+      "candidate": 499088,
+      "reuse": 2202
+    },
+    {
+      "state": 96,
+      "baseline": 528420,
+      "candidate": 541312,
+      "reuse": 2212
+    },
+    {
+      "state": 97,
+      "baseline": 561713,
+      "candidate": 574594,
+      "reuse": 2201
+    },
+    {
+      "state": 98,
+      "baseline": 441210,
+      "candidate": 454097,
+      "reuse": 2207
+    },
+    {
+      "state": 99,
+      "baseline": 436734,
+      "candidate": 449616,
+      "reuse": 2202
+    },
+    {
+      "state": 100,
+      "baseline": 573995,
+      "candidate": 586887,
+      "reuse": 2212
+    },
+    {
+      "state": 101,
+      "baseline": 487155,
+      "candidate": 500036,
+      "reuse": 2201
+    },
+    {
+      "state": 102,
+      "baseline": 518319,
+      "candidate": 531206,
+      "reuse": 2207
+    },
+    {
+      "state": 103,
+      "baseline": 513140,
+      "candidate": 526022,
+      "reuse": 2202
+    },
+    {
+      "state": 104,
+      "baseline": 493797,
+      "candidate": 506689,
+      "reuse": 2212
+    },
+    {
+      "state": 105,
+      "baseline": 568009,
+      "candidate": 580890,
+      "reuse": 2201
+    },
+    {
+      "state": 106,
+      "baseline": 427115,
+      "candidate": 440002,
+      "reuse": 2207
+    },
+    {
+      "state": 107,
+      "baseline": 428740,
+      "candidate": 441622,
+      "reuse": 2202
+    },
+    {
+      "state": 108,
+      "baseline": 573452,
+      "candidate": 586344,
+      "reuse": 2212
+    },
+    {
+      "state": 109,
+      "baseline": 490752,
+      "candidate": 503633,
+      "reuse": 2201
+    },
+    {
+      "state": 110,
+      "baseline": 492409,
+      "candidate": 505296,
+      "reuse": 2207
+    },
+    {
+      "state": 111,
+      "baseline": 485416,
+      "candidate": 498298,
+      "reuse": 2202
+    },
+    {
+      "state": 112,
+      "baseline": 505891,
+      "candidate": 518783,
+      "reuse": 2212
+    },
+    {
+      "state": 113,
+      "baseline": 564688,
+      "candidate": 577569,
+      "reuse": 2201
+    },
+    {
+      "state": 114,
+      "baseline": 418074,
+      "candidate": 430961,
+      "reuse": 2207
+    },
+    {
+      "state": 115,
+      "baseline": 428130,
+      "candidate": 441012,
+      "reuse": 2202
+    },
+    {
+      "state": 116,
+      "baseline": 563375,
+      "candidate": 576267,
+      "reuse": 2212
+    },
+    {
+      "state": 117,
+      "baseline": 508190,
+      "candidate": 521071,
+      "reuse": 2201
+    },
+    {
+      "state": 118,
+      "baseline": 467120,
+      "candidate": 480007,
+      "reuse": 2207
+    },
+    {
+      "state": 119,
+      "baseline": 454945,
+      "candidate": 467827,
+      "reuse": 2202
+    },
+    {
+      "state": 120,
+      "baseline": 520539,
+      "candidate": 533431,
+      "reuse": 2212
+    },
+    {
+      "state": 121,
+      "baseline": 559425,
+      "candidate": 572306,
+      "reuse": 2201
+    },
+    {
+      "state": 122,
+      "baseline": 416622,
+      "candidate": 429509,
+      "reuse": 2207
+    },
+    {
+      "state": 123,
+      "baseline": 427812,
+      "candidate": 440694,
+      "reuse": 2202
+    },
+    {
+      "state": 124,
+      "baseline": 540017,
+      "candidate": 552909,
+      "reuse": 2212
+    },
+    {
+      "state": 125,
+      "baseline": 527281,
+      "candidate": 540162,
+      "reuse": 2201
+    },
+    {
+      "state": 126,
+      "baseline": 450790,
+      "candidate": 463677,
+      "reuse": 2207
+    },
+    {
+      "state": 127,
+      "baseline": 443501,
+      "candidate": 456383,
+      "reuse": 2202
+    },
+    {
+      "state": 128,
+      "baseline": 539188,
+      "candidate": 552080,
+      "reuse": 2212
+    },
+    {
+      "state": 129,
+      "baseline": 540462,
+      "candidate": 553343,
+      "reuse": 2201
+    },
+    {
+      "state": 130,
+      "baseline": 416002,
+      "candidate": 428889,
+      "reuse": 2207
+    },
+    {
+      "state": 131,
+      "baseline": 426556,
+      "candidate": 439438,
+      "reuse": 2202
+    },
+    {
+      "state": 132,
+      "baseline": 515975,
+      "candidate": 528867,
+      "reuse": 2212
+    },
+    {
+      "state": 133,
+      "baseline": 544210,
+      "candidate": 557091,
+      "reuse": 2201
+    },
+    {
+      "state": 134,
+      "baseline": 436794,
+      "candidate": 449681,
+      "reuse": 2207
+    },
+    {
+      "state": 135,
+      "baseline": 427151,
+      "candidate": 440033,
+      "reuse": 2202
+    },
+    {
+      "state": 136,
+      "baseline": 553408,
+      "candidate": 566300,
+      "reuse": 2212
+    },
+    {
+      "state": 137,
+      "baseline": 513212,
+      "candidate": 526093,
+      "reuse": 2201
+    },
+    {
+      "state": 138,
+      "baseline": 415668,
+      "candidate": 428555,
+      "reuse": 2207
+    },
+    {
+      "state": 139,
+      "baseline": 424170,
+      "candidate": 437052,
+      "reuse": 2202
+    },
+    {
+      "state": 140,
+      "baseline": 490035,
+      "candidate": 502927,
+      "reuse": 2212
+    },
+    {
+      "state": 141,
+      "baseline": 561202,
+      "candidate": 574083,
+      "reuse": 2201
+    },
+    {
+      "state": 142,
+      "baseline": 428608,
+      "candidate": 441495,
+      "reuse": 2207
+    },
+    {
+      "state": 143,
+      "baseline": 419430,
+      "candidate": 432312,
+      "reuse": 2202
+    },
+    {
+      "state": 144,
+      "baseline": 569053,
+      "candidate": 581945,
+      "reuse": 2212
+    },
+    {
+      "state": 145,
+      "baseline": 484229,
+      "candidate": 497110,
+      "reuse": 2201
+    },
+    {
+      "state": 146,
+      "baseline": 417581,
+      "candidate": 430468,
+      "reuse": 2207
+    },
+    {
+      "state": 147,
+      "baseline": 422574,
+      "candidate": 435456,
+      "reuse": 2202
+    },
+    {
+      "state": 148,
+      "baseline": 465993,
+      "candidate": 478885,
+      "reuse": 2212
+    },
+    {
+      "state": 149,
+      "baseline": 568710,
+      "candidate": 581591,
+      "reuse": 2201
+    },
+    {
+      "state": 150,
+      "baseline": 428147,
+      "candidate": 441034,
+      "reuse": 2207
+    },
+    {
+      "state": 151,
+      "baseline": 416701,
+      "candidate": 429583,
+      "reuse": 2202
+    },
+    {
+      "state": 152,
+      "baseline": 575104,
+      "candidate": 587996,
+      "reuse": 2212
+    },
+    {
+      "state": 153,
+      "baseline": 459185,
+      "candidate": 472066,
+      "reuse": 2201
+    },
+    {
+      "state": 154,
+      "baseline": 419232,
+      "candidate": 432119,
+      "reuse": 2207
+    },
+    {
+      "state": 155,
+      "baseline": 418127,
+      "candidate": 431009,
+      "reuse": 2202
+    },
+    {
+      "state": 156,
+      "baseline": 450149,
+      "candidate": 463041,
+      "reuse": 2212
+    },
+    {
+      "state": 157,
+      "baseline": 560985,
+      "candidate": 573866,
+      "reuse": 2201
+    },
+    {
+      "state": 158,
+      "baseline": 567900,
+      "candidate": 580787,
+      "reuse": 2207
+    },
+    {
+      "state": 159,
+      "baseline": 427618,
+      "candidate": 440500,
+      "reuse": 2202
+    },
+    {
+      "state": 160,
+      "baseline": 416038,
+      "candidate": 428930,
+      "reuse": 2212
+    },
+    {
+      "state": 161,
+      "baseline": 572941,
+      "candidate": 585822,
+      "reuse": 2201
+    },
+    {
+      "state": 162,
+      "baseline": 569083,
+      "candidate": 581970,
+      "reuse": 2207
+    },
+    {
+      "state": 163,
+      "baseline": 441096,
+      "candidate": 453978,
+      "reuse": 2202
+    },
+    {
+      "state": 164,
+      "baseline": 418133,
+      "candidate": 431025,
+      "reuse": 2212
+    },
+    {
+      "state": 165,
+      "baseline": 419583,
+      "candidate": 432464,
+      "reuse": 2201
+    },
+    {
+      "state": 166,
+      "baseline": 436752,
+      "candidate": 449639,
+      "reuse": 2207
+    },
+    {
+      "state": 167,
+      "baseline": 560982,
+      "candidate": 573864,
+      "reuse": 2202
+    },
+    {
+      "state": 168,
+      "baseline": 426911,
+      "candidate": 439803,
+      "reuse": 2212
+    },
+    {
+      "state": 169,
+      "baseline": 415907,
+      "candidate": 428788,
+      "reuse": 2201
+    },
+    {
+      "state": 170,
+      "baseline": 564266,
+      "candidate": 577153,
+      "reuse": 2207
+    },
+    {
+      "state": 171,
+      "baseline": 426802,
+      "candidate": 439684,
+      "reuse": 2202
+    },
+    {
+      "state": 172,
+      "baseline": 422890,
+      "candidate": 435782,
+      "reuse": 2212
+    },
+    {
+      "state": 173,
+      "baseline": 412907,
+      "candidate": 425788,
+      "reuse": 2201
+    },
+    {
+      "state": 174,
+      "baseline": 428662,
+      "candidate": 441549,
+      "reuse": 2207
+    },
+    {
+      "state": 175,
+      "baseline": 541425,
+      "candidate": 554307,
+      "reuse": 2202
+    },
+    {
+      "state": 176,
+      "baseline": 424619,
+      "candidate": 437511,
+      "reuse": 2212
+    },
+    {
+      "state": 177,
+      "baseline": 427572,
+      "candidate": 440453,
+      "reuse": 2201
+    },
+    {
+      "state": 178,
+      "baseline": 416016,
+      "candidate": 428903,
+      "reuse": 2207
+    },
+    {
+      "state": 179,
+      "baseline": 417048,
+      "candidate": 429930,
+      "reuse": 2202
+    },
+    {
+      "state": 180,
+      "baseline": 543446,
+      "candidate": 556338,
+      "reuse": 2212
+    },
+    {
+      "state": 181,
+      "baseline": 417942,
+      "candidate": 430823,
+      "reuse": 2201
+    },
+    {
+      "state": 182,
+      "baseline": 424098,
+      "candidate": 436985,
+      "reuse": 2207
+    },
+    {
+      "state": 183,
+      "baseline": 415672,
+      "candidate": 428554,
+      "reuse": 2202
+    },
+    {
+      "state": 184,
+      "baseline": 428178,
+      "candidate": 441070,
+      "reuse": 2212
+    },
+    {
+      "state": 185,
+      "baseline": 436614,
+      "candidate": 449495,
+      "reuse": 2201
+    },
+    {
+      "state": 186,
+      "baseline": 512870,
+      "candidate": 525757,
+      "reuse": 2207
+    },
+    {
+      "state": 187,
+      "baseline": 422854,
+      "candidate": 435736,
+      "reuse": 2202
+    },
+    {
+      "state": 188,
+      "baseline": 426747,
+      "candidate": 439639,
+      "reuse": 2212
+    },
+    {
+      "state": 189,
+      "baseline": 426310,
+      "candidate": 439191,
+      "reuse": 2201
+    },
+    {
+      "state": 190,
+      "baseline": 428208,
+      "candidate": 441095,
+      "reuse": 2207
+    },
+    {
+      "state": 191,
+      "baseline": 416568,
+      "candidate": 429450,
+      "reuse": 2202
+    },
+    {
+      "state": 192,
+      "baseline": 415798,
+      "candidate": 428690,
+      "reuse": 2212
+    },
+    {
+      "state": 193,
+      "baseline": 419511,
+      "candidate": 432392,
+      "reuse": 2201
+    },
+    {
+      "state": 194,
+      "baseline": 518409,
+      "candidate": 531296,
+      "reuse": 2207
+    },
+    {
+      "state": 195,
+      "baseline": 427079,
+      "candidate": 439961,
+      "reuse": 2202
+    },
+    {
+      "state": 196,
+      "baseline": 416604,
+      "candidate": 429496,
+      "reuse": 2212
+    },
+    {
+      "state": 197,
+      "baseline": 416001,
+      "candidate": 428882,
+      "reuse": 2201
+    },
+    {
+      "state": 198,
+      "baseline": 427340,
+      "candidate": 440227,
+      "reuse": 2207
+    },
+    {
+      "state": 199,
+      "baseline": 487665,
+      "candidate": 500547,
+      "reuse": 2202
+    },
+    {
+      "state": 200,
+      "baseline": 418133,
+      "candidate": 431025,
+      "reuse": 2212
+    },
+    {
+      "state": 201,
+      "baseline": 427508,
+      "candidate": 440389,
+      "reuse": 2201
+    },
+    {
+      "state": 202,
+      "baseline": 427551,
+      "candidate": 440438,
+      "reuse": 2207
+    },
+    {
+      "state": 203,
+      "baseline": 429825,
+      "candidate": 442707,
+      "reuse": 2202
+    },
+    {
+      "state": 204,
+      "baseline": 419147,
+      "candidate": 432039,
+      "reuse": 2212
+    },
+    {
+      "state": 205,
+      "baseline": 415934,
+      "candidate": 428815,
+      "reuse": 2201
+    },
+    {
+      "state": 206,
+      "baseline": 418163,
+      "candidate": 431050,
+      "reuse": 2207
+    },
+    {
+      "state": 207,
+      "baseline": 492361,
+      "candidate": 505243,
+      "reuse": 2202
+    },
+    {
+      "state": 208,
+      "baseline": 416073,
+      "candidate": 428965,
+      "reuse": 2212
+    },
+    {
+      "state": 209,
+      "baseline": 416675,
+      "candidate": 429556,
+      "reuse": 2201
+    },
+    {
+      "state": 210,
+      "baseline": 421695,
+      "candidate": 434582,
+      "reuse": 2207
+    },
+    {
+      "state": 211,
+      "baseline": 460718,
+      "candidate": 473600,
+      "reuse": 2202
+    },
+    {
+      "state": 212,
+      "baseline": 419250,
+      "candidate": 432142,
+      "reuse": 2212
+    },
+    {
+      "state": 213,
+      "baseline": 428135,
+      "candidate": 441016,
+      "reuse": 2201
+    },
+    {
+      "state": 214,
+      "baseline": 428088,
+      "candidate": 440975,
+      "reuse": 2207
+    },
+    {
+      "state": 215,
+      "baseline": 436752,
+      "candidate": 449634,
+      "reuse": 2202
+    },
+    {
+      "state": 216,
+      "baseline": 427187,
+      "candidate": 440079,
+      "reuse": 2212
+    },
+    {
+      "state": 217,
+      "baseline": 416639,
+      "candidate": 429520,
+      "reuse": 2201
+    },
+    {
+      "state": 218,
+      "baseline": 422712,
+      "candidate": 435599,
+      "reuse": 2207
+    },
+    {
+      "state": 219,
+      "baseline": 462832,
+      "candidate": 475714,
+      "reuse": 2202
+    },
+    {
+      "state": 220,
+      "baseline": 415406,
+      "candidate": 428298,
+      "reuse": 2212
+    },
+    {
+      "state": 221,
+      "baseline": 416031,
+      "candidate": 428912,
+      "reuse": 2201
+    },
+    {
+      "state": 222,
+      "baseline": 424340,
+      "candidate": 437227,
+      "reuse": 2207
+    },
+    {
+      "state": 223,
+      "baseline": 444664,
+      "candidate": 457546,
+      "reuse": 2202
+    },
+    {
+      "state": 224,
+      "baseline": 417710,
+      "candidate": 430602,
+      "reuse": 2212
+    },
+    {
+      "state": 225,
+      "baseline": 427599,
+      "candidate": 440480,
+      "reuse": 2201
+    },
+    {
+      "state": 226,
+      "baseline": 452254,
+      "candidate": 465141,
+      "reuse": 2207
+    },
+    {
+      "state": 227,
+      "baseline": 416676,
+      "candidate": 429558,
+      "reuse": 2202
+    },
+    {
+      "state": 228,
+      "baseline": 415646,
+      "candidate": 428538,
+      "reuse": 2212
+    },
+    {
+      "state": 229,
+      "baseline": 426650,
+      "candidate": 439531,
+      "reuse": 2201
+    },
+    {
+      "state": 230,
+      "baseline": 428250,
+      "candidate": 441137,
+      "reuse": 2207
+    },
+    {
+      "state": 231,
+      "baseline": 418038,
+      "candidate": 430920,
+      "reuse": 2202
+    },
+    {
+      "state": 232,
+      "baseline": 415908,
+      "candidate": 428800,
+      "reuse": 2212
+    },
+    {
+      "state": 233,
+      "baseline": 417474,
+      "candidate": 430355,
+      "reuse": 2201
+    },
+    {
+      "state": 234,
+      "baseline": 424242,
+      "candidate": 437129,
+      "reuse": 2207
+    },
+    {
+      "state": 235,
+      "baseline": 427622,
+      "candidate": 440504,
+      "reuse": 2202
+    },
+    {
+      "state": 236,
+      "baseline": 428746,
+      "candidate": 441638,
+      "reuse": 2212
+    },
+    {
+      "state": 237,
+      "baseline": 427133,
+      "candidate": 440014,
+      "reuse": 2201
+    },
+    {
+      "state": 238,
+      "baseline": 419517,
+      "candidate": 432404,
+      "reuse": 2207
+    },
+    {
+      "state": 239,
+      "baseline": 422702,
+      "candidate": 435584,
+      "reuse": 2202
+    },
+    {
+      "state": 240,
+      "baseline": 436734,
+      "candidate": 449626,
+      "reuse": 2212
+    },
+    {
+      "state": 241,
+      "baseline": 418043,
+      "candidate": 430924,
+      "reuse": 2201
+    }
+  ],
+  "method": "Actual compiled baseline/candidate Z80 calls, IRQ disabled only for microcomparison, guard return/SP checked",
+  "host_seconds": 113.77389407157898
+}

@@ -1,0 +1,57 @@
+validate_bank_call_topology: 0
+validate_bank_layout: 0
+validate_corpse_persistence: 0
+validate_door_crush: 0
+validate_final_controls: 0
+validate_game_over: 0
+validate_health_hud: 0
+validate_middle_zombie: 0
+validate_native_wall: 0
+validate_near_zombie: 0
+validate_palette_usage: 0
+validate_pause_map: 0
+validate_ray_direction_rebuild: 0
+validate_renderer_equivalence: 0
+validate_shotgun_combat: 0
+validate_sprite_renderer: 0
+validate_startup_order: 0
+validate_weapon_assets: 0
+validate_weapon_runtime: 0
+validate_workshop_map: 0
+validate_z80_hardening: 0
+validate_zombie_ai: 0
+validate_zombie_attack: 0
+validate_zombie_shooting: 0
+{
+    "Banks":  [
+                  {
+                      "Bank":  0,
+                      "Used":  12961,
+                      "Free":  3423
+                  },
+                  {
+                      "Bank":  1,
+                      "Used":  14217,
+                      "Free":  2151
+                  },
+                  {
+                      "Bank":  2,
+                      "Used":  11737,
+                      "Free":  4647
+                  },
+                  {
+                      "Bank":  3,
+                      "Used":  12756,
+                      "Free":  3628
+                  }
+              ],
+    "LinkedExtentSum":  51671,
+    "PersistentRAM":  1538,
+    "DataEnd":  50690,
+    "ROMBytes":  65536,
+    "SHA256":  "E0FCFDD6FAE28794FED9B56CD256D27FCD029248A9A8DA846C12BB05DBF05566",
+    "ModuleCount":  54,
+    "HelperSites":  37,
+    "BankCallSites":  8,
+    "EmittedIHXBytes":  51523
+}

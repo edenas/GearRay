@@ -1,0 +1,223 @@
+{
+  "assets_preserved": 107,
+  "review_files_preserved": 148,
+  "variants": {
+    "base": {
+      "summary": {
+        "Banks": [
+          {
+            "Bank": 0,
+            "Used": 12961,
+            "Free": 3423
+          },
+          {
+            "Bank": 1,
+            "Used": 14217,
+            "Free": 2151
+          },
+          {
+            "Bank": 2,
+            "Used": 11737,
+            "Free": 4647
+          },
+          {
+            "Bank": 3,
+            "Used": 12756,
+            "Free": 3628
+          }
+        ],
+        "LinkedExtentSum": 51671,
+        "PersistentRAM": 1538,
+        "DataEnd": 50690,
+        "ROMBytes": 65536,
+        "SHA256": "E0FCFDD6FAE28794FED9B56CD256D27FCD029248A9A8DA846C12BB05DBF05566",
+        "ModuleCount": 54,
+        "HelperSites": 37,
+        "BankCallSites": 8,
+        "EmittedIHXBytes": 51523
+      },
+      "checksum": "0x4ebc",
+      "main_conservative_stack_bound": 588,
+      "kernel": {
+        "Module": "video",
+        "Function": "game_gear_overlay_sprite_tile",
+        "Area": "_CODE",
+        "Frequency": "A/B: frame/column/tile/pixel presentation; dirty gate controls composition",
+        "ExplicitFrame": "38",
+        "SmallFrame": "0",
+        "Instructions": "463",
+        "OwnPushBound": "42"
+      },
+      "generated_files": 71,
+      "generated_identical_to_current_art_control": true,
+      "video_port_instructions": [],
+      "video_mapper_instructions": [],
+      "validator_passes": 24
+    },
+    "row": {
+      "summary": {
+        "Banks": [
+          {
+            "Bank": 0,
+            "Used": 12829,
+            "Free": 3555
+          },
+          {
+            "Bank": 1,
+            "Used": 14217,
+            "Free": 2151
+          },
+          {
+            "Bank": 2,
+            "Used": 11737,
+            "Free": 4647
+          },
+          {
+            "Bank": 3,
+            "Used": 12756,
+            "Free": 3628
+          }
+        ],
+        "LinkedExtentSum": 51539,
+        "PersistentRAM": 1538,
+        "DataEnd": 50690,
+        "ROMBytes": 65536,
+        "SHA256": "9F07A6282C0C9C046656C82965385C856C2A606A00CD26BBBCFD95BF7B88002A",
+        "ModuleCount": 54,
+        "HelperSites": 37,
+        "BankCallSites": 8,
+        "EmittedIHXBytes": 51391
+      },
+      "checksum": "0xe4d9",
+      "main_conservative_stack_bound": 588,
+      "kernel": {
+        "Module": "video",
+        "Function": "game_gear_overlay_sprite_tile",
+        "Area": "_CODE",
+        "Frequency": "A/B: frame/column/tile/pixel presentation; dirty gate controls composition",
+        "ExplicitFrame": "38",
+        "SmallFrame": "0",
+        "Instructions": "424",
+        "OwnPushBound": "42"
+      },
+      "generated_files": 71,
+      "generated_identical_to_current_art_control": true,
+      "video_port_instructions": [],
+      "video_mapper_instructions": [],
+      "validator_passes": 24
+    },
+    "combined": {
+      "summary": {
+        "Banks": [
+          {
+            "Bank": 0,
+            "Used": 12865,
+            "Free": 3519
+          },
+          {
+            "Bank": 1,
+            "Used": 14217,
+            "Free": 2151
+          },
+          {
+            "Bank": 2,
+            "Used": 11737,
+            "Free": 4647
+          },
+          {
+            "Bank": 3,
+            "Used": 12756,
+            "Free": 3628
+          }
+        ],
+        "LinkedExtentSum": 51575,
+        "PersistentRAM": 1538,
+        "DataEnd": 50690,
+        "ROMBytes": 65536,
+        "SHA256": "3632006ED68FCBCBACF9AA693C92560520DF496E1E4AC23CF2CB6E1DF88D3340",
+        "ModuleCount": 54,
+        "HelperSites": 37,
+        "BankCallSites": 8,
+        "EmittedIHXBytes": 51427
+      },
+      "checksum": "0xfa13",
+      "main_conservative_stack_bound": 590,
+      "kernel": {
+        "Module": "video",
+        "Function": "game_gear_overlay_sprite_tile",
+        "Area": "_CODE",
+        "Frequency": "A/B: frame/column/tile/pixel presentation; dirty gate controls composition",
+        "ExplicitFrame": "38",
+        "SmallFrame": "0",
+        "Instructions": "424",
+        "OwnPushBound": "42"
+      },
+      "generated_files": 71,
+      "generated_identical_to_current_art_control": true,
+      "video_port_instructions": [],
+      "video_mapper_instructions": [],
+      "validator_passes": 24
+    },
+    "selected": {
+      "summary": {
+        "Banks": [
+          {
+            "Bank": 0,
+            "Used": 12865,
+            "Free": 3519
+          },
+          {
+            "Bank": 1,
+            "Used": 14217,
+            "Free": 2151
+          },
+          {
+            "Bank": 2,
+            "Used": 11737,
+            "Free": 4647
+          },
+          {
+            "Bank": 3,
+            "Used": 12756,
+            "Free": 3628
+          }
+        ],
+        "LinkedExtentSum": 51575,
+        "PersistentRAM": 1538,
+        "DataEnd": 50690,
+        "ROMBytes": 65536,
+        "SHA256": "3632006ED68FCBCBACF9AA693C92560520DF496E1E4AC23CF2CB6E1DF88D3340",
+        "ModuleCount": 54,
+        "HelperSites": 37,
+        "BankCallSites": 8,
+        "EmittedIHXBytes": 51427
+      },
+      "checksum": "0xfa13",
+      "main_conservative_stack_bound": 590,
+      "kernel": {
+        "Module": "video",
+        "Function": "game_gear_overlay_sprite_tile",
+        "Area": "_CODE",
+        "Frequency": "A/B: frame/column/tile/pixel presentation; dirty gate controls composition",
+        "ExplicitFrame": "38",
+        "SmallFrame": "0",
+        "Instructions": "424",
+        "OwnPushBound": "42"
+      },
+      "generated_files": 71,
+      "generated_identical_to_current_art_control": true,
+      "video_port_instructions": [],
+      "video_mapper_instructions": [],
+      "validator_passes": 24
+    }
+  },
+  "static_ram_end": "0xC602",
+  "initial_sp": "0xDFF0",
+  "stack_reserve": 1024,
+  "stack_reserve_start": "0xDBF0",
+  "ram_to_reserve_gap": 5614,
+  "public_headers_changed": [],
+  "vram_allocation_delta": 0,
+  "observed_full_route_stack_max": 383,
+  "stack_note": "PIR-010 frame and bound unchanged. PIR-006 adds one private byte argument; aggregate-push conservative main bound increases 588 to 590 (+2), plus the same 32-byte IRQ allowance gives 622. Observed route maximum remains 383; this is not an exhaustive hardware/NMI WCET proof."
+}

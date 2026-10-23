@@ -1,0 +1,5 @@
+source 8 near 255 cases 12096
+source 16 near 255 cases 24192
+source 32 near 255 cases 36288
+source 32 near 0 cases 48384
+48384 compiled tile cases match, changed 3335

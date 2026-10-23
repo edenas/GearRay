@@ -1,0 +1,1599 @@
+{
+  "current_documents": 47,
+  "current_local_links_checked": 229,
+  "current_broken": [],
+  "newly_broken_historical_links": [],
+  "historical_links": [
+    {
+      "document": "ACKNOWLEDGEMENTS.md",
+      "target": "THIRD_PARTY_NOTICES.md",
+      "resolved": "THIRD_PARTY_NOTICES.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "THIRD_PARTY_NOTICES.md",
+      "target": "LICENSE",
+      "resolved": "LICENSE",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/ENGINE_FOUNDATION_V1.0.0.md",
+      "target": "ENGINE_ARCHITECTURE.md",
+      "resolved": "docs/ENGINE_ARCHITECTURE.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/ENGINE_FOUNDATION_V1.0.0.md",
+      "target": "ROM_BANKING.md",
+      "resolved": "docs/ROM_BANKING.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/ENGINE_FOUNDATION_V1.0.0.md",
+      "target": "SPRINT_31_FINAL_GAME_GEAR_CONTROLS.md",
+      "resolved": "docs/SPRINT_31_FINAL_GAME_GEAR_CONTROLS.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/ENGINE_FOUNDATION_V1.0.0.md",
+      "target": "SPRINT_31_SENIOR_ENGINE_ARCHITECTURE_AUDIT.md",
+      "resolved": "docs/SPRINT_31_SENIOR_ENGINE_ARCHITECTURE_AUDIT.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/POST_AUDIT_HARDENING.md",
+      "target": "CURRENT_BEHAVIOR.md",
+      "resolved": "docs/CURRENT_BEHAVIOR.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/SPRINT_11_TASK_108_OPTIMIZATION_PASS_1.md",
+      "target": "../artifacts/task107/indexed-color-wall.png",
+      "resolved": "artifacts/task107/indexed-color-wall.png",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/full_z80_simplification_audit.md",
+      "target": "POST_AUDIT_HARDENING.md",
+      "resolved": "docs/POST_AUDIT_HARDENING.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/full_z80_simplification_audit.md",
+      "target": "CURRENT_BEHAVIOR.md",
+      "resolved": "docs/CURRENT_BEHAVIOR.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/full_z80_simplification_audit.md",
+      "target": "../build/full-z80-audit/baseline.json",
+      "resolved": "build/full-z80-audit/baseline.json",
+      "status": "archived; restore required"
+    },
+    {
+      "document": "docs/full_z80_simplification_audit.md",
+      "target": "../build/full-z80-release.log",
+      "resolved": "build/full-z80-release.log",
+      "status": "archived; restore required"
+    },
+    {
+      "document": "docs/full_z80_simplification_audit.md",
+      "target": "../build/full-z80-final-release.log",
+      "resolved": "build/full-z80-final-release.log",
+      "status": "archived; restore required"
+    },
+    {
+      "document": "docs/full_z80_simplification_audit.md",
+      "target": "../build/full-z80-audit/validators.json",
+      "resolved": "build/full-z80-audit/validators.json",
+      "status": "archived; restore required"
+    },
+    {
+      "document": "docs/full_z80_simplification_audit.md",
+      "target": "../build/full-z80-audit/dispatch-self-test.log",
+      "resolved": "build/full-z80-audit/dispatch-self-test.log",
+      "status": "archived; restore required"
+    },
+    {
+      "document": "docs/full_z80_simplification_audit.md",
+      "target": "../build/full-z80-audit/modules.csv",
+      "resolved": "build/full-z80-audit/modules.csv",
+      "status": "archived; restore required"
+    },
+    {
+      "document": "docs/full_z80_simplification_audit.md",
+      "target": "../build/full-z80-audit/functions.csv",
+      "resolved": "build/full-z80-audit/functions.csv",
+      "status": "archived; restore required"
+    },
+    {
+      "document": "docs/full_z80_simplification_audit.md",
+      "target": "../build/full-z80-audit/calls.csv",
+      "resolved": "build/full-z80-audit/calls.csv",
+      "status": "archived; restore required"
+    },
+    {
+      "document": "docs/full_z80_simplification_audit.md",
+      "target": "../build/full-z80-audit/helpers.csv",
+      "resolved": "build/full-z80-audit/helpers.csv",
+      "status": "archived; restore required"
+    },
+    {
+      "document": "docs/full_z80_simplification_audit.md",
+      "target": "../build/full-z80-audit/ram.csv",
+      "resolved": "build/full-z80-audit/ram.csv",
+      "status": "archived; restore required"
+    },
+    {
+      "document": "docs/full_z80_simplification_audit.md",
+      "target": "../build/full-z80-audit/stack-bounds.json",
+      "resolved": "build/full-z80-audit/stack-bounds.json",
+      "status": "archived; restore required"
+    },
+    {
+      "document": "docs/full_z80_simplification_audit.md",
+      "target": "../build/full-z80-audit/duplicate-scan.json",
+      "resolved": "build/full-z80-audit/duplicate-scan.json",
+      "status": "archived; restore required"
+    },
+    {
+      "document": "docs/full_z80_simplification_audit.md",
+      "target": "../build/full-z80-audit/experiments/results.json",
+      "resolved": "build/full-z80-audit/experiments/results.json",
+      "status": "archived; restore required"
+    },
+    {
+      "document": "docs/full_z80_simplification_audit.md",
+      "target": "../tools/full_z80_audit.ps1",
+      "resolved": "tools/full_z80_audit.ps1",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/full_z80_simplification_audit.md",
+      "target": "../tools/full_z80_experiments.ps1",
+      "resolved": "tools/full_z80_experiments.ps1",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/full_z80_simplification_audit.md",
+      "target": "../tools/full_z80_equivalence.ps1",
+      "resolved": "tools/full_z80_equivalence.ps1",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/maintenance/2026-10-23/README.md",
+      "target": "SOLO_REPOSITORY_CLEANUP_MASTER_PROMPT.md",
+      "resolved": "docs/maintenance/2026-10-23/SOLO_REPOSITORY_CLEANUP_MASTER_PROMPT.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/maintenance/2026-10-23/README.md",
+      "target": "REPOSITORY_INVENTORY.md",
+      "resolved": "docs/maintenance/2026-10-23/REPOSITORY_INVENTORY.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/maintenance/2026-10-23/README.md",
+      "target": "BUILD_AND_EXPERIMENT_CLEANUP_PLAN.md",
+      "resolved": "docs/maintenance/2026-10-23/BUILD_AND_EXPERIMENT_CLEANUP_PLAN.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/maintenance/2026-10-23/README.md",
+      "target": "ROM_ARTIFACT_RETENTION_PLAN.md",
+      "resolved": "docs/maintenance/2026-10-23/ROM_ARTIFACT_RETENTION_PLAN.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/maintenance/2026-10-23/README.md",
+      "target": "ARTWORK_PRESERVATION_MANIFEST.md",
+      "resolved": "docs/maintenance/2026-10-23/ARTWORK_PRESERVATION_MANIFEST.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/maintenance/2026-10-23/README.md",
+      "target": "DOCUMENTATION_RECONSTRUCTION_PLAN.md",
+      "resolved": "docs/maintenance/2026-10-23/DOCUMENTATION_RECONSTRUCTION_PLAN.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/maintenance/2026-10-23/README.md",
+      "target": "HISTORICAL_EVIDENCE_RETENTION.md",
+      "resolved": "docs/maintenance/2026-10-23/HISTORICAL_EVIDENCE_RETENTION.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/maintenance/2026-10-23/README.md",
+      "target": "GIT_AND_GITHUB_CLEANUP_PLAN.md",
+      "resolved": "docs/maintenance/2026-10-23/GIT_AND_GITHUB_CLEANUP_PLAN.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/maintenance/2026-10-23/README.md",
+      "target": "CLEANUP_RISKS_AND_VALIDATION.md",
+      "resolved": "docs/maintenance/2026-10-23/CLEANUP_RISKS_AND_VALIDATION.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/maintenance/2026-10-23/README.md",
+      "target": "SOLO_REPOSITORY_CLEANUP_MASTER_PROMPT.md",
+      "resolved": "docs/maintenance/2026-10-23/SOLO_REPOSITORY_CLEANUP_MASTER_PROMPT.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/maintenance/2026-10-23/REPOSITORY_INVENTORY.md",
+      "target": "BUILD_AND_EXPERIMENT_CLEANUP_PLAN.md",
+      "resolved": "docs/maintenance/2026-10-23/BUILD_AND_EXPERIMENT_CLEANUP_PLAN.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/maintenance/2026-10-23/SOLO_REPOSITORY_CLEANUP_MASTER_PROMPT.md",
+      "target": "ROM_ARTIFACT_RETENTION_PLAN.md",
+      "resolved": "docs/maintenance/2026-10-23/ROM_ARTIFACT_RETENTION_PLAN.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/maintenance/2026-10-23/SOLO_REPOSITORY_CLEANUP_MASTER_PROMPT.md",
+      "target": "ARTWORK_PRESERVATION_MANIFEST.md",
+      "resolved": "docs/maintenance/2026-10-23/ARTWORK_PRESERVATION_MANIFEST.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/maintenance/2026-10-23/SOLO_REPOSITORY_CLEANUP_MASTER_PROMPT.md",
+      "target": "BUILD_AND_EXPERIMENT_CLEANUP_PLAN.md",
+      "resolved": "docs/maintenance/2026-10-23/BUILD_AND_EXPERIMENT_CLEANUP_PLAN.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/maintenance/2026-10-23/SOLO_REPOSITORY_CLEANUP_MASTER_PROMPT.md",
+      "target": "HISTORICAL_EVIDENCE_RETENTION.md",
+      "resolved": "docs/maintenance/2026-10-23/HISTORICAL_EVIDENCE_RETENTION.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/maintenance/2026-10-23/SOLO_REPOSITORY_CLEANUP_MASTER_PROMPT.md",
+      "target": "GIT_AND_GITHUB_CLEANUP_PLAN.md",
+      "resolved": "docs/maintenance/2026-10-23/GIT_AND_GITHUB_CLEANUP_PLAN.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/maintenance/2026-10-23/SOLO_REPOSITORY_CLEANUP_MASTER_PROMPT.md",
+      "target": "DOCUMENTATION_RECONSTRUCTION_PLAN.md",
+      "resolved": "docs/maintenance/2026-10-23/DOCUMENTATION_RECONSTRUCTION_PLAN.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/pause_freeze_audit.md",
+      "target": "pause_map.md",
+      "resolved": "docs/pause_map.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/pause_map.md",
+      "target": "pause_freeze_audit.md",
+      "resolved": "docs/pause_freeze_audit.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/pause_map.md",
+      "target": "pause_freeze_audit.md",
+      "resolved": "docs/pause_freeze_audit.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/pause_weapon_focus_borders.md",
+      "target": "../build/release-pause-ux/pause-carousel-0-preview.png",
+      "resolved": "build/release-pause-ux/pause-carousel-0-preview.png",
+      "status": "archived; restore required"
+    },
+    {
+      "document": "docs/pause_weapon_focus_borders.md",
+      "target": "../build/release-pause-ux/pause-carousel-1-preview.png",
+      "resolved": "build/release-pause-ux/pause-carousel-1-preview.png",
+      "status": "archived; restore required"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ARCHITECTURE_RECONSTRUCTION.md",
+      "target": "evidence/modules.csv",
+      "resolved": "docs/performance/2026-10-19/evidence/modules.csv",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ARCHITECTURE_RECONSTRUCTION.md",
+      "target": "evidence/function-source-locations.csv",
+      "resolved": "docs/performance/2026-10-19/evidence/function-source-locations.csv",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ARCHITECTURE_RECONSTRUCTION.md",
+      "target": "evidence/calls.csv",
+      "resolved": "docs/performance/2026-10-19/evidence/calls.csv",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ARCHITECTURE_RECONSTRUCTION.md",
+      "target": "evidence/helpers.csv",
+      "resolved": "docs/performance/2026-10-19/evidence/helpers.csv",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_IMPLEMENTATION_ARCHITECTURE.md",
+      "target": "ASTRA_OPTIMIZATION_DECISION_MATRIX.md",
+      "resolved": "docs/performance/2026-10-19/ASTRA_OPTIMIZATION_DECISION_MATRIX.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_IMPLEMENTATION_ARCHITECTURE.md",
+      "target": "ASTRA_TECHNICAL_SOURCES.md",
+      "resolved": "docs/performance/2026-10-19/ASTRA_TECHNICAL_SOURCES.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_IMPLEMENTATION_ARCHITECTURE.md",
+      "target": "ASTRA_VALIDATION_PLAN.md",
+      "resolved": "docs/performance/2026-10-19/ASTRA_VALIDATION_PLAN.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_INDEPENDENT_REVIEW.md",
+      "target": "IMPLEMENTATION_MASTER_PROMPT.md",
+      "resolved": "docs/performance/2026-10-19/IMPLEMENTATION_MASTER_PROMPT.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_INDEPENDENT_REVIEW.md",
+      "target": "ASTRA_IMPLEMENTATION_ARCHITECTURE.md",
+      "resolved": "docs/performance/2026-10-19/ASTRA_IMPLEMENTATION_ARCHITECTURE.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_INDEPENDENT_REVIEW.md",
+      "target": "ASTRA_OPTIMIZATION_DECISION_MATRIX.md",
+      "resolved": "docs/performance/2026-10-19/ASTRA_OPTIMIZATION_DECISION_MATRIX.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_INDEPENDENT_REVIEW.md",
+      "target": "ASTRA_VALIDATION_PLAN.md",
+      "resolved": "docs/performance/2026-10-19/ASTRA_VALIDATION_PLAN.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_INDEPENDENT_REVIEW.md",
+      "target": "ASTRA_TECHNICAL_SOURCES.md",
+      "resolved": "docs/performance/2026-10-19/ASTRA_TECHNICAL_SOURCES.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_INDEPENDENT_REVIEW.md",
+      "target": "evidence/astra/replay-comparison.json",
+      "resolved": "docs/performance/2026-10-19/evidence/astra/replay-comparison.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_INDEPENDENT_REVIEW.md",
+      "target": "evidence/astra/experiment-comparison.json",
+      "resolved": "docs/performance/2026-10-19/evidence/astra/experiment-comparison.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_INDEPENDENT_REVIEW.md",
+      "target": "evidence/astra/source-preservation.json",
+      "resolved": "docs/performance/2026-10-19/evidence/astra/source-preservation.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_INDEPENDENT_REVIEW.md",
+      "target": "evidence/astra/archive-integrity.json",
+      "resolved": "docs/performance/2026-10-19/evidence/astra/archive-integrity.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_INDEPENDENT_REVIEW.md",
+      "target": "evidence/astra/validators.log",
+      "resolved": "docs/performance/2026-10-19/evidence/astra/validators.log",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_INDEPENDENT_REVIEW.md",
+      "target": "evidence/astra/hud-mask-experiment.zip",
+      "resolved": "docs/performance/2026-10-19/evidence/astra/hud-mask-experiment.zip",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_INDEPENDENT_REVIEW.md",
+      "target": "evidence/astra/completion.json",
+      "resolved": "docs/performance/2026-10-19/evidence/astra/completion.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_INDEPENDENT_REVIEW.md",
+      "target": "evidence/astra/hud-compiled-oracle.json",
+      "resolved": "docs/performance/2026-10-19/evidence/astra/hud-compiled-oracle.json",
+      "status": "archived; restore required"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_OPTIMIZATION_DECISION_MATRIX.md",
+      "target": "ASTRA_INDEPENDENT_REVIEW.md",
+      "resolved": "docs/performance/2026-10-19/ASTRA_INDEPENDENT_REVIEW.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_OPTIMIZATION_DECISION_MATRIX.md",
+      "target": "ASTRA_TECHNICAL_SOURCES.md",
+      "resolved": "docs/performance/2026-10-19/ASTRA_TECHNICAL_SOURCES.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_OPTIMIZATION_DECISION_MATRIX.md",
+      "target": "ASTRA_IMPLEMENTATION_ARCHITECTURE.md",
+      "resolved": "docs/performance/2026-10-19/ASTRA_IMPLEMENTATION_ARCHITECTURE.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_OPTIMIZATION_DECISION_MATRIX.md",
+      "target": "ASTRA_VALIDATION_PLAN.md",
+      "resolved": "docs/performance/2026-10-19/ASTRA_VALIDATION_PLAN.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_TECHNICAL_SOURCES.md",
+      "target": "evidence/toolchain.json",
+      "resolved": "docs/performance/2026-10-19/evidence/toolchain.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_TECHNICAL_SOURCES.md",
+      "target": "evidence/astra/build-retry.log",
+      "resolved": "docs/performance/2026-10-19/evidence/astra/build-retry.log",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_TECHNICAL_SOURCES.md",
+      "target": "evidence/astra/source-preservation.json",
+      "resolved": "docs/performance/2026-10-19/evidence/astra/source-preservation.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_TECHNICAL_SOURCES.md",
+      "target": "evidence/astra/replay-comparison.json",
+      "resolved": "docs/performance/2026-10-19/evidence/astra/replay-comparison.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_TECHNICAL_SOURCES.md",
+      "target": "evidence/astra/independent-statistics.json",
+      "resolved": "docs/performance/2026-10-19/evidence/astra/independent-statistics.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_TECHNICAL_SOURCES.md",
+      "target": "evidence/astra/vram-transfer.json",
+      "resolved": "docs/performance/2026-10-19/evidence/astra/vram-transfer.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_TECHNICAL_SOURCES.md",
+      "target": "evidence/astra/projector-costs.json",
+      "resolved": "docs/performance/2026-10-19/evidence/astra/projector-costs.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_TECHNICAL_SOURCES.md",
+      "target": "evidence/astra/camera-edge-replay.json",
+      "resolved": "docs/performance/2026-10-19/evidence/astra/camera-edge-replay.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_TECHNICAL_SOURCES.md",
+      "target": "evidence/astra/planes-replay/",
+      "resolved": "docs/performance/2026-10-19/evidence/astra/planes-replay",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_TECHNICAL_SOURCES.md",
+      "target": "evidence/astra/dda16-replay/",
+      "resolved": "docs/performance/2026-10-19/evidence/astra/dda16-replay",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_TECHNICAL_SOURCES.md",
+      "target": "evidence/astra/hud_mask_experiment.py",
+      "resolved": "docs/performance/2026-10-19/evidence/astra/hud_mask_experiment.py",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_TECHNICAL_SOURCES.md",
+      "target": "evidence/astra/hud-mask-proof.json",
+      "resolved": "docs/performance/2026-10-19/evidence/astra/hud-mask-proof.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_TECHNICAL_SOURCES.md",
+      "target": "evidence/astra/hud-mask-replay/",
+      "resolved": "docs/performance/2026-10-19/evidence/astra/hud-mask-replay",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_TECHNICAL_SOURCES.md",
+      "target": "evidence/astra/validators.log",
+      "resolved": "docs/performance/2026-10-19/evidence/astra/validators.log",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_VALIDATION_PLAN.md",
+      "target": "ASTRA_IMPLEMENTATION_ARCHITECTURE.md",
+      "resolved": "docs/performance/2026-10-19/ASTRA_IMPLEMENTATION_ARCHITECTURE.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_VALIDATION_PLAN.md",
+      "target": "ASTRA_OPTIMIZATION_DECISION_MATRIX.md",
+      "resolved": "docs/performance/2026-10-19/ASTRA_OPTIMIZATION_DECISION_MATRIX.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_VALIDATION_PLAN.md",
+      "target": "evidence/astra/hud-compiled-oracle.json",
+      "resolved": "docs/performance/2026-10-19/evidence/astra/hud-compiled-oracle.json",
+      "status": "archived; restore required"
+    },
+    {
+      "document": "docs/performance/2026-10-19/ASTRA_VALIDATION_PLAN.md",
+      "target": "evidence/astra/hud-mask-proof.json",
+      "resolved": "docs/performance/2026-10-19/evidence/astra/hud-mask-proof.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/BANKING_AND_MEMORY_AUDIT.md",
+      "target": "evidence/modules.csv",
+      "resolved": "docs/performance/2026-10-19/evidence/modules.csv",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/BANKING_AND_MEMORY_AUDIT.md",
+      "target": "evidence/calls.csv",
+      "resolved": "docs/performance/2026-10-19/evidence/calls.csv",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/BANKING_AND_MEMORY_AUDIT.md",
+      "target": "evidence/ram.csv",
+      "resolved": "docs/performance/2026-10-19/evidence/ram.csv",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/BANKING_AND_MEMORY_AUDIT.md",
+      "target": "evidence/ram-complete.csv",
+      "resolved": "docs/performance/2026-10-19/evidence/ram-complete.csv",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/BANKING_AND_MEMORY_AUDIT.md",
+      "target": "evidence/stack-bounds.json",
+      "resolved": "docs/performance/2026-10-19/evidence/stack-bounds.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/FRAME_PIPELINE_AND_INPUT_LATENCY.md",
+      "target": "evidence/tap/frame-samples.csv",
+      "resolved": "docs/performance/2026-10-19/evidence/tap/frame-samples.csv",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/FRAME_PIPELINE_AND_INPUT_LATENCY.md",
+      "target": "PERFORMANCE_BENCHMARKS.md",
+      "resolved": "docs/performance/2026-10-19/PERFORMANCE_BENCHMARKS.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/GENERATED_Z80_ANALYSIS.md",
+      "target": "evidence/baseline-build.zip",
+      "resolved": "docs/performance/2026-10-19/evidence/baseline-build.zip",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/GENERATED_Z80_ANALYSIS.md",
+      "target": "evidence/profile-summary.json",
+      "resolved": "docs/performance/2026-10-19/evidence/profile-summary.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/GENERATED_Z80_ANALYSIS.md",
+      "target": "evidence/helpers.csv",
+      "resolved": "docs/performance/2026-10-19/evidence/helpers.csv",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/GENERATED_Z80_ANALYSIS.md",
+      "target": "evidence/experiment-code-metrics.csv",
+      "resolved": "docs/performance/2026-10-19/evidence/experiment-code-metrics.csv",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/GIT_VERIFICATION.md",
+      "target": "evidence/git-verification/",
+      "resolved": "docs/performance/2026-10-19/evidence/git-verification",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/GIT_VERIFICATION.md",
+      "target": "evidence/implementation/git-package-verification.json",
+      "resolved": "docs/performance/2026-10-19/evidence/implementation/git-package-verification.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/GIT_VERIFICATION.md",
+      "target": "evidence/implementation/production-replay-evidence.zip",
+      "resolved": "docs/performance/2026-10-19/evidence/implementation/production-replay-evidence.zip",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/GIT_VERIFICATION.md",
+      "target": "evidence/implementation/architecture-trace-evidence.zip",
+      "resolved": "docs/performance/2026-10-19/evidence/implementation/architecture-trace-evidence.zip",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/GIT_VERIFICATION.md",
+      "target": "evidence/implementation/git-evidence-archives.json",
+      "resolved": "docs/performance/2026-10-19/evidence/implementation/git-evidence-archives.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/HANDOFF_TO_ASTRA.md",
+      "target": "README.md",
+      "resolved": "docs/performance/2026-10-19/README.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/HANDOFF_TO_ASTRA.md",
+      "target": "PERFORMANCE_FINDINGS.md",
+      "resolved": "docs/performance/2026-10-19/PERFORMANCE_FINDINGS.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/HANDOFF_TO_ASTRA.md",
+      "target": "PERFORMANCE_BENCHMARKS.md",
+      "resolved": "docs/performance/2026-10-19/PERFORMANCE_BENCHMARKS.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/HANDOFF_TO_ASTRA.md",
+      "target": "PROJECT_DOCUMENT_INDEX.md",
+      "resolved": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/IMPLEMENTATION_MASTER_PROMPT.md",
+      "target": "ASTRA_INDEPENDENT_REVIEW.md",
+      "resolved": "docs/performance/2026-10-19/ASTRA_INDEPENDENT_REVIEW.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/IMPLEMENTATION_MASTER_PROMPT.md",
+      "target": "ASTRA_OPTIMIZATION_DECISION_MATRIX.md",
+      "resolved": "docs/performance/2026-10-19/ASTRA_OPTIMIZATION_DECISION_MATRIX.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/IMPLEMENTATION_MASTER_PROMPT.md",
+      "target": "ASTRA_IMPLEMENTATION_ARCHITECTURE.md",
+      "resolved": "docs/performance/2026-10-19/ASTRA_IMPLEMENTATION_ARCHITECTURE.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/IMPLEMENTATION_MASTER_PROMPT.md",
+      "target": "ASTRA_VALIDATION_PLAN.md",
+      "resolved": "docs/performance/2026-10-19/ASTRA_VALIDATION_PLAN.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/IMPLEMENTATION_MASTER_PROMPT.md",
+      "target": "ASTRA_TECHNICAL_SOURCES.md",
+      "resolved": "docs/performance/2026-10-19/ASTRA_TECHNICAL_SOURCES.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/IMPLEMENTATION_MASTER_PROMPT.md",
+      "target": "PERFORMANCE_FINDINGS.md",
+      "resolved": "docs/performance/2026-10-19/PERFORMANCE_FINDINGS.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/IMPLEMENTATION_MASTER_PROMPT.md",
+      "target": "PERFORMANCE_BENCHMARKS.md",
+      "resolved": "docs/performance/2026-10-19/PERFORMANCE_BENCHMARKS.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/IMPLEMENTATION_MASTER_PROMPT.md",
+      "target": "REGRESSION_AND_CORRECTNESS_RISKS.md",
+      "resolved": "docs/performance/2026-10-19/REGRESSION_AND_CORRECTNESS_RISKS.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/IMPLEMENTATION_MASTER_PROMPT.md",
+      "target": "PROJECT_DOCUMENT_INDEX.md",
+      "resolved": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/IMPLEMENTATION_RECORD.md",
+      "target": "IMPLEMENTATION_MASTER_PROMPT.md",
+      "resolved": "docs/performance/2026-10-19/IMPLEMENTATION_MASTER_PROMPT.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/IMPLEMENTATION_RECORD.md",
+      "target": "IMPLEMENTATION_REPORT.md",
+      "resolved": "docs/performance/2026-10-19/IMPLEMENTATION_REPORT.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/IMPLEMENTATION_REPORT.md",
+      "target": "../../../../rom/GearRay-verified-20261019.gg",
+      "resolved": null,
+      "status": "outside-root provenance, not accessed"
+    },
+    {
+      "document": "docs/performance/2026-10-19/IMPLEMENTATION_REPORT.md",
+      "target": "GIT_VERIFICATION.md",
+      "resolved": "docs/performance/2026-10-19/GIT_VERIFICATION.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/IMPLEMENTATION_REPORT.md",
+      "target": "evidence/implementation/final-logical-long-equivalence.json",
+      "resolved": "docs/performance/2026-10-19/evidence/implementation/final-logical-long-equivalence.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/IMPLEMENTATION_REPORT.md",
+      "target": "evidence/implementation/final-authoritative-state-equivalence.json",
+      "resolved": "docs/performance/2026-10-19/evidence/implementation/final-authoritative-state-equivalence.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/IMPLEMENTATION_REPORT.md",
+      "target": "evidence/implementation/presentation-raster-comparison.png",
+      "resolved": "docs/performance/2026-10-19/evidence/implementation/presentation-raster-comparison.png",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/IMPLEMENTATION_REPORT.md",
+      "target": "evidence/implementation/architecture-analysis.json",
+      "resolved": "docs/performance/2026-10-19/evidence/implementation/architecture-analysis.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PERFORMANCE_BENCHMARKS.md",
+      "target": "evidence/baseline/frame-samples.csv",
+      "resolved": "docs/performance/2026-10-19/evidence/baseline/frame-samples.csv",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PERFORMANCE_BENCHMARKS.md",
+      "target": "evidence/baseline/stage-samples.csv",
+      "resolved": "docs/performance/2026-10-19/evidence/baseline/stage-samples.csv",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PERFORMANCE_BENCHMARKS.md",
+      "target": "evidence/dap-crosscheck.jsonl",
+      "resolved": "docs/performance/2026-10-19/evidence/dap-crosscheck.jsonl",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PERFORMANCE_BENCHMARKS.md",
+      "target": "evidence/dap-crosscheck-summary.json",
+      "resolved": "docs/performance/2026-10-19/evidence/dap-crosscheck-summary.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PERFORMANCE_BENCHMARKS.md",
+      "target": "evidence/reproduction-check.json",
+      "resolved": "docs/performance/2026-10-19/evidence/reproduction-check.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PERFORMANCE_BENCHMARKS.md",
+      "target": "evidence/tap/frame-samples.csv",
+      "resolved": "docs/performance/2026-10-19/evidence/tap/frame-samples.csv",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "evidence/document-index.json",
+      "resolved": "docs/performance/2026-10-19/evidence/document-index.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "evidence/repository-inventory.csv",
+      "resolved": "docs/performance/2026-10-19/evidence/repository-inventory.csv",
+      "status": "archived; restore required"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../ACKNOWLEDGEMENTS.md",
+      "resolved": "ACKNOWLEDGEMENTS.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../CHANGELOG.md",
+      "resolved": "CHANGELOG.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../CONTRIBUTING.md",
+      "resolved": "CONTRIBUTING.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/ASSET_PROVENANCE.md",
+      "resolved": "docs/ASSET_PROVENANCE.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/BUILDING.md",
+      "resolved": "docs/BUILDING.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/CURRENT_BEHAVIOR.md",
+      "resolved": "docs/CURRENT_BEHAVIOR.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/ENGINE_ARCHITECTURE.md",
+      "resolved": "docs/ENGINE_ARCHITECTURE.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/ENGINE_FOUNDATION_V1.0.0.md",
+      "resolved": "docs/ENGINE_FOUNDATION_V1.0.0.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/full_z80_simplification_audit.md",
+      "resolved": "docs/full_z80_simplification_audit.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/held_shotgun_20x16.md",
+      "resolved": "docs/held_shotgun_20x16.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/pause_freeze_audit.md",
+      "resolved": "docs/pause_freeze_audit.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/pause_map.md",
+      "resolved": "docs/pause_map.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/pause_padding_pattern_checkpoint.md",
+      "resolved": "docs/pause_padding_pattern_checkpoint.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/pause_pistol_icon.md",
+      "resolved": "docs/pause_pistol_icon.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/pause_weapon_focus_borders.md",
+      "resolved": "docs/pause_weapon_focus_borders.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/pause_weapon_padding_active_focus.md",
+      "resolved": "docs/pause_weapon_padding_active_focus.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/POST_AUDIT_HARDENING.md",
+      "resolved": "docs/POST_AUDIT_HARDENING.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/PROJECT_BIBLE.md",
+      "resolved": "docs/PROJECT_BIBLE.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/rom_bank_architecture_checkpoint.md",
+      "resolved": "docs/rom_bank_architecture_checkpoint.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/ROM_BANKING.md",
+      "resolved": "docs/ROM_BANKING.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/shotgun_aim_samples.md",
+      "resolved": "docs/shotgun_aim_samples.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/shotgun_combat_bank_checkpoint.md",
+      "resolved": "docs/shotgun_combat_bank_checkpoint.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/shotgun_combat_final.md",
+      "resolved": "docs/shotgun_combat_final.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/shotgun_pickup_cap_auto_equip.md",
+      "resolved": "docs/shotgun_pickup_cap_auto_equip.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/shotgun_pickup_perspective.md",
+      "resolved": "docs/shotgun_pickup_perspective.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/shotgun_pickup_perspective_correction.md",
+      "resolved": "docs/shotgun_pickup_perspective_correction.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/shotgun_pickup_scale.md",
+      "resolved": "docs/shotgun_pickup_scale.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/shotgun_pickup_touch_far.md",
+      "resolved": "docs/shotgun_pickup_touch_far.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/SPRINT_11_TASK_107_RENDERER_PROFILE.md",
+      "resolved": "docs/SPRINT_11_TASK_107_RENDERER_PROFILE.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/SPRINT_11_TASK_108_OPTIMIZATION_PASS_1.md",
+      "resolved": "docs/SPRINT_11_TASK_108_OPTIMIZATION_PASS_1.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/SPRINT_17_DISTANT_WALL_LOD.md",
+      "resolved": "docs/SPRINT_17_DISTANT_WALL_LOD.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/SPRINT_21_ENGINE_PERFORMANCE_AUDIT.md",
+      "resolved": "docs/SPRINT_21_ENGINE_PERFORMANCE_AUDIT.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/SPRINT_22_FINAL_DISTANT_WALL_LOD.md",
+      "resolved": "docs/SPRINT_22_FINAL_DISTANT_WALL_LOD.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/SPRINT_23_SENIOR_CODE_CLEANUP_AUDIT.md",
+      "resolved": "docs/SPRINT_23_SENIOR_CODE_CLEANUP_AUDIT.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/SPRINT_24_PLAYER_MOVEMENT_AND_CONTROL_FEEL.md",
+      "resolved": "docs/SPRINT_24_PLAYER_MOVEMENT_AND_CONTROL_FEEL.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/SPRINT_25_EXPERIMENTAL_8X8_WALL_TEXTURE.md",
+      "resolved": "docs/SPRINT_25_EXPERIMENTAL_8X8_WALL_TEXTURE.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/SPRINT_26_EXPERIMENTAL_FAR_WALL_DITHER.md",
+      "resolved": "docs/SPRINT_26_EXPERIMENTAL_FAR_WALL_DITHER.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/SPRINT_27_EXPERIMENTAL_BLACK_FOG_LOD.md",
+      "resolved": "docs/SPRINT_27_EXPERIMENTAL_BLACK_FOG_LOD.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/SPRINT_28_EXPERIMENTAL_DISTANCE_ATTENUATION.md",
+      "resolved": "docs/SPRINT_28_EXPERIMENTAL_DISTANCE_ATTENUATION.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/SPRINT_29_HYBRID_DISTANCE_FOG.md",
+      "resolved": "docs/SPRINT_29_HYBRID_DISTANCE_FOG.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/SPRINT_30_POST_8X8_RENDERER_PERFORMANCE_AUDIT.md",
+      "resolved": "docs/SPRINT_30_POST_8X8_RENDERER_PERFORMANCE_AUDIT.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/SPRINT_31_FINAL_GAME_GEAR_CONTROLS.md",
+      "resolved": "docs/SPRINT_31_FINAL_GAME_GEAR_CONTROLS.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/SPRINT_31_SENIOR_ENGINE_ARCHITECTURE_AUDIT.md",
+      "resolved": "docs/SPRINT_31_SENIOR_ENGINE_ARCHITECTURE_AUDIT.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/two_weapon_bank_pressure.md",
+      "resolved": "docs/two_weapon_bank_pressure.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/two_weapon_milestone.md",
+      "resolved": "docs/two_weapon_milestone.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/two_weapon_pre_edit.md",
+      "resolved": "docs/two_weapon_pre_edit.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/validator_hygiene.md",
+      "resolved": "docs/validator_hygiene.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/world_shotgun_pickup_asset.md",
+      "resolved": "docs/world_shotgun_pickup_asset.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/ZOMBIE_PRESENTATION_PIPELINE.md",
+      "resolved": "docs/ZOMBIE_PRESENTATION_PIPELINE.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../docs/ZOMBIE_SYSTEM_ARCHITECTURE_AUDIT.md",
+      "resolved": "docs/ZOMBIE_SYSTEM_ARCHITECTURE_AUDIT.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../GearRay_Developer_Bible.md",
+      "resolved": "GearRay_Developer_Bible.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../README.md",
+      "resolved": "README.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../SECURITY.md",
+      "resolved": "SECURITY.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "../../../THIRD_PARTY_NOTICES.md",
+      "resolved": "THIRD_PARTY_NOTICES.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "target": "evidence/history.txt",
+      "resolved": "docs/performance/2026-10-19/evidence/history.txt",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/RAYCASTER_DEEP_AUDIT.md",
+      "target": "evidence/helpers.csv",
+      "resolved": "docs/performance/2026-10-19/evidence/helpers.csv",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/RAYCASTER_DEEP_AUDIT.md",
+      "target": "evidence/height-lut-proof.json",
+      "resolved": "docs/performance/2026-10-19/evidence/height-lut-proof.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "HANDOFF_TO_ASTRA.md",
+      "resolved": "docs/performance/2026-10-19/HANDOFF_TO_ASTRA.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "PROJECT_DOCUMENT_INDEX.md",
+      "resolved": "docs/performance/2026-10-19/PROJECT_DOCUMENT_INDEX.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "ARCHITECTURE_RECONSTRUCTION.md",
+      "resolved": "docs/performance/2026-10-19/ARCHITECTURE_RECONSTRUCTION.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "FRAME_PIPELINE_AND_INPUT_LATENCY.md",
+      "resolved": "docs/performance/2026-10-19/FRAME_PIPELINE_AND_INPUT_LATENCY.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "RAYCASTER_DEEP_AUDIT.md",
+      "resolved": "docs/performance/2026-10-19/RAYCASTER_DEEP_AUDIT.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "RENDERER_AND_VRAM_DEEP_AUDIT.md",
+      "resolved": "docs/performance/2026-10-19/RENDERER_AND_VRAM_DEEP_AUDIT.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "SPRITES_AI_AND_GAMEPLAY_AUDIT.md",
+      "resolved": "docs/performance/2026-10-19/SPRITES_AI_AND_GAMEPLAY_AUDIT.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "BANKING_AND_MEMORY_AUDIT.md",
+      "resolved": "docs/performance/2026-10-19/BANKING_AND_MEMORY_AUDIT.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "GENERATED_Z80_ANALYSIS.md",
+      "resolved": "docs/performance/2026-10-19/GENERATED_Z80_ANALYSIS.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "PERFORMANCE_BENCHMARKS.md",
+      "resolved": "docs/performance/2026-10-19/PERFORMANCE_BENCHMARKS.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "EXPERIMENTS_AND_ALTERNATIVES.md",
+      "resolved": "docs/performance/2026-10-19/EXPERIMENTS_AND_ALTERNATIVES.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "PERFORMANCE_FINDINGS.md",
+      "resolved": "docs/performance/2026-10-19/PERFORMANCE_FINDINGS.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "OPTIMIZATION_OPPORTUNITIES.md",
+      "resolved": "docs/performance/2026-10-19/OPTIMIZATION_OPPORTUNITIES.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "REGRESSION_AND_CORRECTNESS_RISKS.md",
+      "resolved": "docs/performance/2026-10-19/REGRESSION_AND_CORRECTNESS_RISKS.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "UNRESOLVED_QUESTIONS.md",
+      "resolved": "docs/performance/2026-10-19/UNRESOLVED_QUESTIONS.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "HANDOFF_TO_ASTRA.md",
+      "resolved": "docs/performance/2026-10-19/HANDOFF_TO_ASTRA.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "evidence/",
+      "resolved": "docs/performance/2026-10-19/evidence",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "evidence/baseline-inputs.zip",
+      "resolved": "docs/performance/2026-10-19/evidence/baseline-inputs.zip",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "evidence/baseline-build.zip",
+      "resolved": "docs/performance/2026-10-19/evidence/baseline-build.zip",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "evidence/experiments.zip",
+      "resolved": "docs/performance/2026-10-19/evidence/experiments.zip",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "COMPILED_MICROBENCHMARKS.md",
+      "resolved": "docs/performance/2026-10-19/COMPILED_MICROBENCHMARKS.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "evidence/bank-occupancy.csv",
+      "resolved": "docs/performance/2026-10-19/evidence/bank-occupancy.csv",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "evidence/ram-complete.csv",
+      "resolved": "docs/performance/2026-10-19/evidence/ram-complete.csv",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "evidence/experiment-code-metrics.csv",
+      "resolved": "docs/performance/2026-10-19/evidence/experiment-code-metrics.csv",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "EXTERNAL_REFERENCE_NOTES.md",
+      "resolved": "docs/performance/2026-10-19/EXTERNAL_REFERENCE_NOTES.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "evidence/completion.json",
+      "resolved": "docs/performance/2026-10-19/evidence/completion.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "evidence/changed-files.csv",
+      "resolved": "docs/performance/2026-10-19/evidence/changed-files.csv",
+      "status": "archived; restore required"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "evidence/final-status.txt",
+      "resolved": "docs/performance/2026-10-19/evidence/final-status.txt",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "evidence/rom-identity.json",
+      "resolved": "docs/performance/2026-10-19/evidence/rom-identity.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "evidence/toolchain.json",
+      "resolved": "docs/performance/2026-10-19/evidence/toolchain.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/README.md",
+      "target": "evidence/production-preservation.json",
+      "resolved": "docs/performance/2026-10-19/evidence/production-preservation.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/SPRITES_AI_AND_GAMEPLAY_AUDIT.md",
+      "target": "COMPILED_MICROBENCHMARKS.md",
+      "resolved": "docs/performance/2026-10-19/COMPILED_MICROBENCHMARKS.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_RECORD.md",
+      "target": "IMPLEMENTATION_REPORT.md",
+      "resolved": "docs/performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_REPORT.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_REPORT.md",
+      "target": "evidence/initial-identity.json",
+      "resolved": "docs/performance/2026-10-19/post-implementation-followup/evidence/initial-identity.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_REPORT.md",
+      "target": "evidence/artwork-delta.json",
+      "resolved": "docs/performance/2026-10-19/post-implementation-followup/evidence/artwork-delta.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_REPORT.md",
+      "target": "evidence/resource-comparison.json",
+      "resolved": "docs/performance/2026-10-19/post-implementation-followup/evidence/resource-comparison.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_REPORT.md",
+      "target": "evidence/base-vs-row.json",
+      "resolved": "docs/performance/2026-10-19/post-implementation-followup/evidence/base-vs-row.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_REPORT.md",
+      "target": "evidence/row-vs-combined.json",
+      "resolved": "docs/performance/2026-10-19/post-implementation-followup/evidence/row-vs-combined.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_REPORT.md",
+      "target": "evidence/base-vs-combined.json",
+      "resolved": "docs/performance/2026-10-19/post-implementation-followup/evidence/base-vs-combined.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_REPORT.md",
+      "target": "evidence/profiler-self-test.json",
+      "resolved": "docs/performance/2026-10-19/post-implementation-followup/evidence/profiler-self-test.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_REPORT.md",
+      "target": "evidence/corrected-profiler-comparison.json",
+      "resolved": "docs/performance/2026-10-19/post-implementation-followup/evidence/corrected-profiler-comparison.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_REPORT.md",
+      "target": "IMPLEMENTATION_RECORD.md",
+      "resolved": "docs/performance/2026-10-19/post-implementation-followup/IMPLEMENTATION_RECORD.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/FINAL_ACCEPTANCE_REVIEW.md",
+      "target": "evidence/historical-evidence-integrity.json",
+      "resolved": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/historical-evidence-integrity.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/FINAL_ACCEPTANCE_REVIEW.md",
+      "target": "evidence/initial-identity.json",
+      "resolved": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/initial-identity.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/FINAL_ACCEPTANCE_REVIEW.md",
+      "target": "../../../../../platform/game_gear/video.c",
+      "resolved": "platform/game_gear/video.c",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/FINAL_ACCEPTANCE_REVIEW.md",
+      "target": "../../../../../platform/game_gear/video.c",
+      "resolved": "platform/game_gear/video.c",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/FINAL_ACCEPTANCE_REVIEW.md",
+      "target": "../../../../../platform/game_gear/native_wall.c",
+      "resolved": "platform/game_gear/native_wall.c",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/FINAL_ACCEPTANCE_REVIEW.md",
+      "target": "../../../../../platform/game_gear/sprite_projection.c",
+      "resolved": "platform/game_gear/sprite_projection.c",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/INDEPENDENT_VALIDATION_RESULTS.md",
+      "target": "REMAINING_RISKS_AND_OPPORTUNITIES.md",
+      "resolved": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/REMAINING_RISKS_AND_OPPORTUNITIES.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/PERFORMANCE_AND_RESOURCE_COMPARISON.md",
+      "target": "evidence/independent-performance.json",
+      "resolved": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/independent-performance.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/PERFORMANCE_AND_RESOURCE_COMPARISON.md",
+      "target": "evidence/independent-resources.json",
+      "resolved": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/independent-resources.json",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/README.md",
+      "target": "FINAL_ACCEPTANCE_REVIEW.md",
+      "resolved": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/FINAL_ACCEPTANCE_REVIEW.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/README.md",
+      "target": "INDEPENDENT_VALIDATION_RESULTS.md",
+      "resolved": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/INDEPENDENT_VALIDATION_RESULTS.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/README.md",
+      "target": "PERFORMANCE_AND_RESOURCE_COMPARISON.md",
+      "resolved": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/PERFORMANCE_AND_RESOURCE_COMPARISON.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/README.md",
+      "target": "REMAINING_RISKS_AND_OPPORTUNITIES.md",
+      "resolved": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/REMAINING_RISKS_AND_OPPORTUNITIES.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/README.md",
+      "target": "SECOND_ZOMBIE_READINESS_NOTES.md",
+      "resolved": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/SECOND_ZOMBIE_READINESS_NOTES.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/README.md",
+      "target": "evidence/",
+      "resolved": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/SECOND_ZOMBIE_READINESS_NOTES.md",
+      "target": "../../../../../game/world_sprite.h",
+      "resolved": "game/world_sprite.h",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/SECOND_ZOMBIE_READINESS_NOTES.md",
+      "target": "../../../../../game/world_sprite.c",
+      "resolved": "game/world_sprite.c",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/SECOND_ZOMBIE_READINESS_NOTES.md",
+      "target": "../../../../../platform/game_gear/sprite_projection.c",
+      "resolved": "platform/game_gear/sprite_projection.c",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/SECOND_ZOMBIE_READINESS_NOTES.md",
+      "target": "../../../../../platform/game_gear/near_zombie_textures.c",
+      "resolved": "platform/game_gear/near_zombie_textures.c",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/SECOND_ZOMBIE_READINESS_NOTES.md",
+      "target": "../../../../../CMakeLists.txt",
+      "resolved": "CMakeLists.txt",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-review/FINAL_FINDINGS_AND_RECOMMENDATIONS.md",
+      "target": "SOLO_FOLLOWUP_IMPLEMENTATION_PROMPT.md",
+      "resolved": "docs/performance/2026-10-19/post-implementation-review/SOLO_FOLLOWUP_IMPLEMENTATION_PROMPT.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-review/README.md",
+      "target": "IMPLEMENTATION_VERIFICATION.md",
+      "resolved": "docs/performance/2026-10-19/post-implementation-review/IMPLEMENTATION_VERIFICATION.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-review/README.md",
+      "target": "PERFORMANCE_REBENCHMARK.md",
+      "resolved": "docs/performance/2026-10-19/post-implementation-review/PERFORMANCE_REBENCHMARK.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-review/README.md",
+      "target": "ENGINE_CORRECTNESS_REVIEW.md",
+      "resolved": "docs/performance/2026-10-19/post-implementation-review/ENGINE_CORRECTNESS_REVIEW.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-review/README.md",
+      "target": "Z80_BANKING_AND_MEMORY_REVIEW.md",
+      "resolved": "docs/performance/2026-10-19/post-implementation-review/Z80_BANKING_AND_MEMORY_REVIEW.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-review/README.md",
+      "target": "REMAINING_BOTTLENECKS.md",
+      "resolved": "docs/performance/2026-10-19/post-implementation-review/REMAINING_BOTTLENECKS.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-review/README.md",
+      "target": "ARCHITECTURAL_ALTERNATIVES.md",
+      "resolved": "docs/performance/2026-10-19/post-implementation-review/ARCHITECTURAL_ALTERNATIVES.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-review/README.md",
+      "target": "VALIDATION_GAPS.md",
+      "resolved": "docs/performance/2026-10-19/post-implementation-review/VALIDATION_GAPS.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-review/README.md",
+      "target": "FINAL_FINDINGS_AND_RECOMMENDATIONS.md",
+      "resolved": "docs/performance/2026-10-19/post-implementation-review/FINAL_FINDINGS_AND_RECOMMENDATIONS.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/performance/2026-10-19/post-implementation-review/README.md",
+      "target": "SOLO_FOLLOWUP_IMPLEMENTATION_PROMPT.md",
+      "resolved": "docs/performance/2026-10-19/post-implementation-review/SOLO_FOLLOWUP_IMPLEMENTATION_PROMPT.md",
+      "status": "live file/directory"
+    },
+    {
+      "document": "docs/shotgun_pickup_touch_far.md",
+      "target": "../build/generated/shotgun-near-far-preview.png",
+      "resolved": "build/generated/shotgun-near-far-preview.png",
+      "status": "archived; restore required"
+    }
+  ],
+  "fragment_scope": "Current generated links use live file targets. Historical section fragments must be read against their dated/pre-reconstruction version; no historical report bytes were rewritten."
+}

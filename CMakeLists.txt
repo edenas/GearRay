@@ -228,8 +228,23 @@ foreach(weapon_pose IN ITEMS WEAPON WEAPON_SHOOT)
 endforeach()
 set(GEAR_RAY_VRAM_LAYOUT_HEADER "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/vram_layout.h")
 set(GEAR_RAY_IHX "${CMAKE_BINARY_DIR}/GearRay.ihx")
-set(GEAR_RAY_ROM_DIR "${CMAKE_SOURCE_DIR}/rom")
+set(GEAR_RAY_ROM_DIR "${CMAKE_SOURCE_DIR}/rom" CACHE PATH "Directory for the packaged Game Gear ROM")
 set(GEAR_RAY_ROM "${GEAR_RAY_ROM_DIR}/${GEAR_RAY_ROM_FILENAME}")
+
+# The canonical directory belongs to the anchored Release workflow. A profile,
+# development or experiment configure must choose its own output directory.
+get_filename_component(GEAR_RAY_CANONICAL_ROM_DIR "${CMAKE_SOURCE_DIR}/rom" ABSOLUTE)
+get_filename_component(GEAR_RAY_CONFIGURED_ROM_DIR "${GEAR_RAY_ROM_DIR}" ABSOLUTE)
+string(TOLOWER "${GEAR_RAY_CANONICAL_ROM_DIR}" GEAR_RAY_CANONICAL_ROM_DIR_CHECK)
+string(TOLOWER "${GEAR_RAY_CONFIGURED_ROM_DIR}" GEAR_RAY_CONFIGURED_ROM_DIR_CHECK)
+string(TOLOWER "${CMAKE_BINARY_DIR}" GEAR_RAY_CONFIGURED_BUILD_CHECK)
+string(TOLOWER "${CMAKE_SOURCE_DIR}/build/release" GEAR_RAY_RELEASE_BUILD_CHECK)
+if(GEAR_RAY_CONFIGURED_ROM_DIR_CHECK STREQUAL GEAR_RAY_CANONICAL_ROM_DIR_CHECK)
+    if(NOT GEAR_RAY_CONFIGURED_BUILD_CHECK STREQUAL GEAR_RAY_RELEASE_BUILD_CHECK
+       OR NOT CMAKE_BUILD_TYPE STREQUAL "Release" OR GEARRAY_PROFILE_RENDERER)
+        message(FATAL_ERROR "Only build/release with Release/profiling OFF may write rom/. Set GEAR_RAY_ROM_DIR to your dev/profile/experiment build's own rom directory.")
+    endif()
+endif()
 
 foreach(required_path
         "${GEAR_RAY_DEVKITSMS_ROOT}"
@@ -1252,7 +1267,7 @@ add_custom_command(
     DEPENDS "${GEAR_RAY_IHX}"
             "${GEAR_RAY_BANK_LAYOUT_VALIDATOR}"
             "${CMAKE_SOURCE_DIR}/tools/production_build_artifacts.ps1"
-    COMMENT "Generating rom/${GEAR_RAY_ROM_FILENAME}"
+    COMMENT "Generating ${GEAR_RAY_ROM}"
     VERBATIM
 )
 

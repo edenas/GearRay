@@ -1,0 +1,54 @@
+{
+  "cases": 12,
+  "passed": 12,
+  "results": [
+    {
+      "case": "unsafe-entry:../assets/a.png",
+      "rejected": true
+    },
+    {
+      "case": "unsafe-entry:/absolute",
+      "rejected": true
+    },
+    {
+      "case": "unsafe-entry:C:/absolute",
+      "rejected": true
+    },
+    {
+      "case": "unsafe-entry:a/../b",
+      "rejected": true
+    },
+    {
+      "case": "unsafe-entry:a\\b",
+      "rejected": true
+    },
+    {
+      "case": "unsafe-entry:a:stream",
+      "rejected": true
+    },
+    {
+      "case": "unsafe-entry:a//b",
+      "rejected": true
+    },
+    {
+      "case": "traversal-member",
+      "rejected": true
+    },
+    {
+      "case": "symlink-member",
+      "rejected": true
+    },
+    {
+      "case": "conflicting-members",
+      "rejected": true
+    },
+    {
+      "case": "differing-existing",
+      "rejected": true
+    },
+    {
+      "case": "outside-destination",
+      "rejected": true
+    }
+  ]
+}

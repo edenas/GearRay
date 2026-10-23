@@ -1,0 +1,578 @@
+{
+  "runtime_python": "3.12.10",
+  "runtime_jpype": "1.5.2",
+  "warning": "Original cache has stale 1.6.0 distribution metadata; actual imported runtime is 1.5.2. Preserve exact extension/package, do not infer upgrades.",
+  "python_tools": {
+    "org.jpype.jar": {
+      "size": 107319,
+      "sha256": "a8c993bccb81392102fca126d4d716605cbda2c6df2846d42c92dc3672bfd4f2"
+    },
+    "_jpype.cp312-win_amd64.pyd": {
+      "size": 469504,
+      "sha256": "95399f72652c7c1b24793c6d91dcb32a4d03187bc7740916a3776fec6b66c02a"
+    },
+    "jpype/beans.py": {
+      "size": 3684,
+      "sha256": "1007e8def83214ae6e123f8beeedabaa678981b3bd69daa886969185d59aacfb"
+    },
+    "jpype/config.py": {
+      "size": 1632,
+      "sha256": "a56cca08b132e9f7bf6cc003c74136a574ece1422845e4eeb892ea676cb5ae5e"
+    },
+    "jpype/dbapi2.py": {
+      "size": 55246,
+      "sha256": "00babb55fa6b87a3dd3d94f97998ad870b49c9b3ba691bb4b74e5cc351d57153"
+    },
+    "jpype/imports.py": {
+      "size": 8113,
+      "sha256": "2de4681f86c028fbabb54ebe542782cefe81c521ff5b80bed195a3602863c338"
+    },
+    "jpype/nio.py": {
+      "size": 1210,
+      "sha256": "23e8c6975070ed716e3eed85825e89fe7e31977286282fb2c2395bb46571f797"
+    },
+    "jpype/pickle.py": {
+      "size": 5275,
+      "sha256": "871a509f37dd20e8769d6523f5b65ddcafdab423b0452fb39c8c7c69254056e8"
+    },
+    "jpype/protocol.py": {
+      "size": 4862,
+      "sha256": "fea0f4c3642b38907b310418f3ffee048c3cbf3f9f3f35d928042aeae11e8ff2"
+    },
+    "jpype/types.py": {
+      "size": 2269,
+      "sha256": "83e7fcfc967083988c9c71495fb2faae2796855215f88e268aca83dae7a20987"
+    },
+    "jpype/_classpath.py": {
+      "size": 3177,
+      "sha256": "47dc89095b60ef6e7bec086b926ff65312fbe1aaea31d2788bb4b15d5509cc4c"
+    },
+    "jpype/_core.py": {
+      "size": 22145,
+      "sha256": "f54ed2805829e6274ff7a7779d0687609f5dd00ec032b940276259af95dcb460"
+    },
+    "jpype/_gui.py": {
+      "size": 1460,
+      "sha256": "1eb6234308b990796331fa3c7f13e97967926708a8c96811c457da0596e060e9"
+    },
+    "jpype/_jarray.py": {
+      "size": 6691,
+      "sha256": "f66783daae4ccb4542cdd7a7841ff0ecfc0aa69e4605b00ffa5a852480d84e35"
+    },
+    "jpype/_jarray.pyi": {
+      "size": 1645,
+      "sha256": "3a176e9c2f2c7a943a71c196cf743bedf23a15e27fa9f9cc501b5bace89482a8"
+    },
+    "jpype/_jclass.py": {
+      "size": 8341,
+      "sha256": "b8f2d79c2b03abd47552cbc1ebfa53a38bd6b5932369b235cf9e1b44101c945b"
+    },
+    "jpype/_jcollection.py": {
+      "size": 7317,
+      "sha256": "7416a45bc5f2106dcc3fa5d0c8c9fdab5fcfe6b22f7084872e342083c34a9ce6"
+    },
+    "jpype/_jcollection.pyi": {
+      "size": 903,
+      "sha256": "9e484b28f6885523262d855499867297cc19a0be532d5cdbe9508bb55dabcdc2"
+    },
+    "jpype/_jcustomizer.py": {
+      "size": 10325,
+      "sha256": "9eb15fdc6be74b498ba5fcb3de6ed84315d1bfd29b27bef3e550f2f289c0bdce"
+    },
+    "jpype/_jexception.py": {
+      "size": 1996,
+      "sha256": "2d9172ea040effd6d6815fc34967e854a8c2141ee0b0b58019c5a7bbc93fb08e"
+    },
+    "jpype/_jinit.py": {
+      "size": 1871,
+      "sha256": "c5c8bbcbf9561cf6cb821f430fb6286447fcea75b8d8c1eb9bf8b0f8951d061a"
+    },
+    "jpype/_jio.py": {
+      "size": 1845,
+      "sha256": "ee9a5337f92a5c0f475170a1e2cfc9f0189ecae6f0feced84c2470798000f96e"
+    },
+    "jpype/_jio.pyi": {
+      "size": 368,
+      "sha256": "1d0e014152a4cf98e5348521c88869f605d8ddab1e25cd0f218c6cc1977cfde0"
+    },
+    "jpype/_jmethod.py": {
+      "size": 4355,
+      "sha256": "ff8b6e0c6edbae7aa6ad06ac3e3f84ec185a663e96f3231d1912f38a23815bc6"
+    },
+    "jpype/_jobject.py": {
+      "size": 3866,
+      "sha256": "d3516294216245855ec45067eda86b5fcb4d9d01ae4353d7e3251c2e348d630b"
+    },
+    "jpype/_jpackage.py": {
+      "size": 2309,
+      "sha256": "9f9f3bd102fa58715930a574409506a70102689bd541c8903f06b31769dd1b81"
+    },
+    "jpype/_jproxy.py": {
+      "size": 8418,
+      "sha256": "d8c95c3150212a521f22774c520f29f3a623f7871ac6c8c822e972bf7006e68c"
+    },
+    "jpype/_jstring.py": {
+      "size": 2402,
+      "sha256": "6c8e176d19b2f2c04c77e7b6666b1c698b51d25ed747dcd4d78093e36518fb20"
+    },
+    "jpype/_jthread.py": {
+      "size": 3167,
+      "sha256": "71131b981c836c7c92087d9b26f89a6aed5b956521bbda9511cff463abe7fefb"
+    },
+    "jpype/_jvmfinder.py": {
+      "size": 12647,
+      "sha256": "b0eb3700b69f9375d4343ea9a06209c52269361786d2fbe5aba9d29d5dade3e7"
+    },
+    "jpype/_pykeywords.py": {
+      "size": 2180,
+      "sha256": "e4725c4a51719b43be07b37063cf8b3c06d6bcad55fb72a2c3fc7c297d4ba03d"
+    },
+    "jpype/__init__.py": {
+      "size": 2794,
+      "sha256": "c383868890ab64b211accc8a4939e5fe6cc18d8941fddc10401e4fcdbaae618a"
+    },
+    "jpype1-1.5.2.dist-info/AUTHORS.rst": {
+      "size": 418,
+      "sha256": "5e1d4b1c740e44493d1ec0e49c16443d08b59cfebc1d53b77542c9126dc1db6f"
+    },
+    "jpype1-1.5.2.dist-info/entry_points.txt": {
+      "size": 136,
+      "sha256": "4e576c76a542a65e670b0f05f5e8194cf8c9631f80ff315f68bc80285fb4c0e8"
+    },
+    "jpype1-1.5.2.dist-info/INSTALLER": {
+      "size": 4,
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508"
+    },
+    "jpype1-1.5.2.dist-info/LICENSE": {
+      "size": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    "jpype1-1.5.2.dist-info/METADATA": {
+      "size": 5050,
+      "sha256": "028433b07cb4702a2bd1477a49e34ed2b6e63a9e5b255abd9c4dccf60f0d8f0b"
+    },
+    "jpype1-1.5.2.dist-info/NOTICE": {
+      "size": 1999,
+      "sha256": "63e1ae53a18afbe98c0583694229a0c83526df8127c51e57745913cb3fb0b92e"
+    },
+    "jpype1-1.5.2.dist-info/RECORD": {
+      "size": 5082,
+      "sha256": "3530a936a0b52c155d1f111defff6b9473dbf65fe3ea6e5e25eb1c34f112c2a1"
+    },
+    "jpype1-1.5.2.dist-info/REQUESTED": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "jpype1-1.5.2.dist-info/top_level.txt": {
+      "size": 17,
+      "sha256": "385c488a7d6f161f82a6cc92de11864b0a7d36c5147ff0a05b390c8909835d39"
+    },
+    "jpype1-1.5.2.dist-info/WHEEL": {
+      "size": 101,
+      "sha256": "7119920460fe725f7c2a4b8730daaff4073d2fdfd5a93bdc058c2922fc4dd1c8"
+    },
+    "jpype1-1.6.0.dist-info/entry_points.txt": {
+      "size": 136,
+      "sha256": "4e576c76a542a65e670b0f05f5e8194cf8c9631f80ff315f68bc80285fb4c0e8"
+    },
+    "jpype1-1.6.0.dist-info/INSTALLER": {
+      "size": 4,
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508"
+    },
+    "jpype1-1.6.0.dist-info/METADATA": {
+      "size": 5073,
+      "sha256": "3b62393f425844cf99638a59adb7477bd33c8985e9b0aee32046c53d1122e375"
+    },
+    "jpype1-1.6.0.dist-info/RECORD": {
+      "size": 5109,
+      "sha256": "98c925301d6e7ff201e7e2afd3d672de422d1508c33132d1430e85a5cda89394"
+    },
+    "jpype1-1.6.0.dist-info/REQUESTED": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "jpype1-1.6.0.dist-info/top_level.txt": {
+      "size": 17,
+      "sha256": "385c488a7d6f161f82a6cc92de11864b0a7d36c5147ff0a05b390c8909835d39"
+    },
+    "jpype1-1.6.0.dist-info/WHEEL": {
+      "size": 101,
+      "sha256": "f143fdc7da6e588d0fd55fddecada831306a7de2cd9b6d424f367f3edaf43575"
+    },
+    "packaging/dependency_groups.py": {
+      "size": 11224,
+      "sha256": "5309cc564ca3022dfb594816e9d593bb09cdf34208c1fb8c5ec9afb6c670278c"
+    },
+    "packaging/direct_url.py": {
+      "size": 11645,
+      "sha256": "843baa95d04cbb49288de9d9fd77ee946e862cb603123e7e46a69e171fa7d06b"
+    },
+    "packaging/errors.py": {
+      "size": 2680,
+      "sha256": "ea17c461701ff2ffc817ae7e94569d24e30889e04fdb120ab721178c6d67188b"
+    },
+    "packaging/markers.py": {
+      "size": 20554,
+      "sha256": "6cbe860d35d98d2b599e7f0ec73feab124e015711b30be9045e678c92940d9cc"
+    },
+    "packaging/metadata.py": {
+      "size": 42059,
+      "sha256": "934149f420a5449e6f376aa61d6f26a0823eb82cc7c6a1c8cde5aa7be43d0f63"
+    },
+    "packaging/py.typed": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "packaging/pylock.py": {
+      "size": 35232,
+      "sha256": "1bce0a9fe63e42b87e8ced05da272baf16a68aa704b3718405e2735a6112467c"
+    },
+    "packaging/ranges.py": {
+      "size": 83054,
+      "sha256": "b4781ce913e5dff9e07906f20585c54c3028e1f7ff56341828e79d522ddbfab6"
+    },
+    "packaging/requirements.py": {
+      "size": 7040,
+      "sha256": "459476eb2107fe30e6b1310051a5bdb44c7d3b7f78e0e87bada268282cba62f5"
+    },
+    "packaging/specifiers.py": {
+      "size": 52798,
+      "sha256": "661ad31ddf45ffb861d2626734f4e3d66966029b8fdb79586bb105825d8d9d59"
+    },
+    "packaging/tags.py": {
+      "size": 38302,
+      "sha256": "0e717a082a79620d79cf0321b420df15593c4916fcda03c27cb9d82e07ef5d6e"
+    },
+    "packaging/utils.py": {
+      "size": 12215,
+      "sha256": "a13742cd9994eeca5adfb0249d126408c478026eb1f48cb97afbf2fe9f28ecc6"
+    },
+    "packaging/version.py": {
+      "size": 39040,
+      "sha256": "558b2fb50fd198c660a4c082f96b8919c565911b6b4b6e07f34b6b60c074be97"
+    },
+    "packaging/_elffile.py": {
+      "size": 3236,
+      "sha256": "1f025f54c573f1a85740c4fbd908cc1d1fb0c177c14377ebf5f09d6cd5368780"
+    },
+    "packaging/_manylinux.py": {
+      "size": 10000,
+      "sha256": "5b6e84324c42538ab4cdb148e2430fdba36f04427b0efda55bea083a35fa6136"
+    },
+    "packaging/_musllinux.py": {
+      "size": 2774,
+      "sha256": "0328fb827b1170c77df4c107d49be8df8d37262103490a61e8acad8a2f9cadff"
+    },
+    "packaging/_parser.py": {
+      "size": 12639,
+      "sha256": "88a348115209327497e453b635e5db099fd592f9335d710c7313b29cdb30c50c"
+    },
+    "packaging/_ranges.py": {
+      "size": 30850,
+      "sha256": "b7b595f2e692aeb3697c545b85c24cbbcb4552f2adc6d9059aa82d0877e816b7"
+    },
+    "packaging/_structures.py": {
+      "size": 1109,
+      "sha256": "eb48d16c5efca7ccf930a9cd77a700a6b80e69d0891d5d03966526441a8565cb"
+    },
+    "packaging/_tokenizer.py": {
+      "size": 5573,
+      "sha256": "cc25e57c0d564c89e15073471d6e1c264299ca946fb17c0e1e4af54ef7713ee6"
+    },
+    "packaging/__init__.py": {
+      "size": 494,
+      "sha256": "6e758cdd0028b2cad74c739b9adc9c9f06f054932306280b878bfe59d39219b5"
+    },
+    "packaging-26.3.dist-info/INSTALLER": {
+      "size": 4,
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508"
+    },
+    "packaging-26.3.dist-info/METADATA": {
+      "size": 3544,
+      "sha256": "70fdb89fc4d4a9a043bf7372b8972bcc883fddff34ab55e9cf80d73875384763"
+    },
+    "packaging-26.3.dist-info/RECORD": {
+      "size": 3581,
+      "sha256": "a2cd431afc6ca596c9bf35faf2b902709cad9c48a55d264a71c71e70c6cb2e7a"
+    },
+    "packaging-26.3.dist-info/WHEEL": {
+      "size": 82,
+      "sha256": "1b68144734c4b66791f27add5d425f3620775585718a03d0f9b110ba3a4d88db"
+    },
+    "jpype/_pyinstaller/entry_points.py": {
+      "size": 254,
+      "sha256": "cbb48da8b20fd502fb726d0e3fa92a34358821af6a889ff45b5458ac9670ffff"
+    },
+    "jpype/_pyinstaller/example.py": {
+      "size": 88,
+      "sha256": "57eb1370669251e32097ba585814eef5c7fd227900bd09aea1db4e016e7a6c50"
+    },
+    "jpype/_pyinstaller/hook-jpype.py": {
+      "size": 195,
+      "sha256": "d320f22e0c89c8fad6c45bf4262f1c8e5635cc574a01468f6affe68d5455698d"
+    },
+    "jpype/_pyinstaller/test_jpype_pyinstaller.py": {
+      "size": 620,
+      "sha256": "4b52cc8414c122f5eed3318f5302b822644c95874ac2589515c496d32ab6d5df"
+    },
+    "jpype/__pycache__/beans.cpython-312.pyc": {
+      "size": 3635,
+      "sha256": "1dc7dc6d25af0f6f6999e6b4d4e03ca666b2279ac1e623d918dbdd04b4db7df2"
+    },
+    "jpype/__pycache__/config.cpython-312.pyc": {
+      "size": 264,
+      "sha256": "506a1397af5721350435cf7e2e729f6f6164e1a5e44e3f054a71c5504fc81b30"
+    },
+    "jpype/__pycache__/dbapi2.cpython-312.pyc": {
+      "size": 67952,
+      "sha256": "3db1cd646f350935a0380cc1167d30e45e02d7599cb50c0883129344b5952f13"
+    },
+    "jpype/__pycache__/imports.cpython-312.pyc": {
+      "size": 8792,
+      "sha256": "a13b3c31dbf11c7658c0049536431e46988f701ebb8fa4519238cff00a0342d2"
+    },
+    "jpype/__pycache__/nio.cpython-312.pyc": {
+      "size": 754,
+      "sha256": "012666e83d81891e1b7167dd3358283af65269ada891db7a6a6ab372130269d9"
+    },
+    "jpype/__pycache__/pickle.cpython-312.pyc": {
+      "size": 6574,
+      "sha256": "149d32e34f302ca9d1649afdf9fad5381170fabdc765d6705ea5fd31e3358a1a"
+    },
+    "jpype/__pycache__/protocol.cpython-312.pyc": {
+      "size": 8248,
+      "sha256": "2b8edd5f51e419c4dbdd0a370548f980c7cabf225638684648cb5df45f5d349a"
+    },
+    "jpype/__pycache__/types.cpython-312.pyc": {
+      "size": 2330,
+      "sha256": "b5c783486a2e2299c3aa2c5ae7f300e93efd38d7c13473c53118f52d11779cf7"
+    },
+    "jpype/__pycache__/_classpath.cpython-312.pyc": {
+      "size": 3526,
+      "sha256": "433a551fefee4799cdb998e983dfb74a4f7cc7d74e6e11ae7e18c2d33cd05f2c"
+    },
+    "jpype/__pycache__/_core.cpython-312.pyc": {
+      "size": 26703,
+      "sha256": "db656ac7ca653aac0f613b6ff8ed80d3eef4d36e1cb46518146d31e35ff0eb08"
+    },
+    "jpype/__pycache__/_gui.cpython-312.pyc": {
+      "size": 1207,
+      "sha256": "96f508156dd50ef3c7a735e29298398469428aa338ef67a7014a13148e6235f8"
+    },
+    "jpype/__pycache__/_jarray.cpython-312.pyc": {
+      "size": 8346,
+      "sha256": "0a70873266529d15883db7981c9c250efb94fc37e461e4f547e50495c38f5ea5"
+    },
+    "jpype/__pycache__/_jclass.cpython-312.pyc": {
+      "size": 10594,
+      "sha256": "1af9cfe8c87f0e08dfbfbc73fdb8aa17843cdf6abab243b608f93ef193d7ed1f"
+    },
+    "jpype/__pycache__/_jcollection.cpython-312.pyc": {
+      "size": 13334,
+      "sha256": "950cf0e596afede9e431029a339f514902f252a5269a191ae869313a89ddf7ef"
+    },
+    "jpype/__pycache__/_jcustomizer.cpython-312.pyc": {
+      "size": 12277,
+      "sha256": "e4d1ea652fcbedaa46d6402f02a6e7c98c653993a104f30fc4c1b1705679afce"
+    },
+    "jpype/__pycache__/_jexception.cpython-312.pyc": {
+      "size": 2055,
+      "sha256": "193381d9cb8f5c87304e801767ca0c8fd15daf09b7b0aa30b91757b729f3d27b"
+    },
+    "jpype/__pycache__/_jinit.cpython-312.pyc": {
+      "size": 1566,
+      "sha256": "9f23617c864b597afb51403276c33024f66c1d211e584782c432b96af1e39d9a"
+    },
+    "jpype/__pycache__/_jio.cpython-312.pyc": {
+      "size": 1649,
+      "sha256": "4eb3ecc299c8fed3d7b80077de63901e6a8cc459c69434c96edc9f3e063e0599"
+    },
+    "jpype/__pycache__/_jmethod.cpython-312.pyc": {
+      "size": 5344,
+      "sha256": "4c0b1feef49fb9c3d05d9fcddd259d6dae52653cd11888d18176bbd9342b9e8d"
+    },
+    "jpype/__pycache__/_jobject.cpython-312.pyc": {
+      "size": 4009,
+      "sha256": "1ad7dce62824f94c7ca8ded53bc4ea9465dba60ceccf2c56af1dd6a7e0a512e8"
+    },
+    "jpype/__pycache__/_jpackage.cpython-312.pyc": {
+      "size": 2310,
+      "sha256": "f87e832e2f82ffd61de897dffba0309148b8c14e33c922d8c05fb22c4f504107"
+    },
+    "jpype/__pycache__/_jproxy.cpython-312.pyc": {
+      "size": 9654,
+      "sha256": "bff3a30374ad989f5c75389316b0af406d7d252aaa5e78a7ee01b3695ff7073a"
+    },
+    "jpype/__pycache__/_jstring.cpython-312.pyc": {
+      "size": 3093,
+      "sha256": "8c59623d69302ded2cade02a71f298e4ed996c3735b9e31c308d4138fb814695"
+    },
+    "jpype/__pycache__/_jthread.cpython-312.pyc": {
+      "size": 3346,
+      "sha256": "9fdd6ecfc39366c7861b408a9dc2f9e750257fde8ccd81b442ddc1ac3ff6c046"
+    },
+    "jpype/__pycache__/_jvmfinder.cpython-312.pyc": {
+      "size": 14260,
+      "sha256": "52a636cf9643042a7cdba3663c8777333c1a35d346953471d3b07b8bce5676b5"
+    },
+    "jpype/__pycache__/_pykeywords.cpython-312.pyc": {
+      "size": 1046,
+      "sha256": "d3a9b98b7e960ab0a4151bdca2e3641674684d175a54e60e9cda88a3fadb26e4"
+    },
+    "jpype/__pycache__/__init__.cpython-312.pyc": {
+      "size": 1917,
+      "sha256": "86d2c9828272d644c358312ee68513b1dc03ebe7542f5c9e392d41a65eb9b4c0"
+    },
+    "jpype/_pyinstaller/__pycache__/entry_points.cpython-312.pyc": {
+      "size": 756,
+      "sha256": "0464dbd45b92a6ed212ad1b015c226122df4de4f287290687e356266e2803585"
+    },
+    "jpype/_pyinstaller/__pycache__/example.cpython-312.pyc": {
+      "size": 365,
+      "sha256": "bb331d4f20e372e765755442c0611c5cd8dcbd1cc037e238ce43b1f267fbf12c"
+    },
+    "jpype/_pyinstaller/__pycache__/hook-jpype.cpython-312.pyc": {
+      "size": 575,
+      "sha256": "acbf92ee168fdd7008ce8d305f54f6014de4385c1be41bd0706b19fabf10ba46"
+    },
+    "jpype/_pyinstaller/__pycache__/test_jpype_pyinstaller.cpython-312.pyc": {
+      "size": 1267,
+      "sha256": "c7f9fefe186ec0a405e9805e357f44c0e08e6a60f325cdc01f722bdf9a7437ff"
+    },
+    "jpype1-1.6.0.dist-info/licenses/AUTHORS.rst": {
+      "size": 418,
+      "sha256": "5e1d4b1c740e44493d1ec0e49c16443d08b59cfebc1d53b77542c9126dc1db6f"
+    },
+    "jpype1-1.6.0.dist-info/licenses/LICENSE": {
+      "size": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    "jpype1-1.6.0.dist-info/licenses/NOTICE": {
+      "size": 1999,
+      "sha256": "63e1ae53a18afbe98c0583694229a0c83526df8127c51e57745913cb3fb0b92e"
+    },
+    "packaging/licenses/_spdx.py": {
+      "size": 51122,
+      "sha256": "596ec35e2ca0ebcba9fd8343ff0a51625af548786257815f24b41f7e08613314"
+    },
+    "packaging/licenses/__init__.py": {
+      "size": 7859,
+      "sha256": "590d12eee73ddbec53b4e9ee5bfc64d9cb3aacb4940e8ebcba260757ce56740b"
+    },
+    "packaging/__pycache__/dependency_groups.cpython-312.pyc": {
+      "size": 12022,
+      "sha256": "f028133dca18fd74d266bdb04446e8d9468d7d6604f86ae1ed3b30534318ce72"
+    },
+    "packaging/__pycache__/direct_url.cpython-312.pyc": {
+      "size": 15292,
+      "sha256": "05e37c19ffa8406d55bb118547ee57da745ad4643515eaf8511787f7fcd49961"
+    },
+    "packaging/__pycache__/errors.cpython-312.pyc": {
+      "size": 4414,
+      "sha256": "dc665428047468d232976c82705ab2deec593208ba20b725a585a416218c769d"
+    },
+    "packaging/__pycache__/markers.cpython-312.pyc": {
+      "size": 20570,
+      "sha256": "2237375c64f026313d4bda213298ef008c79f5058db2647217519c8046b718a4"
+    },
+    "packaging/__pycache__/metadata.cpython-312.pyc": {
+      "size": 33729,
+      "sha256": "c23f5a6e3ccfb165c9a6ea05663f19a7d1e316cc6614a3b8da083ded18695994"
+    },
+    "packaging/__pycache__/pylock.cpython-312.pyc": {
+      "size": 38619,
+      "sha256": "3e618532bdab764db2b5b338eaa11b4b27cf30bbb08cd445c0042033064e850b"
+    },
+    "packaging/__pycache__/ranges.cpython-312.pyc": {
+      "size": 74207,
+      "sha256": "6f804f6d2095c28d171f7512f7d764dd14143dc100f45063da0296e6b4d203f3"
+    },
+    "packaging/__pycache__/requirements.cpython-312.pyc": {
+      "size": 8686,
+      "sha256": "364f4079edcd56fd19f43136cd5ff5a9576e5a020fca1c6bd1327ff5605bf6a3"
+    },
+    "packaging/__pycache__/specifiers.cpython-312.pyc": {
+      "size": 57098,
+      "sha256": "9a3f53d42f69e3c0be0e55d4a273b6112566fcbe663848bce2b4df4433f74c37"
+    },
+    "packaging/__pycache__/tags.cpython-312.pyc": {
+      "size": 41579,
+      "sha256": "e67ce8954509d7c04a014fadc415e419f387504616c5a6323669201a0675720c"
+    },
+    "packaging/__pycache__/utils.cpython-312.pyc": {
+      "size": 13110,
+      "sha256": "839ff55f9100a0ae978e40407fa0b171c7fd810b2bea11bfbe0da5b9938a3aa8"
+    },
+    "packaging/__pycache__/version.cpython-312.pyc": {
+      "size": 42316,
+      "sha256": "2e7418f12280adc74e01a207cea615474d4f13a2b07e33edf8e204fccec2383b"
+    },
+    "packaging/__pycache__/_elffile.cpython-312.pyc": {
+      "size": 4929,
+      "sha256": "5e1968782b096b09773e7d43e15be03e5c3ee0165c9d7d334b7e485ed82b97c3"
+    },
+    "packaging/__pycache__/_manylinux.cpython-312.pyc": {
+      "size": 10444,
+      "sha256": "56ebe2058dfb63a4f00ecb1230020724865f1bf7ecfabfd976c8857cd034895b"
+    },
+    "packaging/__pycache__/_musllinux.cpython-312.pyc": {
+      "size": 4619,
+      "sha256": "4c058cfea05412d45eb19b6004bdcb13610b697eed2dd5f89ca35f0ea261b007"
+    },
+    "packaging/__pycache__/_parser.cpython-312.pyc": {
+      "size": 16508,
+      "sha256": "018f2f8a14925e4840cd9111d7a5ec721a1af85bceb757f772d7b847b5094f6f"
+    },
+    "packaging/__pycache__/_ranges.cpython-312.pyc": {
+      "size": 30509,
+      "sha256": "3687dd5ba90deb48a5e8a0a0ceb04b2420018914023fa3a1779845bd6d5dd83c"
+    },
+    "packaging/__pycache__/_structures.cpython-312.pyc": {
+      "size": 1589,
+      "sha256": "b2188142c8b60785d3706efaba4ec2d0223d6d83be7274b7afe6ea889aa6ea87"
+    },
+    "packaging/__pycache__/_tokenizer.cpython-312.pyc": {
+      "size": 8581,
+      "sha256": "6a8bcb09200eb147be97d5ce49e85f0a099ca184fdbd12884666fd71a625a519"
+    },
+    "packaging/__pycache__/__init__.cpython-312.pyc": {
+      "size": 548,
+      "sha256": "9e12bbcbec8a07e393788789e4044e24f25aa684b27ff63dcc81c8eab0d220e1"
+    },
+    "packaging/licenses/__pycache__/_spdx.cpython-312.pyc": {
+      "size": 49850,
+      "sha256": "1a243baa5c8447beabcb53a3010f8633781a6ccfd7ffd3a999d7b55b8d05405a"
+    },
+    "packaging/licenses/__pycache__/__init__.cpython-312.pyc": {
+      "size": 5774,
+      "sha256": "dc37a53e6f8cc4972c755c6b798f616687de5fd6d46ee53787fc8e0a5f3254a5"
+    },
+    "packaging-26.3.dist-info/licenses/LICENSE": {
+      "size": 197,
+      "sha256": "cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48"
+    },
+    "packaging-26.3.dist-info/licenses/LICENSE.APACHE": {
+      "size": 10174,
+      "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+    },
+    "packaging-26.3.dist-info/licenses/LICENSE.BSD": {
+      "size": 1344,
+      "sha256": "b70e7e9b742f1cc6f948b34c16aa39ffece94196364bc88ff0d2180f0028fac5"
+    }
+  },
+  "ecj": {
+    "bytes": 3133846,
+    "sha256": "ac0ba5876eaf7ebb47749a0d1be179c51f194b9dd0b875d1c09e1b530f5a2db5"
+  },
+  "external_tools": {
+    "D:\\Emulicious-with-Java64\\Emulicious.jar": "db185a1ed0af3bdab5ebdeb254612d02d3848bac155dbc89333d1b04e21c371d",
+    "D:\\Tools\\devkitSMS\\SMSlib\\SMSlib_GG.lib": "e08252918ae80e8ee737e3d68d2237268ae6a27eda3fc4b79d29a2111f0d3f43",
+    "D:\\Tools\\devkitSMS\\crt0\\crt0_sms.rel": "3bc7bbedf2e6f150d2c13d2e10857813d1ece9d348b814de2a1119f34c473b24",
+    "D:\\Tools\\devkitSMS\\makesms\\Windows\\makesms.exe": "0b884a5c38d6b88aa1cd29537adff4d04d1e95becbb1f0b9f12f3bfa6105a59b",
+    "C:\\Program Files\\SDCC\\bin\\sdcc.EXE": "843272575aeae50e0cde8b3ac64bca1386755252d5b12cbb37cfa33f513ffeae",
+    "C:\\Program Files\\CMake\\bin\\cmake.EXE": "e7698092d9e01ef38a2e41e564033824f808c33a92dbc002736e8224187a780f",
+    "C:\\Users\\edena\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Ninja-build.Ninja_Microsoft.Winget.Source_8wekyb3d8bbwe\\ninja.EXE": "e52a7ad9538d9618c67a0bd777964e2eec8a30f68b810a2f6adce1f2daf847b8"
+  },
+  "java_home": "D:/Emulicious-with-Java64/java",
+  "emulator_jar": "D:/Emulicious-with-Java64/Emulicious.jar"
+}

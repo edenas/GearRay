@@ -1,0 +1,11 @@
+PASS 2880 pairs, exact historical timing reproduction, 24 validators, physical IHX/ROM mapping, generated equality and historical hashes.
+A_static 59736.043 59735.965 0.00013
+B_rotation 1885579.57 1887679.477 -0.11137
+C_forward 1803280.512 1665141.012 7.66046
+F_geometry 1881898.094 1881897.98 1e-05
+G_zombies 284360.176 284383.996 -0.00838
+I_pistol 537623.957 477887.949 11.11111
+I_shotgun 567491.918 537623.988 5.26315
+J_lod 2267511.301 2222853.613 1.96946
+L_mixed 2565736.133 2520467.77 1.76434
+M_authored 179208.059 179207.98 4e-05

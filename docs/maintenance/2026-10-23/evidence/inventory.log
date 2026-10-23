@@ -1,0 +1,25 @@
+{
+  "at_utc": "2026-10-23T08:39:34.481074+00:00",
+  "root": "D:\\mano_projektai\\GearRay",
+  "head": "bf89ea9c6f340a919e68e8059c0c005dff237f78",
+  "branch": "main",
+  "status": " M GearRay_Developer_Bible.md\n M README.md\n M assets/sprites/enemies/zombie/zombie_01_walking_01_16x16.png\n M assets/sprites/enemies/zombie/zombie_02_corps_16x16.png\n M docs/BUILDING.md\n M docs/CURRENT_BEHAVIOR.md\n M docs/ENGINE_ARCHITECTURE.md\n M docs/ROM_BANKING.md\n M platform/game_gear/video.c\n M tools/validate_weapon_runtime.ps1\n?? assets/sprites/enemies/zombie/zombie_02_standing_16x16.png\n?? assets/sprites/enemies/zombie/zombie_02_walking_01_16x16.png\n?? assets/sprites/enemies/zombie/zombie_02_walking_02_16x16.png\n?? docs/maintenance/\n?? docs/performance/2026-10-19/post-implementation-followup/\n?? docs/performance/2026-10-19/post-implementation-review/\n?? tools/performance/\n",
+  "remotes": "origin\thttps://github.com/edenas/GearRay.git (fetch)\norigin\thttps://github.com/edenas/GearRay.git (push)\n",
+  "tracked_count": 618,
+  "untracked_count": 378,
+  "file_count": 38574,
+  "directory_count": 1236,
+  "root_directory_count": 56,
+  "logical_bytes": 739715713,
+  "allocated_bytes": 802544544,
+  "allocation_failures": 0,
+  "excluding_git": {
+    "files": 33686,
+    "bytes": 686187209
+  },
+  "duplicate_groups": 1581,
+  "duplicate_logical_bytes": 329057157,
+  "skipped_reparse_points": [],
+  "note": "New maintenance deliverables excluded from file totals. Allocation is Windows FileStandardInfo sum for files, not NTFS directory/MFT metadata; no external backups inspected."
+}
+ROOTS [('docs', 787, 162497841), ('build', 10382, 133384404), ('.git', 4888, 53528504), ('build-perf-20261019', 3207, 45436193), ('build-implementation-coherent64-12', 1729, 43918408), ('build-implementation-live64-12', 1752, 39537094), ('build-implementation-baseline', 397, 28865497), ('build-implementation-production', 418, 19658225), ('build-implementation-exact', 386, 16532694), ('build-implementation-coherent-12', 723, 16512048), ('artifacts', 1773, 14864780), ('build-astra-review-20261019', 870, 10791973), ('build-implementation-coherent64-4', 354, 6493406), ('build-implementation-coherent64-6', 357, 6429920), ('build-implementation-coherent-4', 345, 5740556), ('build-implementation-coherent-6', 346, 5641701), ('build-implementation-live-12', 347, 5539424), ('build-implementation-wall', 329, 5349764), ('build-post-review-canonical', 350, 4877257), ('build-post-review-rowcache', 350, 4866770)]

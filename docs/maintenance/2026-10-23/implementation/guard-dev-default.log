@@ -1,0 +1,6 @@
+CMake Error at CMakeLists.txt:245 (message):
+  Only build/release with Release/profiling OFF may write rom/.  Set
+  GEAR_RAY_ROM_DIR to your dev/profile/experiment build's own rom directory.
+
+
+-- Configuring incomplete, errors occurred!

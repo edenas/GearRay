@@ -1,0 +1,199 @@
+{
+  "coherent64-12": {
+    "rom_sha256": "78b9b1be46160ea2634178b073016dc55298839af245e36ac4df64efe5f8c131",
+    "raster_frames": 4096,
+    "matching_complete_front_frames": 4012,
+    "intermediate_frames": 0,
+    "mixed_R2_frames": 0,
+    "publications": 40,
+    "completed_images_observed": 40,
+    "snapshot_to_complete_LCD_refreshes": {
+      "count": 40,
+      "min": 72.6693116378733,
+      "median": 98.68651232087853,
+      "max": 132.72534150261149
+    },
+    "snapshot_to_first_changed_complete_LCD_refreshes": {
+      "count": 39,
+      "min": 72.6693116378733,
+      "median": 99.68628632650328,
+      "max": 132.72534150261149
+    },
+    "capture_to_commit_refreshes": {
+      "count": 40,
+      "min": 72,
+      "median": 98.0,
+      "max": 132
+    },
+    "sampled_fire_to_tick_return_refreshes": {
+      "count": 341,
+      "min": 8.391673362796304,
+      "median": 15.82467858577742,
+      "max": 23.65473081558859
+    },
+    "captured_fire_edges": 342,
+    "consumed_fire_edges": 341,
+    "observed_stack_bytes": 157,
+    "static_RAM": 2255,
+    "front_writes": 0,
+    "deadline_misses": 0
+  },
+  "live64-12": {
+    "rom_sha256": "4ae2b783e53bca5f6cea5a084f71046b847c7b31e2926955bfb7ba1db43239b8",
+    "raster_frames": 4096,
+    "matching_complete_front_frames": 1290,
+    "intermediate_frames": 2758,
+    "mixed_R2_frames": 0,
+    "publications": 41,
+    "completed_images_observed": 41,
+    "snapshot_to_complete_LCD_refreshes": {
+      "count": 41,
+      "min": 48.452892728003214,
+      "median": 89.68482991830722,
+      "max": 132.68839560733895
+    },
+    "snapshot_to_first_changed_complete_LCD_refreshes": {
+      "count": 40,
+      "min": 17.673279094683274,
+      "median": 22.72653006562207,
+      "max": 55.726730949511186
+    },
+    "capture_to_commit_refreshes": {
+      "count": 41,
+      "min": 48,
+      "median": 89,
+      "max": 132
+    },
+    "sampled_fire_to_tick_return_refreshes": {
+      "count": 341,
+      "min": 8.390233694924333,
+      "median": 15.86423597160841,
+      "max": 23.596039239319673
+    },
+    "captured_fire_edges": 342,
+    "consumed_fire_edges": 341,
+    "observed_stack_bytes": 157,
+    "static_RAM": 2255,
+    "front_writes": 116102,
+    "deadline_misses": 0
+  },
+  "pause": {
+    "completed_cycles": 103,
+    "tracked_state_mismatches": 0,
+    "observed_stack_bytes": 134
+  },
+  "forced_holds": {
+    "refresh_holds": [
+      0,
+      2,
+      4,
+      16,
+      120
+    ],
+    "identical_logical_records_each": 342,
+    "mismatches": 0
+  },
+  "death_restart": {
+    "lethal_first_tick": true,
+    "restarted_health": 100,
+    "restarted_weapon": "pistol",
+    "held_fire_blocked_on_restart": true,
+    "observed_stack_bytes": 142
+  },
+  "pulse_sweep": {
+    "cases": [
+      {
+        "width_refreshes": 0.5,
+        "phase_refreshes": 0,
+        "captured": false
+      },
+      {
+        "width_refreshes": 0.5,
+        "phase_refreshes": 0.25,
+        "captured": false
+      },
+      {
+        "width_refreshes": 0.5,
+        "phase_refreshes": 0.5,
+        "captured": true
+      },
+      {
+        "width_refreshes": 0.5,
+        "phase_refreshes": 0.75,
+        "captured": true
+      },
+      {
+        "width_refreshes": 1,
+        "phase_refreshes": 0,
+        "captured": true
+      },
+      {
+        "width_refreshes": 1,
+        "phase_refreshes": 0.25,
+        "captured": true
+      },
+      {
+        "width_refreshes": 1,
+        "phase_refreshes": 0.5,
+        "captured": true
+      },
+      {
+        "width_refreshes": 1,
+        "phase_refreshes": 0.75,
+        "captured": true
+      },
+      {
+        "width_refreshes": 2,
+        "phase_refreshes": 0,
+        "captured": true
+      },
+      {
+        "width_refreshes": 2,
+        "phase_refreshes": 0.25,
+        "captured": true
+      },
+      {
+        "width_refreshes": 2,
+        "phase_refreshes": 0.5,
+        "captured": true
+      },
+      {
+        "width_refreshes": 2,
+        "phase_refreshes": 0.75,
+        "captured": true
+      },
+      {
+        "width_refreshes": 4,
+        "phase_refreshes": 0,
+        "captured": true
+      },
+      {
+        "width_refreshes": 4,
+        "phase_refreshes": 0.25,
+        "captured": true
+      },
+      {
+        "width_refreshes": 4,
+        "phase_refreshes": 0.5,
+        "captured": true
+      },
+      {
+        "width_refreshes": 4,
+        "phase_refreshes": 0.75,
+        "captured": true
+      }
+    ],
+    "captured_and_consumed": 16,
+    "sub_refresh_limit": "A half-refresh pulse between hardware samples can be unobserved; no capture system claims otherwise."
+  },
+  "pose_policy": {
+    "simulation_firing_episodes": 18,
+    "published_firing_episodes": 9,
+    "policy": "unmodified authoritative timers; no minimum-visible latch",
+    "simulation_firing_ticks": 52,
+    "captured_firing_poses": 9,
+    "published_firing_poses": 9,
+    "not_promoted": true
+  }
+}
+PASS restored cooperative analysis, 3711 original hashes

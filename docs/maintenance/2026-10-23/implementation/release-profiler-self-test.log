@@ -1,0 +1,3 @@
+fixture False stages [302, 192, 24, 97, 70, 10, 0] counts [1, 3, 1, 0, 1, 0] IRQpc -1
+fixture True stages [365, 192, 24, 160, 133, 10, 50] counts [1, 3, 1, 0, 1, 1] IRQpc 1285
+Profiler tests PASS [{'IRQ_at_function_entry': False, 'stages': [302, 192, 24, 97, 70, 10, 0], 'counts': [1, 3, 1, 0, 1, 0], 'unclosed': 0, 'IRQ_PC': -1, 'ignored_interrupt_acceptance': 0, 'cycles': 329}, {'IRQ_at_function_entry': True, 'stages': [365, 192, 24, 160, 133, 10, 50], 'counts': [1, 3, 1, 0, 1, 1], 'unclosed': 0, 'IRQ_PC': 1285, 'ignored_interrupt_acceptance': 1, 'cycles': 392}, {'wrong_cleanup_rejected': True, 'unclosed': 1}]

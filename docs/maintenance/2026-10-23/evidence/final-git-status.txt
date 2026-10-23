@@ -1,0 +1,17 @@
+ M GearRay_Developer_Bible.md
+ M README.md
+ M assets/sprites/enemies/zombie/zombie_01_walking_01_16x16.png
+ M assets/sprites/enemies/zombie/zombie_02_corps_16x16.png
+ M docs/BUILDING.md
+ M docs/CURRENT_BEHAVIOR.md
+ M docs/ENGINE_ARCHITECTURE.md
+ M docs/ROM_BANKING.md
+ M platform/game_gear/video.c
+ M tools/validate_weapon_runtime.ps1
+?? assets/sprites/enemies/zombie/zombie_02_standing_16x16.png
+?? assets/sprites/enemies/zombie/zombie_02_walking_01_16x16.png
+?? assets/sprites/enemies/zombie/zombie_02_walking_02_16x16.png
+?? docs/maintenance/
+?? docs/performance/2026-10-19/post-implementation-followup/
+?? docs/performance/2026-10-19/post-implementation-review/
+?? tools/performance/

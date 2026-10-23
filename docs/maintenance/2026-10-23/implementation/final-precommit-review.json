@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "date_utc": "2026-10-23T16:05:11.270682+00:00",
+  "fetched_origin": true,
+  "head_and_fetched_origin_main": "bf89ea9c6f340a919e68e8059c0c005dff237f78",
+  "divergence_left_right": [
+    0,
+    0
+  ],
+  "reviewed_diffs": [
+    "CMakeLists.txt",
+    "build.bat",
+    "build-profile.bat",
+    ".gitattributes",
+    ".gitignore",
+    "platform/game_gear/video.c (pre-existing accepted work)",
+    "validator default path changes and unchanged assertion proof",
+    "maintained documentation and source reconciliation",
+    "catalog, exact index blob checks and newly staged archive-member scans"
+  ],
+  "new_command_examples_control_character_check": "PASS after correcting Python string backslash escaping",
+  "raw_historical_whitespace_policy": "Immutable historical reports and patches retain bytes; raw CRLF records recognize CR-at-EOL. Editable source remains checked.",
+  "local_diagnostics_archive": "build/maintenance/final-review-diagnostics.zip",
+  "local_diagnostics_archive_sha256": "d1695c2f48fbe35f79805bf5f06779b040d480563634cf42a6e382a0389146a0",
+  "maintenance_created_diagnostic_logs_compacted": [
+    {
+      "path": "build/maintenance/cached-whitespace.log",
+      "size": 92794227,
+      "sha256": "d45cd8eab13ab1ee0c16fcec9ebf0614020c4fb4a568ffbafd4fddeff12150d5",
+      "member": "cached-whitespace.log"
+    },
+    {
+      "path": "build/maintenance/cached-whitespace-crlf.log",
+      "size": 10536,
+      "sha256": "a94c5550648300b96234a783dae1229070a5ed9af60b0f6a8016a3af9620eb88",
+      "member": "cached-whitespace-crlf.log"
+    }
+  ],
+  "note": "These generated staging diagnostics were created during this run; their compaction is not original-project reclaimed space."
+}

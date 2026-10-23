@@ -1,0 +1,632 @@
+{
+  "paired_scenarios": 24,
+  "compiled_comparisons": 48,
+  "mismatches": 0,
+  "records": [
+    {
+      "variant": "base",
+      "case": "empty",
+      "actors": 0,
+      "pickup": false,
+      "dirty_columns": 14,
+      "changed_bytes": 778,
+      "vram_sha256": "396d1b16b3f0c6f27da5aa3ea590a3ba025b65f5821e7dd68440a2228a9912a1",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "base",
+      "case": "appear",
+      "actors": 1,
+      "pickup": false,
+      "dirty_columns": 14,
+      "changed_bytes": 274,
+      "vram_sha256": "24f8bcd8846068b7904533f41e76d5012c89d5b90c3980076e8f3ebb03ad4761",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "base",
+      "case": "move-left",
+      "actors": 1,
+      "pickup": false,
+      "dirty_columns": 14,
+      "changed_bytes": 507,
+      "vram_sha256": "a679df54dbe70ff6e8160076dab2c9c4b8e1808d5b26890f544c2806fcb1330e",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "base",
+      "case": "move-right",
+      "actors": 1,
+      "pickup": false,
+      "dirty_columns": 14,
+      "changed_bytes": 546,
+      "vram_sha256": "99c644f955e1518574ce8dcc058221de3993ee8de2731484bdcbbe57478e9e42",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "base",
+      "case": "near-overlap",
+      "actors": 2,
+      "pickup": false,
+      "dirty_columns": 14,
+      "changed_bytes": 1521,
+      "vram_sha256": "8bd3f525c0593230d2eeb9ca5eaa39cdd5fc911c3c00b5d6aa43ccef05f47149",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "base",
+      "case": "reverse-array-order",
+      "actors": 2,
+      "pickup": false,
+      "dirty_columns": 14,
+      "changed_bytes": 0,
+      "vram_sha256": "8bd3f525c0593230d2eeb9ca5eaa39cdd5fc911c3c00b5d6aa43ccef05f47149",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "base",
+      "case": "equal-depth",
+      "actors": 2,
+      "pickup": false,
+      "dirty_columns": 14,
+      "changed_bytes": 1067,
+      "vram_sha256": "75fbf3c18a109d102d7ba3e300e0f619373c43fccfcc713f63387d9245f65852",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "base",
+      "case": "equal-depth-reverse",
+      "actors": 2,
+      "pickup": false,
+      "dirty_columns": 14,
+      "changed_bytes": 0,
+      "vram_sha256": "75fbf3c18a109d102d7ba3e300e0f619373c43fccfcc713f63387d9245f65852",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "base",
+      "case": "eight-actors-plus-pickup",
+      "actors": 8,
+      "pickup": true,
+      "dirty_columns": 14,
+      "changed_bytes": 1104,
+      "vram_sha256": "bbe7c4d20ff42e634777dc16deb296cbf683ddc8214cf34ff03ee6f047519fea",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "base",
+      "case": "pickup-only",
+      "actors": 0,
+      "pickup": true,
+      "dirty_columns": 14,
+      "changed_bytes": 417,
+      "vram_sha256": "60a361889bb665b737b88b38803bcf028e43f8e9d042ddb5924b961018bc787c",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "base",
+      "case": "pickup-and-walking",
+      "actors": 1,
+      "pickup": true,
+      "dirty_columns": 14,
+      "changed_bytes": 547,
+      "vram_sha256": "335dc9834a252b9d7fa0c57f83ea798b30f5b4b095dcd1ff15a59b43eba84a9d",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "base",
+      "case": "walking-phase",
+      "actors": 1,
+      "pickup": true,
+      "dirty_columns": 14,
+      "changed_bytes": 611,
+      "vram_sha256": "ae727628985e61e85e0befa9b28ae3447d98808e2a7e3935223c9aa702d1d686",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "base",
+      "case": "near-attack1",
+      "actors": 1,
+      "pickup": false,
+      "dirty_columns": 14,
+      "changed_bytes": 1176,
+      "vram_sha256": "e41d1ce35834b9f721755731e0ba0b20f54c1731459c083900620408286c082a",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "base",
+      "case": "near-attack2",
+      "actors": 1,
+      "pickup": false,
+      "dirty_columns": 14,
+      "changed_bytes": 947,
+      "vram_sha256": "a230629186d9de590a00dcfe0022a907a3fe5c0a5816dcffb3b4f5bdc8a66503",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "base",
+      "case": "near-hit",
+      "actors": 1,
+      "pickup": false,
+      "dirty_columns": 14,
+      "changed_bytes": 1186,
+      "vram_sha256": "8308e5998518a601c9335b433b32b638832541a610db885aaa109a59e3d5b82d",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "base",
+      "case": "near-dead",
+      "actors": 1,
+      "pickup": false,
+      "dirty_columns": 14,
+      "changed_bytes": 0,
+      "vram_sha256": "8308e5998518a601c9335b433b32b638832541a610db885aaa109a59e3d5b82d",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "base",
+      "case": "near-corpse",
+      "actors": 1,
+      "pickup": false,
+      "dirty_columns": 14,
+      "changed_bytes": 1058,
+      "vram_sha256": "b7d3234e8c0f0434abb6c911894a5f53887c7e54f4004d30dbccc403ccb8a1b3",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "base",
+      "case": "middle-corpse",
+      "actors": 1,
+      "pickup": false,
+      "dirty_columns": 14,
+      "changed_bytes": 222,
+      "vram_sha256": "dc377320bd690e76ee508c2c10b6a76271910773d10a389544992724e7901544",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "base",
+      "case": "far-corpse",
+      "actors": 1,
+      "pickup": false,
+      "dirty_columns": 14,
+      "changed_bytes": 83,
+      "vram_sha256": "02a3ed879c014cb129c0687ebb0ea9fee021a64f67a290eb6042277ff359a29a",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "base",
+      "case": "offscreen",
+      "actors": 1,
+      "pickup": false,
+      "dirty_columns": 14,
+      "changed_bytes": 0,
+      "vram_sha256": "02a3ed879c014cb129c0687ebb0ea9fee021a64f67a290eb6042277ff359a29a",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "base",
+      "case": "reappear-before-removal",
+      "actors": 1,
+      "pickup": false,
+      "dirty_columns": 14,
+      "changed_bytes": 274,
+      "vram_sha256": "43d67e04e0e06a0bcd92c8ca5bfab04c813a01d15ccb20f7e7f6b3f8d51483da",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "base",
+      "case": "remove-all",
+      "actors": 0,
+      "pickup": false,
+      "dirty_columns": 14,
+      "changed_bytes": 274,
+      "vram_sha256": "02a3ed879c014cb129c0687ebb0ea9fee021a64f67a290eb6042277ff359a29a",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "base",
+      "case": "empty-small-offset",
+      "actors": 0,
+      "pickup": false,
+      "dirty_columns": 14,
+      "changed_bytes": 0,
+      "vram_sha256": "02a3ed879c014cb129c0687ebb0ea9fee021a64f67a290eb6042277ff359a29a",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "base",
+      "case": "empty-upper-offset",
+      "actors": 0,
+      "pickup": false,
+      "dirty_columns": 14,
+      "changed_bytes": 148,
+      "vram_sha256": "b64968951bfc46a7761618cb59eade278714ab70d5c8b0c79972377fb57c93ba",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "case": "empty",
+      "actors": 0,
+      "pickup": false,
+      "dirty_columns": 14,
+      "changed_bytes": 778,
+      "vram_sha256": "396d1b16b3f0c6f27da5aa3ea590a3ba025b65f5821e7dd68440a2228a9912a1",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "case": "appear",
+      "actors": 1,
+      "pickup": false,
+      "dirty_columns": 4,
+      "changed_bytes": 274,
+      "vram_sha256": "24f8bcd8846068b7904533f41e76d5012c89d5b90c3980076e8f3ebb03ad4761",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "case": "move-left",
+      "actors": 1,
+      "pickup": false,
+      "dirty_columns": 7,
+      "changed_bytes": 507,
+      "vram_sha256": "a679df54dbe70ff6e8160076dab2c9c4b8e1808d5b26890f544c2806fcb1330e",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "case": "move-right",
+      "actors": 1,
+      "pickup": false,
+      "dirty_columns": 10,
+      "changed_bytes": 546,
+      "vram_sha256": "99c644f955e1518574ce8dcc058221de3993ee8de2731484bdcbbe57478e9e42",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "case": "near-overlap",
+      "actors": 2,
+      "pickup": false,
+      "dirty_columns": 10,
+      "changed_bytes": 1521,
+      "vram_sha256": "8bd3f525c0593230d2eeb9ca5eaa39cdd5fc911c3c00b5d6aa43ccef05f47149",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "case": "reverse-array-order",
+      "actors": 2,
+      "pickup": false,
+      "dirty_columns": 10,
+      "changed_bytes": 0,
+      "vram_sha256": "8bd3f525c0593230d2eeb9ca5eaa39cdd5fc911c3c00b5d6aa43ccef05f47149",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "case": "equal-depth",
+      "actors": 2,
+      "pickup": false,
+      "dirty_columns": 10,
+      "changed_bytes": 1067,
+      "vram_sha256": "75fbf3c18a109d102d7ba3e300e0f619373c43fccfcc713f63387d9245f65852",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "case": "equal-depth-reverse",
+      "actors": 2,
+      "pickup": false,
+      "dirty_columns": 7,
+      "changed_bytes": 0,
+      "vram_sha256": "75fbf3c18a109d102d7ba3e300e0f619373c43fccfcc713f63387d9245f65852",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "case": "eight-actors-plus-pickup",
+      "actors": 8,
+      "pickup": true,
+      "dirty_columns": 10,
+      "changed_bytes": 1104,
+      "vram_sha256": "bbe7c4d20ff42e634777dc16deb296cbf683ddc8214cf34ff03ee6f047519fea",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "case": "pickup-only",
+      "actors": 0,
+      "pickup": true,
+      "dirty_columns": 9,
+      "changed_bytes": 417,
+      "vram_sha256": "60a361889bb665b737b88b38803bcf028e43f8e9d042ddb5924b961018bc787c",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "case": "pickup-and-walking",
+      "actors": 1,
+      "pickup": true,
+      "dirty_columns": 6,
+      "changed_bytes": 547,
+      "vram_sha256": "335dc9834a252b9d7fa0c57f83ea798b30f5b4b095dcd1ff15a59b43eba84a9d",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "case": "walking-phase",
+      "actors": 1,
+      "pickup": true,
+      "dirty_columns": 6,
+      "changed_bytes": 611,
+      "vram_sha256": "ae727628985e61e85e0befa9b28ae3447d98808e2a7e3935223c9aa702d1d686",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "case": "near-attack1",
+      "actors": 1,
+      "pickup": false,
+      "dirty_columns": 10,
+      "changed_bytes": 1176,
+      "vram_sha256": "e41d1ce35834b9f721755731e0ba0b20f54c1731459c083900620408286c082a",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "case": "near-attack2",
+      "actors": 1,
+      "pickup": false,
+      "dirty_columns": 10,
+      "changed_bytes": 947,
+      "vram_sha256": "a230629186d9de590a00dcfe0022a907a3fe5c0a5816dcffb3b4f5bdc8a66503",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "case": "near-hit",
+      "actors": 1,
+      "pickup": false,
+      "dirty_columns": 10,
+      "changed_bytes": 1186,
+      "vram_sha256": "8308e5998518a601c9335b433b32b638832541a610db885aaa109a59e3d5b82d",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "case": "near-dead",
+      "actors": 1,
+      "pickup": false,
+      "dirty_columns": 10,
+      "changed_bytes": 0,
+      "vram_sha256": "8308e5998518a601c9335b433b32b638832541a610db885aaa109a59e3d5b82d",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "case": "near-corpse",
+      "actors": 1,
+      "pickup": false,
+      "dirty_columns": 10,
+      "changed_bytes": 1058,
+      "vram_sha256": "b7d3234e8c0f0434abb6c911894a5f53887c7e54f4004d30dbccc403ccb8a1b3",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "case": "middle-corpse",
+      "actors": 1,
+      "pickup": false,
+      "dirty_columns": 10,
+      "changed_bytes": 222,
+      "vram_sha256": "dc377320bd690e76ee508c2c10b6a76271910773d10a389544992724e7901544",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "case": "far-corpse",
+      "actors": 1,
+      "pickup": false,
+      "dirty_columns": 4,
+      "changed_bytes": 83,
+      "vram_sha256": "02a3ed879c014cb129c0687ebb0ea9fee021a64f67a290eb6042277ff359a29a",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "case": "offscreen",
+      "actors": 1,
+      "pickup": false,
+      "dirty_columns": 0,
+      "changed_bytes": 0,
+      "vram_sha256": "02a3ed879c014cb129c0687ebb0ea9fee021a64f67a290eb6042277ff359a29a",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "case": "reappear-before-removal",
+      "actors": 1,
+      "pickup": false,
+      "dirty_columns": 4,
+      "changed_bytes": 274,
+      "vram_sha256": "43d67e04e0e06a0bcd92c8ca5bfab04c813a01d15ccb20f7e7f6b3f8d51483da",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "case": "remove-all",
+      "actors": 0,
+      "pickup": false,
+      "dirty_columns": 4,
+      "changed_bytes": 274,
+      "vram_sha256": "02a3ed879c014cb129c0687ebb0ea9fee021a64f67a290eb6042277ff359a29a",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "case": "empty-small-offset",
+      "actors": 0,
+      "pickup": false,
+      "dirty_columns": 0,
+      "changed_bytes": 0,
+      "vram_sha256": "02a3ed879c014cb129c0687ebb0ea9fee021a64f67a290eb6042277ff359a29a",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "case": "empty-upper-offset",
+      "actors": 0,
+      "pickup": false,
+      "dirty_columns": 14,
+      "changed_bytes": 148,
+      "vram_sha256": "b64968951bfc46a7761618cb59eade278714ab70d5c8b0c79972377fb57c93ba",
+      "pages": [
+        1,
+        2
+      ]
+    }
+  ],
+  "scope": "Seeded renderer timeline, not map reachability or AI simulation. Incremental versus forced redraw plus control/selected output comparison."
+}

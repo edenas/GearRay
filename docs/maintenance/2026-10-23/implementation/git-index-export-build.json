@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "exported_compile_inputs": 218,
+  "source_scope": "Only staged CMake/launcher/runtime/art/tool build inputs and the exact camera graph; no full-project backup or .git copy",
+  "release_sha256": "3632006ed68fcbcbacf9aa693c92560520df496e1e4ac23cf2cb6e1df88d3340",
+  "canonical_original_unchanged": true,
+  "source_root": "build/maintenance/index-export/source",
+  "proof": "Fresh build from Git-index bytes reproduces the accepted Release without old loose builds or unstaged ignored build inputs."
+}

@@ -1,0 +1,27 @@
+{
+  "reason": "Publication-content review found a copied Emulicious runtime/config/research tree under an additional old prefix; all seven nonempty objects remain local-only",
+  "objects_reclassified": 7,
+  "hashes": [
+    "08c1c6d798293f7ce77e55b968aadd9187f11cf4f562a861215b6bb62916f5f1",
+    "0b03d5dc1cecb26abae60bf5622e920892663e90fc313769c10bbe2b187d69bd",
+    "107742a108fa4900e895c6e17d045d2701e2824b144f875bfd4ec09f3013bf13",
+    "4fe22ecdbc0a57cd830a4fd601c0106cb551d4a172d99b551ce3433888f44016",
+    "b4550bdd8227403d19fef26257b5751a929521ad8be077252d702ba9b2dab17b",
+    "db185a1ed0af3bdab5ebdeb254612d02d3848bac155dbc89333d1b04e21c371d",
+    "f607e343436eae4930e6e67fe201ca03a06955f869fd7267144016b838aea473"
+  ],
+  "old_generated_archive": {
+    "original_path": "docs/history/2026-10-23/objects.zip",
+    "sha256": "36b5d6c189960499e2dae66012b45d99c30f1cb6318676e5b10c5b8417bd1324",
+    "retained_exact_local_path": "artifacts/local-history/2026-10-23/pre-publication-project-objects.zip"
+  },
+  "current_public_archive": {
+    "path": "docs/history/2026-10-23/objects.zip",
+    "sha256": "b9ab73884c93ba150464964ebc81b4c6f59509ec09082a623dbdc540d461867e"
+  },
+  "executed_manifest": "executed-removal-manifest.json",
+  "final_keeper_manifest": "removal-manifest.json",
+  "original_27_zip_changes": 0,
+  "unique_candidate_bytes_lost": 0,
+  "local_retention_overhead_bytes": 25264862
+}

@@ -1,0 +1,39 @@
+{
+  "rom_sha256": "78b9b1be46160ea2634178b073016dc55298839af245e36ac4df64efe5f8c131",
+  "raster_frames": 4096,
+  "matching_complete_front_frames": 4012,
+  "intermediate_frames": 0,
+  "mixed_R2_frames": 0,
+  "publications": 40,
+  "completed_images_observed": 40,
+  "snapshot_to_complete_LCD_refreshes": {
+    "count": 40,
+    "min": 72.6693116378733,
+    "median": 98.68651232087853,
+    "max": 132.72534150261149
+  },
+  "snapshot_to_first_changed_complete_LCD_refreshes": {
+    "count": 39,
+    "min": 72.6693116378733,
+    "median": 99.68628632650328,
+    "max": 132.72534150261149
+  },
+  "capture_to_commit_refreshes": {
+    "count": 40,
+    "min": 72,
+    "median": 98.0,
+    "max": 132
+  },
+  "sampled_fire_to_tick_return_refreshes": {
+    "count": 341,
+    "min": 8.391673362796304,
+    "median": 15.82467858577742,
+    "max": 23.65473081558859
+  },
+  "captured_fire_edges": 342,
+  "consumed_fire_edges": 341,
+  "observed_stack_bytes": 157,
+  "static_RAM": 2255,
+  "front_writes": 0,
+  "deadline_misses": 0
+}

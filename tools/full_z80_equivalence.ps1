@@ -38,5 +38,5 @@ public static class FullZ80ArithmeticAudit {
     }
 }
 '@
-@{FractionCases=[FullZ80ArithmeticAudit]::Fraction();MovementCases=[FullZ80ArithmeticAudit]::Movement();Failures=0;Note='Arithmetic identities, not emulator timing or a replacement for production validators.'}|ConvertTo-Json|Set-Content "$PSScriptRoot/../build/full-z80-audit/equivalence.json"
-Get-Content "$PSScriptRoot/../build/full-z80-audit/equivalence.json"
+@{FractionCases=[FullZ80ArithmeticAudit]::Fraction();MovementCases=[FullZ80ArithmeticAudit]::Movement();Failures=0;Note='Arithmetic identities, not emulator timing or a replacement for production validators.'}|ConvertTo-Json|Set-Content "$PSScriptRoot/../build/release/full-z80-audit/equivalence.json"
+Get-Content "$PSScriptRoot/../build/release/full-z80-audit/equivalence.json"

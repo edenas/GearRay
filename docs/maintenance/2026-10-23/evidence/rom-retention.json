@@ -1,0 +1,519 @@
+[
+  {
+    "path": "rom/GearRay",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "2aec907f992617ef9c220d810ab87cb78dc51fa76a0c65cc36d4da6754c6d1b4",
+    "mtime_utc": "2026-09-20T21:58:26.777092+00:00",
+    "git": "ignored",
+    "suffix": "",
+    "same_bytes": [],
+    "archive_copies": []
+  },
+  {
+    "path": "rom/GearRay-astra-final-selected.gg",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "3632006ed68fcbcbacf9aa693c92560520df496e1e4ac23cf2cb6e1df88d3340",
+    "mtime_utc": "2026-10-23T08:00:19.456621+00:00",
+    "git": "ignored",
+    "suffix": ".gg",
+    "same_bytes": [
+      "rom/GearRay-pir-combined-20261022.gg",
+      "rom/GearRay-pir-selected-20261022.gg"
+    ],
+    "archive_copies": [
+      [
+        "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/fresh-source-and-build.zip",
+        "rom/GearRay-astra-final-selected.gg"
+      ],
+      [
+        "docs/performance/2026-10-19/post-implementation-followup/evidence/selected-source-and-build.zip",
+        "rom/GearRay-pir-combined-20261022.gg"
+      ],
+      [
+        "docs/performance/2026-10-19/post-implementation-followup/evidence/selected-source-and-build.zip",
+        "rom/GearRay-pir-selected-20261022.gg"
+      ]
+    ]
+  },
+  {
+    "path": "rom/GearRay-astra-review-20261019.gg",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "6322efcc0434ad8d4fc3f066ced47e0a1fb4cdb140d6da8654521e3834371136",
+    "mtime_utc": "2026-10-19T16:12:40.053037+00:00",
+    "git": "ignored",
+    "suffix": ".gg",
+    "same_bytes": [
+      "rom/GearRay-audit-20261019.gg",
+      "rom/GearRay-freeze-baseline.gg",
+      "rom/GearRay-implementation-baseline.gg",
+      "rom/GearRay.gg"
+    ],
+    "archive_copies": [
+      [
+        "docs/performance/2026-10-19/evidence/baseline-build.zip",
+        "GearRay.gg"
+      ]
+    ]
+  },
+  {
+    "path": "rom/GearRay-audit-20261019.gg",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "6322efcc0434ad8d4fc3f066ced47e0a1fb4cdb140d6da8654521e3834371136",
+    "mtime_utc": "2026-10-19T12:10:36.381494+00:00",
+    "git": "ignored",
+    "suffix": ".gg",
+    "same_bytes": [
+      "rom/GearRay-astra-review-20261019.gg",
+      "rom/GearRay-freeze-baseline.gg",
+      "rom/GearRay-implementation-baseline.gg",
+      "rom/GearRay.gg"
+    ],
+    "archive_copies": [
+      [
+        "docs/performance/2026-10-19/evidence/baseline-build.zip",
+        "GearRay.gg"
+      ]
+    ]
+  },
+  {
+    "path": "rom/GearRay-audit-profile-20261019.gg",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "ec4c25d3b688be5c240c33df597105607fa80f5b7b6e440f42ee11b8258500fa",
+    "mtime_utc": "2026-10-19T12:01:31.618353+00:00",
+    "git": "ignored",
+    "suffix": ".gg",
+    "same_bytes": [],
+    "archive_copies": []
+  },
+  {
+    "path": "rom/GearRay-commit-check-20261019.gg",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "e0fcfdd6fae28794fed9b56cd256d27fcd029248a9a8da846c12bb05dbf05566",
+    "mtime_utc": "2026-10-19T19:15:28.766856+00:00",
+    "git": "ignored",
+    "suffix": ".gg",
+    "same_bytes": [
+      "build-astra-final-control-source/rom/GearRay-astra-final-control.gg",
+      "rom/GearRay-implementation-production.gg",
+      "rom/GearRay-pir-base-20261022.gg",
+      "rom/GearRay-post-review-20261022.gg",
+      "rom/GearRay-verified-20261019.gg"
+    ],
+    "archive_copies": [
+      [
+        "docs/performance/2026-10-19/evidence/implementation/production-final-source.zip",
+        "rom/GearRay-verified-20261019.gg"
+      ],
+      [
+        "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/fresh-source-and-build.zip",
+        "build-astra-final-control-source/rom/GearRay-astra-final-control.gg"
+      ],
+      [
+        "docs/performance/2026-10-19/post-implementation-followup/evidence/selected-source-and-build.zip",
+        "rom/GearRay-pir-base-20261022.gg"
+      ],
+      [
+        "docs/performance/2026-10-19/post-implementation-review/evidence/review-build-evidence.zip",
+        "rom/GearRay-post-review-20261022.gg"
+      ]
+    ]
+  },
+  {
+    "path": "rom/GearRay-freeze-baseline.gg",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "6322efcc0434ad8d4fc3f066ced47e0a1fb4cdb140d6da8654521e3834371136",
+    "mtime_utc": "2026-09-20T22:49:00.116269+00:00",
+    "git": "ignored",
+    "suffix": ".gg",
+    "same_bytes": [
+      "rom/GearRay-astra-review-20261019.gg",
+      "rom/GearRay-audit-20261019.gg",
+      "rom/GearRay-implementation-baseline.gg",
+      "rom/GearRay.gg"
+    ],
+    "archive_copies": [
+      [
+        "docs/performance/2026-10-19/evidence/baseline-build.zip",
+        "GearRay.gg"
+      ]
+    ]
+  },
+  {
+    "path": "rom/GearRay-implementation-baseline.gg",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "6322efcc0434ad8d4fc3f066ced47e0a1fb4cdb140d6da8654521e3834371136",
+    "mtime_utc": "2026-10-19T16:46:59.564895+00:00",
+    "git": "ignored",
+    "suffix": ".gg",
+    "same_bytes": [
+      "rom/GearRay-astra-review-20261019.gg",
+      "rom/GearRay-audit-20261019.gg",
+      "rom/GearRay-freeze-baseline.gg",
+      "rom/GearRay.gg"
+    ],
+    "archive_copies": [
+      [
+        "docs/performance/2026-10-19/evidence/baseline-build.zip",
+        "GearRay.gg"
+      ]
+    ]
+  },
+  {
+    "path": "rom/GearRay-implementation-exact.gg",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "6038f7a8d0f644254122cd567c48fac4fc3b8b6b36d8ac1842f3a2691580c0ed",
+    "mtime_utc": "2026-10-19T16:52:01.011369+00:00",
+    "git": "ignored",
+    "suffix": ".gg",
+    "same_bytes": [],
+    "archive_copies": []
+  },
+  {
+    "path": "rom/GearRay-implementation-final.gg",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "ffe57bd1dd54ee173c41b157bf90ac74210ed76fbc3f143f6337d2080b3e23a4",
+    "mtime_utc": "2026-10-19T17:30:02.165580+00:00",
+    "git": "ignored",
+    "suffix": ".gg",
+    "same_bytes": [],
+    "archive_copies": []
+  },
+  {
+    "path": "rom/GearRay-implementation-hud.gg",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "54ef0faaa4d7e85a47684dd8edbbd303aa112a55e0307af055c6a4111d128b1e",
+    "mtime_utc": "2026-10-19T16:49:36.454746+00:00",
+    "git": "ignored",
+    "suffix": ".gg",
+    "same_bytes": [],
+    "archive_copies": []
+  },
+  {
+    "path": "rom/GearRay-implementation-production.gg",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "e0fcfdd6fae28794fed9b56cd256d27fcd029248a9a8da846c12bb05dbf05566",
+    "mtime_utc": "2026-10-19T18:12:58.800396+00:00",
+    "git": "ignored",
+    "suffix": ".gg",
+    "same_bytes": [
+      "build-astra-final-control-source/rom/GearRay-astra-final-control.gg",
+      "rom/GearRay-commit-check-20261019.gg",
+      "rom/GearRay-pir-base-20261022.gg",
+      "rom/GearRay-post-review-20261022.gg",
+      "rom/GearRay-verified-20261019.gg"
+    ],
+    "archive_copies": [
+      [
+        "docs/performance/2026-10-19/evidence/implementation/production-final-source.zip",
+        "rom/GearRay-verified-20261019.gg"
+      ],
+      [
+        "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/fresh-source-and-build.zip",
+        "build-astra-final-control-source/rom/GearRay-astra-final-control.gg"
+      ],
+      [
+        "docs/performance/2026-10-19/post-implementation-followup/evidence/selected-source-and-build.zip",
+        "rom/GearRay-pir-base-20261022.gg"
+      ],
+      [
+        "docs/performance/2026-10-19/post-implementation-review/evidence/review-build-evidence.zip",
+        "rom/GearRay-post-review-20261022.gg"
+      ]
+    ]
+  },
+  {
+    "path": "rom/GearRay-implementation-profile-final",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "7390accf0effbad0fba006128f71d71cb9f3c04044bb03bb5c0c5feb65b4534f",
+    "mtime_utc": "2026-10-19T18:41:24.172463+00:00",
+    "git": "ignored",
+    "suffix": "",
+    "same_bytes": [
+      "rom/GearRay-implementation-profile-final.gg"
+    ],
+    "archive_copies": []
+  },
+  {
+    "path": "rom/GearRay-implementation-profile-final.gg",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "7390accf0effbad0fba006128f71d71cb9f3c04044bb03bb5c0c5feb65b4534f",
+    "mtime_utc": "2026-10-19T18:45:46.440804+00:00",
+    "git": "ignored",
+    "suffix": ".gg",
+    "same_bytes": [
+      "rom/GearRay-implementation-profile-final"
+    ],
+    "archive_copies": []
+  },
+  {
+    "path": "rom/GearRay-pir-base-20261022.gg",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "e0fcfdd6fae28794fed9b56cd256d27fcd029248a9a8da846c12bb05dbf05566",
+    "mtime_utc": "2026-10-22T20:30:38.184261+00:00",
+    "git": "ignored",
+    "suffix": ".gg",
+    "same_bytes": [
+      "build-astra-final-control-source/rom/GearRay-astra-final-control.gg",
+      "rom/GearRay-commit-check-20261019.gg",
+      "rom/GearRay-implementation-production.gg",
+      "rom/GearRay-post-review-20261022.gg",
+      "rom/GearRay-verified-20261019.gg"
+    ],
+    "archive_copies": [
+      [
+        "docs/performance/2026-10-19/evidence/implementation/production-final-source.zip",
+        "rom/GearRay-verified-20261019.gg"
+      ],
+      [
+        "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/fresh-source-and-build.zip",
+        "build-astra-final-control-source/rom/GearRay-astra-final-control.gg"
+      ],
+      [
+        "docs/performance/2026-10-19/post-implementation-followup/evidence/selected-source-and-build.zip",
+        "rom/GearRay-pir-base-20261022.gg"
+      ],
+      [
+        "docs/performance/2026-10-19/post-implementation-review/evidence/review-build-evidence.zip",
+        "rom/GearRay-post-review-20261022.gg"
+      ]
+    ]
+  },
+  {
+    "path": "rom/GearRay-pir-combined-20261022.gg",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "3632006ed68fcbcbacf9aa693c92560520df496e1e4ac23cf2cb6e1df88d3340",
+    "mtime_utc": "2026-10-22T20:39:30.126005+00:00",
+    "git": "ignored",
+    "suffix": ".gg",
+    "same_bytes": [
+      "rom/GearRay-astra-final-selected.gg",
+      "rom/GearRay-pir-selected-20261022.gg"
+    ],
+    "archive_copies": [
+      [
+        "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/fresh-source-and-build.zip",
+        "rom/GearRay-astra-final-selected.gg"
+      ],
+      [
+        "docs/performance/2026-10-19/post-implementation-followup/evidence/selected-source-and-build.zip",
+        "rom/GearRay-pir-combined-20261022.gg"
+      ],
+      [
+        "docs/performance/2026-10-19/post-implementation-followup/evidence/selected-source-and-build.zip",
+        "rom/GearRay-pir-selected-20261022.gg"
+      ]
+    ]
+  },
+  {
+    "path": "rom/GearRay-pir-profile-20261023.gg",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "93da30382e2763bee5fe5cd07d6ed14c04b084a155285419992978e067c12cd2",
+    "mtime_utc": "2026-10-22T21:09:16.060865+00:00",
+    "git": "ignored",
+    "suffix": ".gg",
+    "same_bytes": [],
+    "archive_copies": [
+      [
+        "docs/performance/2026-10-19/post-implementation-followup/evidence/selected-source-and-build.zip",
+        "rom/GearRay-pir-profile-20261023.gg"
+      ]
+    ]
+  },
+  {
+    "path": "rom/GearRay-pir-row-20261022.gg",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "9f07a6282c0c9c046656c82965385c856c2a606a00cd26bbbcfd95bf7b88002a",
+    "mtime_utc": "2026-10-22T20:35:02.775180+00:00",
+    "git": "ignored",
+    "suffix": ".gg",
+    "same_bytes": [
+      "build-post-review-rowcache/GearRay.gg",
+      "build-post-review-rowcache-source/rom/GearRay.gg"
+    ],
+    "archive_copies": [
+      [
+        "docs/performance/2026-10-19/post-implementation-followup/evidence/row-source-and-build.zip",
+        "rom/GearRay-pir-row-20261022.gg"
+      ],
+      [
+        "docs/performance/2026-10-19/post-implementation-followup/evidence/selected-source-and-build.zip",
+        "rom/GearRay-pir-row-20261022.gg"
+      ],
+      [
+        "docs/performance/2026-10-19/post-implementation-review/evidence/rowcache-experiment.zip",
+        "build-post-review-rowcache-source/rom/GearRay.gg"
+      ],
+      [
+        "docs/performance/2026-10-19/post-implementation-review/evidence/rowcache-experiment.zip",
+        "build-post-review-rowcache/GearRay.gg"
+      ]
+    ]
+  },
+  {
+    "path": "rom/GearRay-pir-selected-20261022.gg",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "3632006ed68fcbcbacf9aa693c92560520df496e1e4ac23cf2cb6e1df88d3340",
+    "mtime_utc": "2026-10-22T20:55:27.837862+00:00",
+    "git": "ignored",
+    "suffix": ".gg",
+    "same_bytes": [
+      "rom/GearRay-astra-final-selected.gg",
+      "rom/GearRay-pir-combined-20261022.gg"
+    ],
+    "archive_copies": [
+      [
+        "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/fresh-source-and-build.zip",
+        "rom/GearRay-astra-final-selected.gg"
+      ],
+      [
+        "docs/performance/2026-10-19/post-implementation-followup/evidence/selected-source-and-build.zip",
+        "rom/GearRay-pir-combined-20261022.gg"
+      ],
+      [
+        "docs/performance/2026-10-19/post-implementation-followup/evidence/selected-source-and-build.zip",
+        "rom/GearRay-pir-selected-20261022.gg"
+      ]
+    ]
+  },
+  {
+    "path": "rom/GearRay-pistol-baseline.gg",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "cc2f8b67cca13019b3c9a4aba6b32960161e3794361d487fa11844c05ca27f05",
+    "mtime_utc": "2026-09-16T13:20:40.780902+00:00",
+    "git": "ignored",
+    "suffix": ".gg",
+    "same_bytes": [],
+    "archive_copies": []
+  },
+  {
+    "path": "rom/GearRay-post-review-20261022.gg",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "e0fcfdd6fae28794fed9b56cd256d27fcd029248a9a8da846c12bb05dbf05566",
+    "mtime_utc": "2026-10-22T19:47:22.349394+00:00",
+    "git": "ignored",
+    "suffix": ".gg",
+    "same_bytes": [
+      "build-astra-final-control-source/rom/GearRay-astra-final-control.gg",
+      "rom/GearRay-commit-check-20261019.gg",
+      "rom/GearRay-implementation-production.gg",
+      "rom/GearRay-pir-base-20261022.gg",
+      "rom/GearRay-verified-20261019.gg"
+    ],
+    "archive_copies": [
+      [
+        "docs/performance/2026-10-19/evidence/implementation/production-final-source.zip",
+        "rom/GearRay-verified-20261019.gg"
+      ],
+      [
+        "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/fresh-source-and-build.zip",
+        "build-astra-final-control-source/rom/GearRay-astra-final-control.gg"
+      ],
+      [
+        "docs/performance/2026-10-19/post-implementation-followup/evidence/selected-source-and-build.zip",
+        "rom/GearRay-pir-base-20261022.gg"
+      ],
+      [
+        "docs/performance/2026-10-19/post-implementation-review/evidence/review-build-evidence.zip",
+        "rom/GearRay-post-review-20261022.gg"
+      ]
+    ]
+  },
+  {
+    "path": "rom/GearRay-profile",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "988680e2aa327b639c864b779cdf1db28c267b108cb6be823ffbb70e0b5dcf26",
+    "mtime_utc": "2026-08-19T21:56:24.110121+00:00",
+    "git": "ignored",
+    "suffix": "",
+    "same_bytes": [],
+    "archive_copies": []
+  },
+  {
+    "path": "rom/GearRay-profile.gg",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "5f27588d542113bd21586a36c020f630349dbd33ad17fd31e3f2bddf9cfbd900",
+    "mtime_utc": "2026-08-19T21:41:52.250457+00:00",
+    "git": "ignored",
+    "suffix": ".gg",
+    "same_bytes": [],
+    "archive_copies": []
+  },
+  {
+    "path": "rom/GearRay-verified-20261019.gg",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "e0fcfdd6fae28794fed9b56cd256d27fcd029248a9a8da846c12bb05dbf05566",
+    "mtime_utc": "2026-10-19T18:45:58.302625+00:00",
+    "git": "tracked",
+    "suffix": ".gg",
+    "same_bytes": [
+      "build-astra-final-control-source/rom/GearRay-astra-final-control.gg",
+      "rom/GearRay-commit-check-20261019.gg",
+      "rom/GearRay-implementation-production.gg",
+      "rom/GearRay-pir-base-20261022.gg",
+      "rom/GearRay-post-review-20261022.gg"
+    ],
+    "archive_copies": [
+      [
+        "docs/performance/2026-10-19/evidence/implementation/production-final-source.zip",
+        "rom/GearRay-verified-20261019.gg"
+      ],
+      [
+        "docs/performance/2026-10-19/post-implementation-followup/astra-final-review/evidence/fresh-source-and-build.zip",
+        "build-astra-final-control-source/rom/GearRay-astra-final-control.gg"
+      ],
+      [
+        "docs/performance/2026-10-19/post-implementation-followup/evidence/selected-source-and-build.zip",
+        "rom/GearRay-pir-base-20261022.gg"
+      ],
+      [
+        "docs/performance/2026-10-19/post-implementation-review/evidence/review-build-evidence.zip",
+        "rom/GearRay-post-review-20261022.gg"
+      ]
+    ]
+  },
+  {
+    "path": "rom/GearRay.gg",
+    "size": 65536,
+    "allocated": "65536",
+    "sha256": "6322efcc0434ad8d4fc3f066ced47e0a1fb4cdb140d6da8654521e3834371136",
+    "mtime_utc": "2026-09-20T23:02:15.810502+00:00",
+    "git": "ignored",
+    "suffix": ".gg",
+    "same_bytes": [
+      "rom/GearRay-astra-review-20261019.gg",
+      "rom/GearRay-audit-20261019.gg",
+      "rom/GearRay-freeze-baseline.gg",
+      "rom/GearRay-implementation-baseline.gg"
+    ],
+    "archive_copies": [
+      [
+        "docs/performance/2026-10-19/evidence/baseline-build.zip",
+        "GearRay.gg"
+      ]
+    ]
+  }
+]

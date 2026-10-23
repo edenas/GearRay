@@ -1,0 +1,68 @@
+{
+  "verdict": "C \u2014 FURTHER OPTIMIZATION JUSTIFIED",
+  "P0": 0,
+  "P1": [
+    "PIR-010"
+  ],
+  "P2": [
+    "PIR-006"
+  ],
+  "required_documents": 10,
+  "paired_baseline_production_records": 2880,
+  "production_validators": 24,
+  "candidate_checks": {
+    "gated": {
+      "records": 2880,
+      "mismatches": 0,
+      "sha256": "bf7374e5631d87a48373ccdb574ca58205575a5824e1ad381bdeb6eff2437eb0"
+    },
+    "rowcache": {
+      "records": 2880,
+      "mismatches": 0,
+      "sha256": "9f07a6282c0c9c046656c82965385c856c2a606a00cd26bbbcfd95bf7b88002a"
+    }
+  },
+  "rowcache_validator_note": "23 unmodified pass; host-only C# definite-assignment adaptation passes remaining test, with all assertions retained.",
+  "local_link_failures": [],
+  "archives": {
+    "canonical-experiment.zip": {
+      "entries": 497,
+      "bytes": 1098339,
+      "sha256": "1e075ae3de59ebd6ceb6d82deb26bccbdaac5aa5f214e2b6ade378de008fb045"
+    },
+    "gated-experiment.zip": {
+      "entries": 547,
+      "bytes": 1386352,
+      "sha256": "da411af4f0e63f0580036612a487169765b0ce4e80b4cff9caa208800cbdfda6"
+    },
+    "review-build-evidence.zip": {
+      "entries": 402,
+      "bytes": 877588,
+      "sha256": "645a8bbcadf2b833a9b9f4bfdd0099db5a60b8afc15c12da91fac16bbf4a1495"
+    },
+    "reviewed-source.zip": {
+      "entries": 200,
+      "bytes": 364898,
+      "sha256": "33e5594e57ef04eaadf53e5273e4f606e6befe0cf32b0c6af090740b6ffae332"
+    },
+    "rowcache-experiment.zip": {
+      "entries": 547,
+      "bytes": 1384015,
+      "sha256": "1351e58edd00127c4a6efe0ea31bde8c83d792d347111aac45b7d50a151b483b"
+    }
+  },
+  "production_engine_edits": false,
+  "commit_or_push": false,
+  "concurrent_artwork_outside_scope": [
+    {
+      "path": "assets/sprites/enemies/zombie/zombie_01_walking_01_16x16.png",
+      "before": "65edb44f82de3acab1150465ce1517c0a86faef89bfedaf4f1ceb6ff312708c7",
+      "after": "73aa581c082c35edc04a3ac6f547050f40f3abf89307dfc37de0f2a027c7a6b0"
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/zombie_02_corps_16x16.png",
+      "before": "404e7f6da19afd89c3e9727388532289770c40b336d960d8f237921ea7fab5ab",
+      "after": "3bb701694e8b4d2b4c4450cd70d75e82ced8386e1ca453b486b5ce91009f2577"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+BOOT 14381172 0 cycles/frame 59736
+A_static 288 last cycles 17299594
+B_rotation 288 last cycles 545773731
+C_forward 288 last cycles 479960258
+F_geometry 288 last cycles 540810603
+G_zombies 288 last cycles 124869027
+I_pistol 288 last cycles 161785106
+I_shotgun 288 last cycles 169311810
+J_lod 288 last cycles 768248672
+L_mixed 288 last cycles 742913283
+M_authored 288 last cycles 51632688

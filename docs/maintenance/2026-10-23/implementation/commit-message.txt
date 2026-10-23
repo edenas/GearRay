@@ -1,0 +1,12 @@
+chore: clean GearRay repository and refresh engine documentation
+
+Include the previously accepted sprite-row reuse and guarded wall-cache
+changes without altering their runtime behavior. Preserve original artwork,
+including unused zombie_02 and layered sources, and retain exact historical
+source/ROM/symbol/raw evidence through verified catalogs and restore tools.
+
+Establish the canonical Release workflow, isolate profile/dev outputs,
+migrate profiling dependencies, and reconstruct topic-owned documentation.
+Validate all 24 production validators, compiled regression gates and 2,880
+identical accepted replay records. Record preservation, actual disk metrics,
+Release identity and pending interactive/hardware qualification.

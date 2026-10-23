@@ -1,0 +1,16 @@
+Hashed 0 / 8751
+{
+  "full": {
+    "files": 8751,
+    "logical_bytes": 243696347,
+    "allocated_bytes": 257425064
+  },
+  "normalized": {
+    "files": 8557,
+    "logical_bytes": 207298529,
+    "allocated_bytes": 220782544
+  },
+  "directory_count": 457,
+  "tracked_count": 616,
+  "reparse": []
+}

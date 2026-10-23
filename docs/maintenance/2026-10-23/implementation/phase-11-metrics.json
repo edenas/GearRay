@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-23T15:46:05.384656+00:00",
+  "root": "D:\\mano_projektai\\GearRay",
+  "head": "bf89ea9c6f340a919e68e8059c0c005dff237f78",
+  "branch": "main",
+  "status": " M .gitattributes\n M .gitignore\n M CHANGELOG.md\n M CMakeLists.txt\n M CONTRIBUTING.md\n M GearRay_Developer_Bible.md\n M README.md\n M assets/sprites/enemies/zombie/zombie_01_walking_01_16x16.png\n M assets/sprites/enemies/zombie/zombie_02_corps_16x16.png\n M build-profile.bat\n M build.bat\n M docs/ASSET_PROVENANCE.md\n M docs/BUILDING.md\n M docs/CURRENT_BEHAVIOR.md\n M docs/ENGINE_ARCHITECTURE.md\n M docs/PROJECT_BIBLE.md\n M docs/ROM_BANKING.md\n D docs/performance/2026-10-19/evidence/astra/hud-compiled-oracle.json\n D docs/performance/2026-10-19/evidence/astra/hud-mask-replay/scenario-fixtures.json\n D docs/performance/2026-10-19/evidence/astra/replay/scenario-fixtures.json\n D docs/performance/2026-10-19/evidence/baseline/scenario-fixtures.json\n D docs/performance/2026-10-19/evidence/changed-files.csv\n D docs/performance/2026-10-19/evidence/implementation/final-hud-compiled-oracle.json\n D docs/performance/2026-10-19/evidence/implementation/hud-compiled-oracle.json\n D docs/performance/2026-10-19/evidence/repository-inventory.csv\n D docs/performance/2026-10-19/evidence/scenario-fixtures.json\n M platform/game_gear/video.c\nD  rom/GearRay-verified-20261019.gg\nD  source/main.c\n M tools/full_z80_audit.ps1\n M tools/full_z80_equivalence.ps1\n M tools/full_z80_experiments.ps1\n M tools/measure_b1_row_base.ps1\n M tools/measure_b2_projection.ps1\n M tools/production_build_artifacts.ps1\n M tools/test_production_dispatch_scan.ps1\n M tools/validate_bank_call_topology.ps1\n M tools/validate_game_over.ps1\n M tools/validate_health_hud.ps1\n M tools/validate_middle_zombie.ps1\n M tools/validate_native_wall.ps1\n M tools/validate_near_zombie.ps1\n M tools/validate_palette_usage.ps1\n M tools/validate_pause_map.ps1\n M tools/validate_renderer_equivalence.ps1\n M tools/validate_shotgun_combat.ps1\n M tools/validate_sprite_renderer.ps1\n M tools/validate_weapon_assets.ps1\n M tools/validate_weapon_runtime.ps1\n M tools/validate_z80_hardening.ps1\n M tools/validate_zombie_attack.ps1\n?? .artifact-quarantine/\n?? artifacts/README.md\n?? artifacts/releases/\n?? \"assets/sprites/Corel Auto-Preserve/\"\n?? \"assets/sprites/enemies/zombie/Corel Auto-Preserve/\"\n?? assets/sprites/enemies/zombie/zombie_02_standing_16x16.png\n?? assets/sprites/enemies/zombie/zombie_02_walking_01_16x16.png\n?? assets/sprites/enemies/zombie/zombie_02_walking_02_16x16.png\n?? \"assets/sprites/weapons/Corel Auto-Preserve/\"\n?? \"assets/textures/library/Corel Auto-Preserve/\"\n?? \"assets/textures/walls/Corel Auto-Preserve/\"\n?? docs/ASSET_PIPELINE.md\n?? docs/DEVELOPMENT_GUIDE.md\n?? docs/HISTORY.md\n?? docs/PERFORMANCE_BASELINE.md\n?? docs/README.md\n?? docs/TESTING.md\n?? docs/history/\n?? docs/maintenance/\n?? docs/performance/2026-10-19/evidence/ARCHIVED_DATA.md\n?? docs/performance/2026-10-19/evidence/astra/ARCHIVED_DATA.md\n?? docs/performance/2026-10-19/evidence/astra/hud-mask-replay/ARCHIVED_DATA.md\n?? docs/performance/2026-10-19/evidence/astra/replay/ARCHIVED_DATA.md\n?? docs/performance/2026-10-19/evidence/baseline/ARCHIVED_DATA.md\n?? docs/performance/2026-10-19/evidence/implementation/ARCHIVED_DATA.md\n?? docs/performance/2026-10-19/post-implementation-followup/\n?? docs/performance/2026-10-19/post-implementation-review/\n?? rom/\n?? tools/maintenance/\n?? tools/performance/\n",
+  "remote": "origin\thttps://github.com/edenas/GearRay.git (fetch)\norigin\thttps://github.com/edenas/GearRay.git (push)\n",
+  "full": {
+    "files": 8751,
+    "logical_bytes": 243696347,
+    "allocated_bytes": 257425064
+  },
+  "normalized": {
+    "files": 8557,
+    "logical_bytes": 207298529,
+    "allocated_bytes": 220782544
+  },
+  "directory_count": 457,
+  "root_directories": [
+    ".artifact-quarantine",
+    ".git",
+    "artifacts",
+    "assets",
+    "build",
+    "docs",
+    "engine",
+    "game",
+    "platform",
+    "rom",
+    "tools"
+  ],
+  "root_build_directories": [
+    "build"
+  ],
+  "tracked_count": 616,
+  "reparse": [],
+  "scope_note": "Full is all files including .git before writing this snapshot. Normalized consistently excludes execution report/evidence, build/maintenance scratch and tools/maintenance utilities (created by this run). Planning/history/normal build/cache/Git bytes otherwise included. Allocation excludes directory/MFT overhead. The initial sequential read-only collection was replaced with a parallel collection before any cleanup.",
+  "full_with_collector_outputs": {
+    "files": 8753,
+    "logical_bytes": 244207908,
+    "allocated_bytes": 257941160
+  }
+}

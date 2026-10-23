@@ -1,0 +1,32 @@
+{
+  "reviewed_head": "bf89ea9c6f340a919e68e8059c0c005dff237f78",
+  "final_head": "bf89ea9c6f340a919e68e8059c0c005dff237f78",
+  "unchanged_initially_tracked": 616,
+  "changed_during_review": [
+    {
+      "path": "assets/sprites/enemies/zombie/zombie_01_walking_01_16x16.png",
+      "before": "65edb44f82de3acab1150465ce1517c0a86faef89bfedaf4f1ceb6ff312708c7",
+      "after": "73aa581c082c35edc04a3ac6f547050f40f3abf89307dfc37de0f2a027c7a6b0"
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/zombie_02_corps_16x16.png",
+      "before": "404e7f6da19afd89c3e9727388532289770c40b336d960d8f237921ea7fab5ab",
+      "after": "3bb701694e8b4d2b4c4450cd70d75e82ced8386e1ca453b486b5ce91009f2577"
+    }
+  ],
+  "other_untracked_files": {
+    "assets/sprites/enemies/zombie/zombie_02_standing_16x16.png": "27a5f188c93265880e2794c059c04596e386bbf7b9c935add70b3b08efa1f9eb",
+    "assets/sprites/enemies/zombie/zombie_02_walking_01_16x16.png": "142342ce0a0445c5e76da2c23b0ca76102e817f171b90f3299d76e0cde389047",
+    "assets/sprites/enemies/zombie/zombie_02_walking_02_16x16.png": "e4c672cf2cfd0501f433b7d99a094686b2e4af903b0558228b11db8917159b2a"
+  },
+  "scope": "Changes to zombie PNGs appeared while review ran. They were not edited, reverted or overwritten by this review and are outside the frozen reviewed ROM. All review engine edits are isolated candidates.",
+  "candidate_source_changes": {
+    "build-post-review-canonical-source": [
+      "platform/game_gear/video.c"
+    ],
+    "build-post-review-rowcache-source": [
+      "platform/game_gear/video.c",
+      "tools/validate_weapon_runtime.ps1"
+    ]
+  }
+}

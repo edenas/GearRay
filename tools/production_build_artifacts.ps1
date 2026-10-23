@@ -6,7 +6,9 @@ function Get-ProductionBuildRom([string]$BuildDirectory) {
     $name=[regex]::Match($cache,'(?m)^GEAR_RAY_ROM_FILENAME:STRING=(.+)\r?$').Groups[1].Value.Trim()
     $source=[regex]::Match($cache,'(?m)^CMAKE_HOME_DIRECTORY:INTERNAL=(.+)\r?$').Groups[1].Value.Trim()
     if (!$name -or !$source) { throw "Missing configured ROM identity: $directory" }
-    return Join-Path (Join-Path $source 'rom') $name
+    $output=[regex]::Match($cache,'(?m)^GEAR_RAY_ROM_DIR:PATH=(.+)\r?$').Groups[1].Value.Trim()
+    if (!$output) { $output=Join-Path $source 'rom' } # Frozen historical caches.
+    return Join-Path $output $name
 }
 
 function Test-ProductionRomPayload([string]$BuildDirectory,[string]$RomPath) {

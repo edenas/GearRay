@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "catalog_sha256": "9da63d94a2ee5bbec8428364da091551ae7e097eea5574c108a3cd53fba2688c",
+  "removal_manifest_sha256": "1639053c018e9134f8b6d247ccfd653dd6892aeeec5b10000de218b139f77b6a",
+  "files": 5410,
+  "logical_bytes": 190602801,
+  "all_retention_members_verified": true
+}

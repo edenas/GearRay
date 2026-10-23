@@ -1,0 +1,167 @@
+[
+  {
+    "path": "docs/maintenance/2026-10-23/implementation/build-dryrun-20261023T173737044-journal.jsonl",
+    "size": 2789101,
+    "sha256": "d97f7fff90f47cdaf4e58f2e9303aacf8f01e5df0de5679c4f8913af7a5cb3f3",
+    "classification": "DUPLICATE - VERIFIED",
+    "reason": "Completed raw execution data retained exactly in execution-journals.zip",
+    "keeper": "docs/maintenance/2026-10-23/implementation/execution-journals.zip",
+    "keeper_sha256": "2f41e45520398dab42e3c5877d38b675ce687240cc65de46360f461c77000da6",
+    "member": "docs/maintenance/2026-10-23/implementation/build-dryrun-20261023T173737044-journal.jsonl",
+    "dependency_group": "completed-execution"
+  },
+  {
+    "path": "docs/maintenance/2026-10-23/implementation/build-dryrun-20261023T173848595-journal.jsonl",
+    "size": 6015532,
+    "sha256": "7d922c40a7592777f1d81790bbc52d268872f4bb2c024a34818ee42742a28178",
+    "classification": "DUPLICATE - VERIFIED",
+    "reason": "Completed raw execution data retained exactly in execution-journals.zip",
+    "keeper": "docs/maintenance/2026-10-23/implementation/execution-journals.zip",
+    "keeper_sha256": "2f41e45520398dab42e3c5877d38b675ce687240cc65de46360f461c77000da6",
+    "member": "docs/maintenance/2026-10-23/implementation/build-dryrun-20261023T173848595-journal.jsonl",
+    "dependency_group": "completed-execution"
+  },
+  {
+    "path": "docs/maintenance/2026-10-23/implementation/build-dryrun-journal.jsonl",
+    "size": 1989409,
+    "sha256": "997deabf9405ecac2ec413502a76ef7f9cb251f6c6b928969e0fa23b16b24b46",
+    "classification": "DUPLICATE - VERIFIED",
+    "reason": "Completed raw execution data retained exactly in execution-journals.zip",
+    "keeper": "docs/maintenance/2026-10-23/implementation/execution-journals.zip",
+    "keeper_sha256": "2f41e45520398dab42e3c5877d38b675ce687240cc65de46360f461c77000da6",
+    "member": "docs/maintenance/2026-10-23/implementation/build-dryrun-journal.jsonl",
+    "dependency_group": "completed-execution"
+  },
+  {
+    "path": "docs/maintenance/2026-10-23/implementation/build-execute-20261023T174126647-journal.jsonl",
+    "size": 7518565,
+    "sha256": "d6c53bb65d880c6131e98a29552dfad36aa2fa737b4b1dc438b4e3f1b88bbda3",
+    "classification": "DUPLICATE - VERIFIED",
+    "reason": "Completed raw execution data retained exactly in execution-journals.zip",
+    "keeper": "docs/maintenance/2026-10-23/implementation/execution-journals.zip",
+    "keeper_sha256": "2f41e45520398dab42e3c5877d38b675ce687240cc65de46360f461c77000da6",
+    "member": "docs/maintenance/2026-10-23/implementation/build-execute-20261023T174126647-journal.jsonl",
+    "dependency_group": "completed-execution"
+  },
+  {
+    "path": "docs/maintenance/2026-10-23/implementation/raw-dryrun-20261023T175831137-journal.jsonl",
+    "size": 14073,
+    "sha256": "521f519f4801161101ed48a161bcdd63f4fb4dcd712260396540fa41213e9142",
+    "classification": "DUPLICATE - VERIFIED",
+    "reason": "Completed raw execution data retained exactly in execution-journals.zip",
+    "keeper": "docs/maintenance/2026-10-23/implementation/execution-journals.zip",
+    "keeper_sha256": "2f41e45520398dab42e3c5877d38b675ce687240cc65de46360f461c77000da6",
+    "member": "docs/maintenance/2026-10-23/implementation/raw-dryrun-20261023T175831137-journal.jsonl",
+    "dependency_group": "completed-execution"
+  },
+  {
+    "path": "docs/maintenance/2026-10-23/implementation/raw-execute-20261023T175833778-journal.jsonl",
+    "size": 17002,
+    "sha256": "67145c0836fecbe832e01421b05fc440765195a1dd6022b33fb43df02fb008c9",
+    "classification": "DUPLICATE - VERIFIED",
+    "reason": "Completed raw execution data retained exactly in execution-journals.zip",
+    "keeper": "docs/maintenance/2026-10-23/implementation/execution-journals.zip",
+    "keeper_sha256": "2f41e45520398dab42e3c5877d38b675ce687240cc65de46360f461c77000da6",
+    "member": "docs/maintenance/2026-10-23/implementation/raw-execute-20261023T175833778-journal.jsonl",
+    "dependency_group": "completed-execution"
+  },
+  {
+    "path": "docs/maintenance/2026-10-23/implementation/rom-dryrun-20261023T174608536-journal.jsonl",
+    "size": 4484,
+    "sha256": "6cea0f3550601278aa8aa2e8cf41ee77ee3d2cf0d259d31f03c4f857d30d421b",
+    "classification": "DUPLICATE - VERIFIED",
+    "reason": "Completed raw execution data retained exactly in execution-journals.zip",
+    "keeper": "docs/maintenance/2026-10-23/implementation/execution-journals.zip",
+    "keeper_sha256": "2f41e45520398dab42e3c5877d38b675ce687240cc65de46360f461c77000da6",
+    "member": "docs/maintenance/2026-10-23/implementation/rom-dryrun-20261023T174608536-journal.jsonl",
+    "dependency_group": "completed-execution"
+  },
+  {
+    "path": "docs/maintenance/2026-10-23/implementation/rom-execute-20261023T174610656-journal.jsonl",
+    "size": 5692,
+    "sha256": "1e227e5dcb0b2b8638c6706249c3fdebb7cc6823a6771376953de822d5c8f412",
+    "classification": "DUPLICATE - VERIFIED",
+    "reason": "Completed raw execution data retained exactly in execution-journals.zip",
+    "keeper": "docs/maintenance/2026-10-23/implementation/execution-journals.zip",
+    "keeper_sha256": "2f41e45520398dab42e3c5877d38b675ce687240cc65de46360f461c77000da6",
+    "member": "docs/maintenance/2026-10-23/implementation/rom-execute-20261023T174610656-journal.jsonl",
+    "dependency_group": "completed-execution"
+  },
+  {
+    "path": "docs/maintenance/2026-10-23/implementation/scratch-dryrun-20261023T182244490-journal.jsonl",
+    "size": 1339223,
+    "sha256": "a842e8b99461d37b6f1eba6c95427369817a5f23437c910f1aed680aeb38afa0",
+    "classification": "DUPLICATE - VERIFIED",
+    "reason": "Completed raw execution data retained exactly in execution-journals.zip",
+    "keeper": "docs/maintenance/2026-10-23/implementation/execution-journals.zip",
+    "keeper_sha256": "2f41e45520398dab42e3c5877d38b675ce687240cc65de46360f461c77000da6",
+    "member": "docs/maintenance/2026-10-23/implementation/scratch-dryrun-20261023T182244490-journal.jsonl",
+    "dependency_group": "completed-execution"
+  },
+  {
+    "path": "docs/maintenance/2026-10-23/implementation/scratch-execute-20261023T182314185-journal.jsonl",
+    "size": 1602690,
+    "sha256": "05d12f97099a0de3d260a4e99315002c0b782ca1abd41a413ea4cfbff7f3f3ef",
+    "classification": "DUPLICATE - VERIFIED",
+    "reason": "Completed raw execution data retained exactly in execution-journals.zip",
+    "keeper": "docs/maintenance/2026-10-23/implementation/execution-journals.zip",
+    "keeper_sha256": "2f41e45520398dab42e3c5877d38b675ce687240cc65de46360f461c77000da6",
+    "member": "docs/maintenance/2026-10-23/implementation/scratch-execute-20261023T182314185-journal.jsonl",
+    "dependency_group": "completed-execution"
+  },
+  {
+    "path": "docs/maintenance/2026-10-23/implementation/stub-dryrun-20261023T174612658-journal.jsonl",
+    "size": 454,
+    "sha256": "c6f8925a999742ceaf8bb28c0a22897fd5641ab8aa2b94abd092734d95ff9d37",
+    "classification": "DUPLICATE - VERIFIED",
+    "reason": "Completed raw execution data retained exactly in execution-journals.zip",
+    "keeper": "docs/maintenance/2026-10-23/implementation/execution-journals.zip",
+    "keeper_sha256": "2f41e45520398dab42e3c5877d38b675ce687240cc65de46360f461c77000da6",
+    "member": "docs/maintenance/2026-10-23/implementation/stub-dryrun-20261023T174612658-journal.jsonl",
+    "dependency_group": "completed-execution"
+  },
+  {
+    "path": "docs/maintenance/2026-10-23/implementation/stub-execute-20261023T174614461-journal.jsonl",
+    "size": 556,
+    "sha256": "b7e60e82907bb850b1195045c5fd0c655ecf2bf97533197ba990809c85a0a2a7",
+    "classification": "DUPLICATE - VERIFIED",
+    "reason": "Completed raw execution data retained exactly in execution-journals.zip",
+    "keeper": "docs/maintenance/2026-10-23/implementation/execution-journals.zip",
+    "keeper_sha256": "2f41e45520398dab42e3c5877d38b675ce687240cc65de46360f461c77000da6",
+    "member": "docs/maintenance/2026-10-23/implementation/stub-execute-20261023T174614461-journal.jsonl",
+    "dependency_group": "completed-execution"
+  },
+  {
+    "path": "docs/maintenance/2026-10-23/implementation/executed-removal-manifest.json",
+    "size": 19511139,
+    "sha256": "6a32c94ad0aa591cf67187c030379acaf8790a179acf3ee380e7cee0b8f68143",
+    "classification": "DUPLICATE - VERIFIED",
+    "reason": "Completed raw execution data retained exactly in execution-journals.zip",
+    "keeper": "docs/maintenance/2026-10-23/implementation/execution-journals.zip",
+    "keeper_sha256": "2f41e45520398dab42e3c5877d38b675ce687240cc65de46360f461c77000da6",
+    "member": "docs/maintenance/2026-10-23/implementation/executed-removal-manifest.json",
+    "dependency_group": "completed-execution"
+  },
+  {
+    "path": "docs/maintenance/2026-10-23/implementation/catalog-before-runtime-reclassification.json",
+    "size": 13368649,
+    "sha256": "6fbe6462be55fcbc015d8502c73feb00137333abc9537a82ba550dc798f77d10",
+    "classification": "DUPLICATE - VERIFIED",
+    "reason": "Completed raw execution data retained exactly in execution-journals.zip",
+    "keeper": "docs/maintenance/2026-10-23/implementation/execution-journals.zip",
+    "keeper_sha256": "2f41e45520398dab42e3c5877d38b675ce687240cc65de46360f461c77000da6",
+    "member": "docs/maintenance/2026-10-23/implementation/catalog-before-runtime-reclassification.json",
+    "dependency_group": "completed-execution"
+  },
+  {
+    "path": "docs/maintenance/2026-10-23/implementation/build-dry-run.log",
+    "size": 71,
+    "sha256": "21f71adbdb47c0289cfb32f2453846755fd413f6ce0103df68a58b38b952f23b",
+    "classification": "DUPLICATE - VERIFIED",
+    "reason": "Completed raw execution data retained exactly in execution-journals.zip",
+    "keeper": "docs/maintenance/2026-10-23/implementation/execution-journals.zip",
+    "keeper_sha256": "2f41e45520398dab42e3c5877d38b675ce687240cc65de46360f461c77000da6",
+    "member": "docs/maintenance/2026-10-23/implementation/build-dry-run.log",
+    "dependency_group": "completed-execution"
+  }
+]

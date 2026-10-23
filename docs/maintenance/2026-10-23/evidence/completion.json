@@ -1,0 +1,23 @@
+{
+  "scope": "Planning only; no cleanup, source modification, commit or push",
+  "head": "bf89ea9c6f340a919e68e8059c0c005dff237f78",
+  "branch": "main",
+  "tracked_files": 618,
+  "preexisting_non_git_files_hash_verified": 33686,
+  "changed_files": [],
+  "new_files_outside_maintenance": [],
+  "protected_paths_verified": 125,
+  "assets_verified": 107,
+  "documents": 10,
+  "phases_in_master": 12,
+  "broken_document_links": [],
+  "original_archive_count": 27,
+  "production_rom_sha256": "3632006ed68fcbcbacf9aa693c92560520df496e1e4ac23cf2cb6e1df88d3340",
+  "bytes_reclaimed": 0,
+  "package": "inventory-data.zip",
+  "package_sha256": "eb57d1c5928e676dc9f6881b04cb5860b3ae12d3ecb9add46438f8252d76f975",
+  "package_bytes": 5883658,
+  "runtime_tests": "Not rerun during planning; Solo gates specified",
+  "external_backups": "Not accessed",
+  "no_commit_or_push": true
+}
