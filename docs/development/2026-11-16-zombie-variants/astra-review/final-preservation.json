@@ -1,0 +1,20 @@
+{
+  "candidate_sha256": "b5f9da2b5461574c6c09bc06387eeaa08ae304caeefc96f4ffce1b7c2c58349b",
+  "candidate_bytes": 131072,
+  "changed_preexisting_manifest_files": [
+    "docs/README.md",
+    "docs/PERFORMANCE_BASELINE.md"
+  ],
+  "all_other_277_manifest_files_unchanged": true,
+  "protected_141_paths_unchanged": true,
+  "local_links": "PASS",
+  "git_diff_check": "PASS",
+  "index_empty": true,
+  "review_documents": {
+    "docs/development/2026-11-16-zombie-variants/ASTRA_ACCEPTANCE_REVIEW.md": "35f4c002382add84e060c27af68bfe5b8b6b2602870fe4f6cf37f8082aa023fd",
+    "docs/development/2026-11-16-zombie-variants/OWNER_RETURN_TO_SOL_PROMPT.md": "dfb6bf9beb8c247c267b61693127e350c1d725ab1169c7dd204861600e629d34",
+    "docs/README.md": "6d4db786d75c8b8dd6180fe8e8c0b0c6b90a36f6ad315632f6c63e903ea0e37b",
+    "docs/PERFORMANCE_BASELINE.md": "5e71f628fe815bff385531d251a05128b0bb60cda4d8c7df219f72138e2204e5"
+  },
+  "review_evidence_sha256": "333eed19aa84f86a5727d2f3d04c600c64edef7fabbbd5a87c48a42b4910429b"
+}

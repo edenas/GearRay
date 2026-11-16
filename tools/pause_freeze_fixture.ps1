@@ -47,7 +47,7 @@ public static byte[] GameplayBytes(){
  foreach(int v in new int[]{PlayerX,PlayerY,CameraX,CameraY,DirectionX,DirectionY,PlaneX,PlaneY}){b.Add((byte)v);b.Add((byte)(v>>8));}
  foreach(int v in new int[]{PlayerHealth,DamagePhase,pending_shot,zombie_ai_frame_counter,weapon_state,animation_timer,SwitchState,red_door_switch_frame_counter,red_door_switch_frame,FollowingMask,NegativeMask,Corpses.Length,owned_weapons,shotgun_cell_x,shotgun_cell_y})b.Add((byte)v);
  foreach(int v in door_states)b.Add((byte)v);
- foreach(WorldSprite s in Corpses){foreach(int v in new int[]{s.world_x,s.world_y,s.pixels}){b.Add((byte)v);b.Add((byte)(v>>8));}b.Add((byte)s.state);b.Add((byte)s.health_and_hit_count);b.Add((byte)s.state_timer);}
+ foreach(WorldSprite s in Corpses){foreach(int v in new int[]{s.world_x,s.world_y}){b.Add((byte)v);b.Add((byte)(v>>8));}b.Add((byte)s.visual_type);b.Add((byte)s.animation_token);b.Add((byte)s.state);b.Add((byte)s.health_and_hit_count);b.Add((byte)s.state_timer);}
  return b.ToArray();
 }
 public static void AssertFrozen(){if(!FreezeGuard)return;byte[] now=GameplayBytes();if(now.Length!=FrozenState.Length)throw new Exception("Frozen entity count changed");for(int i=0;i<now.Length;i++)if(now[i]!=FrozenState[i])throw new Exception("Gameplay mutation during pause at byte "+i+", VBlank "+Frame);}
@@ -72,7 +72,7 @@ public static void SeedFreeze(){
  pending_shot=PendingSeed;zombie_ai_frame_counter=3;weapon_state=SHOOT;animation_timer=2;SwitchState=1;red_door_switch_frame_counter=5;red_door_switch_frame=1;FollowingMask=0x6a;NegativeMask=0x24;
  Corpses=new WorldSprite[8];
  int[] states={0,0,128,64,20,0,1,2};int[] timers={0,0,0,4,0,3,4,17};
- for(int i=0;i<8;i++){Corpses[i]=new WorldSprite(384+i*256,640,states[i]);Corpses[i].pixels=0x9000+i*0x100;Corpses[i].health_and_hit_count=i==7?0:(i==0?12:0x89);Corpses[i].state_timer=timers[i];}
+ for(int i=0;i<8;i++){Corpses[i]=new WorldSprite(384+i*256,640,states[i]);Corpses[i].visual_type=i&1;Corpses[i].animation_token=i%7;Corpses[i].health_and_hit_count=i==7?0:(i==0?12:0x89);Corpses[i].state_timer=timers[i];}
  Frame=Writes=Queries=TileWrites=RestoreCount=GameplayCalls=Raycasts=RenderCalls=MoveCalls=TurnCalls=ShotCalls=InteractionCalls=CloneCount=MaxClone=0;GameplayTrace="";
  game_gear_input_initialize();InitialBlocked=0;TraceDoors=TraceCorpses=false;
  foreach(int[] a in new int[][]{WriteFrames,QueryFrames,DoorFrames,DoorFindFrames,ScanFrames,EntityFrames,CorpseWrites,SatFrames,TileFrames})Array.Clear(a,0,a.Length);

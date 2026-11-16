@@ -1,0 +1,7 @@
+Workshop map validation PASS
+- dimensions: 13x13; rows and columns exact
+- spawn: (6,7), EMPTY with north-facing opening
+- registered doors: D (6,4), R (6,2), D (6,8)
+- registered switch: W (6,12), linked to R (6,2)
+- reachable playable tiles: 45; renderable frontier enclosed
+- VOID collision, DDA traversal and out-of-bounds access blocked

@@ -1,0 +1,84 @@
+{
+  "status": "PASS",
+  "scope": "Six focused linked-Z80/current-PNG assertions, not the comprehensive visual/ABI campaign",
+  "cases": 6,
+  "mismatches": 0,
+  "rom_sha256": "b5f9da2b5461574c6c09bc06387eeaa08ae304caeefc96f4ffce1b7c2c58349b",
+  "source_png_sha256": {
+    "assets\\sprites\\enemies\\zombie\\zombie_02_attack_01_32x32.png": "6c02643a121e75d900dc0fc56855ceb22cfe1f59d4caad1876a76d4da5c97a0c",
+    "assets\\sprites\\weapons\\shotgun_held.png": "783e345527752eef2ae815331494a85efd395ea088fa0e356a81fd4a5babbfaf",
+    "assets\\sprites\\weapons\\shotgun_held_shoot.png": "30dd22ca80cf4332755943255178b4040a58116af4a57eb42ca142b727db25f0"
+  },
+  "records": [
+    {
+      "case": "scientist-near-attack1",
+      "palette_witness": 12,
+      "strict_depth_tie": false,
+      "tile": [
+        3,
+        1
+      ],
+      "cycles": 53549
+    },
+    {
+      "case": "scientist-near-attack1",
+      "palette_witness": 12,
+      "strict_depth_tie": true,
+      "tile": [
+        3,
+        1
+      ],
+      "cycles": 31935
+    },
+    {
+      "case": "scientist-near-attack1",
+      "palette_witness": 2,
+      "strict_depth_tie": false,
+      "tile": [
+        5,
+        2
+      ],
+      "cycles": 52439
+    },
+    {
+      "case": "scientist-near-attack1",
+      "palette_witness": 2,
+      "strict_depth_tie": true,
+      "tile": [
+        5,
+        2
+      ],
+      "cycles": 31935
+    },
+    {
+      "case": "shotgun-idle",
+      "opaque_palette15_witness": [
+        3,
+        7
+      ],
+      "tile": [
+        8,
+        5
+      ],
+      "cycles": 9485
+    },
+    {
+      "case": "shotgun-fire",
+      "opaque_palette15_witness": [
+        4,
+        7
+      ],
+      "tile": [
+        9,
+        5
+      ],
+      "cycles": 9493
+    }
+  ],
+  "guards_and_callee_cleanup_checked": true,
+  "limitations": [
+    "Only one scientist near frame and two HUD skin-witness tiles",
+    "No broad poses/tiers/clipping/overlap/lifecycle/playthrough/IRQ coverage",
+    "Remaining campaign belongs to Luna"
+  ]
+}

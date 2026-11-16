@@ -1,0 +1,158 @@
+{
+  "scope": "Review of retained, identically scheduled actor-free routes only; no fresh campaign or tolerance exception",
+  "roms": [
+    "3632006ed68fcbcbacf9aa693c92560520df496e1e4ac23cf2cb6e1df88d3340",
+    "b5f9da2b5461574c6c09bc06387eeaa08ae304caeefc96f4ffce1b7c2c58349b"
+  ],
+  "matched_metadata_fields": [
+    "emulicious_sha256",
+    "samples_per_scenario",
+    "warmup",
+    "route_length",
+    "route_mode",
+    "pinned_reset_timer"
+  ],
+  "routes": [
+    {
+      "scenario": "A_static",
+      "state_or_visual_rows_different": {
+        "camera_hex": 0,
+        "ray_hex": 0,
+        "polled_key_mask": 0,
+        "state_json": 0,
+        "vram_sha256": 0
+      },
+      "counter_total_delta": {
+        "dirty_columns": 0,
+        "tiles": 0,
+        "sprite_tiles": 0,
+        "rays": 0,
+        "world_queries": 0
+      },
+      "october": {
+        "n": 256,
+        "mean": 59735.96484375,
+        "median": 59741.0,
+        "p95": 59755,
+        "max": 59758
+      },
+      "candidate": {
+        "n": 256,
+        "mean": 59735.96484375,
+        "median": 59741.0,
+        "p95": 59755,
+        "max": 59758
+      },
+      "mean_delta_cycles": 0.0,
+      "mean_delta_percent": 0.0
+    },
+    {
+      "scenario": "B_rotation",
+      "state_or_visual_rows_different": {
+        "camera_hex": 0,
+        "ray_hex": 0,
+        "polled_key_mask": 0,
+        "state_json": 0,
+        "vram_sha256": 0
+      },
+      "counter_total_delta": {
+        "dirty_columns": 0,
+        "tiles": 0,
+        "sprite_tiles": 0,
+        "rays": 0,
+        "world_queries": 0
+      },
+      "october": {
+        "n": 256,
+        "mean": 1887679.4765625,
+        "median": 1836120.5,
+        "p95": 2150485,
+        "max": 2150668
+      },
+      "candidate": {
+        "n": 256,
+        "mean": 1893505.30859375,
+        "median": 1835853.0,
+        "p95": 2150503,
+        "max": 2150701
+      },
+      "mean_delta_cycles": 5825.83203125,
+      "mean_delta_percent": 0.3086240065426127
+    },
+    {
+      "scenario": "C_forward",
+      "state_or_visual_rows_different": {
+        "camera_hex": 0,
+        "ray_hex": 0,
+        "polled_key_mask": 0,
+        "state_json": 0,
+        "vram_sha256": 0
+      },
+      "counter_total_delta": {
+        "dirty_columns": 0,
+        "tiles": 0,
+        "sprite_tiles": 0,
+        "rays": 0,
+        "world_queries": 0
+      },
+      "october": {
+        "n": 256,
+        "mean": 1665141.01171875,
+        "median": 1670747.5,
+        "p95": 1867824,
+        "max": 1867858
+      },
+      "candidate": {
+        "n": 256,
+        "mean": 1676341.50390625,
+        "median": 1689857.0,
+        "p95": 1870346,
+        "max": 1870380
+      },
+      "mean_delta_cycles": 11200.4921875,
+      "mean_delta_percent": 0.6726452659969517
+    },
+    {
+      "scenario": "F_geometry",
+      "state_or_visual_rows_different": {
+        "camera_hex": 0,
+        "ray_hex": 0,
+        "polled_key_mask": 0,
+        "state_json": 0,
+        "vram_sha256": 0
+      },
+      "counter_total_delta": {
+        "dirty_columns": 0,
+        "tiles": 0,
+        "sprite_tiles": 0,
+        "rays": 0,
+        "world_queries": 0
+      },
+      "october": {
+        "n": 256,
+        "mean": 1881897.98046875,
+        "median": 1862756.0,
+        "p95": 2082128,
+        "max": 2126738
+      },
+      "candidate": {
+        "n": 256,
+        "mean": 1894033.84375,
+        "median": 1867543.0,
+        "p95": 2127014,
+        "max": 2148064
+      },
+      "mean_delta_cycles": 12135.86328125,
+      "mean_delta_percent": 0.6448736013961343
+    }
+  ],
+  "raw_sha256": {
+    "build\\release\\cleanup-replay\\emulator-metadata.json": "a1d7bb783a866663c075bf511cf0573f76cc491b5c3069fc3a0bd2265814f5ed",
+    "build\\release\\cleanup-replay\\scenario-fixtures.json": "925282760589c64709d6fa4a06d04bf395108184733c8b662e1e1d11948b2883",
+    "build\\release\\cleanup-replay\\frame-samples.csv": "99d8469ccb71cee93a3ac45b1f606f8c82c5b163fddec718391c5d522f49696a",
+    "build\\zv01-luna\\replay-final\\emulator-metadata.json": "9b173e89790e6e9ad4df87596cd06d5515c938e3ecf8a2e4ee2ff7b03174dd0a",
+    "build\\zv01-luna\\replay-final\\scenario-fixtures.json": "f51e79ddf68890c67dd2e6fdbbd3f741b9e1f50d094231c2a67e887f6d807664",
+    "build\\zv01-luna\\replay-final\\frame-samples.csv": "1720f1466f98d68db5d448a00ff207e817155ce2cc6745b5a6cb203c469e77d3"
+  },
+  "interpretation": "Nonzero moving/dirty-render cost is consistent with incoming-page save/restore plus the new preparation scope; no isolated counterfactual identifies its exact sole contribution. NPC/weapon content routes require separate attribution. No percentage is declared an acceptance allowance."
+}

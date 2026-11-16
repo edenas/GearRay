@@ -1,0 +1,2034 @@
+[
+  {
+    "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_corps_16x16.png",
+    "bytes": 2913,
+    "sha256": "a2be906d13831551c29402ff80f676d7f590cb94191647983f3aa0f177c36044",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 153,
+      "255": 103
+    },
+    "opaque_colors": {
+      "#000000": 29,
+      "#006d8f": 10,
+      "#1a1a1a": 18,
+      "#53602a": 12,
+      "#785700": 4,
+      "#bb2200": 28,
+      "#ffffff": 2
+    },
+    "rgba_sha256": "30c4d988ff6fe38cfa9a1756505e3bb14b8ed784ab3b206e06e26f8e180b2bcd",
+    "git": "tracked",
+    "direct_input": false,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_corps_32x32.png",
+    "bytes": 2919,
+    "sha256": "c73b6679cd299ccf2fad04e98453eea8d3c5aaa145b54b4d7316b172a856587b",
+    "width": 32,
+    "height": 32,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 655,
+      "255": 369
+    },
+    "opaque_colors": {
+      "#000000": 62,
+      "#006d8f": 16,
+      "#1a1a1a": 50,
+      "#53602a": 49,
+      "#785700": 23,
+      "#bb2200": 165,
+      "#ffffff": 4
+    },
+    "rgba_sha256": "432630d0fa56f29f44bc5f4346ea1280ca6e6252437b129f5a02b19ca4d0241c",
+    "git": "tracked",
+    "direct_input": false,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_01_16x16.png",
+    "bytes": 2947,
+    "sha256": "557d4b0fddc0ea3ac3557f220407a9eefbb6b4f558f53b5828aeba33efc376d7",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 124,
+      "255": 132
+    },
+    "opaque_colors": {
+      "#000000": 32,
+      "#006d8f": 12,
+      "#1a1a1a": 24,
+      "#53602a": 17,
+      "#785700": 4,
+      "#bb2200": 41,
+      "#ffffff": 2
+    },
+    "rgba_sha256": "fda810a96e86db61896f064774c96b7ac87e566d03ca846289da72c771912a92",
+    "git": "tracked",
+    "direct_input": false,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_01_32x32.png",
+    "bytes": 3022,
+    "sha256": "fefe8042d2c852e33bf1d69b96e7ae3c3c0011badb0eece957630f992b44d814",
+    "width": 32,
+    "height": 32,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 495,
+      "255": 529
+    },
+    "opaque_colors": {
+      "#000000": 133,
+      "#006d8f": 34,
+      "#1a1a1a": 88,
+      "#53602a": 35,
+      "#785700": 19,
+      "#bb2200": 217,
+      "#ffffff": 3
+    },
+    "rgba_sha256": "d29a22df2ca2e8b0f7c0726c68ef87b77612920bb4b260a41d98cc5d6f8ead86",
+    "git": "tracked",
+    "direct_input": false,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_02.png",
+    "bytes": 261,
+    "sha256": "f041e403698c9623e49e82b62e0861612543e96101ebf29f978b65d23c54c2ca",
+    "width": 8,
+    "height": 8,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 30,
+      "255": 34
+    },
+    "opaque_colors": {
+      "#000000": 11,
+      "#006d8f": 8,
+      "#53602a": 6,
+      "#b51a00": 9
+    },
+    "rgba_sha256": "548d8d9f63d378ff51341cd3a5fc372972799c33ec66e14f8b0fbf15d5654aad",
+    "git": "tracked",
+    "direct_input": false,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_dead_16x16.png",
+    "bytes": 2970,
+    "sha256": "8b26b1addfaf8ff19ccbf9afbd2754a9d829d0c552ef8ef3683c035a9ead38a1",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "255": 136,
+      "0": 120
+    },
+    "opaque_colors": {
+      "#000000": 25,
+      "#006d8f": 11,
+      "#1a1a1a": 17,
+      "#53602a": 16,
+      "#785700": 4,
+      "#bb2200": 61,
+      "#ffffff": 2
+    },
+    "rgba_sha256": "1794bda149f337cfb8c49f1d16d1197ff285588fe3fd2d57c569cb5bd4957049",
+    "git": "tracked",
+    "direct_input": false,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_dead_32x32.png",
+    "bytes": 3014,
+    "sha256": "83a67918bac96953d7e3ad5ed8e97966fe635f2cc6b79716d1922e9af2a60e75",
+    "width": 32,
+    "height": 32,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 335,
+      "255": 689
+    },
+    "opaque_colors": {
+      "#000000": 196,
+      "#006d8f": 31,
+      "#1a1a1a": 55,
+      "#53602a": 47,
+      "#785700": 7,
+      "#bb2200": 350,
+      "#ffffff": 3
+    },
+    "rgba_sha256": "eb6216737dbe5f721597734c0b1f16bffe34379de0423206cb112a6bef0f09c9",
+    "git": "tracked",
+    "direct_input": false,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_standing_16x16.png",
+    "bytes": 2934,
+    "sha256": "8838eb98a0740a255ff8e6954899da53b92b06ee9d25b2a12c1c126312069018",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 138,
+      "255": 118
+    },
+    "opaque_colors": {
+      "#000000": 38,
+      "#006d8f": 17,
+      "#1a1a1a": 29,
+      "#53602a": 18,
+      "#785700": 3,
+      "#bb2200": 11,
+      "#ffffff": 2
+    },
+    "rgba_sha256": "566de6a97d5e43150c6662e0a8bd11f39b0399c5c10a4ba273600a7dbc99ecc1",
+    "git": "tracked",
+    "direct_input": false,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_walking_01_16x16.png",
+    "bytes": 2945,
+    "sha256": "233ab1f92b6dd4c9ec45a5a3968353591386bed882a6d82b474e3f532260e353",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 141,
+      "255": 115
+    },
+    "opaque_colors": {
+      "#000000": 34,
+      "#006d8f": 15,
+      "#1a1a1a": 34,
+      "#53602a": 14,
+      "#785700": 5,
+      "#b51a00": 1,
+      "#bb2200": 10,
+      "#ffffff": 2
+    },
+    "rgba_sha256": "9c6e433e947ccd14a6a88cb9b03b8989754b3ad554ac096dea4c36061d19590b",
+    "git": "tracked",
+    "direct_input": false,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_walking_02_16x16.png",
+    "bytes": 2939,
+    "sha256": "eabf126d4541419da199db309d85d7972b95f236bafe70a2087134190e4a8683",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 141,
+      "255": 115
+    },
+    "opaque_colors": {
+      "#000000": 37,
+      "#006d8f": 15,
+      "#1a1a1a": 31,
+      "#53602a": 14,
+      "#785700": 5,
+      "#b51a00": 1,
+      "#bb2200": 10,
+      "#ffffff": 2
+    },
+    "rgba_sha256": "1b4546f8e6e3e3ed0d9642dd8825ecd659c16621f766bb372bf7c3e5cb524779",
+    "git": "tracked",
+    "direct_input": false,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_attack_01.png",
+    "bytes": 249,
+    "sha256": "9608ca0c699e46971ceafe394d9439eba36f23553724b15e128d90565b5d1581",
+    "width": 8,
+    "height": 8,
+    "mode": "RGBA",
+    "alpha": {
+      "255": 30,
+      "0": 34
+    },
+    "opaque_colors": {
+      "#000000": 12,
+      "#006d8f": 9,
+      "#53602a": 6,
+      "#b51a00": 3
+    },
+    "rgba_sha256": "200341219d096fde6a50c69830d9ee31f9380d9e76f4e61077427d7574207617",
+    "git": "tracked",
+    "direct_input": false,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_corps_16x16.png",
+    "bytes": 2893,
+    "sha256": "404e7f6da19afd89c3e9727388532289770c40b336d960d8f237921ea7fab5ab",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 154,
+      "255": 102
+    },
+    "opaque_colors": {
+      "#000000": 19,
+      "#1a1a1a": 19,
+      "#53602a": 9,
+      "#785700": 6,
+      "#bb2200": 29,
+      "#ffffff": 20
+    },
+    "rgba_sha256": "426c9094ff6aa3305f0b6d3ebb94d61c48d2121e62fcb6ca49d392e2cc1caa7e",
+    "git": "tracked",
+    "direct_input": false,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_corps_32x32.png",
+    "bytes": 2862,
+    "sha256": "d4abd58bc14ba72454d4e422f9b733e5747edead9347fb005dcd5d4bb57779c6",
+    "width": 32,
+    "height": 32,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 654,
+      "255": 370
+    },
+    "opaque_colors": {
+      "#000000": 60,
+      "#006d8f": 15,
+      "#1a1a1a": 98,
+      "#53602a": 42,
+      "#785700": 20,
+      "#bb2200": 131,
+      "#ffffff": 4
+    },
+    "rgba_sha256": "0c74cf275dea603babe9c1b555ca6542b496a5d4ff15d8e670aaf6b65e818ee1",
+    "git": "untracked",
+    "direct_input": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_standing.png",
+    "bytes": 247,
+    "sha256": "fb3fc653e5c26b11285ea1440ade42756bdf9bdc7975b35f6a826ad108a20683",
+    "width": 8,
+    "height": 8,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 34,
+      "255": 30
+    },
+    "opaque_colors": {
+      "#000000": 12,
+      "#006d8f": 9,
+      "#53602a": 6,
+      "#b51a00": 3
+    },
+    "rgba_sha256": "3f7e481bf0f830ef5913d717fb7a201a2bf7cc4d2d1c0595cb30aae301531f10",
+    "git": "tracked",
+    "direct_input": false,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_standing_16x16.png",
+    "bytes": 2938,
+    "sha256": "638f63fb9862fa44175aeef06814ed3f036b77351bf8b191378cfe87f6fd1b2e",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 140,
+      "255": 116
+    },
+    "opaque_colors": {
+      "#000000": 36,
+      "#006d8f": 17,
+      "#1a1a1a": 29,
+      "#53602a": 14,
+      "#785700": 5,
+      "#bb2200": 13,
+      "#ffffff": 2
+    },
+    "rgba_sha256": "7edb7a65842f3304f290decec0be62cf64d4bb59b8a97993c6e86f8c9d14174d",
+    "git": "tracked",
+    "direct_input": false,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_walking_01_16x16.png",
+    "bytes": 2929,
+    "sha256": "951afbcdeefa91361715557bb4d46fc6610ce8d2e04cf839bc5495a6c2755e74",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 145,
+      "255": 111
+    },
+    "opaque_colors": {
+      "#000000": 28,
+      "#1a1a1a": 8,
+      "#53602a": 11,
+      "#785700": 8,
+      "#b51a00": 22,
+      "#bb2200": 5,
+      "#ffffff": 29
+    },
+    "rgba_sha256": "9f8c67695e995b61dc1e63538b694313d802a1b447f5354c4e6d9cd17de54d09",
+    "git": "tracked",
+    "direct_input": false,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_walking_01_32x32.png",
+    "bytes": 2946,
+    "sha256": "76ba1a5d705390d6e43b4a612e8daa9ce03c1d1def31dc1b760db6ac9f1a14ad",
+    "width": 32,
+    "height": 32,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 576,
+      "255": 448
+    },
+    "opaque_colors": {
+      "#000000": 98,
+      "#1a1a1a": 13,
+      "#53602a": 41,
+      "#785700": 46,
+      "#797878": 18,
+      "#b51a00": 76,
+      "#bb2200": 23,
+      "#ffffff": 133
+    },
+    "rgba_sha256": "b1470f9317fe2f0401eb89430adb163f20f3924c994237332e11981a4afc56f5",
+    "git": "untracked",
+    "direct_input": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_walking_02_16x16.png",
+    "bytes": 2923,
+    "sha256": "f9af315d083016200371865c9cebcb22e86181dddac7d719fae9db3c20a03661",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 145,
+      "255": 111
+    },
+    "opaque_colors": {
+      "#000000": 35,
+      "#006d8f": 12,
+      "#1a1a1a": 30,
+      "#53602a": 15,
+      "#785700": 5,
+      "#bb2200": 12,
+      "#ffffff": 2
+    },
+    "rgba_sha256": "db940d4efd38cb24c4188b58f30e44542c5e3aa8512a778c4c6e495b5eaf6ac1",
+    "git": "tracked",
+    "direct_input": false,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_walking_02_32x32.png",
+    "bytes": 2924,
+    "sha256": "83773d912370f52654be3d8fbf24ed4a930fc2657ff376f4d786c302fcfa0f8f",
+    "width": 32,
+    "height": 32,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 576,
+      "255": 448
+    },
+    "opaque_colors": {
+      "#000000": 102,
+      "#03000f": 1,
+      "#1a1a1a": 7,
+      "#53602a": 40,
+      "#785700": 44,
+      "#797878": 16,
+      "#b51a00": 1,
+      "#bb2200": 110,
+      "#ffffff": 127
+    },
+    "rgba_sha256": "b6095c2b2a55e9e847ccfe5903fa807190312a6ddbf3fcaed09b444edd0f0e57",
+    "git": "untracked",
+    "direct_input": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_01_attack_01.png",
+    "bytes": 258,
+    "sha256": "6847e340c772ceb4093096d8119a75c26804fca1eae602fd751f58a6bb538a70",
+    "width": 8,
+    "height": 8,
+    "mode": "RGBA",
+    "alpha": {
+      "255": 30,
+      "0": 34
+    },
+    "opaque_colors": {
+      "#000000": 12,
+      "#006d8f": 9,
+      "#53602a": 6,
+      "#b51a00": 3
+    },
+    "rgba_sha256": "8b6c3deede2dbd989012ee4c6e84ba782af3730c0f48ed75a7e04af3b2631f95",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_01_attack_01_32x32.png",
+    "bytes": 2988,
+    "sha256": "3ba499b2539e421ba5b70671e1b6aaa6158796a7fa98b9000498a5fec446ffa1",
+    "width": 32,
+    "height": 32,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 537,
+      "255": 487
+    },
+    "opaque_colors": {
+      "#000000": 179,
+      "#006d8f": 16,
+      "#1a1a1a": 125,
+      "#53602a": 78,
+      "#785700": 31,
+      "#bb2200": 54,
+      "#ffffff": 4
+    },
+    "rgba_sha256": "a0b8d0c5fd08ffe2fb0c6877e1e80f46277704093febc865b6c4499877b78025",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_01_attack_02.png",
+    "bytes": 248,
+    "sha256": "a9df2752d252fcca1bfdc28a77190846ee822698109d70146c4cb98eaf40af2b",
+    "width": 8,
+    "height": 8,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 34,
+      "255": 30
+    },
+    "opaque_colors": {
+      "#000000": 12,
+      "#006d8f": 9,
+      "#53602a": 6,
+      "#b51a00": 3
+    },
+    "rgba_sha256": "356674ebfa0214ca7736a82ed097897d5e6751f928ed99b9915dbb04374f9e36",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_01_attack_02_32x32.png",
+    "bytes": 2914,
+    "sha256": "e436edb085d42bccd0e765a69ec4566037b7434261dc942eee1b243a0ac3ebc4",
+    "width": 32,
+    "height": 32,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 537,
+      "255": 487
+    },
+    "opaque_colors": {
+      "#000000": 180,
+      "#006d8f": 16,
+      "#1a1a1a": 125,
+      "#53602a": 78,
+      "#785700": 31,
+      "#b51a00": 1,
+      "#bb2200": 52,
+      "#ffffff": 4
+    },
+    "rgba_sha256": "6c17bf70e9672a0c36a4a3e1610f37228470d9852f65deb4f2974c0879976e3c",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_01_corps.png",
+    "bytes": 262,
+    "sha256": "9291dfbb37af7c9b3476003f81dc222f696cc61a1a007a972a1a31e5ee91e347",
+    "width": 8,
+    "height": 8,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 40,
+      "255": 24
+    },
+    "opaque_colors": {
+      "#000000": 3,
+      "#006d8f": 4,
+      "#53602a": 5,
+      "#b51a00": 12
+    },
+    "rgba_sha256": "69f476f90f31b90bf8ef3f66d8a03fbba1fa6dbe7334de943b2e8a1ece2f06d6",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_01_corps_16x16.png",
+    "bytes": 2914,
+    "sha256": "177e19ca93299e3b02a1829d6dded86fe660bb976833957dce644897097616d8",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 154,
+      "255": 102
+    },
+    "opaque_colors": {
+      "#000000": 19,
+      "#006d8f": 10,
+      "#1a1a1a": 27,
+      "#53602a": 9,
+      "#785700": 6,
+      "#bb2200": 29,
+      "#ffffff": 2
+    },
+    "rgba_sha256": "1481c63583c780a746cb95e8ef570725ef66ec1565df689a377ae4bdb872cec2",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_01_corps_32x32.png",
+    "bytes": 2862,
+    "sha256": "b435d1d11068f240439d0c9c770478ec663e874c03452e43530cd4db0182fbb9",
+    "width": 32,
+    "height": 32,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 654,
+      "255": 370
+    },
+    "opaque_colors": {
+      "#000000": 60,
+      "#006d8f": 15,
+      "#1a1a1a": 98,
+      "#53602a": 42,
+      "#785700": 20,
+      "#bb2200": 131,
+      "#ffffff": 4
+    },
+    "rgba_sha256": "0c74cf275dea603babe9c1b555ca6542b496a5d4ff15d8e670aaf6b65e818ee1",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_01_shot_01.png",
+    "bytes": 261,
+    "sha256": "441a492568cc469c042b08c779d92673db54b83e7d06b586881e03ff08d60d93",
+    "width": 8,
+    "height": 8,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 32,
+      "255": 32
+    },
+    "opaque_colors": {
+      "#000000": 11,
+      "#006d8f": 8,
+      "#53602a": 6,
+      "#b51a00": 7
+    },
+    "rgba_sha256": "d0059cb3376bcc2a17efd7080d725b7741b5fa9b6a153c66d2043bf2855249de",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_01_shot_01_16x16.png",
+    "bytes": 2946,
+    "sha256": "7e0790d1147de68846ca448167b273cb4f0b9e49cabe01e16dbff1a0473a81f7",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 136,
+      "255": 120
+    },
+    "opaque_colors": {
+      "#000000": 30,
+      "#006d8f": 12,
+      "#1a1a1a": 30,
+      "#53602a": 15,
+      "#785700": 6,
+      "#bb2200": 25,
+      "#ffffff": 2
+    },
+    "rgba_sha256": "457e38d95afe80afdc6f198de4f887dd47cd8240453a447610de9e6939dfbb15",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": true,
+    "changed_pixels_vs_head": true
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_01_shot_01_32x32.png",
+    "bytes": 2997,
+    "sha256": "26b03241c02a136003b737cff8c8cc75877d6d6a70c7cfa3707c78fc400ae355",
+    "width": 32,
+    "height": 32,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 509,
+      "255": 515
+    },
+    "opaque_colors": {
+      "#000000": 141,
+      "#006d8f": 38,
+      "#1a1a1a": 110,
+      "#53602a": 42,
+      "#785700": 22,
+      "#b51a00": 18,
+      "#bb2200": 141,
+      "#ffffff": 3
+    },
+    "rgba_sha256": "64ee4fea86c3db299772bbe45a13d134409e705621060210cf873947b6199b84",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": true,
+    "changed_pixels_vs_head": true
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_01_shot_02.png",
+    "bytes": 256,
+    "sha256": "491bc27aad2a9069c169a343783aecd6bfa1bb754a1439a7b2fe47187a816179",
+    "width": 8,
+    "height": 8,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 30,
+      "255": 34
+    },
+    "opaque_colors": {
+      "#000000": 11,
+      "#006d8f": 8,
+      "#53602a": 6,
+      "#b51a00": 9
+    },
+    "rgba_sha256": "d002f2b11420a0540200b2a0ecc605ed46f46009f84bb28ea733ba8433c89f4a",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_01_shot_dead.png",
+    "bytes": 262,
+    "sha256": "67771b12bb41a8d7b5b605212c6b963cc6c4b698f0c88a032dba0172fd02e861",
+    "width": 8,
+    "height": 8,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 26,
+      "255": 38
+    },
+    "opaque_colors": {
+      "#000000": 9,
+      "#006d8f": 5,
+      "#53602a": 5,
+      "#b51a00": 19
+    },
+    "rgba_sha256": "e9adfec69a9b1ad73ca880019edd23a340e343a59d887f3cc3e0044b347a5e57",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_01_shot_dead_16x16.png",
+    "bytes": 2947,
+    "sha256": "04f50613ee572ec90c082f937f2d8c4ae9db21f4339b2c8c17e49e40595c270b",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 126,
+      "255": 130
+    },
+    "opaque_colors": {
+      "#000000": 29,
+      "#006d8f": 12,
+      "#1a1a1a": 28,
+      "#53602a": 11,
+      "#785700": 5,
+      "#bb2200": 43,
+      "#ffffff": 2
+    },
+    "rgba_sha256": "3840d9ead043f2c46759cdb5d6ff695db5d100d0b2369a3f239d65426caa8f46",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_01_standing.png",
+    "bytes": 236,
+    "sha256": "98eae1215dea2cbb790d8871029402447b1e863f9ac95f51e16889d3a9cc6972",
+    "width": 8,
+    "height": 8,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 34,
+      "255": 30
+    },
+    "opaque_colors": {
+      "#000000": 12,
+      "#006d8f": 9,
+      "#53602a": 6,
+      "#b51a00": 3
+    },
+    "rgba_sha256": "82f2d9553212d8b90b41ed49c0aa5fda8b8d453d286397b6f3a02e2b5b1000b3",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_01_standing_16x16.png",
+    "bytes": 2938,
+    "sha256": "ab9e88279fe7fef5aa3b32f26f28d706db63e0188a6c155476f435af0b7ccfaa",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 140,
+      "255": 116
+    },
+    "opaque_colors": {
+      "#000000": 36,
+      "#006d8f": 17,
+      "#1a1a1a": 29,
+      "#53602a": 14,
+      "#785700": 5,
+      "#bb2200": 13,
+      "#ffffff": 2
+    },
+    "rgba_sha256": "7edb7a65842f3304f290decec0be62cf64d4bb59b8a97993c6e86f8c9d14174d",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_01_standing_32x32.png",
+    "bytes": 2915,
+    "sha256": "ae5d949f7f7bc62464480449695db6346a24de225a163bbc79fc84117d540dda",
+    "width": 32,
+    "height": 32,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 602,
+      "255": 422
+    },
+    "opaque_colors": {
+      "#000000": 130,
+      "#006d8f": 40,
+      "#1a1a1a": 138,
+      "#53602a": 44,
+      "#785700": 18,
+      "#bb2200": 48,
+      "#ffffff": 4
+    },
+    "rgba_sha256": "ca08c1234a58aa55facbc00c8dc26746f2af3347d8fc71ebbe26313232d24e3d",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_01_standing_attack_32x32.png",
+    "bytes": 2907,
+    "sha256": "d55a3b11e8d21d6323c65fd0348d88cc7265efafdaffe5b5643b00d3a15c56c5",
+    "width": 32,
+    "height": 32,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 593,
+      "255": 431
+    },
+    "opaque_colors": {
+      "#000000": 171,
+      "#006d8f": 42,
+      "#1a1a1a": 91,
+      "#53602a": 51,
+      "#785700": 24,
+      "#bb2200": 48,
+      "#ffffff": 4
+    },
+    "rgba_sha256": "586d142687da703ed4132fdece35e80492e45ce920be837122f75b00f33721eb",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": true,
+    "changed_pixels_vs_head": true
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_01_walking_01.png",
+    "bytes": 252,
+    "sha256": "ca21b8dd5646b34a8d0515c0b8d5d9a6d28863fa484e47acf050bb821e5f52a7",
+    "width": 8,
+    "height": 8,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 34,
+      "255": 30
+    },
+    "opaque_colors": {
+      "#000000": 12,
+      "#006d8f": 9,
+      "#53602a": 6,
+      "#b51a00": 3
+    },
+    "rgba_sha256": "c674c34c6c7f1bfec4b0c91ce2c5130278ed7a4eb0e8e03c0c82a8a53332685e",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_01_walking_01_16x16.png",
+    "bytes": 2934,
+    "sha256": "73aa581c082c35edc04a3ac6f547050f40f3abf89307dfc37de0f2a027c7a6b0",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 145,
+      "255": 111
+    },
+    "opaque_colors": {
+      "#000000": 32,
+      "#006d8f": 13,
+      "#1a1a1a": 33,
+      "#53602a": 13,
+      "#785700": 5,
+      "#b51a00": 1,
+      "#bb2200": 12,
+      "#ffffff": 2
+    },
+    "rgba_sha256": "7c902f514b5a45b556e15918a85fd947758d5fd4245729ff7e73a774fb7f3df0",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_01_walking_01_32x32.png",
+    "bytes": 2901,
+    "sha256": "f78986131cdd370861a8d8966ab1a92807911234afd14cd8d54be6da7ac42db2",
+    "width": 32,
+    "height": 32,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 574,
+      "255": 450
+    },
+    "opaque_colors": {
+      "#000000": 163,
+      "#006d8f": 38,
+      "#1a1a1a": 132,
+      "#53602a": 44,
+      "#785700": 22,
+      "#bb2200": 47,
+      "#ffffff": 4
+    },
+    "rgba_sha256": "d59230606aa2010f225994928a3a153d7c57829f600ccd13f45c78f0c43b8644",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_01_walking_02.png",
+    "bytes": 252,
+    "sha256": "498e9f766a3a6636d195608148883524f4fe3352f40dde46cef84fc1efe21ebd",
+    "width": 8,
+    "height": 8,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 34,
+      "255": 30
+    },
+    "opaque_colors": {
+      "#000000": 12,
+      "#006d8f": 9,
+      "#53602a": 6,
+      "#b51a00": 3
+    },
+    "rgba_sha256": "b9105227cec6335def6c89d5d82de00d3c6dab00329b248999da42294d81e7c9",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_01_walking_02_16x16.png",
+    "bytes": 2929,
+    "sha256": "5018c3d478cf432348011c28cb9f67e7cec29c3382904fb5d3f319aa36b3ce33",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 145,
+      "255": 111
+    },
+    "opaque_colors": {
+      "#000000": 35,
+      "#006d8f": 12,
+      "#1a1a1a": 30,
+      "#53602a": 15,
+      "#785700": 5,
+      "#bb2200": 12,
+      "#ffffff": 2
+    },
+    "rgba_sha256": "c86b52c5e4216073a03c5ccf7095558e1ffc012ebfaa75808b8a5934ab421408",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_01_walking_02_32x32.png",
+    "bytes": 2951,
+    "sha256": "a63e0be3f9179d29e1b98c9922882bc7269d9bc4ce2878e57fc5b78d7b0b9918",
+    "width": 32,
+    "height": 32,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 574,
+      "255": 450
+    },
+    "opaque_colors": {
+      "#000000": 160,
+      "#006d8f": 31,
+      "#1a1a1a": 135,
+      "#53602a": 48,
+      "#785700": 22,
+      "#bb2200": 50,
+      "#ffffff": 4
+    },
+    "rgba_sha256": "538ba625a3b0ab4606ac1f17f14d064793d089883fcbf29fc81db35138cdb11a",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_attack_01.png",
+    "bytes": 234,
+    "sha256": "cc8a2be105dfaa38f321599873d98ca6e3dc063d776ce8c509c6985beda97e04",
+    "width": 8,
+    "height": 8,
+    "mode": "RGBA",
+    "alpha": {
+      "255": 30,
+      "0": 34
+    },
+    "opaque_colors": {
+      "#000000": 2,
+      "#53602a": 4,
+      "#b51a00": 13,
+      "#ffffff": 11
+    },
+    "rgba_sha256": "a62552dfafe557d869b2f1b630554e8abbb7e24d889336030601c250eba11efc",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_attack_01_32x32.png",
+    "bytes": 2939,
+    "sha256": "6c02643a121e75d900dc0fc56855ceb22cfe1f59d4caad1876a76d4da5c97a0c",
+    "width": 32,
+    "height": 32,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 541,
+      "255": 483
+    },
+    "opaque_colors": {
+      "#000000": 141,
+      "#1a1a1a": 39,
+      "#4d4d4d": 14,
+      "#53602a": 71,
+      "#785700": 50,
+      "#797878": 6,
+      "#b51a00": 56,
+      "#bb2200": 32,
+      "#ffffff": 74
+    },
+    "rgba_sha256": "662baefa003244755d947d0cc703180a5a312ac5217e6b2dbec689eb18d64733",
+    "git": "untracked",
+    "direct_input": true
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_attack_02_32x32.png",
+    "bytes": 2937,
+    "sha256": "5fd0f9226092bd55035ca175854a0898ce3bb3f96ef693060cbdd4dab6f08021",
+    "width": 32,
+    "height": 32,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 541,
+      "255": 483
+    },
+    "opaque_colors": {
+      "#000000": 144,
+      "#1a1a1a": 35,
+      "#4d4d4d": 14,
+      "#53602a": 73,
+      "#785700": 54,
+      "#797878": 8,
+      "#b51a00": 57,
+      "#bb2200": 32,
+      "#ffffff": 66
+    },
+    "rgba_sha256": "3fe3131c4aef5cf9aeeb5e482f43d8bfc4364ccd98c85c1e3ecffa0cabcc6acf",
+    "git": "untracked",
+    "direct_input": true
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_corps.png",
+    "bytes": 232,
+    "sha256": "968e062e6cfd45b6b6b0c3f20c96a1edbd27750039352f429b01d509e0edd017",
+    "width": 8,
+    "height": 8,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 40,
+      "255": 24
+    },
+    "opaque_colors": {
+      "#000000": 3,
+      "#53602a": 5,
+      "#b51a00": 12,
+      "#ffffff": 4
+    },
+    "rgba_sha256": "02106065361321a7d22679133f80442ae9ed857e5c7556e7156d89a55860f36c",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_corps_16x16.png",
+    "bytes": 2900,
+    "sha256": "3bb701694e8b4d2b4c4450cd70d75e82ced8386e1ca453b486b5ce91009f2577",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 154,
+      "255": 102
+    },
+    "opaque_colors": {
+      "#000000": 17,
+      "#1a1a1a": 19,
+      "#53602a": 7,
+      "#785700": 7,
+      "#b51a00": 3,
+      "#bb2200": 29,
+      "#ffffff": 20
+    },
+    "rgba_sha256": "a75df4f3b2dfc207a3398bd22e4cee5f6d1011eadec1aca9574624163db73dad",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_corps_32x32.png",
+    "bytes": 2864,
+    "sha256": "48b3f424862a8fc5b21169b9ad2b5361828019cab74aeb1f1520a553017b83d1",
+    "width": 32,
+    "height": 32,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 654,
+      "255": 370
+    },
+    "opaque_colors": {
+      "#000000": 57,
+      "#1a1a1a": 4,
+      "#53602a": 41,
+      "#785700": 58,
+      "#b51a00": 14,
+      "#bb2200": 131,
+      "#ffffff": 65
+    },
+    "rgba_sha256": "2090b0b9cd5223518a983443720545987baf897dc16bb70b1037ba1dee3f11fe",
+    "git": "untracked",
+    "direct_input": true
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_shot_01.png",
+    "bytes": 244,
+    "sha256": "7fd15bff9b6c7c7fd868014acd253be6e6df4a6b1f09f407078c3b81f608991d",
+    "width": 8,
+    "height": 8,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 32,
+      "255": 32
+    },
+    "opaque_colors": {
+      "#000000": 2,
+      "#53602a": 4,
+      "#b51a00": 18,
+      "#ffffff": 8
+    },
+    "rgba_sha256": "8153636b5499ce8ca315de8e3f07470975927f4c28ea3f017ad374309456cbb9",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_shot_01_16x16.png",
+    "bytes": 2946,
+    "sha256": "2ccddc45e1ee9caf5670397b446762be85c02fe86ab82e1b9698f579f5526087",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 134,
+      "255": 122
+    },
+    "opaque_colors": {
+      "#000000": 21,
+      "#1a1a1a": 7,
+      "#53602a": 12,
+      "#785700": 10,
+      "#b51a00": 37,
+      "#bb2200": 8,
+      "#ffffff": 27
+    },
+    "rgba_sha256": "931e22deb959a0b05e5630fc458954958308e2463f05d523568750b0842f5389",
+    "git": "untracked",
+    "direct_input": true
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_shot_01_32x32.png",
+    "bytes": 3018,
+    "sha256": "0ff74954913c4a82309e08c5f7d0b82940979fa4fe2ca641b44d1e886bf31047",
+    "width": 32,
+    "height": 32,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 478,
+      "255": 546
+    },
+    "opaque_colors": {
+      "#000000": 124,
+      "#1a1a1a": 4,
+      "#53602a": 39,
+      "#785700": 40,
+      "#b51a00": 196,
+      "#bb2200": 45,
+      "#ffffff": 98
+    },
+    "rgba_sha256": "bc01de6ae5cb5f79156900aa34d8aae601644aa46b8941c1e754c61255dc3c91",
+    "git": "untracked",
+    "direct_input": true
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_shot_02.png",
+    "bytes": 247,
+    "sha256": "cdf45cff29a8f9cf453322f4766201dfeac835baa5026b466668a01cbd3e5cfc",
+    "width": 8,
+    "height": 8,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 30,
+      "255": 34
+    },
+    "opaque_colors": {
+      "#000000": 2,
+      "#53602a": 4,
+      "#b51a00": 17,
+      "#ffffff": 11
+    },
+    "rgba_sha256": "2481596a45810ace42c2e6f042ddfbc53b9f32caa752ca8917cc60ce0ef07dfa",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_shot_dead.png",
+    "bytes": 247,
+    "sha256": "e42ff9dd4e251da4931ed0869c0f57ae4c781cdfdc492fd07cbb172ce1bdc0c0",
+    "width": 8,
+    "height": 8,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 26,
+      "255": 38
+    },
+    "opaque_colors": {
+      "#000000": 2,
+      "#53602a": 4,
+      "#b51a00": 25,
+      "#ffffff": 7
+    },
+    "rgba_sha256": "54ca1636da0d77f8acf3387d54188d15ec004ff948022a263c838875dbaf2ec9",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_shot_dead_16x16.png",
+    "bytes": 2953,
+    "sha256": "623ade932c3eb5cb56df2b46618edba61a6173aaa2a5818ce0b90d99cf6b080e",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 116,
+      "255": 140
+    },
+    "opaque_colors": {
+      "#000000": 20,
+      "#1a1a1a": 4,
+      "#53602a": 6,
+      "#785700": 15,
+      "#b51a00": 47,
+      "#bb2200": 20,
+      "#ffffff": 28
+    },
+    "rgba_sha256": "57652ea22cd341ee4960a7f3bdf79abd43795dbc092bfb7e91803f7cb00bb1fb",
+    "git": "untracked",
+    "direct_input": true
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_standing.png",
+    "bytes": 233,
+    "sha256": "2e2e9dfa2bdeb7127055e5a88c626d53e98ce307c27456c3091b61b840203ed0",
+    "width": 8,
+    "height": 8,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 34,
+      "255": 30
+    },
+    "opaque_colors": {
+      "#000000": 2,
+      "#53602a": 4,
+      "#b51a00": 13,
+      "#ffffff": 11
+    },
+    "rgba_sha256": "7c3d131be8190b5b15d19bdd0ab197c7ab3235edc12001084159d7b41bf969c9",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_standing_16x16.png",
+    "bytes": 2928,
+    "sha256": "27a5f188c93265880e2794c059c04596e386bbf7b9c935add70b3b08efa1f9eb",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 140,
+      "255": 116
+    },
+    "opaque_colors": {
+      "#000000": 25,
+      "#1a1a1a": 6,
+      "#53602a": 12,
+      "#785700": 10,
+      "#b51a00": 25,
+      "#bb2200": 5,
+      "#ffffff": 33
+    },
+    "rgba_sha256": "db82bafadec9c7d4db01878d286132b2ab3c77ad2e678d56fda06c2d1fcdd518",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_standing_32x32.png",
+    "bytes": 2919,
+    "sha256": "c331fddf2a0e625c0596467118887945b49ac87e04e374b57b19c861da31a9c7",
+    "width": 32,
+    "height": 32,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 605,
+      "255": 419
+    },
+    "opaque_colors": {
+      "#000000": 80,
+      "#1a1a1a": 16,
+      "#53602a": 35,
+      "#785700": 49,
+      "#797878": 17,
+      "#b51a00": 82,
+      "#bb2200": 16,
+      "#ffffff": 124
+    },
+    "rgba_sha256": "7bcf2e38c689b3f323a84875700ce15037d6bf0e61f035e2c7158ac406778766",
+    "git": "untracked",
+    "direct_input": true
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_standing_attack_32x32.png",
+    "bytes": 2927,
+    "sha256": "9c00271d649df5ee06a723eedd1ecc9752b058aea00b6879cd2c99c35ba420f6",
+    "width": 32,
+    "height": 32,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 601,
+      "255": 423
+    },
+    "opaque_colors": {
+      "#000000": 124,
+      "#1a1a1a": 21,
+      "#53602a": 42,
+      "#785700": 47,
+      "#797878": 16,
+      "#b51a00": 72,
+      "#bb2200": 14,
+      "#ffffff": 87
+    },
+    "rgba_sha256": "c11f3e97d3da135b3b5c2f0555d3f1ae251eedcaa33e9f04fe2d8ef5bd031628",
+    "git": "untracked",
+    "direct_input": true
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_walking_01.png",
+    "bytes": 235,
+    "sha256": "3a09a608138a0b7f135ec10b1231f51618044820d5257f35219c02e002b92468",
+    "width": 8,
+    "height": 8,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 34,
+      "255": 30
+    },
+    "opaque_colors": {
+      "#000000": 2,
+      "#53602a": 4,
+      "#b51a00": 13,
+      "#ffffff": 11
+    },
+    "rgba_sha256": "55b7751a3c8ec17ba61c30fbc9807e789d5d16c52b0f6ac381551993a5b3b340",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_walking_01_16x16.png",
+    "bytes": 2934,
+    "sha256": "142342ce0a0445c5e76da2c23b0ca76102e817f171b90f3299d76e0cde389047",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 145,
+      "255": 111
+    },
+    "opaque_colors": {
+      "#000000": 26,
+      "#1a1a1a": 8,
+      "#53602a": 11,
+      "#785700": 10,
+      "#b51a00": 22,
+      "#bb2200": 5,
+      "#ffffff": 29
+    },
+    "rgba_sha256": "375d9ff6a2a0dc42a1bc09e24594dbfa15b6fc4b3773d3a54735068795478914",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_walking_01_32x32.png",
+    "bytes": 2936,
+    "sha256": "e3e20872b5c17fca05a06aaf7ba2f660650e4fbff7d58c822baccc0f51b1cfb8",
+    "width": 32,
+    "height": 32,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 576,
+      "255": 448
+    },
+    "opaque_colors": {
+      "#000000": 105,
+      "#1a1a1a": 6,
+      "#53602a": 41,
+      "#785700": 46,
+      "#797878": 18,
+      "#b51a00": 94,
+      "#bb2200": 5,
+      "#ffffff": 133
+    },
+    "rgba_sha256": "bb33e562734eea649c545628dd49aa067707ae3808426a41d3cd71acabea3af0",
+    "git": "untracked",
+    "direct_input": true
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_walking_02.png",
+    "bytes": 238,
+    "sha256": "1c15f16f806531b708757a4f7bf6f8375407d752c9b576d163d0f10f30daf6da",
+    "width": 8,
+    "height": 8,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 34,
+      "255": 30
+    },
+    "opaque_colors": {
+      "#000000": 2,
+      "#53602a": 4,
+      "#b51a00": 13,
+      "#ffffff": 11
+    },
+    "rgba_sha256": "0a41d134d7a04a5148b878b9f6b8e239202fcb85a66923673fdf51ed37ea9894",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_walking_02_16x16.png",
+    "bytes": 2926,
+    "sha256": "e4c672cf2cfd0501f433b7d99a094686b2e4af903b0558228b11db8917159b2a",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 145,
+      "255": 111
+    },
+    "opaque_colors": {
+      "#000000": 25,
+      "#1a1a1a": 9,
+      "#53602a": 12,
+      "#785700": 10,
+      "#b51a00": 24,
+      "#bb2200": 5,
+      "#ffffff": 26
+    },
+    "rgba_sha256": "d1eb7257e61011029cc027ec46ee1d96d1754bce7a1a55bc2d90b82b4ecd718a",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/enemies/zombie/zombie_02_walking_02_32x32.png",
+    "bytes": 2917,
+    "sha256": "60faec43b682584b8d186f4731269d8001135ab01a62729a51b534e3b9eee28a",
+    "width": 32,
+    "height": 32,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 576,
+      "255": 448
+    },
+    "opaque_colors": {
+      "#000000": 103,
+      "#1a1a1a": 7,
+      "#53602a": 40,
+      "#785700": 44,
+      "#797878": 16,
+      "#b51a00": 1,
+      "#bb2200": 110,
+      "#ffffff": 127
+    },
+    "rgba_sha256": "738082861d0038ba4b7a0b569588fb3fb4454156b248188dba1280374ecf21ad",
+    "git": "untracked",
+    "direct_input": true
+  },
+  {
+    "path": "assets/sprites/weapons/Corel Auto-Preserve/gun.png",
+    "bytes": 253,
+    "sha256": "3540c89699e3147003b7a9cf7d372fc2b40da1fc946838f873624e2c51163581",
+    "width": 8,
+    "height": 8,
+    "mode": "RGBA",
+    "alpha": {
+      "255": 40,
+      "0": 24
+    },
+    "opaque_colors": {
+      "#000000": 6,
+      "#006d8f": 5,
+      "#008cb4": 4,
+      "#4d4d4d": 15,
+      "#797878": 10
+    },
+    "rgba_sha256": "43388a2ceaaa78d4b137a140e9e968f5f7e56ada094e22e23e845eec1ac42c94",
+    "git": "tracked",
+    "direct_input": false,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/weapons/Corel Auto-Preserve/gun_12x12.png",
+    "bytes": 281,
+    "sha256": "c57da998706b2aa7c7e53effa4698bb2900336aa8728733d3298f0fddf1faae4",
+    "width": 12,
+    "height": 12,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 47,
+      "255": 97
+    },
+    "opaque_colors": {
+      "#000000": 28,
+      "#1a1a1a": 5,
+      "#4d4d4d": 10,
+      "#797878": 7,
+      "#ad3e00": 17,
+      "#ffa57d": 9,
+      "#ffc4ab": 16,
+      "#ffffff": 5
+    },
+    "rgba_sha256": "5e4577f7cc545c137e80f4d2868c076f45ef733cea46f45f425695730c94298f",
+    "git": "tracked",
+    "direct_input": false,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/weapons/Corel Auto-Preserve/gun_2_12x12.png",
+    "bytes": 295,
+    "sha256": "9981aea777c60a2ff2b9b965ed746fc6f7bb81c6b2e3421823323a409642a478",
+    "width": 12,
+    "height": 12,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 47,
+      "255": 97
+    },
+    "opaque_colors": {
+      "#000000": 28,
+      "#1a1a1a": 5,
+      "#4d4d4d": 10,
+      "#797878": 7,
+      "#ad3e00": 17,
+      "#ffa57d": 9,
+      "#ffc4ab": 16,
+      "#ffffff": 5
+    },
+    "rgba_sha256": "e531bced4df3cbbc1bcf3615b4782add51097bdda6cdfebeb20230705fc8a23c",
+    "git": "tracked",
+    "direct_input": false,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/weapons/Corel Auto-Preserve/gun_3_12x12.png",
+    "bytes": 281,
+    "sha256": "8de6e8d82391a448f35544a8c089316be780014da546a02a5507364de293ebe1",
+    "width": 12,
+    "height": 12,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 70,
+      "255": 74
+    },
+    "opaque_colors": {
+      "#000000": 28,
+      "#1a1a1a": 8,
+      "#4d4d4d": 13,
+      "#797878": 7,
+      "#ad3e00": 6,
+      "#ffa57d": 2,
+      "#ffc4ab": 6,
+      "#ffffff": 4
+    },
+    "rgba_sha256": "6cea538ac39e7bf5e7b35ad464ce1b0d9631b3af3856fb273bca2e0acaacf8bd",
+    "git": "tracked",
+    "direct_input": false,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/weapons/Corel Auto-Preserve/pick_up_shotgun.png",
+    "bytes": 282,
+    "sha256": "b034b8085c73d590aea7377b78a35d330c82d1b53aa6c10f5c37ab6e28916c09",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 170,
+      "255": 86
+    },
+    "opaque_colors": {
+      "#000000": 14,
+      "#1a1a1a": 12,
+      "#4d4d4d": 13,
+      "#797878": 12,
+      "#ffffff": 35
+    },
+    "rgba_sha256": "1a8cb1af72a8a95c4241d622b1f54394d486935170750a0c35c2396acb3da819",
+    "git": "tracked",
+    "direct_input": false,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/weapons/Corel Auto-Preserve/shotgun.png",
+    "bytes": 269,
+    "sha256": "e237dc789d1577959816b654fcbfdf5383c3392f85ed40b348a8a5606387c539",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 167,
+      "255": 89
+    },
+    "opaque_colors": {
+      "#000000": 15,
+      "#1a1a1a": 12,
+      "#4d4d4d": 13,
+      "#797878": 12,
+      "#ffffff": 37
+    },
+    "rgba_sha256": "b9282cb83afbf3c38dee2f9833abda12b17bb3ccd220bbcbc16175184fa7193a",
+    "git": "tracked",
+    "direct_input": false,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/weapons/Corel Auto-Preserve/shotgun_16x16.png",
+    "bytes": 2888,
+    "sha256": "131bf12ebe63be8660d8e60dc58f975528511ff87d645d1419b0aae6d21d3536",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 104,
+      "255": 152
+    },
+    "opaque_colors": {
+      "#000000": 41,
+      "#1a1a1a": 18,
+      "#4d4d4d": 25,
+      "#797878": 30,
+      "#ad3e00": 10,
+      "#b51a00": 1,
+      "#ffa57d": 23,
+      "#ffffff": 4
+    },
+    "rgba_sha256": "d2b2e31cb1389445a6c2117b87f810db59dd7dd7adeffa9cdd60cd60f327761e",
+    "git": "tracked",
+    "direct_input": false,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/weapons/Corel Auto-Preserve/shotgun_16x16_shoot.png",
+    "bytes": 2913,
+    "sha256": "3219b0d87f4f6dbe2cc850baa37305ac5ef24186749e05aabe1afbbdfc67e384",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 120,
+      "255": 136
+    },
+    "opaque_colors": {
+      "#000000": 43,
+      "#1a1a1a": 14,
+      "#4d4d4d": 24,
+      "#797878": 11,
+      "#ad3e00": 19,
+      "#b51a00": 1,
+      "#ffa57d": 20,
+      "#ffffff": 4
+    },
+    "rgba_sha256": "25e02ad39afe2a9c1e35ba47aec84c06fe105daa7a7608997eaebed90e0ed64f",
+    "git": "tracked",
+    "direct_input": false,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/weapons/Corel Auto-Preserve/shotgun_held.png",
+    "bytes": 345,
+    "sha256": "328f7a9de7708ecd60fa26a25ca13498ec74ca16f8f07d57fbefc89a70babdbe",
+    "width": 20,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 142,
+      "255": 178
+    },
+    "opaque_colors": {
+      "#000000": 71,
+      "#1a1a1a": 21,
+      "#4d4d4d": 27,
+      "#797878": 23,
+      "#ad3e00": 7,
+      "#ffa57d": 20,
+      "#ffffff": 9
+    },
+    "rgba_sha256": "ad8dc9efa298192d997af292793fd8a61ff22bc27e5f5e7d42f6a1df05a2a438",
+    "git": "untracked",
+    "direct_input": false
+  },
+  {
+    "path": "assets/sprites/weapons/Corel Auto-Preserve/shotgun_held_shoot.png",
+    "bytes": 393,
+    "sha256": "43134c7e3a027906453c46fad9d6e5bb51ee67e8235db8665f344ef8f61d46fa",
+    "width": 20,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 141,
+      "255": 179
+    },
+    "opaque_colors": {
+      "#000000": 60,
+      "#03000f": 2,
+      "#1a1a1a": 15,
+      "#4d4d4d": 18,
+      "#785700": 9,
+      "#797878": 13,
+      "#ad3e00": 18,
+      "#b51a00": 14,
+      "#ffa57d": 23,
+      "#ffffff": 7
+    },
+    "rgba_sha256": "e3245da2d4cfbd76eb47df78e69b9b60d85b3d0182118a58877f1142c0bdc866",
+    "git": "untracked",
+    "direct_input": false
+  },
+  {
+    "path": "assets/sprites/weapons/gun_12x12.png",
+    "bytes": 281,
+    "sha256": "c57da998706b2aa7c7e53effa4698bb2900336aa8728733d3298f0fddf1faae4",
+    "width": 12,
+    "height": 12,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 47,
+      "255": 97
+    },
+    "opaque_colors": {
+      "#000000": 28,
+      "#1a1a1a": 5,
+      "#4d4d4d": 10,
+      "#797878": 7,
+      "#ad3e00": 17,
+      "#ffa57d": 9,
+      "#ffc4ab": 16,
+      "#ffffff": 5
+    },
+    "rgba_sha256": "5e4577f7cc545c137e80f4d2868c076f45ef733cea46f45f425695730c94298f",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/weapons/gun_shoot_12x12.png",
+    "bytes": 291,
+    "sha256": "6771c3c91e213ea51ade8ae5eab92fb686e12eb706ce914c59a6388c9f73a8b4",
+    "width": 12,
+    "height": 12,
+    "mode": "RGBA",
+    "alpha": {
+      "255": 87,
+      "0": 57
+    },
+    "opaque_colors": {
+      "#000000": 28,
+      "#1a1a1a": 4,
+      "#4d4d4d": 12,
+      "#785700": 4,
+      "#797878": 4,
+      "#ad3e00": 13,
+      "#b51a00": 2,
+      "#ffa57d": 5,
+      "#ffc4ab": 8,
+      "#ffffff": 7
+    },
+    "rgba_sha256": "c0fad3ee2027fb624ee30a2a367ae439b754ed7104ff71d6aafe71bed7cecb6d",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/weapons/pick_up_shotgun.png",
+    "bytes": 261,
+    "sha256": "1b747722508e39baca417dc2a1edd533eb98f9c5e56ac201665e767d28d952b4",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 195,
+      "255": 61
+    },
+    "opaque_colors": {
+      "#000000": 22,
+      "#1a1a1a": 14,
+      "#4d4d4d": 23,
+      "#797878": 2
+    },
+    "rgba_sha256": "99249b3eff665fcda58cd033de9a99a5942d409229f11cb09af69fd8b0d270b9",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/weapons/pistol.png",
+    "bytes": 268,
+    "sha256": "cfec151e56ac979d24897a9b63a27436eab96492fd18dff12b05e91d0baf57c8",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 193,
+      "255": 63
+    },
+    "opaque_colors": {
+      "#000000": 7,
+      "#1a1a1a": 8,
+      "#4d4d4d": 11,
+      "#797878": 10,
+      "#ffffff": 27
+    },
+    "rgba_sha256": "01af2323bb75c5dc3e76f018e7f4bff4ad5af1a14e75e516a7bcd17babdc4468",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/weapons/shotgun.png",
+    "bytes": 275,
+    "sha256": "2ae5a0ab9c0e8de5f0440de96231535061e9f1d7bb33a666d56353fa419af5d1",
+    "width": 16,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 174,
+      "255": 82
+    },
+    "opaque_colors": {
+      "#000000": 16,
+      "#1a1a1a": 10,
+      "#4d4d4d": 10,
+      "#797878": 14,
+      "#ffffff": 32
+    },
+    "rgba_sha256": "94c5d6e89bc102dee0cc412f240f33975b59b9f89062bc7e40337d916446336d",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": false,
+    "changed_pixels_vs_head": false
+  },
+  {
+    "path": "assets/sprites/weapons/shotgun_held.png",
+    "bytes": 342,
+    "sha256": "783e345527752eef2ae815331494a85efd395ea088fa0e356a81fd4a5babbfaf",
+    "width": 20,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 142,
+      "255": 178
+    },
+    "opaque_colors": {
+      "#000000": 71,
+      "#1a1a1a": 21,
+      "#4d4d4d": 27,
+      "#797878": 23,
+      "#ad3e00": 7,
+      "#ffa57d": 20,
+      "#ffffff": 9
+    },
+    "rgba_sha256": "c99fa82dde1d49c6209def1727f87cf891b91b0bcda0318c583ad29e10de0d97",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": true,
+    "changed_pixels_vs_head": true
+  },
+  {
+    "path": "assets/sprites/weapons/shotgun_held_shoot.png",
+    "bytes": 371,
+    "sha256": "30dd22ca80cf4332755943255178b4040a58116af4a57eb42ca142b727db25f0",
+    "width": 20,
+    "height": 16,
+    "mode": "RGBA",
+    "alpha": {
+      "0": 141,
+      "255": 179
+    },
+    "opaque_colors": {
+      "#000000": 62,
+      "#1a1a1a": 15,
+      "#4d4d4d": 18,
+      "#785700": 9,
+      "#797878": 13,
+      "#ad3e00": 18,
+      "#b51a00": 14,
+      "#ffa57d": 23,
+      "#ffffff": 7
+    },
+    "rgba_sha256": "d5a0d6b2e1c242d1dd3a7d98fed8130b7391e2c202d4a496760f71fec4afa9ad",
+    "git": "tracked",
+    "direct_input": true,
+    "changed_bytes_vs_head": true,
+    "changed_pixels_vs_head": true
+  }
+]

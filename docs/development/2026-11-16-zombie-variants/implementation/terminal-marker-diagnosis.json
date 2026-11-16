@@ -1,0 +1,160 @@
+{
+  "symbols": {
+    "_main": "0x973",
+    "_probe_done": "0x971",
+    "_world_initialize": "0x148b2",
+    "_probe_mapper_scopes": "0x7bd"
+  },
+  "observations": [
+    {
+      "step": 0,
+      "pc": "0x4c7",
+      "sp": "0xdfd6",
+      "slot1": 1,
+      "slot2": 2,
+      "checks": 1,
+      "fail_count": 0,
+      "finished": 0
+    },
+    {
+      "step": 1,
+      "pc": "0x2af",
+      "sp": "0xdfd7",
+      "slot1": 1,
+      "slot2": 2,
+      "checks": 25,
+      "fail_count": 0,
+      "finished": 0
+    },
+    {
+      "step": 2,
+      "pc": "0x1399",
+      "sp": "0xdf44",
+      "slot1": 1,
+      "slot2": 2,
+      "checks": 28,
+      "fail_count": 0,
+      "finished": 0
+    },
+    {
+      "step": 3,
+      "pc": "0x4f93",
+      "sp": "0xdf4a",
+      "slot1": 1,
+      "slot2": 2,
+      "checks": 30,
+      "fail_count": 0,
+      "finished": 0
+    },
+    {
+      "step": 4,
+      "pc": "0x13e8",
+      "sp": "0xdf2e",
+      "slot1": 1,
+      "slot2": 2,
+      "checks": 31,
+      "fail_count": 0,
+      "finished": 0
+    },
+    {
+      "step": 5,
+      "pc": "0x13ee",
+      "sp": "0xdf2e",
+      "slot1": 1,
+      "slot2": 2,
+      "checks": 32,
+      "fail_count": 0,
+      "finished": 0
+    },
+    {
+      "step": 6,
+      "pc": "0x5678",
+      "sp": "0xdf8c",
+      "slot1": 1,
+      "slot2": 2,
+      "checks": 33,
+      "fail_count": 0,
+      "finished": 0
+    },
+    {
+      "step": 7,
+      "pc": "0x5beb",
+      "sp": "0xdfc1",
+      "slot1": 1,
+      "slot2": 2,
+      "checks": 34,
+      "fail_count": 0,
+      "finished": 0
+    },
+    {
+      "step": 8,
+      "pc": "0x12e4",
+      "sp": "0xdf86",
+      "slot1": 1,
+      "slot2": 2,
+      "checks": 36,
+      "fail_count": 0,
+      "finished": 0
+    },
+    {
+      "step": 9,
+      "pc": "0x57",
+      "sp": "0xdff0",
+      "slot1": 1,
+      "slot2": 2,
+      "checks": 44,
+      "fail_count": 0,
+      "finished": 1
+    },
+    {
+      "step": 10,
+      "pc": "0x57",
+      "sp": "0xdff0",
+      "slot1": 1,
+      "slot2": 2,
+      "checks": 44,
+      "fail_count": 0,
+      "finished": 1
+    },
+    {
+      "step": 11,
+      "pc": "0x57",
+      "sp": "0xdff0",
+      "slot1": 1,
+      "slot2": 2,
+      "checks": 44,
+      "fail_count": 0,
+      "finished": 1
+    },
+    {
+      "step": 12,
+      "pc": "0x57",
+      "sp": "0xdff0",
+      "slot1": 1,
+      "slot2": 2,
+      "checks": 44,
+      "fail_count": 0,
+      "finished": 1
+    },
+    {
+      "step": 13,
+      "pc": "0x57",
+      "sp": "0xdff0",
+      "slot1": 1,
+      "slot2": 2,
+      "checks": 44,
+      "fail_count": 0,
+      "finished": 1
+    },
+    {
+      "step": 14,
+      "pc": "0x57",
+      "sp": "0xdff0",
+      "slot1": 1,
+      "slot2": 2,
+      "checks": 44,
+      "fail_count": 0,
+      "finished": 1
+    }
+  ]
+}

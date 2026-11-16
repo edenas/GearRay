@@ -1,0 +1,48 @@
+{
+  "source_head": "e6d1e2346e3752c2fce9332c3fe59f6c2e31190e",
+  "candidate_bytes": 131072,
+  "committed": false,
+  "candidate": "D:\\mano_projektai\\GearRay\\build\\zv01-luna\\canonical-source\\rom\\GearRay.gg",
+  "candidate_sha256": "B5F9DA2B5461574C6C09BC06387EEAA08AE304CAEEFC96F4FFCE1B7C2C58349B",
+  "canonical_workflow_sha256": "B5F9DA2B5461574C6C09BC06387EEAA08AE304CAEEFC96F4FFCE1B7C2C58349B",
+  "candidate_identity": {
+    "Banks": [
+      {
+        "Bank": 0,
+        "Used": 12889,
+        "Free": 3495
+      },
+      {
+        "Bank": 1,
+        "Used": 16324,
+        "Free": 44
+      },
+      {
+        "Bank": 2,
+        "Used": 8139,
+        "Free": 8245
+      },
+      {
+        "Bank": 3,
+        "Used": 12756,
+        "Free": 3628
+      }
+    ],
+    "LinkedExtentSum": 50108.0,
+    "PersistentRAM": 1538,
+    "DataEnd": 50690,
+    "ROMBytes": 131072,
+    "SHA256": "B5F9DA2B5461574C6C09BC06387EEAA08AE304CAEEFC96F4FFCE1B7C2C58349B",
+    "ModuleCount": 35,
+    "HelperSites": 37,
+    "BankCallSites": 8,
+    "EmittedIHXBytes": 58184
+  },
+  "published": false,
+  "packager_checksum": "0x40FE",
+  "build_command": "cmd.exe /d /c build.bat in build/zv01-luna/canonical-source",
+  "clean_build": "CMake/Ninja Release in build/zv01-luna",
+  "clean_subtree_sha256": "B5F9DA2B5461574C6C09BC06387EEAA08AE304CAEEFC96F4FFCE1B7C2C58349B",
+  "frozen_october_rom_sha256": "3632006ED68FCBCBACF9AA693C92560520DF496E1E4AC23CF2CB6E1DF88D3340",
+  "header_byte": "0x7F"
+}

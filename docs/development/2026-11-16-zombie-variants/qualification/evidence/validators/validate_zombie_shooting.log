@@ -1,0 +1,8 @@
+Zombie shooting validation passed.
+- center-line aim, range, wall depth, facing, and nearest-only targeting
+- division-free projected-footprint aim: symmetric +/-67 boundary
+- projected-height damage boundaries 12/13/16/17/27/28/35/36
+- exact 1/2/3/4-shot and cumulative mixed-distance health sequences
+- 3-frame odd/even reactions restart and return to standing
+- lethal hit -> SHOT_DEAD (4 updates) -> CORPSE
+- corpse immunity, persistence wiring, floor placement, and input edge reuse

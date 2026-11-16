@@ -1,28 +1,29 @@
 # ROM banking and resource contract
 
-The accepted Release is 64 KiB with four populated physical 16-KiB banks. Header0x7FF0 declares region/size0x7E. Keep the current header location and project checksum convention; the accepted checksum is0xFA13. ROM size/placement are measured constraints, not permission to invent larger banks or change header policy.
+## Accepted ZV-01 image
 
-| Physical bank | Runtime role | Used / free bytes |
+The accepted ZV-01 image is 128 KiB, SHA-256 `B5F9DA2B5461574C6C09BC06387EEAA08AE304CAEEFC96F4FFCE1B7C2C58349B`. Sol repaired the real root build ordering and five-bank audit; technical qualification is complete within the documented emulator/software scope. The owner subsequently accepted complete gameplay on physical Sega Game Gear; [Astra's review](development/2026-11-16-zombie-variants/ASTRA_ACCEPTANCE_REVIEW.md) records its scope. See the [consolidated disposition](development/2026-11-16-zombie-variants/IMPLEMENTATION_REPORT.md).
+
+| Physical page | Role | Used / free bytes |
 | --- | --- | ---: |
-| 0 | Resident main, input/player/camera entry points, world/raycast/render work, SMSlib/trampolines | 12,865 / 3,519 |
-| 1 | Hot AI, interactions, shooting, projection/HUD, LOD and 8/16 art | 14,217 / 2,151 before reserved header |
-| 2 | Camera graph, pause/corpse management and seven native 32 x 32 zombie payloads | 11,737 / 4,647 |
-| 3 | Cold slot 1 startup/Game Over plus disjoint slot 2 native wall tail | 12,756 / 3,628 |
+|0|Resident engine, library and mapper scopes|12889 /3495|
+|1|Hot AI/interactions/projection/HUD and 8/16/distant art|16324 /44 after the 16-byte header reservation|
+|2|Normal camera/pause/corpse data/code|8139 /8245|
+|3|Cold slot 1 and disjoint native-wall slot 2 tail|12756 /3628 extent|
+|4|Sixteen near frames 8192 bytes plus 32-byte pointer table|8224 /8160|
 
-CPU0x0000..0x3FFF is resident. Slot 1 (0x4000..0x7FFF) normally maps page 1; hot Bank 1 calls are direct under that invariant. Eight cold banked dispatch sites retain SDCC restoration. Slot 2 (0x8000..0xBFFF) normally maps page 2. Near-art pointers, pause code and camera data are consumed under that documented mapping.
+CPU0x0000..0x3FFF is resident. Slot1 normally maps page 1; hot code/art stay there. Slot2 normally maps page 2. Near art and its pointer table map **page 4 once per batch**, at virtual0x48000 / CPU0x8000 / physical0x10000. Each resident native preparation/row scope temporarily maps page 3, then restores its actual incoming page 2 or 4 before compositing continues. The outer near batch restores its own entry page. No table/pixel pointer may be dereferenced under the wrong live page. Normal simulation/camera/pause entry/return remains page 2; no per-pixel trampoline is introduced.
 
-The native wall tail links at virtual0x39200, CPU0x9200 and physical absolute0xD200 (offset0x1200 within physical Bank 3). Cold Bank 3's last byte is physical0xD1FC (length0x11FD), leaving a three-byte gap. Native tail length0x1FD4 ends exclusively at CPU0xB1D4 / physical0xF1D4. Cold Bank 3 runs in slot 1; native wall work maps page 3 only in slot 2, then restores page 2. No pointer into that tail may outlive the scope. Do not call its worker through a slot 1 banked trampoline.
+Bank 3 cold content in slot 1 ends at physical0xD1FC (length0x11FD). Native code/data start at virtual0x39200 / CPU0x9200 / physical0xD200, disjoint from cold content, and end exclusively at physical0xF1D4. Page3 is shared physically, not counted as two separate banks. The tight Bank 1 link fits today; any subsequent growth must preserve its header and bounds. No new topology or arbitrary reserve threshold is authorized.
 
-## Link, RAM and stack
+## Physical image and memory evidence
 
-GearRay.lk owns local object membership/order (54 modules); the map/NOI and emitted IHX must agree with every physical ROM payload byte except makesms-owned checksum bytes. Merely placing ASM/REL beside the build does not make it production. Validators reject unexpected dispatch, overlap, alias, occupants and overflow. Free-space targets are planning guidance; capacity limits are hard failures.
+Header at0x7FF0 has international size byte0x7F; pinned makesms checksum is0x40FE under the existing lower32-KiB convention. All 58182 emitted payload bytes match physical offsets (checksum pair excluded). The remaining 72888 bytes are verified zero-fill, including unused pages; a changed padding byte is rejected. The map-driven five-bank linked extent sum is 58332, including layout gaps; distinct emitted IHX addresses total 58184. These are different accounting measures. Release has 35 local modules, 37 helper sites and eight banked dispatch sites.
 
-Static RAM is 1,538 bytes, ending0xC602. WorldSprite is 9 bytes and its eight-record storage is 72 bytes. Initial SP0xDFF0 has a 1,024-byte reserved stack region starting0xDBF0, with 5,614 bytes between static data and that reserve. The conservative generated-call bound is 590 plus 32 IRQ allowance =622. Observed accepted-route maximum 383 is corpus-limited, not proof of every possible hardware/NMI path. The private guarded-wall helper adds one byte argument; no public ABI change was made by cleanup.
+Static RAM remains 1538 bytes, exclusive end0xC602. WorldSprite is 9 bytes, eight records 72 bytes; projected capacity 9 and VRAM layout are unchanged. Initial SP0xDFF0 reserves 1024 bytes down to0xDBF0, with 5614 bytes between static data and reserve. The generated-call estimator reports 586 bytes; with the inherited 32-byte IRQ allowance this is 618. Observed 387 over 51700 measured interrupts is finite coverage, not proof of every interrupt/NMI window or hardware behavior. Targeted near/native IRQ lifetimes, both nested native scopes, camera, pause and restart are qualified in the [closure evidence](development/2026-11-16-zombie-variants/implementation/sol-closure/mapper_closure.json). Fresh fixture depths are106 lifecycle,382 renderer and56 mapper/IRQ bytes below their synthetic call top. No project-produced NMI path was found. The resident SDK stub exists; this emulator setup exposes no NMI injection. External-pin and physical safety remain untested.
 
-The linked bank extent sum is 51,575 bytes including gaps; actual emitted IHX bytes are 51,427. Release contains no profiling counters. Profile-ON is a separate diagnostic layout: accepted profile Bank 0 used/free 12,969/3,415; Bank 1 14,234/2,134; static RAM 1,568. Do not compare that image against Release identity/resources as if identical.
+[Corrected resource audit](development/2026-11-16-zombie-variants/implementation/sol-review/audit/baseline.json), [repair verification](development/2026-11-16-zombie-variants/implementation/sol-review/repair-verification.json) and [original Luna evidence](development/2026-11-16-zombie-variants/qualification/evidence/README.md) distinguish current measurements and remaining checks. Profile-ON remains diagnostic and must not be substituted for Release identity/resources.
 
-## VRAM ownership
+## Historical accepted image
 
-The 16-KiB VDP memory layout is unchanged. Gameplay uses 112 dynamic native BG patterns starting at tile 102 (through 213), shared ceiling/floor tiles 100/101, health tiles 86 onward and optional border tiles 97..99. The standard name-table and pause sprite-attribute ownership remain with their existing SMSlib/renderer routines. Wall/sprite/HUD composition uploads live patterns; there is no CPU framebuffer or promoted front/back pattern/name-table scheme. Pause and cold screens blank/rebuild display state and restore gameplay ownership.
-
-Re-audit real linked addresses, whole-call mapper restoration, pointer lifetime, stack and IHX/ROM agreement for every placement change. No further bank migration is requested by this cleanup. See [architecture](ENGINE_ARCHITECTURE.md), [tests](TESTING.md), [accepted measurements](PERFORMANCE_BASELINE.md) and the [fresh maintenance report](maintenance/2026-10-23/implementation/IMPLEMENTATION_REPORT.md). Physical Game Gear mapper/presentation qualification remains pending.
+The frozen October Release is 64 KiB, SHA-256 `3632006ED68FCBCBACF9AA693C92560520DF496E1E4AC23CF2CB6E1DF88D3340`, header0x7E/checksum0xFA13. Its four populated banks, old near data in page 2, stack bound 622 and observed 383 belong to that snapshot. They do not describe current ZV-01 placement. The exact historical measurements and reproducibility evidence remain in the [maintenance report](maintenance/2026-10-23/implementation/IMPLEMENTATION_REPORT.md) and [accepted performance baseline](PERFORMANCE_BASELINE.md). The frozen artifact is unchanged. The owner authorized committing and pushing the accepted ZV-01 repository state; no tag or GitHub Release is included.

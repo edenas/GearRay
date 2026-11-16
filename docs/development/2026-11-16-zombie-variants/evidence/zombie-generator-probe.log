@@ -1,0 +1,7 @@
+Sprite color #ffffff at (4,2) has no exact BG palette mapping.
+At D:\mano_projektai\GearRay\tools\generate_sprite_texture.ps1:80 char:25
++ ...             throw "Sprite color $rgb at ($x,$y) has no exact BG palet ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Sprite color #f...alette mapping.:String) [], RuntimeException
+    + FullyQualifiedErrorId : Sprite color #ffffff at (4,2) has no exact BG palette mapping.
+ 

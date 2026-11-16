@@ -1,0 +1,6 @@
+Game Over validation PASS
+- native 150x23, palette black/white/#bb2200
+- physical placement x=5..154, y=60..82
+- display blanked and all VRAM cleared before artwork load
+- 80 tiles / 2560 bytes and presentation code co-located in Bank 3; no fade path
+- exactly 180 VBlanks (3.0 seconds at 60 fps) before restart

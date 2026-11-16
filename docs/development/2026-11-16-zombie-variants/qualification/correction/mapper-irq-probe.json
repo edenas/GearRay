@@ -1,0 +1,189 @@
+{
+  "status": "PASS",
+  "candidate_sha256": "b5f9da2b5461574c6c09bc06387eeaa08ae304caeefc96f4ffce1b7c2c58349b",
+  "candidate_bytes": 131072,
+  "loops_per_scope": 20,
+  "interrupts_enabled": true,
+  "near_page4": {
+    "entry": "0x1d9a",
+    "calls": 20,
+    "cycles_min_median_max": [
+      53549,
+      53825,
+      53825
+    ],
+    "accepted_irq_count": 18,
+    "accepted_after_entry_with_page4_mapped": 18,
+    "all_returns_page4_sp_df08": true,
+    "min_stack_address": "0xded6",
+    "actual_white_witness_scalar_match_each_call": true
+  },
+  "native_page3_nested_wrapper": {
+    "entry": "0x2200",
+    "callee_page3": "0xad24",
+    "calls": 20,
+    "cycles_min_median_max": [
+      18897,
+      18897,
+      19173
+    ],
+    "accepted_irq_count": 6,
+    "accepted_after_entry_with_page3_mapped": 6,
+    "all_returns_page2_sp_df03": true,
+    "min_stack_address": "0xdece",
+    "RAM_guards_intact": true,
+    "native_output_changed_from_seed_each_call": true
+  },
+  "irq_page_observations": {
+    "near": [
+      {
+        "after_entry_instruction": true,
+        "page2": 4,
+        "sp": "0xded8",
+        "slot1": 1
+      },
+      {
+        "after_entry_instruction": true,
+        "page2": 4,
+        "sp": "0xded8",
+        "slot1": 1
+      },
+      {
+        "after_entry_instruction": true,
+        "page2": 4,
+        "sp": "0xded6",
+        "slot1": 1
+      },
+      {
+        "after_entry_instruction": true,
+        "page2": 4,
+        "sp": "0xded8",
+        "slot1": 1
+      },
+      {
+        "after_entry_instruction": true,
+        "page2": 4,
+        "sp": "0xded8",
+        "slot1": 1
+      },
+      {
+        "after_entry_instruction": true,
+        "page2": 4,
+        "sp": "0xded6",
+        "slot1": 1
+      },
+      {
+        "after_entry_instruction": true,
+        "page2": 4,
+        "sp": "0xded8",
+        "slot1": 1
+      },
+      {
+        "after_entry_instruction": true,
+        "page2": 4,
+        "sp": "0xded8",
+        "slot1": 1
+      },
+      {
+        "after_entry_instruction": true,
+        "page2": 4,
+        "sp": "0xded8",
+        "slot1": 1
+      },
+      {
+        "after_entry_instruction": true,
+        "page2": 4,
+        "sp": "0xded6",
+        "slot1": 1
+      },
+      {
+        "after_entry_instruction": true,
+        "page2": 4,
+        "sp": "0xded8",
+        "slot1": 1
+      },
+      {
+        "after_entry_instruction": true,
+        "page2": 4,
+        "sp": "0xded8",
+        "slot1": 1
+      },
+      {
+        "after_entry_instruction": true,
+        "page2": 4,
+        "sp": "0xded8",
+        "slot1": 1
+      },
+      {
+        "after_entry_instruction": true,
+        "page2": 4,
+        "sp": "0xded8",
+        "slot1": 1
+      },
+      {
+        "after_entry_instruction": true,
+        "page2": 4,
+        "sp": "0xded6",
+        "slot1": 1
+      },
+      {
+        "after_entry_instruction": true,
+        "page2": 4,
+        "sp": "0xded8",
+        "slot1": 1
+      },
+      {
+        "after_entry_instruction": true,
+        "page2": 4,
+        "sp": "0xded8",
+        "slot1": 1
+      },
+      {
+        "after_entry_instruction": true,
+        "page2": 4,
+        "sp": "0xded6",
+        "slot1": 1
+      }
+    ],
+    "native": [
+      {
+        "after_entry_instruction": true,
+        "page2": 3,
+        "sp": "0xdece",
+        "slot1": 1
+      },
+      {
+        "after_entry_instruction": true,
+        "page2": 3,
+        "sp": "0xdece",
+        "slot1": 1
+      },
+      {
+        "after_entry_instruction": true,
+        "page2": 3,
+        "sp": "0xdece",
+        "slot1": 1
+      },
+      {
+        "after_entry_instruction": true,
+        "page2": 3,
+        "sp": "0xdece",
+        "slot1": 1
+      },
+      {
+        "after_entry_instruction": true,
+        "page2": 3,
+        "sp": "0xdece",
+        "slot1": 1
+      },
+      {
+        "after_entry_instruction": true,
+        "page2": 3,
+        "sp": "0xdece",
+        "slot1": 1
+      }
+    ]
+  },
+  "nmi": "No NMI injection/control established by this emulator API; this is IRQ-only evidence and does not establish NMI behavior.",
+  "hardware": "No physical Game Gear test."
+}

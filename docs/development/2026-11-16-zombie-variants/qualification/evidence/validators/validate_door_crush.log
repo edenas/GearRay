@@ -1,0 +1,7 @@
+Zombie door-crush and corpse-deduplication validation PASS
+- no-zombie close remains a single bounded sprite scan
+- centered, partial, and four edge contacts are crushed
+- north/south relocation is deterministic and excludes the door volume
+- every workshop door has passable north/south relocation cells
+- colocated corpses release duplicate slots; distance 64 remains distinct
+- normal SHOT_DEAD timing remains before weapon corpse merging

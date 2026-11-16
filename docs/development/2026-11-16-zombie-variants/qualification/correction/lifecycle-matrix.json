@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "candidate_sha256": "b5f9da2b5461574c6c09bc06387eeaa08ae304caeefc96f4ffce1b7c2c58349b",
+  "candidate_bytes": 131072,
+  "executed_candidate_checks": 8,
+  "checks": [
+    "actual-ABI-spawn-both-types-and-9-byte-record",
+    "invalid-types-refused-with-record-preservation",
+    "eight-capacity-and-ninth-refusal",
+    "same-type-packed-hit-parity-health-and-cooldown",
+    "lethal-hit-four-frame-shot-dead-to-corpse-finalize",
+    "mixed-type-corpse-merge-survivor-order",
+    "nonlast-swap-remove-preserves-last-record",
+    "door-crush-corpse-and-distant-actor-preservation"
+  ],
+  "final_actor_count": 2,
+  "slot2_page_after_every_call": 2,
+  "interrupts_enabled": false,
+  "notes": [
+    "Actual linked Z80 APIs and emitted calling convention were used.",
+    "The script validates representative lifecycle branches, not the entire requested activation/LOS/chase/weapon/occlusion permutation campaign.",
+    "No IRQ was accepted inside calls in this script."
+  ]
+}

@@ -4,12 +4,8 @@ $root = Split-Path -Parent $PSScriptRoot
 $build = if ([IO.Path]::IsPathRooted($BuildDirectory)) {$BuildDirectory} else {Join-Path $root $BuildDirectory}
 function Assert([bool]$Condition,[string]$Message){if(-not $Condition){throw $Message}}
 
-$poses = @('walking_01','walking_02','standing_attack','attack_01','attack_02','shot_01','corpse')
-$sourceNames = @(
-    'zombie_01_walking_01_32x32.png','zombie_01_walking_02_32x32.png',
-    'zombie_01_standing_attack_32x32.png','zombie_01_attack_01_32x32.png',
-    'zombie_01_attack_02_32x32.png','zombie_01_shot_01_32x32.png',
-    'zombie_01_corps_32x32.png')
+$poses = @('standing','walking_01','walking_02','standing_attack','attack_01','attack_02','shot_01','corps')
+$symbolPose=@{standing='stand';walking_01='walk1';walking_02='walk2';standing_attack='melee';attack_01='attack1';attack_02='attack2';shot_01='hit';corps='body'}
 Add-Type -AssemblyName System.Drawing
 $payloadHashes=@{}
 function Get-ExpectedNearBytes([string]$Path){
@@ -22,7 +18,7 @@ function Get-ExpectedNearBytes([string]$Path){
             Assert($pixel.A-eq255) "$Path contains partial alpha at ($x,$y)."
             $rgb=('#{0:x2}{1:x2}{2:x2}'-f$pixel.R,$pixel.G,$pixel.B)
             $index=switch($rgb){
-                '#000000'{0;break};'#1a1a1a'{13;break};'#006d8f'{8;break}
+                '#000000'{0;break};'#1a1a1a'{13;break};'#4d4d4d'{2;break};'#797878'{3;break};'#006d8f'{8;break}
                 '#53602a'{7;break};'#785700'{6;break};'#b51a00'{5;break}
                 '#bb2200'{5;break};'#ffffff'{12;break}
                 default{throw "Near zombie color $rgb at ($x,$y) has no exact gameplay palette mapping."}
@@ -39,21 +35,22 @@ function Get-GeneratedNearBytes([string]$Path,[string]$Symbol){
     return [byte[]]@([regex]::Matches($match.Groups['body'].Value,'0x[0-9a-fA-F]{2}')|ForEach-Object{[Convert]::ToByte($_.Value.Substring(2),16)})
 }
 function Get-ByteHash([byte[]]$Bytes){$sha=[Security.Cryptography.SHA256]::Create();try{return([BitConverter]::ToString($sha.ComputeHash($Bytes))).Replace('-','')}finally{$sha.Dispose()}}
-for($i=0;$i-lt$poses.Count;$i++){
-    $asset=Join-Path $root "assets\sprites\enemies\zombie\$($sourceNames[$i])"
-    Assert (Test-Path $asset) "Missing authored near texture $($sourceNames[$i])."
-    $bitmap=[Drawing.Bitmap]::new($asset);try{Assert($bitmap.Width-eq32-and$bitmap.Height-eq32) "$($sourceNames[$i]) is not 32x32."}finally{$bitmap.Dispose()}
-    $generated=Join-Path $build "generated\zombie_$($poses[$i])_32x32_texture.c"
-    Assert (Test-Path $generated) "Missing generated near texture $($poses[$i])."
-    $symbol="zombie_near_$($poses[$i])_pixels"
+foreach($species in @(@('01','security','sec'),@('02','scientist','sci'))){foreach($pose in $poses){
+    $assetName="zombie_$($species[0])_${pose}_32x32.png"
+    $asset=Join-Path $root "assets\sprites\enemies\zombie\$assetName"
+    Assert (Test-Path $asset) "Missing authored near texture $assetName."
+    $bitmap=[Drawing.Bitmap]::new($asset);try{Assert($bitmap.Width-eq32-and$bitmap.Height-eq32) "$assetName is not 32x32."}finally{$bitmap.Dispose()}
+    $generated=Join-Path $build "generated\zombie_near_$($species[1])_${pose}_32x32.c"
+    Assert (Test-Path $generated) "Missing generated $($species[1]) near texture $pose."
+    $symbol="znear_$($species[2])_$($symbolPose[$pose])"
     [byte[]]$expected=Get-ExpectedNearBytes $asset
     [byte[]]$actual=Get-GeneratedNearBytes $generated $symbol
-    Assert($actual.Count-eq512) "$($poses[$i]) payload is not 512 bytes."
+    Assert($actual.Count-eq512) "$($species[1]) $pose payload is not 512 bytes."
     for($byteIndex=0;$byteIndex-lt512;$byteIndex++){
-        if($expected[$byteIndex]-ne$actual[$byteIndex]){$pixelY=[Math]::Floor($byteIndex/16);$pixelX=($byteIndex%16)*2;throw "$($poses[$i]) generated payload mismatch at byte $byteIndex (pixels $pixelX/$($pixelX+1),$pixelY)."}
+        if($expected[$byteIndex]-ne$actual[$byteIndex]){$pixelY=[Math]::Floor($byteIndex/16);$pixelX=($byteIndex%16)*2;throw "$($species[1]) $pose generated payload mismatch at byte $byteIndex (pixels $pixelX/$($pixelX+1),$pixelY)."}
     }
-    $payloadHashes[$poses[$i]]=Get-ByteHash $actual
-}
+    $payloadHashes["$($species[1])_$pose"]=Get-ByteHash $actual
+}}
 
 function Get-NativeAssetMetrics([string]$Name) {
     $bitmap=[Drawing.Bitmap]::new((Join-Path $root "assets\sprites\enemies\zombie\$Name"))
@@ -73,21 +70,23 @@ function Get-NativeAssetMetrics([string]$Name) {
         return [pscustomobject]@{Bottom=$bottom;Bands=($bands-join',')}
     } finally {$bitmap.Dispose()}
 }
-foreach($name in $sourceNames[0..5]){
-    Assert((Get-NativeAssetMetrics $name).Bottom-eq31) "$name does not share the living floor baseline at row 31."
-}
-Assert((Get-NativeAssetMetrics $sourceNames[6]).Bottom-eq31) 'Native corpse no longer contacts the authored floor baseline.'
+foreach($species in @('01','02')){foreach($pose in $poses){
+    $name="zombie_${species}_${pose}_32x32.png"
+    Assert((Get-NativeAssetMetrics $name).Bottom-eq31) "$name no longer contacts the authored floor baseline at row 31."
+}}
 
 $projection=Get-Content -Raw (Join-Path $root 'platform\game_gear\sprite_projection.c')
 $projectionHeader=Get-Content -Raw (Join-Path $root 'platform\game_gear\sprite_projection.h')
 $video=Get-Content -Raw (Join-Path $root 'platform\game_gear\video.c')
 $nearTable=Get-Content -Raw (Join-Path $root 'platform\game_gear\near_zombie_textures.c')
+$nearHeader=Get-Content -Raw (Join-Path $root 'platform\game_gear\near_zombie_textures.h')
 $worldHeader=Get-Content -Raw (Join-Path $root 'game\world_sprite.h')
 $worldSource=Get-Content -Raw (Join-Path $root 'game\world_sprite.c')
 $ai=Get-Content -Raw (Join-Path $root 'game\zombie_ai.c')
 $player=Get-Content -Raw (Join-Path $root 'game\player.c')
 $playerHeader=Get-Content -Raw (Join-Path $root 'game\player.h')
 $cmake=Get-Content -Raw (Join-Path $root 'CMakeLists.txt')
+$visualTables=Get-Content -Raw (Join-Path $build 'generated\zombie_visuals_assets.c')
 Assert($projectionHeader-match'SPRITE_NEAR_DETAIL_MAX_DISTANCE[\s\\]*\(ZOMBIE_ATTACK_DISTANCE \+ 2 \* ZOMBIE_MOVEMENT_STEP\)') 'Native locomotion range does not provide two movement steps before melee.'
 Assert($projectionHeader-match'SPRITE_MIDDLE_DETAIL_MAX_DISTANCE[\s\\]*\(SPRITE_NEAR_DETAIL_MAX_DISTANCE \+ 4 \* ZOMBIE_MOVEMENT_STEP\)') 'Authored 16x16 range does not provide four movement steps.'
 Assert($worldHeader-match'zombie_distance_metric[\s\S]*?distance_x \+ \(distance_y >> 1\)') 'Shared AI-compatible distance helper is missing.'
@@ -96,14 +95,14 @@ Assert($projection-match'distance = zombie_distance_metric\(relative_x, relative
 Assert($projection-match'else if \(distance <= SPRITE_NEAR_DETAIL_MAX_DISTANCE\)') 'Living native eligibility does not use authoritative octagonal distance.'
 Assert($projectionHeader-notmatch'SPRITE_CORPSE_AUTHORED_|SPRITE_CORPSE_VISIBLE_MAX_DISTANCE|VERY_FAR') 'A corpse-specific far-distance ladder remains.'
 Assert($projection-match'SPRITE_CORPSE_CLOSE_HIDDEN_MAX_DEPTH[\s\\]*\(16384U / \(3U \* GAME_GEAR_VIEWPORT_PIXEL_HEIGHT\) \+ PLAYER_MOVE_SPEED\)') 'Close corpse boundary is not derived from projection geometry plus one player step.'
-Assert($projection-match'distance_squared > SPRITE_VISIBLE_MAX_DISTANCE_SQUARED[\s\S]*?life_state == ZOMBIE_STATE_CORPSE[\s\S]*?projected->depth <= SPRITE_CORPSE_CLOSE_HIDDEN_MAX_DEPTH[\s\S]*?return;[\s\S]*?projected_height < SPRITE_MEDIUM_LOD_MIN_HEIGHT[\s\S]*?life_state == ZOMBIE_STATE_CORPSE[\s\S]*?zombie_corpse_lod_pixels[\s\S]*?projected_height < SPRITE_FULL_DETAIL_MIN_HEIGHT[\s\S]*?zombie_corpse_lod_pixels[\s\S]*?distance <= SPRITE_NEAR_DETAIL_MAX_DISTANCE[\s\S]*?distance <= SPRITE_MIDDLE_DETAIL_MAX_DISTANCE') 'Corpse does not share living visibility and projected-height LOD selection.'
+Assert($projection-match'distance_squared > SPRITE_VISIBLE_MAX_DISTANCE_SQUARED[\s\S]*?life_state == ZOMBIE_STATE_CORPSE[\s\S]*?projected->depth <= SPRITE_CORPSE_CLOSE_HIDDEN_MAX_DEPTH[\s\S]*?return;[\s\S]*?projected_height < SPRITE_MEDIUM_LOD_MIN_HEIGHT[\s\S]*?zombie_visual_lod_simple\[sprite->visual_type\]\[ZOMBIE_ANIMATION_CORPSE\][\s\S]*?projected_height < SPRITE_FULL_DETAIL_MIN_HEIGHT[\s\S]*?zombie_visual_lod_simple\[sprite->visual_type\]\[ZOMBIE_ANIMATION_CORPSE\][\s\S]*?distance <= SPRITE_NEAR_DETAIL_MAX_DISTANCE[\s\S]*?distance <= SPRITE_MIDDLE_DETAIL_MAX_DISTANCE') 'Corpse does not share living visibility and projected-height type-indexed LOD selection.'
 Assert($projection-notmatch'SPRITE_CORPSE_CLOSE_16_MIN_NATURAL_HEIGHT|natural_projected_height') 'Obsolete close-side corpse logic remains.'
-Assert($projection-match'zombie_corpse_lod_pixels\[32\]'-and$projection-notmatch'zombie_corpse_very_far_lod_pixels') 'Exactly one accepted dark corpse pile is not present.'
+Assert($visualTables-match'zombie_visual_lod_medium[\s\S]*?zombie_corpse_lod_pixels[\s\S]*?zombie_visual_lod_simple[\s\S]*?zombie_corpse_lod_pixels' -and $visualTables-match'zombie_scientist_corps_pixels_simple_lod,\s*\}?[\s\S]*?zombie_visual_lod_simple[\s\S]*?zombie_scientist_corps_pixels_simple_lod') 'Each species corpse uses one shared cost-one LOD pointer across the distant tiers.'
 Assert($projection-notmatch'SPRITE_CORPSE_VISIBLE_MAX_DISTANCE_SQUARED|distance_squared <= SPRITE_CORPSE|SPRITE_CORPSE_LOD_MIN_HEIGHT') 'Old corpse cutoff or artificial pile height remains.'
 Assert($projection-match'8192U[\s\S]*?source_size << 8') 'Generic 32x32/16x16/8x8 texture steps are missing.'
 foreach($id in @('WALKING_01','WALKING_02','STANDING_ATTACK','ATTACK_01','ATTACK_02','SHOT_01','CORPSE')){Assert($projection-match"NEAR_ZOMBIE_TEXTURE_$id") "Missing runtime pose mapping $id."}
-Assert($nearTable-match'near_zombie_texture_pixels'-and$nearTable-match'zombie_near_walking_01_pixels'-and$nearTable-match'zombie_near_walking_02_pixels') 'Bank 2 texture table is not wired.'
-Assert($video-match'SMS_MAPPER_SLOT2_REGISTER'-and$video-match'NEAR_ZOMBIE_ROM_PAGE 2') 'Near compositor does not map physical page 2 through slot 2.'
+Assert($nearTable-match'near_zombie_texture_pixels'-and$nearTable-match'znear_sec_stand'-and$nearTable-match'znear_sci_stand'-and([regex]::Matches($nearTable,'znear_(sec|sci)_').Count-eq16)) 'Complete 16-entry security/scientist near table is not wired.'
+Assert($video-match'SMS_MAPPER_SLOT2_REGISTER'-and$nearHeader-match'NEAR_ZOMBIE_ROM_PAGE 4') 'Near compositor does not map physical page 4 through slot 2.'
 $slot2Sites=if($video -match 'wall_plan_rows'){6}else{2}
 Assert(([regex]::Matches($video,'SMS_MAPPER_SLOT2_REGISTER\s*=').Count)-eq$slot2Sites) 'Near-art batch and native-wall phases must have their declared slot-2 mapping/restoration sites outside pixel loops.'
 Assert($video-match'if \(near_bank_mapped\)[\s\S]*?SMS_MAPPER_SLOT2_REGISTER = previous_slot2_page') 'Slot 2 mapping is not restored.'
@@ -117,16 +116,14 @@ Assert($worldHeader-match'ZOMBIE_MOVEMENT_STEP 56') 'Shared zombie movement step
 Assert($ai-notmatch'#define ZOMBIE_MOVEMENT_STEP') 'Zombie AI duplicates the shared movement-step constant.'
 Assert($worldHeader-match'ZOMBIE_WALKING_PHASE_MASK 128') 'Packed presentation-only walking phase is missing.'
 Assert($projection-match'ZOMBIE_AI_CHASING_MASK[\s\S]*?ZOMBIE_WALKING_PHASE_MASK[\s\S]*?ZOMBIE_PRESENTATION_WALKING_02[\s\S]*?ZOMBIE_PRESENTATION_WALKING_01') 'Logical walking pose does not follow the centralized presentation phase.'
-Assert($cmake-match'near_pose IN ITEMS WALKING_01 WALKING_02 STANDING_ATTACK ATTACK_01 ATTACK_02 SHOT_01 CORPSE') 'Complete native active pose set is missing from the generated build pipeline.'
-Assert($cmake-notmatch'GEAR_RAY_NEAR_ZOMBIE_STANDING_INPUT|near_pose IN ITEMS[^\n]*WALKING_02 STANDING STANDING_ATTACK') 'Neutral 32x32 standing remains in the build pipeline.'
-Assert($cmake-match'middle_pose IN ITEMS STANDING WALKING_01 WALKING_02 SHOT_01 SHOT_DEAD CORPS') 'Authored 16x16 standing is missing from the build pipeline.'
-Assert($cmake-notmatch'zombie_02_attack_02_32x32|zombie_01_shot_dead_32x32') 'Obsolete close-range asset names remain in the build pipeline.'
-Assert($projection-match'zombie_01_walking_01_pixels'-and$projection-match'zombie_01_walking_02_pixels') 'Standard walking textures are no longer preserved by the normal LOD path.'
-Assert($ai-match'if \(sprite->pixels == zombie_01_shot_01_pixels[\s\S]*?zombie_01_shot_02_pixels\)[\s\S]*?continue;[\s\S]*?sprite->state_timer = 0;[\s\S]*?zombie_ai_move') 'Retreat does not cancel attack presentation, preserve locomotion phase, and resume chase.'
+Assert($cmake.Contains('zombie_${zombie_species}_${zombie_pose}_32x32.png')-and$cmake.Contains('zombie_${zombie_species}_${zombie_pose}.png')) 'Complete native and base pose sets are not explicit direct-PNG dependencies.'
+Assert($cmake.Contains('zombie_${zombie_species}_${zombie_pose}_16x16.png')) 'Authored 16x16 standing and middle poses are missing from the build pipeline.'
+Assert($visualTables-match'zombie_security_standing_pixels'-and$visualTables-match'zombie_scientist_standing_pixels'-and$visualTables-match'zombie_security_walking_01_pixels'-and$visualTables-match'zombie_scientist_walking_01_pixels') 'Current 8x8 standing/walking art is not selected per species.'
+Assert($ai-match'animation_token == ZOMBIE_ANIMATION_SHOT_01[\s\S]*?ZOMBIE_ANIMATION_SHOT_02[\s\S]*?continue;[\s\S]*?sprite->state_timer = 0;[\s\S]*?zombie_ai_move') 'Retreat does not cancel hit presentation and resume the packed walking phase.'
 Assert($ai-match'distance >= ZOMBIE_ATTACK_DISTANCE \+ ZOMBIE_MOVEMENT_STEP[\s\S]*?zombie_ai_move\([\s\S]*?else[\s\S]*?final_step =[\s\S]*?distance - ZOMBIE_ATTACK_DISTANCE') 'Final melee-entry movement is not isolated from the constant-step chase path.'
-Assert($ai-notmatch'distance <= ZOMBIE_ATTACK_DISTANCE[\s\S]{0,180}sprite->pixels = zombie_01_standing_pixels') 'Melee entry still destroys the authoritative walking phase.'
-Assert($projection-match'ZOMBIE_STATE_SHOT_DEAD[\s\S]*?ZOMBIE_PRESENTATION_DEAD'-and$projection-match'ZOMBIE_PRESENTATION_DEAD:[\s\S]*?NEAR_ZOMBIE_TEXTURE_SHOT_01') 'Very-close lethal shots do not use shot_01 artwork.'
-Assert($projection-match'ZOMBIE_STATE_CORPSE[\s\S]*?ZOMBIE_PRESENTATION_CORPSE'-and$projection-match'ZOMBIE_PRESENTATION_CORPSE:[\s\S]*?NEAR_ZOMBIE_TEXTURE_CORPSE') 'Close corpse does not use the final corpse artwork.'
+Assert($ai-notmatch'distance <= ZOMBIE_ATTACK_DISTANCE[\s\S]{0,180}animation_token = ZOMBIE_ANIMATION_STANDING') 'Melee entry still destroys the authoritative walking phase.'
+Assert($projection-match'ZOMBIE_STATE_SHOT_DEAD[\s\S]*?ZOMBIE_PRESENTATION_DEAD'-and$projection-match'ZOMBIE_PRESENTATION_DEAD:[\s\S]*?NEAR_ZOMBIE_TEXTURE_SHOT_01') 'Very-close lethal shots do not use the same species shot_01 artwork.'
+Assert($projection-match'ZOMBIE_STATE_CORPSE[\s\S]*?ZOMBIE_PRESENTATION_CORPSE'-and$projection-match'ZOMBIE_PRESENTATION_CORPSE:[\s\S]*?NEAR_ZOMBIE_TEXTURE_CORPSE') 'Close corpse does not use the same species final corpse artwork.'
 Assert($worldHeader-match'ZOMBIE_ATTACK_PHASE_MASK 64') 'Per-zombie alternating strike phase is not packed in the existing state byte.'
 Assert($ai-match'ZOMBIE_ATTACK_COOLDOWN_AI_TICKS\);[\s\S]*?sprite->state \^= ZOMBIE_ATTACK_PHASE_MASK;') 'Successful strikes do not alternate their packed phase.'
 Assert($projection-match'state_timer[\s\S]*?== ZOMBIE_ATTACK_PRESENTATION_FRAME_COUNT - 1[\s\S]*?ZOMBIE_ATTACK_PHASE_MASK[\s\S]*?ZOMBIE_PRESENTATION_ATTACK_01[\s\S]*?ZOMBIE_PRESENTATION_ATTACK_02;[\s\S]*?ZOMBIE_PRESENTATION_STANDING_ATTACK;') 'Standing anticipation, alternating strike, and recovery mapping is incorrect.'
@@ -192,8 +189,8 @@ $completeReverse=@(@(159,159),@(280,280),@(500,500),@(900,900),@(1050,1050),@(12
 Assert(($completeForward-join',')-eq'hidden,pile13,pile15,8,16,32,hidden-close') 'Complete forward corpse traversal changed.'
 Assert(($completeReverse-join',')-eq'hidden-close,32,16,8,pile15,pile13,hidden') 'Complete reverse corpse traversal changed.'
 foreach($deathDistance in 300,500,900){Assert((Get-CorpseLod $deathDistance $deathDistance)-eq(Get-SharedLod $deathDistance $deathDistance)) "Normal corpse resolution changed at $deathDistance."}
-Assert($projection-match'projected->pixels = sprite->pixels;[\s\S]*?projected_height < SPRITE_MEDIUM_LOD_MIN_HEIGHT[\s\S]*?zombie_corpse_lod_pixels[\s\S]*?else if \(projected_height < SPRITE_FULL_DETAIL_MIN_HEIGHT\)[\s\S]*?zombie_corpse_lod_pixels[\s\S]*?else if \(distance <= SPRITE_NEAR_DETAIL_MAX_DISTANCE\)') 'Authored 8x8 corpse does not persist until the shared far silhouette stages.'
-Assert($projection-match'ZOMBIE_PRESENTATION_DEAD:[\s\S]*?zombie_middle_shot_dead_pixels'-and$projection-match'ZOMBIE_PRESENTATION_CORPSE:[\s\S]*?zombie_middle_corps_pixels') '16x16 death/corpse artwork is not state-selected within the shared tier.'
+Assert($projection-match'projected_height < SPRITE_MEDIUM_LOD_MIN_HEIGHT[\s\S]*?zombie_visual_lod_simple\[sprite->visual_type\]\[ZOMBIE_ANIMATION_CORPSE\][\s\S]*?else if \(projected_height < SPRITE_FULL_DETAIL_MIN_HEIGHT\)[\s\S]*?zombie_visual_lod_simple\[sprite->visual_type\]\[ZOMBIE_ANIMATION_CORPSE\][\s\S]*?else if \(distance <= SPRITE_NEAR_DETAIL_MAX_DISTANCE\)') 'Authored 8x8 corpse does not persist until the shared far silhouette stages.'
+Assert($visualTables-match'zombie_security_middle_shot_dead_pixels' -and $visualTables-match'zombie_scientist_middle_shot_dead_pixels' -and $visualTables-match'zombie_security_middle_corps_pixels' -and $visualTables-match'zombie_scientist_middle_corps_pixels') '16x16 death/corpse artwork is not state-selected per species.'
 Assert($projection-match'ZOMBIE_PRESENTATION_DEAD:[\s\S]*?NEAR_ZOMBIE_TEXTURE_SHOT_01'-and$projection-match'ZOMBIE_PRESENTATION_CORPSE:[\s\S]*?NEAR_ZOMBIE_TEXTURE_CORPSE') '32x32 death/corpse artwork is not state-selected within the shared tier.'
 Assert($worldHeader-match'ZOMBIE_SHOT_DEAD_FRAME_COUNT 4'-and$worldSource-match'ZOMBIE_STATE_SHOT_DEAD[\s\S]*?state_timer = ZOMBIE_SHOT_DEAD_FRAME_COUNT') 'SHOT_DEAD timing changed while sharing resolution tiers.'
 foreach($case in @(@(392,200),@(300,160),@(240,159),@(180,120))){
@@ -211,7 +208,7 @@ $forward=@(8,16,32|ForEach-Object{Get-AuthoredLocomotion $_ 'walking_01'})
 $reverse=@(32,16,8|ForEach-Object{Get-AuthoredLocomotion $_ 'walking_02'})
 Assert(($forward-join',')-eq'walking_01_8,walking_01_16,walking_01_32') 'Forward LOD transition changes walking_01 phase.'
 Assert(($reverse-join',')-eq'walking_02_32,walking_02_16,walking_02_8') 'Reverse LOD transition changes walking_02 phase.'
-Assert($ai-match'!chasing && distance > ZOMBIE_ACTIVATION_DISTANCE[\s\S]*?sprite->pixels = zombie_01_standing_pixels') 'Inactive distant zombie no longer permits original 8x8 standing.'
+Assert($ai-match'!chasing && distance > ZOMBIE_ACTIVATION_DISTANCE') 'Inactive distant zombie no longer retains the shared standing logical token.'
 foreach($case in @(
     @(392,0,392),@(280,0,280),@(224,112,280),
     @(168,168,252),@(280,56,308),@(224,168,308))){
@@ -228,7 +225,7 @@ $middleStraight=@(672,616,560,504,448,392|ForEach-Object{if($_-gt616){'8'}elseif
 Assert(($middleStraight-join',')-eq'8,16,16,16,16,32') 'Straight approach does not contain four authored 16x16 steps.'
 $middleOblique=@(@(616,112),@(560,112),@(504,112),@(448,112),@(392,112),@(336,112)|ForEach-Object{$d=Get-ZombieDistance $_[0] $_[1];if($d-gt616){'8'}elseif($d-gt392){'16'}else{'32'}})
 Assert(($middleOblique-join',')-eq'8,16,16,16,16,32') 'Oblique approach does not contain four authored 16x16 steps.'
-Assert($projection-match'ZOMBIE_PRESENTATION_SHOT:[\s\S]*?zombie_middle_shot_01_pixels'-and$projection-match'ZOMBIE_PRESENTATION_DEAD:[\s\S]*?zombie_middle_shot_dead_pixels') 'Extended middle interval does not preserve authored shot/death poses.'
+Assert($visualTables-match'zombie_security_middle_shot_01_pixels' -and $visualTables-match'zombie_scientist_middle_shot_01_pixels' -and $visualTables-match'zombie_security_middle_shot_dead_pixels' -and $visualTables-match'zombie_scientist_middle_shot_dead_pixels') 'Extended middle interval does not preserve each species authored shot/death poses.'
 Assert((Get-LivingNearPose 393 0 0 0 'walking_01')-eq'NONE') 'Distance 393 does not preserve middle rendering.'
 foreach($distance in 392,336,300,281){
     Assert((Get-LivingNearPose $distance 0 0 0 'walking_01')-eq'WALKING_01') "Distance $distance does not map walking_01 to native walking_01."
@@ -246,15 +243,15 @@ Assert((Get-LivingNearPose 280 4 2 $phase 'walking_02')-eq'STANDING_ATTACK') 'AT
 Assert((Get-LivingNearPose 280 3 2 $phase 'walking_02')-eq'ATTACK_02') 'Fourth close-combat presentation step is not ATTACK_02.'
 Assert((Get-LivingNearPose 300 3 0 64 'walking_01')-eq'WALKING_01') 'ATTACK_01 appears solely from entering native-detail range.'
 Assert((Get-LivingNearPose 280 3 2 64 'walking_02')-eq'ATTACK_01'-and(Get-LivingNearPose 336 0 1 192 'walking_02')-eq'WALKING_02'-and(Get-LivingNearPose 280 4 0 0 'walking_01')-eq'STANDING_ATTACK') 'Melee retreat/re-entry does not immediately resume walking then preserve the next combat phase.'
-Assert($ai-match'sprite->state \^= ZOMBIE_WALKING_PHASE_MASK;[\s\S]*?sprite->pixels = sprite->state & ZOMBIE_WALKING_PHASE_MASK'-and$ai-notmatch'zombie_ai_position_is_clear[\s\S]{0,500}ZOMBIE_WALKING_PHASE_MASK') 'Active chase presentation does not advance independently of successful movement.'
+Assert($ai-match'sprite->state \^= ZOMBIE_WALKING_PHASE_MASK;[\s\S]*?sprite->animation_token = sprite->state & ZOMBIE_WALKING_PHASE_MASK'-and$ai-notmatch'zombie_ai_position_is_clear[\s\S]{0,500}ZOMBIE_WALKING_PHASE_MASK') 'Active chase presentation does not advance independently of successful movement.'
 $start01=@((Get-LivingNearPose 392 0 0 0 'walking_01'),(Get-LivingNearPose 336 0 0 128 'walking_02'),(Get-LivingNearPose 280 4 0 0 'walking_01'))
 $start02=@((Get-LivingNearPose 392 0 0 128 'walking_02'),(Get-LivingNearPose 336 0 0 0 'walking_01'),(Get-LivingNearPose 280 4 0 0 'walking_01'))
 Assert(($start01-join',')-eq'WALKING_01,WALKING_02,STANDING_ATTACK') 'WALKING_01 start does not show both native frames before melee.'
 Assert(($start02-join',')-eq'WALKING_02,WALKING_01,STANDING_ATTACK') 'WALKING_02 start does not show both native frames before melee.'
-Assert($projection-match'game_gear_get_middle_zombie_pixels[\s\S]*?ZOMBIE_PRESENTATION_WALKING_02[\s\S]*?zombie_middle_walking_02_pixels[\s\S]*?default:[\s\S]*?zombie_middle_walking_01_pixels') '16x16 resolver does not preserve logical walking phase.'
-Assert($projection-match'game_gear_get_near_zombie_texture_id[\s\S]*?ZOMBIE_PRESENTATION_WALKING_02[\s\S]*?NEAR_ZOMBIE_TEXTURE_WALKING_02[\s\S]*?default:[\s\S]*?NEAR_ZOMBIE_TEXTURE_WALKING_01') '32x32 resolver does not preserve logical walking phase.'
-Assert($projection-notmatch'NEAR_ZOMBIE_TEXTURE_STANDING\s'-and$projection-match'ZOMBIE_PRESENTATION_STANDING:[\s\S]*?zombie_middle_standing_pixels') 'Middle idle standing or near standing exclusion is incorrect.'
-Assert($projection-match'zombie_01_shot_01_pixels[\s\S]*?ZOMBIE_PRESENTATION_SHOT[\s\S]*?distance <= ZOMBIE_ATTACK_DISTANCE'-and$projection-match'ZOMBIE_PRESENTATION_SHOT:[\s\S]*?NEAR_ZOMBIE_TEXTURE_SHOT_01') 'SHOT_01 does not override native walking.'
+Assert($projection-match'ZOMBIE_PRESENTATION_WALKING_02[\s\S]*?zombie_visual_middle\[sprite->visual_type\]\[presentation_pose\]'-and$visualTables-match'zombie_security_middle_walking_02_pixels' -and $visualTables-match'zombie_scientist_middle_walking_02_pixels') '16x16 resolver does not preserve logical walking phase by species.'
+Assert($projection-match'ZOMBIE_PRESENTATION_WALKING_02[\s\S]*?NEAR_ZOMBIE_TEXTURE_WALKING_02[\s\S]*?default:[\s\S]*?NEAR_ZOMBIE_TEXTURE_WALKING_01') '32x32 resolver does not preserve logical walking phase.'
+Assert($projection-match'ZOMBIE_PRESENTATION_STANDING:[\s\S]*?NEAR_ZOMBIE_TEXTURE_STANDING'-and$nearTable-match'znear_sec_stand'-and$nearTable-match'znear_sci_stand') 'Authored idle standing is not integrated for both near-art identities.'
+Assert($projection-match'ZOMBIE_ANIMATION_SHOT_01[\s\S]*?ZOMBIE_PRESENTATION_SHOT[\s\S]*?distance <= ZOMBIE_ATTACK_DISTANCE'-and$projection-match'ZOMBIE_PRESENTATION_SHOT:[\s\S]*?NEAR_ZOMBIE_TEXTURE_SHOT_01') 'SHOT_01 does not override native walking.'
 Assert($projection-notmatch'ZOMBIE_ATTACK_VISUAL_LUNGE_DEPTH') 'Old attack visual lunge logic remains.'
 Assert($projection-notmatch'ZOMBIE_NATIVE_(WALKING|CLOSE)_VISUAL_DEPTH_OFFSET|ZOMBIE_NATIVE_MIN_VISUAL_DEPTH|visual_depth') 'Obsolete native visual-depth correction remains.'
 Assert($projection-match'projected->depth < rays\[first_ray\]\.wall_distance') 'Visual walking depth replaced real-depth wall occlusion.'
@@ -265,26 +262,26 @@ Assert($projection-match'ZOMBIE_STATE_ALIVE[\s\S]*?near_texture_id == NEAR_ZOMBI
 function Get-8x8Height([int]$Depth){$height=[int][Math]::Floor(16384/$Depth);if($height -gt 32){return 32};return $height}
 foreach($case in @(@(800,20),@(600,27),@(560,29),@(505,32))){Assert((Get-8x8Height ($case[0])) -eq $case[1]) "8x8 cap mismatch at depth $($case[0])."}
 Assert((Get-LivingNearPose 392 0 0 0 'walking_01') -eq 'WALKING_01') 'Native walking is incorrectly subject to the 8x8 cap.'
-Assert($cmake-match'--constseg BANK2'-and$cmake-match'-Wl-b_BANK2=0x28000') 'Near assets are not linked into the slot-2 Bank 2 window.'
+Assert($cmake-match'--constseg BANK4'-and$cmake-match'-Wl-b_BANK4=0x48000') 'Near assets are not linked into the slot-2 Bank 4 window.'
 Assert($cmake-notmatch'GENERATED_ZOMBIE_ATTACK_01_TEXTURE_OBJECT'-and$cmake-notmatch'GENERATED_ZOMBIE_ATTACK_02_TEXTURE_OBJECT') 'Obsolete 8x8 attack runtime objects remain.'
 
 if($RequireMapPlacement){
     $map=Get-Content -Raw (Join-Path $build 'GearRay.map')
-    foreach($symbol in @('_zombie_near_walking_01_pixels','_zombie_near_walking_02_pixels','_zombie_near_standing_attack_pix','_zombie_near_attack_01_pixels','_zombie_near_attack_02_pixels','_zombie_near_shot_01_pixels','_zombie_near_corpse_pixels')){
+    foreach($symbol in @('_znear_sec_stand','_znear_sec_walk1','_znear_sec_walk2','_znear_sec_melee','_znear_sec_attack1','_znear_sec_attack2','_znear_sec_hit','_znear_sec_body','_znear_sci_stand','_znear_sci_walk1','_znear_sci_walk2','_znear_sci_melee','_znear_sci_attack1','_znear_sci_attack2','_znear_sci_hit','_znear_sci_body')){
         $match=[regex]::Match($map,"(?m)^\s*(?<a>[0-9A-Fa-f]{8})\s+$symbol\s+");Assert($match.Success) "Missing map symbol $symbol."
-        $address=[Convert]::ToInt32($match.Groups['a'].Value,16);Assert ($address -ge 0x28000 -and $address -lt 0x2C000) "$symbol is outside Bank 2."
+        $address=[Convert]::ToInt32($match.Groups['a'].Value,16);Assert ($address -ge 0x48000 -and $address -lt 0x4A000) "$symbol is outside Bank 4 near payload area."
     }
     Assert($map-notmatch'_zombie_01_attack_01_pixels|_zombie_01_attack_02_pixels|_zombie_near_standing_pixels') 'Unused zombie presentation symbols remain linked.'
 }
 
 Write-Output 'Near-detail zombie validation PASS'
-Write-Output '- seven active/combat 32x32/512-byte near-detail textures in Bank 2'
+Write-Output '- sixteen standing/movement/combat/death/corpse 32x32/512-byte textures in Bank 4'
 Write-Output '- two-step native-detail boundary 392 units; gameplay attack boundary remains 280 units'
 Write-Output '- four-step authored 16x16 interval spans 616..393 units'
 Write-Output '- native 32x32 walking alternates at 392 and 336 before melee at 280 units'
 Write-Output '- forward/reverse 8x8/16x16/32x32 transitions preserve walking_01/walking_02; melee retreat resumes walking immediately'
 Write-Output '- standing-attack anticipation/recovery around alternating attack_01/attack_02 wired'
-Write-Output '- slot 2 maps/restores page 2 once per visible-near render batch'
+Write-Output '- slot 2 maps/restores page 4 once per visible-near render batch'
 Write-Output '- WorldSprite remains 9 bytes; obsolete 8x8 attack runtime data absent'
 Write-Output '- corpse LOD remains stateless: one CORPSE state and immutable world coordinates'
-foreach($pose in $poses){Write-Output "- $pose payload SHA-256: $($payloadHashes[$pose])"}
+foreach($species in @('security','scientist')){foreach($pose in $poses){Write-Output "- $species $pose payload SHA-256: $($payloadHashes["${species}_$pose"])"}}

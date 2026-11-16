@@ -1,0 +1,11 @@
+Zombie attack and player-health validation PASS
+- health 100 -> 80 -> 60 -> 40 -> 20 -> 0; saturation at zero
+- inclusive 280-unit attack range; 58-pixel full-detail projection
+- independent strikes every 2 AI ticks (8 frames)
+- presentation order: standing, attack_01, standing, attack_02; repeat
+- LOS/range/life/cooldown gates; movement resumes outside range
+- packed independent per-zombie cooldown/phase; WorldSprite remains 9 bytes
+- four-frame hardware scroll shake returns to neutral on every hit
+- 180-frame cleared Game Over screen precedes the shared restart
+- zero pose offset: authored attack centroids match standing within 0.033 px
+- attack projection and targeting are independent of the HUD overlay

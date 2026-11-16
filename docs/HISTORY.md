@@ -1,6 +1,10 @@
 # History and retained evidence
 
-Current topic owners are in the [documentation hub](README.md). Dated reports retain their original bytes, dates, paths, encodings, failures and decisions. The final optimization decision is B - APPROVED WITH MINOR NOTES; cooperative/fixed-rate architectures remain experimental/rejected for production. Earlier hardware-tested milestones do not qualify the current optimized ROM.
+Current topic owners are in the [documentation hub](README.md). Dated reports retain their original bytes, dates, paths, encodings, failures and decisions. The final optimization decision is B - APPROVED WITH MINOR NOTES; cooperative/fixed-rate architectures remain experimental/rejected for production. Earlier hardware-tested milestones do not qualify later changes; ZV-01 has its own owner-reported physical Game Gear gameplay acceptance.
+
+## ZV-01 — 2026-11-16
+
+The [ZV-01 index](development/2026-11-16-zombie-variants/README.md) links the accepted two-species/shotgun implementation, engineering and qualification history, final review and owner hardware report. Earlier prompts and failed/pending snapshots in that directory are historical records, not active assignments.
 
 ## Retrieval and link classification
 

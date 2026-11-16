@@ -19,6 +19,7 @@
 #define WORLD_TILE_VOID 8
 #define WORLD_TILE_SPRITE_MARKER 9
 #define WORLD_TILE_SHOTGUN_MARKER 10
+#define WORLD_TILE_SCIENTIST_MARKER 11
 
 void world_initialize(void) __banked;
 unsigned char world_get_tile(unsigned char x, unsigned char y);

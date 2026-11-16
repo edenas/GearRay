@@ -1,0 +1,4 @@
+- production compositor executed: FAR/NEAR sources, continuous zombie-model perspective sizes, clipping, alpha preservation, mixed wall rays and strict ties
+- touch extent 276; expansion 74; body radius 32; earliest west x=2668; opposite solid-wall center distance 416
+- actual acquisition/cache: first ownership equips, old SHOOT resets, fresh edge retained, identity redraw then idle no-redraw, owned repeat preserves manual pistol and skips contact queries
+Weapon runtime validation PASS: deterministic FAR/NEAR projection, continuous depth-derived scale and floor anchor, unchanged touch acquisition, depth/occlusion/clipping, collected rejection and combat wiring.

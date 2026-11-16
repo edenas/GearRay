@@ -1,0 +1,10 @@
+- production compositor executed: FAR/NEAR sources, continuous zombie-model perspective sizes, clipping, alpha preservation, mixed wall rays and strict ties
+- touch extent 276; expansion 74; body radius 32; earliest west x=2668; opposite solid-wall center distance 416
+- actual acquisition/cache: first ownership equips, old SHOOT resets, fresh edge retained, identity redraw then idle no-redraw, owned repeat preserves manual pistol and skips contact queries
+Unexpected startup Bank 3 dispatch: world.asm
+At D:\mano_projektai\GearRay\tools\validate_weapon_runtime.ps1:5 char:63
++ ... Require($condition,[string]$message){if(!$condition){throw $message}}
++                                                          ~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Unexpected star...atch: world.asm:String) [], RuntimeException
+    + FullyQualifiedErrorId : Unexpected startup Bank 3 dispatch: world.asm
+ 

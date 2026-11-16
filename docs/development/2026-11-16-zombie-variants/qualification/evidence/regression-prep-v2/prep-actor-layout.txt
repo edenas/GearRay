@@ -1,0 +1,1 @@
+visual-type-animation-v1; actors alternate security/scientist; offsets 4/5 are type/token

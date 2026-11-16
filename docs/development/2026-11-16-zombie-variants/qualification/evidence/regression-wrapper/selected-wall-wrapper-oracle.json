@@ -1,0 +1,14 @@
+{
+  "cases": 20480,
+  "mismatches": 0,
+  "oldTotal": 478403536,
+  "newTotal": 299710144,
+  "oldMax": 37097,
+  "newMax": 19200,
+  "digest": "a4d2b3f6ac36e4b81e4c8ac6dae0827fe8e148b63bbc04db9d05b101c70eb6c0",
+  "rom_sha256": [
+    "6038f7a8d0f644254122cd567c48fac4fc3b8b6b36d8ac1842f3a2691580c0ed",
+    "b5f9da2b5461574c6c09bc06387eeaa08ae304caeefc96f4ffce1b7c2c58349b"
+  ],
+  "coverage": "16 selected heights 1,2,7,8,9,15,16,17,31,32,63,64,65,127,143,144; actual eight-row production wrapper and restoration to slot1=1/slot2=2, ten materials, both sides, eight exact offset bit classes, all eight tile rows, both spatial phases, mixed near/far halves, negative clipped tops, 32-byte outputs and guard/stack checks. Low-five offset bits are unused by both compiled addressing paths; host algebra covers all 256 offset bytes."
+}

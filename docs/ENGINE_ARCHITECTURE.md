@@ -1,5 +1,7 @@
 # Current engine architecture
 
+> **ZV-01 engineering closure — 2026-11-16.** The nine-byte type/token actor, both-species tables, sixteen near entries and incoming-page mapper scopes are integrated and technically qualified on the pinned candidate. Astra accepted ZV-01 following technical review and the owner's successful full gameplay on physical Sega Game Gear. See the [acceptance review](development/2026-11-16-zombie-variants/ASTRA_ACCEPTANCE_REVIEW.md) for the reported scope. See the [consolidated report](development/2026-11-16-zombie-variants/IMPLEMENTATION_REPORT.md).
+
 This page owns module/dataflow/cache contracts. Gameplay is defined in [CURRENT_BEHAVIOR](CURRENT_BEHAVIOR.md), hardware placement in [ROM_BANKING](ROM_BANKING.md), and timing evidence in [PERFORMANCE_BASELINE](PERFORMANCE_BASELINE.md). Dated architecture experiments are indexed in [HISTORY](HISTORY.md).
 
 ## Module ownership
@@ -44,7 +46,7 @@ Ray output reuse requires valid cached output plus identical position X/Y, direc
 
 ## Renderer stages and lifetimes
 
-The viewport is 14 x 8 tiles (112 x 64 pixels) fed by 28 four-pixel wall rays. Dirty columns build exact native plans from generated source-row schedules and palette columns, preserving near/ordered-attenuation/fog behavior. The Bank 3 native worker emits four-plane rows under a bounded slot 2 page 3 scope; page 2 is restored before sprites or public return. Two 51-byte plans are temporary caller state.
+The viewport is 14 x 8 tiles (112 x 64 pixels) fed by 28 four-pixel wall rays. Dirty columns build exact native plans from generated source-row schedules and palette columns, preserving near/ordered-attenuation/fog behavior. The Bank 3 native worker emits four-plane rows under a bounded slot 2 page 3 scope; the actual incoming page (2 or4) is restored before compositing continues. The outer near scope maps page 4 once and restores its entry page; normal public gameplay returns on page 2. Two 51-byte plans reside in renderer-owned RAM.
 
 Projection snapshots camera invariants once and passes scalar values to per-entity projection. Up to nine projected entries represent eight actor slots plus the independent pickup. Cost budget 12 selects visible work deterministically by depth/centre/width, then stable far-to-near ordering preserves overlap. Offscreen actors remain in simulation. Invisible fields are not read unnecessarily.
 

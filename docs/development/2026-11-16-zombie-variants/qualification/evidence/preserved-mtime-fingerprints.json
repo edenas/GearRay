@@ -1,0 +1,35 @@
+{
+  "source_root": "D:\\mano_projektai\\GearRay\\build\\zv01-luna\\canonical-source",
+  "candidate_sha256": "b5f9da2b5461574c6c09bc06387eeaa08ae304caeefc96f4ffce1b7c2c58349b",
+  "cases": [
+    {
+      "input": "assets/sprites/enemies/zombie/zombie_02_standing_32x32.png",
+      "original_sha256": "c331fddf2a0e625c0596467118887945b49ac87e04e374b57b19c861da31a9c7",
+      "mutated_sha256": "d917a109682f54d8369bef6da822316d3c12b302f53db2bd6384a3da613da708",
+      "preserved_bytes": 2919,
+      "preserved_mtime_ns": 1792793275832436300,
+      "fingerprint_before_sha256": "7056d2b70c92ddf1100957df4f3d439e08224fc7aed74000aed70b464d56c04d",
+      "fingerprint_mutated_sha256": "ddc4b16c6ac9b88a223bf7c724af5c91723c18cbe225980551e24fa977e8feaf",
+      "fingerprint_restored_sha256": "7056d2b70c92ddf1100957df4f3d439e08224fc7aed74000aed70b464d56c04d",
+      "generated_output": "build/release/generated/zombie_visuals_assets.c",
+      "generated_output_mtime_refreshed": true,
+      "restored_rom_sha256": "b5f9da2b5461574c6c09bc06387eeaa08ae304caeefc96f4ffce1b7c2c58349b",
+      "restored_build_output_log": "D:\\mano_projektai\\GearRay\\docs\\development\\2026-11-16-zombie-variants\\qualification\\evidence\\preserved-mtime-1-restore-build.log"
+    },
+    {
+      "input": "assets/sprites/weapons/shotgun_held.png",
+      "original_sha256": "783e345527752eef2ae815331494a85efd395ea088fa0e356a81fd4a5babbfaf",
+      "mutated_sha256": "96566ed75f598008bcac13316c3cc9985e5d37c2ce0f3ebd99d51683839648fb",
+      "preserved_bytes": 342,
+      "preserved_mtime_ns": 1794834270491170600,
+      "fingerprint_before_sha256": "7056d2b70c92ddf1100957df4f3d439e08224fc7aed74000aed70b464d56c04d",
+      "fingerprint_mutated_sha256": "d9c73a5f113d8b1004d1f90c6f04afeed5ae64dcf13f932907f03a8bbb06c280",
+      "fingerprint_restored_sha256": "7056d2b70c92ddf1100957df4f3d439e08224fc7aed74000aed70b464d56c04d",
+      "generated_output": "build/release/generated/shotgun_held.c",
+      "generated_output_mtime_refreshed": true,
+      "restored_rom_sha256": "b5f9da2b5461574c6c09bc06387eeaa08ae304caeefc96f4ffce1b7c2c58349b",
+      "restored_build_output_log": "D:\\mano_projektai\\GearRay\\docs\\development\\2026-11-16-zombie-variants\\qualification\\evidence\\preserved-mtime-2-restore-build.log"
+    }
+  ],
+  "status": "PASS"
+}

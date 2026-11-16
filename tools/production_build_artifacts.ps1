@@ -14,6 +14,8 @@ function Get-ProductionBuildRom([string]$BuildDirectory) {
 function Test-ProductionRomPayload([string]$BuildDirectory,[string]$RomPath) {
     $image=[IO.File]::ReadAllBytes($RomPath)
     $upper=0; $checked=0
+    $covered=[bool[]]::new($image.Length)
+    $virtualAtPhysical=[Collections.Generic.Dictionary[int,int]]::new()
     foreach($line in Get-Content -LiteralPath (Join-Path $BuildDirectory 'GearRay.ihx')) {
         if(!$line.StartsWith(':')) { continue }
         $count=[Convert]::ToInt32($line.Substring(1,2),16)
@@ -25,6 +27,12 @@ function Test-ProductionRomPayload([string]$BuildDirectory,[string]$RomPath) {
             for($i=0;$i -lt $count;++$i) {
                 $virtual=$upper+$address+$i
                 $physical=if($virtual -lt 65536){$virtual}else{($virtual -shr 16)*16384+($virtual -band 0x3fff)}
+                if($physical -ge $image.Length){throw "IHX address lies outside the ROM: 0x$($virtual.ToString('X'))"}
+                if($virtualAtPhysical.ContainsKey($physical) -and $virtualAtPhysical[$physical] -ne $virtual){
+                    throw "Distinct IHX virtual addresses alias physical ROM byte 0x$($physical.ToString('X'))"
+                }
+                $virtualAtPhysical[$physical]=$virtual
+                $covered[$physical]=$true
                 if($physical -in @(0x7ffa,0x7ffb)) {continue} # makesms checksum owns these bytes.
                 $expected=[Convert]::ToInt32($line.Substring(9+2*$i,2),16)
                 if($physical -ge $image.Length -or $image[$physical] -ne $expected) { throw "IHX/ROM payload mismatch at virtual 0x$($virtual.ToString('X')) / physical 0x$($physical.ToString('X'))" }
@@ -33,6 +41,17 @@ function Test-ProductionRomPayload([string]$BuildDirectory,[string]$RomPath) {
         }
     }
     Write-Output "- all $checked linked IHX payload bytes match the selected physical ROM (checksum pair excluded)"
+    # The pinned makesms -pm output zero-fills bytes not emitted by SDCC,
+    # including unused pages. A payload-only check cannot detect corruption
+    # there, and the project's checksum covers only the lower 32 KiB.
+    $padding=0
+    for($i=0;$i -lt $image.Length;++$i){
+        if(!$covered[$i]){
+            if($image[$i] -ne 0){throw "Unexpected unused ROM fill at physical 0x$($i.ToString('X')): expected pinned makesms zero-fill"}
+            ++$padding
+        }
+    }
+    Write-Output "- $padding unused ROM bytes retain pinned makesms zero-fill; no physical aliases"
 }
 
 function Get-ProductionBuildObjects([string]$BuildDirectory) {

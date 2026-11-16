@@ -11,6 +11,7 @@ unsigned char world_get_tile(unsigned char x, unsigned char y)
     {
         unsigned char tile_id = workshop_map_get_tile(x, y);
         return (tile_id == WORLD_TILE_SPRITE_MARKER
+                || tile_id == WORLD_TILE_SCIENTIST_MARKER
                 || tile_id == WORLD_TILE_SHOTGUN_MARKER)
             ? WORLD_TILE_EMPTY
             : tile_id;

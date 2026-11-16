@@ -191,3 +191,13 @@ Makefile
 !/assets/ui/health_hud.png
 !/assets/ui/health_hud_1.png
 !/assets/ui/health_hud_reference.png
+
+# Owner-authored ZV-01 editor originals, retained with the accepted artwork
+!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_corps_32x32.png
+!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_walking_01_32x32.png
+!/assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_walking_02_32x32.png
+!/assets/sprites/weapons/Corel Auto-Preserve/shotgun_held.png
+!/assets/sprites/weapons/Corel Auto-Preserve/shotgun_held_shoot.png
+
+# Local post-push receipt (the commit cannot contain its own identifier)
+/docs/development/2026-11-16-zombie-variants/publication-receipt.json

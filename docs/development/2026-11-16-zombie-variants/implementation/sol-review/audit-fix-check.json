@@ -1,0 +1,57 @@
+{
+  "status": "PASS",
+  "candidate_banks": [
+    {
+      "Bank": 0,
+      "Used": 12889,
+      "Free": 3495
+    },
+    {
+      "Bank": 1,
+      "Used": 16324,
+      "Free": 44
+    },
+    {
+      "Bank": 2,
+      "Used": 8139,
+      "Free": 8245
+    },
+    {
+      "Bank": 3,
+      "Used": 12756,
+      "Free": 3628
+    },
+    {
+      "Bank": 4,
+      "Used": 8224,
+      "Free": 8160
+    }
+  ],
+  "legacy_banks": [
+    {
+      "Bank": 0,
+      "Used": 12865,
+      "Free": 3519
+    },
+    {
+      "Bank": 1,
+      "Used": 14217,
+      "Free": 2151
+    },
+    {
+      "Bank": 2,
+      "Used": 11737,
+      "Free": 4647
+    },
+    {
+      "Bank": 3,
+      "Used": 12756,
+      "Free": 3628
+    }
+  ],
+  "old_candidate_incomplete_extent_sum": 50108,
+  "corrected_candidate_extent_sum": 58332,
+  "legacy_extent_sum": 51575,
+  "runtime_rom_changed": false,
+  "validators_rerun": false
+}

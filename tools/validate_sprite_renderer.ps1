@@ -835,7 +835,19 @@ $walking01GeneratedSource = Get-Content (
 $walking02GeneratedSource = Get-Content (
     Join-Path $repositoryPath "$BuildDirectory\generated\zombie_01_walking_02_texture.c") -Raw
 $lodTextureSources = $projectionSource + $walking01GeneratedSource +
-    $walking02GeneratedSource
+    $walking02GeneratedSource + (Get-Content (
+        Join-Path $repositoryPath "$BuildDirectory\generated\zombie_visuals_assets.c") -Raw) +
+    (Get-Content (Join-Path $repositoryPath `
+        'docs\development\2026-11-16-zombie-variants\implementation\security-lod-reference.c') -Raw)
+foreach ($species in @('security','scientist')) {
+    foreach ($pose in @('standing','walking_01','walking_02','shot_01','shot_02','shot_dead','corps')) {
+        $lodSource = Join-Path $repositoryPath `
+            "$BuildDirectory\generated\zombie_${species}_${pose}_8x8.c"
+        if (Test-Path -LiteralPath $lodSource) {
+            $lodTextureSources += Get-Content -LiteralPath $lodSource -Raw
+        }
+    }
+}
 $projectionHeader = Get-Content (
     Join-Path $repositoryPath "platform\game_gear\sprite_projection.h") -Raw
 $mainSource = Get-Content (Join-Path $repositoryPath "game\main.c") -Raw
@@ -852,22 +864,24 @@ $linkerMap = Get-Content $linkerMapPath -Raw
 Assert-True ($worldSpriteAssembly -match
     "_world_sprites:\s*[\r\n]+\s*\.ds\s+72(?:\D|$)") `
     "WorldSprite storage is not exactly 8 sprites * 9 bytes."
-foreach ($walkingSymbol in @(
-    '_zombie_01_walking_01_pixels',
-    '_zombie_01_walking_01_pixels_med',
-    '_zombie_01_walking_01_pixels_sim',
-    '_zombie_01_walking_02_pixels',
-    '_zombie_01_walking_02_pixels_med',
-    '_zombie_01_walking_02_pixels_sim')) {
-    $mapSymbol = [regex]::Match(
+foreach ($walkingPrefix in @(
+    '_zombie_security_walking_01_pixe',
+    '_zombie_security_walking_02_pixe',
+    '_zombie_scientist_walking_01_pix',
+    '_zombie_scientist_walking_02_pix')) {
+    # SDCC's map truncates long symbol display names to 31 columns. The source
+    # table/asset validator checks exact full symbol identities and payloads.
+    $mapSymbols = [regex]::Matches(
         $linkerMap,
         "(?m)^\s*(?<address>[0-9A-Fa-f]{8})\s+" +
-        [regex]::Escape($walkingSymbol) + "(?:\s|$)")
-    Assert-True $mapSymbol.Success `
-        "Walking linker symbol $walkingSymbol is missing."
-    $address = [Convert]::ToInt32($mapSymbol.Groups['address'].Value, 16)
-    Assert-True ($address -ge 0x14000 -and $address -lt 0x18000) `
-        "Walking linker symbol $walkingSymbol escaped BANK1."
+        [regex]::Escape($walkingPrefix) + "\s+zombie_visuals_assets\s*$")
+    Assert-True ($mapSymbols.Count -eq 3) `
+        "Expected base/medium/simple walking payloads for $walkingPrefix."
+    foreach ($mapSymbol in $mapSymbols) {
+        $address = [Convert]::ToInt32($mapSymbol.Groups['address'].Value, 16)
+        Assert-True ($address -ge 0x14000 -and $address -lt 0x18000) `
+            "Walking linker payload $walkingPrefix escaped BANK1."
+    }
 }
 
 Assert-True ($raycasterSource -match
@@ -1109,18 +1123,19 @@ Assert-True ($projectionSource -match
     "if\s*\(\s*first_ray\s*>\s*last_ray\s*\)[\s\S]*?return\s*;") `
     "Production projection does not safely reject fully occluded sprites."
 Assert-True ($projectionSource -match
-    "projected->pixels\s*=\s*sprite->pixels\s*;" -and
+    "zombie_visual_base\[sprite->visual_type\]\[sprite->animation_token\]" -and
     $projectionSource -match
     "projected_height\s*<\s*SPRITE_MEDIUM_LOD_MIN_HEIGHT[\s\S]*?" +
-    "zombie_corpse_lod_pixels[\s\S]*?game_gear_get_zombie_lod_pixels\(sprite,\s*0\)\s*;" -and
+    "zombie_visual_lod_simple\[sprite->visual_type\]\[ZOMBIE_ANIMATION_CORPSE\][\s\S]*?" +
+    "game_gear_get_zombie_lod_pixels\(sprite,\s*0\)\s*;" -and
     $projectionSource -match
     "projected_height\s*<\s*SPRITE_FULL_DETAIL_MIN_HEIGHT[\s\S]*?" +
-    "zombie_corpse_lod_pixels[\s\S]*?game_gear_get_zombie_lod_pixels\(sprite,\s*1\)\s*;") `
+    "zombie_visual_lod_simple\[sprite->visual_type\]\[ZOMBIE_ANIMATION_CORPSE\][\s\S]*?" +
+    "game_gear_get_zombie_lod_pixels\(sprite,\s*1\)\s*;") `
     "Production projection does not select the approved LOD textures."
 Assert-True ($projectionSource -match
-    "zombie_corpse_lod_pixels\[32\]" -and
-    $projectionSource -notmatch "zombie_corpse_very_far_lod_pixels" -and
-    $projectionSource -match "projected->pixels == zombie_corpse_lod_pixels[\s\S]*?return 1" -and
+    "zombie_visual_lod_simple\[ZOMBIE_VISUAL_SECURITY\]\[ZOMBIE_ANIMATION_CORPSE\]" -and
+    $projectionSource -match "zombie_visual_lod_simple\[ZOMBIE_VISUAL_SCIENTIST\]\[ZOMBIE_ANIMATION_CORPSE\][\s\S]*?return 1" -and
     $projectionSource -match
     "projected_height\s*>=\s*SPRITE_FULL_DETAIL_MIN_HEIGHT[\s\S]*?return\s*5\s*;") `
     "Obsolete corpse render-cost exception remains or normal cost changed."
@@ -1149,10 +1164,14 @@ function Get-PackedLodIndices([string]$Name) {
     })
 }
 function Get-LodTextureName([string]$Pose, [string]$Lod) {
-    if ($Pose -eq 'walking_01' -or $Pose -eq 'walking_02') {
-        return "zombie_01_${Pose}_pixels_${Lod}_lod"
+    switch ($Pose) {
+        'standing' { return "zombie_standing_${Lod}_lod_pixels" }
+        'walking_01' { return "zombie_security_walking_01_pixels_${Lod}_lod" }
+        'walking_02' { return "zombie_security_walking_02_pixels_${Lod}_lod" }
+        'shot_01' { return "zombie_shot_01_${Lod}_lod_pixels" }
+        'shot_02' { return "zombie_shot_02_${Lod}_lod_pixels" }
+        'shot_dead' { return "zombie_shot_dead_${Lod}_lod_pixels" }
     }
-    return "zombie_${Pose}_${Lod}_lod_pixels"
 }
 $lodPatterns = @{}
 foreach ($pose in @("standing", "walking_01", "walking_02", "shot_01", "shot_02", "shot_dead")) {
@@ -1205,12 +1224,14 @@ foreach ($lod in @("medium", "simple")) {
 Assert-True ($projectionSource -match
     "sprite->state_timer\s*!=\s*0[\s\S]*?" +
     "sprite->health_and_hit_count\s*>>\s*ZOMBIE_HIT_COUNT_SHIFT" +
-    "[\s\S]*?&\s*1U\s*\?\s*1\s*:\s*2") `
+    "[\s\S]*?&\s*1U\s*\?\s*ZOMBIE_ANIMATION_SHOT_01\s*:\s*ZOMBIE_ANIMATION_SHOT_02") `
     "Production LOD pose selection is not driven by active hit parity."
 Assert-True ($projectionSource -match
-    "sprite->pixels\s*==\s*zombie_01_walking_01_pixels[\s\S]*?\?\s*4" -and
+    "sprite->animation_token\s*==\s*ZOMBIE_ANIMATION_WALKING_01" -and
     $projectionSource -match
-    "sprite->pixels\s*==\s*zombie_01_walking_02_pixels\s*\?\s*5\s*:\s*0") `
+    "sprite->animation_token\s*==\s*ZOMBIE_ANIMATION_WALKING_02" -and
+    $projectionSource -match
+    "zombie_visual_lod_medium\[sprite->visual_type\]\[token\]") `
     "Walking phase is not preserved independently through LOD selection."
 foreach ($lod in @("medium", "simple")) {
     Assert-True ($lodPatterns[(Get-LodTextureName 'walking_01' $lod)] -ne

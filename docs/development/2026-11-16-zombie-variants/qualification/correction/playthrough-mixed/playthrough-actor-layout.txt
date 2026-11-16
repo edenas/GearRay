@@ -1,0 +1,1 @@
+visual-type-animation-v1; current candidate only; original movement/fire/pickup/pause/restart predicates retained

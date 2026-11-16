@@ -1,0 +1,43 @@
+{
+  "status": "PASS",
+  "all_assets_unchanged": 122,
+  "protected_paths_unchanged": 141,
+  "quarantine_pngs": 18,
+  "unchanged_runtime_and_observer_files": [
+    "engine/render/raycaster.c",
+    "game/camera.c",
+    "platform/game_gear/native_wall.c",
+    "platform/game_gear/vram_layout.h",
+    "tools/performance/PerfRunner.java",
+    "tools/performance/abi_cleanup.json",
+    "game/zombie_corpses.c",
+    "game/zombie_shooting.c",
+    "game/player.c",
+    "game/door_states.c"
+  ],
+  "protected_optimization_body_sha256": {
+    "game_gear_overlay_sprite_tile": "9021c383909d631a26de6d9d8611cacfe80d08e388ca83ccd65b7ff579b7a9cc",
+    "game_gear_wall_column_is_unchanged": "c5c5c342afe896fcdf93e6f25b2e1a9353583d47c78322ae117b186d7f4ad16b",
+    "preparation_key_matches": "abb93dbef775b93c324034d67597786518c1624714280654b2eeb50e18935eff",
+    "preparation_store_key": "93c01d4fee88e8776ba200a2877289bea87af779c00ebca560d320c2edb7d3e8",
+    "game_gear_prepare_cached_world_sprites": "78fc5d399461ce91cd0fc91fd7f4ac42e9f9798aacc2e6918e1eb4589db8f073",
+    "game_gear_prepare_world_sprites": "319917c4dd326a234ea1368027152469009af4b64b75afac60eed4dbe4d99d37"
+  },
+  "guarded_offset_mask_preserved": true,
+  "unchanged_pinned_tool_sha256": {
+    "D:\\Emulicious-with-Java64\\Emulicious.jar": "db185a1ed0af3bdab5ebdeb254612d02d3848bac155dbc89333d1b04e21c371d",
+    "D:\\Tools\\devkitSMS\\SMSlib\\SMSlib_GG.lib": "e08252918ae80e8ee737e3d68d2237268ae6a27eda3fc4b79d29a2111f0d3f43",
+    "D:\\Tools\\devkitSMS\\crt0\\crt0_sms.rel": "3bc7bbedf2e6f150d2c13d2e10857813d1ece9d348b814de2a1119f34c473b24",
+    "D:\\Tools\\devkitSMS\\makesms\\Windows\\makesms.exe": "0b884a5c38d6b88aa1cd29537adff4d04d1e95becbb1f0b9f12f3bfa6105a59b",
+    "C:\\Program Files\\SDCC\\bin\\sdcc.EXE": "843272575aeae50e0cde8b3ac64bca1386755252d5b12cbb37cfa33f513ffeae",
+    "C:\\Program Files\\CMake\\bin\\cmake.EXE": "e7698092d9e01ef38a2e41e564033824f808c33a92dbc002736e8224187a780f",
+    "C:\\Users\\edena\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Ninja-build.Ninja_Microsoft.Winget.Source_8wekyb3d8bbwe\\ninja.EXE": "e52a7ad9538d9618c67a0bd777964e2eec8a30f68b810a2f6adce1f2daf847b8",
+    "C:\\Users\\edena\\AppData\\Local\\Programs\\Python\\Python312\\python.exe": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+    "D:\\Emulicious-with-Java64\\java\\bin\\java.exe": "271f0bcfe6db1b8c86cd4d63bd7685d9178f8e6cd215e37e1dfb9938fc686b4f",
+    "D:\\Emulicious-with-Java64\\java\\bin\\server\\jvm.dll": "44cf8c3d55eb3319c93e37ba0b9209fb19043353384f543b567d01de720ba4ec",
+    "D:\\Emulicious-with-Java64\\java\\lib\\rt.jar": "4cb8c181271324b176663eec241b809d4e59f56092138927a59e68e34d5adcf0",
+    "D:\\mano_projektai\\GearRay\\tools\\.cache\\performance\\ecj-3.26.0.jar": "ac0ba5876eaf7ebb47749a0d1be179c51f194b9dd0b875d1c09e1b530f5a2db5"
+  },
+  "historical_and_canonical_rom_unchanged": true,
+  "no_commit_push_publication": true
+}

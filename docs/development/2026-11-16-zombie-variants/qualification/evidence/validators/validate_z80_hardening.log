@@ -1,0 +1,7 @@
+Z80 hardening equivalence PASS
+- hit offset: 67174400 exact modular cases
+- movement: 1323 exact bounded cases
+- world bounds/VOID/door semantics: 131072 cases
+- nearest/wall rejection truth table: 277400 cases; production ordering verified
+- invisible projection exits/comparison/order: 256 sentinel cases; source and generated ordering verified
+- generated hit/movement/diagonal helper contracts verified

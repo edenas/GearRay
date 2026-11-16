@@ -31,9 +31,14 @@ public const int GAME_GEAR_VIEWPORT_PIXEL_WIDTH=112,GAME_GEAR_VIEWPORT_PIXEL_HEI
 public const int SPRITE_MEDIUM_LOD_MIN_HEIGHT=15,SPRITE_SIMPLE_LOD_MIN_HEIGHT=13,SPRITE_FULL_DETAIL_MIN_HEIGHT=17;
 public const int SPRITE_NEAR_DETAIL_MAX_DISTANCE=392,SPRITE_MIDDLE_DETAIL_MAX_DISTANCE=616;
 public const int ZOMBIE_8X8_MAX_PROJECTED_HEIGHT=32,SPRITE_HORIZONTAL_PROJECTION_SCALE=80,NEAR_ZOMBIE_TEXTURE_NONE=255;
+public const int ZOMBIE_VISUAL_TYPE_COUNT=2,ZOMBIE_ANIMATION_STANDING=0,ZOMBIE_ANIMATION_WALKING_01=1,ZOMBIE_ANIMATION_WALKING_02=2,ZOMBIE_ANIMATION_SHOT_01=3,ZOMBIE_ANIMATION_SHOT_02=4,ZOMBIE_ANIMATION_SHOT_DEAD=5,ZOMBIE_ANIMATION_CORPSE=6,ZOMBIE_ANIMATION_COUNT=7,ZOMBIE_PRESENTATION_STANDING=0,ZOMBIE_PRESENTATION_WALKING_01=1,ZOMBIE_PRESENTATION_WALKING_02=2,ZOMBIE_PRESENTATION_SHOT=3,ZOMBIE_PRESENTATION_DEAD=4,ZOMBIE_PRESENTATION_CORPSE=5,ZOMBIE_PRESENTATION_STANDING_ATTACK=6,ZOMBIE_PRESENTATION_ATTACK_01=7,ZOMBIE_PRESENTATION_ATTACK_02=8,NEAR_ZOMBIE_TEXTURE_STANDING=0,NEAR_ZOMBIE_TEXTURE_WALKING_01=1,NEAR_ZOMBIE_TEXTURE_WALKING_02=2,NEAR_ZOMBIE_TEXTURE_STANDING_ATTACK=3,NEAR_ZOMBIE_TEXTURE_ATTACK_01=4,NEAR_ZOMBIE_TEXTURE_ATTACK_02=5,NEAR_ZOMBIE_TEXTURE_SHOT_01=6,NEAR_ZOMBIE_TEXTURE_CORPSE=7,NEAR_ZOMBIE_TEXTURES_PER_TYPE=8;
 public const int shotgun_far_pixels=101,shotgun_world_pixels=102,zombie_corpse_lod_pixels=103;
 public static int shotgun_cell_x=11,shotgun_cell_y=6,CX,CY;
-public class WorldSprite {public int world_x,world_y,pixels,state;}
+public static int[][] zombie_visual_base=new int[][]{new int[7],new int[7]};
+public static int[][] zombie_visual_middle=new int[][]{new int[9],new int[9]};
+public static int[][] zombie_visual_lod_medium=new int[][]{new int[7],new int[7]};
+public static int[][] zombie_visual_lod_simple=new int[][]{new int[7],new int[7]};
+public class WorldSprite {public int world_x,world_y,visual_type,animation_token,state;}
 public class GameGearProjectedSprite {public int visible,left,right,top,bottom,depth,texture_step,pixels,near_texture_id,source_size;}
 public class RaycasterRay {public int wall_distance;}
 public static RaycasterRay[] Rays=new RaycasterRay[28];
@@ -44,8 +49,7 @@ public static RaycasterRay[] raycaster_get_rendered_rays(){return Rays;}
 public static int zombie_distance_metric(int x,int y){throw new Exception("Pickup queried zombie distance");}
 public static int game_gear_get_zombie_presentation_pose(WorldSprite s,int d){throw new Exception("Pickup queried zombie pose");}
 public static int game_gear_get_zombie_lod_pixels(WorldSprite s,int m){throw new Exception("Pickup queried zombie LOD");}
-public static int game_gear_get_near_zombie_texture_id(int p){throw new Exception("Pickup queried zombie near asset");}
-public static int game_gear_get_middle_zombie_pixels(int p){throw new Exception("Pickup queried zombie middle asset");}
+public static int game_gear_get_near_zombie_texture_id(int t,int p){throw new Exception("Pickup queried zombie near asset");}
 public static GameGearProjectedSprite Test(int x,int depth,int wall){
  CX=(shotgun_cell_x<<8)+128-x; CY=(shotgun_cell_y<<8)+128+depth;
  for(int i=0;i<28;i++)Rays[i]=new RaycasterRay{wall_distance=wall};
@@ -278,7 +282,7 @@ Require ($video -match 'if \(SHOTGUN_PICKUP_PRESENT\) \+\+projected_sprite_count
 $header=Get-Content "$root/game/world_sprite.h" -Raw
 Require ($header -match '#define WORLD_SPRITE_MAX_COUNT 8') 'Eight zombie slots remain available'
 $world=Get-Content "$root/game/world.c" -Raw
-Require ($world -match 'tile_id == WORLD_TILE_SPRITE_MARKER\s*\|\| tile_id == WORLD_TILE_SHOTGUN_MARKER\)\s*\? WORLD_TILE_EMPTY') 'G and Z both preserve EMPTY geometry'
+Require ($world -match 'tile_id == WORLD_TILE_SPRITE_MARKER\s*\|\| tile_id == WORLD_TILE_SCIENTIST_MARKER\s*\|\| tile_id == WORLD_TILE_SHOTGUN_MARKER\)\s*\? WORLD_TILE_EMPTY') 'Security, scientist and G markers both preserve EMPTY geometry'
 $init=Get-Content "$root/game/world_initialization.c" -Raw
 Require ($init -match 'owned_weapons = WEAPON_OWNED_PISTOL;' -and $init -match 'selected_weapon = WEAPON_PISTOL;' -and $init -match 'tile == WORLD_TILE_SHOTGUN_MARKER[\s\S]*?shotgun_cell_x = x;[\s\S]*?shotgun_cell_y = y;') 'Ownership and authored marker initialization'
 $main=Get-Content "$root/game/main.c" -Raw

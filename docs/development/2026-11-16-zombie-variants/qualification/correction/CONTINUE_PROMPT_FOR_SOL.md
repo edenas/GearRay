@@ -1,0 +1,17 @@
+# CONTINUE — Sol engineering closure after Luna correction return
+
+Action: CONTINUE
+Recipient: Sol — separate owner-operated chat; owner transfers manually.
+Project: `D:\mano_projektai\GearRay`
+Block: ZV-01 engineering closure.
+
+Read `AGENTS.md`, `docs/WORK_RULES.md`, `docs/development/2026-11-16-zombie-variants/IMPLEMENTATION_REPORT.md`, `docs/development/2026-11-16-zombie-variants/LUNA_QUALIFICATION_CORRECTION.md`, and `docs/development/2026-11-16-zombie-variants/qualification/correction/LUNA_CORRECTION_REPORT.md`.
+
+Continue engineering ownership of the exact pinned candidate:
+`rom/GearRay.gg`, 131072 bytes, SHA-256 `B5F9DA2B5461574C6C09BC06387EEAA08AE304CAEEFC96F4FFCE1B7C2C58349B`.
+
+Preserve your verified repairs, Luna's authored assets, accepted optimizations, prior passing evidence, and the fresh 11/11 compiled playthrough. Do not rebuild or modify production merely to make the failed oracle pass. First diagnose the reproducible current-art matrix harness mismatch in `qualification/correction/current_art_matrix.py` against your passing `implementation/sol-review/current_art_scalar_smoke.py`; the runner returns with guards/SP/page intact but produces no changed tile in its first case, while the reference helper passes on the same ROM. Correct the harness/call contract without weakening the independent assertions; if evidence instead shows a candidate defect, repair only within ZV-01 authority, pin the new artifact identity, and rerun affected qualification.
+
+Then close the remaining bounded technical criteria from `LUNA_QUALIFICATION_CORRECTION.md`: broad independent current-art/tier/selector/compositing and shotgun oracle; valid type-permutation and actor lifecycle matrix; review the passing focused near-page4/nested native-page3 IRQ probe in `qualification/correction/mapper-irq-probe.json` (18 and 6 accepted IRQs respectively, white-pixel witness, native output, page/SP restoration and guards); explicitly record that no project-produced NMI path was found and this emulator setup does not expose NMI injection; make no claim about external-pin or physical safety; review the performance attribution already recorded in the correction report; use retained profiles first and run only measurements needed for any remaining material risk. Include camera/pause/restart page paths. Retain the full current playthrough evidence and do not repeat unrelated 202068-case/validator campaigns. No invented tolerance, weakened assertions, or #03000F alias.
+
+Treat the linked correction report as an honest partial qualification return, not Astra acceptance. The 8-case lifecycle spot matrix and retained-profile attribution are useful evidence, not full lifecycle closure; mixed/near/weapon traces have no same-condition old-art counterfactual and no tolerance is approved. Preserve its failed-harness record and separate the still-pending owner visual/feel review and physical hardware acceptance. Update the existing docs/README.md project entry and consolidated implementation report when engineering closure is complete. Do not dispatch/poll/message another role or publish. Return one complete consolidated engineering result and a copy-ready next prompt for the owner to transfer manually to Astra only after technical closure; stop at that manual-transfer boundary. No internal agents, automatic dispatch, inter-role messaging, chat polling, commit, push, tag or publication.

@@ -1,0 +1,6 @@
+Ray-direction rebuild equivalence PASS
+- reachable camera bases: 242
+- rays per basis: 28
+- compared components: 13552
+- maximum absolute product: 30082
+- physical texture faces: north, south, west and east

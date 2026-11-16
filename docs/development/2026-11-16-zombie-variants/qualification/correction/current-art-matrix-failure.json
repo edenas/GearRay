@@ -1,0 +1,28 @@
+{
+  "status": "FAIL_HARNESS_ASSERTION",
+  "candidate": "rom/GearRay.gg",
+  "candidate_bytes": 131072,
+  "candidate_sha256": "B5F9DA2B5461574C6C09BC06387EEAA08AE304CAEEFC96F4FFCE1B7C2C58349B",
+  "command": "py -3.12 docs/development/2026-11-16-zombie-variants/qualification/correction/current_art_matrix.py --build build/release --rom rom/GearRay.gg --output docs/development/2026-11-16-zombie-variants/qualification/correction/current-art-matrix.json",
+  "failure": "AssertionError in overlay_tile at line 208: actual tile stayed equal to seeded destination, but independent scalar expected authored source pixels",
+  "first_case": "known-near-smoke-path",
+  "first_call_cycles": 10343,
+  "stack_at_return": "0xDF08 (expected)",
+  "mapped_page_at_return": 4,
+  "guards": "unchanged",
+  "diagnostic_attempts": [
+    "Reproduced using near global ID 12, matching Sol's passing setup: source dimensions, projection bytes, ray bytes, tile arguments, stack and page return were checked.",
+    "Retried the same case using the validated page-4 source pointer directly (global ID bypassed); destination still remained unchanged.",
+    "Reran Sol's unchanged six-case reference harness on the same candidate; it passed all six cases.",
+    "Retried with explicit AF/DE register initialization, deterministic initial page2=2 and IRQ enabled; the first matrix tile still returned unchanged (10343 CPU cycles, no captured IRQ during that call).",
+    "Reordered the first near draw ahead of pointer/payload reads and removed redundant pre-setting of PC; the same first-case mismatch remained."
+  ],
+  "disposition": "Harness/call/setup discrepancy remains unresolved. This result does not prove a ROM/compositor defect. Do not claim current-art matrix pass; diagnose the harness before expanding it.",
+  "no_candidate_or_authored_asset_bytes_changed": true,
+  "follow_up_evidence": {
+    "mapper_irq_probe": "PASS 18 captured IRQs on page4 with the same authored near white witness and 6 IRQs on nested page3; proves the individual near path works in the independent runner but does not close the matrix adapter mismatch.",
+    "same_candidate_compiled_near_white_witness": "PASS across 20 near-page4 calls with actual IRQ acceptance; this does not close the broad art matrix",
+    "same_candidate_reference_helper": "PASS 6/6 in smoke-rerun-2.json",
+    "interpretation": "The expanded matrix setup remains discrepant; the standalone oracle and IRQ probe disprove a blanket claim that the candidate near compositor cannot draw this witness."
+  }
+}

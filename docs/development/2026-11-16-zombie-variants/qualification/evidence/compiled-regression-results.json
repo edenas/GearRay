@@ -1,0 +1,71 @@
+{
+  "candidate_sha256": "B5F9DA2B5461574C6C09BC06387EEAA08AE304CAEEFC96F4FFCE1B7C2C58349B",
+  "total_scenarios": 202068,
+  "cases": [
+    {
+      "test": "wall",
+      "result": "PASS",
+      "scenarios": 168960,
+      "mismatches": 0,
+      "result_file": "docs/development/2026-11-16-zombie-variants/qualification/evidence/regression-wall/selected-final-wall-bank3-compiled-oracle.json",
+      "candidate_sha256": "B5F9DA2B5461574C6C09BC06387EEAA08AE304CAEEFC96F4FFCE1B7C2C58349B"
+    },
+    {
+      "test": "wrapper",
+      "result": "PASS",
+      "scenarios": 20480,
+      "mismatches": 0,
+      "result_file": "docs/development/2026-11-16-zombie-variants/qualification/evidence/regression-wrapper/selected-wall-wrapper-oracle.json",
+      "candidate_sha256": "B5F9DA2B5461574C6C09BC06387EEAA08AE304CAEEFC96F4FFCE1B7C2C58349B"
+    },
+    {
+      "test": "ray",
+      "result": "PASS",
+      "scenarios": 11616,
+      "mismatches": 0,
+      "result_file": "docs/development/2026-11-16-zombie-variants/qualification/evidence/regression-ray/selected-final-ray-equivalence.json",
+      "candidate_sha256": "B5F9DA2B5461574C6C09BC06387EEAA08AE304CAEEFC96F4FFCE1B7C2C58349B"
+    },
+    {
+      "test": "camera",
+      "result": "PASS",
+      "scenarios": 484,
+      "mismatches": 0,
+      "result_file": "docs/development/2026-11-16-zombie-variants/qualification/evidence/regression-camera/selected-camera-edge-replay.json",
+      "candidate_sha256": "B5F9DA2B5461574C6C09BC06387EEAA08AE304CAEEFC96F4FFCE1B7C2C58349B"
+    },
+    {
+      "test": "material",
+      "result": "PASS",
+      "scenarios": 242,
+      "mismatches": 0,
+      "result_file": "docs/development/2026-11-16-zombie-variants/qualification/evidence/regression-material/selected-final-material-ray-equivalence.json",
+      "candidate_sha256": "B5F9DA2B5461574C6C09BC06387EEAA08AE304CAEEFC96F4FFCE1B7C2C58349B"
+    },
+    {
+      "test": "prep",
+      "result": "PASS",
+      "scenarios": 226,
+      "mismatches": 0,
+      "result_file": "docs/development/2026-11-16-zombie-variants/qualification/evidence/regression-prep-v2/selected-projection-cache-oracle.json",
+      "candidate_sha256": "B5F9DA2B5461574C6C09BC06387EEAA08AE304CAEEFC96F4FFCE1B7C2C58349B"
+    },
+    {
+      "test": "transitions",
+      "result": "PASS",
+      "scenarios": 24,
+      "mismatches": 0,
+      "result_file": "docs/development/2026-11-16-zombie-variants/qualification/evidence/regression-transitions-v1/renderer-transitions.json",
+      "candidate_sha256": "B5F9DA2B5461574C6C09BC06387EEAA08AE304CAEEFC96F4FFCE1B7C2C58349B"
+    },
+    {
+      "test": "occlusion",
+      "result": "PASS",
+      "scenarios": 36,
+      "mismatches": 0,
+      "result_file": "docs/development/2026-11-16-zombie-variants/qualification/evidence/regression-occlusion-v1/occlusion-guard-matrix.json",
+      "candidate_sha256": "B5F9DA2B5461574C6C09BC06387EEAA08AE304CAEEFC96F4FFCE1B7C2C58349B"
+    }
+  ],
+  "mismatches": 0
+}

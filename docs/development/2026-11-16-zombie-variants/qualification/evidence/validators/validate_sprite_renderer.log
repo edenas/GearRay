@@ -1,0 +1,17 @@
+- corpse transition 392:AuthoredCorpse32:h41:body29:bottom65 -> 393:AuthoredCorpse16:h41:body26:bottom65
+- corpse transition 616:AuthoredCorpse16:h26:body17:bottom53 -> 617:AuthoredCorpse8:h26:body17:bottom53
+Sprite renderer validation PASS
+- ahead, viewport edges, behind-camera, near/far projection
+- partial/full strict-depth occlusion and floor anchoring
+- clipping bounds, startup order, old/new coverage cleanup
+- production wiring and 32-byte transparent packed texture
+- tile-local four-sprite model: candidate tests 16 -> 8; overlays 4 -> 1
+- sprite LOD: full >=17, medium 15..16, simple 13..14, hidden <=12
+- movement-phase walking silhouettes remain distinct at every living LOD
+- WorldSprite remains 9 bytes; all six walking arrays are in BANK1
+- corpse LOD: 32x32 <=392, 16x16 393..616, authored 8x8 through projected height 17
+- one pile texture mirrors living far geometry at 15px then 13px; shared far hide
+- exact wall-edge mapping: absolute screen X >> 2; wall wins ties
+- progressive four-pixel clipping, off-screen and LOD edge cases
+- horizontal rotation sweep: symmetric, monotonic 160-pixel projection
+- deterministic render-cost budget: 12 (full 5, medium 2, simple 1)

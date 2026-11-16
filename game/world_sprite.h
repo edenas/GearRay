@@ -2,6 +2,18 @@
 #define GEAR_RAY_WORLD_SPRITE_H
 
 #define WORLD_SPRITE_MAX_COUNT 8
+#define WORLD_SPRITE_LAYOUT_ID "visual-type-animation-v1"
+#define ZOMBIE_VISUAL_SECURITY 0
+#define ZOMBIE_VISUAL_SCIENTIST 1
+#define ZOMBIE_VISUAL_TYPE_COUNT 2
+#define ZOMBIE_ANIMATION_STANDING 0
+#define ZOMBIE_ANIMATION_WALKING_01 1
+#define ZOMBIE_ANIMATION_WALKING_02 2
+#define ZOMBIE_ANIMATION_SHOT_01 3
+#define ZOMBIE_ANIMATION_SHOT_02 4
+#define ZOMBIE_ANIMATION_SHOT_DEAD 5
+#define ZOMBIE_ANIMATION_CORPSE 6
+#define ZOMBIE_ANIMATION_COUNT 7
 #define ZOMBIE_MAX_HEALTH 12
 #define ZOMBIE_HEALTH_MASK 15
 #define ZOMBIE_HIT_COUNT_MASK 112
@@ -47,17 +59,35 @@ typedef struct
 {
     signed int world_x;
     signed int world_y;
-    const unsigned char *pixels;
+    unsigned char visual_type;
+    unsigned char animation_token;
     ZombieState state;
     unsigned char health_and_hit_count;
     unsigned char state_timer;
 } WorldSprite;
 
+/* Target ABI, not the wider int/enum ABI of a desktop C compiler. */
+#ifdef __SDCC
+#include <stddef.h>
+typedef char WorldSpriteSizeMustBeNine[(sizeof(WorldSprite) == 9) ? 1 : -1];
+typedef char WorldSpriteTypeOffsetMustBeFour[
+    (offsetof(WorldSprite, visual_type) == 4) ? 1 : -1];
+typedef char WorldSpriteAnimationOffsetMustBeFive[
+    (offsetof(WorldSprite, animation_token) == 5) ? 1 : -1];
+typedef char WorldSpriteStateOffsetMustBeSix[
+    (offsetof(WorldSprite, state) == 6) ? 1 : -1];
+typedef char WorldSpriteHealthOffsetMustBeSeven[
+    (offsetof(WorldSprite, health_and_hit_count) == 7) ? 1 : -1];
+typedef char WorldSpriteTimerOffsetMustBeEight[
+    (offsetof(WorldSprite, state_timer) == 8) ? 1 : -1];
+#endif
+
 #define WORLD_SPRITE_LIFE_STATE(sprite) \
     ((ZombieState)((sprite)->state & ZOMBIE_LIFE_STATE_MASK))
 
 void world_sprites_initialize(void);
-void world_sprite_initialize(unsigned char map_x, unsigned char map_y);
+void world_sprite_initialize(unsigned char map_x, unsigned char map_y,
+                             unsigned char visual_type);
 void world_sprites_update(void);
 void world_sprite_apply_damage(unsigned char sprite_index,
                                unsigned char damage);

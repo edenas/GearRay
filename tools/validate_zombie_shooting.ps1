@@ -118,15 +118,14 @@ Assert-True ($spriteSource -match
     ">>\s*ZOMBIE_HIT_COUNT_SHIFT" -and
     $spriteSource -match "\+\+hit_count" -and
     $spriteSource -match
-    "hit_count\s*&\s*1U[\s\S]*?" +
-    "zombie_01_shot_01_pixels[\s\S]*?zombie_01_shot_02_pixels") `
+    "animation_token\s*=\s*hit_count\s*&\s*1U[\s\S]*?ZOMBIE_ANIMATION_SHOT_01[\s\S]*?ZOMBIE_ANIMATION_SHOT_02") `
     "Health initialization or odd/even reaction selection is missing."
 Assert-True ($spriteSource -match
     "state_timer = ZOMBIE_HIT_REACTION_FRAME_COUNT" -and
     $spriteSource -match
     "sprite->state_timer == 0[\s\S]*?continue;[\s\S]*?" +
     "--sprite->state_timer;[\s\S]*?WORLD_SPRITE_LIFE_STATE\(sprite\) == ZOMBIE_STATE_SHOT_DEAD" +
-    "[\s\S]*?else\s*sprite->pixels = zombie_01_standing_pixels;") `
+    "[\s\S]*?else\s*sprite->animation_token = ZOMBIE_ANIMATION_STANDING;") `
     "Surviving hit reactions do not expire back to standing."
 Assert-True ($spriteSource -match "zombie_corpses_finalize\(sprite_index\)" -and
              $spriteSource -match

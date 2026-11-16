@@ -1,0 +1,33 @@
+{
+  "head": "e6d1e2346e3752c2fce9332c3fe59f6c2e31190e",
+  "rom_sha256": "b5f9da2b5461574c6c09bc06387eeaa08ae304caeefc96f4ffce1b7c2c58349b",
+  "runtime_assets_unchanged_since_sol_handoff": true,
+  "protected_originals": 141,
+  "reviewed_changes_since_handoff": [
+    "tools/maintenance/run_regression.py",
+    "docs/README.md"
+  ],
+  "failed_matrix_sha256": "18cd176d6be545eb26d377f60aee32fec064b124d43fa0e44439f3a5e617eb3a",
+  "retained_correction_files": {
+    "docs/development/2026-11-16-zombie-variants/qualification/correction/analyze_profile.py": "9c4a7729d6e103382387de3bfbf726ca744de0046e45254c96666d631c035bb3",
+    "docs/development/2026-11-16-zombie-variants/qualification/correction/CONTINUE_PROMPT_FOR_SOL.md": "83919573de1fce2485c5d4d00d4ac7ae7ff2aa819b0d48386948f91d27d2aeb9",
+    "docs/development/2026-11-16-zombie-variants/qualification/correction/current-art-matrix-failure.json": "2aa4f71c92186e5e5048ec750cf525353c8097a9adfaae4d30eab3d2feec3059",
+    "docs/development/2026-11-16-zombie-variants/qualification/correction/current_art_matrix.py": "18cd176d6be545eb26d377f60aee32fec064b124d43fa0e44439f3a5e617eb3a",
+    "docs/development/2026-11-16-zombie-variants/qualification/correction/lifecycle-matrix.json": "eb447eff397bf2379fdaccb0cf12967777080e35ad6132d6082f402e69827dfc",
+    "docs/development/2026-11-16-zombie-variants/qualification/correction/lifecycle_matrix.py": "a7cb6b25aafad0e5b756346c8012932c81ab7dbaf9088de4025f0b0608d5afa5",
+    "docs/development/2026-11-16-zombie-variants/qualification/correction/LUNA_CORRECTION_REPORT.md": "cc43e396202e40d7f46f6d143b8e6cd84c4afb10dc8e81edd464bef97e9005ac",
+    "docs/development/2026-11-16-zombie-variants/qualification/correction/mapper-irq-probe.json": "2179192048a63502f54ea39398756a82f9ee9ba0b8ac822293809b013d775542",
+    "docs/development/2026-11-16-zombie-variants/qualification/correction/mapper_irq_probe.py": "d11205eb49aa2111c5f50cf6b457963b4b0577e081dd7d07d89ee563808a3dc3",
+    "docs/development/2026-11-16-zombie-variants/qualification/correction/performance-attribution.json": "b36a692c0d08d7499e0a420cc2ea4ca9d46926272328eccfaeae296a939f6bf3",
+    "docs/development/2026-11-16-zombie-variants/qualification/correction/smoke-rerun-2.json": "8f3a356de8a425fe55e398304c2147ef7d3faacb977650bf6f46435f5215ee93",
+    "docs/development/2026-11-16-zombie-variants/qualification/correction/smoke-rerun.json": "8f3a356de8a425fe55e398304c2147ef7d3faacb977650bf6f46435f5215ee93",
+    "docs/development/2026-11-16-zombie-variants/qualification/correction/playthrough/functional-playthrough.json": "325a2f644b6702d990acefaba0eca1a642b2f9446a32ace8a1979b066a136868",
+    "docs/development/2026-11-16-zombie-variants/qualification/correction/playthrough/playthrough-actor-layout.txt": "f6af66003f1c8f6a4c296772a96e0621d8a1b64fc64d7982857647802240759b",
+    "docs/development/2026-11-16-zombie-variants/qualification/correction/playthrough/playthrough-executed.py": "03f22d319cee4457ccd1c79f7a3eee8e7b8eade423d7cc6f4bc5353f28f6561a",
+    "docs/development/2026-11-16-zombie-variants/qualification/correction/playthrough-mixed/playthrough-actor-layout.txt": "f6af66003f1c8f6a4c296772a96e0621d8a1b64fc64d7982857647802240759b",
+    "docs/development/2026-11-16-zombie-variants/qualification/correction/playthrough-mixed/playthrough-executed.py": "033fab6e617c7da60beb7b56725e3012e33ac18a5e0e0247afa86fb00019dd35",
+    "docs/development/2026-11-16-zombie-variants/qualification/correction/playthrough-mixed-v2/functional-playthrough.json": "b093825e39eb644bfa597f44420c91d579d7b806336aa633570ce36e9b52a3b4",
+    "docs/development/2026-11-16-zombie-variants/qualification/correction/playthrough-mixed-v2/playthrough-actor-layout.txt": "f6af66003f1c8f6a4c296772a96e0621d8a1b64fc64d7982857647802240759b",
+    "docs/development/2026-11-16-zombie-variants/qualification/correction/playthrough-mixed-v2/playthrough-executed.py": "eb55003d5dc19ef4ee6164102a66403eb61d6f3af28a82c44b1852c1afed6cf2"
+  }
+}

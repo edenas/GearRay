@@ -1,0 +1,11 @@
+Complete palette usage validation PASS
+- 16 distinct assigned BG entries; no unassigned hardware BG slot
+- isolated 11-color SEGA palette precedes and never replaces gameplay palette
+- bright green merged to moss index 7
+- dark red merged to primary-red index 5
+- dedicated brown index 1
+- accepted LOD shade restored at index 9
+- skin pixels: #ffc4ab=16, #ffa57d=9
+- brown pixels: source=17, generated=17, displayed=68
+- BG index 1 remains 0x03a with no profile text palette overwrite
+- shot-dead and corpse textures use the 8x8/32-byte/index-15 contract

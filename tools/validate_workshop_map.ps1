@@ -28,6 +28,7 @@ $doorHeader = Get-Content (Join-Path $gamePath "door_instances.h") -Raw
 $doorSource = Get-Content (Join-Path $gamePath "door_instances.c") -Raw
 $switchHeader = Get-Content (Join-Path $gamePath "red_door_switch.h") -Raw
 $switchSource = Get-Content (Join-Path $gamePath "red_door_switch.c") -Raw
+$layoutSource = Get-Content (Join-Path $gamePath "workshop_map.layout") -Raw
 $textureGenerator = Get-Content (
     Join-Path $PSScriptRoot "generate_wall_texture.ps1") -Raw
 
@@ -51,6 +52,7 @@ foreach ($tileContract in @{
     WORLD_TILE_RED_DOOR_SWITCH = 7
     WORLD_TILE_VOID = 8
     WORLD_TILE_SPRITE_MARKER = 9
+    WORLD_TILE_SCIENTIST_MARKER = 11
 }.GetEnumerator()) {
     Assert-Equal $tileContract.Value `
         (Get-Define $worldHeader $tileContract.Key) `
@@ -60,44 +62,14 @@ if ($voidTileId -le $switchTileId) {
     throw "VOID must not displace an authored texture tile ID."
 }
 
-foreach ($alias in @{
-    X = "WORLD_TILE_VOID"
-    E = "WORLD_TILE_EMPTY"
-    S = "WORLD_TILE_STONE"
-    B = "WORLD_TILE_CONCRETE_BLOOD"
-    D = "WORLD_TILE_DOOR"
-    R = "WORLD_TILE_RED_DOOR"
-    W = "WORLD_TILE_RED_DOOR_SWITCH"
-    Z = "WORLD_TILE_SPRITE_MARKER"
-}.GetEnumerator()) {
-    if ($mapSource -notmatch
-        "(?m)^\s*#define\s+$($alias.Key)\s+$($alias.Value)\s*$") {
-        throw "Map alias $($alias.Key) does not map to $($alias.Value)."
-    }
-}
-
-$initializer = [regex]::Match(
-    $mapSource,
-    "static\s+const\s+unsigned\s+char\s+workshop_map\s*\[[^\]]+\]\s*\[[^\]]+\]\s*=\s*\{(?<rows>[\s\S]*?)\n\};")
-if (-not $initializer.Success) {
-    throw "Could not extract workshop_map initializer."
-}
-
-$rowMatches = [regex]::Matches(
-    $initializer.Groups["rows"].Value,
-    "\{(?<tiles>[^{}]+)\}")
+$rowMatches = @($layoutSource -split "`r?`n" | Where-Object { $_.Trim() -ne "" })
 Assert-Equal $height $rowMatches.Count "Workshop row count"
-
 $map = [System.Collections.Generic.List[object]]::new()
 foreach ($rowMatch in $rowMatches) {
-    $tiles = @(
-        $rowMatch.Groups["tiles"].Value.Split(",") |
-            ForEach-Object { $_.Trim() } |
-            Where-Object { $_ -ne "" }
-    )
+    $tiles = @($rowMatch.Trim() -split '\s+')
     Assert-Equal $width $tiles.Count "Workshop row width"
     foreach ($tile in $tiles) {
-        if ($tile -notin @("X", "E", "S", "B", "D", "R", "W", "Z", "G")) {
+        if ($tile -notin @("X", "E", "S", "B", "D", "R", "W", "1", "2", "G")) {
             throw "Unknown workshop tile symbol: $tile"
         }
     }
@@ -106,17 +78,17 @@ foreach ($rowMatch in $rowMatches) {
 
 $approvedRows = @(
     "XXXXXSBSXXXXX",
-    "XXXXXSZSXXXXX",
+    "XXXXXS1SXXXXX",
     "XXXXXBRSXXXXX",
     "XXXXSEEESXXXX",
     "XSBSSSDSSSBSX",
     "XSEEEEEEEEESX",
-    "BZEEEEEEEEEGS",
+    "B1EEEEEEEEEGS",
     "XSEEEEEEEEESX",
     "XSBSSBDSSSSSX",
     "XXXXSEEESXXXX",
     "XXXXSEEEBXXXX",
-    "XXXXSZEZSXXXX",
+    "XXXXS2E2SXXXX",
     "XXXXSBWSSXXXX"
 )
 for ($y = 0; $y -lt $height; ++$y) {
@@ -126,7 +98,7 @@ for ($y = 0; $y -lt $height; ++$y) {
 $spriteMarkers = @()
 for ($y = 0; $y -lt $height; ++$y) {
     for ($x = 0; $x -lt $width; ++$x) {
-        if ($map[$y][$x] -eq "Z") {
+        if ($map[$y][$x] -in @("1", "2")) {
             $spriteMarkers += ,@($x, $y)
         }
     }
@@ -237,7 +209,7 @@ for ($y = 0; $y -lt $height; ++$y) {
                     throw "Openable door at ($x,$y) exposes VOID or out-of-bounds."
                 }
             }
-            $expectedNorthOpening = if ($x -eq 6 -and $y -eq 2) { "Z" } else { "E" }
+            $expectedNorthOpening = if ($x -eq 6 -and $y -eq 2) { "1" } else { "E" }
             Assert-Equal $expectedNorthOpening (Get-Tile $x ($y - 1)) `
                 "Door north opening at ($x,$y)"
             Assert-Equal "E" (Get-Tile $x ($y + 1)) "Door south opening at ($x,$y)"
@@ -246,7 +218,7 @@ for ($y = 0; $y -lt $height; ++$y) {
 }
 
 Assert-Equal "R" (Get-Tile 6 2) "Top red door"
-Assert-Equal "Z" (Get-Tile 6 1) "Top red door north opening"
+Assert-Equal "1" (Get-Tile 6 1) "Top red door north opening"
 Assert-Equal "E" (Get-Tile 6 3) "Top red door south opening"
 Assert-Equal "B" (Get-Tile 6 0) "Top chamber north cap"
 
@@ -270,7 +242,7 @@ while ($pending.Count -ne 0) {
         if ($null -eq $neighbor -or $neighbor -eq "X") {
             throw "Reachable region at ($x,$y) is not enclosed."
         }
-        if ($neighbor -in @("E", "D", "R", "Z", "G")) {
+        if ($neighbor -in @("E", "D", "R", "1", "2", "G")) {
             $pending.Enqueue("$nextX,$nextY")
         }
     }
@@ -279,7 +251,7 @@ while ($pending.Count -ne 0) {
 $playableCount = 0
 for ($y = 0; $y -lt $height; ++$y) {
     for ($x = 0; $x -lt $width; ++$x) {
-        if ((Get-Tile $x $y) -in @("E", "D", "R", "Z", "G")) {
+        if ((Get-Tile $x $y) -in @("E", "D", "R", "1", "2", "G")) {
             ++$playableCount
             if (-not $visited.ContainsKey("$x,$y")) {
                 throw "Playable tile at ($x,$y) is unreachable from spawn."
@@ -302,6 +274,9 @@ if ($worldSource -notmatch
     $worldSource -notmatch
     "tile_id\s*==\s*WORLD_TILE_SPRITE_MARKER") {
     throw "World bounds/solidity semantics do not safely block VOID."
+}
+if ($worldSource -notmatch 'WORLD_TILE_SCIENTIST_MARKER') {
+    throw "Scientist authoring marker is not hidden as a walkable runtime empty tile."
 }
 
 $unexpectedMapCallers = @(

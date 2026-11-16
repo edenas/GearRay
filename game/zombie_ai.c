@@ -4,11 +4,6 @@
 #include "world_sprite.h"
 #include "zombie_ai.h"
 #include "video.h"
-#include "sprite_texture.h"
-#include "zombie_01_walking_01_texture.h"
-#include "zombie_01_walking_02_texture.h"
-#include "zombie_01_shot_01_texture.h"
-#include "zombie_01_shot_02_texture.h"
 
 #define FIXED_POINT_SCALE 256
 #define ZOMBIE_ACTIVATION_DISTANCE 963
@@ -236,7 +231,7 @@ void zombie_ai_update_all(void)
             sprite->health_and_hit_count &= ~ZOMBIE_AI_CHASING_MASK;
             zombie_ai_wall_following_mask &= ~(1U << sprite_index);
             if (sprite->state_timer == 0)
-                sprite->pixels = zombie_01_standing_pixels;
+                sprite->animation_token = ZOMBIE_ANIMATION_STANDING;
             continue;
         }
 
@@ -247,7 +242,7 @@ void zombie_ai_update_all(void)
             sprite->health_and_hit_count &= ~ZOMBIE_AI_CHASING_MASK;
             zombie_ai_wall_following_mask &= ~(1U << sprite_index);
             if (sprite->state_timer == 0)
-                sprite->pixels = zombie_01_standing_pixels;
+                sprite->animation_token = ZOMBIE_ANIMATION_STANDING;
             continue;
         }
 
@@ -278,15 +273,15 @@ void zombie_ai_update_all(void)
 
         if (sprite->state_timer != 0)
         {
-            if (sprite->pixels == zombie_01_shot_01_pixels
-                || sprite->pixels == zombie_01_shot_02_pixels)
+            if (sprite->animation_token == ZOMBIE_ANIMATION_SHOT_01
+                || sprite->animation_token == ZOMBIE_ANIMATION_SHOT_02)
                 continue;
             sprite->state_timer = 0;
         }
 
-        sprite->pixels = sprite->state & ZOMBIE_WALKING_PHASE_MASK
-            ? zombie_01_walking_02_pixels
-            : zombie_01_walking_01_pixels;
+        sprite->animation_token = sprite->state & ZOMBIE_WALKING_PHASE_MASK
+            ? ZOMBIE_ANIMATION_WALKING_02
+            : ZOMBIE_ANIMATION_WALKING_01;
 
         if (distance >= ZOMBIE_ATTACK_DISTANCE + ZOMBIE_MOVEMENT_STEP)
             zombie_ai_move(sprite_index, sprite, player_x, player_y,

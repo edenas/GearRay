@@ -28,7 +28,7 @@ function Get-ExpectedMiddleBytes([string]$Path){
             Assert($pixel.A-eq255) "$Path contains partial alpha at ($x,$y)."
             $rgb=('#{0:x2}{1:x2}{2:x2}'-f$pixel.R,$pixel.G,$pixel.B)
             $index=switch($rgb){
-                '#000000'{0;break};'#1a1a1a'{13;break};'#006d8f'{8;break}
+                '#000000'{0;break};'#1a1a1a'{13;break};'#4d4d4d'{2;break};'#797878'{3;break};'#006d8f'{8;break}
                 '#53602a'{7;break};'#785700'{6;break};'#b51a00'{5;break}
                 '#bb2200'{5;break};'#ffffff'{12;break}
                 default{throw "Middle zombie color $rgb at ($x,$y) has no exact gameplay palette mapping."}
@@ -50,56 +50,56 @@ function Get-ByteHash([byte[]]$Bytes){
     $sha=[Security.Cryptography.SHA256]::Create()
     try{return ([BitConverter]::ToString($sha.ComputeHash($Bytes))).Replace('-','')}finally{$sha.Dispose()}
 }
-foreach($pose in $poses){
-    $asset=Join-Path $root "assets\sprites\enemies\zombie\zombie_01_${pose}_16x16.png"
-    Assert(Test-Path $asset) "Missing 16x16 zombie asset $pose."
+foreach($species in @(@('01','security'),@('02','scientist'))){ foreach($pose in $poses){
+    $asset=Join-Path $root "assets\sprites\enemies\zombie\zombie_$($species[0])_${pose}_16x16.png"
+    Assert(Test-Path $asset) "Missing $($species[1]) 16x16 zombie asset $pose."
     $bitmap=[Drawing.Bitmap]::new($asset)
-    try{Assert($bitmap.Width-eq16-and$bitmap.Height-eq16) "$pose is not 16x16.";for($y=0;$y-lt16;$y++){for($x=0;$x-lt16;$x++){Assert(($bitmap.GetPixel($x,$y).A-eq0-or$bitmap.GetPixel($x,$y).A-eq255)) "$pose contains partial alpha."}}}finally{$bitmap.Dispose()}
-    $generated=Join-Path $build "generated\zombie_${pose}_16x16_texture.c"
-    Assert(Test-Path $generated) "Missing generated 16x16 texture $pose."
-    $symbol="zombie_middle_${pose}_pixels"
+    try{Assert($bitmap.Width-eq16-and$bitmap.Height-eq16) "$($species[1]) $pose is not 16x16.";for($y=0;$y-lt16;$y++){for($x=0;$x-lt16;$x++){Assert(($bitmap.GetPixel($x,$y).A-eq0-or$bitmap.GetPixel($x,$y).A-eq255)) "$pose contains partial alpha."}}}finally{$bitmap.Dispose()}
+    $generated=Join-Path $build "generated\zombie_$($species[1])_${pose}_16x16.c"
+    Assert(Test-Path $generated) "Missing generated $($species[1]) 16x16 texture $pose."
+    $symbol="zombie_$($species[1])_middle_${pose}_pixels"
     [byte[]]$expected=Get-ExpectedMiddleBytes $asset
     [byte[]]$actual=Get-GeneratedMiddleBytes $generated $symbol
-    Assert($actual.Count-eq128) "$pose payload is not 128 bytes."
+    Assert($actual.Count-eq128) "$($species[1]) $pose payload is not 128 bytes."
     for($byteIndex=0;$byteIndex-lt128;$byteIndex++){
         if($expected[$byteIndex]-ne$actual[$byteIndex]){
             $pixelY=[Math]::Floor($byteIndex/8);$pixelX=($byteIndex%8)*2
-            throw "$pose generated payload mismatch at byte $byteIndex (pixels $pixelX/$($pixelX+1),$pixelY): expected 0x$($expected[$byteIndex].ToString('X2')), actual 0x$($actual[$byteIndex].ToString('X2'))."
+            throw "$($species[1]) $pose generated payload mismatch at byte $byteIndex (pixels $pixelX/$($pixelX+1),$pixelY): expected 0x$($expected[$byteIndex].ToString('X2')), actual 0x$($actual[$byteIndex].ToString('X2'))."
         }
     }
-    $payloadHashes[$pose]=Get-ByteHash $actual
-}
+    $payloadHashes["$($species[1])_$pose"]=Get-ByteHash $actual
+}}
 $assetSets=@(
     [pscustomobject]@{Size=8;Suffix='';Poses=@('standing','walking_01','walking_02','shot_01','shot_02','shot_dead','corps')},
     [pscustomobject]@{Size=16;Suffix='_16x16';Poses=@('standing')+$poses},
     [pscustomobject]@{Size=32;Suffix='_32x32';Poses=@('standing','walking_01','walking_02','standing_attack','attack_01','attack_02','shot_01','corps')}
 )
 $footprints=@()
-foreach($set in $assetSets){foreach($pose in $set.Poses){
-    $asset=Join-Path $root "assets\sprites\enemies\zombie\zombie_01_${pose}$($set.Suffix).png"
+foreach($species in @('01','02')){foreach($set in $assetSets){foreach($pose in $set.Poses){
+    $asset=Join-Path $root "assets\sprites\enemies\zombie\zombie_${species}_${pose}$($set.Suffix).png"
     Assert(Test-Path $asset) "Missing authoritative zombie asset $pose ($($set.Size)x$($set.Size))."
     $f=Get-Footprint $asset
     Assert($f.Width-eq$set.Size-and$f.Height-eq$set.Size) "$pose is not $($set.Size)x$($set.Size)."
-    $footprints+=[pscustomobject]@{Size=$set.Size;Pose=$pose;BodyWidth=$f.BodyWidth;BodyHeight=$f.BodyHeight;Left=$f.Left;Top=$f.Top;Right=$f.Right;Bottom=$f.Bottom;Coverage=$f.Coverage}
-}}
+    $footprints+=[pscustomobject]@{Species=$species;Size=$set.Size;Pose=$pose;BodyWidth=$f.BodyWidth;BodyHeight=$f.BodyHeight;Left=$f.Left;Top=$f.Top;Right=$f.Right;Bottom=$f.Bottom;Coverage=$f.Coverage}
+}}}
 $projection=Get-Content -Raw (Join-Path $root 'platform\game_gear\sprite_projection.c')
 $header=Get-Content -Raw (Join-Path $root 'platform\game_gear\sprite_projection.h')
 $video=Get-Content -Raw (Join-Path $root 'platform\game_gear\video.c')
 $world=Get-Content -Raw (Join-Path $root 'game\world_sprite.h')
 $cmake=Get-Content -Raw (Join-Path $root 'CMakeLists.txt')
+$visualTables=Get-Content -Raw (Join-Path $build 'generated\zombie_visuals_assets.c')
 Assert($header-match'ZOMBIE_8X8_MAX_PROJECTED_HEIGHT 32') '8x8 cap is not 32.'
 Assert($header-match'SPRITE_MIDDLE_DETAIL_MAX_DISTANCE[\s\\]*\(SPRITE_NEAR_DETAIL_MAX_DISTANCE \+ 4 \* ZOMBIE_MOVEMENT_STEP\)') 'Middle boundary no longer provides four authored 16x16 movement steps.'
 Assert($world-match'ZOMBIE_ATTACK_DISTANCE 280'-and$world-match'ZOMBIE_MOVEMENT_STEP 56') 'Gameplay boundaries changed.'
 Assert((392 + 4 * 56)-eq616) 'Derived middle-detail boundary is not 616.'
-Assert(([regex]::Matches($cmake,'foreach\(middle_pose IN ITEMS STANDING WALKING_01 WALKING_02 SHOT_01 SHOT_DEAD CORPS\)').Count-eq2)) 'Active middle pose set is not declared consistently for configuration and generation.'
-Assert(([regex]::Matches($cmake,'set\(GEAR_RAY_MIDDLE_ZOMBIE_\$\{middle_pose\}_INPUT "\$\{CMAKE_SOURCE_DIR\}/assets/sprites/enemies/zombie/zombie_01_\$\{middle_pose_lower\}_16x16\.png"\)').Count-eq1)) 'Middle poses do not have one authoritative current-PNG input formula.'
-Assert($projection-match'game_gear_get_middle_zombie_pixels') 'Middle pose selector is missing.'
-foreach($pose in $poses){Assert($projection-match"zombie_middle_${pose}_pixels") "Missing middle pose mapping $pose."}
-Assert($projection-match'ZOMBIE_PRESENTATION_STANDING:[\s\S]*?zombie_middle_standing_pixels') 'Idle 16x16 zombies do not use the authored standing texture.'
+Assert($cmake.Contains('zombie_${zombie_species}_${zombie_pose}_16x16.png')) 'Both species middle-pose PNGs are not explicit build dependencies.'
+Assert($projection.Contains('zombie_visual_middle[sprite->visual_type][presentation_pose]')) 'Type-indexed middle pose selector is missing.'
+foreach($type in @('security','scientist')){foreach($pose in $poses){Assert($visualTables-match"zombie_${type}_middle_${pose}_pixels") "Missing $type middle pose mapping $pose."}}
+Assert($visualTables-match'zombie_security_middle_standing_pixels' -and $visualTables-match'zombie_scientist_middle_standing_pixels') 'Idle 16x16 standing art is not selected per species.'
 Assert($header-notmatch'NEAR_ZOMBIE_TEXTURE_STANDING\s') 'Unused neutral 32x32 standing texture ID remains.'
-Assert($projection-match'ZOMBIE_WALKING_PHASE_MASK[\s\S]*?ZOMBIE_PRESENTATION_WALKING_02[\s\S]*?ZOMBIE_PRESENTATION_WALKING_01'-and$projection-match'ZOMBIE_PRESENTATION_WALKING_02[\s\S]*?zombie_middle_walking_02_pixels') 'Presentation walking phase is not shared by authored resolutions.'
-Assert($projection-match'ZOMBIE_STATE_SHOT_DEAD[\s\S]*?zombie_middle_shot_dead_pixels') 'Lethal middle pose is missing.'
-Assert($projection-match'ZOMBIE_STATE_CORPSE[\s\S]*?zombie_middle_corps_pixels') 'Middle corpse pose is missing.'
+Assert($projection-match'ZOMBIE_WALKING_PHASE_MASK[\s\S]*?ZOMBIE_PRESENTATION_WALKING_02[\s\S]*?ZOMBIE_PRESENTATION_WALKING_01'-and$visualTables-match'zombie_security_middle_walking_02_pixels' -and $visualTables-match'zombie_scientist_middle_walking_02_pixels') 'Presentation walking phase is not shared by both authored species.'
+Assert($visualTables-match'zombie_security_middle_shot_dead_pixels' -and $visualTables-match'zombie_scientist_middle_shot_dead_pixels') 'Lethal middle pose is missing for one species.'
+Assert($visualTables-match'zombie_security_middle_corps_pixels' -and $visualTables-match'zombie_scientist_middle_corps_pixels') 'Middle corpse pose is missing for one species.'
 Assert($video-match'projected->source_size'-and$video-match'packed_row_stride\s*=\s*(?:\(unsigned char\))?source_size\s*>>\s*1') 'Shared 8/16/32 compositor metadata is missing.'
 Assert($video-match'projected->depth[\s\S]*?>=[\s\S]*?wall_distance') 'Wall-wins occlusion changed.'
 Assert($projection-notmatch'ZOMBIE_NATIVE_(WALKING|CLOSE)_VISUAL_DEPTH_OFFSET|ZOMBIE_NATIVE_MIN_VISUAL_DEPTH|visual_depth') 'Obsolete native visual-depth bridge remains.'
@@ -136,25 +136,19 @@ Assert(($straightApproach-join',')-eq'8,16,16,16,16,32,32,32') 'Straight four-st
 Assert(($straightRetreat-join',')-eq'32,32,32,16,16,16,16,8') 'Straight four-step middle-detail retreat changed.'
 $obliqueApproach=@(@(561,112),@(560,112),@(504,112),@(448,112),@(392,112),@(336,112),@(280,112),@(224,112)|ForEach-Object{LivingTier (Metric $_[0] $_[1])})
 Assert(($obliqueApproach-join',')-eq'8,16,16,16,16,32,32,32') 'Oblique four-step middle-detail approach changed.'
-Assert($projection-match'ZOMBIE_PRESENTATION_SHOT:[\s\S]*?zombie_middle_shot_01_pixels') 'Extended middle range does not use authored shot_01.'
-Assert($projection-match'ZOMBIE_PRESENTATION_DEAD:[\s\S]*?zombie_middle_shot_dead_pixels') 'Extended middle range does not use authored shot_dead.'
+Assert($projection.Contains('zombie_visual_middle[sprite->visual_type][presentation_pose]') -and $visualTables-match'zombie_security_middle_shot_01_pixels' -and $visualTables-match'zombie_scientist_middle_shot_01_pixels') 'Extended middle interval does not use each species authored shot_01.'
+Assert($projection.Contains('zombie_visual_middle[sprite->visual_type][presentation_pose]') -and $visualTables-match'zombie_security_middle_shot_dead_pixels' -and $visualTables-match'zombie_scientist_middle_shot_dead_pixels') 'Extended middle interval does not use each species authored shot_dead.'
 if($RequireMapPlacement){
     $map=Get-Content -Raw (Join-Path $build 'GearRay.map')
-    foreach($pose in $poses){
-        $matches=[regex]::Matches($map,"(?m)^\s*(?<a>[0-9A-Fa-f]{8})\s+_zombie_middle_${pose}_pixels\s+")
-        Assert($matches.Count-eq1) "Expected exactly one map symbol for $pose, found $($matches.Count)."
-        $a=[Convert]::ToInt32($matches[0].Groups['a'].Value,16)
-        Assert(($a -ge 0x14000 -and $a -lt 0x18000)) "$pose is outside Bank 1."
-    }
-    $generatedSources=@(Get-ChildItem -LiteralPath (Join-Path $build 'generated') -File -Filter 'zombie_*_16x16_texture.c')
-    $generatedObjects=@(Get-ChildItem -LiteralPath $build -File -Filter 'generated_zombie_*_16x16_texture.rel')
-    Assert($generatedSources.Count-eq6) "Expected six generated middle sources, found $($generatedSources.Count)."
-    Assert($generatedObjects.Count-eq6) "Expected six generated middle objects, found $($generatedObjects.Count)."
+    $tableMatch=[regex]::Match($map,'(?m)^\s*(?<a>[0-9A-Fa-f]{8})\s+_zombie_visual_middle\s+')
+    Assert($tableMatch.Success) 'Expected the type-indexed middle table in the linker map.'
+    $a=[Convert]::ToInt32($tableMatch.Groups['a'].Value,16)
+    Assert(($a -ge 0x14000 -and $a -lt 0x18000)) 'Middle table is outside Bank 1.'
 }
 Write-Output 'Middle-detail zombie validation PASS'
 Write-Output '- 8x8 at distance >=617; authored 16x16 at 616..393; 32x32 locomotion at 392..281'
 Write-Output '- middle interval is four 56-unit movement steps (224 units); near interval remains two steps before melee'
 Write-Output ('- footprint-aware body ladder: '+(($ladder|ForEach-Object{"$($_.BodyPixels)h/$($_.WidthPixels)w"})-join', '))
 Write-Output '- all living assets use full authored height and floor row; no baseline correction required'
-Write-Output '- all 21 authored assets audited; six active 16x16/128-byte poses including idle standing'
-foreach($pose in $poses){Write-Output "- $pose payload SHA-256: $($payloadHashes[$pose])"}
+Write-Output '- all 42 authored assets audited; six active 16x16/128-byte poses per species including idle standing'
+foreach($species in @('security','scientist')){foreach($pose in $poses){Write-Output "- $species $pose payload SHA-256: $($payloadHashes["${species}_$pose"])"}}

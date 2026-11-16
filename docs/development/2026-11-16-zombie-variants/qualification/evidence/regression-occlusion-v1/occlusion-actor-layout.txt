@@ -1,0 +1,1 @@
+visual-type-animation-v1; left half security, right half scientist; current candidate incremental vs forced redraw

@@ -1,0 +1,741 @@
+{
+  "mismatches": [],
+  "unchanged": 122,
+  "source_manifest": "../../evidence/ready-input-identity.json",
+  "count": 122,
+  "date": "2026-11-16",
+  "files": [
+    {
+      "after_sha256": "241c56beb5492cbe987ee113b8023af7004994b9b957bfb2535239e0c5fd5dea",
+      "before_sha256": "241c56beb5492cbe987ee113b8023af7004994b9b957bfb2535239e0c5fd5dea",
+      "path": "assets/logos/game_over.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "29c6e78b5901cc3648c2711f05d32ada395bea0eb931f04d84d53e31495d32e0",
+      "before_sha256": "29c6e78b5901cc3648c2711f05d32ada395bea0eb931f04d84d53e31495d32e0",
+      "path": "assets/logos/sega_logo.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "d61d2e9d53dd1b1ff7f8cc287f431fa1c0fc941ec1e6affed7e3e6f203b87c01",
+      "before_sha256": "d61d2e9d53dd1b1ff7f8cc287f431fa1c0fc941ec1e6affed7e3e6f203b87c01",
+      "path": "assets/ui/health_hud.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "d8a45931ef6d838a5f8939d9661028d6d30c52f412fef7e911f69882c52eacb9",
+      "before_sha256": "d8a45931ef6d838a5f8939d9661028d6d30c52f412fef7e911f69882c52eacb9",
+      "path": "assets/ui/health_hud_1.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "7bc5e33ce6a69976e52dcf6c9d2bea483b18f80e62e29a987a147fa352375415",
+      "before_sha256": "7bc5e33ce6a69976e52dcf6c9d2bea483b18f80e62e29a987a147fa352375415",
+      "path": "assets/ui/health_hud_reference.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "ce85760111f001290a8f831c9cde74af3d1d5428f3e8b4387cba47b930cb8b1d",
+      "before_sha256": "ce85760111f001290a8f831c9cde74af3d1d5428f3e8b4387cba47b930cb8b1d",
+      "path": "assets/sprites/Corel Auto-Preserve/gun.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "c57da998706b2aa7c7e53effa4698bb2900336aa8728733d3298f0fddf1faae4",
+      "before_sha256": "c57da998706b2aa7c7e53effa4698bb2900336aa8728733d3298f0fddf1faae4",
+      "path": "assets/sprites/weapons/gun_12x12.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "6771c3c91e213ea51ade8ae5eab92fb686e12eb706ce914c59a6388c9f73a8b4",
+      "before_sha256": "6771c3c91e213ea51ade8ae5eab92fb686e12eb706ce914c59a6388c9f73a8b4",
+      "path": "assets/sprites/weapons/gun_shoot_12x12.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "1b747722508e39baca417dc2a1edd533eb98f9c5e56ac201665e767d28d952b4",
+      "before_sha256": "1b747722508e39baca417dc2a1edd533eb98f9c5e56ac201665e767d28d952b4",
+      "path": "assets/sprites/weapons/pick_up_shotgun.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "cfec151e56ac979d24897a9b63a27436eab96492fd18dff12b05e91d0baf57c8",
+      "before_sha256": "cfec151e56ac979d24897a9b63a27436eab96492fd18dff12b05e91d0baf57c8",
+      "path": "assets/sprites/weapons/pistol.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "2ae5a0ab9c0e8de5f0440de96231535061e9f1d7bb33a666d56353fa419af5d1",
+      "before_sha256": "2ae5a0ab9c0e8de5f0440de96231535061e9f1d7bb33a666d56353fa419af5d1",
+      "path": "assets/sprites/weapons/shotgun.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "783e345527752eef2ae815331494a85efd395ea088fa0e356a81fd4a5babbfaf",
+      "before_sha256": "783e345527752eef2ae815331494a85efd395ea088fa0e356a81fd4a5babbfaf",
+      "path": "assets/sprites/weapons/shotgun_held.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "30dd22ca80cf4332755943255178b4040a58116af4a57eb42ca142b727db25f0",
+      "before_sha256": "30dd22ca80cf4332755943255178b4040a58116af4a57eb42ca142b727db25f0",
+      "path": "assets/sprites/weapons/shotgun_held_shoot.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "6847e340c772ceb4093096d8119a75c26804fca1eae602fd751f58a6bb538a70",
+      "before_sha256": "6847e340c772ceb4093096d8119a75c26804fca1eae602fd751f58a6bb538a70",
+      "path": "assets/sprites/enemies/zombie/zombie_01_attack_01.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "3ba499b2539e421ba5b70671e1b6aaa6158796a7fa98b9000498a5fec446ffa1",
+      "before_sha256": "3ba499b2539e421ba5b70671e1b6aaa6158796a7fa98b9000498a5fec446ffa1",
+      "path": "assets/sprites/enemies/zombie/zombie_01_attack_01_32x32.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "a9df2752d252fcca1bfdc28a77190846ee822698109d70146c4cb98eaf40af2b",
+      "before_sha256": "a9df2752d252fcca1bfdc28a77190846ee822698109d70146c4cb98eaf40af2b",
+      "path": "assets/sprites/enemies/zombie/zombie_01_attack_02.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "e436edb085d42bccd0e765a69ec4566037b7434261dc942eee1b243a0ac3ebc4",
+      "before_sha256": "e436edb085d42bccd0e765a69ec4566037b7434261dc942eee1b243a0ac3ebc4",
+      "path": "assets/sprites/enemies/zombie/zombie_01_attack_02_32x32.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "9291dfbb37af7c9b3476003f81dc222f696cc61a1a007a972a1a31e5ee91e347",
+      "before_sha256": "9291dfbb37af7c9b3476003f81dc222f696cc61a1a007a972a1a31e5ee91e347",
+      "path": "assets/sprites/enemies/zombie/zombie_01_corps.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "177e19ca93299e3b02a1829d6dded86fe660bb976833957dce644897097616d8",
+      "before_sha256": "177e19ca93299e3b02a1829d6dded86fe660bb976833957dce644897097616d8",
+      "path": "assets/sprites/enemies/zombie/zombie_01_corps_16x16.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "b435d1d11068f240439d0c9c770478ec663e874c03452e43530cd4db0182fbb9",
+      "before_sha256": "b435d1d11068f240439d0c9c770478ec663e874c03452e43530cd4db0182fbb9",
+      "path": "assets/sprites/enemies/zombie/zombie_01_corps_32x32.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "441a492568cc469c042b08c779d92673db54b83e7d06b586881e03ff08d60d93",
+      "before_sha256": "441a492568cc469c042b08c779d92673db54b83e7d06b586881e03ff08d60d93",
+      "path": "assets/sprites/enemies/zombie/zombie_01_shot_01.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "7e0790d1147de68846ca448167b273cb4f0b9e49cabe01e16dbff1a0473a81f7",
+      "before_sha256": "7e0790d1147de68846ca448167b273cb4f0b9e49cabe01e16dbff1a0473a81f7",
+      "path": "assets/sprites/enemies/zombie/zombie_01_shot_01_16x16.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "26b03241c02a136003b737cff8c8cc75877d6d6a70c7cfa3707c78fc400ae355",
+      "before_sha256": "26b03241c02a136003b737cff8c8cc75877d6d6a70c7cfa3707c78fc400ae355",
+      "path": "assets/sprites/enemies/zombie/zombie_01_shot_01_32x32.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "491bc27aad2a9069c169a343783aecd6bfa1bb754a1439a7b2fe47187a816179",
+      "before_sha256": "491bc27aad2a9069c169a343783aecd6bfa1bb754a1439a7b2fe47187a816179",
+      "path": "assets/sprites/enemies/zombie/zombie_01_shot_02.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "67771b12bb41a8d7b5b605212c6b963cc6c4b698f0c88a032dba0172fd02e861",
+      "before_sha256": "67771b12bb41a8d7b5b605212c6b963cc6c4b698f0c88a032dba0172fd02e861",
+      "path": "assets/sprites/enemies/zombie/zombie_01_shot_dead.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "04f50613ee572ec90c082f937f2d8c4ae9db21f4339b2c8c17e49e40595c270b",
+      "before_sha256": "04f50613ee572ec90c082f937f2d8c4ae9db21f4339b2c8c17e49e40595c270b",
+      "path": "assets/sprites/enemies/zombie/zombie_01_shot_dead_16x16.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "98eae1215dea2cbb790d8871029402447b1e863f9ac95f51e16889d3a9cc6972",
+      "before_sha256": "98eae1215dea2cbb790d8871029402447b1e863f9ac95f51e16889d3a9cc6972",
+      "path": "assets/sprites/enemies/zombie/zombie_01_standing.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "ab9e88279fe7fef5aa3b32f26f28d706db63e0188a6c155476f435af0b7ccfaa",
+      "before_sha256": "ab9e88279fe7fef5aa3b32f26f28d706db63e0188a6c155476f435af0b7ccfaa",
+      "path": "assets/sprites/enemies/zombie/zombie_01_standing_16x16.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "ae5d949f7f7bc62464480449695db6346a24de225a163bbc79fc84117d540dda",
+      "before_sha256": "ae5d949f7f7bc62464480449695db6346a24de225a163bbc79fc84117d540dda",
+      "path": "assets/sprites/enemies/zombie/zombie_01_standing_32x32.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "d55a3b11e8d21d6323c65fd0348d88cc7265efafdaffe5b5643b00d3a15c56c5",
+      "before_sha256": "d55a3b11e8d21d6323c65fd0348d88cc7265efafdaffe5b5643b00d3a15c56c5",
+      "path": "assets/sprites/enemies/zombie/zombie_01_standing_attack_32x32.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "ca21b8dd5646b34a8d0515c0b8d5d9a6d28863fa484e47acf050bb821e5f52a7",
+      "before_sha256": "ca21b8dd5646b34a8d0515c0b8d5d9a6d28863fa484e47acf050bb821e5f52a7",
+      "path": "assets/sprites/enemies/zombie/zombie_01_walking_01.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "73aa581c082c35edc04a3ac6f547050f40f3abf89307dfc37de0f2a027c7a6b0",
+      "before_sha256": "73aa581c082c35edc04a3ac6f547050f40f3abf89307dfc37de0f2a027c7a6b0",
+      "path": "assets/sprites/enemies/zombie/zombie_01_walking_01_16x16.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "f78986131cdd370861a8d8966ab1a92807911234afd14cd8d54be6da7ac42db2",
+      "before_sha256": "f78986131cdd370861a8d8966ab1a92807911234afd14cd8d54be6da7ac42db2",
+      "path": "assets/sprites/enemies/zombie/zombie_01_walking_01_32x32.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "498e9f766a3a6636d195608148883524f4fe3352f40dde46cef84fc1efe21ebd",
+      "before_sha256": "498e9f766a3a6636d195608148883524f4fe3352f40dde46cef84fc1efe21ebd",
+      "path": "assets/sprites/enemies/zombie/zombie_01_walking_02.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "5018c3d478cf432348011c28cb9f67e7cec29c3382904fb5d3f319aa36b3ce33",
+      "before_sha256": "5018c3d478cf432348011c28cb9f67e7cec29c3382904fb5d3f319aa36b3ce33",
+      "path": "assets/sprites/enemies/zombie/zombie_01_walking_02_16x16.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "a63e0be3f9179d29e1b98c9922882bc7269d9bc4ce2878e57fc5b78d7b0b9918",
+      "before_sha256": "a63e0be3f9179d29e1b98c9922882bc7269d9bc4ce2878e57fc5b78d7b0b9918",
+      "path": "assets/sprites/enemies/zombie/zombie_01_walking_02_32x32.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "cc8a2be105dfaa38f321599873d98ca6e3dc063d776ce8c509c6985beda97e04",
+      "before_sha256": "cc8a2be105dfaa38f321599873d98ca6e3dc063d776ce8c509c6985beda97e04",
+      "path": "assets/sprites/enemies/zombie/zombie_02_attack_01.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "6c02643a121e75d900dc0fc56855ceb22cfe1f59d4caad1876a76d4da5c97a0c",
+      "before_sha256": "6c02643a121e75d900dc0fc56855ceb22cfe1f59d4caad1876a76d4da5c97a0c",
+      "path": "assets/sprites/enemies/zombie/zombie_02_attack_01_32x32.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "5fd0f9226092bd55035ca175854a0898ce3bb3f96ef693060cbdd4dab6f08021",
+      "before_sha256": "5fd0f9226092bd55035ca175854a0898ce3bb3f96ef693060cbdd4dab6f08021",
+      "path": "assets/sprites/enemies/zombie/zombie_02_attack_02_32x32.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "968e062e6cfd45b6b6b0c3f20c96a1edbd27750039352f429b01d509e0edd017",
+      "before_sha256": "968e062e6cfd45b6b6b0c3f20c96a1edbd27750039352f429b01d509e0edd017",
+      "path": "assets/sprites/enemies/zombie/zombie_02_corps.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "3bb701694e8b4d2b4c4450cd70d75e82ced8386e1ca453b486b5ce91009f2577",
+      "before_sha256": "3bb701694e8b4d2b4c4450cd70d75e82ced8386e1ca453b486b5ce91009f2577",
+      "path": "assets/sprites/enemies/zombie/zombie_02_corps_16x16.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "48b3f424862a8fc5b21169b9ad2b5361828019cab74aeb1f1520a553017b83d1",
+      "before_sha256": "48b3f424862a8fc5b21169b9ad2b5361828019cab74aeb1f1520a553017b83d1",
+      "path": "assets/sprites/enemies/zombie/zombie_02_corps_32x32.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "7fd15bff9b6c7c7fd868014acd253be6e6df4a6b1f09f407078c3b81f608991d",
+      "before_sha256": "7fd15bff9b6c7c7fd868014acd253be6e6df4a6b1f09f407078c3b81f608991d",
+      "path": "assets/sprites/enemies/zombie/zombie_02_shot_01.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "2ccddc45e1ee9caf5670397b446762be85c02fe86ab82e1b9698f579f5526087",
+      "before_sha256": "2ccddc45e1ee9caf5670397b446762be85c02fe86ab82e1b9698f579f5526087",
+      "path": "assets/sprites/enemies/zombie/zombie_02_shot_01_16x16.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "0ff74954913c4a82309e08c5f7d0b82940979fa4fe2ca641b44d1e886bf31047",
+      "before_sha256": "0ff74954913c4a82309e08c5f7d0b82940979fa4fe2ca641b44d1e886bf31047",
+      "path": "assets/sprites/enemies/zombie/zombie_02_shot_01_32x32.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "cdf45cff29a8f9cf453322f4766201dfeac835baa5026b466668a01cbd3e5cfc",
+      "before_sha256": "cdf45cff29a8f9cf453322f4766201dfeac835baa5026b466668a01cbd3e5cfc",
+      "path": "assets/sprites/enemies/zombie/zombie_02_shot_02.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "e42ff9dd4e251da4931ed0869c0f57ae4c781cdfdc492fd07cbb172ce1bdc0c0",
+      "before_sha256": "e42ff9dd4e251da4931ed0869c0f57ae4c781cdfdc492fd07cbb172ce1bdc0c0",
+      "path": "assets/sprites/enemies/zombie/zombie_02_shot_dead.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "623ade932c3eb5cb56df2b46618edba61a6173aaa2a5818ce0b90d99cf6b080e",
+      "before_sha256": "623ade932c3eb5cb56df2b46618edba61a6173aaa2a5818ce0b90d99cf6b080e",
+      "path": "assets/sprites/enemies/zombie/zombie_02_shot_dead_16x16.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "2e2e9dfa2bdeb7127055e5a88c626d53e98ce307c27456c3091b61b840203ed0",
+      "before_sha256": "2e2e9dfa2bdeb7127055e5a88c626d53e98ce307c27456c3091b61b840203ed0",
+      "path": "assets/sprites/enemies/zombie/zombie_02_standing.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "27a5f188c93265880e2794c059c04596e386bbf7b9c935add70b3b08efa1f9eb",
+      "before_sha256": "27a5f188c93265880e2794c059c04596e386bbf7b9c935add70b3b08efa1f9eb",
+      "path": "assets/sprites/enemies/zombie/zombie_02_standing_16x16.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "c331fddf2a0e625c0596467118887945b49ac87e04e374b57b19c861da31a9c7",
+      "before_sha256": "c331fddf2a0e625c0596467118887945b49ac87e04e374b57b19c861da31a9c7",
+      "path": "assets/sprites/enemies/zombie/zombie_02_standing_32x32.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "9c00271d649df5ee06a723eedd1ecc9752b058aea00b6879cd2c99c35ba420f6",
+      "before_sha256": "9c00271d649df5ee06a723eedd1ecc9752b058aea00b6879cd2c99c35ba420f6",
+      "path": "assets/sprites/enemies/zombie/zombie_02_standing_attack_32x32.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "3a09a608138a0b7f135ec10b1231f51618044820d5257f35219c02e002b92468",
+      "before_sha256": "3a09a608138a0b7f135ec10b1231f51618044820d5257f35219c02e002b92468",
+      "path": "assets/sprites/enemies/zombie/zombie_02_walking_01.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "142342ce0a0445c5e76da2c23b0ca76102e817f171b90f3299d76e0cde389047",
+      "before_sha256": "142342ce0a0445c5e76da2c23b0ca76102e817f171b90f3299d76e0cde389047",
+      "path": "assets/sprites/enemies/zombie/zombie_02_walking_01_16x16.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "e3e20872b5c17fca05a06aaf7ba2f660650e4fbff7d58c822baccc0f51b1cfb8",
+      "before_sha256": "e3e20872b5c17fca05a06aaf7ba2f660650e4fbff7d58c822baccc0f51b1cfb8",
+      "path": "assets/sprites/enemies/zombie/zombie_02_walking_01_32x32.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "1c15f16f806531b708757a4f7bf6f8375407d752c9b576d163d0f10f30daf6da",
+      "before_sha256": "1c15f16f806531b708757a4f7bf6f8375407d752c9b576d163d0f10f30daf6da",
+      "path": "assets/sprites/enemies/zombie/zombie_02_walking_02.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "e4c672cf2cfd0501f433b7d99a094686b2e4af903b0558228b11db8917159b2a",
+      "before_sha256": "e4c672cf2cfd0501f433b7d99a094686b2e4af903b0558228b11db8917159b2a",
+      "path": "assets/sprites/enemies/zombie/zombie_02_walking_02_16x16.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "60faec43b682584b8d186f4731269d8001135ab01a62729a51b534e3b9eee28a",
+      "before_sha256": "60faec43b682584b8d186f4731269d8001135ab01a62729a51b534e3b9eee28a",
+      "path": "assets/sprites/enemies/zombie/zombie_02_walking_02_32x32.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "a2be906d13831551c29402ff80f676d7f590cb94191647983f3aa0f177c36044",
+      "before_sha256": "a2be906d13831551c29402ff80f676d7f590cb94191647983f3aa0f177c36044",
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_corps_16x16.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "c73b6679cd299ccf2fad04e98453eea8d3c5aaa145b54b4d7316b172a856587b",
+      "before_sha256": "c73b6679cd299ccf2fad04e98453eea8d3c5aaa145b54b4d7316b172a856587b",
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_corps_32x32.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "557d4b0fddc0ea3ac3557f220407a9eefbb6b4f558f53b5828aeba33efc376d7",
+      "before_sha256": "557d4b0fddc0ea3ac3557f220407a9eefbb6b4f558f53b5828aeba33efc376d7",
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_01_16x16.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "fefe8042d2c852e33bf1d69b96e7ae3c3c0011badb0eece957630f992b44d814",
+      "before_sha256": "fefe8042d2c852e33bf1d69b96e7ae3c3c0011badb0eece957630f992b44d814",
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_01_32x32.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "f041e403698c9623e49e82b62e0861612543e96101ebf29f978b65d23c54c2ca",
+      "before_sha256": "f041e403698c9623e49e82b62e0861612543e96101ebf29f978b65d23c54c2ca",
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_02.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "8b26b1addfaf8ff19ccbf9afbd2754a9d829d0c552ef8ef3683c035a9ead38a1",
+      "before_sha256": "8b26b1addfaf8ff19ccbf9afbd2754a9d829d0c552ef8ef3683c035a9ead38a1",
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_dead_16x16.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "83a67918bac96953d7e3ad5ed8e97966fe635f2cc6b79716d1922e9af2a60e75",
+      "before_sha256": "83a67918bac96953d7e3ad5ed8e97966fe635f2cc6b79716d1922e9af2a60e75",
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_shot_dead_32x32.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "8838eb98a0740a255ff8e6954899da53b92b06ee9d25b2a12c1c126312069018",
+      "before_sha256": "8838eb98a0740a255ff8e6954899da53b92b06ee9d25b2a12c1c126312069018",
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_standing_16x16.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "233ab1f92b6dd4c9ec45a5a3968353591386bed882a6d82b474e3f532260e353",
+      "before_sha256": "233ab1f92b6dd4c9ec45a5a3968353591386bed882a6d82b474e3f532260e353",
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_walking_01_16x16.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "eabf126d4541419da199db309d85d7972b95f236bafe70a2087134190e4a8683",
+      "before_sha256": "eabf126d4541419da199db309d85d7972b95f236bafe70a2087134190e4a8683",
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_01_walking_02_16x16.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "9608ca0c699e46971ceafe394d9439eba36f23553724b15e128d90565b5d1581",
+      "before_sha256": "9608ca0c699e46971ceafe394d9439eba36f23553724b15e128d90565b5d1581",
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_attack_01.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "404e7f6da19afd89c3e9727388532289770c40b336d960d8f237921ea7fab5ab",
+      "before_sha256": "404e7f6da19afd89c3e9727388532289770c40b336d960d8f237921ea7fab5ab",
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_corps_16x16.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "d4abd58bc14ba72454d4e422f9b733e5747edead9347fb005dcd5d4bb57779c6",
+      "before_sha256": "d4abd58bc14ba72454d4e422f9b733e5747edead9347fb005dcd5d4bb57779c6",
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_corps_32x32.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "fb3fc653e5c26b11285ea1440ade42756bdf9bdc7975b35f6a826ad108a20683",
+      "before_sha256": "fb3fc653e5c26b11285ea1440ade42756bdf9bdc7975b35f6a826ad108a20683",
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_standing.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "638f63fb9862fa44175aeef06814ed3f036b77351bf8b191378cfe87f6fd1b2e",
+      "before_sha256": "638f63fb9862fa44175aeef06814ed3f036b77351bf8b191378cfe87f6fd1b2e",
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_standing_16x16.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "951afbcdeefa91361715557bb4d46fc6610ce8d2e04cf839bc5495a6c2755e74",
+      "before_sha256": "951afbcdeefa91361715557bb4d46fc6610ce8d2e04cf839bc5495a6c2755e74",
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_walking_01_16x16.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "76ba1a5d705390d6e43b4a612e8daa9ce03c1d1def31dc1b760db6ac9f1a14ad",
+      "before_sha256": "76ba1a5d705390d6e43b4a612e8daa9ce03c1d1def31dc1b760db6ac9f1a14ad",
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_walking_01_32x32.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "f9af315d083016200371865c9cebcb22e86181dddac7d719fae9db3c20a03661",
+      "before_sha256": "f9af315d083016200371865c9cebcb22e86181dddac7d719fae9db3c20a03661",
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_walking_02_16x16.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "83773d912370f52654be3d8fbf24ed4a930fc2657ff376f4d786c302fcfa0f8f",
+      "before_sha256": "83773d912370f52654be3d8fbf24ed4a930fc2657ff376f4d786c302fcfa0f8f",
+      "path": "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_walking_02_32x32.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "3540c89699e3147003b7a9cf7d372fc2b40da1fc946838f873624e2c51163581",
+      "before_sha256": "3540c89699e3147003b7a9cf7d372fc2b40da1fc946838f873624e2c51163581",
+      "path": "assets/sprites/weapons/Corel Auto-Preserve/gun.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "c57da998706b2aa7c7e53effa4698bb2900336aa8728733d3298f0fddf1faae4",
+      "before_sha256": "c57da998706b2aa7c7e53effa4698bb2900336aa8728733d3298f0fddf1faae4",
+      "path": "assets/sprites/weapons/Corel Auto-Preserve/gun_12x12.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "3daf2a1bf78edc40c56d6d6bca8339d73bbb3503bf13494e773ef3889a246f2f",
+      "before_sha256": "3daf2a1bf78edc40c56d6d6bca8339d73bbb3503bf13494e773ef3889a246f2f",
+      "path": "assets/sprites/weapons/Corel Auto-Preserve/gun_12x12_v2.pspimage",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "9981aea777c60a2ff2b9b965ed746fc6f7bb81c6b2e3421823323a409642a478",
+      "before_sha256": "9981aea777c60a2ff2b9b965ed746fc6f7bb81c6b2e3421823323a409642a478",
+      "path": "assets/sprites/weapons/Corel Auto-Preserve/gun_2_12x12.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "8de6e8d82391a448f35544a8c089316be780014da546a02a5507364de293ebe1",
+      "before_sha256": "8de6e8d82391a448f35544a8c089316be780014da546a02a5507364de293ebe1",
+      "path": "assets/sprites/weapons/Corel Auto-Preserve/gun_3_12x12.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "b034b8085c73d590aea7377b78a35d330c82d1b53aa6c10f5c37ab6e28916c09",
+      "before_sha256": "b034b8085c73d590aea7377b78a35d330c82d1b53aa6c10f5c37ab6e28916c09",
+      "path": "assets/sprites/weapons/Corel Auto-Preserve/pick_up_shotgun.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "e237dc789d1577959816b654fcbfdf5383c3392f85ed40b348a8a5606387c539",
+      "before_sha256": "e237dc789d1577959816b654fcbfdf5383c3392f85ed40b348a8a5606387c539",
+      "path": "assets/sprites/weapons/Corel Auto-Preserve/shotgun.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "131bf12ebe63be8660d8e60dc58f975528511ff87d645d1419b0aae6d21d3536",
+      "before_sha256": "131bf12ebe63be8660d8e60dc58f975528511ff87d645d1419b0aae6d21d3536",
+      "path": "assets/sprites/weapons/Corel Auto-Preserve/shotgun_16x16.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "3219b0d87f4f6dbe2cc850baa37305ac5ef24186749e05aabe1afbbdfc67e384",
+      "before_sha256": "3219b0d87f4f6dbe2cc850baa37305ac5ef24186749e05aabe1afbbdfc67e384",
+      "path": "assets/sprites/weapons/Corel Auto-Preserve/shotgun_16x16_shoot.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "328f7a9de7708ecd60fa26a25ca13498ec74ca16f8f07d57fbefc89a70babdbe",
+      "before_sha256": "328f7a9de7708ecd60fa26a25ca13498ec74ca16f8f07d57fbefc89a70babdbe",
+      "path": "assets/sprites/weapons/Corel Auto-Preserve/shotgun_held.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "43134c7e3a027906453c46fad9d6e5bb51ee67e8235db8665f344ef8f61d46fa",
+      "before_sha256": "43134c7e3a027906453c46fad9d6e5bb51ee67e8235db8665f344ef8f61d46fa",
+      "path": "assets/sprites/weapons/Corel Auto-Preserve/shotgun_held_shoot.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "b480bdb849864bef4782fe591cb05a1cbef7490dd30554a48e410cf07fb42a9f",
+      "before_sha256": "b480bdb849864bef4782fe591cb05a1cbef7490dd30554a48e410cf07fb42a9f",
+      "path": "assets/textures/ceilings/ceiling_industrial.png.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "02d22a9e1aa31c4854d89d58748fe628e513116b4234998487090ba7a26f41d4",
+      "before_sha256": "02d22a9e1aa31c4854d89d58748fe628e513116b4234998487090ba7a26f41d4",
+      "path": "assets/textures/floors/floor_industrial.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "d23e2aa1635ad286ac1f8971f1842ddb81d675c7df19d6b6f13b2fe7ed2308a7",
+      "before_sha256": "d23e2aa1635ad286ac1f8971f1842ddb81d675c7df19d6b6f13b2fe7ed2308a7",
+      "path": "assets/textures/library/ceiling_tiles.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "825450538459fbbcf18c00f7e05eb0518dcd041835b13899edcde85104faafc8",
+      "before_sha256": "825450538459fbbcf18c00f7e05eb0518dcd041835b13899edcde85104faafc8",
+      "path": "assets/textures/library/floor_tiles.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "f9ebb8e4017c59c26e7a8393a4c019007f5f8211568256b9deb9a820fa21a07f",
+      "before_sha256": "f9ebb8e4017c59c26e7a8393a4c019007f5f8211568256b9deb9a820fa21a07f",
+      "path": "assets/textures/library/wall_reference.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "1b336d099a7ba67b10aca616922fc2d986aa28f9c8a293afdaf04f53d3d45f42",
+      "before_sha256": "1b336d099a7ba67b10aca616922fc2d986aa28f9c8a293afdaf04f53d3d45f42",
+      "path": "assets/textures/walls/next_level_door.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "884001314238acdf714cc7752bdcc4184f35d83fd7b35a80da28ad9c26b3692b",
+      "before_sha256": "884001314238acdf714cc7752bdcc4184f35d83fd7b35a80da28ad9c26b3692b",
+      "path": "assets/textures/walls/next_level_door_v2.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "fc72d841d642d61d32b3cb88c80da099a24521de195259c7c37a7146f1c96317",
+      "before_sha256": "fc72d841d642d61d32b3cb88c80da099a24521de195259c7c37a7146f1c96317",
+      "path": "assets/textures/walls/next_level_door_v3.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "4b8060f6b220c9b3e87f6c43791352b252f870672c51f35ede71d5fdf453b515",
+      "before_sha256": "4b8060f6b220c9b3e87f6c43791352b252f870672c51f35ede71d5fdf453b515",
+      "path": "assets/textures/walls/switch_off_01.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "0086b948fa4ca690b5510344d1fec745a394e67f7375b07e0ecc6f5adbb6ae41",
+      "before_sha256": "0086b948fa4ca690b5510344d1fec745a394e67f7375b07e0ecc6f5adbb6ae41",
+      "path": "assets/textures/walls/switch_off_02.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "03422cb129c23a820b0c2c13f8f2b7a367bd7d53c84d5e7695c8cdc8b7cee0e7",
+      "before_sha256": "03422cb129c23a820b0c2c13f8f2b7a367bd7d53c84d5e7695c8cdc8b7cee0e7",
+      "path": "assets/textures/walls/switch_on_01.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "4360549c33ff8e4b302eb8775a546f15de41147d48125c576dcb1ac25a7f1004",
+      "before_sha256": "4360549c33ff8e4b302eb8775a546f15de41147d48125c576dcb1ac25a7f1004",
+      "path": "assets/textures/walls/switch_on_02.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "15058babdfe5524170f17dfd11f309866565dc60cb8f11258cf7afb0567293ef",
+      "before_sha256": "15058babdfe5524170f17dfd11f309866565dc60cb8f11258cf7afb0567293ef",
+      "path": "assets/textures/walls/wall_brick_x.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "d643c186a43869048d8dcecb1883f2d1aef097d0ad54d076ae597f900b843788",
+      "before_sha256": "d643c186a43869048d8dcecb1883f2d1aef097d0ad54d076ae597f900b843788",
+      "path": "assets/textures/walls/wall_brick_y.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "637e129813b65705cada0b013722c0c96b3bf4f05b04ae38c8c48f8de9673960",
+      "before_sha256": "637e129813b65705cada0b013722c0c96b3bf4f05b04ae38c8c48f8de9673960",
+      "path": "assets/textures/walls/wall_concrete.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "f3a9ea033c96c3fed06abea12e0668b52481e5d6fbdf11a02c1227fde79c94e9",
+      "before_sha256": "f3a9ea033c96c3fed06abea12e0668b52481e5d6fbdf11a02c1227fde79c94e9",
+      "path": "assets/textures/walls/wall_concrete_blood.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "63f78e18a202df8b3c8b9bbd0e71011cbfe7d81341b0590331da7a5416bb95af",
+      "before_sha256": "63f78e18a202df8b3c8b9bbd0e71011cbfe7d81341b0590331da7a5416bb95af",
+      "path": "assets/textures/walls/wall_door.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "a548caf6d602640f5597507615ef99526ec140da44274e44b3eaa930b1aab7d3",
+      "before_sha256": "a548caf6d602640f5597507615ef99526ec140da44274e44b3eaa930b1aab7d3",
+      "path": "assets/textures/walls/wall_door_red.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "9d664942ce26e916bb7813b5a2a48afa8c9082cb5b5df403125f7a47061b3cc1",
+      "before_sha256": "9d664942ce26e916bb7813b5a2a48afa8c9082cb5b5df403125f7a47061b3cc1",
+      "path": "assets/textures/walls/wall_metal_x.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "73362bd031a4c3cea916349396a5d1374f2388bc021b0a194811109569de78cf",
+      "before_sha256": "73362bd031a4c3cea916349396a5d1374f2388bc021b0a194811109569de78cf",
+      "path": "assets/textures/walls/wall_metal_y.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "75ff47b1f45db306ee7176f5cf52c46edfc01c2cdaf94e0565323c0054a4fa28",
+      "before_sha256": "75ff47b1f45db306ee7176f5cf52c46edfc01c2cdaf94e0565323c0054a4fa28",
+      "path": "assets/textures/walls/wall_tech_x.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "f976407c4d18dfe8f4bde40309fe3ebf2a3065cd2233e305fe7758c24170dfbe",
+      "before_sha256": "f976407c4d18dfe8f4bde40309fe3ebf2a3065cd2233e305fe7758c24170dfbe",
+      "path": "assets/textures/walls/wall_tech_y.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "7f6b8b8ed3b664056fc837b6c8ea0dcf1ba5571e27cf7038abddc02a466c41ae",
+      "before_sha256": "7f6b8b8ed3b664056fc837b6c8ea0dcf1ba5571e27cf7038abddc02a466c41ae",
+      "path": "assets/textures/library/Corel Auto-Preserve/zombie_01_run_01.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "6356cf9b036f09b6243b4a29a9857e25ce83d5341d79416ab6ca129108313303",
+      "before_sha256": "6356cf9b036f09b6243b4a29a9857e25ce83d5341d79416ab6ca129108313303",
+      "path": "assets/textures/library/Corel Auto-Preserve/zombie_01_run_02.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "59a487106206e9bbc893e750b1c3632dd4fd92afc77adf624769e3139a6530f4",
+      "before_sha256": "59a487106206e9bbc893e750b1c3632dd4fd92afc77adf624769e3139a6530f4",
+      "path": "assets/textures/walls/Corel Auto-Preserve/next_level_door.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "62937018e348986d5ac89f650ecb903c363da936cbf41a95d18f0194739f75ad",
+      "before_sha256": "62937018e348986d5ac89f650ecb903c363da936cbf41a95d18f0194739f75ad",
+      "path": "assets/textures/walls/Corel Auto-Preserve/red_door_switch_off_1.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "111ce8575d316f7dd4aee690dcfb98e02e90c1d4e1d9ca66406a36c30947d6d1",
+      "before_sha256": "111ce8575d316f7dd4aee690dcfb98e02e90c1d4e1d9ca66406a36c30947d6d1",
+      "path": "assets/textures/walls/Corel Auto-Preserve/red_door_switch_off_2.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "7f92496e5a20f73b751fcec8da89780f5ffbe71b4d950d7d36a6a1fc6431adff",
+      "before_sha256": "7f92496e5a20f73b751fcec8da89780f5ffbe71b4d950d7d36a6a1fc6431adff",
+      "path": "assets/textures/walls/Corel Auto-Preserve/red_door_switch_on_1.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "1925a7843b6b9a71eb0578061c6bb50891919799433c7fe0155ad3f479a20fbe",
+      "before_sha256": "1925a7843b6b9a71eb0578061c6bb50891919799433c7fe0155ad3f479a20fbe",
+      "path": "assets/textures/walls/Corel Auto-Preserve/red_door_switch_on_2.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "b9ecbbb28cb8e7b68146d771e1a782155cee7da71e1ad349ac94fab4a145e8b7",
+      "before_sha256": "b9ecbbb28cb8e7b68146d771e1a782155cee7da71e1ad349ac94fab4a145e8b7",
+      "path": "assets/textures/walls/Corel Auto-Preserve/switch_off_01.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "c9938597ce000f760f00dab5bdc79bf30782d5ea31e2480f28649ad045d44577",
+      "before_sha256": "c9938597ce000f760f00dab5bdc79bf30782d5ea31e2480f28649ad045d44577",
+      "path": "assets/textures/walls/Corel Auto-Preserve/switch_off_02.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "1289d9d66937f87e348f988f465070f62620174a16486bd582fc0258cb76eef4",
+      "before_sha256": "1289d9d66937f87e348f988f465070f62620174a16486bd582fc0258cb76eef4",
+      "path": "assets/textures/walls/Corel Auto-Preserve/switch_on_01.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "a9a55c3bb2db36c24c0facff7fb2444c2a4d321ce9f73b2c9a6dea6b1f5849ee",
+      "before_sha256": "a9a55c3bb2db36c24c0facff7fb2444c2a4d321ce9f73b2c9a6dea6b1f5849ee",
+      "path": "assets/textures/walls/Corel Auto-Preserve/switch_on_02.png",
+      "status": "UNCHANGED"
+    },
+    {
+      "after_sha256": "a548caf6d602640f5597507615ef99526ec140da44274e44b3eaa930b1aab7d3",
+      "before_sha256": "a548caf6d602640f5597507615ef99526ec140da44274e44b3eaa930b1aab7d3",
+      "path": "assets/textures/walls/Corel Auto-Preserve/wall_door_red.png",
+      "status": "UNCHANGED"
+    }
+  ]
+}

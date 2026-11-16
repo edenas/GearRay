@@ -1,0 +1,763 @@
+{
+  "status": "PASS",
+  "scope": "analysis of retained same-candidate profiler traces; no new performance run or causal counterfactual",
+  "candidate_sha256": "b5f9da2b5461574c6c09bc06387eeaa08ae304caeefc96f4ffce1b7c2c58349b",
+  "sample_rows": 3168,
+  "stage_rows": 44739,
+  "scenarios": {
+    "A_static": {
+      "samples": 256,
+      "mean_cycles": 59735.96,
+      "median_cycles": 59741.0,
+      "p95_cycles": 59755.0,
+      "max_cycles": 59758,
+      "cold_or_restart_rows": 0,
+      "cold_or_restart_max_cycles": 0,
+      "active_max_cycles": 59758,
+      "max_stack_bytes": 225,
+      "max_world_queries": 0,
+      "max_sprite_tiles": 0,
+      "actor_count_max": 0,
+      "visual_types_seen": [],
+      "stage_cycles_nonadditive": {
+        "game_gear_video_draw_wall_columns_cycles": {
+          "mean": 35932.0,
+          "median": 35932.0,
+          "p95": 35932.0,
+          "max": 35932
+        },
+        "game_gear_prepare_cached_world_sprites_cycles": {
+          "mean": 279.0,
+          "median": 279.0,
+          "p95": 279.0,
+          "max": 279
+        },
+        "world_sprites_update_cycles": {
+          "mean": 140.0,
+          "median": 140.0,
+          "p95": 140.0,
+          "max": 140
+        },
+        "zombie_ai_update_all_cycles": {
+          "mean": 494.0,
+          "median": 494.0,
+          "p95": 494.0,
+          "max": 494
+        }
+      }
+    },
+    "B_rotation": {
+      "samples": 256,
+      "mean_cycles": 1893505.31,
+      "median_cycles": 1835853.0,
+      "p95_cycles": 2150502.25,
+      "max_cycles": 2150701,
+      "cold_or_restart_rows": 0,
+      "cold_or_restart_max_cycles": 0,
+      "active_max_cycles": 2150701,
+      "max_stack_bytes": 273,
+      "max_world_queries": 177,
+      "max_sprite_tiles": 0,
+      "actor_count_max": 0,
+      "visual_types_seen": [],
+      "stage_cycles_nonadditive": {
+        "game_gear_video_draw_wall_columns_cycles": {
+          "mean": 1286537.19,
+          "median": 1184416.0,
+          "p95": 1598623.0,
+          "max": 1599325
+        },
+        "game_gear_prepare_cached_world_sprites_cycles": {
+          "mean": 279.0,
+          "median": 279.0,
+          "p95": 279.0,
+          "max": 279
+        },
+        "game_gear_overlay_hud_weapon_tile_cycles": {
+          "mean": 90353.47,
+          "median": 90416.0,
+          "p95": 90692.0,
+          "max": 90692
+        },
+        "world_sprites_update_cycles": {
+          "mean": 140.0,
+          "median": 140.0,
+          "p95": 140.0,
+          "max": 140
+        },
+        "zombie_ai_update_all_cycles": {
+          "mean": 494.0,
+          "median": 494.0,
+          "p95": 494.0,
+          "max": 494
+        }
+      }
+    },
+    "C_forward": {
+      "samples": 256,
+      "mean_cycles": 1676341.5,
+      "median_cycles": 1689857.0,
+      "p95_cycles": 1870337.75,
+      "max_cycles": 1870380,
+      "cold_or_restart_rows": 0,
+      "cold_or_restart_max_cycles": 0,
+      "active_max_cycles": 1870380,
+      "max_stack_bytes": 273,
+      "max_world_queries": 242,
+      "max_sprite_tiles": 0,
+      "actor_count_max": 0,
+      "visual_types_seen": [],
+      "stage_cycles_nonadditive": {
+        "game_gear_video_draw_wall_columns_cycles": {
+          "mean": 995327.88,
+          "median": 1011758.0,
+          "p95": 1150720.0,
+          "max": 1150720
+        },
+        "game_gear_prepare_cached_world_sprites_cycles": {
+          "mean": 279.0,
+          "median": 279.0,
+          "p95": 279.0,
+          "max": 279
+        },
+        "game_gear_overlay_hud_weapon_tile_cycles": {
+          "mean": 89747.0,
+          "median": 90140.0,
+          "p95": 90692.0,
+          "max": 90692
+        },
+        "world_sprites_update_cycles": {
+          "mean": 140.0,
+          "median": 140.0,
+          "p95": 140.0,
+          "max": 140
+        },
+        "zombie_ai_update_all_cycles": {
+          "mean": 494.0,
+          "median": 494.0,
+          "p95": 494.0,
+          "max": 494
+        }
+      }
+    },
+    "F_geometry": {
+      "samples": 256,
+      "mean_cycles": 1894033.84,
+      "median_cycles": 1867543.0,
+      "p95_cycles": 2126999.0,
+      "max_cycles": 2148064,
+      "cold_or_restart_rows": 0,
+      "cold_or_restart_max_cycles": 0,
+      "active_max_cycles": 2148064,
+      "max_stack_bytes": 273,
+      "max_world_queries": 177,
+      "max_sprite_tiles": 0,
+      "actor_count_max": 0,
+      "visual_types_seen": [],
+      "stage_cycles_nonadditive": {
+        "game_gear_video_draw_wall_columns_cycles": {
+          "mean": 1270191.21,
+          "median": 1199649.0,
+          "p95": 1541615.0,
+          "max": 1588133
+        },
+        "game_gear_prepare_cached_world_sprites_cycles": {
+          "mean": 279.0,
+          "median": 279.0,
+          "p95": 279.0,
+          "max": 279
+        },
+        "game_gear_overlay_hud_weapon_tile_cycles": {
+          "mean": 90266.14,
+          "median": 90140.0,
+          "p95": 90692.0,
+          "max": 90692
+        },
+        "world_sprites_update_cycles": {
+          "mean": 140.0,
+          "median": 140.0,
+          "p95": 140.0,
+          "max": 140
+        },
+        "zombie_ai_update_all_cycles": {
+          "mean": 494.0,
+          "median": 494.0,
+          "p95": 494.0,
+          "max": 494
+        }
+      }
+    },
+    "G_zombies": {
+      "samples": 256,
+      "mean_cycles": 284596.29,
+      "median_cycles": 179205.0,
+      "p95_cycles": 179239.0,
+      "max_cycles": 25733114,
+      "cold_or_restart_rows": 1,
+      "cold_or_restart_max_cycles": 25733114,
+      "active_max_cycles": 657105,
+      "max_stack_bytes": 387,
+      "max_world_queries": 100,
+      "max_sprite_tiles": 0,
+      "actor_count_max": 8,
+      "visual_types_seen": [
+        0,
+        1
+      ],
+      "stage_cycles_nonadditive": {
+        "game_gear_video_draw_wall_columns_cycles": {
+          "mean": 150320.71,
+          "median": 140288.0,
+          "p95": 140288.0,
+          "max": 1298217
+        },
+        "game_gear_prepare_world_sprites_cycles": {
+          "mean": 361357.25,
+          "median": 431946.0,
+          "p95": 431995.3,
+          "max": 432004
+        },
+        "game_gear_prepare_cached_world_sprites_cycles": {
+          "mean": 37055.52,
+          "median": 31610.0,
+          "p95": 31610.0,
+          "max": 452761
+        },
+        "game_gear_overlay_hud_weapon_tile_cycles": {
+          "mean": 90692.0,
+          "median": 90692.0,
+          "p95": 90692.0,
+          "max": 90692
+        },
+        "world_sprites_update_cycles": {
+          "mean": 1700.92,
+          "median": 1676.0,
+          "p95": 1676.0,
+          "max": 3367
+        },
+        "zombie_ai_update_all_cycles": {
+          "mean": 9763.73,
+          "median": 9566.0,
+          "p95": 9566.0,
+          "max": 22221
+        }
+      }
+    },
+    "H_offscreen": {
+      "samples": 256,
+      "mean_cycles": 281309.98,
+      "median_cycles": 179205.0,
+      "p95_cycles": 179239.0,
+      "max_cycles": 25756019,
+      "cold_or_restart_rows": 1,
+      "cold_or_restart_max_cycles": 25756019,
+      "active_max_cycles": 361328,
+      "max_stack_bytes": 387,
+      "max_world_queries": 100,
+      "max_sprite_tiles": 0,
+      "actor_count_max": 8,
+      "visual_types_seen": [
+        0,
+        1
+      ],
+      "stage_cycles_nonadditive": {
+        "game_gear_video_draw_wall_columns_cycles": {
+          "mean": 147251.59,
+          "median": 140288.0,
+          "p95": 140288.0,
+          "max": 1298217
+        },
+        "game_gear_prepare_world_sprites_cycles": {
+          "mean": 169127.5,
+          "median": 175659.0,
+          "p95": 175659.0,
+          "max": 175659
+        },
+        "game_gear_prepare_cached_world_sprites_cycles": {
+          "mean": 34051.8,
+          "median": 31610.0,
+          "p95": 31610.0,
+          "max": 196405
+        },
+        "game_gear_overlay_hud_weapon_tile_cycles": {
+          "mean": 90692.0,
+          "median": 90692.0,
+          "p95": 90692.0,
+          "max": 90692
+        },
+        "world_sprites_update_cycles": {
+          "mean": 1700.92,
+          "median": 1676.0,
+          "p95": 1676.0,
+          "max": 3367
+        },
+        "zombie_ai_update_all_cycles": {
+          "mean": 9768.05,
+          "median": 9566.0,
+          "p95": 9566.0,
+          "max": 22497
+        }
+      }
+    },
+    "I_pistol": {
+      "samples": 256,
+      "mean_cycles": 482788.14,
+      "median_cycles": 507713.5,
+      "p95_cycles": 863213.0,
+      "max_cycles": 863213,
+      "cold_or_restart_rows": 0,
+      "cold_or_restart_max_cycles": 0,
+      "active_max_cycles": 863213,
+      "max_stack_bytes": 271,
+      "max_world_queries": 0,
+      "max_sprite_tiles": 5,
+      "actor_count_max": 1,
+      "visual_types_seen": [
+        0
+      ],
+      "stage_cycles_nonadditive": {
+        "game_gear_video_draw_wall_columns_cycles": {
+          "mean": 451622.75,
+          "median": 451602.0,
+          "p95": 823505.0,
+          "max": 823505
+        },
+        "game_gear_prepare_cached_world_sprites_cycles": {
+          "mean": 24465.0,
+          "median": 24465.0,
+          "p95": 24465.0,
+          "max": 24465
+        },
+        "game_gear_overlay_sprite_tile_cycles": {
+          "mean": 202479.0,
+          "median": 202479.0,
+          "p95": 202479.0,
+          "max": 202479
+        },
+        "game_gear_overlay_hud_weapon_tile_cycles": {
+          "mean": 90733.5,
+          "median": 90733.5,
+          "p95": 90775.0,
+          "max": 90775
+        },
+        "world_sprites_update_cycles": {
+          "mean": 441.0,
+          "median": 441.0,
+          "p95": 441.0,
+          "max": 441
+        },
+        "zombie_ai_update_all_cycles": {
+          "mean": 1091.0,
+          "median": 1091.0,
+          "p95": 1091.0,
+          "max": 1091
+        },
+        "zombie_shooting_process_cycles": {
+          "mean": 5242.56,
+          "median": 5152.0,
+          "p95": 5428.0,
+          "max": 5428
+        }
+      }
+    },
+    "I_shotgun": {
+      "samples": 256,
+      "mean_cycles": 537624.0,
+      "median_cycles": 537627.5,
+      "p95_cycles": 963678.0,
+      "max_cycles": 963678,
+      "cold_or_restart_rows": 0,
+      "cold_or_restart_max_cycles": 0,
+      "active_max_cycles": 963678,
+      "max_stack_bytes": 271,
+      "max_world_queries": 0,
+      "max_sprite_tiles": 5,
+      "actor_count_max": 1,
+      "visual_types_seen": [
+        0
+      ],
+      "stage_cycles_nonadditive": {
+        "game_gear_video_draw_wall_columns_cycles": {
+          "mean": 501836.0,
+          "median": 501796.0,
+          "p95": 923970.0,
+          "max": 923970
+        },
+        "game_gear_prepare_cached_world_sprites_cycles": {
+          "mean": 24465.0,
+          "median": 24465.0,
+          "p95": 24465.0,
+          "max": 24465
+        },
+        "game_gear_overlay_sprite_tile_cycles": {
+          "mean": 202755.0,
+          "median": 202755.0,
+          "p95": 202755.0,
+          "max": 202755
+        },
+        "game_gear_overlay_hud_weapon_tile_cycles": {
+          "mean": 190608.0,
+          "median": 190608.0,
+          "p95": 190688.0,
+          "max": 190688
+        },
+        "world_sprites_update_cycles": {
+          "mean": 441.0,
+          "median": 441.0,
+          "p95": 441.0,
+          "max": 441
+        },
+        "zombie_ai_update_all_cycles": {
+          "mean": 1091.0,
+          "median": 1091.0,
+          "p95": 1091.0,
+          "max": 1091
+        },
+        "zombie_shooting_process_cycles": {
+          "mean": 5152.0,
+          "median": 5152.0,
+          "p95": 5152.0,
+          "max": 5152
+        }
+      }
+    },
+    "J_lod": {
+      "samples": 256,
+      "mean_cycles": 2237810.04,
+      "median_cycles": 2075362.0,
+      "p95_cycles": 2367323.0,
+      "max_cycles": 25746384,
+      "cold_or_restart_rows": 1,
+      "cold_or_restart_max_cycles": 25746384,
+      "active_max_cycles": 7275292,
+      "max_stack_bytes": 387,
+      "max_world_queries": 110,
+      "max_sprite_tiles": 112,
+      "actor_count_max": 4,
+      "visual_types_seen": [
+        0,
+        1
+      ],
+      "stage_cycles_nonadditive": {
+        "game_gear_video_draw_wall_columns_cycles": {
+          "mean": 1636324.36,
+          "median": 1572027.0,
+          "p95": 1844976.0,
+          "max": 6751353
+        },
+        "game_gear_prepare_world_sprites_cycles": {
+          "mean": 148916.97,
+          "median": 153474.0,
+          "p95": 155916.0,
+          "max": 155916
+        },
+        "game_gear_prepare_cached_world_sprites_cycles": {
+          "mean": 160941.3,
+          "median": 167128.0,
+          "p95": 169570.0,
+          "max": 169570
+        },
+        "game_gear_overlay_sprite_tile_cycles": {
+          "mean": 3727034.17,
+          "median": 4125594.5,
+          "p95": 4824850.0,
+          "max": 4853159
+        },
+        "game_gear_overlay_hud_weapon_tile_cycles": {
+          "mean": 90134.55,
+          "median": 90140.0,
+          "p95": 90416.0,
+          "max": 90968
+        },
+        "world_sprites_update_cycles": {
+          "mean": 1622.92,
+          "median": 1676.0,
+          "p95": 1676.0,
+          "max": 1676
+        },
+        "zombie_ai_update_all_cycles": {
+          "mean": 9520.94,
+          "median": 9566.0,
+          "p95": 9869.0,
+          "max": 9869
+        }
+      }
+    },
+    "L_mixed": {
+      "samples": 256,
+      "mean_cycles": 2536804.5,
+      "median_cycles": 2404658.0,
+      "p95_cycles": 3174190.25,
+      "max_cycles": 25748788,
+      "cold_or_restart_rows": 1,
+      "cold_or_restart_max_cycles": 25748788,
+      "active_max_cycles": 6896812,
+      "max_stack_bytes": 387,
+      "max_world_queries": 243,
+      "max_sprite_tiles": 96,
+      "actor_count_max": 8,
+      "visual_types_seen": [
+        0,
+        1
+      ],
+      "stage_cycles_nonadditive": {
+        "game_gear_video_draw_wall_columns_cycles": {
+          "mean": 1847512.73,
+          "median": 1871139.5,
+          "p95": 2416259.5,
+          "max": 6274330
+        },
+        "game_gear_prepare_world_sprites_cycles": {
+          "mean": 139014.12,
+          "median": 134221.0,
+          "p95": 190079.75,
+          "max": 457046
+        },
+        "game_gear_prepare_cached_world_sprites_cycles": {
+          "mean": 152777.34,
+          "median": 147766.0,
+          "p95": 203623.75,
+          "max": 473475
+        },
+        "game_gear_overlay_sprite_tile_cycles": {
+          "mean": 1178737.26,
+          "median": 856430.0,
+          "p95": 3131756.4,
+          "max": 4014759
+        },
+        "game_gear_overlay_hud_weapon_tile_cycles": {
+          "mean": 175603.11,
+          "median": 190528.0,
+          "p95": 191545.0,
+          "max": 191792
+        },
+        "world_sprites_update_cycles": {
+          "mean": 1826.44,
+          "median": 1676.0,
+          "p95": 3129.0,
+          "max": 8784
+        },
+        "zombie_ai_update_all_cycles": {
+          "mean": 13517.11,
+          "median": 9574.0,
+          "p95": 52301.0,
+          "max": 96772
+        },
+        "zombie_shooting_process_cycles": {
+          "mean": 62488.17,
+          "median": 66881.0,
+          "p95": 115501.0,
+          "max": 115714
+        }
+      }
+    },
+    "M_authored": {
+      "samples": 256,
+      "mean_cycles": 179207.92,
+      "median_cycles": 179205.0,
+      "p95_cycles": 179228.0,
+      "max_cycles": 179239,
+      "cold_or_restart_rows": 0,
+      "cold_or_restart_max_cycles": 0,
+      "active_max_cycles": 179239,
+      "max_stack_bytes": 250,
+      "max_world_queries": 0,
+      "max_sprite_tiles": 0,
+      "actor_count_max": 4,
+      "visual_types_seen": [
+        0,
+        1
+      ],
+      "stage_cycles_nonadditive": {
+        "game_gear_video_draw_wall_columns_cycles": {
+          "mean": 140288.0,
+          "median": 140288.0,
+          "p95": 140288.0,
+          "max": 140288
+        },
+        "game_gear_prepare_cached_world_sprites_cycles": {
+          "mean": 31610.0,
+          "median": 31610.0,
+          "p95": 31610.0,
+          "max": 31610
+        },
+        "world_sprites_update_cycles": {
+          "mean": 1676.0,
+          "median": 1676.0,
+          "p95": 1676.0,
+          "max": 1676
+        },
+        "zombie_ai_update_all_cycles": {
+          "mean": 9566.0,
+          "median": 9566.0,
+          "p95": 9566.0,
+          "max": 9566
+        }
+      }
+    }
+  },
+  "retained_actor_free_comparison": {
+    "scope": "Review of retained, identically scheduled actor-free routes only; no fresh campaign or tolerance exception",
+    "roms": [
+      "3632006ed68fcbcbacf9aa693c92560520df496e1e4ac23cf2cb6e1df88d3340",
+      "b5f9da2b5461574c6c09bc06387eeaa08ae304caeefc96f4ffce1b7c2c58349b"
+    ],
+    "matched_metadata_fields": [
+      "emulicious_sha256",
+      "samples_per_scenario",
+      "warmup",
+      "route_length",
+      "route_mode",
+      "pinned_reset_timer"
+    ],
+    "routes": [
+      {
+        "scenario": "A_static",
+        "state_or_visual_rows_different": {
+          "camera_hex": 0,
+          "ray_hex": 0,
+          "polled_key_mask": 0,
+          "state_json": 0,
+          "vram_sha256": 0
+        },
+        "counter_total_delta": {
+          "dirty_columns": 0,
+          "tiles": 0,
+          "sprite_tiles": 0,
+          "rays": 0,
+          "world_queries": 0
+        },
+        "october": {
+          "n": 256,
+          "mean": 59735.96484375,
+          "median": 59741.0,
+          "p95": 59755,
+          "max": 59758
+        },
+        "candidate": {
+          "n": 256,
+          "mean": 59735.96484375,
+          "median": 59741.0,
+          "p95": 59755,
+          "max": 59758
+        },
+        "mean_delta_cycles": 0.0,
+        "mean_delta_percent": 0.0
+      },
+      {
+        "scenario": "B_rotation",
+        "state_or_visual_rows_different": {
+          "camera_hex": 0,
+          "ray_hex": 0,
+          "polled_key_mask": 0,
+          "state_json": 0,
+          "vram_sha256": 0
+        },
+        "counter_total_delta": {
+          "dirty_columns": 0,
+          "tiles": 0,
+          "sprite_tiles": 0,
+          "rays": 0,
+          "world_queries": 0
+        },
+        "october": {
+          "n": 256,
+          "mean": 1887679.4765625,
+          "median": 1836120.5,
+          "p95": 2150485,
+          "max": 2150668
+        },
+        "candidate": {
+          "n": 256,
+          "mean": 1893505.30859375,
+          "median": 1835853.0,
+          "p95": 2150503,
+          "max": 2150701
+        },
+        "mean_delta_cycles": 5825.83203125,
+        "mean_delta_percent": 0.3086240065426127
+      },
+      {
+        "scenario": "C_forward",
+        "state_or_visual_rows_different": {
+          "camera_hex": 0,
+          "ray_hex": 0,
+          "polled_key_mask": 0,
+          "state_json": 0,
+          "vram_sha256": 0
+        },
+        "counter_total_delta": {
+          "dirty_columns": 0,
+          "tiles": 0,
+          "sprite_tiles": 0,
+          "rays": 0,
+          "world_queries": 0
+        },
+        "october": {
+          "n": 256,
+          "mean": 1665141.01171875,
+          "median": 1670747.5,
+          "p95": 1867824,
+          "max": 1867858
+        },
+        "candidate": {
+          "n": 256,
+          "mean": 1676341.50390625,
+          "median": 1689857.0,
+          "p95": 1870346,
+          "max": 1870380
+        },
+        "mean_delta_cycles": 11200.4921875,
+        "mean_delta_percent": 0.6726452659969517
+      },
+      {
+        "scenario": "F_geometry",
+        "state_or_visual_rows_different": {
+          "camera_hex": 0,
+          "ray_hex": 0,
+          "polled_key_mask": 0,
+          "state_json": 0,
+          "vram_sha256": 0
+        },
+        "counter_total_delta": {
+          "dirty_columns": 0,
+          "tiles": 0,
+          "sprite_tiles": 0,
+          "rays": 0,
+          "world_queries": 0
+        },
+        "october": {
+          "n": 256,
+          "mean": 1881897.98046875,
+          "median": 1862756.0,
+          "p95": 2082128,
+          "max": 2126738
+        },
+        "candidate": {
+          "n": 256,
+          "mean": 1894033.84375,
+          "median": 1867543.0,
+          "p95": 2127014,
+          "max": 2148064
+        },
+        "mean_delta_cycles": 12135.86328125,
+        "mean_delta_percent": 0.6448736013961343
+      }
+    ],
+    "raw_sha256": {
+      "build\\release\\cleanup-replay\\emulator-metadata.json": "a1d7bb783a866663c075bf511cf0573f76cc491b5c3069fc3a0bd2265814f5ed",
+      "build\\release\\cleanup-replay\\scenario-fixtures.json": "925282760589c64709d6fa4a06d04bf395108184733c8b662e1e1d11948b2883",
+      "build\\release\\cleanup-replay\\frame-samples.csv": "99d8469ccb71cee93a3ac45b1f606f8c82c5b163fddec718391c5d522f49696a",
+      "build\\zv01-luna\\replay-final\\emulator-metadata.json": "9b173e89790e6e9ad4df87596cd06d5515c938e3ecf8a2e4ee2ff7b03174dd0a",
+      "build\\zv01-luna\\replay-final\\scenario-fixtures.json": "f51e79ddf68890c67dd2e6fdbbd3f741b9e1f50d094231c2a67e887f6d807664",
+      "build\\zv01-luna\\replay-final\\frame-samples.csv": "1720f1466f98d68db5d448a00ff207e817155ce2cc6745b5a6cb203c469e77d3"
+    },
+    "interpretation": "Nonzero moving/dirty-render cost is consistent with incoming-page save/restore plus the new preparation scope; no isolated counterfactual identifies its exact sole contribution. NPC/weapon content routes require separate attribution. No percentage is declared an acceptance allowance."
+  },
+  "interpretation": [
+    "Routes G/H/J/L contain seeded mixed actor or offscreen/LOD fixtures; actor type is present in recorded state. Full runner may include death and restart, so long tails are kept and classified separately where cold/startup counters are visible.",
+    "Current routes provide actual candidate costs for wall draw, sprite preparation/composition, actor update, weapons, pause and restore. The stage columns are nested/overlapping scopes and are not summed as exclusive costs.",
+    "Only A/B/C/F have same-schedule October comparison: A unchanged; B +0.309%; C +0.673%; F +0.645%. All recorded camera/input/state/VRAM/ray/counters match. This is an observed bounded change, not an approved tolerance.",
+    "No equivalent old-art mixed-actor or shotgun-content route exists in the retained profile, so no causal percentage is assigned to the new assets. Existing candidate route evidence is sufficient to report measured cost; any decision about materiality/tolerance remains with Sol/Astra."
+  ]
+}

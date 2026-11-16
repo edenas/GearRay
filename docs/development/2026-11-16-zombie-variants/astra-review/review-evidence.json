@@ -1,0 +1,153 @@
+{
+  "files": {
+    "verified": 279,
+    "mismatches": []
+  },
+  "protected_art": {
+    "verified": 141,
+    "mismatches": []
+  },
+  "linked_payload": {
+    "checked_bytes": 58182,
+    "distinct_mapped_bytes": 58184,
+    "zero_fill_bytes": 72888,
+    "ihx_sha256": "8d4e417b73d22599a4869a4a0df8893868e08edcb8c66feeb931c031f77c7141",
+    "map_sha256": "2cfca2a0f37bb22556fbbd2192752df84d170ec1078e5dc780ddee9649c529ef"
+  },
+  "raw_profiles": {
+    "build/release/cleanup-replay/frame-samples.csv": "99d8469ccb71cee93a3ac45b1f606f8c82c5b163fddec718391c5d522f49696a",
+    "build/release/cleanup-replay/stage-samples.csv": "9b21d2f139f946de2dead4927f713b8e0962ccaafd448e8686ae40e4b8381198",
+    "build/zv01-luna/replay-final/frame-samples.csv": "1720f1466f98d68db5d448a00ff207e817155ce2cc6745b5a6cb203c469e77d3",
+    "build/zv01-luna/replay-final/stage-samples.csv": "4bfb82c4a7eeff503f42fbb04dd97584bcd0706c3bc3ebf2cb748696219344a1"
+  },
+  "performance_recalculation": {
+    "A_static": {
+      "matching_rows": 256,
+      "matched_fields": [
+        "camera_hex",
+        "ray_hex",
+        "vram_sha256",
+        "state_json",
+        "polled_key_mask",
+        "dirty_columns",
+        "tiles",
+        "sprite_tiles",
+        "rays",
+        "world_queries",
+        "wall_plan_prepare_calls",
+        "wall_plan_rows_calls"
+      ],
+      "old_candidate_mean_T": [
+        59735.96484375,
+        59735.96484375
+      ],
+      "delta_percent": 0.0,
+      "old_candidate_p95_nearest_rank_T": [
+        59755,
+        59755
+      ],
+      "old_candidate_max_T": [
+        59758,
+        59758
+      ]
+    },
+    "B_rotation": {
+      "matching_rows": 256,
+      "matched_fields": [
+        "camera_hex",
+        "ray_hex",
+        "vram_sha256",
+        "state_json",
+        "polled_key_mask",
+        "dirty_columns",
+        "tiles",
+        "sprite_tiles",
+        "rays",
+        "world_queries",
+        "wall_plan_prepare_calls",
+        "wall_plan_rows_calls"
+      ],
+      "old_candidate_mean_T": [
+        1887679.4765625,
+        1893505.30859375
+      ],
+      "delta_percent": 0.3086240065426127,
+      "old_candidate_p95_nearest_rank_T": [
+        2150485,
+        2150503
+      ],
+      "old_candidate_max_T": [
+        2150668,
+        2150701
+      ]
+    },
+    "C_forward": {
+      "matching_rows": 256,
+      "matched_fields": [
+        "camera_hex",
+        "ray_hex",
+        "vram_sha256",
+        "state_json",
+        "polled_key_mask",
+        "dirty_columns",
+        "tiles",
+        "sprite_tiles",
+        "rays",
+        "world_queries",
+        "wall_plan_prepare_calls",
+        "wall_plan_rows_calls"
+      ],
+      "old_candidate_mean_T": [
+        1665141.01171875,
+        1676341.50390625
+      ],
+      "delta_percent": 0.6726452659969517,
+      "old_candidate_p95_nearest_rank_T": [
+        1867824,
+        1870346
+      ],
+      "old_candidate_max_T": [
+        1867858,
+        1870380
+      ]
+    },
+    "F_geometry": {
+      "matching_rows": 256,
+      "matched_fields": [
+        "camera_hex",
+        "ray_hex",
+        "vram_sha256",
+        "state_json",
+        "polled_key_mask",
+        "dirty_columns",
+        "tiles",
+        "sprite_tiles",
+        "rays",
+        "world_queries",
+        "wall_plan_prepare_calls",
+        "wall_plan_rows_calls"
+      ],
+      "old_candidate_mean_T": [
+        1881897.98046875,
+        1894033.84375
+      ],
+      "delta_percent": 0.6448736013961343,
+      "old_candidate_p95_nearest_rank_T": [
+        2082128,
+        2127014
+      ],
+      "old_candidate_max_T": [
+        2126738,
+        2148064
+      ]
+    }
+  },
+  "review_date": "2026-11-16",
+  "candidate_sha256": "b5f9da2b5461574c6c09bc06387eeaa08ae304caeefc96f4ffce1b7c2c58349b",
+  "candidate_bytes": 131072,
+  "closure_identity_sha256": "dabf6a07188ba6237b8659839bc76499135406f5324828977d605d83e44a9609",
+  "scope": "Fresh read-only identity, IHX payload/fill and retained CSV arithmetic checks; source/assertion review. No build, emulator campaign, human or hardware execution.",
+  "head": "e6d1e2346e3752c2fce9332c3fe59f6c2e31190e",
+  "index_empty": true,
+  "reviewed_before_document_updates": true
+}

@@ -1,0 +1,18 @@
+{
+  "AGENTS.md": "1a432fae56beca5cd56451bdc34fc76745f3fbebf68354ba394eab5a8eb42fd4",
+  "docs/WORK_RULES.md": "b39a349c52440adbc365f7e53c3c511eb698975b5a4bbe4b6f0f9930bfc5c7a7",
+  "docs/README.md": "1cd1d1d32f95e055449fe74750d17473a1c6688893c2f69fbd205c28d0949601",
+  "docs/development/2026-11-16-zombie-variants/ARTWORK_INSPECTION.md": "0fb4af68c9cf07a72c0046fa8ecb8c3ef8e381da1752a50824ef8a557b124054",
+  "docs/development/2026-11-16-zombie-variants/ENGINEERING_ASSIGNMENT.md": "6a0352c817c8268a4f95f4d53499c6dba1e55c055739ab31a26ff3285a1fb734",
+  "docs/development/2026-11-16-zombie-variants/SOL_EXECUTION_PROMPT.md": "8cd35795d59e5bb5b7586d7fb8d63b4f056022ba373b222a2d9094677dd9168c",
+  "docs/development/2026-11-16-zombie-variants/evidence/architecture-evidence.json": "3999b2a57c15300f69d88889ddd844421220efe32032646b3500f65887cb36d1",
+  "docs/development/2026-11-16-zombie-variants/evidence/artwork-inspection.json": "66295b419944c6f797edea7437919afd0dfa293821062a9c45837c812c423423",
+  "docs/development/2026-11-16-zombie-variants/evidence/generator-probe-results.json": "797018601db8c9adcebdf9b1306d089e7aca68dd58647e188019290786af86d7",
+  "docs/development/2026-11-16-zombie-variants/evidence/initial-identity.json": "7af50e868818f44ce0496e9cfa8ca93e0e28cd7983efcc199f59ff4b021e7d42",
+  "docs/development/2026-11-16-zombie-variants/evidence/inspect_inputs.py": "9b8bc5c3363f365aa7e91b317d6945db918ae9fc15b606a6e4df011de13c8911",
+  "docs/development/2026-11-16-zombie-variants/evidence/planning-completion.json": "427498cee3b0fbe4f96c9380e7aa70a911ac8c05c2dcf42c572959c832a653ed",
+  "docs/development/2026-11-16-zombie-variants/evidence/shotgun-generator-probe.log": "34a4fb50dced4c3babaebb699183b01fe7f060de5c69018b9368d5e5d24f877a",
+  "docs/development/2026-11-16-zombie-variants/evidence/summarize_architecture.py": "57f4f87923b1c458be32b3a72e8306e88527647e1515c4e614da7da282b365a3",
+  "docs/development/2026-11-16-zombie-variants/evidence/verify_planning.py": "23886fd166da665537aeffbf96aaa3e8ea6e11b7e41afecef2b3694d14a5cb0d",
+  "docs/development/2026-11-16-zombie-variants/evidence/zombie-generator-probe.log": "13ac1cf1c3f3e4b6ba86f66050315299ae5a88494c72e3943eabe9019720b7ac"
+}

@@ -1,0 +1,45 @@
+{
+  "status": "PASS",
+  "scope": "One first-movement checkpoint and actual typed boot; NOT full playthrough",
+  "boot_actor_types": [
+    0,
+    0,
+    1,
+    1
+  ],
+  "candidate_checkpoints": 1,
+  "rom_sha256": "b5f9da2b5461574c6c09bc06387eeaa08ae304caeefc96f4ffce1b7c2c58349b",
+  "records": [
+    {
+      "variant": "selected",
+      "checkpoint": "physical-held-forward",
+      "state": {
+        "camera.position_x": "8006",
+        "camera.position_y": "3005",
+        "camera.direction_x": "0000",
+        "camera.direction_y": "00ff",
+        "camera.plane_x": "a900",
+        "camera.plane_y": "0000",
+        "player.player_position_x": "8006",
+        "player.player_position_y": "3005",
+        "player.player_health": "64",
+        "main.pending_shot": "00",
+        "main.zombie_ai_frame_counter": "00",
+        "hud_weapon.weapon_state": "00",
+        "hud_weapon.animation_timer": "00",
+        "door_states.door_states": "000000",
+        "owned_weapons": "01",
+        "selected_weapon": "00",
+        "shotgun_cell_x": "0b",
+        "shotgun_cell_y": "06",
+        "actors": []
+      },
+      "rays": "90016a05300090016b05300090016d05300090016e05300090017005300090017205300090017305300090017505300090017705300090017805300090017a05300090017c05300090017d05300090017f05300090018005300090018205300090018305300090018505300090018705300090018805300090018a05300090018c05300090018d05300090018f053000900190053000900192053000900194053000900195053000",
+      "vram": "4727ff30441e119a8b377e5546da0e5e16b6b327eade14f9658f358d45de0e39",
+      "pages": [
+        1,
+        2
+      ]
+    }
+  ]
+}

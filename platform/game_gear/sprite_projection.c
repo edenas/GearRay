@@ -5,16 +5,7 @@
 #include "sprite_projection.h"
 #include "video.h"
 #include "near_zombie_textures.h"
-#include "zombie_01_walking_01_texture.h"
-#include "zombie_01_walking_02_texture.h"
-#include "zombie_01_shot_01_texture.h"
-#include "zombie_01_shot_02_texture.h"
-#include "zombie_walking_01_16x16_texture.h"
-#include "zombie_walking_02_16x16_texture.h"
-#include "zombie_shot_01_16x16_texture.h"
-#include "zombie_shot_dead_16x16_texture.h"
-#include "zombie_corps_16x16_texture.h"
-#include "zombie_standing_16x16_texture.h"
+#include "zombie_visuals.h"
 #include "../../game/weapons.h"
 #include "shotgun_world.h"
 #include "shotgun_far_lod.h"
@@ -28,121 +19,22 @@
  * Cull one real 74-unit player movement step before that point. */
 #define SPRITE_CORPSE_CLOSE_HIDDEN_MAX_DEPTH \
     (16384U / (3U * GAME_GEAR_VIEWPORT_PIXEL_HEIGHT) + PLAYER_MOVE_SPEED)
-#define ZOMBIE_PRESENTATION_STANDING 0
-#define ZOMBIE_PRESENTATION_WALKING_01 1
-#define ZOMBIE_PRESENTATION_WALKING_02 2
-#define ZOMBIE_PRESENTATION_SHOT 3
-#define ZOMBIE_PRESENTATION_DEAD 4
-#define ZOMBIE_PRESENTATION_CORPSE 5
-#define ZOMBIE_PRESENTATION_STANDING_ATTACK 6
-#define ZOMBIE_PRESENTATION_ATTACK_01 7
-#define ZOMBIE_PRESENTATION_ATTACK_02 8
-
-static const unsigned char zombie_standing_medium_lod_pixels[32] = {
-    0xff, 0xfd, 0xdf, 0xff,
-    0xff, 0xfd, 0xdf, 0xff,
-    0xff, 0xdd, 0xdd, 0xff,
-    0xfd, 0xdd, 0xda, 0xdf,
-    0xdf, 0xdd, 0xdd, 0xfd,
-    0xdf, 0xda, 0xdd, 0xfd,
-    0xff, 0xdf, 0xfd, 0xff,
-    0xfd, 0xff, 0xff, 0xdf
-};
-
-static const unsigned char zombie_standing_simple_lod_pixels[32] = {
-    0xff, 0xfd, 0xdf, 0xff,
-    0xff, 0xfd, 0xdf, 0xff,
-    0xff, 0xfd, 0xdf, 0xff,
-    0xff, 0xdd, 0xdd, 0xff,
-    0xff, 0xfd, 0xdf, 0xff,
-    0xff, 0xfd, 0xdf, 0xff,
-    0xff, 0xdf, 0xfd, 0xff,
-    0xff, 0xdf, 0xfd, 0xff
-};
-
-static const unsigned char zombie_shot_01_medium_lod_pixels[32] = {
-    0xfa, 0xfd, 0xdf, 0xff, 0xfd, 0xfd, 0xdf, 0xdf,
-    0xfd, 0xdd, 0xdd, 0xdf, 0xff, 0xdd, 0xdd, 0xdf,
-    0xff, 0xdd, 0xdd, 0xfd, 0xdf, 0xdd, 0xdd, 0xff,
-    0xff, 0xdf, 0xdf, 0xff, 0xff, 0xfd, 0xfd, 0xff
-};
-
-static const unsigned char zombie_shot_01_simple_lod_pixels[32] = {
-    0xff, 0xfd, 0xdf, 0xff, 0xfd, 0xfd, 0xdf, 0xff,
-    0xff, 0xdd, 0xdd, 0xff, 0xff, 0xdd, 0xdd, 0xdf,
-    0xff, 0xfd, 0xdd, 0xff, 0xff, 0xfd, 0xdf, 0xff,
-    0xff, 0xfd, 0xfd, 0xff, 0xff, 0xfd, 0xfd, 0xff
-};
-
-static const unsigned char zombie_shot_02_medium_lod_pixels[32] = {
-    0xff, 0xfd, 0xdf, 0xda, 0xdf, 0xfd, 0xdf, 0xdf,
-    0xfd, 0xdd, 0xdd, 0xdf, 0xfd, 0xdd, 0xdf, 0xff,
-    0xdf, 0xdd, 0xdd, 0xff, 0xdf, 0xdd, 0xdd, 0xff,
-    0xff, 0xdf, 0xdf, 0xdf, 0xff, 0xdf, 0xdf, 0xff
-};
-
-static const unsigned char zombie_shot_02_simple_lod_pixels[32] = {
-    0xff, 0xfd, 0xdf, 0xdf, 0xff, 0xfd, 0xdf, 0xdf,
-    0xff, 0xdd, 0xdd, 0xdf, 0xfd, 0xdd, 0xdf, 0xff,
-    0xff, 0xfd, 0xdd, 0xff, 0xff, 0xfd, 0xdd, 0xff,
-    0xff, 0xdf, 0xdf, 0xff, 0xff, 0xdf, 0xdf, 0xff
-};
-
-static const unsigned char zombie_shot_dead_medium_lod_pixels[32] = {
-    0xff, 0xfd, 0xdf, 0xdf, 0xfd, 0xfd, 0xdf, 0xfd,
-    0xdf, 0xdd, 0xdd, 0xff, 0xad, 0xdd, 0xdd, 0xdd,
-    0xff, 0xdd, 0xdd, 0xfd, 0xdf, 0xdd, 0xdd, 0xdf,
-    0xff, 0xdf, 0xdd, 0xfd, 0xfd, 0xfd, 0xff, 0xdf
-};
-
-static const unsigned char zombie_shot_dead_simple_lod_pixels[32] = {
-    0xff, 0xfd, 0xdf, 0xff, 0xff, 0xfd, 0xdf, 0xdf,
-    0xfd, 0xfd, 0xdd, 0xff, 0xff, 0xdd, 0xdd, 0xdd,
-    0xff, 0xdd, 0xdd, 0xdf, 0xff, 0xfd, 0xdd, 0xdf,
-    0xff, 0xdf, 0xdd, 0xff, 0xfd, 0xfd, 0xff, 0xdf
-};
-
-static const unsigned char zombie_corpse_lod_pixels[32] = {
-    0xff, 0xff, 0xff, 0xff,
-    0xff, 0xff, 0xff, 0xff,
-    0xff, 0xff, 0xff, 0xff,
-    0xff, 0xff, 0xff, 0xff,
-    0xff, 0xff, 0xff, 0xff,
-    0xff, 0xdd, 0xdd, 0xff,
-    0xfd, 0xdd, 0xdd, 0xdf,
-    0xdd, 0xdd, 0xdd, 0xdd
-};
-
 static const unsigned char *game_gear_get_zombie_lod_pixels(
     const WorldSprite *sprite, unsigned char medium)
 {
-    static const unsigned char * const medium_pixels[6] = {
-        zombie_standing_medium_lod_pixels,
-        zombie_shot_01_medium_lod_pixels,
-        zombie_shot_02_medium_lod_pixels,
-        zombie_shot_dead_medium_lod_pixels,
-        zombie_01_walking_01_pixels_medium_lod,
-        zombie_01_walking_02_pixels_medium_lod
-    };
-    static const unsigned char * const simple_pixels[6] = {
-        zombie_standing_simple_lod_pixels,
-        zombie_shot_01_simple_lod_pixels,
-        zombie_shot_02_simple_lod_pixels,
-        zombie_shot_dead_simple_lod_pixels,
-        zombie_01_walking_01_pixels_simple_lod,
-        zombie_01_walking_02_pixels_simple_lod
-    };
-    unsigned char pose = WORLD_SPRITE_LIFE_STATE(sprite)
+    unsigned char token = WORLD_SPRITE_LIFE_STATE(sprite)
             == ZOMBIE_STATE_SHOT_DEAD
-        ? 3
+        ? ZOMBIE_ANIMATION_SHOT_DEAD
         : sprite->state_timer != 0
             ? ((sprite->health_and_hit_count >> ZOMBIE_HIT_COUNT_SHIFT)
-               & 1U ? 1 : 2)
-            : sprite->pixels == zombie_01_walking_01_pixels
-                ? 4
-                : sprite->pixels == zombie_01_walking_02_pixels ? 5 : 0;
+               & 1U ? ZOMBIE_ANIMATION_SHOT_01 : ZOMBIE_ANIMATION_SHOT_02)
+            : sprite->animation_token == ZOMBIE_ANIMATION_WALKING_01
+                ? ZOMBIE_ANIMATION_WALKING_01
+                : sprite->animation_token == ZOMBIE_ANIMATION_WALKING_02
+                    ? ZOMBIE_ANIMATION_WALKING_02 : ZOMBIE_ANIMATION_STANDING;
 
-    return medium ? medium_pixels[pose] : simple_pixels[pose];
+    return medium ? zombie_visual_lod_medium[sprite->visual_type][token]
+                  : zombie_visual_lod_simple[sprite->visual_type][token];
 }
 
 static unsigned char game_gear_get_sprite_render_cost(
@@ -155,7 +47,8 @@ static unsigned char game_gear_get_sprite_render_cost(
         return 8;
     if (projected->pixels == shotgun_far_pixels) return 1;
     if (projected->pixels == shotgun_world_pixels) return 2;
-    if (projected->pixels == zombie_corpse_lod_pixels)
+    if (projected->pixels == zombie_visual_lod_simple[ZOMBIE_VISUAL_SECURITY][ZOMBIE_ANIMATION_CORPSE]
+        || projected->pixels == zombie_visual_lod_simple[ZOMBIE_VISUAL_SCIENTIST][ZOMBIE_ANIMATION_CORPSE])
         return 1;
     if (projected_height >= SPRITE_FULL_DETAIL_MIN_HEIGHT)
         return 5;
@@ -191,8 +84,8 @@ static unsigned char game_gear_get_zombie_presentation_pose(
     if (WORLD_SPRITE_LIFE_STATE(sprite) == ZOMBIE_STATE_SHOT_DEAD)
         return ZOMBIE_PRESENTATION_DEAD;
     if (sprite->state_timer != 0
-        && (sprite->pixels == zombie_01_shot_01_pixels
-            || sprite->pixels == zombie_01_shot_02_pixels))
+        && (sprite->animation_token == ZOMBIE_ANIMATION_SHOT_01
+            || sprite->animation_token == ZOMBIE_ANIMATION_SHOT_02))
     {
         return ZOMBIE_PRESENTATION_SHOT;
     }
@@ -216,47 +109,31 @@ static unsigned char game_gear_get_zombie_presentation_pose(
     return ZOMBIE_PRESENTATION_STANDING;
 }
 
-static const unsigned char *game_gear_get_middle_zombie_pixels(
-    unsigned char pose)
+static unsigned char game_gear_get_near_zombie_texture_id(
+    unsigned char visual_type, unsigned char pose)
 {
+    unsigned char local_id;
     switch (pose)
     {
     case ZOMBIE_PRESENTATION_STANDING:
-        return zombie_middle_standing_pixels;
+        local_id = NEAR_ZOMBIE_TEXTURE_STANDING; break;
     case ZOMBIE_PRESENTATION_WALKING_02:
-        return zombie_middle_walking_02_pixels;
-    case ZOMBIE_PRESENTATION_SHOT:
-        return zombie_middle_shot_01_pixels;
-    case ZOMBIE_PRESENTATION_DEAD:
-        return zombie_middle_shot_dead_pixels;
-    case ZOMBIE_PRESENTATION_CORPSE:
-        return zombie_middle_corps_pixels;
-    default:
-        return zombie_middle_walking_01_pixels;
-    }
-}
-
-static unsigned char game_gear_get_near_zombie_texture_id(
-    unsigned char pose)
-{
-    switch (pose)
-    {
-    case ZOMBIE_PRESENTATION_WALKING_02:
-        return NEAR_ZOMBIE_TEXTURE_WALKING_02;
+        local_id = NEAR_ZOMBIE_TEXTURE_WALKING_02; break;
     case ZOMBIE_PRESENTATION_SHOT:
     case ZOMBIE_PRESENTATION_DEAD:
-        return NEAR_ZOMBIE_TEXTURE_SHOT_01;
+        local_id = NEAR_ZOMBIE_TEXTURE_SHOT_01; break;
     case ZOMBIE_PRESENTATION_CORPSE:
-        return NEAR_ZOMBIE_TEXTURE_CORPSE;
+        local_id = NEAR_ZOMBIE_TEXTURE_CORPSE; break;
     case ZOMBIE_PRESENTATION_STANDING_ATTACK:
-        return NEAR_ZOMBIE_TEXTURE_STANDING_ATTACK;
+        local_id = NEAR_ZOMBIE_TEXTURE_STANDING_ATTACK; break;
     case ZOMBIE_PRESENTATION_ATTACK_01:
-        return NEAR_ZOMBIE_TEXTURE_ATTACK_01;
+        local_id = NEAR_ZOMBIE_TEXTURE_ATTACK_01; break;
     case ZOMBIE_PRESENTATION_ATTACK_02:
-        return NEAR_ZOMBIE_TEXTURE_ATTACK_02;
+        local_id = NEAR_ZOMBIE_TEXTURE_ATTACK_02; break;
     default:
-        return NEAR_ZOMBIE_TEXTURE_WALKING_01;
+        local_id = NEAR_ZOMBIE_TEXTURE_WALKING_01; break;
     }
+    return visual_type * NEAR_ZOMBIE_TEXTURES_PER_TYPE + local_id;
 }
 
 typedef struct
@@ -311,7 +188,12 @@ static void game_gear_project_world_sprite(
     projected->bottom = 0;
     projected->texture_step = 0;
     projected->pixels = shotgun_far_pixels;
-    if (sprite) projected->pixels = sprite->pixels;
+    if (sprite) {
+        /* Reject malformed external fixtures before any data-table dereference. */
+        if (sprite->visual_type >= ZOMBIE_VISUAL_TYPE_COUNT
+            || sprite->animation_token >= ZOMBIE_ANIMATION_COUNT) return;
+        projected->pixels = zombie_visual_base[sprite->visual_type][sprite->animation_token];
+    }
     projected->near_texture_id = NEAR_ZOMBIE_TEXTURE_NONE;
     projected->source_size = 8;
     if (determinant == 0)
@@ -377,7 +259,7 @@ static void game_gear_project_world_sprite(
         {
             projected_height = SPRITE_SIMPLE_LOD_MIN_HEIGHT;
             projected->pixels = life_state == ZOMBIE_STATE_CORPSE
-                ? zombie_corpse_lod_pixels
+                ? zombie_visual_lod_simple[sprite->visual_type][ZOMBIE_ANIMATION_CORPSE]
                 : game_gear_get_zombie_lod_pixels(sprite, 0);
         }
         else if (projected_height < SPRITE_FULL_DETAIL_MIN_HEIGHT)
@@ -385,18 +267,18 @@ static void game_gear_project_world_sprite(
             projected_height -=
                 (projected_height - SPRITE_MEDIUM_LOD_MIN_HEIGHT) & 1U;
             projected->pixels = life_state == ZOMBIE_STATE_CORPSE
-                ? zombie_corpse_lod_pixels
+                ? zombie_visual_lod_simple[sprite->visual_type][ZOMBIE_ANIMATION_CORPSE]
                 : game_gear_get_zombie_lod_pixels(sprite, 1);
         }
         else if (distance <= SPRITE_NEAR_DETAIL_MAX_DISTANCE)
         {
             projected->near_texture_id =
-                game_gear_get_near_zombie_texture_id(presentation_pose);
+                game_gear_get_near_zombie_texture_id(sprite->visual_type, presentation_pose);
         }
         else if (distance <= SPRITE_MIDDLE_DETAIL_MAX_DISTANCE)
         {
             projected->pixels =
-                game_gear_get_middle_zombie_pixels(presentation_pose);
+                zombie_visual_middle[sprite->visual_type][presentation_pose];
             projected->source_size = 16;
         }
         if (life_state == ZOMBIE_STATE_ALIVE

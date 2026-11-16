@@ -1,0 +1,108 @@
+{
+  "current_rom": {
+    "sha256": "3632006ed68fcbcbacf9aa693c92560520df496e1e4ac23cf2cb6e1df88d3340",
+    "bytes": 65536,
+    "qualification": "Existing build, not rebuilt against changed current artwork"
+  },
+  "existing_build_summary": {
+    "Banks": [
+      {
+        "Bank": 0,
+        "Used": 12865,
+        "Free": 3519
+      },
+      {
+        "Bank": 1,
+        "Used": 14217,
+        "Free": 2151
+      },
+      {
+        "Bank": 2,
+        "Used": 11737,
+        "Free": 4647
+      },
+      {
+        "Bank": 3,
+        "Used": 12756,
+        "Free": 3628
+      }
+    ],
+    "LinkedExtentSum": 51575,
+    "PersistentRAM": 1538,
+    "DataEnd": 50690,
+    "ROMBytes": 65536,
+    "SHA256": "3632006ED68FCBCBACF9AA693C92560520DF496E1E4AC23CF2CB6E1DF88D3340",
+    "ModuleCount": 54,
+    "HelperSites": 37,
+    "BankCallSites": 8,
+    "EmittedIHXBytes": 51427
+  },
+  "spawn_coordinates_zero_based": [
+    {
+      "x": 6,
+      "y": 1,
+      "visual_type": 1
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "visual_type": 1
+    },
+    {
+      "x": 5,
+      "y": 11,
+      "visual_type": 2
+    },
+    {
+      "x": 7,
+      "y": 11,
+      "visual_type": 2
+    }
+  ],
+  "all_other_map_tokens_preserved": true,
+  "current_runtime_collision": {
+    "stone": 1,
+    "blood_concrete": 2,
+    "old_zombie": 9,
+    "shotgun": 10
+  },
+  "missing_required_near_art": [
+    "zombie_02_attack_01_32x32.png",
+    "zombie_02_attack_02_32x32.png",
+    "zombie_02_corps_32x32.png"
+  ],
+  "near_art_raw_plan": {
+    "current": 3584,
+    "target": 8192,
+    "increment": 4608,
+    "bank2_free_before": 4647,
+    "bank2_remaining_before_extra_table_code": 39
+  },
+  "unsupported_color_occurrences": [
+    {
+      "path": "assets/sprites/enemies/zombie/zombie_02_walking_02_32x32.png",
+      "rgb": "#03000f",
+      "coordinates": [
+        [
+          5,
+          29
+        ]
+      ]
+    },
+    {
+      "path": "assets/sprites/weapons/shotgun_held_shoot.png",
+      "rgb": "#03000f",
+      "coordinates": [
+        [
+          4,
+          2
+        ],
+        [
+          5,
+          2
+        ]
+      ]
+    }
+  ],
+  "planning_checks": "Read-only source and image analysis plus two focused existing-generator rejection reproductions; no new ROM build or qualification campaign"
+}

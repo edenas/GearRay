@@ -14,7 +14,9 @@ $bank2Start = 0x28000
 $bank2End = 0x2C000
 $bank3Start = 0x34000
 $bank3End = 0x38000
-$nearTextureBytes = 7 * 32 * 32 / 2
+$bank4Start = 0x48000
+$bank4End = 0x4C000
+$nearTextureBytes = 16 * 32 * 32 / 2
 
 $map = Get-Content -LiteralPath $MapPath -Raw
 foreach ($area in [regex]::Matches($map, '(?m)^(_BANK\w+)\s+[0-9A-Fa-f]{8}\s+([0-9A-Fa-f]{8})')) {
@@ -72,14 +74,20 @@ if ($bank2SegmentStart -ne $bank2Start -or
     throw "Bank 2 segment is outside its dedicated 16 KB page."
 }
 
+$bank4SegmentStart = Get-HexSymbolValue 's__BANK4'
+$bank4Length = Get-HexSymbolValue 'l__BANK4'
+$expectedBank4Length = $nearTextureBytes + (16 * 2)
+if ($bank4SegmentStart -ne $bank4Start -or
+    $bank4Length -ne $expectedBank4Length -or
+    ($bank4SegmentStart + $bank4Length) -gt $bank4End) {
+    throw "Bank 4 must contain sixteen 512-byte near payloads plus their 16-entry pointer table; found start 0x$($bank4SegmentStart.ToString('X')) length $bank4Length."
+}
+
 $nearSymbols = @(
-    '_zombie_near_walking_01_pixels',
-    '_zombie_near_walking_02_pixels',
-    '_zombie_near_standing_attack_pix',
-    '_zombie_near_attack_01_pixels',
-    '_zombie_near_attack_02_pixels',
-    '_zombie_near_shot_01_pixels',
-    '_zombie_near_corpse_pixels'
+    '_znear_sec_stand','_znear_sec_walk1','_znear_sec_walk2','_znear_sec_melee',
+    '_znear_sec_attack1','_znear_sec_attack2','_znear_sec_hit','_znear_sec_body',
+    '_znear_sci_stand','_znear_sci_walk1','_znear_sci_walk2','_znear_sci_melee',
+    '_znear_sci_attack1','_znear_sci_attack2','_znear_sci_hit','_znear_sci_body'
 )
 $bank3Length = Get-HexSymbolValue 'l__BANK3'
 $bank3Extent = $bank3Length
@@ -129,8 +137,8 @@ foreach ($object in Get-ProductionBuildObjects $build) {
 }
 foreach ($symbol in $nearSymbols) {
     $address = Get-HexSymbolValue $symbol
-    if ($address -lt $bank2Start -or $address -ge $bank2End) {
-        throw "Near zombie texture is not in Bank 2: $symbol at 0x$($address.ToString('X'))."
+    if ($address -lt $bank4Start -or $address -ge ($bank4Start+$nearTextureBytes)) {
+        throw "Near zombie texture is not in Bank 4: $symbol at 0x$($address.ToString('X'))."
     }
 }
 if ($map -match '_shotgun_world_pixels\s') {
@@ -143,6 +151,38 @@ if ($map -match '_shotgun_world_pixels\s') {
 
 [byte[]]$rom = [System.IO.File]::ReadAllBytes((Resolve-Path -LiteralPath $RomPath))
 Test-ProductionRomPayload $build (Resolve-Path -LiteralPath $RomPath)
+
+$nearCases = @(
+    @('security','standing','znear_sec_stand'), @('security','walking_01','znear_sec_walk1'),
+    @('security','walking_02','znear_sec_walk2'), @('security','standing_attack','znear_sec_melee'),
+    @('security','attack_01','znear_sec_attack1'), @('security','attack_02','znear_sec_attack2'),
+    @('security','shot_01','znear_sec_hit'), @('security','corps','znear_sec_body'),
+    @('scientist','standing','znear_sci_stand'), @('scientist','walking_01','znear_sci_walk1'),
+    @('scientist','walking_02','znear_sci_walk2'), @('scientist','standing_attack','znear_sci_melee'),
+    @('scientist','attack_01','znear_sci_attack1'), @('scientist','attack_02','znear_sci_attack2'),
+    @('scientist','shot_01','znear_sci_hit'), @('scientist','corps','znear_sci_body')
+)
+$nearTableAddress = Get-HexSymbolValue '_near_zombie_texture_pixels'
+$nearTablePhysical = (($nearTableAddress -shr 16) * 16384) + ($nearTableAddress -band 0x3FFF)
+for ($i=0; $i -lt $nearCases.Count; $i++) {
+    $type=$nearCases[$i][0]; $pose=$nearCases[$i][1]; $symbol="_$($nearCases[$i][2])"
+    $source=Get-Content -LiteralPath (Join-Path $build "generated/zombie_near_${type}_${pose}_32x32.c") -Raw
+    $array=[regex]::Match($source,"(?s)$([regex]::Escape($nearCases[$i][2]))\[[^\]]+\]\s*=\s*\{(.*?)\}")
+    if(!$array.Success){throw "Missing generated near payload: $symbol"}
+    $bytes=@([regex]::Matches($array.Groups[1].Value,'0x([0-9a-fA-F]{2})') | ForEach-Object {[Convert]::ToInt32($_.Groups[1].Value,16)})
+    if($bytes.Count -ne 512){throw "Near payload $symbol has $($bytes.Count) bytes, expected 512."}
+    $address=Get-HexSymbolValue $symbol
+    $expectedAddress=$bank4Start+($i*512)
+    if($address -ne $expectedAddress){throw "Bank 4 pose order/placement mismatch for $symbol."}
+    $physical=0x10000+($i*512)
+    for($j=0;$j -lt $bytes.Count;$j++){
+        if($rom[$physical+$j] -ne $bytes[$j]){throw "Current near art mismatch at $symbol byte $j."}
+    }
+    $cpuAddress=0x8000+($address-$bank4Start)
+    $pointerOffset=$nearTablePhysical+($i*2)
+    $tablePointer=[int]$rom[$pointerOffset] -bor ([int]$rom[$pointerOffset+1] -shl 8)
+    if($tablePointer -ne $cpuAddress){throw "Near table entry $i points at 0x$($tablePointer.ToString('X4')), expected 0x$($cpuAddress.ToString('X4'))."}
+}
 if ($rom.Length -lt 32KB -or ($rom.Length -band ($rom.Length-1)) -ne 0) {
     throw "ROM size $($rom.Length) is not a supported power-of-two image of at least 32 KB."
 }
@@ -190,9 +230,6 @@ $bank2Free = ($bank2End - $bank2Start) - $bank2Length
 # The approved second native pause composite and carousel use a bounded 640-byte
 # budget (192 data + up to 448 code) beyond the pistol checkpoint. Residency and
 # physical bounds remain mandatory; this is a planning reserve, not a ROM limit.
-if ($bank2Length -lt $nearTextureBytes) {
-    throw "Bank 2 does not contain all near textures."
-}
 if ($bank2Free -lt (7680-640)) {
     Write-Warning "Bank 2 free space is $bank2Free bytes; the old planning reserve was 7040 bytes."
 }
@@ -200,8 +237,9 @@ if ($bank2Free -lt (7680-640)) {
 Write-Output "Bank layout validation PASS"
 Write-Output "- fixed endpoint: 0x$($fixedEnd.ToString('X4')); Bank 0 reserve: $bank0Reserve bytes"
 Write-Output "- Bank 1 used/free: $bank1Length/$bank1Free bytes"
-Write-Output "- Bank 2 used/free: $bank2Length/$bank2Free bytes; seven native near-detail textures verified"
+Write-Output "- Bank 2 used/free: $bank2Length/$bank2Free bytes"
+Write-Output "- Bank 4 used/free: $bank4Length/$(16384-$bank4Length) bytes; sixteen physical 32x32 payloads and pointers verified"
 Write-Output "- Bank 3 extent/free: $bank3Extent/$(16384-$bank3Extent); cold slot-1 bytes $bank3Length; disjoint slot-2 wall tail and physical payload verified"
-Write-Output "- seven 32x32 4bpp payloads: $nearTextureBytes bytes; planning reserves are advisory"
+Write-Output "- sixteen 32x32 4bpp payloads: $nearTextureBytes bytes; all payload bytes match the authored generator output"
 Write-Output "- ROM: $($rom.Length) bytes; header 0x$($headerRegionAndSize.ToString('X2')); checksum 0x$($storedChecksum.ToString('X4'))"
 Write-Output "- hot main/raycaster/video paths remain fixed; cold initialization remains in Bank 1"

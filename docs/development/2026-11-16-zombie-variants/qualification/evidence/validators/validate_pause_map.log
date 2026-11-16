@@ -1,0 +1,21 @@
+- V4.1 frozen normal/red doors: open/closed, H/V, viewport edge/pan-in, passage topology, zero idle/focus/rejected queries
+- production state/input traces: focus, browse, START priority, repeat, edge rejection, hide/show; 192 resume hold combinations
+- V4 corpses: 0/1/2/4/8, phases/clipping/pan/dedup/relocation/overlap, 32 clone limit, player priority, no idle scans
+- workshop spawn snapshot: 384 authoritative queries; 194 BG tile writes
+- final linked Bank 2 entry / Bank 1 restore / resident door accessors; 64 five-pixel player glyph bytes and 12 arrow bytes verified
+- native entry pattern upload bytes: 3808; idle pattern upload bytes: 0
+- WEAPONS entry, immediate fresh selection, MAP navigation/border invariance, reopen focus reset with selected shotgun preserved, held-entry direction debounce
+- maximum 32-clone corpse pool, four accepted pans, eight exact X markers and unchanged padded weapon pixels for both selections
+- first acquisition equips shotgun; actual post-pickup/manual-pistol carousels; already-owned repeat; production main/input traces preserve pending shots and reject held autofire
+- shotgun: current authoritative 16x16 source, binary alpha and exact palette/conversion pixels; all scroll parities; circular LEFT/RIGHT edges, hold rejection, persistence and idle no-write traces
+Pause map validation PASS
+- production geometry/marker code executed with mock VDP; authoritative 13x13 map
+- 12 synthetic extents including 1x1 and 128x128; nine edge/center positions; exact small-map centering
+- native 16x16 pistol at (72,112), all 63 opaque pixels; alpha preserves outline/background, empty side slots; four scroll parities
+- continuous computer wall and room-side blue protrusion in all four mount orientations
+- held START/release/fresh edge; static pause display; simulation/restore source contracts
+- WorldSprite 9 bytes; unchanged palette; full VRAM/cache restoration; Bank 2, zero static RAM/helpers
+- host preview: D:\mano_projektai\GearRay\build\zv01-luna/pause-map-preview.png (hardware behavior still needs Emulicious)
+- freeze: six 3600-VBlank UI modes, 36000-VBlank next-step equivalence, B1/B2/direction entry/exit holds, 100 cycles; all authoritative fixture bytes unchanged
+- generated pause closure: 47 functions, no simulation/trampolines; linked IRQ/NMI verified
+- conservative stack bounds before outer/IRQ allowance: pause 222, restore 572; gap 6638

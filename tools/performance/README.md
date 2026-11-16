@@ -17,7 +17,7 @@ A public clone deliberately does not contain interpreter binaries, Java/Emulicio
 ```powershell
 py -3.12 tools/performance/build_driver.py --java-tools build/release/java-tools
 py -3.12 tools/performance/test_profiler.py --java-tools build/release/java-tools --output build/release/profiler-self-test.json
-py -3.12 tools/performance/benchmark.py 256 --warmup 32 --logical-input --build build/release --java-tools build/release/java-tools --only A_static,B_rotation,C_forward,F_geometry,G_zombies,I_pistol,I_shotgun,J_lod,L_mixed,M_authored --output build/release/replay-new
+py -3.12 tools/performance/benchmark.py 256 --actor-layout visual-type-animation-v1 --warmup 32 --logical-input --build build/release --java-tools build/release/java-tools --only A_static,B_rotation,C_forward,F_geometry,G_zombies,I_pistol,I_shotgun,J_lod,L_mixed,M_authored --output build/release/replay-new
 ```
 
 Use a new output directory. Without --rom the build's CMake cache selects ROM_DIR/FILENAME, falling back to historical source/rom only for old caches. Release is canonical rom/GearRay.gg; diagnostic profile output stays beneath build/profile. Record the actual emitted ROM hash. Retained Java oracle sources and camera-transition-graph.json remain directly available; temporary restored symbol sets are separate from current source. The path-only adapter and original compiled regression counts are documented in [TESTING](../../docs/TESTING.md).
@@ -63,3 +63,11 @@ and cold rows explicitly, using the now bank-qualified initialization counter
 and executed cold code. Logical key seeding proves state/work equivalence;
 absolute physical pulses and physical button-to-photon latency are separate
 questions. Display refresh is not gameplay FPS.
+
+## ZV-01 actor schema boundary
+
+`benchmark.py` now requires `--actor-layout`. Use `legacy-pixels-v0` for the frozen October ROM: bytes 4/5 are its pixel pointer, and legacy state serialization remains unchanged. Use `visual-type-animation-v1` for ZV-01: bytes 4/5 are unsigned visual type / logical animation token. Fixture identity is written with that schema and mixed seeded scenes alternate the two types. The schema is emitted in scenario and emulator metadata; it is never guessed from pointer-looking values. Frozen historical scripts/CSVs are not rewritten.
+
+ZV-01 final-art and observer campaign qualification is Luna-owned and remains pending at the Sol core handoff. The core probe uses synthetic visual tables and cannot qualify authored sprites, the full playable candidate, its stack bound or performance.
+
+The normal Release now builds ZV-01; use visual-type-animation-v1 with its matching build/ROM. Legacy schema is only for the October ROM and its matching restored symbols. Sol review repaired root build ordering and audit accounting; full current-art technical qualification is still pending. The old layout is never inferred from the bytes.

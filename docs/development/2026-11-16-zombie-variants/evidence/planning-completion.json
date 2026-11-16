@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-16",
+  "task": "ZV-01 architecture planning and policy adoption",
+  "head_unchanged": "e6d1e2346e3752c2fce9332c3fe59f6c2e31190e",
+  "production_source_files_unchanged": 63,
+  "all_preexisting_production_tool_asset_inputs_unchanged": true,
+  "assets_current_paths_verified": 114,
+  "quarantine_art_verified": 18,
+  "only_preexisting_file_edited": "docs/README.md (active assignment navigation)",
+  "new_policy_files": [
+    "AGENTS.md",
+    "docs/WORK_RULES.md"
+  ],
+  "rules_version": "5.2",
+  "rules_sha256": "b39a349c52440adbc365f7e53c3c511eb698975b5a4bbe4b6f0f9930bfc5c7a7",
+  "documents": [
+    "ENGINEERING_ASSIGNMENT.md",
+    "SOL_EXECUTION_PROMPT.md",
+    "ARTWORK_INSPECTION.md"
+  ],
+  "broken_links": [],
+  "generator_probes": "Two focused expected rejections: white in old 8x8 decoder and #03000F in held shotgun fire",
+  "runtime_builds_or_campaigns_run": false,
+  "internal_agents_or_automatic_transfers": false,
+  "commit_or_push": false,
+  "owner_dependencies": [
+    "Three missing scientist near frames",
+    "Explicit #03000F conversion decision"
+  ],
+  "next_action": "Owner manually transfers Sol prompt; Sol starts dependency-ready engineering and preserves dependent content gates",
+  "cost": "Unavailable"
+}

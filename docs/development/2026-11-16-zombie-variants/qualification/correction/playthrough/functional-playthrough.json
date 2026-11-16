@@ -1,0 +1,353 @@
+{
+  "checkpoints": 10,
+  "candidate_checkpoints": 10,
+  "actor_layout": "visual-type-animation-v1",
+  "rom_sha256": "b5f9da2b5461574c6c09bc06387eeaa08ae304caeefc96f4ffce1b7c2c58349b",
+  "mismatches": 0,
+  "records": [
+    {
+      "variant": "selected",
+      "checkpoint": "physical-held-forward",
+      "state": {
+        "camera.position_x": "8006",
+        "camera.position_y": "3005",
+        "camera.direction_x": "0000",
+        "camera.direction_y": "00ff",
+        "camera.plane_x": "a900",
+        "camera.plane_y": "0000",
+        "player.player_position_x": "8006",
+        "player.player_position_y": "3005",
+        "player.player_health": "64",
+        "main.pending_shot": "00",
+        "main.zombie_ai_frame_counter": "00",
+        "hud_weapon.weapon_state": "00",
+        "hud_weapon.animation_timer": "00",
+        "door_states.door_states": "000000",
+        "owned_weapons": "01",
+        "selected_weapon": "00",
+        "shotgun_cell_x": "0b",
+        "shotgun_cell_y": "06",
+        "actors": []
+      },
+      "rays": "90016a05300090016b05300090016d05300090016e05300090017005300090017205300090017305300090017505300090017705300090017805300090017a05300090017c05300090017d05300090017f05300090018005300090018205300090018305300090018505300090018705300090018805300090018a05300090018c05300090018d05300090018f053000900190053000900192053000900194053000900195053000",
+      "vram": "4727ff30441e119a8b377e5546da0e5e16b6b327eade14f9658f358d45de0e39",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "checkpoint": "physical-held-rotation",
+      "state": {
+        "camera.position_x": "8006",
+        "camera.position_y": "3005",
+        "camera.direction_x": "0001",
+        "camera.direction_y": "efff",
+        "camera.plane_x": "0b00",
+        "camera.plane_y": "a900",
+        "player.player_position_x": "8006",
+        "player.player_position_y": "3005",
+        "player.player_health": "64",
+        "main.pending_shot": "00",
+        "main.zombie_ai_frame_counter": "00",
+        "hud_weapon.weapon_state": "00",
+        "hud_weapon.animation_timer": "00",
+        "door_states.door_states": "000000",
+        "owned_weapons": "01",
+        "selected_weapon": "00",
+        "shotgun_cell_x": "0b",
+        "shotgun_cell_y": "06",
+        "actors": []
+      },
+      "rays": "9001d8055b009001df0562009001e60569009001ee0571008501f8057b007801050188006d011201950061012601a80056013a01bd004a015901db003e01830105013201c10143012801190199011c01c90149021201ed016d030e00190180040e0041017b040e0065017b040e008d0177040e00b50172040e00dd0172040b002e016a050b005f016a050b00890164050b00b90164050b00e8015f050c01430119050d01b101ae04",
+      "vram": "990765ec16296ee185227a4c00ccafc371ed5bd6f2686abc91decb69a0fac921",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "checkpoint": "physical-held-strafe",
+      "state": {
+        "camera.position_x": "b706",
+        "camera.position_y": "3005",
+        "camera.direction_x": "0001",
+        "camera.direction_y": "1200",
+        "camera.plane_x": "f4ff",
+        "camera.plane_y": "a900",
+        "player.player_position_x": "b706",
+        "player.player_position_y": "3005",
+        "player.player_health": "64",
+        "main.pending_shot": "00",
+        "main.zombie_ai_frame_counter": "00",
+        "hud_weapon.weapon_state": "00",
+        "hud_weapon.animation_timer": "00",
+        "door_states.door_states": "000000",
+        "owned_weapons": "01",
+        "selected_weapon": "00",
+        "shotgun_cell_x": "0b",
+        "shotgun_cell_y": "06",
+        "actors": []
+      },
+      "rays": "850135017b007801420188006c015201970061016201a80055017a01c00049019a01df003e01c00105013201ff0143012801540199011c01040149021001bd02ff030f00230144040e00450149040e006b0149040e00890149040e00b00149040e00d7014d040e00fa0151040c005a0153050b008b0158050b00bb0158050b00e8015e050c01490119050d01b201ae040e00090162040e00320166040e005a0166040e0080016b04",
+      "vram": "9c2d04fad01e5bdfc303532f7695994c43c0370540091d5bef148a7db178c8ad",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "checkpoint": "physical-held-fire",
+      "state": {
+        "camera.position_x": "bc06",
+        "camera.position_y": "3005",
+        "camera.direction_x": "0001",
+        "camera.direction_y": "1200",
+        "camera.plane_x": "f4ff",
+        "camera.plane_y": "a900",
+        "player.player_position_x": "bc06",
+        "player.player_position_y": "3005",
+        "player.player_health": "64",
+        "main.pending_shot": "00",
+        "main.zombie_ai_frame_counter": "00",
+        "hud_weapon.weapon_state": "00",
+        "hud_weapon.animation_timer": "00",
+        "door_states.door_states": "000000",
+        "owned_weapons": "01",
+        "selected_weapon": "00",
+        "shotgun_cell_x": "0b",
+        "shotgun_cell_y": "06",
+        "actors": []
+      },
+      "rays": "85013a017b007801470188006c015701970061016701a80055017f01c00049019f01df003e01c50105013201040143012801590199011c01090149021001c202ff030f0023013f040f00450144040f006b0144040f00890144040f00af0144040e00d60148040e00f9014c040c0059014e050c008a0153050c00b90153050b00e60159050c01440119050d01ad01ae040e0007015d040e00300161040e00570161040e007d016604",
+      "vram": "425bf4b56ea0c47031849f5ac215ebc3350d0b024807dd4c058bf1826963ba83",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "checkpoint": "physical-fresh-fire-edge",
+      "state": {
+        "camera.position_x": "bc06",
+        "camera.position_y": "3005",
+        "camera.direction_x": "0001",
+        "camera.direction_y": "1200",
+        "camera.plane_x": "f4ff",
+        "camera.plane_y": "a900",
+        "player.player_position_x": "bc06",
+        "player.player_position_y": "3005",
+        "player.player_health": "64",
+        "main.pending_shot": "00",
+        "main.zombie_ai_frame_counter": "00",
+        "hud_weapon.weapon_state": "00",
+        "hud_weapon.animation_timer": "00",
+        "door_states.door_states": "000000",
+        "owned_weapons": "01",
+        "selected_weapon": "00",
+        "shotgun_cell_x": "0b",
+        "shotgun_cell_y": "06",
+        "actors": []
+      },
+      "rays": "85013a017b007801470188006c015701970061016701a80055017f01c00049019f01df003e01c50105013201040143012801590199011c01090149021001c202ff030f0023013f040f00450144040f006b0144040f00890144040f00af0144040e00d60148040e00f9014c040c0059014e050c008a0153050c00b90153050b00e60159050c01440119050d01ad01ae040e0007015d040e00300161040e00570161040e007d016604",
+      "vram": "425bf4b56ea0c47031849f5ac215ebc3350d0b024807dd4c058bf1826963ba83",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "checkpoint": "pickup-acquired-and-equipped",
+      "state": {
+        "camera.position_x": "8006",
+        "camera.position_y": "8007",
+        "camera.direction_x": "0000",
+        "camera.direction_y": "00ff",
+        "camera.plane_x": "a900",
+        "camera.plane_y": "0000",
+        "player.player_position_x": "8006",
+        "player.player_position_y": "8007",
+        "player.player_health": "64",
+        "main.pending_shot": "00",
+        "main.zombie_ai_frame_counter": "03",
+        "hud_weapon.weapon_state": "00",
+        "hud_weapon.animation_timer": "00",
+        "door_states.door_states": "000000",
+        "owned_weapons": "03",
+        "selected_weapon": "01",
+        "shotgun_cell_x": "06",
+        "shotgun_cell_y": "07",
+        "actors": []
+      },
+      "rays": "19015b01800219017201800219018801800219019c0180021901b30180021901c90180021901dd0180021901f401800219010805800219011e05800219013505800219014b05800219015f05800219017605800219018705800219019e0580021901b40580021901c80580021901df0580021901f505800219010c01800219012001800219013601800219014a01800219016101800219017701800219018e0180021901a2018002",
+      "vram": "63c101820d01c3866590b401bf12f24818c66bc3ead8f7a6e2473e1c67fde772",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "checkpoint": "pause-held-start-no-exit",
+      "state": {
+        "camera.position_x": "8006",
+        "camera.position_y": "8007",
+        "camera.direction_x": "0000",
+        "camera.direction_y": "00ff",
+        "camera.plane_x": "a900",
+        "camera.plane_y": "0000",
+        "player.player_position_x": "8006",
+        "player.player_position_y": "8007",
+        "player.player_health": "64",
+        "main.pending_shot": "00",
+        "main.zombie_ai_frame_counter": "03",
+        "hud_weapon.weapon_state": "00",
+        "hud_weapon.animation_timer": "00",
+        "door_states.door_states": "000000",
+        "owned_weapons": "03",
+        "selected_weapon": "01",
+        "shotgun_cell_x": "06",
+        "shotgun_cell_y": "07",
+        "actors": []
+      },
+      "rays": "19015b01800219017201800219018801800219019c0180021901b30180021901c90180021901dd0180021901f401800219010805800219011e05800219013505800219014b05800219015f05800219017605800219018705800219019e0580021901b40580021901c80580021901df0580021901f505800219010c01800219012001800219013601800219014a01800219016101800219017701800219018e0180021901a2018002",
+      "vram": "af4c29c82ad72791331ca36d82232ca5bafa17ad80044c3c325761dcb8112f5e",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "checkpoint": "pause-map-inputs-simulation-frozen",
+      "state": {
+        "camera.position_x": "8006",
+        "camera.position_y": "8007",
+        "camera.direction_x": "0000",
+        "camera.direction_y": "00ff",
+        "camera.plane_x": "a900",
+        "camera.plane_y": "0000",
+        "player.player_position_x": "8006",
+        "player.player_position_y": "8007",
+        "player.player_health": "64",
+        "main.pending_shot": "00",
+        "main.zombie_ai_frame_counter": "03",
+        "hud_weapon.weapon_state": "00",
+        "hud_weapon.animation_timer": "00",
+        "door_states.door_states": "000000",
+        "owned_weapons": "03",
+        "selected_weapon": "01",
+        "shotgun_cell_x": "06",
+        "shotgun_cell_y": "07",
+        "actors": []
+      },
+      "rays": "19015b01800219017201800219018801800219019c0180021901b30180021901c90180021901dd0180021901f401800219010805800219011e05800219013505800219014b05800219015f05800219017605800219018705800219019e0580021901b40580021901c80580021901df0580021901f505800219010c01800219012001800219013601800219014a01800219016101800219017701800219018e0180021901a2018002",
+      "vram": "e2b13b1f618c8225977bd24ac9a12298b477d1a8b08b38f898984e5b0cfda3cd",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "checkpoint": "pause-return-restores-gameplay",
+      "state": {
+        "camera.position_x": "8006",
+        "camera.position_y": "8007",
+        "camera.direction_x": "0000",
+        "camera.direction_y": "00ff",
+        "camera.plane_x": "a900",
+        "camera.plane_y": "0000",
+        "player.player_position_x": "8006",
+        "player.player_position_y": "8007",
+        "player.player_health": "64",
+        "main.pending_shot": "00",
+        "main.zombie_ai_frame_counter": "03",
+        "hud_weapon.weapon_state": "00",
+        "hud_weapon.animation_timer": "00",
+        "door_states.door_states": "000000",
+        "owned_weapons": "03",
+        "selected_weapon": "01",
+        "shotgun_cell_x": "06",
+        "shotgun_cell_y": "07",
+        "actors": []
+      },
+      "rays": "19015b01800219017201800219018801800219019c0180021901b30180021901c90180021901dd0180021901f401800219010805800219011e05800219013505800219014b05800219015f05800219017605800219018705800219019e0580021901b40580021901c80580021901df0580021901f505800219010c01800219012001800219013601800219014a01800219016101800219017701800219018e0180021901a2018002",
+      "vram": "63c101820d01c3866590b401bf12f24818c66bc3ead8f7a6e2473e1c67fde772",
+      "pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "variant": "selected",
+      "checkpoint": "compiled-death-logo-world-restart",
+      "state": {
+        "camera.position_x": "8006",
+        "camera.position_y": "8007",
+        "camera.direction_x": "0000",
+        "camera.direction_y": "00ff",
+        "camera.plane_x": "a900",
+        "camera.plane_y": "0000",
+        "player.player_position_x": "8006",
+        "player.player_position_y": "8007",
+        "player.player_health": "64",
+        "main.pending_shot": "00",
+        "main.zombie_ai_frame_counter": "00",
+        "hud_weapon.weapon_state": "00",
+        "hud_weapon.animation_timer": "00",
+        "door_states.door_states": "000000",
+        "owned_weapons": "01",
+        "selected_weapon": "00",
+        "shotgun_cell_x": "0b",
+        "shotgun_cell_y": "06",
+        "actors": [
+          [
+            "80068001",
+            {
+              "visual_type": 0,
+              "animation_token": 0
+            },
+            "000c00"
+          ],
+          [
+            "80018006",
+            {
+              "visual_type": 0,
+              "animation_token": 0
+            },
+            "000c00"
+          ],
+          [
+            "8005800b",
+            {
+              "visual_type": 1,
+              "animation_token": 0
+            },
+            "000c00"
+          ],
+          [
+            "8007800b",
+            {
+              "visual_type": 1,
+              "animation_token": 0
+            },
+            "000c00"
+          ]
+        ]
+      },
+      "rays": "19015b01800219017201800219018801800219019c0180021901b30180021901c90180021901dd0180021901f401800219010805800219011e05800219013505800219014b05800219015f05800219017605800219018705800219019e0580021901b40580021901c80580021901df0580021901f505800219010c01800219012001800219013601800219014a01800219016101800219017701800219018e0180021901a2018002",
+      "vram": "51faeee1eba8730b9e89081506af29c21b1ba487c4e02c21dcdad7631b5bb959",
+      "pages": [
+        1,
+        2
+      ]
+    }
+  ],
+  "method": "Actual current candidate with pinned VDP phase and type/token records; no historical-art digest equality. Held movement/fire use emulator pad. Pickup/death are explicitly seeded fixtures. First START/re-entry KeysStatus is seeded at a known poll; UI itself runs compiled with actual VBlank input. Not interactive human or hardware acceptance."
+}

@@ -99,7 +99,7 @@ Assert-True ($ai -match
 Assert-True ([regex]::Matches($ai,
     'player_apply_damage\(ZOMBIE_ATTACK_DAMAGE\)').Count -eq 1) `
     'Zombie AI has more than one player-damage path.'
-Assert-True ($sprite -match 'sprite->pixels = hit_count & 1U[\s\S]*?state_timer = ZOMBIE_HIT_REACTION_FRAME_COUNT') `
+Assert-True ($sprite -match 'sprite->animation_token = hit_count & 1U[\s\S]*?ZOMBIE_ANIMATION_SHOT_01[\s\S]*?ZOMBIE_ANIMATION_SHOT_02[\s\S]*?state_timer = ZOMBIE_HIT_REACTION_FRAME_COUNT') `
     'Hit reaction does not override an attack texture.'
 Assert-True ($spriteHeader -match 'ZOMBIE_ATTACK_COOLDOWN_MASK\s+60' -and
              $spriteHeader -match 'ZOMBIE_ATTACK_PHASE_MASK\s+64') `
@@ -174,9 +174,9 @@ Assert-True ($attackRangeBlock.Success -and
              $attackRangeBlock.Groups['body'].Value -notmatch 'world_[xy]\s*=') `
     'Attack presentation mutates zombie world coordinates.'
 Assert-True ($attackRangeBlock.Success -and
-             $attackRangeBlock.Groups['body'].Value -notmatch 'sprite->pixels\s*=\s*zombie_01_standing_pixels') `
+             $attackRangeBlock.Groups['body'].Value -notmatch 'animation_token\s*=\s*ZOMBIE_ANIMATION_STANDING') `
     'Attack entry destroys the authoritative walking phase.'
-Assert-True ($ai -match 'sprite->pixels == zombie_01_shot_01_pixels[\s\S]*?zombie_01_shot_02_pixels[\s\S]*?continue;[\s\S]*?sprite->state_timer = 0;[\s\S]*?zombie_ai_move') `
+Assert-True ($ai -match 'sprite->animation_token == ZOMBIE_ANIMATION_SHOT_01[\s\S]*?ZOMBIE_ANIMATION_SHOT_02[\s\S]*?continue;[\s\S]*?sprite->state_timer = 0;[\s\S]*?sprite->animation_token = sprite->state & ZOMBIE_WALKING_PHASE_MASK') `
     'Leaving melee range does not distinguish hit reaction from attack presentation before resuming movement.'
 $phase = 0
 foreach ($expected in @('ATTACK_01','ATTACK_02','ATTACK_01','ATTACK_02')) {
@@ -192,12 +192,13 @@ $mapPath = Join-Path $buildPath "GearRay.map"
 if ($RequireMapPlacement) {
     Assert-True (Test-Path -LiteralPath $mapPath) 'Linker map is missing.'
     $map = Get-Content -Raw -LiteralPath $mapPath
-    foreach ($symbol in @('_zombie_near_attack_01_pixels', '_zombie_near_standing_attack_pix', '_zombie_near_attack_02_pixels')) {
-        $match = [regex]::Match($map, "(?m)^\s*(?<address>[0-9A-F]{8})\s+$symbol")
+    foreach ($symbol in @('_znear_sec_melee', '_znear_sec_attack1', '_znear_sec_attack2',
+                          '_znear_sci_melee', '_znear_sci_attack1', '_znear_sci_attack2')) {
+        $match = [regex]::Match($map, "(?m)^\s*(?<address>[0-9A-F]{8})\s+$symbol(?:\s|$)")
         Assert-True $match.Success "Missing map symbol $symbol."
         $address = [Convert]::ToInt32($match.Groups['address'].Value, 16)
-        Assert-True ($address -ge 0x28000 -and $address -lt 0x2C000) `
-            "$symbol is outside Bank 2."
+        Assert-True ($address -ge 0x48000 -and $address -lt 0x4C000) `
+            "$symbol is outside Bank 4."
     }
 }
 

@@ -1,0 +1,144 @@
+{
+  "new_frames": [
+    {
+      "path": "assets/sprites/enemies/zombie/zombie_02_attack_01_32x32.png",
+      "bytes": 2939,
+      "sha256": "6c02643a121e75d900dc0fc56855ceb22cfe1f59d4caad1876a76d4da5c97a0c",
+      "width": 32,
+      "height": 32,
+      "mode": "RGBA",
+      "alpha": {
+        "0": 541,
+        "255": 483
+      },
+      "opaque_colors": {
+        "#000000": 141,
+        "#1a1a1a": 39,
+        "#4d4d4d": 14,
+        "#53602a": 71,
+        "#785700": 50,
+        "#797878": 6,
+        "#b51a00": 56,
+        "#bb2200": 32,
+        "#ffffff": 74
+      },
+      "rgba_sha256": "662baefa003244755d947d0cc703180a5a312ac5217e6b2dbec689eb18d64733",
+      "git": "untracked",
+      "direct_input": true
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/zombie_02_attack_02_32x32.png",
+      "bytes": 2937,
+      "sha256": "5fd0f9226092bd55035ca175854a0898ce3bb3f96ef693060cbdd4dab6f08021",
+      "width": 32,
+      "height": 32,
+      "mode": "RGBA",
+      "alpha": {
+        "0": 541,
+        "255": 483
+      },
+      "opaque_colors": {
+        "#000000": 144,
+        "#1a1a1a": 35,
+        "#4d4d4d": 14,
+        "#53602a": 73,
+        "#785700": 54,
+        "#797878": 8,
+        "#b51a00": 57,
+        "#bb2200": 32,
+        "#ffffff": 66
+      },
+      "rgba_sha256": "3fe3131c4aef5cf9aeeb5e482f43d8bfc4364ccd98c85c1e3ecffa0cabcc6acf",
+      "git": "untracked",
+      "direct_input": true
+    },
+    {
+      "path": "assets/sprites/enemies/zombie/zombie_02_corps_32x32.png",
+      "bytes": 2864,
+      "sha256": "48b3f424862a8fc5b21169b9ad2b5361828019cab74aeb1f1520a553017b83d1",
+      "width": 32,
+      "height": 32,
+      "mode": "RGBA",
+      "alpha": {
+        "0": 654,
+        "255": 370
+      },
+      "opaque_colors": {
+        "#000000": 57,
+        "#1a1a1a": 4,
+        "#53602a": 41,
+        "#785700": 58,
+        "#b51a00": 14,
+        "#bb2200": 131,
+        "#ffffff": 65
+      },
+      "rgba_sha256": "2090b0b9cd5223518a983443720545987baf897dc16bb70b1037ba1dee3f11fe",
+      "git": "untracked",
+      "direct_input": true
+    }
+  ],
+  "corrected_pixels": [
+    {
+      "path": "assets/sprites/enemies/zombie/zombie_02_walking_02_32x32.png",
+      "coordinates": [
+        [
+          5,
+          29
+        ]
+      ],
+      "rgba": [
+        0,
+        0,
+        0,
+        255
+      ]
+    },
+    {
+      "path": "assets/sprites/weapons/shotgun_held_shoot.png",
+      "coordinates": [
+        [
+          4,
+          2
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "rgba": [
+        0,
+        0,
+        0,
+        255
+      ]
+    }
+  ],
+  "unexpected_03000f_direct_inputs": [],
+  "direct_images": 52,
+  "all_pngs_in_zombie_weapon_trees": 81,
+  "assets_count": 122,
+  "changed_since_original_inspection": [
+    "assets/sprites/weapons/shotgun_held.png",
+    "assets/sprites/weapons/shotgun_held_shoot.png",
+    "assets/sprites/enemies/zombie/zombie_02_walking_01_32x32.png",
+    "assets/sprites/enemies/zombie/zombie_02_walking_02_32x32.png"
+  ],
+  "added_since_original_inspection": [
+    "assets/sprites/enemies/zombie/zombie_02_attack_01_32x32.png",
+    "assets/sprites/enemies/zombie/zombie_02_attack_02_32x32.png",
+    "assets/sprites/enemies/zombie/zombie_02_corps_32x32.png",
+    "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_corps_32x32.png",
+    "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_walking_01_32x32.png",
+    "assets/sprites/enemies/zombie/Corel Auto-Preserve/zombie_02_walking_02_32x32.png",
+    "assets/sprites/weapons/Corel Auto-Preserve/shotgun_held.png",
+    "assets/sprites/weapons/Corel Auto-Preserve/shotgun_held_shoot.png"
+  ],
+  "asset_prerequisites": "RESOLVED",
+  "source_images_modified_by_agent": false,
+  "remaining_generator_work": {
+    "world_sprite_white": "#ffffff -> existing index 12",
+    "near_gray": "#797878 -> existing index 3",
+    "new_attack_dark_gray": "#4d4d4d -> existing index 2 (14 pixels in each new attack frame)"
+  },
+  "superseded_proposal": "Do not introduce a #03000f alias; owner corrected the source to #000000"
+}

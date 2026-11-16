@@ -1,0 +1,1 @@
+Native wall validation PASS: 41943040 height/offset/side/material/screen-row cases; all 256 native color pairs; linked slot-2 worker and no VDP/IRQ ownership.

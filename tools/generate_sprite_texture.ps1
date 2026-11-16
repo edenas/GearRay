@@ -56,6 +56,8 @@ try {
                 $index = switch ($rgb) {
                     '#000000' { 0; break }
                     '#1a1a1a' { 13; break }
+                    '#4d4d4d' { 2; break }
+                    '#797878' { 3; break }
                     '#006d8f' { 8; break }
                     '#53602a' { 7; break }
                     '#785700' { 6; break }
@@ -71,6 +73,7 @@ try {
                 $index = switch ($rgb) {
                     '#000000' { 0; break }
                     '#1a1a1a' { 13; break }
+                    '#ffffff' { 12; break }
                     '#2d2d2d' { 10; break }
                     '#008cb4' { 4; break }
                     '#b51a00' { 5; break }
@@ -134,8 +137,8 @@ if ($GenerateWalkingLod) {
         else {
             # Preserve the authored footprint exactly. The source red accent is
             # the only Medium highlight; every other opaque pixel is dark.
-            $mediumPixels.Add($(if ($index -eq 5) { 10 } else { 13 }))
-            $simplePixels.Add(13)
+            $mediumPixels.Add($(if ($index -eq 12) { 12 } elseif ($index -eq 5) { 10 } else { 13 }))
+            $simplePixels.Add($(if ($index -eq 12) { 12 } else { 13 }))
         }
     }
 

@@ -27,7 +27,9 @@ void world_initialize(void) __banked
         {
             tile = workshop_map_get_tile(x, y);
             if (tile == WORLD_TILE_SPRITE_MARKER)
-                world_sprite_initialize(x, y);
+                world_sprite_initialize(x, y, ZOMBIE_VISUAL_SECURITY);
+            else if (tile == WORLD_TILE_SCIENTIST_MARKER)
+                world_sprite_initialize(x, y, ZOMBIE_VISUAL_SCIENTIST);
             else if (tile == WORLD_TILE_SHOTGUN_MARKER)
             {
                 shotgun_cell_x = x;

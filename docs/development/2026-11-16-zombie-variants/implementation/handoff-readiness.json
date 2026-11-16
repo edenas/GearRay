@@ -1,0 +1,18 @@
+{
+  "status": "READY_FOR_MANUAL_LUNA_TRANSFER",
+  "sol_core_checks": 44,
+  "schema_checks": 11,
+  "map_cells": 169,
+  "map_rejections": 6,
+  "protected_paths": 141,
+  "assets": 122,
+  "checked_document_links": 59,
+  "entry_head_unchanged": "e6d1e2346e3752c2fce9332c3fe59f6c2e31190e",
+  "index_unchanged": true,
+  "commit_push_publication": false,
+  "full_game_candidate_built": false,
+  "luna_execution": "Not started or dispatched",
+  "astra_review": "Prompt saved; eligible only after Luna return and Sol closure",
+  "genuine_owner_art_blockers": [],
+  "remaining_engineering": "Luna complete authored tables/generation/wiring/validators and broad final qualification, then Sol integration/closure"
+}

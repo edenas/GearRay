@@ -1,10 +1,10 @@
-param([string]$BuildDirectory='build/release', [switch]$RunValidators, [string]$RomPath='')
+param([string]$BuildDirectory='build/release', [switch]$RunValidators, [string]$RomPath='', [string]$OutputDirectory='')
 $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent
-$build=Join-Path $root $BuildDirectory
+$build=if([IO.Path]::IsPathRooted($BuildDirectory)){$BuildDirectory}else{Join-Path $root $BuildDirectory}
 . "$PSScriptRoot/production_build_artifacts.ps1"
 $rom=if (!$RomPath) {Get-ProductionBuildRom $build} elseif ([IO.Path]::IsPathRooted($RomPath)) { $RomPath } else { Join-Path $root $RomPath }
-$out=Join-Path $build 'full-z80-audit'
+$out=if(!$OutputDirectory){Join-Path $build 'full-z80-audit'}elseif([IO.Path]::IsPathRooted($OutputDirectory)){$OutputDirectory}else{Join-Path $root $OutputDirectory}
 New-Item -ItemType Directory -Force $out | Out-Null
 if($RunValidators) {
     $results=@()
@@ -136,7 +136,21 @@ foreach($line in Get-Content "$build/GearRay.ihx") {
 }
 $map=Get-Content "$build/GearRay.map" -Raw
 function Sym($n) { $m=[regex]::Match($map,"(?m)^\s*([0-9A-F]{8})\s+$([regex]::Escape($n))\s");if(!$m.Success){throw "Missing $n"};[Convert]::ToInt32($m.Groups[1].Value,16) }
-$banks=@();foreach($i in 0..3){$used=if($i -eq 0){(Sym 's__GSFINAL')+(Sym 'l__GSFINAL')}else{Sym "l__BANK$i"};if($i -eq 3 -and $map -match '\s+l__BANK3WALL\s+'){ $used=[Math]::Max($used,((Sym 's__BANK3WALL') -band 0x3fff)+(Sym 'l__BANK3WALL')) };$banks+=[pscustomobject]@{Bank=$i;Used=$used;Free=16384-$used-$(if($i -eq 1){16}else{0})}}
+$bankNumbers=@(0)+@([regex]::Matches($map,'(?m)^_BANK(?<number>[0-9]+)\s+[0-9A-Fa-f]{8}\s+(?<size>[0-9A-Fa-f]{8})\b') | ForEach-Object {
+    if([Convert]::ToInt32($_.Groups['size'].Value,16) -gt 0){[int]$_.Groups['number'].Value}
+})
+$banks=@()
+foreach($i in $bankNumbers | Sort-Object -Unique){
+    $used=if($i -eq 0){(Sym 's__GSFINAL')+(Sym 'l__GSFINAL')}else{Sym "l__BANK$i"}
+    # Cold slot-1 and native slot-2 areas share physical page 3; count its
+    # disjoint physical extent once, rather than treating BANK3WALL as a page.
+    if($i -eq 3 -and $map -match '\s+l__BANK3WALL\s+'){
+        $used=[Math]::Max($used,((Sym 's__BANK3WALL') -band 0x3fff)+(Sym 'l__BANK3WALL'))
+    }
+    $free=16384-$used-$(if($i -eq 1){16}else{0})
+    if($free -lt 0){throw "Physical bank $i exceeds its available extent"}
+    $banks+=[pscustomobject]@{Bank=$i;Used=$used;Free=$free}
+}
 $summary=[ordered]@{Banks=$banks;LinkedExtentSum=($banks|Measure-Object Used -Sum).Sum;PersistentRAM=(Sym 'l__DATA')+(Sym 'l__INITIALIZED');DataEnd=(Sym 's__INITIALIZED')+(Sym 'l__INITIALIZED');ROMBytes=(Get-Item $rom).Length;SHA256=(Get-FileHash $rom).Hash;ModuleCount=@(Get-ProductionBuildObjects $build).Count;HelperSites=$helpers.Count;BankCallSites=@($edges|Where-Object Banked).Count}
 $summary['EmittedIHXBytes']=$addresses.Count
 $summary|ConvertTo-Json -Depth 6|Set-Content "$out/baseline.json"

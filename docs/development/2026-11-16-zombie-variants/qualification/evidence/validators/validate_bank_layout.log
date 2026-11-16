@@ -1,0 +1,10 @@
+- all 58182 linked IHX payload bytes match the selected physical ROM (checksum pair excluded)
+Bank layout validation PASS
+- fixed endpoint: 0x3259; Bank 0 reserve: 3495 bytes
+- Bank 1 used/free: 16324/44 bytes
+- Bank 2 used/free: 8139/8245 bytes
+- Bank 4 used/free: 8224/8160 bytes; sixteen physical 32x32 payloads and pointers verified
+- Bank 3 extent/free: 12756/3628; cold slot-1 bytes 4605; disjoint slot-2 wall tail and physical payload verified
+- sixteen 32x32 4bpp payloads: 8192 bytes; all payload bytes match the authored generator output
+- ROM: 131072 bytes; header 0x7F; checksum 0x40FE
+- hot main/raycaster/video paths remain fixed; cold initialization remains in Bank 1

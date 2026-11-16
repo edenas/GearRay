@@ -1,0 +1,8531 @@
+{
+  "status": "PASS",
+  "rom_sha256": "b5f9da2b5461574c6c09bc06387eeaa08ae304caeefc96f4ffce1b7c2c58349b",
+  "candidate_bytes": 131072,
+  "pointer_entries_verified": 26,
+  "near_pointer_entries_verified": 16,
+  "actual_linked_table_entries_verified": 76,
+  "linked_png_payloads_verified": 70,
+  "compiled_sprite_tile_calls": 533,
+  "compiled_shotgun_tiles": 84,
+  "compiled_pistol_tiles": 84,
+  "selector_cases": 132,
+  "mismatches": 0,
+  "guards_and_stack_cleanup_checked": true,
+  "coverage": {
+    "base_middle_near_and_both_lods": "all types and authored poses",
+    "selector": "legal presentation poses, type-specific near IDs, all logical-token LOD choices and hit parity",
+    "compositor": "all payload tiles; clipping/offscreen/right-bottom edges; clamped/repeated rows; ties on alternating ray halves; both overlay orders and distinct backgrounds",
+    "shotgun": "idle/fire full 40x32 footprint plus outside edges; transparent14 vs opaque15",
+    "pistol": "idle/fire unchanged 24x24 footprint plus outside edges"
+  },
+  "payloads": [
+    {
+      "type": 0,
+      "tier": "base",
+      "pose": "standing",
+      "png_sha256": "98eae1215dea2cbb790d8871029402447b1e863f9ac95f51e16889d3a9cc6972",
+      "bytes": 32
+    },
+    {
+      "type": 0,
+      "tier": "medium",
+      "pose": "standing",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 0,
+      "tier": "simple",
+      "pose": "standing",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 0,
+      "tier": "base",
+      "pose": "walking_01",
+      "png_sha256": "ca21b8dd5646b34a8d0515c0b8d5d9a6d28863fa484e47acf050bb821e5f52a7",
+      "bytes": 32
+    },
+    {
+      "type": 0,
+      "tier": "medium",
+      "pose": "walking_01",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 0,
+      "tier": "simple",
+      "pose": "walking_01",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 0,
+      "tier": "base",
+      "pose": "walking_02",
+      "png_sha256": "498e9f766a3a6636d195608148883524f4fe3352f40dde46cef84fc1efe21ebd",
+      "bytes": 32
+    },
+    {
+      "type": 0,
+      "tier": "medium",
+      "pose": "walking_02",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 0,
+      "tier": "simple",
+      "pose": "walking_02",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 0,
+      "tier": "base",
+      "pose": "shot_01",
+      "png_sha256": "441a492568cc469c042b08c779d92673db54b83e7d06b586881e03ff08d60d93",
+      "bytes": 32
+    },
+    {
+      "type": 0,
+      "tier": "medium",
+      "pose": "shot_01",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 0,
+      "tier": "simple",
+      "pose": "shot_01",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 0,
+      "tier": "base",
+      "pose": "shot_02",
+      "png_sha256": "491bc27aad2a9069c169a343783aecd6bfa1bb754a1439a7b2fe47187a816179",
+      "bytes": 32
+    },
+    {
+      "type": 0,
+      "tier": "medium",
+      "pose": "shot_02",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 0,
+      "tier": "simple",
+      "pose": "shot_02",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 0,
+      "tier": "base",
+      "pose": "shot_dead",
+      "png_sha256": "67771b12bb41a8d7b5b605212c6b963cc6c4b698f0c88a032dba0172fd02e861",
+      "bytes": 32
+    },
+    {
+      "type": 0,
+      "tier": "medium",
+      "pose": "shot_dead",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 0,
+      "tier": "simple",
+      "pose": "shot_dead",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 0,
+      "tier": "base",
+      "pose": "corps",
+      "png_sha256": "9291dfbb37af7c9b3476003f81dc222f696cc61a1a007a972a1a31e5ee91e347",
+      "bytes": 32
+    },
+    {
+      "type": 0,
+      "tier": "medium",
+      "pose": "corps",
+      "bytes": 32,
+      "oracle": "preserved security reference"
+    },
+    {
+      "type": 0,
+      "tier": "simple",
+      "pose": "corps",
+      "bytes": 32,
+      "oracle": "preserved security reference"
+    },
+    {
+      "type": 0,
+      "tier": "middle",
+      "pose": "standing",
+      "png_sha256": "ab9e88279fe7fef5aa3b32f26f28d706db63e0188a6c155476f435af0b7ccfaa",
+      "bytes": 128
+    },
+    {
+      "type": 0,
+      "tier": "middle",
+      "pose": "walking_01",
+      "png_sha256": "73aa581c082c35edc04a3ac6f547050f40f3abf89307dfc37de0f2a027c7a6b0",
+      "bytes": 128
+    },
+    {
+      "type": 0,
+      "tier": "middle",
+      "pose": "walking_02",
+      "png_sha256": "5018c3d478cf432348011c28cb9f67e7cec29c3382904fb5d3f319aa36b3ce33",
+      "bytes": 128
+    },
+    {
+      "type": 0,
+      "tier": "middle",
+      "pose": "shot_01",
+      "png_sha256": "7e0790d1147de68846ca448167b273cb4f0b9e49cabe01e16dbff1a0473a81f7",
+      "bytes": 128
+    },
+    {
+      "type": 0,
+      "tier": "middle",
+      "pose": "shot_dead",
+      "png_sha256": "04f50613ee572ec90c082f937f2d8c4ae9db21f4339b2c8c17e49e40595c270b",
+      "bytes": 128
+    },
+    {
+      "type": 0,
+      "tier": "middle",
+      "pose": "corps",
+      "png_sha256": "177e19ca93299e3b02a1829d6dded86fe660bb976833957dce644897097616d8",
+      "bytes": 128
+    },
+    {
+      "type": 0,
+      "tier": "near",
+      "pose": "standing",
+      "png_sha256": "ae5d949f7f7bc62464480449695db6346a24de225a163bbc79fc84117d540dda",
+      "bytes": 512
+    },
+    {
+      "type": 0,
+      "tier": "near",
+      "pose": "walking_01",
+      "png_sha256": "f78986131cdd370861a8d8966ab1a92807911234afd14cd8d54be6da7ac42db2",
+      "bytes": 512
+    },
+    {
+      "type": 0,
+      "tier": "near",
+      "pose": "walking_02",
+      "png_sha256": "a63e0be3f9179d29e1b98c9922882bc7269d9bc4ce2878e57fc5b78d7b0b9918",
+      "bytes": 512
+    },
+    {
+      "type": 0,
+      "tier": "near",
+      "pose": "standing_attack",
+      "png_sha256": "d55a3b11e8d21d6323c65fd0348d88cc7265efafdaffe5b5643b00d3a15c56c5",
+      "bytes": 512
+    },
+    {
+      "type": 0,
+      "tier": "near",
+      "pose": "attack_01",
+      "png_sha256": "3ba499b2539e421ba5b70671e1b6aaa6158796a7fa98b9000498a5fec446ffa1",
+      "bytes": 512
+    },
+    {
+      "type": 0,
+      "tier": "near",
+      "pose": "attack_02",
+      "png_sha256": "e436edb085d42bccd0e765a69ec4566037b7434261dc942eee1b243a0ac3ebc4",
+      "bytes": 512
+    },
+    {
+      "type": 0,
+      "tier": "near",
+      "pose": "shot_01",
+      "png_sha256": "26b03241c02a136003b737cff8c8cc75877d6d6a70c7cfa3707c78fc400ae355",
+      "bytes": 512
+    },
+    {
+      "type": 0,
+      "tier": "near",
+      "pose": "corps",
+      "png_sha256": "b435d1d11068f240439d0c9c770478ec663e874c03452e43530cd4db0182fbb9",
+      "bytes": 512
+    },
+    {
+      "type": 1,
+      "tier": "base",
+      "pose": "standing",
+      "png_sha256": "2e2e9dfa2bdeb7127055e5a88c626d53e98ce307c27456c3091b61b840203ed0",
+      "bytes": 32
+    },
+    {
+      "type": 1,
+      "tier": "medium",
+      "pose": "standing",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 1,
+      "tier": "simple",
+      "pose": "standing",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 1,
+      "tier": "base",
+      "pose": "walking_01",
+      "png_sha256": "3a09a608138a0b7f135ec10b1231f51618044820d5257f35219c02e002b92468",
+      "bytes": 32
+    },
+    {
+      "type": 1,
+      "tier": "medium",
+      "pose": "walking_01",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 1,
+      "tier": "simple",
+      "pose": "walking_01",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 1,
+      "tier": "base",
+      "pose": "walking_02",
+      "png_sha256": "1c15f16f806531b708757a4f7bf6f8375407d752c9b576d163d0f10f30daf6da",
+      "bytes": 32
+    },
+    {
+      "type": 1,
+      "tier": "medium",
+      "pose": "walking_02",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 1,
+      "tier": "simple",
+      "pose": "walking_02",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 1,
+      "tier": "base",
+      "pose": "shot_01",
+      "png_sha256": "7fd15bff9b6c7c7fd868014acd253be6e6df4a6b1f09f407078c3b81f608991d",
+      "bytes": 32
+    },
+    {
+      "type": 1,
+      "tier": "medium",
+      "pose": "shot_01",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 1,
+      "tier": "simple",
+      "pose": "shot_01",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 1,
+      "tier": "base",
+      "pose": "shot_02",
+      "png_sha256": "cdf45cff29a8f9cf453322f4766201dfeac835baa5026b466668a01cbd3e5cfc",
+      "bytes": 32
+    },
+    {
+      "type": 1,
+      "tier": "medium",
+      "pose": "shot_02",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 1,
+      "tier": "simple",
+      "pose": "shot_02",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 1,
+      "tier": "base",
+      "pose": "shot_dead",
+      "png_sha256": "e42ff9dd4e251da4931ed0869c0f57ae4c781cdfdc492fd07cbb172ce1bdc0c0",
+      "bytes": 32
+    },
+    {
+      "type": 1,
+      "tier": "medium",
+      "pose": "shot_dead",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 1,
+      "tier": "simple",
+      "pose": "shot_dead",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 1,
+      "tier": "base",
+      "pose": "corps",
+      "png_sha256": "968e062e6cfd45b6b6b0c3f20c96a1edbd27750039352f429b01d509e0edd017",
+      "bytes": 32
+    },
+    {
+      "type": 1,
+      "tier": "medium",
+      "pose": "corps",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 1,
+      "tier": "simple",
+      "pose": "corps",
+      "bytes": 32,
+      "oracle": "independent source PNG conversion"
+    },
+    {
+      "type": 1,
+      "tier": "middle",
+      "pose": "standing",
+      "png_sha256": "27a5f188c93265880e2794c059c04596e386bbf7b9c935add70b3b08efa1f9eb",
+      "bytes": 128
+    },
+    {
+      "type": 1,
+      "tier": "middle",
+      "pose": "walking_01",
+      "png_sha256": "142342ce0a0445c5e76da2c23b0ca76102e817f171b90f3299d76e0cde389047",
+      "bytes": 128
+    },
+    {
+      "type": 1,
+      "tier": "middle",
+      "pose": "walking_02",
+      "png_sha256": "e4c672cf2cfd0501f433b7d99a094686b2e4af903b0558228b11db8917159b2a",
+      "bytes": 128
+    },
+    {
+      "type": 1,
+      "tier": "middle",
+      "pose": "shot_01",
+      "png_sha256": "2ccddc45e1ee9caf5670397b446762be85c02fe86ab82e1b9698f579f5526087",
+      "bytes": 128
+    },
+    {
+      "type": 1,
+      "tier": "middle",
+      "pose": "shot_dead",
+      "png_sha256": "623ade932c3eb5cb56df2b46618edba61a6173aaa2a5818ce0b90d99cf6b080e",
+      "bytes": 128
+    },
+    {
+      "type": 1,
+      "tier": "middle",
+      "pose": "corps",
+      "png_sha256": "3bb701694e8b4d2b4c4450cd70d75e82ced8386e1ca453b486b5ce91009f2577",
+      "bytes": 128
+    },
+    {
+      "type": 1,
+      "tier": "near",
+      "pose": "standing",
+      "png_sha256": "c331fddf2a0e625c0596467118887945b49ac87e04e374b57b19c861da31a9c7",
+      "bytes": 512
+    },
+    {
+      "type": 1,
+      "tier": "near",
+      "pose": "walking_01",
+      "png_sha256": "e3e20872b5c17fca05a06aaf7ba2f660650e4fbff7d58c822baccc0f51b1cfb8",
+      "bytes": 512
+    },
+    {
+      "type": 1,
+      "tier": "near",
+      "pose": "walking_02",
+      "png_sha256": "60faec43b682584b8d186f4731269d8001135ab01a62729a51b534e3b9eee28a",
+      "bytes": 512
+    },
+    {
+      "type": 1,
+      "tier": "near",
+      "pose": "standing_attack",
+      "png_sha256": "9c00271d649df5ee06a723eedd1ecc9752b058aea00b6879cd2c99c35ba420f6",
+      "bytes": 512
+    },
+    {
+      "type": 1,
+      "tier": "near",
+      "pose": "attack_01",
+      "png_sha256": "6c02643a121e75d900dc0fc56855ceb22cfe1f59d4caad1876a76d4da5c97a0c",
+      "bytes": 512
+    },
+    {
+      "type": 1,
+      "tier": "near",
+      "pose": "attack_02",
+      "png_sha256": "5fd0f9226092bd55035ca175854a0898ce3bb3f96ef693060cbdd4dab6f08021",
+      "bytes": 512
+    },
+    {
+      "type": 1,
+      "tier": "near",
+      "pose": "shot_01",
+      "png_sha256": "0ff74954913c4a82309e08c5f7d0b82940979fa4fe2ca641b44d1e886bf31047",
+      "bytes": 512
+    },
+    {
+      "type": 1,
+      "tier": "near",
+      "pose": "corps",
+      "png_sha256": "48b3f424862a8fc5b21169b9ad2b5361828019cab74aeb1f1520a553017b83d1",
+      "bytes": 512
+    }
+  ],
+  "pointers": [
+    {
+      "table": "base",
+      "type": 0,
+      "token": 0,
+      "pointer": 27763
+    },
+    {
+      "table": "base",
+      "type": 0,
+      "token": 1,
+      "pointer": 27859
+    },
+    {
+      "table": "base",
+      "type": 0,
+      "token": 2,
+      "pointer": 27955
+    },
+    {
+      "table": "base",
+      "type": 0,
+      "token": 3,
+      "pointer": 28051
+    },
+    {
+      "table": "base",
+      "type": 0,
+      "token": 4,
+      "pointer": 28147
+    },
+    {
+      "table": "base",
+      "type": 0,
+      "token": 5,
+      "pointer": 28243
+    },
+    {
+      "table": "base",
+      "type": 0,
+      "token": 6,
+      "pointer": 28339
+    },
+    {
+      "table": "middle",
+      "type": 0,
+      "pose": 0,
+      "pointer": 28435
+    },
+    {
+      "table": "middle",
+      "type": 0,
+      "pose": 1,
+      "pointer": 28563
+    },
+    {
+      "table": "middle",
+      "type": 0,
+      "pose": 2,
+      "pointer": 28691
+    },
+    {
+      "table": "middle",
+      "type": 0,
+      "pose": 3,
+      "pointer": 28819
+    },
+    {
+      "table": "middle",
+      "type": 0,
+      "pose": 4,
+      "pointer": 28947
+    },
+    {
+      "table": "middle",
+      "type": 0,
+      "pose": 5,
+      "pointer": 29075
+    },
+    {
+      "table": "base",
+      "type": 1,
+      "token": 0,
+      "pointer": 29203
+    },
+    {
+      "table": "base",
+      "type": 1,
+      "token": 1,
+      "pointer": 29299
+    },
+    {
+      "table": "base",
+      "type": 1,
+      "token": 2,
+      "pointer": 29395
+    },
+    {
+      "table": "base",
+      "type": 1,
+      "token": 3,
+      "pointer": 29491
+    },
+    {
+      "table": "base",
+      "type": 1,
+      "token": 4,
+      "pointer": 29587
+    },
+    {
+      "table": "base",
+      "type": 1,
+      "token": 5,
+      "pointer": 29683
+    },
+    {
+      "table": "base",
+      "type": 1,
+      "token": 6,
+      "pointer": 29779
+    },
+    {
+      "table": "middle",
+      "type": 1,
+      "pose": 0,
+      "pointer": 29875
+    },
+    {
+      "table": "middle",
+      "type": 1,
+      "pose": 1,
+      "pointer": 30003
+    },
+    {
+      "table": "middle",
+      "type": 1,
+      "pose": 2,
+      "pointer": 30131
+    },
+    {
+      "table": "middle",
+      "type": 1,
+      "pose": 3,
+      "pointer": 30259
+    },
+    {
+      "table": "middle",
+      "type": 1,
+      "pose": 4,
+      "pointer": 30387
+    },
+    {
+      "table": "middle",
+      "type": 1,
+      "pose": 5,
+      "pointer": 30515
+    }
+  ],
+  "sprite_calls": [
+    {
+      "case": "known-near-smoke-path",
+      "tile": [
+        3,
+        1
+      ],
+      "cycles": 53549,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/base/standing",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 64814,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/medium/standing",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 66849,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/simple/standing",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 62303,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/base/walking_01",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 64590,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/medium/walking_01",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 66588,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/simple/walking_01",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 66699,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/base/walking_02",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 65038,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/medium/walking_02",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 67036,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/simple/walking_02",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 67147,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/base/shot_01",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 65653,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/medium/shot_01",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 67656,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/simple/shot_01",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 64340,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/base/shot_02",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 66253,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/medium/shot_02",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 67865,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/simple/shot_02",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 65142,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/base/shot_dead",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 68123,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/medium/shot_dead",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 70158,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/simple/shot_dead",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 67371,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/base/corps",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 63476,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/medium/corps",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 62303,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/simple/corps",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 62303,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/middle/standing",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 67033,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/middle/standing",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 61235,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/middle/standing",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 66852,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/middle/standing",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 65006,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/middle/walking_01",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 68534,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/middle/walking_01",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 61608,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/middle/walking_01",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 66363,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/middle/walking_01",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 62964,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/middle/walking_02",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 63143,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/middle/walking_02",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 64303,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/middle/walking_02",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 65008,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/middle/walking_02",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 66377,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/middle/shot_01",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 69712,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/middle/shot_01",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 64689,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/middle/shot_01",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 65001,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/middle/shot_01",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 62915,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/middle/shot_dead",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 67068,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/middle/shot_dead",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 68842,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/middle/shot_dead",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 65406,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/middle/shot_dead",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 63213,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/middle/corps",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 55727,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/middle/corps",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 57488,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/middle/corps",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 71625,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/middle/corps",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 71384,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 55279,
+      "changed_from_seed": false
+    },
+    {
+      "case": "01/near/standing",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 67185,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing",
+      "tile": [
+        5,
+        2
+      ],
+      "cycles": 63528,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing",
+      "tile": [
+        6,
+        2
+      ],
+      "cycles": 55375,
+      "changed_from_seed": false
+    },
+    {
+      "case": "01/near/standing",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 59318,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 77880,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing",
+      "tile": [
+        5,
+        3
+      ],
+      "cycles": 75903,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing",
+      "tile": [
+        6,
+        3
+      ],
+      "cycles": 57459,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing",
+      "tile": [
+        3,
+        4
+      ],
+      "cycles": 65449,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing",
+      "tile": [
+        4,
+        4
+      ],
+      "cycles": 72693,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing",
+      "tile": [
+        5,
+        4
+      ],
+      "cycles": 69096,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing",
+      "tile": [
+        6,
+        4
+      ],
+      "cycles": 64041,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing",
+      "tile": [
+        3,
+        5
+      ],
+      "cycles": 57337,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing",
+      "tile": [
+        4,
+        5
+      ],
+      "cycles": 64411,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing",
+      "tile": [
+        5,
+        5
+      ],
+      "cycles": 67789,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing",
+      "tile": [
+        6,
+        5
+      ],
+      "cycles": 56515,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_01",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 55665,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_01",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 74125,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_01",
+      "tile": [
+        5,
+        2
+      ],
+      "cycles": 58446,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_01",
+      "tile": [
+        6,
+        2
+      ],
+      "cycles": 55375,
+      "changed_from_seed": false
+    },
+    {
+      "case": "01/near/walking_01",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 65894,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_01",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 78435,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_01",
+      "tile": [
+        5,
+        3
+      ],
+      "cycles": 71723,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_01",
+      "tile": [
+        6,
+        3
+      ],
+      "cycles": 61581,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_01",
+      "tile": [
+        3,
+        4
+      ],
+      "cycles": 65371,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_01",
+      "tile": [
+        4,
+        4
+      ],
+      "cycles": 74670,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_01",
+      "tile": [
+        5,
+        4
+      ],
+      "cycles": 67977,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_01",
+      "tile": [
+        6,
+        4
+      ],
+      "cycles": 59930,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_01",
+      "tile": [
+        3,
+        5
+      ],
+      "cycles": 66193,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_01",
+      "tile": [
+        4,
+        5
+      ],
+      "cycles": 56952,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_01",
+      "tile": [
+        5,
+        5
+      ],
+      "cycles": 64916,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_01",
+      "tile": [
+        6,
+        5
+      ],
+      "cycles": 58583,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_02",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 55279,
+      "changed_from_seed": false
+    },
+    {
+      "case": "01/near/walking_02",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 60479,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_02",
+      "tile": [
+        5,
+        2
+      ],
+      "cycles": 72508,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_02",
+      "tile": [
+        6,
+        2
+      ],
+      "cycles": 55537,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_02",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 62741,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_02",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 74871,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_02",
+      "tile": [
+        5,
+        3
+      ],
+      "cycles": 77880,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_02",
+      "tile": [
+        6,
+        3
+      ],
+      "cycles": 62708,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_02",
+      "tile": [
+        3,
+        4
+      ],
+      "cycles": 59194,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_02",
+      "tile": [
+        4,
+        4
+      ],
+      "cycles": 71539,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_02",
+      "tile": [
+        5,
+        4
+      ],
+      "cycles": 72932,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_02",
+      "tile": [
+        6,
+        4
+      ],
+      "cycles": 65851,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_02",
+      "tile": [
+        3,
+        5
+      ],
+      "cycles": 60823,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_02",
+      "tile": [
+        4,
+        5
+      ],
+      "cycles": 61827,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_02",
+      "tile": [
+        5,
+        5
+      ],
+      "cycles": 58040,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/walking_02",
+      "tile": [
+        6,
+        5
+      ],
+      "cycles": 65519,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing_attack",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 55279,
+      "changed_from_seed": false
+    },
+    {
+      "case": "01/near/standing_attack",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 67665,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing_attack",
+      "tile": [
+        5,
+        2
+      ],
+      "cycles": 64040,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing_attack",
+      "tile": [
+        6,
+        2
+      ],
+      "cycles": 55375,
+      "changed_from_seed": false
+    },
+    {
+      "case": "01/near/standing_attack",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 60004,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing_attack",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 75484,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing_attack",
+      "tile": [
+        5,
+        3
+      ],
+      "cycles": 74608,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing_attack",
+      "tile": [
+        6,
+        3
+      ],
+      "cycles": 58017,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing_attack",
+      "tile": [
+        3,
+        4
+      ],
+      "cycles": 64696,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing_attack",
+      "tile": [
+        4,
+        4
+      ],
+      "cycles": 72217,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing_attack",
+      "tile": [
+        5,
+        4
+      ],
+      "cycles": 68795,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing_attack",
+      "tile": [
+        6,
+        4
+      ],
+      "cycles": 65016,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing_attack",
+      "tile": [
+        3,
+        5
+      ],
+      "cycles": 61394,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing_attack",
+      "tile": [
+        4,
+        5
+      ],
+      "cycles": 61257,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing_attack",
+      "tile": [
+        5,
+        5
+      ],
+      "cycles": 64797,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/standing_attack",
+      "tile": [
+        6,
+        5
+      ],
+      "cycles": 59078,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_01",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 56610,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_01",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 71051,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_01",
+      "tile": [
+        5,
+        2
+      ],
+      "cycles": 63260,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_01",
+      "tile": [
+        6,
+        2
+      ],
+      "cycles": 55375,
+      "changed_from_seed": false
+    },
+    {
+      "case": "01/near/attack_01",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 74101,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_01",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 75919,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_01",
+      "tile": [
+        5,
+        3
+      ],
+      "cycles": 76215,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_01",
+      "tile": [
+        6,
+        3
+      ],
+      "cycles": 72024,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_01",
+      "tile": [
+        3,
+        4
+      ],
+      "cycles": 57473,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_01",
+      "tile": [
+        4,
+        4
+      ],
+      "cycles": 73724,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_01",
+      "tile": [
+        5,
+        4
+      ],
+      "cycles": 70534,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_01",
+      "tile": [
+        6,
+        4
+      ],
+      "cycles": 57804,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_01",
+      "tile": [
+        3,
+        5
+      ],
+      "cycles": 60783,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_01",
+      "tile": [
+        4,
+        5
+      ],
+      "cycles": 61716,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_01",
+      "tile": [
+        5,
+        5
+      ],
+      "cycles": 67287,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_01",
+      "tile": [
+        6,
+        5
+      ],
+      "cycles": 56441,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_02",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 55279,
+      "changed_from_seed": false
+    },
+    {
+      "case": "01/near/attack_02",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 66831,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_02",
+      "tile": [
+        5,
+        2
+      ],
+      "cycles": 68088,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_02",
+      "tile": [
+        6,
+        2
+      ],
+      "cycles": 56354,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_02",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 73784,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_02",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 76289,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_02",
+      "tile": [
+        5,
+        3
+      ],
+      "cycles": 75734,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_02",
+      "tile": [
+        6,
+        3
+      ],
+      "cycles": 72181,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_02",
+      "tile": [
+        3,
+        4
+      ],
+      "cycles": 59121,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_02",
+      "tile": [
+        4,
+        4
+      ],
+      "cycles": 73188,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_02",
+      "tile": [
+        5,
+        4
+      ],
+      "cycles": 70782,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_02",
+      "tile": [
+        6,
+        4
+      ],
+      "cycles": 56668,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_02",
+      "tile": [
+        3,
+        5
+      ],
+      "cycles": 57337,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_02",
+      "tile": [
+        4,
+        5
+      ],
+      "cycles": 64254,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_02",
+      "tile": [
+        5,
+        5
+      ],
+      "cycles": 64456,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/attack_02",
+      "tile": [
+        6,
+        5
+      ],
+      "cycles": 59097,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/shot_01",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 65230,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/shot_01",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 69521,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/shot_01",
+      "tile": [
+        5,
+        2
+      ],
+      "cycles": 63877,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/shot_01",
+      "tile": [
+        6,
+        2
+      ],
+      "cycles": 61280,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/shot_01",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 66187,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/shot_01",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 77482,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/shot_01",
+      "tile": [
+        5,
+        3
+      ],
+      "cycles": 75731,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/shot_01",
+      "tile": [
+        6,
+        3
+      ],
+      "cycles": 65872,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/shot_01",
+      "tile": [
+        3,
+        4
+      ],
+      "cycles": 58759,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/shot_01",
+      "tile": [
+        4,
+        4
+      ],
+      "cycles": 72916,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/shot_01",
+      "tile": [
+        5,
+        4
+      ],
+      "cycles": 70370,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/shot_01",
+      "tile": [
+        6,
+        4
+      ],
+      "cycles": 57037,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/shot_01",
+      "tile": [
+        3,
+        5
+      ],
+      "cycles": 66835,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/shot_01",
+      "tile": [
+        4,
+        5
+      ],
+      "cycles": 60355,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/shot_01",
+      "tile": [
+        5,
+        5
+      ],
+      "cycles": 70823,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/shot_01",
+      "tile": [
+        6,
+        5
+      ],
+      "cycles": 57129,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/corps",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 55279,
+      "changed_from_seed": false
+    },
+    {
+      "case": "01/near/corps",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 55327,
+      "changed_from_seed": false
+    },
+    {
+      "case": "01/near/corps",
+      "tile": [
+        5,
+        2
+      ],
+      "cycles": 55327,
+      "changed_from_seed": false
+    },
+    {
+      "case": "01/near/corps",
+      "tile": [
+        6,
+        2
+      ],
+      "cycles": 55375,
+      "changed_from_seed": false
+    },
+    {
+      "case": "01/near/corps",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 60933,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/corps",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 57225,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/corps",
+      "tile": [
+        5,
+        3
+      ],
+      "cycles": 62674,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/corps",
+      "tile": [
+        6,
+        3
+      ],
+      "cycles": 55471,
+      "changed_from_seed": false
+    },
+    {
+      "case": "01/near/corps",
+      "tile": [
+        3,
+        4
+      ],
+      "cycles": 65340,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/corps",
+      "tile": [
+        4,
+        4
+      ],
+      "cycles": 74122,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/corps",
+      "tile": [
+        5,
+        4
+      ],
+      "cycles": 70561,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/corps",
+      "tile": [
+        6,
+        4
+      ],
+      "cycles": 56676,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/corps",
+      "tile": [
+        3,
+        5
+      ],
+      "cycles": 67108,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/corps",
+      "tile": [
+        4,
+        5
+      ],
+      "cycles": 74123,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/corps",
+      "tile": [
+        5,
+        5
+      ],
+      "cycles": 77195,
+      "changed_from_seed": true
+    },
+    {
+      "case": "01/near/corps",
+      "tile": [
+        6,
+        5
+      ],
+      "cycles": 71441,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/base/standing",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 65813,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/medium/standing",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 66035,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/simple/standing",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 66516,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/base/walking_01",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 65589,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/medium/walking_01",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 65811,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/simple/walking_01",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 66292,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/base/walking_02",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 66037,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/medium/walking_02",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 66259,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/simple/walking_02",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 66740,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/base/shot_01",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 66541,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/medium/shot_01",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 66763,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/simple/shot_01",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 67429,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/base/shot_02",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 67141,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/medium/shot_02",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 67363,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/simple/shot_02",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 67992,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/base/shot_dead",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 68789,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/medium/shot_dead",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 69011,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/simple/shot_dead",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 69936,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/base/corps",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 63624,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/medium/corps",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 64401,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/simple/corps",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 64401,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/middle/standing",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 67107,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/middle/standing",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 61383,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/middle/standing",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 67000,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/middle/standing",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 65154,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/middle/walking_01",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 68201,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/middle/walking_01",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 61608,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/middle/walking_01",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 66474,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/middle/walking_01",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 63112,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/middle/walking_02",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 63106,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/middle/walking_02",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 64303,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/middle/walking_02",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 65304,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/middle/walking_02",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 66414,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/middle/shot_01",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 70012,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/middle/shot_01",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 64874,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/middle/shot_01",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 65466,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/middle/shot_01",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 62841,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/middle/shot_dead",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 67958,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/middle/shot_dead",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 68916,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/middle/shot_dead",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 66865,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/middle/shot_dead",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 64723,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/middle/corps",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 55727,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/middle/corps",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 57599,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/middle/corps",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 71884,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/middle/corps",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 71162,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 55279,
+      "changed_from_seed": false
+    },
+    {
+      "case": "02/near/standing",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 67555,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing",
+      "tile": [
+        5,
+        2
+      ],
+      "cycles": 62739,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing",
+      "tile": [
+        6,
+        2
+      ],
+      "cycles": 55375,
+      "changed_from_seed": false
+    },
+    {
+      "case": "02/near/standing",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 59355,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 77103,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing",
+      "tile": [
+        5,
+        3
+      ],
+      "cycles": 75755,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing",
+      "tile": [
+        6,
+        3
+      ],
+      "cycles": 57755,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing",
+      "tile": [
+        3,
+        4
+      ],
+      "cycles": 65708,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing",
+      "tile": [
+        4,
+        4
+      ],
+      "cycles": 72989,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing",
+      "tile": [
+        5,
+        4
+      ],
+      "cycles": 69466,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing",
+      "tile": [
+        6,
+        4
+      ],
+      "cycles": 64300,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing",
+      "tile": [
+        3,
+        5
+      ],
+      "cycles": 57337,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing",
+      "tile": [
+        4,
+        5
+      ],
+      "cycles": 64263,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing",
+      "tile": [
+        5,
+        5
+      ],
+      "cycles": 67197,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing",
+      "tile": [
+        6,
+        5
+      ],
+      "cycles": 56515,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_01",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 55739,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_01",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 73903,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_01",
+      "tile": [
+        5,
+        2
+      ],
+      "cycles": 58469,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_01",
+      "tile": [
+        6,
+        2
+      ],
+      "cycles": 55375,
+      "changed_from_seed": false
+    },
+    {
+      "case": "02/near/walking_01",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 65783,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_01",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 77140,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_01",
+      "tile": [
+        5,
+        3
+      ],
+      "cycles": 72019,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_01",
+      "tile": [
+        6,
+        3
+      ],
+      "cycles": 62062,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_01",
+      "tile": [
+        3,
+        4
+      ],
+      "cycles": 65334,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_01",
+      "tile": [
+        4,
+        4
+      ],
+      "cycles": 75715,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_01",
+      "tile": [
+        5,
+        4
+      ],
+      "cycles": 68088,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_01",
+      "tile": [
+        6,
+        4
+      ],
+      "cycles": 59930,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_01",
+      "tile": [
+        3,
+        5
+      ],
+      "cycles": 65897,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_01",
+      "tile": [
+        4,
+        5
+      ],
+      "cycles": 56841,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_01",
+      "tile": [
+        5,
+        5
+      ],
+      "cycles": 64879,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_01",
+      "tile": [
+        6,
+        5
+      ],
+      "cycles": 58731,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_02",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 55279,
+      "changed_from_seed": false
+    },
+    {
+      "case": "02/near/walking_02",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 60923,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_02",
+      "tile": [
+        5,
+        2
+      ],
+      "cycles": 71801,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_02",
+      "tile": [
+        6,
+        2
+      ],
+      "cycles": 55611,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_02",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 62926,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_02",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 73946,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_02",
+      "tile": [
+        5,
+        3
+      ],
+      "cycles": 76807,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_02",
+      "tile": [
+        6,
+        3
+      ],
+      "cycles": 63485,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_02",
+      "tile": [
+        3,
+        4
+      ],
+      "cycles": 59194,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_02",
+      "tile": [
+        4,
+        4
+      ],
+      "cycles": 71909,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_02",
+      "tile": [
+        5,
+        4
+      ],
+      "cycles": 74174,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_02",
+      "tile": [
+        6,
+        4
+      ],
+      "cycles": 65814,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_02",
+      "tile": [
+        3,
+        5
+      ],
+      "cycles": 60749,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_02",
+      "tile": [
+        4,
+        5
+      ],
+      "cycles": 61457,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_02",
+      "tile": [
+        5,
+        5
+      ],
+      "cycles": 58151,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/walking_02",
+      "tile": [
+        6,
+        5
+      ],
+      "cycles": 65075,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing_attack",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 55279,
+      "changed_from_seed": false
+    },
+    {
+      "case": "02/near/standing_attack",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 67666,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing_attack",
+      "tile": [
+        5,
+        2
+      ],
+      "cycles": 62887,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing_attack",
+      "tile": [
+        6,
+        2
+      ],
+      "cycles": 55375,
+      "changed_from_seed": false
+    },
+    {
+      "case": "02/near/standing_attack",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 59355,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing_attack",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 75808,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing_attack",
+      "tile": [
+        5,
+        3
+      ],
+      "cycles": 74534,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing_attack",
+      "tile": [
+        6,
+        3
+      ],
+      "cycles": 57755,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing_attack",
+      "tile": [
+        3,
+        4
+      ],
+      "cycles": 64844,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing_attack",
+      "tile": [
+        4,
+        4
+      ],
+      "cycles": 73072,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing_attack",
+      "tile": [
+        5,
+        4
+      ],
+      "cycles": 69820,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing_attack",
+      "tile": [
+        6,
+        4
+      ],
+      "cycles": 65164,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing_attack",
+      "tile": [
+        3,
+        5
+      ],
+      "cycles": 61357,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing_attack",
+      "tile": [
+        4,
+        5
+      ],
+      "cycles": 60887,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing_attack",
+      "tile": [
+        5,
+        5
+      ],
+      "cycles": 64501,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/standing_attack",
+      "tile": [
+        6,
+        5
+      ],
+      "cycles": 58967,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_01",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 56610,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_01",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 71458,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_01",
+      "tile": [
+        5,
+        2
+      ],
+      "cycles": 62383,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_01",
+      "tile": [
+        6,
+        2
+      ],
+      "cycles": 55375,
+      "changed_from_seed": false
+    },
+    {
+      "case": "02/near/attack_01",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 74101,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_01",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 75660,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_01",
+      "tile": [
+        5,
+        3
+      ],
+      "cycles": 75475,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_01",
+      "tile": [
+        6,
+        3
+      ],
+      "cycles": 72024,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_01",
+      "tile": [
+        3,
+        4
+      ],
+      "cycles": 57510,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_01",
+      "tile": [
+        4,
+        4
+      ],
+      "cycles": 73613,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_01",
+      "tile": [
+        5,
+        4
+      ],
+      "cycles": 71237,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_01",
+      "tile": [
+        6,
+        4
+      ],
+      "cycles": 57878,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_01",
+      "tile": [
+        3,
+        5
+      ],
+      "cycles": 60783,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_01",
+      "tile": [
+        4,
+        5
+      ],
+      "cycles": 61235,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_01",
+      "tile": [
+        5,
+        5
+      ],
+      "cycles": 66843,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_01",
+      "tile": [
+        6,
+        5
+      ],
+      "cycles": 56441,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_02",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 55279,
+      "changed_from_seed": false
+    },
+    {
+      "case": "02/near/attack_02",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 67090,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_02",
+      "tile": [
+        5,
+        2
+      ],
+      "cycles": 67351,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_02",
+      "tile": [
+        6,
+        2
+      ],
+      "cycles": 56354,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_02",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 73784,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_02",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 75660,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_02",
+      "tile": [
+        5,
+        3
+      ],
+      "cycles": 75364,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_02",
+      "tile": [
+        6,
+        3
+      ],
+      "cycles": 72181,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_02",
+      "tile": [
+        3,
+        4
+      ],
+      "cycles": 59158,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_02",
+      "tile": [
+        4,
+        4
+      ],
+      "cycles": 73517,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_02",
+      "tile": [
+        5,
+        4
+      ],
+      "cycles": 70782,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_02",
+      "tile": [
+        6,
+        4
+      ],
+      "cycles": 56668,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_02",
+      "tile": [
+        3,
+        5
+      ],
+      "cycles": 57337,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_02",
+      "tile": [
+        4,
+        5
+      ],
+      "cycles": 63773,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_02",
+      "tile": [
+        5,
+        5
+      ],
+      "cycles": 63975,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/attack_02",
+      "tile": [
+        6,
+        5
+      ],
+      "cycles": 59097,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/shot_01",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 65341,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/shot_01",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 69854,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/shot_01",
+      "tile": [
+        5,
+        2
+      ],
+      "cycles": 65619,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/shot_01",
+      "tile": [
+        6,
+        2
+      ],
+      "cycles": 61560,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/shot_01",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 67592,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/shot_01",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 76742,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/shot_01",
+      "tile": [
+        5,
+        3
+      ],
+      "cycles": 75065,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/shot_01",
+      "tile": [
+        6,
+        3
+      ],
+      "cycles": 66390,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/shot_01",
+      "tile": [
+        3,
+        4
+      ],
+      "cycles": 59635,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/shot_01",
+      "tile": [
+        4,
+        4
+      ],
+      "cycles": 74225,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/shot_01",
+      "tile": [
+        5,
+        4
+      ],
+      "cycles": 69519,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/shot_01",
+      "tile": [
+        6,
+        4
+      ],
+      "cycles": 58279,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/shot_01",
+      "tile": [
+        3,
+        5
+      ],
+      "cycles": 66909,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/shot_01",
+      "tile": [
+        4,
+        5
+      ],
+      "cycles": 62623,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/shot_01",
+      "tile": [
+        5,
+        5
+      ],
+      "cycles": 70305,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/shot_01",
+      "tile": [
+        6,
+        5
+      ],
+      "cycles": 58285,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/corps",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 55279,
+      "changed_from_seed": false
+    },
+    {
+      "case": "02/near/corps",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 55327,
+      "changed_from_seed": false
+    },
+    {
+      "case": "02/near/corps",
+      "tile": [
+        5,
+        2
+      ],
+      "cycles": 55327,
+      "changed_from_seed": false
+    },
+    {
+      "case": "02/near/corps",
+      "tile": [
+        6,
+        2
+      ],
+      "cycles": 55375,
+      "changed_from_seed": false
+    },
+    {
+      "case": "02/near/corps",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 60933,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/corps",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 57225,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/corps",
+      "tile": [
+        5,
+        3
+      ],
+      "cycles": 62563,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/corps",
+      "tile": [
+        6,
+        3
+      ],
+      "cycles": 55471,
+      "changed_from_seed": false
+    },
+    {
+      "case": "02/near/corps",
+      "tile": [
+        3,
+        4
+      ],
+      "cycles": 65710,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/corps",
+      "tile": [
+        4,
+        4
+      ],
+      "cycles": 73530,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/corps",
+      "tile": [
+        5,
+        4
+      ],
+      "cycles": 70339,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/corps",
+      "tile": [
+        6,
+        4
+      ],
+      "cycles": 56676,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/corps",
+      "tile": [
+        3,
+        5
+      ],
+      "cycles": 66812,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/corps",
+      "tile": [
+        4,
+        5
+      ],
+      "cycles": 73938,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/corps",
+      "tile": [
+        5,
+        5
+      ],
+      "cycles": 76048,
+      "changed_from_seed": true
+    },
+    {
+      "case": "02/near/corps",
+      "tile": [
+        6,
+        5
+      ],
+      "cycles": 70886,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-left-visible",
+      "tile": [
+        0,
+        0
+      ],
+      "cycles": 53946,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-left-visible",
+      "tile": [
+        1,
+        0
+      ],
+      "cycles": 56342,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-left-visible",
+      "tile": [
+        2,
+        0
+      ],
+      "cycles": 53466,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-left-visible",
+      "tile": [
+        3,
+        0
+      ],
+      "cycles": 50604,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-left-visible",
+      "tile": [
+        0,
+        1
+      ],
+      "cycles": 52216,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-left-visible",
+      "tile": [
+        1,
+        1
+      ],
+      "cycles": 56600,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-left-visible",
+      "tile": [
+        2,
+        1
+      ],
+      "cycles": 55161,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-left-visible",
+      "tile": [
+        3,
+        1
+      ],
+      "cycles": 50551,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-left-visible",
+      "tile": [
+        0,
+        2
+      ],
+      "cycles": 48287,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-left-visible",
+      "tile": [
+        1,
+        2
+      ],
+      "cycles": 52409,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-left-visible",
+      "tile": [
+        2,
+        2
+      ],
+      "cycles": 54445,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-left-visible",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 47225,
+      "changed_from_seed": false
+    },
+    {
+      "case": "clip-depth-left-visible",
+      "tile": [
+        0,
+        3
+      ],
+      "cycles": 30928,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-left-visible",
+      "tile": [
+        1,
+        3
+      ],
+      "cycles": 28594,
+      "changed_from_seed": false
+    },
+    {
+      "case": "clip-depth-left-visible",
+      "tile": [
+        2,
+        3
+      ],
+      "cycles": 30702,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-left-visible",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 27766,
+      "changed_from_seed": false
+    },
+    {
+      "case": "clip-depth-right-visible",
+      "tile": [
+        0,
+        0
+      ],
+      "cycles": 58102,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-right-visible",
+      "tile": [
+        1,
+        0
+      ],
+      "cycles": 60019,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-right-visible",
+      "tile": [
+        2,
+        0
+      ],
+      "cycles": 55717,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-right-visible",
+      "tile": [
+        3,
+        0
+      ],
+      "cycles": 41902,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-right-visible",
+      "tile": [
+        0,
+        1
+      ],
+      "cycles": 56094,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-right-visible",
+      "tile": [
+        1,
+        1
+      ],
+      "cycles": 61165,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-right-visible",
+      "tile": [
+        2,
+        1
+      ],
+      "cycles": 57427,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-right-visible",
+      "tile": [
+        3,
+        1
+      ],
+      "cycles": 42302,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-right-visible",
+      "tile": [
+        0,
+        2
+      ],
+      "cycles": 55259,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-right-visible",
+      "tile": [
+        1,
+        2
+      ],
+      "cycles": 53445,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-right-visible",
+      "tile": [
+        2,
+        2
+      ],
+      "cycles": 48349,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-right-visible",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 41597,
+      "changed_from_seed": false
+    },
+    {
+      "case": "clip-depth-right-visible",
+      "tile": [
+        0,
+        3
+      ],
+      "cycles": 30518,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-right-visible",
+      "tile": [
+        1,
+        3
+      ],
+      "cycles": 28582,
+      "changed_from_seed": false
+    },
+    {
+      "case": "clip-depth-right-visible",
+      "tile": [
+        2,
+        3
+      ],
+      "cycles": 31218,
+      "changed_from_seed": true
+    },
+    {
+      "case": "clip-depth-right-visible",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 24208,
+      "changed_from_seed": false
+    },
+    {
+      "case": "near-row-reuse",
+      "tile": [
+        5,
+        1
+      ],
+      "cycles": 41333,
+      "changed_from_seed": true
+    },
+    {
+      "case": "near-row-reuse",
+      "tile": [
+        6,
+        1
+      ],
+      "cycles": 41381,
+      "changed_from_seed": true
+    },
+    {
+      "case": "near-row-reuse",
+      "tile": [
+        5,
+        2
+      ],
+      "cycles": 40385,
+      "changed_from_seed": true
+    },
+    {
+      "case": "near-row-reuse",
+      "tile": [
+        6,
+        2
+      ],
+      "cycles": 40433,
+      "changed_from_seed": true
+    },
+    {
+      "case": "near-row-reuse",
+      "tile": [
+        5,
+        3
+      ],
+      "cycles": 41333,
+      "changed_from_seed": true
+    },
+    {
+      "case": "near-row-reuse",
+      "tile": [
+        6,
+        3
+      ],
+      "cycles": 41381,
+      "changed_from_seed": true
+    },
+    {
+      "case": "near-row-reuse",
+      "tile": [
+        5,
+        4
+      ],
+      "cycles": 40593,
+      "changed_from_seed": true
+    },
+    {
+      "case": "near-row-reuse",
+      "tile": [
+        6,
+        4
+      ],
+      "cycles": 41085,
+      "changed_from_seed": true
+    },
+    {
+      "case": "near-row-reuse",
+      "tile": [
+        5,
+        5
+      ],
+      "cycles": 41541,
+      "changed_from_seed": true
+    },
+    {
+      "case": "near-row-reuse",
+      "tile": [
+        6,
+        5
+      ],
+      "cycles": 41441,
+      "changed_from_seed": true
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        0,
+        0
+      ],
+      "cycles": 9207,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        5,
+        0
+      ],
+      "cycles": 9207,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        6,
+        0
+      ],
+      "cycles": 9207,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        12,
+        0
+      ],
+      "cycles": 18703,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        13,
+        0
+      ],
+      "cycles": 18751,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        0,
+        1
+      ],
+      "cycles": 9207,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        5,
+        1
+      ],
+      "cycles": 9207,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        6,
+        1
+      ],
+      "cycles": 9207,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        12,
+        1
+      ],
+      "cycles": 18703,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        13,
+        1
+      ],
+      "cycles": 18751,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        0,
+        6
+      ],
+      "cycles": 37047,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        5,
+        6
+      ],
+      "cycles": 37047,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        6,
+        6
+      ],
+      "cycles": 37047,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        12,
+        6
+      ],
+      "cycles": 56610,
+      "changed_from_seed": true
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        13,
+        6
+      ],
+      "cycles": 71458,
+      "changed_from_seed": true
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        0,
+        7
+      ],
+      "cycles": 37143,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        5,
+        7
+      ],
+      "cycles": 37143,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        6,
+        7
+      ],
+      "cycles": 37143,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        12,
+        7
+      ],
+      "cycles": 74101,
+      "changed_from_seed": true
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        13,
+        7
+      ],
+      "cycles": 75660,
+      "changed_from_seed": true
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        0,
+        0
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        5,
+        0
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        6,
+        0
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        12,
+        0
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        13,
+        0
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        0,
+        1
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        5,
+        1
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        6,
+        1
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        12,
+        1
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        13,
+        1
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        0,
+        6
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        5,
+        6
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        6,
+        6
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        12,
+        6
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        13,
+        6
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        0,
+        7
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        5,
+        7
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        6,
+        7
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        12,
+        7
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        13,
+        7
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        0,
+        0
+      ],
+      "cycles": 9207,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        5,
+        0
+      ],
+      "cycles": 18703,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        6,
+        0
+      ],
+      "cycles": 18751,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        12,
+        0
+      ],
+      "cycles": 10343,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        13,
+        0
+      ],
+      "cycles": 10343,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        0,
+        1
+      ],
+      "cycles": 37047,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        5,
+        1
+      ],
+      "cycles": 69010,
+      "changed_from_seed": true
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        6,
+        1
+      ],
+      "cycles": 66286,
+      "changed_from_seed": true
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        12,
+        1
+      ],
+      "cycles": 38183,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        13,
+        1
+      ],
+      "cycles": 38183,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        0,
+        6
+      ],
+      "cycles": 22413,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        5,
+        6
+      ],
+      "cycles": 33521,
+      "changed_from_seed": true
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        6,
+        6
+      ],
+      "cycles": 33859,
+      "changed_from_seed": true
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        12,
+        6
+      ],
+      "cycles": 23549,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        13,
+        6
+      ],
+      "cycles": 23549,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        0,
+        7
+      ],
+      "cycles": 10367,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        5,
+        7
+      ],
+      "cycles": 19863,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        6,
+        7
+      ],
+      "cycles": 19911,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        12,
+        7
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        13,
+        7
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        0,
+        0
+      ],
+      "cycles": 9207,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        5,
+        0
+      ],
+      "cycles": 18703,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        6,
+        0
+      ],
+      "cycles": 18751,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        12,
+        0
+      ],
+      "cycles": 10343,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        13,
+        0
+      ],
+      "cycles": 10343,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        0,
+        1
+      ],
+      "cycles": 28455,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        5,
+        1
+      ],
+      "cycles": 42319,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        6,
+        1
+      ],
+      "cycles": 42367,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        12,
+        1
+      ],
+      "cycles": 29591,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        13,
+        1
+      ],
+      "cycles": 29591,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        0,
+        6
+      ],
+      "cycles": 10367,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        5,
+        6
+      ],
+      "cycles": 19863,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        6,
+        6
+      ],
+      "cycles": 19911,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        12,
+        6
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        13,
+        6
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        0,
+        7
+      ],
+      "cycles": 10367,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        5,
+        7
+      ],
+      "cycles": 19863,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        6,
+        7
+      ],
+      "cycles": 19911,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        12,
+        7
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "edge-clamp-offscreen",
+      "tile": [
+        13,
+        7
+      ],
+      "cycles": 11503,
+      "changed_from_seed": false
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 56610,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 56610,
+      "changed_from_seed": false
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 71458,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 71051,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        5,
+        2
+      ],
+      "cycles": 62383,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        5,
+        2
+      ],
+      "cycles": 63260,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        6,
+        2
+      ],
+      "cycles": 55375,
+      "changed_from_seed": false
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        6,
+        2
+      ],
+      "cycles": 55375,
+      "changed_from_seed": false
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 74101,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 74101,
+      "changed_from_seed": false
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 75660,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 75919,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        5,
+        3
+      ],
+      "cycles": 75475,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        5,
+        3
+      ],
+      "cycles": 76215,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        6,
+        3
+      ],
+      "cycles": 72024,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        6,
+        3
+      ],
+      "cycles": 72024,
+      "changed_from_seed": false
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        3,
+        4
+      ],
+      "cycles": 57510,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        3,
+        4
+      ],
+      "cycles": 57473,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        4,
+        4
+      ],
+      "cycles": 73613,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        4,
+        4
+      ],
+      "cycles": 73724,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        5,
+        4
+      ],
+      "cycles": 71237,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        5,
+        4
+      ],
+      "cycles": 70534,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        6,
+        4
+      ],
+      "cycles": 57878,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        6,
+        4
+      ],
+      "cycles": 57804,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        3,
+        5
+      ],
+      "cycles": 60783,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        3,
+        5
+      ],
+      "cycles": 60783,
+      "changed_from_seed": false
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        4,
+        5
+      ],
+      "cycles": 61235,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        4,
+        5
+      ],
+      "cycles": 61716,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        5,
+        5
+      ],
+      "cycles": 66843,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        5,
+        5
+      ],
+      "cycles": 67287,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        6,
+        5
+      ],
+      "cycles": 56441,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        6,
+        5
+      ],
+      "cycles": 56441,
+      "changed_from_seed": false
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 56610,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        3,
+        2
+      ],
+      "cycles": 56610,
+      "changed_from_seed": false
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 71051,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        4,
+        2
+      ],
+      "cycles": 71458,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        5,
+        2
+      ],
+      "cycles": 63260,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        5,
+        2
+      ],
+      "cycles": 62383,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        6,
+        2
+      ],
+      "cycles": 55375,
+      "changed_from_seed": false
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        6,
+        2
+      ],
+      "cycles": 55375,
+      "changed_from_seed": false
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 74101,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        3,
+        3
+      ],
+      "cycles": 74101,
+      "changed_from_seed": false
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 75919,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        4,
+        3
+      ],
+      "cycles": 75660,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        5,
+        3
+      ],
+      "cycles": 76215,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        5,
+        3
+      ],
+      "cycles": 75475,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        6,
+        3
+      ],
+      "cycles": 72024,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        6,
+        3
+      ],
+      "cycles": 72024,
+      "changed_from_seed": false
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        3,
+        4
+      ],
+      "cycles": 57473,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        3,
+        4
+      ],
+      "cycles": 57510,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        4,
+        4
+      ],
+      "cycles": 73724,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        4,
+        4
+      ],
+      "cycles": 73613,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        5,
+        4
+      ],
+      "cycles": 70534,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        5,
+        4
+      ],
+      "cycles": 71237,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        6,
+        4
+      ],
+      "cycles": 57804,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        6,
+        4
+      ],
+      "cycles": 57878,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        3,
+        5
+      ],
+      "cycles": 60783,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        3,
+        5
+      ],
+      "cycles": 60783,
+      "changed_from_seed": false
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        4,
+        5
+      ],
+      "cycles": 61716,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        4,
+        5
+      ],
+      "cycles": 61235,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        5,
+        5
+      ],
+      "cycles": 67287,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        5,
+        5
+      ],
+      "cycles": 66843,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-first",
+      "tile": [
+        6,
+        5
+      ],
+      "cycles": 56441,
+      "changed_from_seed": true
+    },
+    {
+      "case": "overlap-second",
+      "tile": [
+        6,
+        5
+      ],
+      "cycles": 56441,
+      "changed_from_seed": false
+    }
+  ],
+  "hud_calls": [
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        7,
+        3
+      ],
+      "cycles": 395
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        8,
+        3
+      ],
+      "cycles": 461
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        9,
+        3
+      ],
+      "cycles": 461
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        10,
+        3
+      ],
+      "cycles": 461
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        11,
+        3
+      ],
+      "cycles": 461
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        12,
+        3
+      ],
+      "cycles": 461
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        13,
+        3
+      ],
+      "cycles": 425
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        7,
+        4
+      ],
+      "cycles": 395
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        8,
+        4
+      ],
+      "cycles": 9485
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        9,
+        4
+      ],
+      "cycles": 9485
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        10,
+        4
+      ],
+      "cycles": 9485
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        11,
+        4
+      ],
+      "cycles": 9485
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        12,
+        4
+      ],
+      "cycles": 9485
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        13,
+        4
+      ],
+      "cycles": 425
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        7,
+        5
+      ],
+      "cycles": 395
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        8,
+        5
+      ],
+      "cycles": 9485
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        9,
+        5
+      ],
+      "cycles": 9485
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        10,
+        5
+      ],
+      "cycles": 9485
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        11,
+        5
+      ],
+      "cycles": 9485
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        12,
+        5
+      ],
+      "cycles": 9485
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        13,
+        5
+      ],
+      "cycles": 425
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        7,
+        6
+      ],
+      "cycles": 395
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        8,
+        6
+      ],
+      "cycles": 9485
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        9,
+        6
+      ],
+      "cycles": 9485
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        10,
+        6
+      ],
+      "cycles": 9485
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        11,
+        6
+      ],
+      "cycles": 9485
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        12,
+        6
+      ],
+      "cycles": 9485
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        13,
+        6
+      ],
+      "cycles": 425
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        7,
+        7
+      ],
+      "cycles": 395
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        8,
+        7
+      ],
+      "cycles": 9485
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        9,
+        7
+      ],
+      "cycles": 9485
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        10,
+        7
+      ],
+      "cycles": 9485
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        11,
+        7
+      ],
+      "cycles": 9485
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        12,
+        7
+      ],
+      "cycles": 9485
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        13,
+        7
+      ],
+      "cycles": 425
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        7,
+        8
+      ],
+      "cycles": 395
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        8,
+        8
+      ],
+      "cycles": 491
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        9,
+        8
+      ],
+      "cycles": 491
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        10,
+        8
+      ],
+      "cycles": 491
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        11,
+        8
+      ],
+      "cycles": 491
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        12,
+        8
+      ],
+      "cycles": 491
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held.png",
+      "tile": [
+        13,
+        8
+      ],
+      "cycles": 425
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        7,
+        3
+      ],
+      "cycles": 396
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        8,
+        3
+      ],
+      "cycles": 462
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        9,
+        3
+      ],
+      "cycles": 462
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        10,
+        3
+      ],
+      "cycles": 462
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        11,
+        3
+      ],
+      "cycles": 462
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        12,
+        3
+      ],
+      "cycles": 462
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        13,
+        3
+      ],
+      "cycles": 426
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        7,
+        4
+      ],
+      "cycles": 396
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        8,
+        4
+      ],
+      "cycles": 9493
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        9,
+        4
+      ],
+      "cycles": 9493
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        10,
+        4
+      ],
+      "cycles": 9493
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        11,
+        4
+      ],
+      "cycles": 9493
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        12,
+        4
+      ],
+      "cycles": 9493
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        13,
+        4
+      ],
+      "cycles": 426
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        7,
+        5
+      ],
+      "cycles": 396
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        8,
+        5
+      ],
+      "cycles": 9493
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        9,
+        5
+      ],
+      "cycles": 9493
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        10,
+        5
+      ],
+      "cycles": 9493
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        11,
+        5
+      ],
+      "cycles": 9493
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        12,
+        5
+      ],
+      "cycles": 9493
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        13,
+        5
+      ],
+      "cycles": 426
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        7,
+        6
+      ],
+      "cycles": 396
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        8,
+        6
+      ],
+      "cycles": 9493
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        9,
+        6
+      ],
+      "cycles": 9493
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        10,
+        6
+      ],
+      "cycles": 9493
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        11,
+        6
+      ],
+      "cycles": 9493
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        12,
+        6
+      ],
+      "cycles": 9493
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        13,
+        6
+      ],
+      "cycles": 426
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        7,
+        7
+      ],
+      "cycles": 396
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        8,
+        7
+      ],
+      "cycles": 9493
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        9,
+        7
+      ],
+      "cycles": 9493
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        10,
+        7
+      ],
+      "cycles": 9493
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        11,
+        7
+      ],
+      "cycles": 9493
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        12,
+        7
+      ],
+      "cycles": 9493
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        13,
+        7
+      ],
+      "cycles": 426
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        7,
+        8
+      ],
+      "cycles": 396
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        8,
+        8
+      ],
+      "cycles": 492
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        9,
+        8
+      ],
+      "cycles": 492
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        10,
+        8
+      ],
+      "cycles": 492
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        11,
+        8
+      ],
+      "cycles": 492
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        12,
+        8
+      ],
+      "cycles": 492
+    },
+    {
+      "weapon": 1,
+      "pose": "shotgun_held_shoot.png",
+      "tile": [
+        13,
+        8
+      ],
+      "cycles": 426
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        7,
+        3
+      ],
+      "cycles": 400
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        8,
+        3
+      ],
+      "cycles": 400
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        9,
+        3
+      ],
+      "cycles": 400
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        10,
+        3
+      ],
+      "cycles": 466
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        11,
+        3
+      ],
+      "cycles": 466
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        12,
+        3
+      ],
+      "cycles": 466
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        13,
+        3
+      ],
+      "cycles": 430
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        7,
+        4
+      ],
+      "cycles": 400
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        8,
+        4
+      ],
+      "cycles": 400
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        9,
+        4
+      ],
+      "cycles": 400
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        10,
+        4
+      ],
+      "cycles": 466
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        11,
+        4
+      ],
+      "cycles": 466
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        12,
+        4
+      ],
+      "cycles": 466
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        13,
+        4
+      ],
+      "cycles": 430
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        7,
+        5
+      ],
+      "cycles": 400
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        8,
+        5
+      ],
+      "cycles": 400
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        9,
+        5
+      ],
+      "cycles": 400
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        10,
+        5
+      ],
+      "cycles": 9474
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        11,
+        5
+      ],
+      "cycles": 9474
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        12,
+        5
+      ],
+      "cycles": 9474
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        13,
+        5
+      ],
+      "cycles": 430
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        7,
+        6
+      ],
+      "cycles": 400
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        8,
+        6
+      ],
+      "cycles": 400
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        9,
+        6
+      ],
+      "cycles": 400
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        10,
+        6
+      ],
+      "cycles": 9474
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        11,
+        6
+      ],
+      "cycles": 9474
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        12,
+        6
+      ],
+      "cycles": 9474
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        13,
+        6
+      ],
+      "cycles": 430
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        7,
+        7
+      ],
+      "cycles": 400
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        8,
+        7
+      ],
+      "cycles": 400
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        9,
+        7
+      ],
+      "cycles": 400
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        10,
+        7
+      ],
+      "cycles": 9474
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        11,
+        7
+      ],
+      "cycles": 9474
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        12,
+        7
+      ],
+      "cycles": 9474
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        13,
+        7
+      ],
+      "cycles": 430
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        7,
+        8
+      ],
+      "cycles": 400
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        8,
+        8
+      ],
+      "cycles": 400
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        9,
+        8
+      ],
+      "cycles": 400
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        10,
+        8
+      ],
+      "cycles": 496
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        11,
+        8
+      ],
+      "cycles": 496
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        12,
+        8
+      ],
+      "cycles": 496
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_12x12.png",
+      "tile": [
+        13,
+        8
+      ],
+      "cycles": 430
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        7,
+        3
+      ],
+      "cycles": 401
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        8,
+        3
+      ],
+      "cycles": 401
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        9,
+        3
+      ],
+      "cycles": 401
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        10,
+        3
+      ],
+      "cycles": 467
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        11,
+        3
+      ],
+      "cycles": 467
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        12,
+        3
+      ],
+      "cycles": 467
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        13,
+        3
+      ],
+      "cycles": 431
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        7,
+        4
+      ],
+      "cycles": 401
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        8,
+        4
+      ],
+      "cycles": 401
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        9,
+        4
+      ],
+      "cycles": 401
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        10,
+        4
+      ],
+      "cycles": 467
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        11,
+        4
+      ],
+      "cycles": 467
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        12,
+        4
+      ],
+      "cycles": 467
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        13,
+        4
+      ],
+      "cycles": 431
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        7,
+        5
+      ],
+      "cycles": 401
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        8,
+        5
+      ],
+      "cycles": 401
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        9,
+        5
+      ],
+      "cycles": 401
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        10,
+        5
+      ],
+      "cycles": 9482
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        11,
+        5
+      ],
+      "cycles": 9482
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        12,
+        5
+      ],
+      "cycles": 9482
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        13,
+        5
+      ],
+      "cycles": 431
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        7,
+        6
+      ],
+      "cycles": 401
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        8,
+        6
+      ],
+      "cycles": 401
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        9,
+        6
+      ],
+      "cycles": 401
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        10,
+        6
+      ],
+      "cycles": 9482
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        11,
+        6
+      ],
+      "cycles": 9482
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        12,
+        6
+      ],
+      "cycles": 9482
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        13,
+        6
+      ],
+      "cycles": 431
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        7,
+        7
+      ],
+      "cycles": 401
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        8,
+        7
+      ],
+      "cycles": 401
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        9,
+        7
+      ],
+      "cycles": 401
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        10,
+        7
+      ],
+      "cycles": 9482
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        11,
+        7
+      ],
+      "cycles": 9482
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        12,
+        7
+      ],
+      "cycles": 9482
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        13,
+        7
+      ],
+      "cycles": 431
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        7,
+        8
+      ],
+      "cycles": 401
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        8,
+        8
+      ],
+      "cycles": 401
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        9,
+        8
+      ],
+      "cycles": 401
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        10,
+        8
+      ],
+      "cycles": 497
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        11,
+        8
+      ],
+      "cycles": 497
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        12,
+        8
+      ],
+      "cycles": 497
+    },
+    {
+      "weapon": 0,
+      "pose": "gun_shoot_12x12.png",
+      "tile": [
+        13,
+        8
+      ],
+      "cycles": 431
+    }
+  ],
+  "selectors": [
+    {
+      "type": 0,
+      "case": "standing",
+      "presentation_pose": 0,
+      "near_global_id": 0,
+      "cycles": [
+        653,
+        219
+      ]
+    },
+    {
+      "type": 0,
+      "case": "walk1",
+      "presentation_pose": 1,
+      "near_global_id": 1,
+      "cycles": [
+        695,
+        207
+      ]
+    },
+    {
+      "type": 0,
+      "case": "walk2",
+      "presentation_pose": 2,
+      "near_global_id": 2,
+      "cycles": [
+        690,
+        219
+      ]
+    },
+    {
+      "type": 0,
+      "case": "hit1",
+      "presentation_pose": 3,
+      "near_global_id": 6,
+      "cycles": [
+        602,
+        219
+      ]
+    },
+    {
+      "type": 0,
+      "case": "hit2",
+      "presentation_pose": 3,
+      "near_global_id": 6,
+      "cycles": [
+        611,
+        219
+      ]
+    },
+    {
+      "type": 0,
+      "case": "attack1",
+      "presentation_pose": 7,
+      "near_global_id": 4,
+      "cycles": [
+        763,
+        219
+      ]
+    },
+    {
+      "type": 0,
+      "case": "attack2",
+      "presentation_pose": 8,
+      "near_global_id": 5,
+      "cycles": [
+        756,
+        219
+      ]
+    },
+    {
+      "type": 0,
+      "case": "anticipation",
+      "presentation_pose": 6,
+      "near_global_id": 3,
+      "cycles": [
+        698,
+        219
+      ]
+    },
+    {
+      "type": 0,
+      "case": "shot-dead",
+      "presentation_pose": 4,
+      "near_global_id": 6,
+      "cycles": [
+        431,
+        219
+      ]
+    },
+    {
+      "type": 0,
+      "case": "corpse",
+      "presentation_pose": 5,
+      "near_global_id": 7,
+      "cycles": [
+        396,
+        219
+      ]
+    },
+    {
+      "type": 1,
+      "case": "standing",
+      "presentation_pose": 0,
+      "near_global_id": 8,
+      "cycles": [
+        653,
+        219
+      ]
+    },
+    {
+      "type": 1,
+      "case": "walk1",
+      "presentation_pose": 1,
+      "near_global_id": 9,
+      "cycles": [
+        695,
+        207
+      ]
+    },
+    {
+      "type": 1,
+      "case": "walk2",
+      "presentation_pose": 2,
+      "near_global_id": 10,
+      "cycles": [
+        690,
+        219
+      ]
+    },
+    {
+      "type": 1,
+      "case": "hit1",
+      "presentation_pose": 3,
+      "near_global_id": 14,
+      "cycles": [
+        602,
+        219
+      ]
+    },
+    {
+      "type": 1,
+      "case": "hit2",
+      "presentation_pose": 3,
+      "near_global_id": 14,
+      "cycles": [
+        611,
+        219
+      ]
+    },
+    {
+      "type": 1,
+      "case": "attack1",
+      "presentation_pose": 7,
+      "near_global_id": 12,
+      "cycles": [
+        763,
+        219
+      ]
+    },
+    {
+      "type": 1,
+      "case": "attack2",
+      "presentation_pose": 8,
+      "near_global_id": 13,
+      "cycles": [
+        756,
+        219
+      ]
+    },
+    {
+      "type": 1,
+      "case": "anticipation",
+      "presentation_pose": 6,
+      "near_global_id": 11,
+      "cycles": [
+        698,
+        219
+      ]
+    },
+    {
+      "type": 1,
+      "case": "shot-dead",
+      "presentation_pose": 4,
+      "near_global_id": 14,
+      "cycles": [
+        431,
+        219
+      ]
+    },
+    {
+      "type": 1,
+      "case": "corpse",
+      "presentation_pose": 5,
+      "near_global_id": 15,
+      "cycles": [
+        396,
+        219
+      ]
+    },
+    {
+      "type": 0,
+      "logical_token": 0,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 0,
+      "pointer": 30675,
+      "cycles": 512,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 0,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 0,
+      "pointer": 30643,
+      "cycles": 519,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 0,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 3,
+      "pointer": 30739,
+      "cycles": 504,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 0,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 3,
+      "pointer": 30707,
+      "cycles": 511,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 0,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 4,
+      "pointer": 30803,
+      "cycles": 509,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 0,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 4,
+      "pointer": 30771,
+      "cycles": 516,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 0,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 5,
+      "pointer": 30867,
+      "cycles": 378,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 0,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 5,
+      "pointer": 30835,
+      "cycles": 385,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 1,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 1,
+      "pointer": 27923,
+      "cycles": 501,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 1,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 1,
+      "pointer": 27891,
+      "cycles": 508,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 1,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 3,
+      "pointer": 30739,
+      "cycles": 504,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 1,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 3,
+      "pointer": 30707,
+      "cycles": 511,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 1,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 4,
+      "pointer": 30803,
+      "cycles": 509,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 1,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 4,
+      "pointer": 30771,
+      "cycles": 516,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 1,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 5,
+      "pointer": 30867,
+      "cycles": 378,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 1,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 5,
+      "pointer": 30835,
+      "cycles": 385,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 2,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 2,
+      "pointer": 28019,
+      "cycles": 513,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 2,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 2,
+      "pointer": 27987,
+      "cycles": 520,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 2,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 3,
+      "pointer": 30739,
+      "cycles": 504,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 2,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 3,
+      "pointer": 30707,
+      "cycles": 511,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 2,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 4,
+      "pointer": 30803,
+      "cycles": 509,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 2,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 4,
+      "pointer": 30771,
+      "cycles": 516,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 2,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 5,
+      "pointer": 30867,
+      "cycles": 378,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 2,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 5,
+      "pointer": 30835,
+      "cycles": 385,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 3,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 0,
+      "pointer": 30675,
+      "cycles": 512,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 3,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 0,
+      "pointer": 30643,
+      "cycles": 519,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 3,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 3,
+      "pointer": 30739,
+      "cycles": 504,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 3,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 3,
+      "pointer": 30707,
+      "cycles": 511,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 3,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 4,
+      "pointer": 30803,
+      "cycles": 509,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 3,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 4,
+      "pointer": 30771,
+      "cycles": 516,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 3,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 5,
+      "pointer": 30867,
+      "cycles": 378,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 3,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 5,
+      "pointer": 30835,
+      "cycles": 385,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 4,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 0,
+      "pointer": 30675,
+      "cycles": 512,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 4,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 0,
+      "pointer": 30643,
+      "cycles": 519,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 4,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 3,
+      "pointer": 30739,
+      "cycles": 504,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 4,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 3,
+      "pointer": 30707,
+      "cycles": 511,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 4,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 4,
+      "pointer": 30803,
+      "cycles": 509,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 4,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 4,
+      "pointer": 30771,
+      "cycles": 516,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 4,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 5,
+      "pointer": 30867,
+      "cycles": 378,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 4,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 5,
+      "pointer": 30835,
+      "cycles": 385,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 5,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 0,
+      "pointer": 30675,
+      "cycles": 512,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 5,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 0,
+      "pointer": 30643,
+      "cycles": 519,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 5,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 3,
+      "pointer": 30739,
+      "cycles": 504,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 5,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 3,
+      "pointer": 30707,
+      "cycles": 511,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 5,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 4,
+      "pointer": 30803,
+      "cycles": 509,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 5,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 4,
+      "pointer": 30771,
+      "cycles": 516,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 5,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 5,
+      "pointer": 30867,
+      "cycles": 378,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 5,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 5,
+      "pointer": 30835,
+      "cycles": 385,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 6,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 0,
+      "pointer": 30675,
+      "cycles": 512,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 6,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 0,
+      "pointer": 30643,
+      "cycles": 519,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 6,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 3,
+      "pointer": 30739,
+      "cycles": 504,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 6,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 3,
+      "pointer": 30707,
+      "cycles": 511,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 6,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 4,
+      "pointer": 30803,
+      "cycles": 509,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 6,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 4,
+      "pointer": 30771,
+      "cycles": 516,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 6,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 5,
+      "pointer": 30867,
+      "cycles": 378,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 0,
+      "logical_token": 6,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 5,
+      "pointer": 30835,
+      "cycles": 385,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 0,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 0,
+      "pointer": 29267,
+      "cycles": 512,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 0,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 0,
+      "pointer": 29235,
+      "cycles": 519,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 0,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 3,
+      "pointer": 29555,
+      "cycles": 504,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 0,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 3,
+      "pointer": 29523,
+      "cycles": 511,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 0,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 4,
+      "pointer": 29651,
+      "cycles": 509,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 0,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 4,
+      "pointer": 29619,
+      "cycles": 516,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 0,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 5,
+      "pointer": 29747,
+      "cycles": 378,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 0,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 5,
+      "pointer": 29715,
+      "cycles": 385,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 1,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 1,
+      "pointer": 29363,
+      "cycles": 501,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 1,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 1,
+      "pointer": 29331,
+      "cycles": 508,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 1,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 3,
+      "pointer": 29555,
+      "cycles": 504,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 1,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 3,
+      "pointer": 29523,
+      "cycles": 511,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 1,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 4,
+      "pointer": 29651,
+      "cycles": 509,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 1,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 4,
+      "pointer": 29619,
+      "cycles": 516,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 1,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 5,
+      "pointer": 29747,
+      "cycles": 378,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 1,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 5,
+      "pointer": 29715,
+      "cycles": 385,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 2,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 2,
+      "pointer": 29459,
+      "cycles": 513,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 2,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 2,
+      "pointer": 29427,
+      "cycles": 520,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 2,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 3,
+      "pointer": 29555,
+      "cycles": 504,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 2,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 3,
+      "pointer": 29523,
+      "cycles": 511,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 2,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 4,
+      "pointer": 29651,
+      "cycles": 509,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 2,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 4,
+      "pointer": 29619,
+      "cycles": 516,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 2,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 5,
+      "pointer": 29747,
+      "cycles": 378,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 2,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 5,
+      "pointer": 29715,
+      "cycles": 385,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 3,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 0,
+      "pointer": 29267,
+      "cycles": 512,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 3,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 0,
+      "pointer": 29235,
+      "cycles": 519,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 3,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 3,
+      "pointer": 29555,
+      "cycles": 504,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 3,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 3,
+      "pointer": 29523,
+      "cycles": 511,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 3,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 4,
+      "pointer": 29651,
+      "cycles": 509,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 3,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 4,
+      "pointer": 29619,
+      "cycles": 516,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 3,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 5,
+      "pointer": 29747,
+      "cycles": 378,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 3,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 5,
+      "pointer": 29715,
+      "cycles": 385,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 4,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 0,
+      "pointer": 29267,
+      "cycles": 512,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 4,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 0,
+      "pointer": 29235,
+      "cycles": 519,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 4,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 3,
+      "pointer": 29555,
+      "cycles": 504,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 4,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 3,
+      "pointer": 29523,
+      "cycles": 511,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 4,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 4,
+      "pointer": 29651,
+      "cycles": 509,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 4,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 4,
+      "pointer": 29619,
+      "cycles": 516,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 4,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 5,
+      "pointer": 29747,
+      "cycles": 378,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 4,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 5,
+      "pointer": 29715,
+      "cycles": 385,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 5,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 0,
+      "pointer": 29267,
+      "cycles": 512,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 5,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 0,
+      "pointer": 29235,
+      "cycles": 519,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 5,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 3,
+      "pointer": 29555,
+      "cycles": 504,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 5,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 3,
+      "pointer": 29523,
+      "cycles": 511,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 5,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 4,
+      "pointer": 29651,
+      "cycles": 509,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 5,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 4,
+      "pointer": 29619,
+      "cycles": 516,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 5,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 5,
+      "pointer": 29747,
+      "cycles": 378,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 5,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 5,
+      "pointer": 29715,
+      "cycles": 385,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 6,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 0,
+      "pointer": 29267,
+      "cycles": 512,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 6,
+      "timer": 0,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 0,
+      "pointer": 29235,
+      "cycles": 519,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 6,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 3,
+      "pointer": 29555,
+      "cycles": 504,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 6,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 3,
+      "pointer": 29523,
+      "cycles": 511,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 6,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "simple",
+      "selected_token": 4,
+      "pointer": 29651,
+      "cycles": 509,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 6,
+      "timer": 1,
+      "state": 0,
+      "hit_parity": 0,
+      "lod": "medium",
+      "selected_token": 4,
+      "pointer": 29619,
+      "cycles": 516,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 6,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "simple",
+      "selected_token": 5,
+      "pointer": 29747,
+      "cycles": 378,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    },
+    {
+      "type": 1,
+      "logical_token": 6,
+      "timer": 4,
+      "state": 1,
+      "hit_parity": 1,
+      "lod": "medium",
+      "selected_token": 5,
+      "pointer": 29715,
+      "cycles": 385,
+      "fixture_scope": "direct selector input; reachable presentation fixtures are checked above and in the lifecycle/cache matrices"
+    }
+  ]
+}

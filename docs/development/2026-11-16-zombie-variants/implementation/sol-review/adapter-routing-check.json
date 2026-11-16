@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "command": [
+    "py",
+    "-3.12",
+    "tools/maintenance/run_regression.py",
+    "sprite",
+    "--actor-layout",
+    "visual-type-animation-v1",
+    "--build",
+    "build/release",
+    "--rom",
+    "rom/GearRay.gg",
+    "--java-tools",
+    "build/zv01-luna/java-tools",
+    "--output",
+    "build/zv01-sol-review/unsupported-old-art",
+    "--prepare-only"
+  ],
+  "exit": 2,
+  "old_art_comparison_rejected_for_new_schema": true,
+  "legacy_constructor_and_both_variants_prepared": true,
+  "full_campaign_run": false
+}

@@ -15,7 +15,7 @@ $spriteHeader = Get-Content -Raw -LiteralPath (
 $corpseHeader = Get-Content -Raw -LiteralPath (
     Join-Path $root 'game\zombie_corpses.h')
 $workshopMap = Get-Content -Raw -LiteralPath (
-    Join-Path $root 'game\workshop_map.c')
+    Join-Path $root 'game\workshop_map.layout')
 $cmake = Get-Content -Raw -LiteralPath (Join-Path $root 'CMakeLists.txt')
 
 function Assert-True([bool]$Condition, [string]$Message) {
@@ -74,10 +74,8 @@ Assert-True ($corpseHeader -match
     'OUTPUT "\$\{GEAR_RAY_ZOMBIE_CORPSES_OBJECT\}"[\s\S]*?--codeseg BANK2') `
     'Cold corpse management is not isolated in permanently mapped Bank 2.'
 
-$mapBody = [regex]::Match($workshopMap,
-    'workshop_map[\s\S]*?=\s*\{(?<body>[\s\S]*?)\};').Groups['body'].Value
-$mapTokens = @([regex]::Matches($mapBody, '(?<![A-Z_])[XESBDRWZG](?![A-Z_])') |
-    ForEach-Object { $_.Value })
+$mapTokens = @([regex]::Matches($workshopMap, '(?<!\S)(?:X|E|S|B|D|R|W|G|1|2)(?!\S)') |
+    ForEach-Object { if ($_.Value -in @('1','2')) { 'E' } else { $_.Value } })
 Assert-True ($mapTokens.Count -eq 13 * 13) `
     'Could not parse the 13x13 workshop map for door relocation validation.'
 foreach ($door in @(@(6, 2), @(6, 4), @(6, 8))) {

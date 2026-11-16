@@ -7,6 +7,11 @@ $root=Split-Path $PSScriptRoot -Parent
 $build=if([IO.Path]::IsPathRooted($BuildDirectory)){$BuildDirectory}else{Join-Path $root $BuildDirectory}
 $probe=Join-Path $build 'generated'
 $palette=@{'#000000'=0;'#1a1a1a'=13;'#4d4d4d'=2;'#797878'=3;'#ffffff'=12;'#ad3e00'=1;'#ffa57d'=15;'#b51a00'=5;'#785700'=6;'#ffc4ab'=11}
+function Get-ContentSha256([string]$Path) {
+    $sha=[Security.Cryptography.SHA256]::Create()
+    try { return [BitConverter]::ToString($sha.ComputeHash([IO.File]::ReadAllBytes($Path))).Replace('-','') }
+    finally { $sha.Dispose() }
+}
 function Require($condition,$message){if(!$condition){throw $message}}
 foreach($pose in @(@('shotgun_held.png','shotgun_held',14,20),@('shotgun_held_shoot.png','shotgun_fire',14,20),@('pick_up_shotgun.png','shotgun_world',15,16))){
     $im=[Drawing.Bitmap]::new((Join-Path $root "assets/sprites/weapons/$($pose[0])"))
@@ -92,7 +97,7 @@ try {
     Require ($cmake -match 'set\(asset pick_up_shotgun\.png\)[\s\S]*?set\(sprite_kind WorldPickup\)') 'NEAR world pickup must derive from dedicated source'
     Require ($cmake -match 'generate_shotgun_lod\.ps1"[\s\S]*?-InputPath "\$\{CMAKE_SOURCE_DIR\}/assets/sprites/weapons/pick_up_shotgun\.png"') 'FAR world pickup must derive from dedicated source'
     Require ($cmake -match 'pause_shotgun_icon\.h[\s\S]*?-InputPath "\$\{CMAKE_SOURCE_DIR\}/assets/sprites/weapons/shotgun\.png"') 'Pause icon must continue to derive from shotgun.png'
-    Require ((Get-FileHash (Join-Path $root 'assets/sprites/weapons/pick_up_shotgun.png')).Hash -ne (Get-FileHash (Join-Path $root 'assets/sprites/weapons/shotgun.png')).Hash) 'Dedicated world and pause sources must remain distinct'
+    Require ((Get-ContentSha256 (Join-Path $root 'assets/sprites/weapons/pick_up_shotgun.png')) -ne (Get-ContentSha256 (Join-Path $root 'assets/sprites/weapons/shotgun.png'))) 'Dedicated world and pause sources must remain distinct'
 } finally {$worldSource.Dispose();$im.Dispose()}
 Write-Output 'Weapon asset validation PASS: authoritative pause/held source conversions and separate dedicated world source (32-byte FAR / 128-byte NEAR).'
 $hud=Get-Content "$root/platform/game_gear/hud_weapon.c" -Raw

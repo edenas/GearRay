@@ -10,7 +10,7 @@ function Test-PauseFreezeAssembly {
         $bank=0
         foreach($area in [regex]::Matches($object,'(?m)^A (_BANK\w+) size ([0-9A-Fa-f]+)')){
             if([Convert]::ToInt32($area.Groups[2].Value,16) -eq 0){continue}
-            Require ($area.Groups[1].Value -match '^_BANK(?:[123]|3WALL)$') "Unknown non-empty bank in $($file.Name)"
+            Require ($area.Groups[1].Value -match '^_BANK(?:[1234]|3WALL)$') "Unknown non-empty bank in $($file.Name)"
             $bank=[int]$area.Groups[1].Value.Substring(5,1)
         }
         foreach($m in [regex]::Matches($text,'(?ms)^; Function (\w+)\r?\n(.*?)(?=^; Function |\z)')){

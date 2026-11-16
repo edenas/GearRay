@@ -9,6 +9,15 @@ are retained as historical milestones.
 
 ## [Unreleased]
 
+### Zombie variants and shotgun artwork — ZV-01 (2026-11-16)
+
+- Added security/scientist artwork selected by type and animation token while retaining shared gameplay and nine-byte actor records.
+- Encoded the authored workshop map at build time, with two spawns of each zombie type.
+- Integrated the updated held shotgun artwork and both species' authored near frames in a dedicated Bank 4; the accepted ROM is 128 KiB.
+- Preserved incoming mapper pages around native wall scopes and repaired build dependencies, current-art qualification and resource accounting.
+- Accepted the software delivery and recorded the owner's full gameplay on physical Sega Game Gear: all zombies killed, weapon acquired, both types seen and everything working.
+- Retained scoped performance findings and historical evidence; refreshed current documentation for the accepted candidate. No version tag or GitHub Release is created by this entry.
+
 ### Maintenance and accepted implementation (2026-10-23)
 
 - Added pause map/owned-weapon selection, shotgun acquisition and auto-equip documentation for already implemented gameplay.

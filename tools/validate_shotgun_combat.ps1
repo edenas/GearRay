@@ -18,7 +18,7 @@ Require(([regex]::Matches($source,'world_sprite_apply_damage\(').Count)-eq1) 'A 
 Require($source-match'depth >= nearest_depth' -and $source-match'nearest_index = sprite_index') 'Nearest deterministic target selection changed.'
 Require($main-match'raycaster_update\(\);\s*if \(pending_shot\)\s*zombie_shooting_process\(\);\s*pending_shot = shoot_requested;' -and ([regex]::Matches($main,'zombie_shooting_process\(').Count)-eq1) 'Pending-shot timing changed.'
 Require($input-match'\(keys & PORT_A_KEY_1\) != 0[\s\S]*?\(previous_keys & PORT_A_KEY_1\) == 0') 'Held-button autofire rejection changed.'
-Require($sprite-match'#define WORLD_SPRITE_MAX_COUNT 8' -and $sprite-match'(?s)typedef struct\s*\{\s*signed int world_x;\s*signed int world_y;\s*const unsigned char \*pixels;\s*ZombieState state;\s*unsigned char health_and_hit_count;\s*unsigned char state_timer;\s*\} WorldSprite;') 'WorldSprite layout or zombie capacity changed.'
+Require($sprite-match'#define WORLD_SPRITE_MAX_COUNT 8' -and $sprite-match'(?s)typedef struct\s*\{\s*signed int world_x;\s*signed int world_y;\s*unsigned char visual_type;\s*unsigned char animation_token;\s*ZombieState state;\s*unsigned char health_and_hit_count;\s*unsigned char state_timer;\s*\} WorldSprite;' -and $sprite-match'WORLD_SPRITE_LAYOUT_ID "visual-type-animation-v1"') 'WorldSprite layout or zombie capacity changed.'
 
 function PistolDamage([int]$depth){if($depth-lt33-or$depth-gt1260){return 0};if($depth-le455){return 12};if($depth-le585){return 6};if($depth-le963){return 4};return 3}
 function ShotgunDamage([int]$depth){if($depth-lt33-or$depth-gt1260){return 0};if($depth-le585){return 12};if($depth-le963){return 6};return 2}

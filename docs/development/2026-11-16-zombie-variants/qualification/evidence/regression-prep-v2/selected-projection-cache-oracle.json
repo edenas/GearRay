@@ -1,0 +1,1590 @@
+{
+  "cases": 226,
+  "mismatches": 0,
+  "rom_sha256": "b5f9da2b5461574c6c09bc06387eeaa08ae304caeefc96f4ffce1b7c2c58349b",
+  "records": [
+    {
+      "case": "initial",
+      "count": 8,
+      "uncached_cycles": 443492,
+      "cached_cycles": 459169,
+      "kernel_calls": 1
+    },
+    {
+      "case": "identical",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 40355,
+      "kernel_calls": 0
+    },
+    {
+      "case": "pose-position_x",
+      "count": 8,
+      "uncached_cycles": 448836,
+      "cached_cycles": 465265,
+      "kernel_calls": 1
+    },
+    {
+      "case": "pose-restore-position_x",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 463372,
+      "kernel_calls": 1
+    },
+    {
+      "case": "pose-position_y",
+      "count": 8,
+      "uncached_cycles": 448540,
+      "cached_cycles": 465079,
+      "kernel_calls": 1
+    },
+    {
+      "case": "pose-restore-position_y",
+      "count": 8,
+      "uncached_cycles": 445922,
+      "cached_cycles": 462461,
+      "kernel_calls": 1
+    },
+    {
+      "case": "pose-direction_x",
+      "count": 8,
+      "uncached_cycles": 448409,
+      "cached_cycles": 465058,
+      "kernel_calls": 1
+    },
+    {
+      "case": "pose-restore-direction_x",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 463592,
+      "kernel_calls": 1
+    },
+    {
+      "case": "pose-direction_y",
+      "count": 8,
+      "uncached_cycles": 449382,
+      "cached_cycles": 466141,
+      "kernel_calls": 1
+    },
+    {
+      "case": "pose-restore-direction_y",
+      "count": 8,
+      "uncached_cycles": 445922,
+      "cached_cycles": 462681,
+      "kernel_calls": 1
+    },
+    {
+      "case": "pose-plane_x",
+      "count": 8,
+      "uncached_cycles": 446433,
+      "cached_cycles": 463302,
+      "kernel_calls": 1
+    },
+    {
+      "case": "pose-restore-plane_x",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 463812,
+      "kernel_calls": 1
+    },
+    {
+      "case": "pose-plane_y",
+      "count": 8,
+      "uncached_cycles": 450444,
+      "cached_cycles": 467418,
+      "kernel_calls": 1
+    },
+    {
+      "case": "pose-restore-plane_y",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 463917,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-0",
+      "count": 8,
+      "uncached_cycles": 447282,
+      "cached_cycles": 465141,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-0",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 464802,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-1",
+      "count": 8,
+      "uncached_cycles": 447944,
+      "cached_cycles": 465931,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-1",
+      "count": 8,
+      "uncached_cycles": 446112,
+      "cached_cycles": 464099,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-2",
+      "count": 8,
+      "uncached_cycles": 448843,
+      "cached_cycles": 466958,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-2",
+      "count": 8,
+      "uncached_cycles": 446729,
+      "cached_cycles": 464844,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-3",
+      "count": 8,
+      "uncached_cycles": 446831,
+      "cached_cycles": 465074,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-3",
+      "count": 8,
+      "uncached_cycles": 446144,
+      "cached_cycles": 464387,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-4",
+      "count": 8,
+      "uncached_cycles": 446891,
+      "cached_cycles": 465262,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-4",
+      "count": 8,
+      "uncached_cycles": 446891,
+      "cached_cycles": 465262,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-5",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 465442,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-5",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 465442,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-6",
+      "count": 8,
+      "uncached_cycles": 446610,
+      "cached_cycles": 465237,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-6",
+      "count": 8,
+      "uncached_cycles": 446891,
+      "cached_cycles": 465518,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-7",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 465698,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-7",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 465698,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-8",
+      "count": 8,
+      "uncached_cycles": 447037,
+      "cached_cycles": 465905,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-8",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 465811,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-9",
+      "count": 8,
+      "uncached_cycles": 446174,
+      "cached_cycles": 465943,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-9",
+      "count": 8,
+      "uncached_cycles": 446136,
+      "cached_cycles": 465905,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-10",
+      "count": 8,
+      "uncached_cycles": 446576,
+      "cached_cycles": 466473,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-10",
+      "count": 8,
+      "uncached_cycles": 446136,
+      "cached_cycles": 466033,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-11",
+      "count": 8,
+      "uncached_cycles": 447006,
+      "cached_cycles": 467031,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-11",
+      "count": 8,
+      "uncached_cycles": 446753,
+      "cached_cycles": 466778,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-12",
+      "count": 8,
+      "uncached_cycles": 446452,
+      "cached_cycles": 466605,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-12",
+      "count": 8,
+      "uncached_cycles": 446168,
+      "cached_cycles": 466321,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-13",
+      "count": 8,
+      "uncached_cycles": 446915,
+      "cached_cycles": 467196,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-13",
+      "count": 8,
+      "uncached_cycles": 446915,
+      "cached_cycles": 467196,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-14",
+      "count": 8,
+      "uncached_cycles": 446915,
+      "cached_cycles": 467324,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-14",
+      "count": 8,
+      "uncached_cycles": 446915,
+      "cached_cycles": 467324,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-15",
+      "count": 8,
+      "uncached_cycles": 446573,
+      "cached_cycles": 467110,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-15",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 467480,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-16",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 467608,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-16",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 467608,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-17",
+      "count": 8,
+      "uncached_cycles": 447037,
+      "cached_cycles": 467815,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-17",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 467721,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-18",
+      "count": 8,
+      "uncached_cycles": 448468,
+      "cached_cycles": 470147,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-18",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 468622,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-19",
+      "count": 8,
+      "uncached_cycles": 446501,
+      "cached_cycles": 468308,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-19",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 468750,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-20",
+      "count": 8,
+      "uncached_cycles": 448551,
+      "cached_cycles": 470486,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-20",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 468878,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-21",
+      "count": 8,
+      "uncached_cycles": 447499,
+      "cached_cycles": 469562,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-21",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 469006,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-22",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 469134,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-22",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 469134,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-23",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 469262,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-23",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 469262,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-24",
+      "count": 8,
+      "uncached_cycles": 446573,
+      "cached_cycles": 469020,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-24",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 469390,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-25",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 469518,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-25",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 469518,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-26",
+      "count": 8,
+      "uncached_cycles": 447037,
+      "cached_cycles": 469725,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-26",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 469631,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-27",
+      "count": 8,
+      "uncached_cycles": 447491,
+      "cached_cycles": 471080,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-27",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 470532,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-28",
+      "count": 8,
+      "uncached_cycles": 437922,
+      "cached_cycles": 461618,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-28",
+      "count": 8,
+      "uncached_cycles": 445234,
+      "cached_cycles": 468951,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-29",
+      "count": 8,
+      "uncached_cycles": 449017,
+      "cached_cycles": 472862,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-29",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 470788,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-30",
+      "count": 8,
+      "uncached_cycles": 407182,
+      "cached_cycles": 431155,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-30",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 470916,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-31",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 471044,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-31",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 471044,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-32",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 471172,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-32",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 471172,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-33",
+      "count": 8,
+      "uncached_cycles": 446662,
+      "cached_cycles": 471019,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-33",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 471300,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-34",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 471428,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-34",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 471428,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-35",
+      "count": 8,
+      "uncached_cycles": 447037,
+      "cached_cycles": 471635,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-35",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 471541,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-36",
+      "count": 8,
+      "uncached_cycles": 446818,
+      "cached_cycles": 472317,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-36",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 472442,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-37",
+      "count": 8,
+      "uncached_cycles": 446332,
+      "cached_cycles": 471959,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-37",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 472570,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-38",
+      "count": 8,
+      "uncached_cycles": 448031,
+      "cached_cycles": 473786,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-38",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 472698,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-39",
+      "count": 8,
+      "uncached_cycles": 447385,
+      "cached_cycles": 473268,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-39",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 472826,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-40",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 472954,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-40",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 472954,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-41",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 473082,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-41",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 473082,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-42",
+      "count": 8,
+      "uncached_cycles": 446662,
+      "cached_cycles": 472929,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-42",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 473210,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-43",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 473338,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-43",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 473338,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-44",
+      "count": 8,
+      "uncached_cycles": 447037,
+      "cached_cycles": 473545,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-44",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 473451,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-45",
+      "count": 8,
+      "uncached_cycles": 446965,
+      "cached_cycles": 474374,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-45",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 474352,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-46",
+      "count": 8,
+      "uncached_cycles": 446965,
+      "cached_cycles": 474502,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-46",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 474480,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-47",
+      "count": 8,
+      "uncached_cycles": 447228,
+      "cached_cycles": 474893,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-47",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 474608,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-48",
+      "count": 8,
+      "uncached_cycles": 447192,
+      "cached_cycles": 474985,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-48",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 474736,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-49",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 474864,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-49",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 474864,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-50",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 474992,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-50",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 474992,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-51",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 475120,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-51",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 475120,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-52",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 475248,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-52",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 475248,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-53",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 475361,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-53",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 475361,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-54",
+      "count": 8,
+      "uncached_cycles": 446987,
+      "cached_cycles": 476306,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-54",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 476262,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-55",
+      "count": 8,
+      "uncached_cycles": 446987,
+      "cached_cycles": 476434,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-55",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 476390,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-56",
+      "count": 8,
+      "uncached_cycles": 448786,
+      "cached_cycles": 478361,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-56",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 476518,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-57",
+      "count": 8,
+      "uncached_cycles": 498956,
+      "cached_cycles": 528680,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-57",
+      "count": 8,
+      "uncached_cycles": 447198,
+      "cached_cycles": 476901,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-58",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 476774,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-58",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 476774,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-59",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 476902,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-59",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 476902,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-60",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 477030,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-60",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 477030,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-61",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 477158,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-61",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 477158,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-62",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 477271,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-62",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 477271,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-63",
+      "count": 8,
+      "uncached_cycles": 447522,
+      "cached_cycles": 478751,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-63",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 478172,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-64",
+      "count": 8,
+      "uncached_cycles": 446661,
+      "cached_cycles": 478018,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-64",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 478300,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-65",
+      "count": 8,
+      "uncached_cycles": 448324,
+      "cached_cycles": 479809,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-65",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 478428,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-66",
+      "count": 8,
+      "uncached_cycles": 407030,
+      "cached_cycles": 438643,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-66",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 478556,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-67",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 478684,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-67",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 478684,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-68",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 478812,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-68",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 478812,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-69",
+      "count": 8,
+      "uncached_cycles": 446540,
+      "cached_cycles": 478537,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-69",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 478940,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-70",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 479068,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-70",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 479068,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-byte-71",
+      "count": 8,
+      "uncached_cycles": 447037,
+      "cached_cycles": 479275,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-restore-71",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 479181,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-0",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 479899,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-0",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 479899,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-1",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 480614,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-1",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 480614,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-2",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 481329,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-2",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 481329,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-3",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 482044,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-3",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 482044,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-4",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 482759,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-4",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 482759,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-5",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 483474,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-5",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 483474,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-6",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 484189,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-6",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 484189,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-7",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 484904,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-7",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 484904,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-8",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 485619,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-8",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 485619,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-9",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 486334,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-9",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 486334,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-10",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 487049,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-10",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 487049,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-11",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 487764,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-11",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 487764,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-12",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 488479,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-12",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 488479,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-13",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 489194,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-13",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 489194,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-14",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 489909,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-14",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 489909,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-15",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 490624,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-15",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 490624,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-16",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 491339,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-16",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 491339,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-17",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 492054,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-17",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 492054,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-18",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 492769,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-18",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 492769,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-19",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 493484,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-19",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 493484,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-20",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 494199,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-20",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 494199,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-21",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 494914,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-21",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 494914,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-22",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 495629,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-22",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 495629,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-23",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 496344,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-23",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 496344,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-24",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 497059,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-24",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 497059,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-25",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 497774,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-25",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 497774,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-26",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 498489,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-26",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 498489,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-depth-27",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 499204,
+      "kernel_calls": 1
+    },
+    {
+      "case": "wall-restore-27",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 499204,
+      "kernel_calls": 1
+    },
+    {
+      "case": "irrelevant-wall-material",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 40355,
+      "kernel_calls": 0
+    },
+    {
+      "case": "irrelevant-selected-weapon",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 40355,
+      "kernel_calls": 0
+    },
+    {
+      "case": "pickup-added",
+      "count": 9,
+      "uncached_cycles": 520924,
+      "cached_cycles": 536662,
+      "kernel_calls": 1
+    },
+    {
+      "case": "pickup-shotgun_cell_x",
+      "count": 9,
+      "uncached_cycles": 523385,
+      "cached_cycles": 539687,
+      "kernel_calls": 1
+    },
+    {
+      "case": "pickup-shotgun_cell_y",
+      "count": 9,
+      "uncached_cycles": 503907,
+      "cached_cycles": 520225,
+      "kernel_calls": 1
+    },
+    {
+      "case": "pickup-removed",
+      "count": 8,
+      "uncached_cycles": 447338,
+      "cached_cycles": 463054,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-count-4",
+      "count": 4,
+      "uncached_cycles": 275530,
+      "cached_cycles": 288394,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-count-0",
+      "count": 0,
+      "uncached_cycles": 5478,
+      "cached_cycles": 15488,
+      "kernel_calls": 1
+    },
+    {
+      "case": "actor-count-0",
+      "count": 0,
+      "uncached_cycles": 4522,
+      "cached_cycles": 279,
+      "kernel_calls": 0
+    },
+    {
+      "case": "actor-count-8",
+      "count": 8,
+      "uncached_cycles": 443492,
+      "cached_cycles": 459208,
+      "kernel_calls": 1
+    },
+    {
+      "case": "explicit-reset",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 462620,
+      "kernel_calls": 1
+    },
+    {
+      "case": "reset-then-reuse",
+      "count": 8,
+      "uncached_cycles": 446943,
+      "cached_cycles": 40355,
+      "kernel_calls": 0
+    }
+  ],
+  "method": "Actual same-ROM pure/cached kernels; complete visible records, ordering and changed mask; every raw actor byte and ray depth; guards, callee cleanup and executed pure-kernel probes; invisible irrelevant fields normalized"
+}

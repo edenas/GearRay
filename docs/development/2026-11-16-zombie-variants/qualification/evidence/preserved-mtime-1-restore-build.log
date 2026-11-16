@@ -1,0 +1,173 @@
+[1/26] Generating generated/shotgun_held.c, generated/shotgun_held.h
+[2/26] Generating generated/shotgun_fire.c, generated/shotgun_fire.h
+[3/26] Generating generated/shotgun_world.c, generated/shotgun_world.h
+[4/26] Validating minimal player health HUD
+Player health HUD validation PASS
+- authored 14x14 icon -> lossless 7x7 logical pixels
+- authored 2x14 bar -> one reusable 1x7 logical bar
+- ten identical bars at 2px pitch; 0..100 HP supports every 10 HP state
+- accepted pixels repacked +3px X/+1px Y; right edge aligns at X=135
+- 88-byte upload once per session; unchanged health writes nothing
+[5/26] Validating zombie attack, player health, and game over
+Zombie attack and player-health validation PASS
+- health 100 -> 80 -> 60 -> 40 -> 20 -> 0; saturation at zero
+- inclusive 280-unit attack range; 58-pixel full-detail projection
+- independent strikes every 2 AI ticks (8 frames)
+- presentation order: standing, attack_01, standing, attack_02; repeat
+- LOS/range/life/cooldown gates; movement resumes outside range
+- packed independent per-zombie cooldown/phase; WorldSprite remains 9 bytes
+- four-frame hardware scroll shake returns to neutral on every hit
+- 180-frame cleared Game Over screen precedes the shared restart
+- zero pose offset: authored attack centroids match standing within 0.033 px
+- attack projection and targeting are independent of the HUD overlay
+[6/26] Validating workshop map, instances, enclosure, and VOID safety
+Workshop map validation PASS
+- dimensions: 13x13; rows and columns exact
+- spawn: (6,7), EMPTY with north-facing opening
+- registered doors: D (6,4), R (6,2), D (6,8)
+- registered switch: W (6,12), linked to R (6,2)
+- reachable playable tiles: 45; renderable frontier enclosed
+- VOID collision, DDA traversal and out-of-bounds access blocked
+[7/26] Generating shotgun_world.rel
+[8/26] Validating zombie activation, pursuit, and collision contracts
+Zombie AI validation PASS
+- activation 963; hysteresis loss 1260; LOS via authoritative world blockers
+- one BANK1 update every 4 frames; 56-unit step (3.28125 tiles/s)
+- shared radius collision; living-zombie blocking; corpses ignored
+- packed zero-byte per-zombie AI flag; hit/death state ownership preserved
+- two global 8-bit masks remember wall-follow activity/sign; WorldSprite unchanged
+- zero-RAM packed walking phase alternates every AI tick (4 frames), independent of movement acceptance
+- blocked dominant-axis movement uses deterministic player-relative wall sliding
+- mirrored X/Y, near-axis/diagonal, corridor, concave, and moving-player cases validated
+[9/26] Validating zombie hitscan and death states
+Zombie shooting validation passed.
+- center-line aim, range, wall depth, facing, and nearest-only targeting
+- division-free projected-footprint aim: symmetric +/-67 boundary
+- projected-height damage boundaries 12/13/16/17/27/28/35/36
+- exact 1/2/3/4-shot and cumulative mixed-distance health sequences
+- 3-frame odd/even reactions restart and return to standing
+- lethal hit -> SHOT_DEAD (4 updates) -> CORPSE
+- corpse immunity, persistence wiring, floor placement, and input edge reuse
+[10/26] Validating shotgun combat identity and off-axis occlusion
+Shotgun combat validation PASS
+- exact close/medium/far 12/6/2 damage; 1/2/6 hits; permanent 2-damage far floor
+- three projected-body samples at screen x=40/56/72, rendered rays 10/14/18; between/outside misses
+- sample-specific wall/door depth; unchanged pistol +/-67 center boundary
+- deterministic nearest single target; pending-shot and edge-fire contracts preserved
+[11/26] Generating generated/hud_masks.h
+Generated 1160 native HUD mask bytes from current sprite payloads.
+[12/26] Compiling banked static HUD weapon overlay
+[13/26] Validating persistent corpse gameplay
+Persistent corpse validation PASS
+- stable corpses have zero timer and no seen/unseen packed meaning
+- 3600 simulated frames preserve all eight non-merged corpses
+- visibility and projection cannot remove or mutate corpses
+- weapon and door corpses persist; merge-only removal remains
+- close hiding and dark-pile LOD remain presentation-only
+[14/26] Validating 8x8/16x16/32x32 zombie presentation ladder
+Middle-detail zombie validation PASS
+- 8x8 at distance >=617; authored 16x16 at 616..393; 32x32 locomotion at 392..281
+- middle interval is four 56-unit movement steps (224 units); near interval remains two steps before melee
+- footprint-aware body ladder: 26h/26w, 26h/26w, 29h/29w, 32h/32w, 36h/36w, 41h/41w, 41h/39w, 58h/54w
+- all living assets use full authored height and floor row; no baseline correction required
+- all 42 authored assets audited; six active 16x16/128-byte poses per species including idle standing
+- security standing payload SHA-256: 4445D22A30137B91A946FDC7088DE14D8AD69AA2AA2BAF52AC58376B22DC19A1
+- security walking_01 payload SHA-256: 3DA56DA2622883B72043CF05DAE589679C6AC8CC5DC8CACC113C8ED0B8565428
+- security walking_02 payload SHA-256: 4F1CAED414428C99BF640831851AB331A58CA470AA8CC27B548B4506A6391BC8
+- security shot_01 payload SHA-256: CF7E2EADBE3A6E7FFBA4A0B33A0F7AD8482D16DD29C53D2ECE06677DBB630F11
+- security shot_dead payload SHA-256: 0EFF92BA415A2D790CF74FE7594D63BB5C55F0083E95EFEC9B2A83C802E210BA
+- security corps payload SHA-256: F052A282663B2FAB33CDECE8C093B775C526B58B0A84D1460752D4F8F2FB0004
+- scientist standing payload SHA-256: 29031AA629DB0E05CC1F9AC34F79496A91FEF26E1DE52195C9FE3AB72D20ADD7
+- scientist walking_01 payload SHA-256: 6E0D3746C9DA5FCAB54F0A6E6A1E52EFD1AC9CD1EF5AF84E808A394C7B42D3B6
+- scientist walking_02 payload SHA-256: 02B7DA20EDD29B46D4068AE5D9FA902F644D58964D55A3B74C15048C64FE870E
+- scientist shot_01 payload SHA-256: 81DE742D69CD03D1C6F98BB36BDEB394381FE710AA406955A3F9EFE395A9D7ED
+- scientist shot_dead payload SHA-256: 79843D840C39D6352F2C10C3DDC17B1F73FFF63FB4847A0D3FA934493CC9BACB
+- scientist corps payload SHA-256: B5337EAEAD78864D2298172E3016F7DC34D96E8A26D1814915BB9D0311E7B519
+[15/26] Validating native 32x32 near-detail zombie
+- start 280: step0:d280:depth280:32:h58:srcnear/corpse:top22:bottom80:floor79:visibleTrue -> step1:d354:depth354:32:h46:srcnear/corpse:top24:bottom70:floor69:visibleTrue -> step2:d428:depth428:16:h38:src16:top25:bottom63:floor62:visibleTrue -> step3:d502:depth502:16:h32:src16:top26:bottom58:floor57:visibleTrue -> step4:d576:depth576:16:h28:src16:top27:bottom55:floor54:visibleTrue -> step5:d650:depth650:8:h25:src8:top27:bottom52:floor51:visibleTrue -> step6:d724:depth724:8:h22:src8:top28:bottom50:floor49:visibleTrue -> step7:d798:depth798:8:h20:src8:top28:bottom48:floor47:visibleTrue -> step8:d872:depth872:8:h18:src8:top29:bottom47:floor46:visibleTrue -> step9:d946:depth946:8:h17:src8:top28:bottom45:floor44:visibleTrue -> step10:d1020:depth1020:pile15:h16:src8:top29:bottom45:floor44:visibleTrue -> step11:d1094:depth1094:pile13:h14:src8:top29:bottom43:floor42:visibleTrue
+- start 300: step0:d300:depth300:32:h54:srcnear/corpse:top23:bottom77:floor76:visibleTrue -> step1:d374:depth374:32:h43:srcnear/corpse:top24:bottom67:floor66:visibleTrue -> step2:d448:depth448:16:h36:src16:top26:bottom62:floor61:visibleTrue -> step3:d522:depth522:16:h31:src16:top26:bottom57:floor56:visibleTrue -> step4:d596:depth596:16:h27:src16:top27:bottom54:floor53:visibleTrue -> step5:d670:depth670:8:h24:src8:top28:bottom52:floor51:visibleTrue -> step6:d744:depth744:8:h22:src8:top28:bottom50:floor49:visibleTrue -> step7:d818:depth818:8:h20:src8:top28:bottom48:floor47:visibleTrue -> step8:d892:depth892:8:h18:src8:top29:bottom47:floor46:visibleTrue -> step9:d966:depth966:pile15:h16:src8:top29:bottom45:floor44:visibleTrue -> step10:d1040:depth1040:pile15:h15:src8:top29:bottom44:floor43:visibleTrue -> step11:d1114:depth1114:pile13:h14:src8:top29:bottom43:floor42:visibleTrue
+- start 320: step0:d320:depth320:32:h51:srcnear/corpse:top23:bottom74:floor73:visibleTrue -> step1:d394:depth394:16:h41:src16:top24:bottom65:floor64:visibleTrue -> step2:d468:depth468:16:h35:src16:top25:bottom60:floor59:visibleTrue -> step3:d542:depth542:16:h30:src16:top27:bottom57:floor56:visibleTrue -> step4:d616:depth616:16:h26:src16:top27:bottom53:floor52:visibleTrue -> step5:d690:depth690:8:h23:src8:top27:bottom50:floor49:visibleTrue -> step6:d764:depth764:8:h21:src8:top28:bottom49:floor48:visibleTrue -> step7:d838:depth838:8:h19:src8:top28:bottom47:floor46:visibleTrue -> step8:d912:depth912:8:h17:src8:top28:bottom45:floor44:visibleTrue -> step9:d986:depth986:pile15:h16:src8:top29:bottom45:floor44:visibleTrue -> step10:d1060:depth1060:pile15:h15:src8:top29:bottom44:floor43:visibleTrue -> step11:d1134:depth1134:pile13:h14:src8:top29:bottom43:floor42:visibleTrue
+- start 336: step0:d336:depth336:32:h48:srcnear/corpse:top24:bottom72:floor71:visibleTrue -> step1:d410:depth410:16:h39:src16:top25:bottom64:floor63:visibleTrue -> step2:d484:depth484:16:h33:src16:top26:bottom59:floor58:visibleTrue -> step3:d558:depth558:16:h29:src16:top26:bottom55:floor54:visibleTrue -> step4:d632:depth632:8:h25:src8:top27:bottom52:floor51:visibleTrue -> step5:d706:depth706:8:h23:src8:top27:bottom50:floor49:visibleTrue -> step6:d780:depth780:8:h21:src8:top28:bottom49:floor48:visibleTrue -> step7:d854:depth854:8:h19:src8:top28:bottom47:floor46:visibleTrue -> step8:d928:depth928:8:h17:src8:top28:bottom45:floor44:visibleTrue -> step9:d1002:depth1002:pile15:h16:src8:top29:bottom45:floor44:visibleTrue -> step10:d1076:depth1076:pile15:h15:src8:top29:bottom44:floor43:visibleTrue -> step11:d1150:depth1150:pile13:h14:src8:top29:bottom43:floor42:visibleTrue
+- start 350: step0:d350:depth350:32:h46:srcnear/corpse:top24:bottom70:floor69:visibleTrue -> step1:d424:depth424:16:h38:src16:top25:bottom63:floor62:visibleTrue -> step2:d498:depth498:16:h32:src16:top26:bottom58:floor57:visibleTrue -> step3:d572:depth572:16:h28:src16:top27:bottom55:floor54:visibleTrue -> step4:d646:depth646:8:h25:src8:top27:bottom52:floor51:visibleTrue -> step5:d720:depth720:8:h22:src8:top28:bottom50:floor49:visibleTrue -> step6:d794:depth794:8:h20:src8:top28:bottom48:floor47:visibleTrue -> step7:d868:depth868:8:h18:src8:top29:bottom47:floor46:visibleTrue -> step8:d942:depth942:8:h17:src8:top28:bottom45:floor44:visibleTrue -> step9:d1016:depth1016:pile15:h16:src8:top29:bottom45:floor44:visibleTrue -> step10:d1090:depth1090:pile15:h15:src8:top29:bottom44:floor43:visibleTrue -> step11:d1164:depth1164:pile13:h14:src8:top29:bottom43:floor42:visibleTrue
+- start 392: step0:d392:depth392:32:h41:srcnear/corpse:top24:bottom65:floor64:visibleTrue -> step1:d466:depth466:16:h35:src16:top25:bottom60:floor59:visibleTrue -> step2:d540:depth540:16:h30:src16:top27:bottom57:floor56:visibleTrue -> step3:d614:depth614:16:h26:src16:top27:bottom53:floor52:visibleTrue -> step4:d688:depth688:8:h23:src8:top27:bottom50:floor49:visibleTrue -> step5:d762:depth762:8:h21:src8:top28:bottom49:floor48:visibleTrue -> step6:d836:depth836:8:h19:src8:top28:bottom47:floor46:visibleTrue -> step7:d910:depth910:8:h18:src8:top29:bottom47:floor46:visibleTrue -> step8:d984:depth984:pile15:h16:src8:top29:bottom45:floor44:visibleTrue -> step9:d1058:depth1058:pile15:h15:src8:top29:bottom44:floor43:visibleTrue -> step10:d1132:depth1132:pile13:h14:src8:top29:bottom43:floor42:visibleTrue -> step11:d1206:depth1206:pile13:h13:src8:top29:bottom42:floor41:visibleTrue
+Near-detail zombie validation PASS
+- sixteen standing/movement/combat/death/corpse 32x32/512-byte textures in Bank 4
+- two-step native-detail boundary 392 units; gameplay attack boundary remains 280 units
+- four-step authored 16x16 interval spans 616..393 units
+- native 32x32 walking alternates at 392 and 336 before melee at 280 units
+- forward/reverse 8x8/16x16/32x32 transitions preserve walking_01/walking_02; melee retreat resumes walking immediately
+- standing-attack anticipation/recovery around alternating attack_01/attack_02 wired
+- slot 2 maps/restores page 4 once per visible-near render batch
+- WorldSprite remains 9 bytes; obsolete 8x8 attack runtime data absent
+- corpse LOD remains stateless: one CORPSE state and immutable world coordinates
+- security standing payload SHA-256: F99FCCF55FC812D5F08C0A0B7FCD3E18240E9562AC55814979985C31A1E7F59B
+- security walking_01 payload SHA-256: BF1F770DD03F9021E6855ED775945D43D30811D6F96A1D5E36CC840BFC9E0ACB
+- security walking_02 payload SHA-256: 83D9443961EEAACA8BCB4DB65708769464CF44CE5C655625863B438191DCF4D8
+- security standing_attack payload SHA-256: D8D0D30B2C27B524015BB9DC0F4E7CD502732DCA554E4AB8186BEFA22AA1FF2A
+- security attack_01 payload SHA-256: 46F8EA6E8C7E894C5CA018A967363208B785BEAC0D541AEA9F6B000BE4E1A325
+- security attack_02 payload SHA-256: B7AD587A24C192D73C9313B627D68AE1E790F63479517E40F47AF95DBE000DC1
+- security shot_01 payload SHA-256: E66ABAB4114EA2CDC9514A4F135EA3D427259C89965187203DFF3992F69E43E3
+- security corps payload SHA-256: 0FD70A536C7849083CB094CA5879E8DB641C2E049FEEB378DE6F52FE5525DB09
+- scientist standing payload SHA-256: 0D59279AE51C5DA73924661E81E6E5756C78529F42C94A625AF449CFCF58276A
+- scientist walking_01 payload SHA-256: 2E9C2F2D75F43A450A0C34C3A86922DC5641B2E920B32DFE219041D5992FA771
+- scientist walking_02 payload SHA-256: A2D2DB30F57F0C33F8784CD18109827CAD7CCA67B0A78D87ABE7DC6040687E49
+- scientist standing_attack payload SHA-256: 0F2287A66D34D97FB12D6C9A008396F8455D99A2CB84269E24B0D004F1FB0693
+- scientist attack_01 payload SHA-256: 9638ED8CBE3AD78375FA8D7431ED40CC9B1E6BBF43FD733691F57FB89F14777D
+- scientist attack_02 payload SHA-256: DC2AB98C74E527BEE1090F1B1DE05AE19308DB3446E8A8AA7A81190956CB0183
+- scientist shot_01 payload SHA-256: 1E5065DB51F157394D416A28175C355645D210F24068B2926C199F5CBBBD3AD3
+- scientist corps payload SHA-256: 480D51EA2200F5164ED37E41013015046EB2E2B6CBD7847F808E1E8A6CA31670
+[16/26] Compiling banked static sprite projection
+D:/mano_projektai/GearRay/build/zv01-luna/canonical-source/platform/game_gear/sprite_projection.c:296: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+D:/mano_projektai/GearRay/build/zv01-luna/canonical-source/platform/game_gear/sprite_projection.c:301: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+[17/26] Generating explicit security/scientist authored sprite manifest
+[18/26] Compiling both species' base, middle and distant visuals in Bank 1
+[19/26] Compiling Bank 4 near zombie texture table
+[20/26] Linking GearRay for Game Gear
+[21/26] C:\WINDOWS\system32\cmd.exe /C "cd /D D:\mano_projektai\GearRay\build\zv01-luna\canonical-source\build\release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -File D:/mano_projektai/GearRay/build/zv01-luna/canonical-source/tools/validate_native_wall.ps1 -BuildDirectory D:/mano_projektai/GearRay/build/zv01-luna/canonical-source/build/release -RequireMapPlacement -RequireAssembly"
+Native wall validation PASS: 41943040 height/offset/side/material/screen-row cases; all 256 native color pairs; linked slot-2 worker and no VDP/IRQ ownership.
+[22/26] Generating D:/mano_projektai/GearRay/build/zv01-luna/canonical-source/rom/GearRay.gg
+*** sverx's makesms converter ***
+Info: 58345 bytes used/81920 total [71.22%] - size of output ROM is 80 KB
+Info: [bank0 3495] [bank1 44] [bank2 8245] [bank3 3631] [bank4 8160] bytes free
+Info: SEGA header found, checksum updated
+Info: ROM size padded to 128 KB
+- all 58182 linked IHX payload bytes match the selected physical ROM (checksum pair excluded)
+Bank layout validation PASS
+- fixed endpoint: 0x3259; Bank 0 reserve: 3495 bytes
+- Bank 1 used/free: 16324/44 bytes
+- Bank 2 used/free: 8139/8245 bytes
+- Bank 4 used/free: 8224/8160 bytes; sixteen physical 32x32 payloads and pointers verified
+- Bank 3 extent/free: 12756/3628; cold slot-1 bytes 4605; disjoint slot-2 wall tail and physical payload verified
+- sixteen 32x32 4bpp payloads: 8192 bytes; all payload bytes match the authored generator output
+- ROM: 131072 bytes; header 0x7F; checksum 0x40FE
+- hot main/raycaster/video paths remain fixed; cold initialization remains in Bank 1
+[23/26] C:\WINDOWS\system32\cmd.exe /C "cd /D D:\mano_projektai\GearRay\build\zv01-luna\canonical-source\build\release && "C:\Program Files\CMake\bin\cmake.exe" -E echo "GearRay Game Gear ROM: D:/mano_projektai/GearRay/build/zv01-luna/canonical-source/rom/GearRay.gg""
+GearRay Game Gear ROM: D:/mano_projektai/GearRay/build/zv01-luna/canonical-source/rom/GearRay.gg
+[24/26] C:\WINDOWS\system32\cmd.exe /C "cd /D D:\mano_projektai\GearRay\build\zv01-luna\canonical-source\build\release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -File D:/mano_projektai/GearRay/build/zv01-luna/canonical-source/tools/validate_weapon_runtime.ps1 -BuildDirectory D:/mano_projektai/GearRay/build/zv01-luna/canonical-source/build/release"
+- production compositor executed: FAR/NEAR sources, continuous zombie-model perspective sizes, clipping, alpha preservation, mixed wall rays and strict ties
+- touch extent 276; expansion 74; body radius 32; earliest west x=2668; opposite solid-wall center distance 416
+- actual acquisition/cache: first ownership equips, old SHOOT resets, fresh edge retained, identity redraw then idle no-redraw, owned repeat preserves manual pistol and skips contact queries
+Weapon runtime validation PASS: deterministic FAR/NEAR projection, continuous depth-derived scale and floor anchor, unchanged touch acquisition, depth/occlusion/clipping, collected rejection and combat wiring.
+[25/26] C:\WINDOWS\system32\cmd.exe /C "cd /D D:\mano_projektai\GearRay\build\zv01-luna\canonical-source\build\release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -File D:/mano_projektai/GearRay/build/zv01-luna/canonical-source/tools/validate_weapon_assets.ps1 -BuildDirectory D:/mano_projektai/GearRay/build/zv01-luna/canonical-source/build/release"
+Weapon asset validation PASS: authoritative pause/held source conversions and separate dedicated world source (32-byte FAR / 128-byte NEAR).
+- actual held overlay executed: both weapons, both poses, every viewport pixel, unchanged pistol origin/size and transparent destination preservation
+- final ROM: native held masks/world FAR/NEAR Bank 1 bytes and twelve-tile Bank 2 padded pause composites match validated assets
+[26/26] Validating pause map geometry, START edges, and restoration contracts
+- V4.1 frozen normal/red doors: open/closed, H/V, viewport edge/pan-in, passage topology, zero idle/focus/rejected queries
+- production state/input traces: focus, browse, START priority, repeat, edge rejection, hide/show; 192 resume hold combinations
+- V4 corpses: 0/1/2/4/8, phases/clipping/pan/dedup/relocation/overlap, 32 clone limit, player priority, no idle scans
+- workshop spawn snapshot: 384 authoritative queries; 194 BG tile writes
+- native entry pattern upload bytes: 3808; idle pattern upload bytes: 0
+- WEAPONS entry, immediate fresh selection, MAP navigation/border invariance, reopen focus reset with selected shotgun preserved, held-entry direction debounce
+- maximum 32-clone corpse pool, four accepted pans, eight exact X markers and unchanged padded weapon pixels for both selections
+- first acquisition equips shotgun; actual post-pickup/manual-pistol carousels; already-owned repeat; production main/input traces preserve pending shots and reject held autofire
+- shotgun: current authoritative 16x16 source, binary alpha and exact palette/conversion pixels; all scroll parities; circular LEFT/RIGHT edges, hold rejection, persistence and idle no-write traces
+Pause map validation PASS
+- production geometry/marker code executed with mock VDP; authoritative 13x13 map
+- 12 synthetic extents including 1x1 and 128x128; nine edge/center positions; exact small-map centering
+- native 16x16 pistol at (72,112), all 63 opaque pixels; alpha preserves outline/background, empty side slots; four scroll parities
+- continuous computer wall and room-side blue protrusion in all four mount orientations
+- held START/release/fresh edge; static pause display; simulation/restore source contracts
+- WorldSprite 9 bytes; unchanged palette; full VRAM/cache restoration; Bank 2, zero static RAM/helpers
+- host preview: D:/mano_projektai/GearRay/build/zv01-luna/canonical-source/build/release/pause-map-preview.png (hardware behavior still needs Emulicious)
+- freeze: six 3600-VBlank UI modes, 36000-VBlank next-step equivalence, B1/B2/direction entry/exit holds, 100 cycles; all authoritative fixture bytes unchanged

@@ -1,0 +1,6 @@
+Player health HUD validation PASS
+- authored 14x14 icon -> lossless 7x7 logical pixels
+- authored 2x14 bar -> one reusable 1x7 logical bar
+- ten identical bars at 2px pitch; 0..100 HP supports every 10 HP state
+- accepted pixels repacked +3px X/+1px Y; right edge aligns at X=135
+- 88-byte upload once per session; unchanged health writes nothing

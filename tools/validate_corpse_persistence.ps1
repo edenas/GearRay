@@ -5,7 +5,8 @@ $sprites=Get-Content -Raw (Join-Path $root 'game\world_sprite.c')
 $corpses=Get-Content -Raw (Join-Path $root 'game\zombie_corpses.c')
 $ai=Get-Content -Raw (Join-Path $root 'game\zombie_ai.c')
 $projection=Get-Content -Raw (Join-Path $root 'platform\game_gear\sprite_projection.c')
-function Assert([bool]$c,[string]$m){if(-not$c){throw$m}}
+$assetGenerator=Get-Content -Raw (Join-Path $root 'tools\generate_zombie_assets.ps1')
+function Assert([bool]$c,[string]$m){if(-not$c){throw $m}}
 function New-Corpse([string]$Name,[int]$X,[int]$Y){
     [pscustomobject]@{Name=$Name;State='CORPSE';Timer=0;X=$X;Y=$Y}
 }
@@ -34,7 +35,9 @@ Assert($header-match'ZOMBIE_SHOT_DEAD_FRAME_COUNT 4' -and
 Assert($corpses-match'zombie_corpses_finalize[\s\S]*?world_sprite_make_corpse' -and
        $corpses-match'zombie_corpses_crush_in_door[\s\S]*?world_sprite_make_corpse') 'Weapon and door corpses do not share persistent initialization.'
 Assert($projection-match'SPRITE_CORPSE_CLOSE_HIDDEN_MAX_DEPTH[\s\S]*?return;' -and
-       $projection-match'zombie_corpse_lod_pixels') 'Close hiding or dark-pile presentation was removed.'
+       $projection-match'zombie_visual_lod_simple\[sprite->visual_type\]\[ZOMBIE_ANIMATION_CORPSE\]') 'Close hiding or type-specific dark-pile presentation was removed.'
+Assert(([regex]::Matches($assetGenerator,'zombie_corpse_lod_pixels').Count-eq2) -and
+       ([regex]::Matches($assetGenerator,'zombie_scientist_corps_pixels_simple_lod').Count-eq2)) 'Each species must retain one shared cost-one corpse LOD in both distant tables.'
 
 $world=[Collections.ArrayList]@()
 for($i=0;$i-lt8;$i++){[void]$world.Add((New-Corpse "corpse$i" ($i*128) 512))}

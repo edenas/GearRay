@@ -1,0 +1,3 @@
+Weapon asset validation PASS: authoritative pause/held source conversions and separate dedicated world source (32-byte FAR / 128-byte NEAR).
+- actual held overlay executed: both weapons, both poses, every viewport pixel, unchanged pistol origin/size and transparent destination preservation
+- final ROM: native held masks/world FAR/NEAR Bank 1 bytes and twelve-tile Bank 2 padded pause composites match validated assets

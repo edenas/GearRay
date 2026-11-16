@@ -1,0 +1,6 @@
+Persistent corpse validation PASS
+- stable corpses have zero timer and no seen/unseen packed meaning
+- 3600 simulated frames preserve all eight non-merged corpses
+- visibility and projection cannot remove or mutate corpses
+- weapon and door corpses persist; merge-only removal remains
+- close hiding and dark-pile LOD remain presentation-only

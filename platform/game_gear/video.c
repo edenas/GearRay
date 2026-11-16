@@ -25,7 +25,6 @@
 #define VERY_DISTANT_WALL_MAX_PROJECTED_HEIGHT 8
 #define SPRITE_TRANSPARENT_INDEX 15
 #define SMS_MAPPER_SLOT2_REGISTER (*(volatile unsigned char *)0xFFFF)
-#define NEAR_ZOMBIE_ROM_PAGE 2
 
 #if GEARRAY_DEBUG_VIEWPORT_BORDER
 #define DEBUG_BORDER_HORIZONTAL_TILE_INDEX 97
@@ -202,9 +201,23 @@ static void game_gear_store_wall_column_signature(
 static NativeWallPlan left_wall_plan,right_wall_plan;
 static void game_gear_build_native_wall_tile(unsigned char *destination,unsigned char screen_y)
 {
+    unsigned char incoming_page = SMS_MAPPER_SLOT2_REGISTER;
     SMS_MAPPER_SLOT2_REGISTER=3;
     wall_plan_rows(destination,&left_wall_plan,&right_wall_plan,screen_y,8);
-    SMS_MAPPER_SLOT2_REGISTER=2;
+    SMS_MAPPER_SLOT2_REGISTER=incoming_page;
+}
+
+/* Bank 0 code; plans are resident RAM. Native scopes nest inside a page-4
+ * near batch or ordinary page-2 rendering, so restore the actual caller. */
+static void game_gear_prepare_native_wall_plans(
+    const RaycasterRay *left_ray, const RaycasterRay *right_ray,
+    unsigned char tile_column)
+{
+    unsigned char incoming_page = SMS_MAPPER_SLOT2_REGISTER;
+    SMS_MAPPER_SLOT2_REGISTER=3;
+    wall_plan_prepare(left_ray,&left_wall_plan,tile_column);
+    wall_plan_prepare(right_ray,&right_wall_plan,tile_column);
+    SMS_MAPPER_SLOT2_REGISTER=incoming_page;
 }
 
 static unsigned char game_gear_get_visible_wall_pixels(
@@ -491,10 +504,7 @@ void game_gear_video_draw_wall_columns(void)
                 if(right_wall_height<=8) GEAR_RAY_PROFILE_INCREMENT(lod2_wall_halves_rendered);
                 else GEAR_RAY_PROFILE_INCREMENT(lod1_wall_halves_rendered);
             }
-            SMS_MAPPER_SLOT2_REGISTER=3;
-            wall_plan_prepare(left_ray,&left_wall_plan,tile_column);
-            wall_plan_prepare(right_ray,&right_wall_plan,tile_column);
-            SMS_MAPPER_SLOT2_REGISTER=2;
+            game_gear_prepare_native_wall_plans(left_ray,right_ray,tile_column);
 
             for (row = first_active_row;
                  row <= last_active_row;

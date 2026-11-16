@@ -1,0 +1,5 @@
+Shotgun combat validation PASS
+- exact close/medium/far 12/6/2 damage; 1/2/6 hits; permanent 2-damage far floor
+- three projected-body samples at screen x=40/56/72, rendered rays 10/14/18; between/outside misses
+- sample-specific wall/door depth; unchanged pistol +/-67 center boundary
+- deterministic nearest single target; pending-shot and edge-fire contracts preserved

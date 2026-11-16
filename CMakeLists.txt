@@ -64,6 +64,8 @@ set(GEAR_RAY_WORLD_INITIALIZATION_OBJECT "${CMAKE_BINARY_DIR}/world_initializati
 set(GEAR_RAY_WORKSHOP_MAP_SOURCE "${GEAR_RAY_GAME_DIR}/workshop_map.c")
 set(GEAR_RAY_WORKSHOP_MAP_HEADER "${GEAR_RAY_GAME_DIR}/workshop_map.h")
 set(GEAR_RAY_WORKSHOP_MAP_OBJECT "${CMAKE_BINARY_DIR}/workshop_map.rel")
+set(GEAR_RAY_WORKSHOP_LAYOUT "${GEAR_RAY_GAME_DIR}/workshop_map.layout")
+set(GEAR_RAY_WORKSHOP_MAP_GENERATOR "${CMAKE_SOURCE_DIR}/tools/generate_workshop_map.ps1")
 set(GEAR_RAY_WORLD_OBJECTS_SOURCE "${GEAR_RAY_GAME_DIR}/world_objects.c")
 set(GEAR_RAY_WORLD_OBJECTS_HEADER "${GEAR_RAY_GAME_DIR}/world_objects.h")
 set(GEAR_RAY_WORLD_OBJECTS_OBJECT "${CMAKE_BINARY_DIR}/world_objects.rel")
@@ -97,6 +99,8 @@ set(GEAR_RAY_STARTUP_LOGO_OBJECT "${CMAKE_BINARY_DIR}/startup_logo.rel")
 set(GEAR_RAY_NEAR_ZOMBIE_TEXTURES_SOURCE "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/near_zombie_textures.c")
 set(GEAR_RAY_NEAR_ZOMBIE_TEXTURES_HEADER "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/near_zombie_textures.h")
 set(GEAR_RAY_NEAR_ZOMBIE_TEXTURES_OBJECT "${CMAKE_BINARY_DIR}/near_zombie_textures.rel")
+set(GEAR_RAY_ZOMBIE_VISUALS_OBJECT "${CMAKE_BINARY_DIR}/zombie_visuals_assets.rel")
+set(GEAR_RAY_ZOMBIE_ASSET_GENERATOR "${CMAKE_SOURCE_DIR}/tools/generate_zombie_assets.ps1")
 set(GEAR_RAY_VIDEO_SOURCE "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/video.c")
 set(GEAR_RAY_VIDEO_HEADER "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/video.h")
 set(GEAR_RAY_VIDEO_OBJECT "${CMAKE_BINARY_DIR}/video.rel")
@@ -143,6 +147,61 @@ set(GEAR_RAY_BANK_LAYOUT_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_bank_layo
 set(GEAR_RAY_NEAR_ZOMBIE_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_near_zombie.ps1")
 set(GEAR_RAY_MIDDLE_ZOMBIE_VALIDATOR "${CMAKE_SOURCE_DIR}/tools/validate_middle_zombie.ps1")
 set(GEAR_RAY_GENERATED_DIR "${CMAKE_BINARY_DIR}/generated")
+set(GEAR_RAY_ZOMBIE_ASSET_STAMP "${GEAR_RAY_GENERATED_DIR}/zombie_assets.stamp")
+# Declare every generator-owned output. Missing generated files must invalidate
+# the stamp too; a stamp alone cannot describe the build's actual inputs.
+set(GEAR_RAY_ZOMBIE_ASSET_BYPRODUCTS)
+foreach(zombie_type IN ITEMS security scientist)
+    foreach(zombie_pose IN ITEMS standing walking_01 walking_02 shot_01 shot_02 shot_dead corps)
+        foreach(extension IN ITEMS c h)
+            list(APPEND GEAR_RAY_ZOMBIE_ASSET_BYPRODUCTS
+                "${GEAR_RAY_GENERATED_DIR}/zombie_${zombie_type}_${zombie_pose}_8x8.${extension}")
+        endforeach()
+    endforeach()
+    foreach(zombie_pose IN ITEMS standing walking_01 walking_02 shot_01 shot_dead corps)
+        foreach(extension IN ITEMS c h)
+            list(APPEND GEAR_RAY_ZOMBIE_ASSET_BYPRODUCTS
+                "${GEAR_RAY_GENERATED_DIR}/zombie_${zombie_type}_${zombie_pose}_16x16.${extension}")
+        endforeach()
+    endforeach()
+    foreach(zombie_pose IN ITEMS standing walking_01 walking_02 standing_attack attack_01 attack_02 shot_01 corps)
+        foreach(extension IN ITEMS c h)
+            list(APPEND GEAR_RAY_ZOMBIE_ASSET_BYPRODUCTS
+                "${GEAR_RAY_GENERATED_DIR}/zombie_near_${zombie_type}_${zombie_pose}_32x32.${extension}")
+        endforeach()
+    endforeach()
+endforeach()
+list(APPEND GEAR_RAY_ZOMBIE_ASSET_BYPRODUCTS
+    "${GEAR_RAY_GENERATED_DIR}/zombie_visuals_assets.c"
+    "${GEAR_RAY_GENERATED_DIR}/near_zombie_assets.c"
+    "${GEAR_RAY_GENERATED_DIR}/zombie_asset_manifest.json")
+set(GEAR_RAY_ZOMBIE_ASSET_INPUTS)
+foreach(zombie_species IN ITEMS 01 02)
+    foreach(zombie_pose IN ITEMS standing walking_01 walking_02 shot_01 shot_02 shot_dead corps)
+        list(APPEND GEAR_RAY_ZOMBIE_ASSET_INPUTS
+            "${CMAKE_SOURCE_DIR}/assets/sprites/enemies/zombie/zombie_${zombie_species}_${zombie_pose}.png")
+    endforeach()
+    foreach(zombie_pose IN ITEMS standing walking_01 walking_02 shot_01 shot_dead corps)
+        list(APPEND GEAR_RAY_ZOMBIE_ASSET_INPUTS
+            "${CMAKE_SOURCE_DIR}/assets/sprites/enemies/zombie/zombie_${zombie_species}_${zombie_pose}_16x16.png")
+    endforeach()
+    foreach(zombie_pose IN ITEMS standing walking_01 walking_02 standing_attack attack_01 attack_02 shot_01 corps)
+        list(APPEND GEAR_RAY_ZOMBIE_ASSET_INPUTS
+            "${CMAKE_SOURCE_DIR}/assets/sprites/enemies/zombie/zombie_${zombie_species}_${zombie_pose}_32x32.png")
+    endforeach()
+endforeach()
+list(APPEND GEAR_RAY_ZOMBIE_ASSET_INPUTS
+    "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/shotgun_held.png"
+    "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/shotgun_held_shoot.png")
+set(GEAR_RAY_ZOMBIE_ASSET_HASHES)
+foreach(zombie_asset IN LISTS GEAR_RAY_ZOMBIE_ASSET_INPUTS)
+    file(SHA256 "${zombie_asset}" zombie_asset_hash)
+    list(APPEND GEAR_RAY_ZOMBIE_ASSET_HASHES "${zombie_asset_hash}")
+endforeach()
+string(SHA256 GEAR_RAY_ZOMBIE_ASSET_FINGERPRINT "${GEAR_RAY_ZOMBIE_ASSET_HASHES}")
+set(GEAR_RAY_ZOMBIE_ASSET_FINGERPRINT_FILE "${CMAKE_BINARY_DIR}/zombie_asset_inputs.sha256")
+file(CONFIGURE OUTPUT "${GEAR_RAY_ZOMBIE_ASSET_FINGERPRINT_FILE}"
+     CONTENT "${GEAR_RAY_ZOMBIE_ASSET_FINGERPRINT}\n" @ONLY)
 set(GEAR_RAY_HEALTH_HUD_ICON_INPUT "${CMAKE_SOURCE_DIR}/assets/ui/health_hud.png")
 set(GEAR_RAY_HEALTH_HUD_BAR_INPUT "${CMAKE_SOURCE_DIR}/assets/ui/health_hud_1.png")
 set(GEAR_RAY_HEALTH_HUD_GENERATOR "${CMAKE_SOURCE_DIR}/tools/generate_health_hud.ps1")
@@ -228,6 +287,11 @@ foreach(weapon_pose IN ITEMS WEAPON WEAPON_SHOOT)
 endforeach()
 set(GEAR_RAY_VRAM_LAYOUT_HEADER "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/vram_layout.h")
 set(GEAR_RAY_IHX "${CMAKE_BINARY_DIR}/GearRay.ihx")
+set(GEAR_RAY_WORKSHOP_MAP_DATA "${GEAR_RAY_GENERATED_DIR}/workshop_map_data.h")
+file(SHA256 "${GEAR_RAY_WORKSHOP_LAYOUT}" workshop_input_sha256)
+set(GEAR_RAY_WORKSHOP_FINGERPRINT "${GEAR_RAY_GENERATED_DIR}/workshop_input.sha256")
+file(CONFIGURE OUTPUT "${GEAR_RAY_WORKSHOP_FINGERPRINT}"
+    CONTENT "${workshop_input_sha256}\n" @ONLY)
 set(GEAR_RAY_ROM_DIR "${CMAKE_SOURCE_DIR}/rom" CACHE PATH "Directory for the packaged Game Gear ROM")
 set(GEAR_RAY_ROM "${GEAR_RAY_ROM_DIR}/${GEAR_RAY_ROM_FILENAME}")
 
@@ -360,14 +424,29 @@ add_custom_command(
 )
 
 add_custom_command(
+    OUTPUT "${GEAR_RAY_WORKSHOP_MAP_DATA}"
+    COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}" -NoProfile -ExecutionPolicy Bypass
+            -File "${GEAR_RAY_WORKSHOP_MAP_GENERATOR}"
+            -InputPath "${GEAR_RAY_WORKSHOP_LAYOUT}"
+            -OutputHeader "${GEAR_RAY_WORKSHOP_MAP_DATA}"
+    DEPENDS "${GEAR_RAY_WORKSHOP_LAYOUT}" "${GEAR_RAY_WORKSHOP_MAP_GENERATOR}"
+            "${GEAR_RAY_WORKSHOP_FINGERPRINT}"
+    COMMENT "Encoding numeric workshop authoring markers"
+    VERBATIM
+)
+add_custom_target(gear_ray_map_data DEPENDS "${GEAR_RAY_WORKSHOP_MAP_DATA}")
+
+add_custom_command(
     OUTPUT "${GEAR_RAY_WORKSHOP_MAP_OBJECT}"
     COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
             -mz80
             -DTARGET_GG
             "-I${GEAR_RAY_GAME_DIR}"
+            "-I${GEAR_RAY_GENERATED_DIR}"
             -c "${GEAR_RAY_WORKSHOP_MAP_SOURCE}"
             -o "${GEAR_RAY_WORKSHOP_MAP_OBJECT}"
     DEPENDS "${GEAR_RAY_WORKSHOP_MAP_SOURCE}" "${GEAR_RAY_WORKSHOP_MAP_HEADER}" "${GEAR_RAY_WORLD_HEADER}" "${GEAR_RAY_WORLD_OBJECT_HEADER}" "${GEAR_RAY_DOOR_INSTANCES_HEADER}" "${GEAR_RAY_DOOR_STATES_HEADER}"
+            "${GEAR_RAY_WORKSHOP_MAP_DATA}"
     COMMENT "Compiling game/workshop_map.c for Game Gear"
     VERBATIM
 )
@@ -627,7 +706,8 @@ add_custom_command(
             --constseg BANK1
             -c "${GEAR_RAY_SPRITE_PROJECTION_SOURCE}"
             -o "${GEAR_RAY_SPRITE_PROJECTION_OBJECT}"
-    DEPENDS "${GEAR_RAY_SPRITE_PROJECTION_SOURCE}"
+    DEPENDS "${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}/zombie_visuals.h"
+            "${GEAR_RAY_SPRITE_PROJECTION_SOURCE}"
             "${GEAR_RAY_GENERATED_DIR}/shotgun_world.h"
             "${GEAR_RAY_GENERATED_DIR}/shotgun_far_lod.h"
             "${GEAR_RAY_GAME_DIR}/weapons.h"
@@ -836,10 +916,10 @@ foreach(near_pose IN ITEMS WALKING_01 WALKING_02 STANDING_ATTACK ATTACK_01 ATTAC
         OUTPUT "${near_object}"
         COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
                 -mz80 "-I${GEAR_RAY_GENERATED_DIR}"
-                --constseg BANK2
+                --constseg BANK4
                 -c "${near_source}" -o "${near_object}"
         DEPENDS "${near_source}" "${near_header}"
-        COMMENT "Compiling Bank 2 near zombie ${near_pose_lower}"
+        COMMENT "Compiling Bank 4 near zombie ${near_pose_lower}"
         VERBATIM
     )
     list(APPEND GEAR_RAY_NEAR_ZOMBIE_GENERATED_OBJECTS "${near_object}")
@@ -883,18 +963,50 @@ foreach(middle_pose IN ITEMS STANDING WALKING_01 WALKING_02 SHOT_01 SHOT_DEAD CO
 endforeach()
 
 add_custom_command(
+    OUTPUT "${GEAR_RAY_ZOMBIE_ASSET_STAMP}"
+    BYPRODUCTS ${GEAR_RAY_ZOMBIE_ASSET_BYPRODUCTS}
+    COMMAND "${GEAR_RAY_POWERSHELL_EXECUTABLE}" -NoProfile -ExecutionPolicy Bypass
+            -File "${GEAR_RAY_ZOMBIE_ASSET_GENERATOR}"
+            -RepositoryRoot "${CMAKE_SOURCE_DIR}"
+            -OutputDirectory "${GEAR_RAY_GENERATED_DIR}"
+            -SpriteGenerator "${GEAR_RAY_SPRITE_TEXTURE_GENERATOR}"
+            -Stamp "${GEAR_RAY_ZOMBIE_ASSET_STAMP}"
+    DEPENDS ${GEAR_RAY_ZOMBIE_ASSET_INPUTS}
+            "${GEAR_RAY_ZOMBIE_ASSET_FINGERPRINT_FILE}"
+            "${GEAR_RAY_ZOMBIE_ASSET_GENERATOR}"
+            "${GEAR_RAY_SPRITE_TEXTURE_GENERATOR}"
+    COMMENT "Generating explicit security/scientist authored sprite manifest"
+    VERBATIM
+)
+add_custom_target(gear_ray_zombie_assets DEPENDS "${GEAR_RAY_ZOMBIE_ASSET_STAMP}")
+
+add_custom_command(
+    OUTPUT "${GEAR_RAY_ZOMBIE_VISUALS_OBJECT}"
+    COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}" -mz80
+            "-I${GEAR_RAY_GENERATED_DIR}"
+            "-I${CMAKE_SOURCE_DIR}/docs/development/2026-11-16-zombie-variants/implementation"
+            --constseg BANK1
+            -c "${GEAR_RAY_GENERATED_DIR}/zombie_visuals_assets.c"
+            -o "${GEAR_RAY_ZOMBIE_VISUALS_OBJECT}"
+    DEPENDS "${GEAR_RAY_ZOMBIE_ASSET_STAMP}"
+            "${CMAKE_SOURCE_DIR}/docs/development/2026-11-16-zombie-variants/implementation/security-lod-reference.c"
+    COMMENT "Compiling both species' base, middle and distant visuals in Bank 1"
+    VERBATIM
+)
+
+add_custom_command(
     OUTPUT "${GEAR_RAY_NEAR_ZOMBIE_TEXTURES_OBJECT}"
     COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}"
             -mz80
             "-I${GEAR_RAY_GAME_GEAR_PLATFORM_DIR}"
             "-I${GEAR_RAY_GENERATED_DIR}"
-            --constseg BANK2
+            --constseg BANK4
             -c "${GEAR_RAY_NEAR_ZOMBIE_TEXTURES_SOURCE}"
             -o "${GEAR_RAY_NEAR_ZOMBIE_TEXTURES_OBJECT}"
     DEPENDS "${GEAR_RAY_NEAR_ZOMBIE_TEXTURES_SOURCE}"
             "${GEAR_RAY_NEAR_ZOMBIE_TEXTURES_HEADER}"
-            ${GEAR_RAY_NEAR_ZOMBIE_GENERATED_HEADERS}
-    COMMENT "Compiling Bank 2 near zombie texture table"
+            "${GEAR_RAY_ZOMBIE_ASSET_STAMP}"
+    COMMENT "Compiling Bank 4 near zombie texture table"
     VERBATIM
 )
 
@@ -1095,7 +1207,8 @@ foreach(kind IN ITEMS held fire world)
             -OutputSource "${source}" -OutputHeader "${header}"
             -Symbol "shotgun_${kind}_pixels" -SpriteKind "${sprite_kind}"
         DEPENDS "${CMAKE_SOURCE_DIR}/assets/sprites/weapons/${asset}"
-            "${CMAKE_SOURCE_DIR}/tools/generate_sprite_texture.ps1" VERBATIM)
+            "${CMAKE_SOURCE_DIR}/tools/generate_sprite_texture.ps1"
+            "${GEAR_RAY_ZOMBIE_ASSET_FINGERPRINT_FILE}" VERBATIM)
     if(kind STREQUAL "world")
     add_custom_command(OUTPUT "${object}"
         COMMAND "${GEAR_RAY_SDCC_EXECUTABLE}" -mz80 --constseg BANK1
@@ -1197,6 +1310,7 @@ add_custom_command(
             -Wl-b_BANK2=0x28000
             -Wl-b_BANK3=0x34000
             -Wl-b_BANK3WALL=0x39200
+            -Wl-b_BANK4=0x48000
             "${GEAR_RAY_CRT0}"
             "${GEAR_RAY_MAIN_OBJECT}"
             "${GEAR_RAY_PAUSE_MAP_OBJECT}"
@@ -1227,26 +1341,18 @@ add_custom_command(
             "${GEAR_RAY_GENERATED_GAME_OVER_OBJECT}"
             "${GEAR_RAY_GAME_OVER_PRESENTATION_OBJECT}"
             "${GEAR_RAY_GENERATED_WALL_TEXTURE_OBJECT}"
-            "${GEAR_RAY_GENERATED_SPRITE_TEXTURE_OBJECT}"
-            "${GEAR_RAY_GENERATED_ZOMBIE_WALKING_01_TEXTURE_OBJECT}"
-            "${GEAR_RAY_GENERATED_ZOMBIE_WALKING_02_TEXTURE_OBJECT}"
-            "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_01_TEXTURE_OBJECT}"
-            "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_02_TEXTURE_OBJECT}"
-            "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_DEAD_TEXTURE_OBJECT}"
-            "${GEAR_RAY_GENERATED_ZOMBIE_CORPS_TEXTURE_OBJECT}"
+            "${GEAR_RAY_ZOMBIE_VISUALS_OBJECT}"
 
 
             "${GEAR_RAY_SMSLIB_LIBRARY}"
             "${GEAR_RAY_STARTUP_LOGO_OBJECT}"
-            ${GEAR_RAY_NEAR_ZOMBIE_GENERATED_OBJECTS}
-            ${GEAR_RAY_MIDDLE_ZOMBIE_GENERATED_OBJECTS}
             "${GEAR_RAY_NEAR_ZOMBIE_TEXTURES_OBJECT}"
             "${GEAR_RAY_INTERACTION_RAY_OBJECT}"
             "${GEAR_RAY_WORLD_INTERACTIONS_OBJECT}"
             "${GEAR_RAY_WORLD_INITIALIZATION_OBJECT}"
             "${GEAR_RAY_VIDEO_INITIALIZATION_OBJECT}"
             ${GEAR_RAY_RENDERER_PROFILE_LINK_OBJECT}
-    DEPENDS "${GEAR_RAY_MAIN_OBJECT}" "${GEAR_RAY_CAMERA_OBJECT}" "${GEAR_RAY_RAYCASTER_OBJECT}" "${GEAR_RAY_PLAYER_OBJECT}" "${GEAR_RAY_RED_DOOR_SWITCH_OBJECT}" "${GEAR_RAY_STARTUP_LOGO_OBJECT}" ${GEAR_RAY_NEAR_ZOMBIE_GENERATED_OBJECTS} ${GEAR_RAY_MIDDLE_ZOMBIE_GENERATED_OBJECTS} "${GEAR_RAY_NEAR_ZOMBIE_TEXTURES_OBJECT}" "${GEAR_RAY_INTERACTION_RAY_OBJECT}" "${GEAR_RAY_WORLD_INTERACTIONS_OBJECT}" "${GEAR_RAY_WORLD_INITIALIZATION_OBJECT}" "${GEAR_RAY_WORLD_OBJECT}" "${GEAR_RAY_WORKSHOP_MAP_OBJECT}" "${GEAR_RAY_WORLD_OBJECTS_OBJECT}" "${GEAR_RAY_WORLD_SPRITE_OBJECT}" "${GEAR_RAY_ZOMBIE_SHOOTING_OBJECT}" "${GEAR_RAY_ZOMBIE_AI_OBJECT}" "${GEAR_RAY_ZOMBIE_CORPSES_OBJECT}" "${GEAR_RAY_ENEMY_COLLISION_OBJECT}" "${GEAR_RAY_DOOR_INSTANCES_OBJECT}" "${GEAR_RAY_DOOR_STATES_OBJECT}" "${GEAR_RAY_INPUT_OBJECT}" "${GEAR_RAY_VIDEO_OBJECT}" "${GEAR_RAY_VIDEO_INITIALIZATION_OBJECT}" "${GEAR_RAY_HUD_WEAPON_OBJECT}" "${GEAR_RAY_SPRITE_PROJECTION_OBJECT}" ${GEAR_RAY_RENDERER_PROFILE_LINK_OBJECT} "${GEAR_RAY_WALL_TEXTURES_OBJECT}" "${GEAR_RAY_GENERATED_SEGA_LOGO_OBJECT}" "${GEAR_RAY_GENERATED_WALL_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_SPRITE_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_WALKING_01_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_WALKING_02_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_01_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_02_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_SHOT_DEAD_TEXTURE_OBJECT}" "${GEAR_RAY_GENERATED_ZOMBIE_CORPS_TEXTURE_OBJECT}" "${GEAR_RAY_CRT0}" "${GEAR_RAY_SMSLIB_LIBRARY}"
+    DEPENDS "${GEAR_RAY_MAIN_OBJECT}" "${GEAR_RAY_CAMERA_OBJECT}" "${GEAR_RAY_RAYCASTER_OBJECT}" "${GEAR_RAY_PLAYER_OBJECT}" "${GEAR_RAY_RED_DOOR_SWITCH_OBJECT}" "${GEAR_RAY_STARTUP_LOGO_OBJECT}" "${GEAR_RAY_ZOMBIE_VISUALS_OBJECT}" "${GEAR_RAY_NEAR_ZOMBIE_TEXTURES_OBJECT}" "${GEAR_RAY_INTERACTION_RAY_OBJECT}" "${GEAR_RAY_WORLD_INTERACTIONS_OBJECT}" "${GEAR_RAY_WORLD_INITIALIZATION_OBJECT}" "${GEAR_RAY_VIDEO_INITIALIZATION_OBJECT}" "${GEAR_RAY_WORLD_OBJECT}" "${GEAR_RAY_WORKSHOP_MAP_OBJECT}" "${GEAR_RAY_WORLD_OBJECTS_OBJECT}" "${GEAR_RAY_WORLD_SPRITE_OBJECT}" "${GEAR_RAY_ZOMBIE_SHOOTING_OBJECT}" "${GEAR_RAY_ZOMBIE_AI_OBJECT}" "${GEAR_RAY_ZOMBIE_CORPSES_OBJECT}" "${GEAR_RAY_ENEMY_COLLISION_OBJECT}" "${GEAR_RAY_DOOR_INSTANCES_OBJECT}" "${GEAR_RAY_DOOR_STATES_OBJECT}" "${GEAR_RAY_INPUT_OBJECT}" "${GEAR_RAY_VIDEO_OBJECT}" "${GEAR_RAY_HUD_WEAPON_OBJECT}" "${GEAR_RAY_SPRITE_PROJECTION_OBJECT}" ${GEAR_RAY_RENDERER_PROFILE_LINK_OBJECT} "${GEAR_RAY_WALL_TEXTURES_OBJECT}" "${GEAR_RAY_GENERATED_SEGA_LOGO_OBJECT}" "${GEAR_RAY_GENERATED_WALL_TEXTURE_OBJECT}" "${GEAR_RAY_CRT0}" "${GEAR_RAY_SMSLIB_LIBRARY}"
     DEPENDS "${GEAR_RAY_PAUSE_MAP_OBJECT}" "${GEAR_RAY_GENERATED_GAME_OVER_OBJECT}" "${GEAR_RAY_GAME_OVER_PRESENTATION_OBJECT}"
     DEPENDS ${GEAR_RAY_SHOTGUN_OBJECTS}
     DEPENDS "${CMAKE_BINARY_DIR}/native_wall.rel" "${CMAKE_BINARY_DIR}/camera_graph.rel"
@@ -1419,6 +1525,8 @@ add_custom_target(gear_ray_validate_middle_zombie
     COMMENT "Validating 8x8/16x16/32x32 zombie presentation ladder"
     VERBATIM
 )
+add_dependencies(gear_ray_validate_near_zombie gear_ray_zombie_assets)
+add_dependencies(gear_ray_validate_middle_zombie gear_ray_zombie_assets)
 add_dependencies(gear_ray_game gear_ray_engine gear_ray_validate_workshop
                  gear_ray_validate_zombie_shooting
                  gear_ray_validate_shotgun_combat

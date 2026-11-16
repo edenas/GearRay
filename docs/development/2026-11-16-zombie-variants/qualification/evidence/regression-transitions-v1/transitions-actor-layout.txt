@@ -1,0 +1,1 @@
+visual-type-animation-v1; eight-actor scene alternates security/scientist; current candidate runs incremental vs forced redraw

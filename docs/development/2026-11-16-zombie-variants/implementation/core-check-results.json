@@ -1,0 +1,499 @@
+{
+  "status": "PASS",
+  "scope": "Focused Sol compiled core readiness, synthetic presentation tables; not final-art/full-game/IRQ/performance qualification",
+  "compiled_checks": 44,
+  "failures": [],
+  "compiled_world_sprite_size": 9,
+  "map_cells": 169,
+  "map_rejections": 6,
+  "probe_rom_sha256": "8c96903798651d7cec4662934f8b8a65fced4d6446e2d807110a8b9da494e98f",
+  "probe_rom_bytes": 131072,
+  "header": "0x7f",
+  "mapper_paths": [
+    "2->3->2 prepare and rows",
+    "4->3->4 prepare and rows; real page-4 marker reads"
+  ],
+  "probe_cycles": 964055,
+  "source_sha256": {
+    "game/world_sprite.c": "bc2809cb0fb238399a646a9f94325400d195eca6f07656eeed4a83c4c7b0d525",
+    "game/zombie_ai.c": "79c645171ec513737ba1a19b4cdfb1aa5991ed278fe1abceeb8e7116808aff98",
+    "game/world_initialization.c": "f78a079519617b8c78acda3e9b9bd1fb3ff8ba720fc82a1586a3c4bd43237dab",
+    "game/workshop_map.c": "557565806bb008f2ac8d5d2d658d6b9343e95d20c08074863b66fb32c807e792",
+    "game/world.c": "c67dd681de3950d78c36a33429459199dbb0e6560370813e70fa4c0f059a4803",
+    "game/zombie_corpses.c": "40252032f521d534c80141bd338f5d08cce0c860755110d04b091a309dfdb380",
+    "game/enemy_collision.c": "4c6bf7f31d09a13a7d618467ffec897b2cd8c20a5dbed433561724e10696f36f",
+    "game/door_states.c": "e8f58da17c48f62ce226f4bfd0f3a019f06c28158bf90a009336424a16504a84",
+    "game/door_instances.c": "9ba9968cc04451c5e34f4782b9a83a6fc1b87a1f7a1f0e410387594db9ed2efe",
+    "platform/game_gear/sprite_projection.c": "a5222db86a63ff97e22810b5fde2a74fa09959028cc2226342b59b0b23129c51",
+    "platform/game_gear/native_wall.c": "b34d7c270344c1593f370e93a7d97ad2367a78c47e749dc58d000621910cf4c3"
+  },
+  "commands": [
+    {
+      "command": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "D:\\mano_projektai\\GearRay\\tools\\generate_workshop_map.ps1",
+        "-InputPath",
+        "D:\\mano_projektai\\GearRay\\game\\workshop_map.layout",
+        "-OutputHeader",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated\\workshop_map_data.h"
+      ],
+      "exit": 0,
+      "log": "build/zv01-sol-core/map-valid.log"
+    },
+    {
+      "command": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "D:\\mano_projektai\\GearRay\\tools\\generate_workshop_map.ps1",
+        "-InputPath",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\old-z.layout",
+        "-OutputHeader",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated\\old-z.h"
+      ],
+      "exit": 1,
+      "expected_rejection": true
+    },
+    {
+      "command": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "D:\\mano_projektai\\GearRay\\tools\\generate_workshop_map.ps1",
+        "-InputPath",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\unknown.layout",
+        "-OutputHeader",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated\\unknown.h"
+      ],
+      "exit": 1,
+      "expected_rejection": true
+    },
+    {
+      "command": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "D:\\mano_projektai\\GearRay\\tools\\generate_workshop_map.ps1",
+        "-InputPath",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\lowercase.layout",
+        "-OutputHeader",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated\\lowercase.h"
+      ],
+      "exit": 1,
+      "expected_rejection": true
+    },
+    {
+      "command": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "D:\\mano_projektai\\GearRay\\tools\\generate_workshop_map.ps1",
+        "-InputPath",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\expression.layout",
+        "-OutputHeader",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated\\expression.h"
+      ],
+      "exit": 1,
+      "expected_rejection": true
+    },
+    {
+      "command": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "D:\\mano_projektai\\GearRay\\tools\\generate_workshop_map.ps1",
+        "-InputPath",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\rows.layout",
+        "-OutputHeader",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated\\rows.h"
+      ],
+      "exit": 1,
+      "expected_rejection": true
+    },
+    {
+      "command": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "D:\\mano_projektai\\GearRay\\tools\\generate_workshop_map.ps1",
+        "-InputPath",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\columns.layout",
+        "-OutputHeader",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated\\columns.h"
+      ],
+      "exit": 1,
+      "expected_rejection": true
+    },
+    {
+      "command": [
+        "sdcc",
+        "-mz80",
+        "-DTARGET_GG",
+        "-ID:\\mano_projektai\\GearRay\\game",
+        "-ID:\\mano_projektai\\GearRay\\engine\\render",
+        "-ID:\\mano_projektai\\GearRay\\platform\\game_gear",
+        "-ID:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated",
+        "-ID:\\mano_projektai\\GearRay\\build\\release\\generated",
+        "-ID:/Tools/devkitSMS/SMSlib/src",
+        "-c",
+        "D:\\mano_projektai\\GearRay\\game\\world_sprite.c",
+        "-o",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\world_sprite.rel"
+      ],
+      "exit": 0,
+      "log": "build/zv01-sol-core/compile-world_sprite.log"
+    },
+    {
+      "command": [
+        "sdcc",
+        "-mz80",
+        "-DTARGET_GG",
+        "-ID:\\mano_projektai\\GearRay\\game",
+        "-ID:\\mano_projektai\\GearRay\\engine\\render",
+        "-ID:\\mano_projektai\\GearRay\\platform\\game_gear",
+        "-ID:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated",
+        "-ID:\\mano_projektai\\GearRay\\build\\release\\generated",
+        "-ID:/Tools/devkitSMS/SMSlib/src",
+        "--codeseg",
+        "BANK1",
+        "-c",
+        "D:\\mano_projektai\\GearRay\\game\\zombie_ai.c",
+        "-o",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\zombie_ai.rel"
+      ],
+      "exit": 0,
+      "log": "build/zv01-sol-core/compile-zombie_ai.log"
+    },
+    {
+      "command": [
+        "sdcc",
+        "-mz80",
+        "-DTARGET_GG",
+        "-ID:\\mano_projektai\\GearRay\\game",
+        "-ID:\\mano_projektai\\GearRay\\engine\\render",
+        "-ID:\\mano_projektai\\GearRay\\platform\\game_gear",
+        "-ID:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated",
+        "-ID:\\mano_projektai\\GearRay\\build\\release\\generated",
+        "-ID:/Tools/devkitSMS/SMSlib/src",
+        "--codeseg",
+        "BANK1",
+        "-c",
+        "D:\\mano_projektai\\GearRay\\game\\world_initialization.c",
+        "-o",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\world_initialization.rel"
+      ],
+      "exit": 0,
+      "log": "build/zv01-sol-core/compile-world_initialization.log"
+    },
+    {
+      "command": [
+        "sdcc",
+        "-mz80",
+        "-DTARGET_GG",
+        "-ID:\\mano_projektai\\GearRay\\game",
+        "-ID:\\mano_projektai\\GearRay\\engine\\render",
+        "-ID:\\mano_projektai\\GearRay\\platform\\game_gear",
+        "-ID:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated",
+        "-ID:\\mano_projektai\\GearRay\\build\\release\\generated",
+        "-ID:/Tools/devkitSMS/SMSlib/src",
+        "-c",
+        "D:\\mano_projektai\\GearRay\\game\\workshop_map.c",
+        "-o",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\workshop_map.rel"
+      ],
+      "exit": 0,
+      "log": "build/zv01-sol-core/compile-workshop_map.log"
+    },
+    {
+      "command": [
+        "sdcc",
+        "-mz80",
+        "-DTARGET_GG",
+        "-ID:\\mano_projektai\\GearRay\\game",
+        "-ID:\\mano_projektai\\GearRay\\engine\\render",
+        "-ID:\\mano_projektai\\GearRay\\platform\\game_gear",
+        "-ID:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated",
+        "-ID:\\mano_projektai\\GearRay\\build\\release\\generated",
+        "-ID:/Tools/devkitSMS/SMSlib/src",
+        "-c",
+        "D:\\mano_projektai\\GearRay\\game\\world.c",
+        "-o",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\world.rel"
+      ],
+      "exit": 0,
+      "log": "build/zv01-sol-core/compile-world.log"
+    },
+    {
+      "command": [
+        "sdcc",
+        "-mz80",
+        "-DTARGET_GG",
+        "-ID:\\mano_projektai\\GearRay\\game",
+        "-ID:\\mano_projektai\\GearRay\\engine\\render",
+        "-ID:\\mano_projektai\\GearRay\\platform\\game_gear",
+        "-ID:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated",
+        "-ID:\\mano_projektai\\GearRay\\build\\release\\generated",
+        "-ID:/Tools/devkitSMS/SMSlib/src",
+        "--codeseg",
+        "BANK2",
+        "--constseg",
+        "BANK2",
+        "-c",
+        "D:\\mano_projektai\\GearRay\\game\\zombie_corpses.c",
+        "-o",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\zombie_corpses.rel"
+      ],
+      "exit": 0,
+      "log": "build/zv01-sol-core/compile-zombie_corpses.log"
+    },
+    {
+      "command": [
+        "sdcc",
+        "-mz80",
+        "-DTARGET_GG",
+        "-ID:\\mano_projektai\\GearRay\\game",
+        "-ID:\\mano_projektai\\GearRay\\engine\\render",
+        "-ID:\\mano_projektai\\GearRay\\platform\\game_gear",
+        "-ID:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated",
+        "-ID:\\mano_projektai\\GearRay\\build\\release\\generated",
+        "-ID:/Tools/devkitSMS/SMSlib/src",
+        "-c",
+        "D:\\mano_projektai\\GearRay\\game\\enemy_collision.c",
+        "-o",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\enemy_collision.rel"
+      ],
+      "exit": 0,
+      "log": "build/zv01-sol-core/compile-enemy_collision.log"
+    },
+    {
+      "command": [
+        "sdcc",
+        "-mz80",
+        "-DTARGET_GG",
+        "-ID:\\mano_projektai\\GearRay\\game",
+        "-ID:\\mano_projektai\\GearRay\\engine\\render",
+        "-ID:\\mano_projektai\\GearRay\\platform\\game_gear",
+        "-ID:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated",
+        "-ID:\\mano_projektai\\GearRay\\build\\release\\generated",
+        "-ID:/Tools/devkitSMS/SMSlib/src",
+        "-c",
+        "D:\\mano_projektai\\GearRay\\game\\door_states.c",
+        "-o",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\door_states.rel"
+      ],
+      "exit": 0,
+      "log": "build/zv01-sol-core/compile-door_states.log"
+    },
+    {
+      "command": [
+        "sdcc",
+        "-mz80",
+        "-DTARGET_GG",
+        "-ID:\\mano_projektai\\GearRay\\game",
+        "-ID:\\mano_projektai\\GearRay\\engine\\render",
+        "-ID:\\mano_projektai\\GearRay\\platform\\game_gear",
+        "-ID:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated",
+        "-ID:\\mano_projektai\\GearRay\\build\\release\\generated",
+        "-ID:/Tools/devkitSMS/SMSlib/src",
+        "-c",
+        "D:\\mano_projektai\\GearRay\\game\\door_instances.c",
+        "-o",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\door_instances.rel"
+      ],
+      "exit": 0,
+      "log": "build/zv01-sol-core/compile-door_instances.log"
+    },
+    {
+      "command": [
+        "sdcc",
+        "-mz80",
+        "-DTARGET_GG",
+        "-ID:\\mano_projektai\\GearRay\\game",
+        "-ID:\\mano_projektai\\GearRay\\engine\\render",
+        "-ID:\\mano_projektai\\GearRay\\platform\\game_gear",
+        "-ID:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated",
+        "-ID:\\mano_projektai\\GearRay\\build\\release\\generated",
+        "-ID:/Tools/devkitSMS/SMSlib/src",
+        "--codeseg",
+        "BANK1",
+        "--constseg",
+        "BANK1",
+        "-c",
+        "D:\\mano_projektai\\GearRay\\platform\\game_gear\\sprite_projection.c",
+        "-o",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\sprite_projection.rel"
+      ],
+      "exit": 0,
+      "log": "build/zv01-sol-core/compile-sprite_projection.log"
+    },
+    {
+      "command": [
+        "sdcc",
+        "-mz80",
+        "-DTARGET_GG",
+        "-ID:\\mano_projektai\\GearRay\\game",
+        "-ID:\\mano_projektai\\GearRay\\engine\\render",
+        "-ID:\\mano_projektai\\GearRay\\platform\\game_gear",
+        "-ID:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated",
+        "-ID:\\mano_projektai\\GearRay\\build\\release\\generated",
+        "-ID:/Tools/devkitSMS/SMSlib/src",
+        "--codeseg",
+        "BANK3WALL",
+        "--constseg",
+        "BANK3WALL",
+        "-c",
+        "D:\\mano_projektai\\GearRay\\platform\\game_gear\\native_wall.c",
+        "-o",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\native_wall.rel"
+      ],
+      "exit": 0,
+      "log": "build/zv01-sol-core/compile-native_wall.log"
+    },
+    {
+      "command": [
+        "sdcc",
+        "-mz80",
+        "-DTARGET_GG",
+        "-ID:\\mano_projektai\\GearRay\\game",
+        "-ID:\\mano_projektai\\GearRay\\engine\\render",
+        "-ID:\\mano_projektai\\GearRay\\platform\\game_gear",
+        "-ID:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated",
+        "-ID:\\mano_projektai\\GearRay\\build\\release\\generated",
+        "-ID:/Tools/devkitSMS/SMSlib/src",
+        "-c",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated\\mapper_scopes.c",
+        "-o",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\mapper_scopes.rel"
+      ],
+      "exit": 0,
+      "log": "build/zv01-sol-core/compile-mapper_scopes.log"
+    },
+    {
+      "command": [
+        "sdcc",
+        "-mz80",
+        "-DTARGET_GG",
+        "-ID:\\mano_projektai\\GearRay\\game",
+        "-ID:\\mano_projektai\\GearRay\\engine\\render",
+        "-ID:\\mano_projektai\\GearRay\\platform\\game_gear",
+        "-ID:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated",
+        "-ID:\\mano_projektai\\GearRay\\build\\release\\generated",
+        "-ID:/Tools/devkitSMS/SMSlib/src",
+        "--constseg",
+        "BANK4",
+        "-c",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated\\page4_marker.c",
+        "-o",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\page4_marker.rel"
+      ],
+      "exit": 0,
+      "log": "build/zv01-sol-core/compile-page4_marker.log"
+    },
+    {
+      "command": [
+        "sdcc",
+        "-mz80",
+        "-DTARGET_GG",
+        "-ID:\\mano_projektai\\GearRay\\game",
+        "-ID:\\mano_projektai\\GearRay\\engine\\render",
+        "-ID:\\mano_projektai\\GearRay\\platform\\game_gear",
+        "-ID:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated",
+        "-ID:\\mano_projektai\\GearRay\\build\\release\\generated",
+        "-ID:/Tools/devkitSMS/SMSlib/src",
+        "--constseg",
+        "BANK1",
+        "-c",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated\\synthetic_visuals.c",
+        "-o",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\synthetic_visuals.rel"
+      ],
+      "exit": 0,
+      "log": "build/zv01-sol-core/compile-synthetic_visuals.log"
+    },
+    {
+      "command": [
+        "sdcc",
+        "-mz80",
+        "-DTARGET_GG",
+        "-ID:\\mano_projektai\\GearRay\\game",
+        "-ID:\\mano_projektai\\GearRay\\engine\\render",
+        "-ID:\\mano_projektai\\GearRay\\platform\\game_gear",
+        "-ID:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\generated",
+        "-ID:\\mano_projektai\\GearRay\\build\\release\\generated",
+        "-ID:/Tools/devkitSMS/SMSlib/src",
+        "-c",
+        "D:\\mano_projektai\\GearRay\\docs\\development\\2026-11-16-zombie-variants\\implementation\\core_probe.c",
+        "-o",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\core_probe.rel"
+      ],
+      "exit": 0,
+      "log": "build/zv01-sol-core/compile-core_probe.log"
+    },
+    {
+      "command": [
+        "sdcc",
+        "-mz80",
+        "--no-std-crt0",
+        "--data-loc",
+        "0xC000",
+        "-Wl-b_BANK1=0x14000",
+        "-Wl-b_BANK2=0x28000",
+        "-Wl-b_BANK3WALL=0x39200",
+        "-Wl-b_BANK4=0x48000",
+        "-o",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\core-probe.ihx",
+        "D:/Tools/devkitSMS/crt0/crt0_sms.rel",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\world_sprite.rel",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\zombie_ai.rel",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\world_initialization.rel",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\workshop_map.rel",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\world.rel",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\zombie_corpses.rel",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\enemy_collision.rel",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\door_states.rel",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\door_instances.rel",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\sprite_projection.rel",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\native_wall.rel",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\mapper_scopes.rel",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\page4_marker.rel",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\synthetic_visuals.rel",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\core_probe.rel",
+        "D:/Tools/devkitSMS/SMSlib/SMSlib_GG.lib"
+      ],
+      "exit": 0,
+      "log": "build/zv01-sol-core/link.log"
+    },
+    {
+      "command": [
+        "D:/Tools/devkitSMS/makesms/Windows/makesms.exe",
+        "-pm",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\core-probe.ihx",
+        "D:\\mano_projektai\\GearRay\\build\\zv01-sol-core\\core-probe.gg"
+      ],
+      "exit": 0,
+      "log": "build/zv01-sol-core/package.log"
+    }
+  ],
+  "limits": [
+    "Synthetic visual tables; authored generation remains Luna-owned",
+    "Player/camera fixtures; not full gameplay integration",
+    "No IRQ/NMI campaign, stack bound or benchmark claim",
+    "No canonical ROM update"
+  ]
+}

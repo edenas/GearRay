@@ -1,0 +1,9 @@
+Zombie AI validation PASS
+- activation 963; hysteresis loss 1260; LOS via authoritative world blockers
+- one BANK1 update every 4 frames; 56-unit step (3.28125 tiles/s)
+- shared radius collision; living-zombie blocking; corpses ignored
+- packed zero-byte per-zombie AI flag; hit/death state ownership preserved
+- two global 8-bit masks remember wall-follow activity/sign; WorldSprite unchanged
+- zero-RAM packed walking phase alternates every AI tick (4 frames), independent of movement acceptance
+- blocked dominant-axis movement uses deterministic player-relative wall sliding
+- mirrored X/Y, near-axis/diagonal, corridor, concave, and moving-player cases validated

@@ -28,7 +28,7 @@ $shotgunHeader=Get-Content "$build/generated/pause_shotgun_icon.h" -Raw
 if($iconHeader -match 'shotgun' -or $shotgunHeader -notmatch 'pause_shotgun_tiles'){throw 'Pause weapon composite sources are not isolated'}
 $header = Get-Content "$root/platform/game_gear/pause_map.h" -Raw
 $world = Get-Content "$root/game/world.h" -Raw
-$workshop = Get-Content "$root/game/workshop_map.c" -Raw
+$workshop = Get-Content "$root/game/workshop_map.layout" -Raw
 $inputSource = Get-Content "$root/platform/game_gear/input.c" -Raw
 $main = Get-Content "$root/game/main.c" -Raw
 $video = Get-Content "$root/platform/game_gear/video_initialization.c" -Raw
@@ -47,6 +47,7 @@ $constants['WORLD_WIDTH'] = $constants['WORKSHOP_MAP_WIDTH']
 $constants['WORLD_HEIGHT'] = $constants['WORKSHOP_MAP_HEIGHT']
 $constants['GG_KEY_START'] = 0x8000
 $constants['ZOMBIE_STATE_CORPSE']=2
+$constants['ZOMBIE_ANIMATION_STANDING']=0
 $constants['PORT_A_KEY_UP']=1; $constants['PORT_A_KEY_DOWN']=2
 $constants['PORT_A_KEY_LEFT']=4; $constants['PORT_A_KEY_RIGHT']=8
 $constants['PORT_A_KEY_1']=16; $constants['PORT_A_KEY_2']=32
@@ -55,12 +56,9 @@ $defs = ($constants.GetEnumerator() | ForEach-Object {
     if ($_.Key -in @('WORLD_WIDTH','WORLD_HEIGHT','WEAPON_COUNT')) { "public static int $($_.Key) = $($_.Value);" }
     else { "public const int $($_.Key) = $($_.Value);" }
 }) -join "`n"
-$aliases = @{}
-foreach ($m in [regex]::Matches($workshop, '(?m)^#define\s+(\w)\s+(WORLD_TILE_\w+)')) {
-    $aliases[$m.Groups[1].Value] = $constants[$m.Groups[2].Value]
-}
-$mapBody = [regex]::Match($workshop, '(?s)\[WORKSHOP_MAP_HEIGHT\]\[WORKSHOP_MAP_WIDTH\]\s*=\s*\{(.*?)\};').Groups[1].Value
-$cells = @([regex]::Matches($mapBody, '\b[XESBDRWZG]\b') | ForEach-Object { $aliases[$_.Value] })
+$aliases = @{ X=$constants['WORLD_TILE_VOID']; E=$constants['WORLD_TILE_EMPTY']; S=$constants['WORLD_TILE_STONE']; B=$constants['WORLD_TILE_CONCRETE_BLOOD']; D=$constants['WORLD_TILE_DOOR']; R=$constants['WORLD_TILE_RED_DOOR']; W=$constants['WORLD_TILE_RED_DOOR_SWITCH']; G=$constants['WORLD_TILE_SHOTGUN_MARKER']; '1'=$constants['WORLD_TILE_SPRITE_MARKER']; '2'=$constants['WORLD_TILE_SCIENTIST_MARKER'] }
+$mapBody = $workshop
+$cells = @([regex]::Matches($mapBody, '(?<!\S)(?:X|E|S|B|D|R|W|G|1|2)(?!\S)') | ForEach-Object { $aliases[$_.Value] })
 Require ($cells.Count -eq 169) 'Authoritative map must contain 169 cells'
 . "$PSScriptRoot/pause_freeze_fixture.ps1"
 $translated = $source + "`n" + $inputSource + "`n" + $freezeProduction
@@ -137,7 +135,7 @@ public static int[] DoorFrames=new int[2048],DoorFindFrames=new int[2048],DoorPi
 public static bool TraceDoors;
 public static int door_instance_find_at(int x,int y){DoorFindFrames[Frame]++;for(int i=0;i<DOOR_INSTANCE_COUNT;i++)if(DoorX[i]==x&&DoorY[i]==y)return i;return DOOR_INSTANCE_COUNT;}
 public static int CountDoorPixels(){int n=0;for(int y=24;y<88;y++)for(int x=24;x<136;x++){int c=BackgroundPixel(x,y);if(c==1||c==5)n++;}return n;}
-public class WorldSprite { public int world_x,world_y,state,pixels,health_and_hit_count,state_timer; public WorldSprite(int x,int y,int s){world_x=x;world_y=y;state=s;} }
+public class WorldSprite { public int world_x,world_y,state,visual_type,animation_token,health_and_hit_count,state_timer; public WorldSprite(int x,int y,int s){world_x=x;world_y=y;state=s;} }
 public static WorldSprite[] Corpses=new WorldSprite[0];
 public static void SetEntities(int[] data){Corpses=new WorldSprite[data.Length/3];for(int i=0;i<Corpses.Length;i++)Corpses[i]=new WorldSprite(data[i*3],data[i*3+1],data[i*3+2]);}
 public static bool TraceCorpses;

@@ -1,0 +1,6 @@
+Renderer equivalence PASS
+- Candidate C rows/phases/halves and native combinations
+- hit offsets 0..255
+- vertical sampling heights 1..255; ROM tables 17..144
+- flat bounds and native tiles across LOD boundaries/clipping
+- exact seven-field dirty signature, texture transitions and boundaries

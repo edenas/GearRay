@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "checks": 11,
+  "coverage": [
+    "new standing security serialization",
+    "scientist corpse identity",
+    "historical serializer unchanged",
+    "historical identity",
+    "no layout guessing",
+    "no unknown legacy pointers",
+    "new type range",
+    "new animation range",
+    "record size",
+    "fixture type range",
+    "benchmark CLI declares explicit schema"
+  ],
+  "emulator_campaign_run": false,
+  "final_candidate_observer_qualification": "Luna pending"
+}

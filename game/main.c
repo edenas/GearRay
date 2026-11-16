@@ -15,9 +15,9 @@
 #include "zombie_shooting.h"
 #include "zombie_ai.h"
 
-/* SMSlib defaults this header nibble to 32 KB; this build is 64 KB. */
+/* SMSlib defaults to 32 KB; ZV-01's dedicated near page needs 128 KB. */
 #undef SMS_EMBED_SEGA_ROM_HEADER_REGION_CODE
-#define SMS_EMBED_SEGA_ROM_HEADER_REGION_CODE 0x7E
+#define SMS_EMBED_SEGA_ROM_HEADER_REGION_CODE 0x7F
 SMS_EMBED_SEGA_ROM_HEADER(0, 0);
 
 static unsigned char pending_shot;

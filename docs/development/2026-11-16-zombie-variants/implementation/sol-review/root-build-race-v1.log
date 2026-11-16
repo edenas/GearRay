@@ -1,0 +1,145 @@
+GearRay Release build
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: D:/mano_projektai/GearRay/build/release
+[1/64] Encoding numeric workshop authoring markers
+[2/64] Generating packed static HUD weapon
+[3/64] Generating generated/shotgun_held.c, generated/shotgun_held.h
+[4/64] Generating generated/shotgun_fire.c, generated/shotgun_fire.h
+[5/64] Generating packed shooting HUD weapon
+[6/64] Generating generated/shotgun_world.c, generated/shotgun_world.h
+[7/64] Generating packed zombie shot_02 sprite
+[8/64] Generating packed zombie walking_01 sprite
+[9/64] Generating authored 16x16 zombie corps
+[10/64] Generating packed zombie shot_01 sprite
+[11/64] Generating authored 16x16 zombie walking_01
+[12/64] Generating authored 16x16 zombie walking_02
+[13/64] Generating packed zombie walking_02 sprite
+[14/64] Generating authored 16x16 zombie shot_dead
+[15/64] Generating authored 16x16 zombie standing
+[16/64] Generating authored 16x16 zombie shot_01
+[17/64] Generating packed standing zombie sprite
+[18/64] Generating packed zombie shot_dead sprite
+[19/64] Generating shotgun_world.rel
+[20/64] Compiling banked enemy collision query
+[21/64] Compiling game/main.c for Game Gear
+D:/Tools/devkitSMS/SMSlib/src/SMSlib.h:96: warning 336: incomplete array type has length 1 due to implicit initializer
+[22/64] Generating packed zombie corps sprite
+[23/64] Compiling game/workshop_map.c for Game Gear
+[24/64] Compiling banked world initialization
+[25/64] Compiling game/world.c for Game Gear
+[26/64] Compiling game/interaction_ray.c for Game Gear
+D:/mano_projektai/GearRay/game/interaction_ray.c:44: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+D:/mano_projektai/GearRay/game/interaction_ray.c:45: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+[27/64] Compiling game/world_interactions.c for Game Gear
+[28/64] Generating generated/hud_masks.h
+Generated 1160 native HUD mask bytes from current sprite payloads.
+[29/64] Compiling game/player.c for Game Gear
+[30/64] Generating native 32x32 near zombie corpse
+[31/64] Generating native 32x32 near zombie attack_01
+[32/64] Generating native 32x32 near zombie shot_01
+[33/64] Generating native 32x32 near zombie attack_02
+[34/64] Compiling cold Bank 2 zombie corpse management
+[35/64] Generating native 32x32 near zombie standing_attack
+[36/64] Compiling static world sprite
+[37/64] Compiling banked static HUD weapon overlay
+[38/64] Generating native 32x32 near zombie walking_02
+[39/64] Generating native 32x32 near zombie walking_01
+[40/64] Compiling engine/render/raycaster.c for Game Gear
+[41/64] Validating workshop map, instances, enclosure, and VOID safety
+Workshop map validation PASS
+- dimensions: 13x13; rows and columns exact
+- spawn: (6,7), EMPTY with north-facing opening
+- registered doors: D (6,4), R (6,2), D (6,8)
+- registered switch: W (6,12), linked to R (6,2)
+- reachable playable tiles: 45; renderable frontier enclosed
+- VOID collision, DDA traversal and out-of-bounds access blocked
+[42/64] Validating zombie attack, player health, and game over
+Zombie attack and player-health validation PASS
+- health 100 -> 80 -> 60 -> 40 -> 20 -> 0; saturation at zero
+- inclusive 280-unit attack range; 58-pixel full-detail projection
+- independent strikes every 2 AI ticks (8 frames)
+- presentation order: standing, attack_01, standing, attack_02; repeat
+- LOS/range/life/cooldown gates; movement resumes outside range
+- packed independent per-zombie cooldown/phase; WorldSprite remains 9 bytes
+- four-frame hardware scroll shake returns to neutral on every hit
+- 180-frame cleared Game Over screen precedes the shared restart
+- zero pose offset: authored attack centroids match standing within 0.033 px
+- attack projection and targeting are independent of the HUD overlay
+[43/64] Validating minimal player health HUD
+Player health HUD validation PASS
+- authored 14x14 icon -> lossless 7x7 logical pixels
+- authored 2x14 bar -> one reusable 1x7 logical bar
+- ten identical bars at 2px pitch; 0..100 HP supports every 10 HP state
+- accepted pixels repacked +3px X/+1px Y; right edge aligns at X=135
+- 88-byte upload once per session; unchanged health writes nothing
+[44/64] Validating 8x8/16x16/32x32 zombie presentation ladder
+FAILED: [code=1] CMakeFiles/gear_ray_validate_middle_zombie D:/mano_projektai/GearRay/build/release/CMakeFiles/gear_ray_validate_middle_zombie 
+C:\WINDOWS\system32\cmd.exe /C "cd /D D:\mano_projektai\GearRay\build\release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -File D:/mano_projektai/GearRay/tools/validate_middle_zombie.ps1 -BuildDirectory D:/mano_projektai/GearRay/build/release"
+Missing generated security 16x16 texture standing.
+At D:\mano_projektai\GearRay\tools\validate_middle_zombie.ps1:5 char:71
++ ... bool]$Condition,[string]$Message){if(-not$Condition){throw $Message}}
++                                                          ~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Missing generat...xture standing.:String) [], RuntimeException
+    + FullyQualifiedErrorId : Missing generated security 16x16 texture standing.
+ 
+[45/64] Validating native 32x32 near-detail zombie
+FAILED: [code=1] CMakeFiles/gear_ray_validate_near_zombie D:/mano_projektai/GearRay/build/release/CMakeFiles/gear_ray_validate_near_zombie 
+C:\WINDOWS\system32\cmd.exe /C "cd /D D:\mano_projektai\GearRay\build\release && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -File D:/mano_projektai/GearRay/tools/validate_near_zombie.ps1 -BuildDirectory D:/mano_projektai/GearRay/build/release"
+Missing generated security near texture standing.
+At D:\mano_projektai\GearRay\tools\validate_near_zombie.ps1:5 char:72
++ ... ool]$Condition,[string]$Message){if(-not $Condition){throw $Message}}
++                                                          ~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Missing generat...xture standing.:String) [], RuntimeException
+    + FullyQualifiedErrorId : Missing generated security near texture standing.
+ 
+[46/64] Compiling banked zombie hitscan
+[47/64] Validating zombie activation, pursuit, and collision contracts
+Zombie AI validation PASS
+- activation 963; hysteresis loss 1260; LOS via authoritative world blockers
+- one BANK1 update every 4 frames; 56-unit step (3.28125 tiles/s)
+- shared radius collision; living-zombie blocking; corpses ignored
+- packed zero-byte per-zombie AI flag; hit/death state ownership preserved
+- two global 8-bit masks remember wall-follow activity/sign; WorldSprite unchanged
+- zero-RAM packed walking phase alternates every AI tick (4 frames), independent of movement acceptance
+- blocked dominant-axis movement uses deterministic player-relative wall sliding
+- mirrored X/Y, near-axis/diagonal, corridor, concave, and moving-player cases validated
+[48/64] Validating zombie hitscan and death states
+Zombie shooting validation passed.
+- center-line aim, range, wall depth, facing, and nearest-only targeting
+- division-free projected-footprint aim: symmetric +/-67 boundary
+- projected-height damage boundaries 12/13/16/17/27/28/35/36
+- exact 1/2/3/4-shot and cumulative mixed-distance health sequences
+- 3-frame odd/even reactions restart and return to standing
+- lethal hit -> SHOT_DEAD (4 updates) -> CORPSE
+- corpse immunity, persistence wiring, floor placement, and input edge reuse
+[49/64] Compiling banked zombie AI
+[50/64] Validating persistent corpse gameplay
+Persistent corpse validation PASS
+- stable corpses have zero timer and no seen/unseen packed meaning
+- 3600 simulated frames preserve all eight non-merged corpses
+- visibility and projection cannot remove or mutate corpses
+- weapon and door corpses persist; merge-only removal remains
+- close hiding and dark-pile LOD remain presentation-only
+[51/64] Compiling event-only Bank 2 pause map
+D:/mano_projektai/GearRay/platform/game_gear/pause_map.c:331: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+D:/mano_projektai/GearRay/platform/game_gear/pause_map.c:344: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+D:/Tools/devkitSMS/SMSlib/src/SMSlib.h:96: warning 336: incomplete array type has length 1 due to implicit initializer
+[52/64] Compiling banked static sprite projection
+D:/mano_projektai/GearRay/platform/game_gear/sprite_projection.c:296: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+D:/mano_projektai/GearRay/platform/game_gear/sprite_projection.c:301: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+[53/64] Compiling platform/game_gear/video.c
+D:/mano_projektai/GearRay/platform/game_gear/video.c:132: warning 84: 'auto' variable 'keep' may be used before initialization
+D:/mano_projektai/GearRay/platform/game_gear/video.c:132: warning 84: 'auto' variable 'b0' may be used before initialization
+D:/mano_projektai/GearRay/platform/game_gear/video.c:133: warning 84: 'auto' variable 'b1' may be used before initialization
+D:/mano_projektai/GearRay/platform/game_gear/video.c:134: warning 84: 'auto' variable 'b2' may be used before initialization
+D:/mano_projektai/GearRay/platform/game_gear/video.c:135: warning 84: 'auto' variable 'b3' may be used before initialization
+D:/mano_projektai/GearRay/platform/game_gear/video.c:400: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+D:/mano_projektai/GearRay/platform/game_gear/video.c:500: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+D:/mano_projektai/GearRay/platform/game_gear/video.c:504: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+D:/mano_projektai/GearRay/platform/game_gear/video.c:499: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+D:/mano_projektai/GearRay/platform/game_gear/video.c:503: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+D:/mano_projektai/GearRay/platform/game_gear/video.c:459: warning 110: conditional flow changed by optimizer: so said EVELYN the modified DOG
+D:/Tools/devkitSMS/SMSlib/src/SMSlib.h:96: warning 336: incomplete array type has length 1 due to implicit initializer
+[54/64] Generating explicit security/scientist authored sprite manifest
+ninja: build stopped: subcommand failed.

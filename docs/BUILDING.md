@@ -18,7 +18,7 @@ cmake --build build/release
 Get-FileHash -LiteralPath rom/GearRay.gg -Algorithm SHA256
 ```
 
-The accepted image is exactly 65,536 bytes and SHA-256 `3632006ED68FCBCBACF9AA693C92560520DF496E1E4AC23CF2CB6E1DF88D3340`. An unexplained change requires comparing inputs, tools, flags, generated files and link order. A filename/path change does not justify different ROM bytes.
+The accepted ZV-01 image is 131,072 bytes, SHA-256 `B5F9DA2B5461574C6C09BC06387EEAA08AE304CAEEFC96F4FFCE1B7C2C58349B`. The frozen October image has a different historical identity. An unexplained change requires comparing inputs, tools, flags, generated files and link order. A filename/path change does not justify different ROM bytes.
 
 ## Separate configurations
 

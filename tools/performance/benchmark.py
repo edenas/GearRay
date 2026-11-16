@@ -12,6 +12,7 @@ sys.path.insert(0,str(CONFIG['python_tools']))
 import jpype
 
 from emulation_symbols import symbols
+from actor_layout import LAYOUTS,LEGACY,VISUAL,decode_actor,fixture_identity
 
 def main():
     global BUILD,OUT
@@ -20,6 +21,7 @@ def main():
     ap.add_argument('--rom',type=pathlib.Path)
     ap.add_argument('--java-tools',type=pathlib.Path,required=True)
     ap.add_argument('--driver',choices=['abi','legacy'],default='abi')
+    ap.add_argument('--actor-layout',choices=LAYOUTS,required=True,help='Explicit actor schema; never inferred from the bytes')
     ap.add_argument('--output',type=pathlib.Path,required=True)
     ap.add_argument('--only',default='');ap.add_argument('--route-length',type=int,default=16);ap.add_argument('--legacy-route',action='store_true');ap.add_argument('--warmup',type=int,default=0);ap.add_argument('--logical-input',action='store_true')
     args=ap.parse_args();n=args.samples;BUILD=args.build.resolve();OUT=args.output.resolve();OUT.mkdir(exist_ok=True,parents=True)
@@ -80,7 +82,7 @@ def main():
     rayaddr=addr('raycaster','rendered_rays');camaddr=addr('camera','position_x')
     zombieaddr=addr('world_sprite','world_sprites');zcount=addr('world_sprite','world_sprite_count')
     playerx=addr('player','player_position_x');playery=addr('player','player_position_y')
-    pix=word(zombieaddr+4)
+    pix=word(zombieaddr+4) if args.actor_layout==LEGACY else None
     pixel_names={}
     for (module,name),address in sorted(s.items()):
         if module=='global' and name.endswith('_pixels'):pixel_names.setdefault(address&65535,name)
@@ -93,9 +95,8 @@ def main():
         state={module+'.'+name:bytes(read(addr(module,name)+k) for k in range(size)).hex() for module,name,size in state_fields}
         actors=[]
         for i in range(read(zcount)):
-            data=bytes(read(zombieaddr+i*9+k) for k in range(9));pointer=int.from_bytes(data[4:6],'little')
-            assert pointer in pixel_names,('unknown actor asset',hex(pointer))
-            actors.append([data[:4].hex(),pixel_names[pointer],data[6:].hex()])
+            data=bytes(read(zombieaddr+i*9+k) for k in range(9))
+            actors.append(decode_actor(data,args.actor_layout,pixel_names))
         state['actors']=actors
         return json.dumps(state,sort_keys=True,separators=(',',':'))
     scenarios={
@@ -134,7 +135,9 @@ def main():
             if name=='J_lod':positions=[(1664,1280)]
             if name.startswith('I_'):positions=[(1664,1408)]
             for j,(x,y) in enumerate(positions):
-                a=zombieaddr+j*9;writeword(a,x);writeword(a+2,y);writeword(a+4,pix)
+                identity=fixture_identity(args.actor_layout,pix,visual_type=j&1)
+                a=zombieaddr+j*9;writeword(a,x);writeword(a+2,y)
+                write(a+4,identity[0]);write(a+5,identity[1])
                 write(a+6,0);write(a+7,12);write(a+8,0)
             write(zcount,len(positions))
         if ('camera','_camera_graph_state') in s:
@@ -149,7 +152,7 @@ def main():
                 # graph orientation or claim arbitrary-basis rotation support.
                 assert name in ['C_forward','H_offscreen'],('unreachable rotating fixture',name,basis)
         if name=='I_shotgun':write(pub('selected_weapon'),1)
-        fixture.append({'scenario':name,'ram_hex':bytes(mem).hex(),'input_by_update':[script(i) for i in range(n)],'note':'RAM seeded once after identical cloned boot state; no production source changes'})
+        fixture.append({'actor_layout':args.actor_layout,'scenario':name,'ram_hex':bytes(mem).hex(),'input_by_update':[script(i) for i in range(n)],'note':'RAM seeded once after identical cloned boot state; no production source changes'})
         last_rays=None
         for frame in range(n+args.warmup):
             idx=frame if args.legacy_route else frame%args.route_length
@@ -186,7 +189,7 @@ def main():
             w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(data)
     savecsv('frame-samples.csv',rows);savecsv('stage-samples.csv',stage_rows)
     (OUT/'scenario-fixtures.json').write_text(json.dumps(fixture,indent=2))
-    metadata={'driver_mode':args.driver,'ABI_cleanup_applied':args.driver=='abi','ABI_cleanup':abi,'route_scope':'G/J/L are seeded episodes that can die and restart into authored state; retain all cold rows and report active tails separately.','rom_sha256':hashlib.sha256(rom).hexdigest(),'emulicious_sha256':hashlib.sha256(CONFIG['emulator_jar'].read_bytes()).hexdigest(),'cycles_per_frame':int(g.getCyclesPerFrame()),'cycles_per_second':int(g.getCyclesPerSecond()),'samples_per_scenario':n,'warmup':args.warmup,'route_length':args.route_length,'route_mode':'legacy sample-dependent reversal' if args.legacy_route else 'frozen repeating route independent of sample count','driver':'PerfRunner.java exact per-symbol cleanup/SP/physical return page; legacy observer available for timing invariance; pinned emulator unmodified','pinned_reset_timer':228,'method':'Unmodified installed Emulicious CPU and VDP. executeOnce(0), elapsed=-return. RAM-seeded scenarios after cloned boot; physical input via SMSJoypad provider. No wall-clock timing.'}
+    metadata={'actor_layout':args.actor_layout,'driver_mode':args.driver,'ABI_cleanup_applied':args.driver=='abi','ABI_cleanup':abi,'route_scope':'G/J/L are seeded episodes that can die and restart into authored state; retain all cold rows and report active tails separately.','rom_sha256':hashlib.sha256(rom).hexdigest(),'emulicious_sha256':hashlib.sha256(CONFIG['emulator_jar'].read_bytes()).hexdigest(),'cycles_per_frame':int(g.getCyclesPerFrame()),'cycles_per_second':int(g.getCyclesPerSecond()),'samples_per_scenario':n,'warmup':args.warmup,'route_length':args.route_length,'route_mode':'legacy sample-dependent reversal' if args.legacy_route else 'frozen repeating route independent of sample count','driver':'PerfRunner.java exact per-symbol cleanup/SP/physical return page; legacy observer available for timing invariance; pinned emulator unmodified','pinned_reset_timer':228,'method':'Unmodified installed Emulicious CPU and VDP. executeOnce(0), elapsed=-return. RAM-seeded scenarios after cloned boot; physical input via SMSJoypad provider. No wall-clock timing.'}
     (OUT/'emulator-metadata.json').write_text(json.dumps(metadata,indent=2))
     jpype.shutdownJVM()
 if __name__=='__main__':main()

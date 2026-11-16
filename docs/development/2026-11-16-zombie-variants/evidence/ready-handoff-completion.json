@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-16",
+  "scope": "Refresh existing untransferred Sol assignment after owner-supplied artwork and explicit resumption",
+  "status": "READY_FOR_MANUAL_SOL_HANDOFF",
+  "owner_dependencies_resolved": [
+    "Three scientist near frames supplied and inspected",
+    "Three accidental color pixels corrected to opaque #000000"
+  ],
+  "remaining_owner_art_blockers": [],
+  "generator_mapping_additions": [
+    "WorldSprite #FFFFFF -> 12",
+    "NearZombie #797878 -> 3",
+    "NearZombie #4D4D4D -> 2"
+  ],
+  "protected_current_assets_verified": 122,
+  "protected_quarantine_art_verified": 18,
+  "production_source_files_unchanged": 63,
+  "head_unchanged": "e6d1e2346e3752c2fce9332c3fe59f6c2e31190e",
+  "source_tools_build_config_unchanged": true,
+  "agent_image_edits": 0,
+  "broken_links": [],
+  "no_runtime_build_or_campaign": true,
+  "no_commit_or_push": true,
+  "no_dispatch": true,
+  "initial_transfer_to_sol": "Not yet performed by owner",
+  "historical_evidence": "Original snapshots/logs retained unchanged; ready-* records are the current handoff inputs"
+}
